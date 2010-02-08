@@ -1,0 +1,14 @@
+# Use glob syntax.
+syntax: glob
+
+*.classpath
+*.project
+*.settings
+*.class
+*.hgrc
+*~
+
+
+# Se pueden matchear ignores complejos usando la sintaxis de las expresiones regulares de Perl.
+# Para ello descomentar la línea siguente, y a continuación añadir una regexp en cada línea para cada ignore.
+# syntax: regexp
