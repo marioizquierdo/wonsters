@@ -1,0 +1,4 @@
+Esta carpeta (resource_files) sirve para guardar archivos auxiliares, como por ejemplo las 
+imágenes en su formato vectorial original, o en el formato del gimp (nunca se sabe si hay
+que modificar/reescalar alguna imagen).
+

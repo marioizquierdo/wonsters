@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    <definition name=".Base" page="/commontiles/layouts/DefaultLayout.jspx">
+        <put name="title"   value="${title}" />
+        <put name="color"   value="grey" /> <!-- values: green, blue, red, purple, yellow, grey -->
+        <put name="menu"    value="/commontiles/DefaultMenu.jspx" />
+        <put name="content" value="${content}" />
+        <put name="footer"  value="/commontiles/DefaultFooter.jspx" />
+    </definition>
+    
+    <definition name=".BornMonsterForm" extends=".Base" >
+        <put name="title"   value="BornMonsterForm.title" />
+        <put name="color"   value="green" />
+        <put name="content" value="/monsterContents/form_born_monster.jspx" />
+    </definition>
+    
+    <definition name=".Building" extends=".Base" >
+        <put name="title"   value="Building.title" />
+        <put name="color"   value="blue" />
+        <put name="content" value="/lairContents/lairs_navigator.jspx" />
+    </definition>
+    
+    <definition name=".ChangePassword" extends=".Base" >
+        <put name="title"   value="ChangePassword.title" />
+        <put name="content" value="/change_password.jspx" />
+    </definition>
+    
+    <definition name=".ChangeResourcesForm" extends=".Base" >
+        <put name="title"   value="ChangeResources.title" />
+        <put name="color"   value="blue" />
+        <put name="content" value="/lairContents/form_change_resources.jspx" />
+    </definition>
+    
+    <definition name=".Confirmation" extends=".Base" >
+        <put name="title"   value="Confirmation.title" />
+        <put name="content" value="/confirmation_message.jspx" />
+    </definition>
+    
+    <definition name=".EggsManagement" extends=".Base" >
+        <put name="title"   value="EggsManagement.title" />
+        <put name="color"   value="green" />
+        <put name="content" value="/monsterContents/eggs_management.jspx" />
+    </definition>
+    
+    <definition name=".Guild" extends=".Base" >
+        <put name="title"   value="Guild.title" />
+        <put name="color"   value="red" />
+        <put name="content" value="/not_implemented_page.jspx" />
+    </definition>
+    
+    <definition name=".InternalError" extends=".Base" >
+        <put name="title"   value="ErrorMessages.internalError.title" />
+        <put name="content" value="/internal_error_message.jspx" />
+    </definition>
+    
+    <definition name=".Lair" extends=".Base" >
+        <put name="title"   value="Lair.title" />
+        <put name="color"   value="blue" />
+        <put name="content" value="/lairContents/lair.jspx" />
+    </definition>
+    
+    <definition name=".Messages" extends=".Base" >
+        <put name="title"   value="Messages.title" />
+        <put name="color"   value="yellow" />
+        <put name="content" value="/messages_list.jspx" />
+    </definition>
+    
+    <definition name=".Missions" extends=".Base" >
+        <put name="title"   value="Missions.title" />
+        <put name="color"   value="purple" />
+        <put name="content" value="/not_implemented_page.jspx" />
+    </definition>
+    
+    <definition name=".Monster" extends=".Base" >
+        <put name="title"   value="Monster.title" />
+        <put name="color"   value="green" />
+        <put name="content" value="/monsterContents/monster.jspx" />
+    </definition>
+    
+    <definition name=".Monsters" extends=".Base" >
+        <put name="title"   value="Monsters.title" />
+        <put name="color"   value="green" />
+        <put name="content" value="/monsterContents/monsters_list.jspx" />
+    </definition>
+    
+    <definition name=".NewRoomsAvaliable" extends=".Base" >
+        <put name="title"   value="Lair.newRoomsAvaliable" />
+        <put name="color"   value="blue" />
+        <put name="content" value="/lairContents/new_rooms_avaliable.jspx" />
+    </definition>
+    
+    <definition name=".SearchPublicRooms" extends=".Base" >
+        <put name="title"   value="SearchPublicRooms.title" />
+        <put name="content" value="/lairContents/search_public_rooms.jspx" />
+    </definition>
+    
+    <definition name=".UpdateUserProfileDetails" extends=".Base" >
+        <put name="title"   value="UpdateUserProfileDetails.title" />
+        <put name="content" value="/update_user_profile_details.jspx" />
+    </definition>
+    
+    
+    <!-- ====== Front Page ====== -->
+    
+    <definition name=".FrontPageBase" page="/commontiles/layouts/FrontPageLayout.jspx">
+        <put name="title"     value="FrontPage.title" />
+        <put name="color"     value="blue" /> <!-- values: green, blue, red, purple, yellow, grey -->
+        <put name="content"   value="${content}" />
+        <put name="footer"    value="/commontiles/DefaultFooter.jspx" />
+        <put name="frontPageWindow_selected_tag" value="${selected window tag}" /> <!-- selected window tag -->
+    </definition>
+    
+     <definition name=".ConceptArt" extends=".FrontPageBase" >
+        <put name="title"     value="ConceptArt.frontPageTitle" />
+        <put name="content"   value="/frontPageContents/concept_art.jspx" />
+        <put name="color"   value="blue" />
+        <put name="frontPageWindow_selected_tag" value="concept_art" />
+    </definition>
+
+	<definition name=".Credits" extends=".FrontPageBase" >
+        <put name="title"     value="Credits.frontPageTitle" />
+        <put name="content"   value="/frontPageContents/credits.jspx" />
+        <put name="color"   value="blue" />
+        <put name="frontPageWindow_selected_tag" value="credits" />
+    </definition>
+
+    <definition name=".FrontPage" extends=".FrontPageBase">
+        <put name="title"     value="FrontPage.title" />
+        <put name="content"   value="/frontPageContents/game_presentation.jspx" />
+        <put name="frontPageWindow_selected_tag" value="start" />
+    </definition>
+    
+    <definition name=".NotImplementedPageFrontPage" extends=".FrontPageBase">
+        <put name="title"     value="NotImplementedPage.frontPageTag" />
+        <put name="content"   value="/frontPageContents/alfaVersionNotes.jspx" />
+        <put name="frontPageWindow_selected_tag" value="release_info" />
+    </definition>
+    
+    <definition name=".RegisterUser" extends=".FrontPageBase" >
+        <put name="title"     value="RegisterUser.title" />
+        <put name="content"   value="/frontPageContents/register_user.jspx" />
+        <put name="color"   value="blue" />
+        <put name="frontPageWindow_selected_tag" value="register" />
+    </definition>
+    
+    <definition name=".Screenshots" extends=".FrontPageBase" >
+        <put name="title"     value="Screenshot.frontPageTitle" />
+        <put name="content"   value="/frontPageContents/screenshots.jspx" />
+        <put name="color"   value="blue" />
+        <put name="frontPageWindow_selected_tag" value="screenshots" />
+    </definition>
+    
+   
+    
+    <!-- ====== Admin section ====== -->
+    
+    <definition name=".AdminBase" page="/commontiles/layouts/AdminLayout.jspx">
+        <put name="title"       value="${title}" />
+        <put name="headerTitle" value="${headerSpecificAsKey}" />
+        <put name="sidebar"     value="/commontiles/AdminSidebar.jspx" />
+        <put name="content"     value="${content}" />
+        <put name="footer"      value="/commontiles/AdminFooter.jspx" />
+    </definition>
+    
+    <definition name=".AdminMainPage" extends=".AdminBase" >
+        <put name="title"       value="AdminMainPage.title" />
+        <put name="headerTitle" value="AdminMainPage.title" />
+        <put name="content"     value="/adminContents/main_page.jspx" />
+    </definition>
+    
+    <definition name=".AdminAutentication" extends=".AdminBase" >
+        <put name="title"       value="AdminAutentication.title" />
+        <put name="headerTitle" value="AdminAutentication.header" />
+        <put name="sidebar"     value="/adminContents/authentication_info.jspx" />
+        <put name="content"     value="/adminContents/authentication.jspx" />
+    </definition>
+    
+    <definition name=".AdminShowUserProfile" extends=".AdminBase" >
+        <put name="title"       value="AdminShowUserProfile.title" />
+        <put name="headerTitle" value="AdminShowUserProfile.header" />
+        <put name="content"     value="/adminContents/show_user_profile.jspx" />
+    </definition>
+    
+    <definition name=".AdminShowActionResults" extends=".AdminBase" >
+        <put name="title"       value="AdminShowActionResults.title" />
+        <put name="headerTitle" value="AdminShowActionResults.header" />
+        <put name="content"     value="/adminContents/show_action_results.jspx" />
+    </definition>
+    
+    
+    
+    <!-- ====== Ajax section ======== --> 
+    
+    <definition name=".HTMLAjaxBase" page="/commontiles/layouts/HTMLAjaxLayout.jspx">
+        <put name="content" value="${content}" />
+    </definition>
+
+    <definition name=".ShowRoomTasks" extends=".HTMLAjaxBase" >
+        <put name="title"   value="ShowRoomTasks.title" />
+        <put name="content" value="/lairContents/ajax/_room_tasks.jspx" />
+    </definition>
+    
+    <definition name=".TasksManager" extends=".HTMLAjaxBase">
+        <put name="content" value="/monsterContents/ajax/_tasks_manager.jspx" />
+    </definition>
+    
+    <definition name=".Task" extends=".HTMLAjaxBase">
+        <put name="content" value="/monsterContents/ajax/_task.jspx" />
+    </definition>
+    
+</tiles-definitions>

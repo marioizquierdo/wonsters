@@ -1,0 +1,19 @@
+<html:html xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:jsp="http://java.sun.com/JSP/Page"
+           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+           xmlns:c="http://java.sun.com/jsp/jstl/core"
+           xmlns:html="http://struts.apache.org/tags-html"
+           xmlns:tiles="http://struts.apache.org/tags-tiles"
+           xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+           locale="true">
+
+<jsp:output doctype-root-element="html" 
+    doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+    omit-xml-declaration="true"/>
+    
+<jsp:directive.page contentType="text/html; charset=iso-8859-1"/>   
+<head> PRUEBA </head>
+<body> Esto es una prueba</body>
+
+</html:html>

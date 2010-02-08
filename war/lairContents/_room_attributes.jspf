@@ -1,0 +1,138 @@
+<!-- The RoomType_BIG.jpg image is loaded from Javascript (ThearsmonstersLib.showRoom function) -->
+<div id="roomAttributes${loop.index}">
+
+	<!-- _defineTitle Is used as variable for assign dinamicaly the title from javascript,
+		(readed using jQuery each time ThearsmonstersLib.showRoom function is called) -->
+	<div id="roomAttributes${loop.index}_defineTitle" style="display:none">
+		<fmt:message key="Lair.room.${room.roomType}"/>
+	</div>
+	
+	<!-- Reserved space for show flashMessages after Room actions (like CancelWorks). Please do not change the id -->
+	<div id="roomFlashMessage_${room.roomType}"></div>
+	
+	<!-- Room description (short text, 2-3 lines max) -->
+	<div class="roomAttributes_description">
+		<fmt:message key="Lair.room.${room.roomType}.description" />
+	</div>
+	
+	<!-- Room Info -->
+	<div class="roomAttributes_info">
+		<ul>
+			<!-- Level and Size -->
+			<li><span class="attr"><fmt:message key="Lair.room.size" /></span>: ${room.size}</li>
+			<li><span class="attr"><fmt:message key="Lair.room.level" /></span>: ${room.level}</li>
+			
+			<!-- Concrete info for each type of room -->
+			<c:if test="${room.roomType == 'TradeOffice'}">
+				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.moneyStorageCapacity"/></span>: <fmt:formatNumber value="${room.moneyStorageCapacity}"/> <customtag:common_icon id="money" img="true"/></li>
+				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.percentageCommision"/></span>: <fmt:formatNumber value="${room.percentageCommision}"/>%</li>
+			</c:if>
+			<c:if test="${room.roomType == 'Warehouse'}">
+				<li><span class="attr"><fmt:message key="Lair.room.Warehouse.garbageStorageCapacity"/></span>: <fmt:formatNumber value="${room.garbageStorageCapacity}"/> <customtag:common_icon id="garbage" img="true"/></li>
+			</c:if>
+			<c:if test="${room.roomType == 'TruffleFarm'}">
+				<li><span class="attr"><fmt:message key="Lair.room.TruffleFarm.truffleAmount"/></span>: <fmt:formatNumber value="0"/></li>
+			</c:if>
+			
+			<!-- Public room info -->
+			<c:if test="${room.publicable}"><c:choose>
+				<c:when test="${room.published}">
+					<li><span class="attr"><fmt:message key="Lair.room.publicPrice" /></span>: <fmt:formatNumber value="${room.publicPrice}"/></li>
+				</c:when>
+				<c:otherwise>
+					<li><fmt:message key="Lair.room.notPublished" /></li>
+				</c:otherwise>
+			</c:choose></c:if>
+			
+			<!-- Works info -->
+			<c:if test="${room.inWorks}">
+				<li><span class="attr"><fmt:message key="Lair.room.inWorks"/></span>:
+					<c:choose><c:when test="${room.inInitialState}">
+						<fmt:message key="Lair.room.inWorks.buildNewRoom"/></c:when>
+					<c:when test="${room.worksType=='Upgrading'}">
+						<fmt:message key="Lair.room.inWorks.upgrading"/></c:when>
+					<c:otherwise> <!-- Enlarging -->
+						<fmt:message key="Lair.room.inWorks.enlarging"/></c:otherwise>
+					</c:choose>
+				</li>
+				<li><span class="attr"><fmt:message key="Lair.room.inWorks.effortDone" /></span>:
+					<c:choose><c:when test="${room.inInitialState}">
+						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortBuild}"/> 
+						(<fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%)</c:when>
+					<c:when test="${room.worksType=='Upgrading'}">
+						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortUpgrade}"/> 
+						(<fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%)</c:when>
+					<c:otherwise> <!-- Enlarging -->
+						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortEnlarge}"/> 
+						(<fmt:formatNumber value="${100*(room.effortDone/room.effortEnlarge)}"/>%)</c:otherwise>
+					</c:choose>
+				</li>
+			</c:if>
+		</ul>
+	</div>
+	
+	
+	<!-- Room Actions (links) -->
+	<c:if test="${lair.loginName == sessionScope.loginName}">
+	<div class="roomAttributes_actions">
+		<ul>
+            
+            <!-- Show Tasks -->
+            <customtag:roomAction icon_id="3" action="ajax/ShowRoomTasks.do?roomType=${room.roomType}" messageKey="Lair.room.actions.showTasks" cssClass="show_room_tasks" />  
+            
+			<!-- Works actions -->
+			<c:choose><c:when test="${room.inWorks}">
+				<c:if test="${!room.inInitialState}"><c:choose>
+					<c:when test="${room.worksType=='Upgrading'}">			
+						<customtag:roomAction icon_id="19" action="SetRoomInWorksState.do?action=CANCEL_WORKS&roomType=${room.roomType}"
+								messageKey="Lair.room.actions.cancelWorks">
+							(<fmt:message key="Common.getBack"> 
+								<fmt:param><fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/></fmt:param>
+							</fmt:message>)
+						</customtag:roomAction>
+					</c:when>
+					<c:otherwise> <!-- Enlarging -->				
+						<customtag:roomAction icon_id="19" action="SetRoomInWorksState.do?action=CANCEL_WORKS&roomType=${room.roomType}"
+								messageKey="Lair.room.actions.cancelWorks">
+							(<fmt:message key="Common.getBack"> 
+								<fmt:param><fmt:formatNumber value="${room.garbageEnlarge}"/> <customtag:common_icon id="garbage" img="true"/></fmt:param>
+							</fmt:message>)
+						</customtag:roomAction>
+					</c:otherwise>
+				</c:choose></c:if></c:when>
+			<c:otherwise>		
+				<c:if test="${room.enlargable}">
+					<customtag:roomAction icon_id="17" action="SetRoomInWorksState.do?action=ENLARGE&roomType=${room.roomType}"
+						messageKey="Lair.room.actions.enlarge">
+						(<fmt:formatNumber value="${room.garbageEnlarge}"/> <customtag:common_icon id="garbage" img="true"/>, 
+						<fmt:formatNumber value="${room.effortEnlarge}"/> <customtag:common_icon id="effort" img="true"/>)
+					</customtag:roomAction>
+				</c:if>
+				<c:if test="${room.upgradable}">
+					<customtag:roomAction icon_id="18" action="SetRoomInWorksState.do?action=UPGRADE&roomType=${room.roomType}"
+						messageKey="Lair.room.actions.upgrade">
+						(<fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/>, 
+						<fmt:formatNumber value="${room.effortUpgrade}"/> <customtag:common_icon id="effort" img="true"/>)
+					</customtag:roomAction>
+				</c:if> 
+			</c:otherwise></c:choose>
+			
+			<!-- Publicable settings -->
+			<c:if test="${room.publicable}">
+				<customtag:roomAction icon_id="20" action="PUBLISH_SETTINGS" messageKey="Lair.room.actions.publishSettings"/>
+			</c:if>
+			
+			<!-- Concrete actions for each type of room -->
+			<c:if test="${room.roomType == 'EyeOfTheLife'}">
+				<customtag:roomAction icon_id="9" action="EggsManagement" messageKey="Lair.room.EyeOfTheLife.EggsManagement"/>
+			</c:if>
+			<c:if test="${room.roomType == 'TradeOffice'}">
+				<customtag:roomAction icon_id="21" action="ChangeResourcesForm.do" messageKey="Lair.room.TradeOffice.changeResources"/>
+			</c:if>
+			<c:if test="${room.roomType == 'Warehouse'}">
+				<customtag:roomAction icon_id="22" action="SeeWarehouseGarbage.do" messageKey="Lair.room.Warehouse.seeGarbage"/>
+			</c:if> 
+		</ul>
+	</div>
+	</c:if>
+</div>

@@ -1,0 +1,160 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+    		
+<c:url var="stylesURL" value="/css/LairStyles.css" />
+<link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
+
+<![CDATA[
+    <script type="text/javascript" src="javascript/show_rooms_tasks_ajax.js"></script>
+]]> 
+
+<c:choose>
+	<c:when test="${lair.loginName == sessionScope.loginName}">
+		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
+		<c:set var="lair_neighbors" 
+			value="?street=${lair.addressVO.street}&amp;building=${lair.addressVO.building}" />
+	</c:when>
+	<c:when test="${empty lair}">
+		<c:set var="lair_titleValue"><fmt:message key="Lair.error"/></c:set>
+		<c:set var="lair_neighbors" 
+			value="?street=${myLair.addressVO.street}&amp;building=${myLair.addressVO.building}" />
+	</c:when>
+	<c:otherwise>
+		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
+			<fmt:param value="${lair.loginName}"/>
+			<fmt:param value="${lair.addressVO.street}"/>
+			<fmt:param value="${lair.addressVO.building}"/>
+			<fmt:param value="${lair.addressVO.floor}"/>
+		</fmt:message></c:set>
+		<c:set var="lair_neighbors" 
+			value="?street=${lair.addressVO.street}&amp;building=${lair.addressVO.building}" />
+	</c:otherwise>
+</c:choose>
+
+<customtag:window id="lairWindow" titleValue="${lair_titleValue}" selected_tag="lair" 
+	tags="new_rooms: Lair.newRoomsAvaliable => NewRoomsAvaliable.do, 
+		lair: Lair.lairView, 
+		lairs_navigator: Lair.buildingView => Lair.do${lair_neighbors}, 
+		search_lairs: Lair.searchLairs">
+	
+	<div id="lairWindow_lair">
+	<c:choose>
+	
+		<!-- Vista de la Guarida -->
+		<c:when test="${!empty lair}">
+		
+			<!-- Imagenes de las salas -->
+			<div class="lairBox lairBackgrounds">
+			
+				<div class="endOfLair endOfLairLeft"><img src="images/theme/empty_pixel.png"/></div>
+				
+				<html:link action="Lair.do${lair_neighbors}">
+					<div class="lairRoom elevator"><img src="images/theme/empty_pixel.png"/></div>
+			    </html:link>
+			    
+			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
+			    	<c:set var="roomTitle">
+			    		<fmt:message key="Lair.room.${room.roomType}"/> - <fmt:message key="Common.clickToSeeDetails"/>
+			    	</c:set>
+				    <div class="lairRoom ${room.roomType}" title="${roomTitle}" 
+				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 
+				    		${fn:length(lair.rooms)}, ${loop.index}, '${room.roomType}')">
+				    	<img src="images/theme/empty_pixel.png"/>
+				    </div>
+				</c:forEach>
+				
+				<div class="endOfLair endOfLairRight"><img src="images/theme/empty_pixel.png"/></div>
+			</div>
+			
+			<!-- Informacion de las salas (bloque igual que el de imagenes pero cambiando el contenido) -->
+			<div class="lairBox">
+				<div class="endOfLair"><img src="images/theme/empty_pixel.png"/></div>
+		    	
+		    	<html:link action="Lair.do${lair_neighbors}">
+				    <div class="lairRoom"><fmt:message key="Lair.buildingView"/></div>
+		    	</html:link>
+			    
+			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
+				    <div id="lairRoom_${room.roomType}" class="lairRoom"
+				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 
+				    		${fn:length(lair.rooms)}, ${loop.index}, '${room.roomType}')">
+				    	<div><fmt:message key="Lair.room.${room.roomType}"/></div>
+				    	<div class="lairRoomInfo"><fmt:message key="Lair.room.size"/>: ${room.size}</div>
+				    	<div class="lairRoomInfo"><fmt:message key="Lair.room.level"/>: ${room.level}</div>
+				    	<c:if test="${room.inWorks}">
+				    		<div class="lairRoomInfo">
+					    		<c:choose><c:when test="${room.inInitialState}">
+					    			<fmt:message key="Lair.room.newRoom"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%</c:when>
+								<c:when test="${room.worksType=='Upgrading'}">
+									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%</c:when>
+								<c:otherwise> <!-- Enlarging -->
+									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortEnlarge)}"/>%</c:otherwise>
+								</c:choose>
+				    		</div>
+				    	</c:if>
+    		    	</div>
+				</c:forEach>
+				
+				<div class="endOfLair"><img src="images/theme/empty_pixel.png"/></div>
+			</div>
+		</c:when>
+		
+		<!-- Vista de una Guarida vacia -->
+		<c:otherwise>
+			<div class="actionInfo_ERROR"><fmt:message key="${errorText}"/></div>
+			
+			<div class="lairBox lairBackgrounds">
+				<div class="endOfLair endOfLairLeft"><img src="images/theme/empty_pixel.png"/></div>
+			    <div class="lairRoom emptyLair">
+			    	<img src="images/theme/empty_pixel.png"/>
+			    </div>
+				<div class="endOfLair endOfLairRight"><img src="images/theme/empty_pixel.png"/></div>
+			</div>
+		    
+		</c:otherwise>
+	</c:choose>
+	</div>
+	
+	<!-- Formulario para buscar guaridas -->
+	<div id="lairWindow_search_lairs">
+		<jsp:directive.include file="/lairContents/_form_search_lair.jspf"/>
+	</div>
+
+</customtag:window>
+
+<!-- Detalles de las salas -->
+<!-- Inicialmente estan ocultos, despues se elige la sala a mostrar desde
+		Javascript a traves del id 'roomAttributes' -->
+<!-- Se cargan todos los datos de todas las salas, excepto las imagenes.
+	Asi se mejora la navegabilidad entre salas, ya que se trata de una
+	operacion de mostrar/ocultar a traves de JavaScript (no es Ajax) -->
+<div id="roomAttributes_hide" style="display:none">
+	<customtag:window id="roomAttributes">
+	    <c:forEach items="${lair.rooms}" var="room" varStatus="loop" >
+	    	<jsp:directive.include file="/lairContents/_room_attributes.jspf"/>
+		</c:forEach>
+	</customtag:window>
+	
+	<!-- Contenedor donde se cargan las tareas de la sala utilizando el script show_room_tasks.js, y
+	       tambien desde thearsmonsters_lib (funcion showRoom) -->
+	<div id="load_room_tasks_container"></div>
+</div>
+
+
+<![CDATA[<script type='text/javascript'>$(function(){
+	
+	// Si hay una sala definida como parametro se muestra simulando un click sobre ella
+	if("${param.showRoomType}") {
+		$("#lairRoom_EyeOfTheLife").trigger("click");
+		$("#lairRoom_${param.showRoomType}").trigger("click");
+  	}
+	
+});</script>]]>
+
+</jsp:root>

@@ -1,0 +1,34 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Elementos de la lista de acciones de una sala (acciones)
+	Este customtag hay que invocarlo dentro de un <ul> ya que actua como un <li class="data_row">
+--> 		
+  
+  <jsp:directive.attribute name="action" required="true"
+  		description="Accion Struts del enlace"/>
+  		
+  <jsp:directive.attribute name="messageKey" required="true"
+  		description="Texto que se muestra en la accion"/>
+            
+  <jsp:directive.attribute name="icon_id" required="true"
+        description="Numero identificador del icono. Lo asocia con su imagen correspondiente"/>
+            
+  <jsp:directive.attribute name="cssClass" required="false"
+        description="Clase a mayores para el li de la accion (se pone junto con data_row)"/>
+	
+	<li class="data_row ${cssClass}">
+		<customtag:icon id="${icon_id}"/>
+		<span class="data_value">
+			<html:link action="${action}">
+				<fmt:message key="${messageKey}" />
+			</html:link>
+			<jsp:doBody/>
+		</span>
+	</li>
+	
+</jsp:root>

@@ -1,0 +1,94 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          	xmlns:html="http://struts.apache.org/tags-html"
+         	xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+			
+	<!-- 
+		Ventana de informacion para mostrar en formularios, ventanas, etc.
+		
+		Modo de empleo:
+		<customtag:info_message key="Message.properties.key"/>
+		# => Muestra el texto internacionalizado que se encuentre en Messages.properties
+		
+		<customtag:info_message message="Algo estatico"/>
+		# => Muestra literalmente "Algo estatico", sin internacionalizar.
+		
+		<customtag:info_message>
+			codigo JSP
+		</customtag:info_message>
+		# => Dentro se puede poner lo que se quiere mostrar
+		
+		A mayores estan los atributos status, style (para cambiar por ejemplo el width),
+		content_style, icon_id (mostrar otro icono), header (muestra un titulo h3), headerKey
+	 -->
+  		
+  	<jsp:directive.attribute name="message" required="false"
+  		description="Instead of key you can define the message directly, or even specify the
+  			body of the tag as the message"/>
+  		
+  	<jsp:directive.attribute name="key" required="false"
+  		description="Key of the info message in Messages.properties.
+  			Have priority over message (if key is defined, message is ignored)"/>
+  		<c:if test="${!empty key}"><c:set var="message"><fmt:message key="${key}"/></c:set></c:if>
+  		
+  	<jsp:directive.attribute name="title" required="false"
+  		description="Title of the info. In h3 tags."/>
+  		
+  	<jsp:directive.attribute name="titleKey" required="false"
+  		description="Key of the title (in Messages.properties). Biggest priority than title"/>
+  		<c:if test="${!empty titleKey}"><c:set var="title"><fmt:message key="${titleKey}"/></c:set></c:if>
+
+	<jsp:directive.attribute name="status" required="false"
+  		description="Type of message (like flashMessages) whould be: 
+  			INFO, ERROR, or GOOD_NEW. (default INFO)"/>
+  		<c:if test="${empty status}"><c:set var="status" value="INFO"/></c:if>
+  		
+  	<jsp:directive.attribute name="icon_id" required="false"
+  		description="Icon id for use in customtag:icon id='icon_id' size='m'"/>
+  		
+  	<jsp:directive.attribute name="icon_title" required="false"
+  		description="The title attribute for use in customtag:icon"/>
+  		
+  	<jsp:directive.attribute name="icon_titleKey" required="false"
+  		description="The title attribute for use in customtag:icon"/>
+  		<c:if test="${empty icon_title}">
+	  		<c:choose><c:when test="${empty icon_titleKey}">
+	  			<c:set var="icon_title"><fmt:message key="FlashMessage.status.${status}.info"/></c:set></c:when>
+	  		<c:otherwise>
+	  			<c:set var="icon_title"><fmt:message key="${icon_titleKey}"/></c:set></c:otherwise>
+			</c:choose>
+  		</c:if>
+  		
+	<jsp:directive.attribute name="style" required="false"
+  		description="Extra CSS style to the info slot div"/>
+
+	<jsp:directive.attribute name="content_style" required="false"
+  		description="Extra CSS style to the info slot content div"/>
+  	
+  	<!-- Select icon_id depending on status -->
+  	<c:if test="${empty icon_id}">
+		<c:choose><c:when test="${status eq 'ERROR'}">
+			<c:set var="icon_id" value="0"/></c:when>
+		<c:when test="${status eq 'GOOD_NEW'}">
+			<c:set var="icon_id" value="6"/></c:when>
+		<c:otherwise> <!-- INFO by default -->
+			<c:set var="icon_id" value="9"/></c:otherwise>
+		</c:choose>
+	</c:if>
+  	
+  	<!-- Render info message -->
+	<div class="info_slot" style="${style}">
+		<customtag:icon id="${icon_id}" size="m" 
+				title="${icon_title}" 
+				style="margin: -1px 5px 0 0;"/>
+		
+		<div class="info_slot_content" style="${content_style}">
+			<c:if test="${!empty title}"><h3 class="info_slot_header">${title}</h3></c:if>
+			${message}
+			<jsp:doBody/>
+		</div>
+	</div>
+	
+</jsp:root>

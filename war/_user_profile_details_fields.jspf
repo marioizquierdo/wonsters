@@ -1,0 +1,42 @@
+<div class="field">		
+	<span class="label">
+		<fmt:message key="UserProfile.firstName"/>
+	</span>
+	<span class="entry">	
+		<html:text property="firstName" size="16" maxlength="30"/>
+		<html:errors property="firstName"/>
+	</span>
+</div>
+
+<div class="field">		
+	<span class="label">
+		<fmt:message key="UserProfile.surname"/>
+	</span>
+	<span class="entry">	
+		<html:text property="surname" size="16" maxlength="40"/>
+		<html:errors property="surname"/>
+	</span>
+</div>
+
+<div class="field">		
+	<span class="label">
+		<fmt:message key="UserProfile.email"/>
+	</span>
+	<span class="entry">	
+		<html:text property="email" size="16" maxlength="60"/>
+		<html:errors property="email"/>
+	</span>
+</div>
+
+<div class="field">
+	<span class="label">
+		<fmt:message key="UserProfile.language"/>
+	</span>
+	<span class="entry">
+		<html:select property="language">
+			<html:options collection="languages" property="value" 
+						  labelProperty="label"/>
+		</html:select>
+		<html:errors property="language"/>
+	</span>
+</div>

@@ -1,0 +1,77 @@
+<html:html xmlns="http://www.w3.org/1999/xhtml"
+           xmlns:jsp="http://java.sun.com/JSP/Page"
+           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+           xmlns:c="http://java.sun.com/jsp/jstl/core"
+           xmlns:html="http://struts.apache.org/tags-html"
+           xmlns:tiles="http://struts.apache.org/tags-tiles"
+           xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+           locale="true">
+
+<jsp:output doctype-root-element="html" 
+    doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+    omit-xml-declaration="true"/>
+    
+<jsp:directive.page contentType="text/html; charset=iso-8859-1"/>
+
+<!--
+Struts manages locale in a different way as JSTL. So, fmt:setLocale is used to
+set the same locale for fmt tags as the one used by Struts. 
+
+NOTES:
+
+1. fmt:setLocale tag must be used after Struts or a controller action has set
+Struts locale. In this case, if locale was not set yet, html:html tag has 
+set it.
+
+2. A future version of Struts will be integrated with JSTL. At that time,
+fmt:setLocale tag will not be necessary. 
+-->
+
+<fmt:setLocale value='${sessionScope["org.apache.struts.action.LOCALE"]}'
+    scope="session"/>
+
+<!-- HTML header. -->
+
+<tiles:useAttribute name="title" />
+<head>
+  <title>
+  	<fmt:message key="Thearsmonsters"/><c:out value=" - "/>
+    <fmt:message key="${title}"/>    
+  </title>
+  <c:url var="stylesURL" value="/css/adminStyles.css" />
+  <link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+</head>
+
+<!-- Javascript initializer (Load initial js data). -->
+<![CDATA[
+	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
+]]>
+
+<!-- Start of HTML body. -->
+
+<body id="admin">
+
+	<div id="window">
+	
+		<div id="header">
+			<tiles:useAttribute name="headerTitle"/>
+			<fmt:message key="${headerTitle}"/>
+		</div>
+		
+		<div id="pageBody">
+			<div id="sidebar"><tiles:get name="sidebar"/></div>
+		
+			<div id="content">
+				<customtag:flashMessages />
+				<tiles:get name="content"/>
+			</div>
+		</div>
+		
+		<div id="footer"><tiles:get name="footer"/></div>
+	
+	</div>
+
+</body>
+</html:html>

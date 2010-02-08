@@ -1,0 +1,63 @@
+<jsp:root 	xmlns="http://www.w3.org/1999/xhtml"
+          	xmlns:jsp="http://java.sun.com/JSP/Page"
+          	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          	version="2.0">
+
+<customtag:window id="MessagesList" title="Messages.title">
+
+	<customtag:info_message key="Messages.info" icon_id="11" style="margin-top: 20px; margin-bottom: 20px;"/>
+
+	<html:form action="CreateMessage.do" focus="content">
+        <c:set var="new_message_author">
+        	<html:text property="author" size="12" maxlength="30"/>
+        	<html:errors property="author"/>
+        </c:set>
+        <c:set var="new_message_content">
+        	<html:text property="content" size="56" maxlength="512"/>
+        	<html:errors property="content"/>
+	        <span class="button">
+		        <html:submit>
+		            <fmt:message key="Buttons.post"/>
+		        </html:submit>
+	        </span>
+        </c:set>
+        <customtag:info_message title="${new_message_author}" 
+			message="${new_message_content}" icon_titleKey="Messages.author"/>
+	</html:form>
+	
+	<c:forEach items="${paginator.list}" var="message" varStatus="loop" >
+		<customtag:info_message title="${message.author}" icon_title="id:${message.messageId}">
+			<c:out value="${message.content}"/>
+			<jsp:useBean id="now" class="java.util.Date" />
+			
+			<c:if test="${not message.createdAtToday}">
+				<span style="color:#ccc; font-size:80%; margin-left: 10px;">
+					<fmt:formatDate type="date" value="${message.createdAt.time}" />
+				</span>
+			</c:if>
+		</customtag:info_message>
+			
+			
+	</c:forEach>
+	
+	<div id="previous_next_links" style="margin:30px 0 10px 0; width:100%; float:left;">
+		<c:if test="${!empty paginator.previousLinkParameters}">
+			&lt;&lt;<html:link action="Messages.do?startIndex=${paginator.previousLinkParameters.startIndex}&amp;count=${paginator.previousLinkParameters.count}">
+				<fmt:message key="Buttons.previous" />
+			</html:link>
+		</c:if>
+		<c:if test="${!empty paginator.previousLinkParameters or !empty paginator.nextLinkParameters}">
+			${paginator.currentPage}/${paginator.totalPages}
+		</c:if>
+		<c:if test="${!empty paginator.nextLinkParameters}">
+			<html:link action="Messages.do?startIndex=${paginator.nextLinkParameters.startIndex}&amp;count=${paginator.nextLinkParameters.count}">
+				<fmt:message key="Buttons.next" />
+			</html:link>&gt;&gt;
+		</c:if>
+	</div>
+</customtag:window>
+
+</jsp:root>

@@ -1,0 +1,125 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+              		
+<c:url var="monsterStylesURL" value="/css/MonsterStyles.css" />
+<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
+
+<![CDATA[
+	<script type='text/javascript' src='javascript/count_down.js'></script>
+]]> 
+
+<customtag:window id="eggsManagement" title="EggsManagement.title" selected_tag="viewEggs"
+	tags="monsters: MainMenu.link.monsters => Monsters.do, 
+		viewEggs: EggsManagement.viewEggs, 
+		buyEggs: EggsManagement.buyEggs" >
+	
+	<!-- VIEW EGGS -->
+	<!-- In this div, class="incubatedEggs${min(10, eggs.size)}" because there are only 10 different images with eggs to show -->
+	<c:set var="eggs_number" value="${fn:length(eggs)}"/>
+	<div id="eggsManagement_viewEggs" class="incubatedEggs incubatedEggs${eggs_number lt 10 ? eggs_number : 10}">
+		<c:choose>
+		<c:when test="${eggs_number == 0}">
+			<customtag:info_message key="EggsManagement.thereIsNoEggs" icon_id="0" style="margin-top:10px;"/>
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${eggs}" var="egg" varStatus="loop" >
+				<div id="egg_${egg.eggId}" class="egg_slot">
+					<div id="egg_${egg.eggId}_img" class="egg_slot_img">
+						<c:set var="seeRaceDetails"><fmt:message key="Monster.race.clickToSeeDetails"/></c:set>
+						<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}">
+							<customtag:monster_image race="${egg.race}"/>
+						</html:link>
+					</div>
+					<div id="egg_${egg.eggId}_text" class="egg_slot_text">
+						<ul>
+						<li class="li-actions-title">
+							<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}">
+								<fmt:message key="Monster.race.${egg.race}"/>
+							</html:link>
+						</li>
+						<li>
+							<c:choose><c:when test="${egg.incubated}">
+					    		<c:choose><c:when test="${egg.readyToBorn}">
+						    		<c:choose><c:when test="${myLair.vitalSpaceFree >= egg.race.vitalSpace}">
+								    	<html:link action="BornMonsterForm.do?eggId=${egg.eggId}">
+									    	<fmt:message key="Buttons.born"/>
+										</html:link></c:when>
+							    	<c:otherwise>
+							    		<c:set var="why_cant_born">
+							    			<fmt:message key="FlashMessage.InsuficientVitalSpaceException">
+							    				<fmt:param value="${egg.race.vitalSpace}"/>
+							    				<fmt:param value="${myLair.vitalSpaceFree}"/>
+							    			</fmt:message>
+							    		</c:set>
+							    		<span class="cursor_help" title=" - ${why_cant_born}">
+						    				<fmt:message key="Buttons.born"/>
+						    			</span></c:otherwise>
+									</c:choose>
+									(${egg.race.vitalSpace} <customtag:common_icon id="vitalSpace" img="true" />)</c:when>
+						    	<c:otherwise>
+					    			<fmt:message key="EggsManagement.incubating"/> ...
+					    			<span class="countdown">
+					    				<span class="c_in" style="display:none">${egg.borningDateEpoch}</span>
+					    				<span class="c_out"><fmt:message key="Buttons.incubate"/></span>
+					    			</span></c:otherwise>
+								</c:choose>
+					    		</c:when>
+			    			<c:otherwise>
+						    	<html:link action="IncubateEgg.do?eggId=${egg.eggId}">
+							    	<fmt:message key="Buttons.incubate"/>
+								</html:link></c:otherwise>
+							</c:choose>
+						</li>
+						<li>
+							<html:link action="ShellEgg.do?eggId=${egg.eggId}">
+						    	<fmt:message key="Buttons.shell"/>
+							</html:link>
+							(<fmt:message key="Common.getBack">
+								<fmt:param>${egg.race.shellEggPrice}<customtag:common_icon id="money" img="true"/></fmt:param>
+							</fmt:message>)
+						</li>
+						</ul>
+					</div>
+				</div>
+			</c:forEach>
+			
+			<!-- Este div es necesario para que se pueda ver el background porque no se puede hacer solo con CSS -->
+
+		</c:otherwise>
+		</c:choose>
+	</div>
+
+	<!-- BUY EGGS -->
+	<div id="eggsManagement_buyEggs">
+		<table  class="table2">
+			<tr>
+			    <th><fmt:message key="Monster.race"/></th>
+			    <th id="monsterRaceDesc"><fmt:message key="Monster.race.desc"/></th>
+			    <th><fmt:message key="Monster.race.buyEggPrice"/></th>
+			    <th><fmt:message key="Monster.race.vitalSpace"/></th>
+			    <th><fmt:message key="Buttons.buy"/></th>
+			</tr>
+		    <c:forEach items="${races}" var="race" varStatus="loop" >
+		    <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
+		    	<td><customtag:monster_image race="${race}"/></td>
+		    	<td><fmt:message key="Monster.race.${race}.desc"/></td>
+		    	<td>${race.buyEggPrice}</td>
+		    	<td>${race.vitalSpace}</td>
+		    	
+		    	<td><html:link action="BuyEgg.do?eggRaceCode=${race.code}">
+			    	<fmt:message key="Buttons.buy"/>
+				</html:link></td>
+		    </tr>
+		    </c:forEach>
+		</table>
+	</div>
+	
+</customtag:window>
+
+</jsp:root>

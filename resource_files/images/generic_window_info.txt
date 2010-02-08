@@ -1,0 +1,11 @@
+Estas imágenes en formato gimp son para poder editar las ventanas del juego en otros colores.
+Están divididos por capas, de forma que solo es necesario cambiar el color de la capa de relleno. Después hay que recortarlos para construír las diferentes ventanas.
+
+Los colores que se usan en los gradientes de las ventanas son:
+BLUE:   #669 -> #003
+GREEN:  #696 -> #030
+GREY:   #999 -> #333
+PURPLE: #969 -> #303
+RED:    #966 -> #300
+YELLOW: #996 -> #330
+

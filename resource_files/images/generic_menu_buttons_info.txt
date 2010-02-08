@@ -1,0 +1,9 @@
+ * Las capas están organizadas para que se pueda componer cada uno de los botones.
+ * El dibujo de la izq es en reposo, el de la dcha es en :hover.
+ * Algunos iconos tienen su ruta creada, se puede hacer el dibujo a partir de la ruta->stroke
+ * Los brillos de los iconos se hacen de la siguiente manera.
+   1- Se copia el dibujo del icono
+   2- "Select regions by color" y seleccionamos el blanco del icono
+   3- Se rellena la selección con el color #ff9 (amarillo brillante)
+   4- Aplicar filtro "gausian blur" con 5px de difuminado (difuminar)
+   5- Volver a copiar el dibujo del icono y pegarlo encima del blur (enfocar)

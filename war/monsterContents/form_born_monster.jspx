@@ -1,0 +1,45 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:html="http://struts.apache.org/tags-html"
+		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          version="2.0">
+           
+<html:xhtml/>
+              		
+<c:url var="monsterStylesURL" value="/css/MonsterStyles.css" />
+<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
+
+<customtag:window id="bornMonsterWindow" title="BornMonsterForm.title">
+
+	<div id="bornMonster_image"><img src="images/theme/empty_pixel.png"/></div>
+	
+	<div id="bornMonster_form">
+		<customtag:info_message key="BornMonsterForm.info" icon_id="6"
+			style="width: 400px;" content_style="width: 375px" >
+	
+			<html:form action="BornMonster.do" focus="monsterName">
+				<html:hidden property="eggId" value="${param.eggId}"/>
+			    <div class="field">        
+			        <span class="label">
+			            <fmt:message key="BornMonsterForm.monsterName"/>
+			        </span>
+			        <span class="entry">    
+			            <html:text property="monsterName" size="24" maxlength="24"/>
+			            <html:errors property="monsterName"/>
+			        </span>
+			    </div>
+			    
+			    <div class="button">        
+			        <html:submit>
+			            <fmt:message key="Buttons.born"/>
+			        </html:submit>
+			    </div>
+			</html:form>
+		</customtag:info_message>
+	</div>
+
+</customtag:window>
+
+</jsp:root>

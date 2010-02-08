@@ -1,0 +1,38 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+
+<html:xhtml/>
+
+<customtag:window id="userProfileWindow" 
+	title="UpdateUserProfileDetails.headerSpecific" titleValue=" ${sessionScope.loginName}"
+	tags="editUserProfile: UpdateUserProfileDetailsContent.changeInfo, 
+		changePassword: UpdateUserProfileDetailsContent.changePassword => ShowChangePassword.do" >
+
+	<div id="userProfileWindow_editUserProfile">
+	
+		<html:form action="UpdateUserProfileDetails.do" focus="firstName">
+
+		    <html:hidden property="action" value="UPDATE"/>
+		    
+		    <jsp:directive.include file="_user_profile_details_fields.jspf"/>
+		    
+		    <div class="button end_button">        
+		        <html:submit>
+		            <fmt:message key="Buttons.update"/>
+		        </html:submit>
+		    </div>
+		     
+		</html:form>
+		
+	</div>
+
+	<div id="userProfileWindow2" />
+
+</customtag:window>
+
+</jsp:root>

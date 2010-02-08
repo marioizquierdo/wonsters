@@ -1,0 +1,36 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+
+<html:xhtml/>
+
+<customtag:window id="confirmationWindow" title="Confirmation.title">
+	
+	
+	<customtag:info_message key="${confirmationData.message}" icon_id="11" style="margin-top: 15px"/>
+	
+	<c:url var="formAction" value="${confirmationData.acceptAction}" />
+	
+	<form action="${formAction}" method="post">
+		<input type="hidden" name="confirmed" value="TRUE" />
+		
+		<c:forEach items="${confirmationData.acceptParameters}" var="p">
+			<input type="hidden" name="${p.key}" value="${p.value}" />
+		</c:forEach>
+		
+		<div class="button end_button">
+			<c:set var="buttons_ok_text"><fmt:message key="Buttons.ok"/></c:set>
+			<input type="submit" value="${buttons_ok_text}" /><c:out value="   "/>
+	    	<html:link action="${confirmationData.cancelLink}">
+	            <fmt:message key="Buttons.cancel"/>
+			</html:link>
+	    </div>
+	</form>
+	
+</customtag:window>
+
+</jsp:root>

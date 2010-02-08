@@ -1,0 +1,10 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          version="2.0" >
+
+<fmt:message key="DefaultFooter.softwareBy"/> 
+<a href="http://www.tic.udc.es/~mizquierdo">
+Mario Izquierdo</a> (<a href="mailto:tothemario@gmail.com">tothemario@gmail.com</a>)
+
+</jsp:root>

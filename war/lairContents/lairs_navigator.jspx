@@ -1,0 +1,130 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+    		
+<c:url var="stylesURL" value="/css/LairStyles.css" />
+<link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
+
+<customtag:window id="buildingWindow" 
+		title="Building.windowTitle"
+		titleValue="  (${param.street}:${param.building})"
+		tags="lairs_navigator: Lair.buildingView, search_lairs: Lair.searchLairs" >
+
+	<!-- Lairs Navigator for view and search neighbors -->
+	<div id="buildingWindow_lairs_navigator">
+	
+		<div class="buildingPagers">
+		<form action="Lair.do" method="GET">
+			
+			<div id="buildingPagerLeft" class="buildingPager">
+				<div class="pager_header">
+					<fmt:message key="Building.street"/>
+				</div>
+				<div class="pager_content">
+					<html:link action="Lair.do?street=${building.previousStreet}&amp;building=${param.building}">
+						<span class="button_box previous_link">
+							<c:out value="&lt;&lt;" />
+						</span>
+					</html:link>
+					
+					<input type="text" name="street" value="${param.street}"
+		       			size="2" maxlength="2" />
+		       		
+		       		<html:link action="Lair.do?street=${building.nextStreet}&amp;building=${param.building}">
+						<span class="button_box next_link">
+							<c:out value="&gt;&gt;" />
+						</span>
+					</html:link>
+				</div>
+			</div>			
+			
+			<div id="buildingPagerRight" class="buildingPager">
+				<div class="pager_header">
+					<fmt:message key="Building.building"/>
+				</div>
+				<div class="pager_content">
+					<html:link action="Lair.do?street=${building.previousBuildingStreet}&amp;building=${building.previousBuilding}">
+						<span class="button_box previous_link">
+							<c:out value="&lt;&lt;" />
+						</span>
+					</html:link>
+					
+					<input type="text" name="building" value="${param.building}"
+		       			size="2" maxlength="2" />
+		       		
+		       		<html:link action="Lair.do?street=${building.nextBuildingStreet}&amp;building=${building.nextBuilding}">
+						<span class="button_box next_link">
+							<c:out value="&gt;&gt;" />
+						</span>
+					</html:link>
+				</div>
+			</div>
+			
+			<div id="buildingPagerButton" class="buildingPager">
+				<c:set var="button_text"><fmt:message key="Buttons.search"/></c:set>
+				<div class="pager_header"><img src="images/theme/empty_pixel.png"/></div>
+				<div class="pager_content">
+					<span class="button end_button">
+						<input type="submit" value="${button_text}" />
+					</span>
+				</div>
+			</div>
+		</form>
+		</div>
+	
+		<div class="buildingView">
+		
+			<table class="table1 buildingTable">
+	
+			<tr>
+			    <th><fmt:message key="Building.floor"/></th>
+			    <th><fmt:message key="Lair.loginName"/></th>
+			    <th><fmt:message key="Monster.race.vitalSpace"/></th>
+			    <th><fmt:message key="Lair.money"/></th>
+			    <th><fmt:message key="Lair.garbage"/></th>
+			</tr>
+			
+			<c:forEach items="${building.lairVOs}" var="lair" varStatus="loop">
+				<c:url var="lairURL" value="Lair.do">
+					<c:param name="loginName" value="${lair.loginName}"/>
+				</c:url>
+				
+				<c:choose>
+				<c:when test="${!empty lair}">
+					<tr class="trContent 
+								${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
+								${(lair.loginName == sessionScope.loginName) ? ' myLair' : ''}"
+							onclick="document.location.href='${lairURL}';">
+						<td> <a href="${lairURL}"><c:out value="${loop.index}"/></a> </td>
+						<td> <a href="${lairURL}"><c:out value=" ${lair.loginName}"/></a> </td>
+					    <td> <fmt:formatNumber value="${lair.vitalSpaceOccupied}"/> </td>
+					    <td> <fmt:formatNumber value="${lair.money}"/> </td>
+					    <td> <fmt:formatNumber value="${lair.garbage}"/> </td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr class="trEmpty ${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
+		            	<td> <c:out value="${loop.index}"/> </td>
+						<td/><td/><td/><td/>
+		            </tr>
+				</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			</table>
+		
+		</div>
+	</div>
+	
+	<!-- Lair Search -->
+	<div id="buildingWindow_search_lairs">
+		<jsp:directive.include file="/lairContents/_form_search_lair.jspf"/>
+	</div>
+
+</customtag:window>
+
+</jsp:root>

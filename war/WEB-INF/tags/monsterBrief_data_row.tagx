@@ -1,0 +1,46 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Etiqueta que muestra un atributo de un monstruo, con el tooltip de ayuda.
+--> 		
+			
+  <jsp:directive.attribute name="property" required="true"
+  		description="Atributo para el cual se crea la etiqueta"/>
+  		
+  <jsp:directive.attribute name="title" required="false"
+  		description="Texto del titulo, se indica solo si no es la clave 'Monster.{property}' por defecto"/>
+  	<c:if test="${empty title}"><c:set var="title"><fmt:message key="Monster.${property}"/></c:set></c:if>
+  		
+  <jsp:directive.attribute name="title_extra_key" required="false"
+  		description="Clave del texto que va con el titulo (aclaracion entre parentesis)"/>
+  		
+  <jsp:directive.attribute name="desc" required="false"
+  		description="Descripcion del atributo, se indica solo si no es la clave 'Monster.{property}.desc' por defecto"/>
+  	<c:if test="${empty desc}"><c:set var="desc"><fmt:message key="Monster.${property}.desc"/></c:set></c:if>	
+  		
+  <jsp:directive.attribute name="icon_id" required="false"
+  		description="identificador del icono. Si se usa un icono se muestra antes del titulo"/>
+  	<c:choose><c:when test="${empty icon_id}">
+ 			<c:set var="label_class" value="data_label cursor_help"/>
+ 			<c:set var="value_class" value="data_value cursor_help"/></c:when>
+  	<c:otherwise>
+ 			<c:set var="label_class" value="data_value cursor_help"/>
+ 			<c:set var="value_class" value="data_value cursor_help bold"/></c:otherwise>
+ 	</c:choose>
+	
+	<li class="data_row">	
+		<c:if test="${!empty icon_id}"><customtag:icon id="${icon_id}"/></c:if>
+		
+		<span class="${label_class}" title="${title} - ${desc}">
+			${title}<c:if test="${!empty title_extra_key}"> (<fmt:message key="${title_extra_key}"/>)</c:if>:
+		</span>
+		
+		<span class="${value_class}" title="${title} - ${desc}">
+			<jsp:doBody/>
+		</span>
+	</li> 
+	
+</jsp:root>

@@ -1,0 +1,124 @@
+<html:html 	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:tiles="http://struts.apache.org/tags-tiles"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			locale="true">
+
+<jsp:output doctype-root-element="html" 
+    doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+    omit-xml-declaration="true"/>
+    
+<jsp:directive.page contentType="text/html; charset=iso-8859-1"/>   
+<fmt:setLocale value='${sessionScope["org.apache.struts.action.LOCALE"]}' scope="session"/>
+
+<!-- HTML header. -->
+<tiles:useAttribute name="title" />
+<tiles:useAttribute name="color" />
+<tiles:useAttribute name="frontPageWindow_selected_tag" />
+<head>
+  <title>
+  	<fmt:message key="Thearsmonsters"/><c:out value=" - "/><fmt:message key="${title}"/>
+  </title>
+  <c:url var="stylesURL" value="/css/styles.css" />
+  <c:url var="windowStylesURL" value="/css/WindowStyles.css" />
+  <c:url var="frontPageStylesURL" value="/css/FrontPageStyles.css" />
+  <link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${windowStylesURL}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${frontPageStylesURL}" type="text/css" media="all" />
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+</head>
+
+<!-- Javascript. -->   
+<![CDATA[
+	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
+	<script type='text/javascript' src='javascript/lib/jquery.dimensions.js'></script>
+	<script type='text/javascript' src='javascript/lib/jquery.tooltip.js'></script>
+	<script type='text/javascript' src='javascript/lib/thearsmonsters_lib.js'></script>
+	<script type='text/javascript' src='javascript/common_tooltips.js'></script>
+]]> 
+
+<!-- Start of HTML body. -->
+
+<body id="frontPage">
+<div id="background_header">
+	<div id="window" class="${color}_window">
+	
+		<!-- Login Panel. -->
+		<div id="loginPanel" class="${color}_window">
+		  	<div class="rounded_window">
+			  	<div class="atMiddle">
+					
+					<!-- content -->
+					<html:form action="Login.do" focus="loginName">
+						<c:set var="loginError"><html:errors property="loginName"/></c:set>
+						<c:set var="passwordError"><html:errors property="password"/></c:set>
+						<c:if test="${not empty loginError or not empty passwordError}">
+							<div class="loginErrors" style="display: none;">
+						        <html:errors property="loginName"/>
+						        <html:errors property="password"/>
+					        </div>
+					        <![CDATA[<script type='text/javascript'>$(function(){
+					        	$('.loginErrors').slideDown('slow'); // jQuery effect for the login Errors
+					        });</script>]]> 
+					    </c:if>
+					    
+					    <span class="loginBlock">
+				        	<fmt:message key="AuthenticationContent.user"/>&#160;
+					        <html:text property="loginName" size="12" maxlength="30"/>
+					    </span>
+					    <span class="loginBlock">
+					        <fmt:message key="AuthenticationContent.pass"/>&#160;
+					        <html:password property="password" size="12" maxlength="8"/>
+					    </span>
+					    <span class="loginBlock">
+					        <html:checkbox property="rememberMyPassword"/>
+					        <fmt:message key="AuthenticationContent.rememberMyPassword"/>
+					    </span>
+					    <span class="button">
+					        <html:submit><fmt:message key="Buttons.login"/></html:submit>
+					    </span>
+					</html:form>
+					
+				</div>
+				
+				<!-- Window Bottom: Builded with the same structure than customtag:window -->
+				<div class="atBottom" style="float:left; width:770px">
+					<div class="bl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+					<div class="bm" style="float:left; width:760px"><img src="images/theme/empty_pixel.png"/></div>
+					<div class="br" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- Logo and monsters illustration -->
+		<div id="monsters_logo_wrapper">
+			<div id="monsters_logo"><img src="images/theme/empty_pixel.png"/></div>
+		</div>
+	
+		<!-- Info Panel (bottom). -->	
+		<customtag:window id="frontPageWindow" selected_tag="${frontPageWindow_selected_tag}" 
+				tags="start: FrontPage.startTag => FrontPage.do, 
+					register: FrontPage.registerTag => EditUserProfileForRegistration.do?action=REGISTER,
+					release_info: NotImplementedPage.frontPageTag => NotImplementedPageFrontPage.do,
+					screenshots: FrontPage.screenshots => Screenshots.do,
+					concept_art: FrontPage.conceptArt => ConceptArt.do,
+					credits: FrontPage.credits => Credits.do">
+			<tiles:get name="content"/>
+		</customtag:window>
+		
+		<!-- Body footer. -->
+		<div id="footer">
+		  <tiles:get name="footer"/>
+		</div>
+	
+	</div><!--/window-->
+</div>
+</body>
+
+<!-- End of HTML. -->
+
+</html:html>

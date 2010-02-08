@@ -1,0 +1,39 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:html="http://struts.apache.org/tags-html"
+          version="2.0">
+
+<ul>
+    
+<li>
+
+  <html:form action="AdminFindUserProfile.do" method="GET" focus="loginName">
+    
+    <fmt:message key="UserProfile.loginName"/>
+    <html:errors property="loginName"/>
+    <html:text property="loginName" size="16" maxlength="30"/>
+    <html:submit>
+        <fmt:message key="Buttons.find"/>
+    </html:submit>
+
+  </html:form>
+  
+</li>
+
+<li>
+  <html:link action="EditUserProfileForUpdating.do?action=UPDATE">
+    <fmt:message key="MainMenu.editUserProfile"/>
+  </html:link>
+</li>
+
+<li>
+  <html:link action="Logout.do">
+    <fmt:message key="MainMenu.logout"/>
+  </html:link>
+</li>
+
+
+</ul>
+
+</jsp:root>

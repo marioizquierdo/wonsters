@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+<!-- ============ Form Bean Definitions =================================== -->
+
+<form-beans>
+
+    <form-bean name="bornMonsterForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.BornMonsterForm"/>
+
+    <form-bean name="changePasswordForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.ChangePasswordForm"/>
+
+    <form-bean name="changeResourcesForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.ChangeResourcesForm"/>
+
+    <form-bean name="confirmationForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.ConfirmationForm"/>
+
+    <form-bean name="messageForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.MessageForm"/>
+
+    <form-bean name="loginForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.LoginForm"/>
+
+    <form-bean name="userProfileForm"
+		type="es.engade.thearsmonsters.http.view.actionforms.UserProfileForm"/>
+
+</form-beans>
+
+<!-- ============ Global Forward Definitions ============================== -->
+
+<global-forwards>
+    <forward name="AuthenticationPage" path="/FrontPage.do" redirect="true"/>
+    <forward name="AdminAuthenticationPage" path="/admin.do" redirect="true"/>
+    <forward name="InternalError" path="/InternalError.do"/>
+    <forward name="Confirmation" path="/Confirmation.do"/>
+    <forward name="GameStart" path="/Lair.do" redirect="true"/>
+</global-forwards>
+
+<!-- ============ Action Mapping Definitions ============================== -->
+
+<action-mappings
+	type="es.engade.thearsmonsters.http.controller.frontcontroller.ThearsmonstersActionMapping">
+
+    <action path="/BornMonster"
+			type="es.engade.thearsmonsters.http.controller.actions.BornMonsterAction"
+        	name="bornMonsterForm" scope="request" validate="true"
+            input=".BornMonsterForm">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EggsManagement" path="/EggsManagement.do" redirect="true"/>
+        <forward name="Monster" path="/Monster.do" redirect="true"/></action>
+        		 
+    <action path="/BornMonsterForm"
+			type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
+			parameter=".BornMonsterForm">
+        <set-property property="authenticationRequired" value="true"/></action>
+        		 
+    <action path="/BuyEgg"
+			type="es.engade.thearsmonsters.http.controller.actions.BuyEggAction">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EggsManagement" 
+        		 path="/EggsManagement.do" redirect="true"/></action>
+     
+    <action path="/ChangePassword"
+			type="es.engade.thearsmonsters.http.controller.actions.ChangePasswordAction"
+            name="changePasswordForm" scope="request" validate="true"
+            input=".ChangePassword">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EditUserProfile" 
+        		 path="/EditUserProfile.do" redirect="true"/></action>
+     
+    <action path="/ChangeResources"
+			type="es.engade.thearsmonsters.http.controller.actions.ChangeResourcesAction"
+            name="changeResourcesForm" scope="request" validate="true"
+            input=".ChangeResources">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ShowResults" path="/ChangeResourcesForm.do"/></action>
+        		 
+    <action path="/ChangeResourcesForm"
+			type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
+			parameter=".ChangeResourcesForm">
+        <set-property property="authenticationRequired" value="true"/></action>
+     
+    <action path="/Confirmation"
+			type="es.engade.thearsmonsters.http.controller.actions.Confirmation">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ShowConfirmation" path=".Confirmation"/></action>
+     
+    <action path="/CreateMessage"
+			type="es.engade.thearsmonsters.http.controller.actions.CreateMessageAction"
+            name="messageForm" scope="request" validate="true"
+            input="/Messages.do">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Messages" 
+        		 path="/Messages.do" redirect="true"/></action>
+    
+    <action path="/EditUserProfile"
+			type="es.engade.thearsmonsters.http.controller.actions.EditUserProfileAction"
+            name="userProfileForm" scope="request" validate="false">
+        <forward name="RegisterUserForm" path=".RegisterUser"/>
+        <forward name="UpdateUserProfileDetailsForm" 
+        		 path=".UpdateUserProfileDetails"/></action>
+            
+    <action path="/EditUserProfileForUpdating"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/EditUserProfile.do">
+        <set-property property="authenticationRequired" value="true"/></action>
+        
+    <action path="/EggsManagement"
+			type="es.engade.thearsmonsters.http.controller.actions.EggsManagementAction"
+            parameter=".EggsManagement">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EggsManagement"
+                 path=".EggsManagement"/></action>
+			
+	<action path="/Guild"
+            type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
+            parameter=".Guild">
+        <set-property property="authenticationRequired" value="true"/></action>
+    
+    <action path="/IncubateEgg"
+			type="es.engade.thearsmonsters.http.controller.actions.IncubateEggAction">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EggsManagement" 
+        		 path="/EggsManagement.do" redirect="true"/></action>
+            
+    <action path="/InternalError"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter=".InternalError"/>
+            
+    <action path="/Lair"
+			type="es.engade.thearsmonsters.http.controller.actions.LairAction"
+            parameter=".Lair">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ShowLair" path=".Lair"/>
+        <forward name="ShowBuilding" path=".Building"/></action>
+
+    <action path="/Login"
+			type="es.engade.thearsmonsters.http.controller.actions.LoginAction"
+            name="loginForm" scope="request" validate="true"
+            input=".FrontPage"></action>
+
+    <action path="/Logout"
+			type="es.engade.thearsmonsters.http.controller.actions.LogoutAction"/>
+			
+	<action path="/Messages"
+            type="es.engade.thearsmonsters.http.controller.actions.MessagesAction"
+            name="messageForm" scope="request" validate="false">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Messages" path=".Messages"/></action>
+            
+    <action path="/MetamorphosisToAdult"
+			type="es.engade.thearsmonsters.http.controller.actions.MetamorphosisToAdultAction">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Monster" path="/Monster.do" redirect="true"/></action>
+			
+	<action path="/Missions"
+            type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
+            parameter=".Missions">
+        <set-property property="authenticationRequired" value="true"/></action>
+            
+    <action path="/Monster"
+			type="es.engade.thearsmonsters.http.controller.actions.MonsterAction"
+            parameter=".Monster">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Monster" path=".Monster"/>
+        <forward name="Monsters" path="/Monsters.do" redirect="true"/></action>
+                           
+    <action path="/Monsters"
+			type="es.engade.thearsmonsters.http.controller.actions.MonstersAction"
+            parameter=".Monsters">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Monsters"
+                 path=".Monsters"/></action>
+                     
+    <action path="/NewRoomsAvaliable"
+            type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
+            parameter=".NewRoomsAvaliable">
+        <set-property property="authenticationRequired" value="true"/></action>
+
+     
+    <action path="/RegisterUser"
+			type="es.engade.thearsmonsters.http.controller.actions.RegisterUserAction"
+            name="userProfileForm" scope="request" validate="true"
+            input="/EditUserProfile.do"/>
+     
+     <action path="/SearchPublicRooms"
+			type="org.apache.struts.actions.ForwardAction"
+			parameter=".SearchPublicRooms">
+        <set-property property="authenticationRequired" value="true"/></action>
+            
+    <action path="/SetRoomInWorksState"
+			type="es.engade.thearsmonsters.http.controller.actions.SetRoomInWorksStateAction">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ShowLair" path="/Lair.do" redirect="true"/></action>
+            
+    <action path="/ShellEgg"
+			type="es.engade.thearsmonsters.http.controller.actions.ShellEggAction"
+            validate="true">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EggsManagement" 
+        		 path="/EggsManagement.do" redirect="true"/></action>
+             
+    <action path="/ShowChangePassword"
+            type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
+            parameter=".ChangePassword">
+        <set-property property="authenticationRequired" value="true"/></action>
+                 
+    <action path="/UpdateUserProfileDetails"
+			type="es.engade.thearsmonsters.http.controller.actions.UpdateUserProfileDetailsAction"
+            name="userProfileForm" scope="request" validate="true"
+            input="/EditUserProfile.do">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EditUserProfile" 
+        		 path="/EditUserProfile.do"/></action>
+                 
+             
+    <!-- ========= Front Page Action Mappings ========== -->
+    
+
+    <action path="/ConceptArt"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter=".ConceptArt"/>
+            
+    <action path="/Credits"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter=".Credits"/>
+                
+    <action path="/EditUserProfileForRegistration"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter="/EditUserProfile.do"/>
+
+	<action path="/FrontPage"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter=".FrontPage"/>
+
+    <action path="/NotImplementedPageFrontPage"
+			type="org.apache.struts.actions.ForwardAction"
+            parameter=".NotImplementedPageFrontPage"/>
+            
+    <action path="/Screenshots"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter=".Screenshots"/>
+
+            
+             
+    <!-- ========= Admin Action Mappings ========== -->
+
+	<action path="/admin"
+            type="org.apache.struts.actions.ForwardAction"
+            parameter=".AdminAutentication"></action>
+                 
+	<action path="/AdminFindUserProfile"
+			type="es.engade.thearsmonsters.http.controller.actions.admin.FindUserProfileAction"
+            name="loginForm" scope="request" validate="false"
+            input=".AdminMainPage">
+        <set-property property="adminRequired" value="true"/>
+        <forward name="AdminShowUserProfile" 
+                 path=".AdminShowUserProfile"/></action>
+            
+    <action path="/AdminLogin"
+			type="es.engade.thearsmonsters.http.controller.actions.admin.LoginAsAdminAction"
+            name="loginForm" scope="request" validate="true"
+            input=".AdminAutentication">
+        <forward name="AdminMainPage" 
+                 path=".AdminMainPage"/></action>
+                           
+	<action path="/AdminToBanUser"
+			type="es.engade.thearsmonsters.http.controller.actions.admin.ToBanUser"
+            scope="request">
+        <set-property property="adminRequired" value="true"/>
+        <forward name="AdminShowActionResults" 
+                 path=".AdminShowActionResults"/></action>
+                 
+    <action path="/InsertFixtures"
+			type="es.engade.thearsmonsters.http.controller.actions.admin.InsertFixtures"
+            scope="request"></action>   
+      		 
+      		 
+    <!-- ========= Ajax Action Mappigs ========== -->
+    <!-- This actions are simple. Only needs return html to insert in DOM objects -->
+    
+    <action path="/ajax/SetTask"
+            type="es.engade.thearsmonsters.http.controller.actions.ajax.SetTaskAjaxAction">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ajaxTile" path=".Task"/></action>
+        
+   <action path="/ajax/ShowRoomTasks"
+             type="es.engade.thearsmonsters.http.controller.actions.ajax.ShowRoomTasksAction">
+         <set-property property="authenticationRequired" value="true"/>
+         <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>
+	
+    <action path="/ajax/TaskManager"
+            type="es.engade.thearsmonsters.http.controller.actions.ajax.SuggestTasksAjaxAction">
+        <set-property property="authenticationRequired" value="true"/>
+    	<forward name="ajaxTile" path=".TasksManager"/></action>
+
+
+    <!-- ===================================================================
+         The standard administrative actions available with Struts. These must 
+         be either omitted or protected by security in a real application 
+         deployment. 
+         =================================================================== -->
+
+    <action path="/admin/addFormBean"
+            type="org.apache.struts.actions.AddFormBeanAction"/>
+    <action path="/admin/addForward"
+            type="org.apache.struts.actions.AddForwardAction"/>
+    <action path="/admin/addMapping"
+            type="org.apache.struts.actions.AddMappingAction"/>
+    <action path="/admin/reload"
+            type="org.apache.struts.actions.ReloadAction"/>
+    <action path="/admin/removeFormBean"
+            type="org.apache.struts.actions.RemoveFormBeanAction"/>
+    <action path="/admin/removeForward"
+            type="org.apache.struts.actions.RemoveForwardAction"/>
+    <action path="/admin/removeMapping"
+            type="org.apache.struts.actions.RemoveMappingAction"/>
+
+</action-mappings>
+
+<!-- ============ Front Controller Configuration ========================== -->
+
+<controller 
+processorClass="es.engade.thearsmonsters.http.controller.frontcontroller.ThearsmonstersRequestProcessor"/>
+
+<!-- ============ Message Resources Definitions =========================== -->
+
+<message-resources
+   parameter="es.engade.thearsmonsters.http.view.messages.Messages"/>
+
+<!-- ============================ Tiles Plugin ============================ -->
+
+<plug-in className="org.apache.struts.tiles.TilesPlugin" >
+    <set-property property="definitions-config"
+                  value="/WEB-INF/Struts/tiles-defs.xml" />
+</plug-in>  
+
+</struts-config>

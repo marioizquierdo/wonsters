@@ -1,0 +1,10 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          version="2.0">
+
+	<customtag:info_message titleKey="Credits.frontPageTitle" 
+		key="Credits.description" status="INFO" style="margin: 20px;"/>
+		
+</jsp:root>

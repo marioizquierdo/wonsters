@@ -1,0 +1,46 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+    		
+<c:url var="stylesURL" value="/css/LairStyles.css" />
+<link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
+
+<customtag:window id="lairWindow" title="Lair.myLair"
+	tags="new_rooms: Lair.newRoomsAvaliable, 
+		lair: Lair.lairView => Lair.do, 
+		lairs_navigator: Lair.buildingView => Lair.do?street=${myLair.addressVO.street}&amp;building=${myLair.addressVO.building}, 
+		search_lairs: Lair.searchLairs => Lair.do?lairWindow_selected_tag=search_lairs">
+	
+	<div id="lairWindow_new_rooms">
+		<customtag:info_message key="Lair.newRoomsAvaliable.description"/>
+		
+		<c:forEach items="${myLair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
+			<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
+				<div>
+					<c:choose><c:when test="${myLair.garbage >= newRoom.garbageBuild}">
+						<ul><customtag:roomAction icon_id="25" action="SetRoomInWorksState.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}"
+								messageKey="Lair.room.actions.buildNewRoom">
+							(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
+								<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
+						</customtag:roomAction></ul>
+					</c:when><c:otherwise>
+						<div class="bold">
+							<customtag:icon id="19" size="s" style="margin-right: 5px"/>
+							<fmt:message key="FlashMessage.InsuficientGarbageException">
+								<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
+								<fmt:param><fmt:formatNumber value="${myLair.garbage}"/></fmt:param>
+							</fmt:message>
+						</div>
+					</c:otherwise></c:choose>
+				</div>
+			</customtag:info_message>
+		</c:forEach>
+	</div>
+</customtag:window>
+
+</jsp:root>

@@ -1,0 +1,162 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+              		
+<c:url var="monsterStylesURL" value="/css/MonsterStyles.css" />
+<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
+
+<!-- URL para realizar la peticion ajax de taskManager -->
+<c:url var="ajaxTasksManagerURL" value="/ajax/TaskManager.do"/>
+
+<![CDATA[
+ 	<script type="text/javascript" src="javascript/image_up.js"></script>
+	<script type="text/javascript" src="javascript/fix_attrs_descriptions.js"></script>
+	<script type="text/javascript" src="javascript/count_down.js"></script>
+	<script type="text/javascript" src="javascript/manage_tasks.js"></script>
+	<script type="text/javascript">
+		// Inicializa el objeto monsterTasksManager pasandole los datos necesarios.
+		// Este objeto es accesible desde los eventos del script manage_tasks.js
+		var monsterTasksManager = newMonsterTasksManager({
+				monsterId: ${monster.monsterId}, 
+				ageState: '${monster.ageState}',
+				ajaxContentURL: '${ajaxTasksManagerURL}', // La url se codifica con c:url (JSP)
+				managerWindowId: 'task_manager_window'
+			});		
+	</script>
+]]> 
+
+<div id="monsterLeftBlock">
+
+<!-- Monster TASKS -->
+<customtag:window id="MonsterJobs" title="Monster.jobs.title" window_width="240">
+	
+	<c:forEach items="${monster.tasks}" var="task" varStatus="loop">
+		<div id="task_${task.turn}_wrapper" class="${loop.last ? 'task last_task' : 'task'}">
+			<div class="data_label">${task.turn}</div>
+			<div id="task_${task.turn}" class="data_value">
+				<jsp:directive.include file="/monsterContents/_task.jspf"/>
+			</div>
+		</div>
+		<![CDATA[<script type="text/javascript">
+			// Dentro de cada div "#task_{turn}" se mete informacion
+			// relevante para que pueda ser facilmente accedida desde manage_tasks.js
+			
+			$(function() {
+				$("#task_${task.turn}_wrapper").data("task", {
+					turn: ${task.turn},
+					roomType: '${task.roomType}',
+					monsterId: ${task.monsterId},
+					role: '${task.role}',
+					taskType: '${task.type}',
+					isSleepingTurn: ${monster.isSleepingTurn[task.turn]},
+					isMealingTurn: ${monster.isMealingTurn[task.turn]}
+				});
+			});		
+		</script>]]> 
+	</c:forEach>
+	
+	<!-- Task management window (hidden because is a placeholder for ajax stuff -->
+	<div id="task_manager_window" style="display: none">
+		<h2><fmt:message key="Common.loading"/> ...</h2>
+	</div>
+</customtag:window>
+</div>
+
+<div id="monsterRightBlock">
+
+<!-- Monster Brief and Image -->
+<customtag:window id="MonsterBrief" titleValue="${monster.name}" window_width="520">
+		
+	<div id="image_up_wrapper">
+		<ul id="MonsterBrief_data">
+		
+			<!-- Cocoon count down -->
+			<c:if test="${monster.ageState == 'Cocoon'}">
+			<customtag:monsterBrief_data_row property="metamorphosisCountDown">
+				<span class="countdown">
+	   				<span class="c_in" style="display:none">${monster.cocoonCloseUpDateEpoch}</span>
+	   				<span class="c_out">...</span>
+	   			</span>
+			</customtag:monsterBrief_data_row>
+			</c:if>
+			
+			<!-- Grow to Adult button -->
+			<c:if test="${monster.ageState == 'Child'}">
+				<c:set var="title"><fmt:message key="Monster.metamorphosisToAdult" /></c:set>
+			  	<c:set var="desc"><fmt:message key="Monster.metamorphosisToAdult.desc">
+			  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
+			  	</c:set>
+			  	<li class="data_row">	
+				  	<span id="grow_to_adult_button" class="button_box" title="${title} - ${desc}">
+						<html:link action="MetamorphosisToAdult.do?monsterId=${monster.monsterId}">${title}</html:link>
+				  	</span>
+			  	</li>
+			</c:if>
+		
+			<!-- Monster Age -->
+			<c:set var="ageDesc"><fmt:message key="Monster.age.desc"><fmt:param value="${monster.race.liveLenght * 0.8}"/><fmt:param value="${monster.race.liveLenght}"/></fmt:message></c:set>
+			<customtag:monsterBrief_data_row property="age" desc="${ageDesc}">
+				<fmt:message key="Monster.age.ageDays"><fmt:param value="${monster.ageDays}"/></fmt:message> 
+				(<fmt:message key="Monster.age.agePercentageLived"><fmt:param value="${monster.agePercentageLived}"/></fmt:message>)
+			</customtag:monsterBrief_data_row>
+			
+			<!-- Job (best work skill) -->
+			<c:if test="${monster.ageState != 'Child' and monster.ageState != 'Cocoon'}">
+				<customtag:monsterBrief_data_row property="bestWorkSkill">
+					<fmt:message key="Monster.attr.${monster.bestWorkSkill}"/>
+				</customtag:monsterBrief_data_row>
+			</c:if>
+			
+			<!-- Favorite Music (favoriteLeisure) -->
+			<li class="data_row">
+				<span class="data_label"><fmt:message key="Monster.favoriteLeisure"/>:</span>
+				<!-- <span class="data_value">${monster.favoriteLeisure}</span> -->
+				<span class="data_value">Rock'n'roll</span>
+			</li>
+			
+		</ul>
+		
+		<!-- Monster Image -->
+		<div id="image_up_image" style="float:left; display:none;">
+			<customtag:monster_image race="${monster.race}" type="${monster.ageState}"/>
+			<![CDATA[<script type="text/javascript">
+			$(function() {
+				// Metemos datos en la imagen para que puedan ser leidos por el script
+				$('#image_up_image').data("race", '${monster.race}').data("ageState", '${monster.ageState}');
+			});
+			</script>]]>
+		</div>
+	</div>
+	
+</customtag:window>
+
+<!-- Monster Attributes, Skills and Race details -->
+<customtag:window id="MonsterDetails" title="Monster.details.title" window_width="520"
+		tags="attributes: Monster.attr.attributes, 
+			skills: Monster.attr.skills, 
+			race: Monster.race">
+
+	<div id="MonsterDetailsWrapper">
+		<div id="MonsterDetails_attributes">
+			<customtag:attributesList property="simpleAttrs"/>
+			<customtag:attributesList property="composeAttrs"/>
+		</div>
+		
+		<div id="MonsterDetails_skills">
+			<customtag:attributesList property="workSkills"/>
+		</div>
+		
+		<div id="MonsterDetails_race">
+			<c:set var="race" value="${monster.race}"/>
+			<jsp:directive.include file="/monsterContents/_race_details.jspf"/>
+		</div>
+	</div>
+</customtag:window>
+</div>
+
+</jsp:root>

@@ -1,0 +1,56 @@
+package es.engade.thearsmonsters.model.facades.userfacade;
+
+import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.entities.user.UserDetails;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
+import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
+
+/**
+ * A facade to model the interaction of the user with the portal. There exist
+ * some logical restrictions with regard to the order of method calling. 
+ * In particular, <code>findUserProfile</code>,  
+ * <code>updateUserProfileDetails</code> and <code>changePassword</code> can 
+ * not be called if <code>login</code> or <code>registerUser</code> have not 
+ * been previously called. After the user calls one of these two methods, the 
+ * user is said to be authenticated.
+ */
+public interface UserFacade {
+
+    public void registerUser(String loginName, String clearPassword,
+        UserDetails userDetails)
+        throws FullPlacesException, DuplicateInstanceException, InternalErrorException;
+
+    public LoginResult login(String loginName, String password,
+        boolean passwordIsEncrypted, boolean loginAsAdmin)
+        throws InstanceNotFoundException, IncorrectPasswordException,
+            InternalErrorException;
+        
+    public User findUserProfile() throws InternalErrorException;
+    
+    public User findUserProfile(String loginName) 
+    	throws InstanceNotFoundException, InternalErrorException;
+    
+    public void updateUserProfileDetails(
+        UserDetails userProfileDetailsVO)
+        throws InternalErrorException;
+    
+	public void removeUserProfile(String loginName)
+		throws InternalErrorException, InstanceNotFoundException;
+
+    public void changePassword(String oldClearPassword, 
+        String newClearPassword) throws IncorrectPasswordException,
+        InternalErrorException;
+    
+    public int countUsers() throws InternalErrorException;
+    
+
+    //------- Messages ------// (no son usuarios pero tampoco se va a hacer una fachada nueva solo por esto) 
+    
+//    public MessageVO createMessage(String author, String content) throws InternalErrorException;
+//    
+//    public PaginatorChunkVO viewMessages(int startIndex, int count) throws InternalErrorException;
+
+}

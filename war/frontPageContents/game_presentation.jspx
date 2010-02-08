@@ -1,0 +1,62 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+
+<div id="game_presentation_info">
+
+	<p class="info">
+		<fmt:message key="FrontPage.info.presentationText"/>
+	</p>
+	
+	<c:set var="title"><fmt:message key="FrontPage.playNowForFree" /></c:set>
+  	<c:set var="desc"><fmt:message key="FrontPage.playNowForFree.description"/></c:set>
+	<div id="playNowForFree_button" class="button_box" title="${title} - ${desc}">
+		<html:link action="EditUserProfileForRegistration.do?action=REGISTER">${title}</html:link>
+  	</div>
+	
+	<customtag:info_message titleKey="FrontPage.info.automaticTasks.title" icon_id="3">
+		<fmt:message key="FrontPage.info.automaticTasks"/>
+		<p>
+			<customtag:common_icon id="effort" img="true" style="margin: 0px 5px 0 0;"/>
+			<fmt:message key="FrontPage.info.notice.semiImplementedFeature"/>
+		</p>
+	</customtag:info_message>
+	
+	<customtag:info_message titleKey="FrontPage.info.publicRooms.title" icon_id="7">
+		<fmt:message key="FrontPage.info.publicRooms"/>
+		<p>
+			<customtag:common_icon id="effort" img="true" style="margin: 0px 5px 0 0;"/>
+			<fmt:message key="FrontPage.info.notice.semiImplementedFeature"/>
+		</p>
+	</customtag:info_message>
+	
+	<customtag:info_message titleKey="FrontPage.info.classroomTeach.title" icon_id="1">
+		<fmt:message key="FrontPage.info.classroomTeach"/>
+		<p>
+			<customtag:common_icon id="money" img="true" style="margin: 0px 5px 0 0;"/>
+			<fmt:message key="FrontPage.info.notice.notImplementedFeature"/>
+		</p>
+	</customtag:info_message>
+	
+	<customtag:info_message titleKey="FrontPage.info.monstersLifeCicle.title" icon_id="6">
+		<fmt:message key="FrontPage.info.monstersLifeCicle"/>
+		<p>
+			<customtag:common_icon id="effort" img="true" style="margin: 0px 5px 0 0;"/>
+			<fmt:message key="FrontPage.info.notice.semiImplementedFeature"/>
+		</p>
+	</customtag:info_message>
+	
+	<customtag:info_message titleKey="FrontPage.info.mosntersOffspring.title" icon_id="4">
+		<fmt:message key="FrontPage.info.mosntersOffspring"/>
+		<p>
+			<customtag:common_icon id="money" img="true" style="margin: 0px 5px 0 0;"/>
+			<fmt:message key="FrontPage.info.notice.notImplementedFeature"/>
+		</p>
+	</customtag:info_message>
+
+</div>
+</jsp:root>

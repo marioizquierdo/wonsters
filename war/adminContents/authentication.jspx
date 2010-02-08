@@ -1,0 +1,41 @@
+<jsp:root 	xmlns="http://www.w3.org/1999/xhtml"
+          	xmlns:jsp="http://java.sun.com/JSP/Page"
+          	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          	xmlns:html="http://struts.apache.org/tags-html"
+          	version="2.0">
+          
+<html:xhtml/>
+
+<html:form action="AdminLogin.do" focus="loginName">
+        
+    <div class="field">        
+        <span class="label">
+            <fmt:message key="UserProfile.loginName"/>
+        </span>
+        <span class="entry">    
+            <html:text property="loginName" size="16" maxlength="30"/>
+            <html:errors property="loginName"/>
+        </span>
+    </div>
+    
+    <div class="field">        
+        <span class="label">
+            <fmt:message key="UserProfile.password"/>
+        </span>
+        <span class="entry">
+            <html:password property="password" size="16" maxlength="8"/>
+            <html:errors property="password"/>
+        </span>
+    </div>
+    
+    <html:hidden property="rememberMyPassword" value="false"/>
+    
+    <div class="button">        
+        <html:submit>
+            <fmt:message key="Buttons.login"/>
+        </html:submit>
+    </div>
+    
+</html:form>
+
+</jsp:root>

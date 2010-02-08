@@ -1,0 +1,22 @@
+<!-- 
+	A row in a tasks list. Represents a Task in a turn.
+	
+	Needed jsp:root xmlns declarations for: fmt, c
+	Needed request params: 
+		* task: TaskVO object to show.
+-->
+
+<c:set var="task_help">
+	<fmt:message key="Task.TaskType.${task.type}"/>
+	<c:out value=" - "/>
+	<fmt:message key="Task.TaskType.${task.type}.desc"/>
+</c:set>
+
+<span title="${task_help}">
+	<div class="room_reference">
+		<fmt:message key="Lair.room.${task.roomType}"/>: 
+	</div>
+	<div class="task_description">
+		<fmt:message key="Task.TaskType.${task.type}"/>
+	</div>
+</span>

@@ -1,0 +1,102 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:html="http://struts.apache.org/tags-html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          version="2.0" >         
+
+<c:choose>
+<c:when test="${(!empty sessionScope.loginName)}">   
+ 
+  <div id="menu_logo" class="menu_window">
+    <c:set var="image_title"><fmt:message key="Thearsmonsters"/></c:set>
+  	<img src="images/thearsmonsters_logo.png" title="${image_title}"/>
+  	<div id="logo_bottom_links">
+  		<fmt:message key="MainMenu.menu"/>
+  	</div>
+  	<!-- Desplegable menu. Builded with customtag:window structure -->
+  	<div id="options" class="rounded_window">
+	  	<div class="atMiddle" style="float:left; width:145px"><div class="ml"><div class="mr"><div class="m content_box">
+			<ul class="menu_items">
+				<li class="menu_item">
+					<html:link action="EditUserProfileForUpdating.do?action=UPDATE">
+		            	<fmt:message key="MainMenu.editUserProfile"/>
+		        	</html:link></li>
+		        <li class="menu_item">
+					<html:link action="Logout.do">
+		            	<fmt:message key="MainMenu.logout"/>
+		            </html:link></li>
+			</ul>
+		</div></div></div></div>
+		<div class="atBottom" style="float:left; width:145px">
+			<div class="bl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+			<div class="bm" style="float:left; width:135px"><img src="images/theme/empty_pixel.png"/></div>
+			<div class="br" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+		</div>
+	</div>
+  </div>
+  
+  <div id="menu_box">
+  
+    <div id="menu_info">
+      <div id="menu_info_left"><img src="images/theme/empty_pixel.png"/></div>
+      <div id="menu_info_content">
+      	<div id="menu_info_content_garbage" class="menu_info_item">
+      		<customtag:common_icon id="garbage"/><span class="description">
+      			<fmt:formatNumber value="${sessionScope.myLair.garbage}"/>/
+      			<fmt:formatNumber value="${sessionScope.myLair.garbageStorageCapacity}"/>
+      		</span>
+      	</div>
+      	<div id="menu_info_content_money" class="menu_info_item">
+      		<customtag:common_icon id="money"/><span class="description">
+      			<fmt:formatNumber value="${sessionScope.myLair.money}"/>/
+      			<fmt:formatNumber value="${sessionScope.myLair.moneyStorageCapacity}"/>
+      		</span>
+      	</div>
+      	<div id="menu_info_content_vitalSpace" class="menu_info_item">
+      		<customtag:common_icon id="vitalSpace"/><span class="description">
+      			<fmt:formatNumber value="${sessionScope.myLair.vitalSpaceOccupied}"/>/
+      			<fmt:formatNumber value="${sessionScope.myLair.vitalSpace}"/>
+      		</span>
+      	</div>
+      	
+      </div>
+      <div id="menu_info_right"><img src="images/theme/empty_pixel.png"/></div>
+    </div>
+    
+    <div id="menu_links">
+      <html:link action="Lair.do">
+          <div class="menu_link" id="guarida"><div class="menu_text">
+          	<fmt:message key="MainMenu.link.lair"/></div></div></html:link>
+          	
+      <html:link action="Monsters.do">
+          <div class="menu_link" id="monstruos"><div class="menu_text">
+          	<fmt:message key="MainMenu.link.monsters"/></div></div></html:link>
+          	
+      <html:link action="Missions.do">
+          <div class="menu_link" id="templos"><div class="menu_text">
+          	<fmt:message key="MainMenu.link.missions"/></div></div></html:link>
+          	
+      <html:link action="Guild.do">
+          <div class="menu_link" id="alianza"><div class="menu_text">
+          	<fmt:message key="MainMenu.link.guild"/></div></div></html:link>
+          	
+      <html:link action="Messages.do">
+          <div class="menu_link" id="mensajes"><div class="menu_text">
+          	<fmt:message key="MainMenu.link.messages"/></div></div></html:link>
+    </div>
+  </div>
+  
+
+  
+</c:when>
+<c:otherwise>
+
+	<div id="main_header"></div>
+	
+</c:otherwise>
+</c:choose>
+	
+  
+</jsp:root>

@@ -1,0 +1,68 @@
+<!-- 
+	Muestra los detalles de una raza de monstruo
+	Parámetros requeridos en la request: 
+		- race: de tipo MonsterRace enumeration 
+-->
+
+<p class="info_mini"><fmt:message key="Monster.race.${race}.desc"/></p>
+
+<!-- Datos de la raza -->
+<c:set var="title"><fmt:message key="Monster.raceTitle"/></c:set>
+<c:set var="desc"><fmt:message key="Monster.raceTitle.desc"/></c:set>
+<h3 title="${title} - ${desc}" class="cursor_help">${title}  <fmt:message key="Monster.race.${race}"/></h3>
+<ul>
+	<customtag:monsterBrief_data_row property="race.vitalSpace" icon_id="11">
+		${race.vitalSpace}
+	</customtag:monsterBrief_data_row>
+	
+	<customtag:monsterBrief_data_row property="race.liveLenght" icon_id="13" title_extra_key="Common.gameDays">
+		${race.liveLenght}
+	</customtag:monsterBrief_data_row>
+	
+	<customtag:monsterBrief_data_row property="race.raceType" icon_id="14">
+		<fmt:message key="Monster.race.raceType.${race.raceType}"/><c:if test="${race.fliying}"> (<fmt:message key="Monster.race.fliying" />)</c:if>
+	</customtag:monsterBrief_data_row>
+	
+	<customtag:monsterBrief_data_row property="race.fertility" icon_id="23">
+		${race.fertility} %
+	</customtag:monsterBrief_data_row>
+	
+	<customtag:monsterBrief_data_row property="race.incubationTime" icon_id="15" title_extra_key="Common.minutes">
+		${race.incubationMinutes}
+	</customtag:monsterBrief_data_row>
+	
+	<customtag:monsterBrief_data_row property="race.metamorphosisTime" icon_id="16" title_extra_key="Common.minutes">
+		${race.metamorphosisMinutes}
+	</customtag:monsterBrief_data_row>
+	
+	<customtag:monsterBrief_data_row property="race.buyEggPrice" icon_id="9">
+		${race.metamorphosisMinutes} <customtag:common_icon id="money" img="true"/>
+	</customtag:monsterBrief_data_row>
+</ul>
+
+<!-- Atributos iniciales -->
+<c:set var="title"><fmt:message key="Monster.initialAttributes"/></c:set>
+<c:set var="desc"><fmt:message key="Monster.initialAttributes.desc"/></c:set>
+<h3 title="${title} - ${desc}" class="cursor_help">${title}</h3>
+<ul>
+	<li class="data_row"><customtag:attr_icon attrType="Strenght"/>
+		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Strenght" />:</span>
+		<span class="data_value"><b>${race.strenght}</b></span>
+	</li>
+	<li class="data_row"><customtag:attr_icon attrType="Agility"/>
+		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Agility" />:</span>
+		<span class="data_value"><b>${race.agility}</b></span>
+	</li>
+	<li class="data_row"><customtag:attr_icon attrType="Intelligence"/>
+		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Intelligence" />:</span>
+		<span class="data_value"><b>${race.intelligence}</b></span>
+	</li>
+	<li class="data_row"><customtag:attr_icon attrType="Vitality"/>
+		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Vitality" />:</span>
+		<span class="data_value"><b>${race.vitality}</b></span>
+	</li>
+	<li class="data_row"><customtag:attr_icon attrType="Charisma"/>
+		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Charisma" />:</span>
+		<span class="data_value"><b>${race.charisma}</b></span>
+	</li>
+</ul>

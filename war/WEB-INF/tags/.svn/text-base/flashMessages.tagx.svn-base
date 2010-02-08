@@ -1,0 +1,69 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          	xmlns:html="http://struts.apache.org/tags-html"
+         	xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+			
+	<!-- 
+		Ventana de informacion para mostrar el resultado de acciones.
+		
+		Leer en la sesion la lista "flashMessages", 
+		que contiene instancias de objetos FlashMessage, con los atributos:
+		 * messageKey: clave del texto a mostrar.
+		 * params: parametros necesarios para insertar en la traduccion de messageKey.
+		 * status: puede ser 'INFO', 'ERROR', 'GOOD_NEW' ... (FlashMessage.Status).
+		 * position: id del elemento del DOM donde se muestra el mensaje (con jQuery)
+		Nota: estos nombres estan definidos en la clase controler.util.FlashMessage
+		
+		Este tag se utiliza en los layouts, y solamente se puede poner uno por pagina.
+	 -->
+ 
+  	<c:if test="${!empty sessionScope.flashMessages}">
+  	
+		<div id="flashMessages" style="display: none">
+			<c:forEach items="${sessionScope.flashMessages}" var="message" varStatus="loop">
+				<c:set var="message_unique_id" value="flashMessageWrapper_${loop.index}"/>
+				<div id="${message_unique_id}" class="flashMessageWrapper">
+					<div class="flashMessage flashMessage_${message.status}">
+					
+						<c:choose><c:when test="${message.status eq 'ERROR'}">
+							<c:set var="icon_id" value="0"/></c:when>
+						<c:when test="${message.status eq 'GOOD_NEW'}">
+							<c:set var="icon_id" value="6"/></c:when>
+						<c:otherwise> <!-- INFO by default -->
+							<c:set var="icon_id" value="9"/></c:otherwise>
+						</c:choose>
+						
+						<customtag:icon id="${icon_id}" size="m" 
+							titleKey="FlashMessage.status.${message.status}.info" style="margin: -1px 5px 0 0;"/>
+						<customtag:localizableMessage var="${message}"/>
+					</div>
+				</div>
+				
+				<![CDATA[<script type='text/javascript'> $(function() {
+					var position = $("#${message.position}");
+					var flashMessage = $("#${message_unique_id}").hide();
+					
+					// Si es la posicion por defecto (dentro de donde este declarado este customtag)
+					if("${message.position}" == "flashMessages") {
+						position.show(); // entonces muestra el contenido de este contenedor
+					} else {
+						position.prepend(flashMessage); // sino mueve el mensaje para la posicion indicada
+					}
+					
+					// Despues de hacer slideDown hay que simular el evento window.resize
+					// para que las imagenes de los monstruos se pongan en su sitio.
+					flashMessage.slideDown("normal", function(){$(window).trigger("resize");});
+					
+				});</script>]]>
+				
+			</c:forEach>
+	    </div>
+		
+		<!-- Finally removes the flashMessages from the session -->	    
+	    <c:remove var="flashMessages" scope="session"/>
+	      
+	</c:if>
+ 
+</jsp:root>

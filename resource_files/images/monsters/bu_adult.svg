@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg3999"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="bu_adult.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4001">
+    <linearGradient
+       id="linearGradient4983">
+      <stop
+         style="stop-color:#0f3735;stop-opacity:1;"
+         offset="0"
+         id="stop4985" />
+      <stop
+         style="stop-color:#12662f;stop-opacity:1;"
+         offset="1"
+         id="stop4987" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4887">
+      <stop
+         style="stop-color:#d5466d;stop-opacity:1;"
+         offset="0"
+         id="stop4889" />
+      <stop
+         style="stop-color:#85243a;stop-opacity:1;"
+         offset="1"
+         id="stop4891" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4875">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4877" />
+      <stop
+         style="stop-color:#bbbbbb;stop-opacity:1;"
+         offset="1"
+         id="stop4879" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4861">
+      <stop
+         style="stop-color:#669966;stop-opacity:1;"
+         offset="0"
+         id="stop4863" />
+      <stop
+         style="stop-color:#396939;stop-opacity:1;"
+         offset="1"
+         id="stop4865" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4768">
+      <stop
+         id="stop4770"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+      <stop
+         id="stop4772"
+         offset="1"
+         style="stop-color:#dfdfdf;stop-opacity:1;" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective4007" />
+    <inkscape:perspective
+       id="perspective4090"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4157"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <filter
+       inkscape:collect="always"
+       id="filter4846"
+       x="-0.120051"
+       width="1.240102"
+       y="-0.17150334"
+       height="1.3430067">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.26544358"
+         id="feGaussianBlur4848" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4768"
+       id="radialGradient4855"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1787887,0.2936608,-0.1499959,0.6021011,-56.169461,-64.267074)"
+       cx="480.39728"
+       cy="195.54352"
+       fx="480.39728"
+       fy="195.54352"
+       r="15.977497" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4861"
+       id="linearGradient4867"
+       x1="283.96942"
+       y1="211.8824"
+       x2="314.60715"
+       y2="271.88242"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4875"
+       id="linearGradient4881"
+       x1="257.95609"
+       y1="240.35155"
+       x2="257.95609"
+       y2="234.4169"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4887"
+       id="linearGradient4893"
+       x1="277.1174"
+       y1="242.44872"
+       x2="284.03036"
+       y2="248.87729"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter4971"
+       x="-0.17814435"
+       width="1.3562887"
+       y="-0.30933622"
+       height="1.6186724">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.1286211"
+         id="feGaussianBlur4973" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4983"
+       id="linearGradient4989"
+       x1="269.96327"
+       y1="264.44223"
+       x2="307.1736"
+       y2="264.44223"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter5079">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.53790282"
+         id="feGaussianBlur5081" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5171"
+       x="-0.10178104"
+       width="1.2035621"
+       y="-0.16564365"
+       height="1.3312873">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.21999547"
+         id="feGaussianBlur5173" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter5301"
+       x="-0.10520577"
+       width="1.2104115"
+       y="-0.086983034"
+       height="1.1739661">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.40136602"
+         id="feGaussianBlur5303" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3296">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.9865267"
+         id="feGaussianBlur3298" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="217.37114"
+     inkscape:cy="816.34122"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1177"
+     inkscape:window-height="875"
+     inkscape:window-x="263"
+     inkscape:window-y="29" />
+  <metadata
+     id="metadata4004">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="fondo"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <image
+       y="174.43454"
+       x="-460.61487"
+       id="image4092"
+       height="117.80271"
+       width="101.66536"
+       sodipodi:absref="/home/lfcia/tothemario/Desktop/thearsmonsters_templates/bu_adult.jpg"
+       xlink:href="templates/bu_adult.jpg"
+       transform="scale(-1,1)"
+       style="opacity:0.79779412" />
+    <rect
+       style="opacity:0;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.35499998999999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3300"
+       width="88.741898"
+       height="88.034798"
+       x="243.59828"
+       y="191.81323"
+       inkscape:export-filename="/home/mads/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="monstruo"
+     style="display:inline">
+    <g
+       id="g2468"
+       style="fill:#000000;fill-opacity:1;filter:url(#filter3296);opacity:0.29044118"
+       transform="translate(121.97592,-21.92031)"
+       inkscape:export-filename="/home/mads/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 164.04692,273.98855 C 164.04692,273.98855 172.61835,268.45283 167.61835,264.34569 C 162.61835,260.23855 162.79692,265.41712 158.5112,264.70283 C 154.22549,263.98855 150.90133,262.21657 153.86835,267.91712 C 157.13767,274.19852 163.94015,274.94945 164.04692,273.98855 z"
+         id="path2428"
+         sodipodi:nodetypes="ccssc"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 133.33263,257.76918 C 132.18564,261.2754 131.20074,264.27693 132.26121,265.23855 C 134.20486,267.00101 136.57443,265.67485 138.51121,265.59569 C 138.87695,263.83578 138.81707,260.79898 138.86835,258.09569 L 139.04692,264.70283 C 141.64258,265.90095 142.63914,265.09754 143.68978,264.52426 C 144.56033,264.04925 145.06027,262.80741 144.3824,257.23347 L 133.33263,257.76918 z"
+         id="path2430"
+         sodipodi:nodetypes="cscccscc"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         d="M 179.93978,263.27426 C 182.07249,259.80788 187.04397,267.30435 194.04692,255.05997 C 195.87103,255.3712 198.98804,254.23059 195.29692,263.27426 C 208.57756,269.64482 201.93203,272.09096 196.01121,268.80998 C 202.10892,282.51283 193.847,273.32801 187.43978,273.09569 C 182.19051,270.81754 177.46663,278.69462 192.43978,281.30998 C 206.17413,283.70896 201.48191,290.86221 207.43978,297.20283 C 205.02754,296.8551 204.40848,297.1051 203.33263,297.20283 C 183.5957,292.75409 161.39592,308.38105 152.43978,286.8457 C 150.04416,288.01781 148.15898,290.42141 146.31792,292.12053 C 141.32486,296.72863 140.06577,296.63526 140.11835,290.41712 C 136.12243,291.96561 131.07729,291.303 137.2612,285.95284 C 129.70036,285.63868 130.65806,281.84971 134.56652,280.59863 C 138.7344,279.2645 141.33541,279.59971 147.08263,281.30998 C 142.43624,276.00092 141.73057,273.3844 142.61834,271.30998 C 143.46656,269.32799 148.22805,269.15171 154.58263,272.38141 C 162.05604,273.67914 170.20263,271.14882 161.36835,251.84569 C 141.99837,262.686 132.58726,259.25858 129.04692,257.02426 C 124.0159,253.84916 129.60949,244.98544 135.29692,237.73855 C 138.62165,233.5022 144.08908,230.76558 153.68978,229.88141 C 187.10685,232.57176 180.12843,250.13889 179.93978,263.27426 z"
+         id="path2432"
+         sodipodi:nodetypes="cccccscccsccscsccsscc"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <g
+         id="g2438"
+         transform="translate(-119.70308,24.126365)"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90"
+         style="fill:#000000;fill-opacity:1">
+        <g
+           id="g2440"
+           style="fill:#000000;fill-opacity:1">
+          <path
+             id="path2442"
+             d="M 278.32773,208.09112 C 278.23402,208.14312 278.14045,208.20039 278.04648,208.24737 C 276.90003,208.82059 275.35998,209.24738 274.01523,209.24737 C 272.50652,209.24737 271.25148,209.49737 269.70273,209.49737 C 267.91122,209.49737 267.11314,210.5578 265.67148,211.27862 C 263.43012,212.3993 260.77105,213.3978 259.10898,215.05987 C 257.4808,216.68804 256.15452,216.82259 254.79648,217.84112 C 254.50566,218.05924 253.16449,219.13164 251.82773,220.12237 C 253.94151,221.35422 257.00242,222.16545 261.42148,222.52862 C 272.266,223.41983 279.76911,216.50315 278.32773,208.09112 z"
+             style="opacity:0.52573528999999997;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4971)" />
+          <path
+             transform="translate(-222.5,8.9285714)"
+             style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             d="M 499.28573,196.6479 C 501.74896,205.61726 494.0632,213.29779 482.67858,212.36219 C 469.78653,211.3027 468.23462,206.3862 468.92859,198.43362 C 469.5909,190.84376 470.14479,184.52143 482.67858,184.50504 C 492.11124,184.49271 499.95448,187.15023 499.28573,196.6479 z"
+             id="path2444"
+             sodipodi:nodetypes="csssc" />
+        </g>
+      </g>
+    </g>
+    <g
+       id="g3247"
+       inkscape:export-filename="/home/mads/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         sodipodi:nodetypes="ccssc"
+         id="path4885"
+         d="M 283.75,250.75504 C 283.75,250.75504 292.32143,245.21932 287.32143,241.11218 C 282.32143,237.00504 282.5,242.18361 278.21428,241.46932 C 273.92857,240.75504 270.60441,238.98306 273.57143,244.68361 C 276.84075,250.96501 283.64323,251.71594 283.75,250.75504 z"
+         style="fill:url(#linearGradient4893);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         sodipodi:nodetypes="cscccscc"
+         id="path4873"
+         d="M 253.03571,234.53567 C 251.88872,238.04189 250.90382,241.04342 251.96429,242.00504 C 253.90794,243.7675 256.27751,242.44134 258.21429,242.36218 C 258.58003,240.60227 258.52015,237.56547 258.57143,234.86218 L 258.75,241.46932 C 261.34566,242.66744 262.34222,241.86403 263.39286,241.29075 C 264.26341,240.81574 264.76335,239.5739 264.08548,233.99996 L 253.03571,234.53567 z"
+         style="fill:url(#linearGradient4881);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         sodipodi:nodetypes="cccccscccsccscsccsscc"
+         id="path4857"
+         d="M 299.64286,240.04075 C 301.77557,236.57437 306.74705,244.07084 313.75,231.82646 C 315.57411,232.13769 318.69112,230.99708 315,240.04075 C 328.28064,246.41131 321.63511,248.85745 315.71429,245.57647 C 321.812,259.27932 313.55008,250.0945 307.14286,249.86218 C 301.89359,247.58403 297.16971,255.46111 312.14286,258.07647 C 325.87721,260.47545 321.18499,267.6287 327.14286,273.96932 C 324.73062,273.62159 324.11156,273.87159 323.03571,273.96932 C 303.29878,269.52058 281.099,285.14754 272.14286,263.61219 C 269.74724,264.7843 267.86206,267.1879 266.021,268.88702 C 261.02794,273.49512 259.76885,273.40175 259.82143,267.18361 C 255.82551,268.7321 250.78037,268.06949 256.96428,262.71933 C 249.40344,262.40517 250.36114,258.6162 254.2696,257.36512 C 258.43748,256.03099 261.03849,256.3662 266.78571,258.07647 C 262.13932,252.76741 261.43365,250.15089 262.32142,248.07647 C 263.16964,246.09448 267.93113,245.9182 274.28571,249.1479 C 281.75912,250.44563 289.90571,247.91531 281.07143,228.61218 C 261.70145,239.45249 252.29034,236.02507 248.75,233.79075 C 243.71898,230.61565 249.31257,221.75193 255,214.50504 C 258.32473,210.26869 263.79216,207.53207 273.39286,206.6479 C 306.80993,209.33825 299.83151,226.90538 299.64286,240.04075 z"
+         style="opacity:1;fill:url(#linearGradient4867);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         d="M 293.03571,216.73718 A 3.3928571,3.4821429 0 1 1 286.25,216.73718 A 3.3928571,3.4821429 0 1 1 293.03571,216.73718 z"
+         sodipodi:ry="3.4821429"
+         sodipodi:rx="3.3928571"
+         sodipodi:cy="216.73718"
+         sodipodi:cx="289.64285"
+         id="path4869"
+         style="opacity:1;fill:#14503e;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         sodipodi:type="arc" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         transform="matrix(0.5897436,0,0,0.5897436,122.79303,95.346388)"
+         sodipodi:type="arc"
+         style="opacity:1;fill:#14503e;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path4871"
+         sodipodi:cx="289.64285"
+         sodipodi:cy="216.73718"
+         sodipodi:rx="3.3928571"
+         sodipodi:ry="3.4821429"
+         d="M 293.03571,216.73718 A 3.3928571,3.4821429 0 1 1 286.25,216.73718 A 3.3928571,3.4821429 0 1 1 293.03571,216.73718 z" />
+      <g
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         transform="translate(-3.8146101e-7,0.8928568)"
+         id="g4850">
+        <g
+           id="g4975">
+          <path
+             style="opacity:0.52573529;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4971)"
+             d="M 278.32773,208.09112 C 278.23402,208.14312 278.14045,208.20039 278.04648,208.24737 C 276.90003,208.82059 275.35998,209.24738 274.01523,209.24737 C 272.50652,209.24737 271.25148,209.49737 269.70273,209.49737 C 267.91122,209.49737 267.11314,210.5578 265.67148,211.27862 C 263.43012,212.3993 260.77105,213.3978 259.10898,215.05987 C 257.4808,216.68804 256.15452,216.82259 254.79648,217.84112 C 254.50566,218.05924 253.16449,219.13164 251.82773,220.12237 C 253.94151,221.35422 257.00242,222.16545 261.42148,222.52862 C 272.266,223.41983 279.76911,216.50315 278.32773,208.09112 z"
+             id="path4895" />
+          <path
+             sodipodi:nodetypes="csssc"
+             id="path4166"
+             d="M 499.28573,196.6479 C 501.74896,205.61726 494.0632,213.29779 482.67858,212.36219 C 469.78653,211.3027 468.23462,206.3862 468.92859,198.43362 C 469.5909,190.84376 470.14479,184.52143 482.67858,184.50504 C 492.11124,184.49271 499.95448,187.15023 499.28573,196.6479 z"
+             style="opacity:1;fill:url(#radialGradient4855);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             transform="translate(-222.5,8.9285714)" />
+          <path
+             d="M 264.99999,207.36218 A 6.9642859,6.0714288 0 1 1 251.07142,207.36218 A 6.9642859,6.0714288 0 1 1 264.99999,207.36218 z"
+             sodipodi:ry="6.0714288"
+             sodipodi:rx="6.9642859"
+             sodipodi:cy="207.36218"
+             sodipodi:cx="258.03571"
+             id="path4680"
+             style="opacity:1;fill:#161616;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+             sodipodi:type="arc" />
+          <path
+             transform="matrix(0.4261979,0.3982877,-0.583207,0.6240756,266.40096,-18.942177)"
+             d="M 250,200.21933 A 2.1428571,2.1428571 0 1 1 245.71429,200.21933 A 2.1428571,2.1428571 0 1 1 250,200.21933 z"
+             sodipodi:ry="2.1428571"
+             sodipodi:rx="2.1428571"
+             sodipodi:cy="200.21933"
+             sodipodi:cx="247.85715"
+             id="path4682"
+             style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter4846)"
+             sodipodi:type="arc" />
+        </g>
+        <path
+           sodipodi:nodetypes="csssssssssssssssscccsc"
+           transform="translate(3.8146101e-7,-0.8928568)"
+           id="path4981"
+           d="M 269.96327,256.10944 C 271.30225,255.93846 272.23611,256.09434 272.23611,257.62467 C 272.23611,258.28213 273.75134,258.2299 273.75134,258.88736 C 273.75134,260.92352 273.52055,260.65512 276.02418,260.65512 C 277.78984,260.65512 277.28687,262.22066 277.28687,263.68558 C 277.28687,265.68125 276.21982,265.20081 279.05464,265.20081 C 280.81578,265.20081 281.58002,264.79065 281.58002,266.71604 C 281.58002,268.78383 282.47857,268.28707 283.60033,267.72619 C 285.6942,266.67925 285.36809,266.24366 285.36809,268.73634 C 285.36809,269.27103 288.64571,268.73634 289.15617,268.73634 C 290.19029,268.73634 290.67361,264.95711 291.42901,267.97873 C 291.91934,269.94005 292.84979,269.66745 294.20693,268.98888 C 296.10639,268.03915 296.07321,267.35246 297.48992,269.24142 C 298.2114,270.20338 300.65294,268.32125 300.77292,268.23127 C 301.44636,267.72619 301.44636,270.25157 302.28815,270.25157 C 304.21999,270.25157 304.32716,270.0762 305.57115,271.00919 C 306.67019,271.83348 309.49275,271.51426 303.2983,271.51426 C 301.86725,271.51426 300.4362,271.51426 299.00515,271.51426 C 293.36206,272.86462 288.72345,273.37652 283.15653,272.08062 C 279.34383,271.39855 275.1685,266.30302 273.4988,262.92797 C 272.84538,261.62112 272.64222,260.96226 271.98357,259.64497 C 271.41455,258.50692 271.01547,257.8631 269.96327,256.10944 z"
+           style="opacity:0.88970588;fill:url(#linearGradient4989);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;filter:url(#filter5079)" />
+      </g>
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         id="path5083"
+         d="M 289.78571,213.63393 C 288.58829,213.63392 287.55545,214.45359 287.22321,215.57143 C 287.25783,215.52378 287.31072,215.49164 287.34821,215.44643 C 287.8149,214.60647 288.65177,214.04018 289.66071,214.04018 C 291.15698,214.04018 292.37946,215.28579 292.37946,216.82143 C 292.40332,216.67438 292.41071,216.50793 292.41071,216.35268 C 292.41071,214.84679 291.25298,213.63393 289.78571,213.63393 z"
+         style="opacity:0.84926471;fill:#dff6ef;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5171)" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         transform="matrix(0.5938375,0,0,0.5938375,119.02498,90.642256)"
+         style="opacity:0.84926471;fill:#dff6ef;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5171)"
+         d="M 294.07142,220.41964 C 292.874,220.41963 291.84116,221.2393 291.50892,222.35714 C 291.54354,222.30949 291.59643,222.27735 291.63392,222.23214 C 292.10061,221.39218 292.93748,220.82589 293.94642,220.82589 C 295.44269,220.82589 296.66517,222.0715 296.66517,223.60714 C 296.68903,223.46009 296.69642,223.29364 296.69642,223.13839 C 296.69642,221.6325 295.53869,220.41964 294.07142,220.41964 z"
+         id="path5175" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/lfcia/tothemario/Desktop/thearsmonsters images/monsters/Bu/Adult.png"
+         transform="matrix(0.5807322,0,0,0.3856182,116.74067,165.12935)"
+         d="M 253.42203,258.50854 C 253.63946,259.00099 252.86549,259.0446 252.60355,258.86993 C 251.89369,258.39661 252.15424,257.35343 252.69925,256.87158 C 253.67415,256.00967 255.17036,256.4441 255.87747,257.42438 C 256.91518,258.86298 256.2877,260.86494 254.86758,261.78247 C 252.97479,263.00539 250.45207,262.1777 249.32963,260.31549 C 247.91715,257.97209 248.94815,254.92233 251.25369,253.59766 C 251.75212,253.31129 252.29638,253.10636 252.85921,252.98995"
+         sodipodi:t0="0"
+         sodipodi:argument="-17.694553"
+         sodipodi:radius="5.5472231"
+         sodipodi:revolution="1.55"
+         sodipodi:expansion="1"
+         sodipodi:cy="258.50854"
+         sodipodi:cx="253.42203"
+         id="path5179"
+         style="opacity:0.70220588;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#204b32;stroke-width:1.57149959;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5301)"
+         sodipodi:type="spiral" />
+    </g>
+  </g>
+</svg>

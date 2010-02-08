@@ -1,0 +1,274 @@
+
+/********** Monster ***************/
+
+#monsterRightBlock {
+	float: left;
+	margin-left: 10px;
+	width: 520px;
+}
+
+#MonsterBrief_data {
+	float: left;
+	margin: 4px 0 5px 10px;
+	padding: 0;
+}
+
+#image_up_wrapper {
+	float: left;
+	width: 510px;
+	height: 120px;
+	overflow: hidden;
+}
+
+/******** Tareas del monsturo (ventana izquierda) *********/
+
+#monsterLeftBlock {
+	float: left;
+	width: 240px;
+}
+
+.task {
+	float: left;
+	padding: 5px;
+	border-bottom: 1px solid #ddd;
+	width: 220px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.task:hover {
+	color: #d41;
+}
+
+.last_task { /* tambien es un .task */
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	padding-bottom: 8px;
+}
+
+.task .data_label {
+	float: left;
+	font-size: 10px;
+	width: 12px;
+}
+
+.task .data_value {
+	float: left;
+	font-size: 12px;
+	width: 199px;
+}
+
+.task .data_value .room_reference {
+	color: #777;
+	font-size: 10px;
+	float: left;
+}
+.task .data_value .room_reference {
+	color: #777;
+	font-size: 10px;
+	float: left;
+}
+
+.task .data_value .task_description {
+	font-size: 12px;
+	margin-left: 5px;
+	float: left;
+}
+
+/******** TaskManager (ventana emergente para asignar tareas) *******/
+
+#task_manager_window {
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	border: 1px solid #ccc;
+	padding: 10px 10px 0 10px;
+	float: left;
+	width: 230px;
+	text-align: left;
+}
+
+#task_manager_window h3 {
+	color: #444;
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+#task_manager_window h3.error_header {
+	color: #c22;
+}
+
+#task_manager_window .subtitle_help { /* igual que .room_reference */
+	color: #777;
+	font-size: 10px;
+	text-align: left;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ddd;
+}
+
+#task_manager_window ul.errors_list {
+	margin-top: 10px;
+}
+
+#task_manager_window ul.errors_list div.error_description, #task_manager_window div.error_description {
+	float: left;
+	margin-left: 5px;
+	width: 190px;
+	padding-bottom: 10px;
+}
+
+
+/******** Detalles del mosntruo (ventana abajo) *********/
+
+#MonsterDetailsWrapper {
+	text-align: left;
+	margin: 3px 10px 10px 10px;
+	float: left;
+}
+
+#MonsterDetailsWrapper h3 {
+	float: left;
+	color: #d41;
+	margin: 0.8em 0 0.2em 0;
+	padding: 0px;
+	font-size: 16px;
+	float: left;
+}
+
+#MonsterDetailsWrapper ul {
+	padding-left: 10px;
+}
+
+.attribute_level {
+	font-weight: bold;
+}
+
+.attribute_description {
+	color: #666;
+	padding-left: 15px;
+	font-size: 10px;
+}
+
+
+/***** Eggs Management: view eggs *****/
+
+
+.egg_slot {
+	border: 1px solid #ccc;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	text-align: left;
+	float: left;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 10px;
+}
+
+.egg_slot .egg_slot_img {
+	float: left;
+}
+
+.egg_slot .egg_slot_text {
+	float: left;
+	margin-left: 10px;
+}
+
+.li-actions-title a, .li-actions-title a:hover {
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	color: #030;
+	margin-bottom: 5px;
+}
+
+.incubatedEggs { /* Propiedades generales, pero depende del numero de huevos se pone una imagen diferente */
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	padding-bottom: 150px;
+	width: 760px;
+}
+.incubatedEggs0 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs0.png);
+}
+.incubatedEggs1 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs1.png);
+}
+.incubatedEggs2 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs2.png);
+}
+.incubatedEggs3 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs3.png);
+}
+.incubatedEggs4 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs4.png);
+}
+.incubatedEggs5 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs5.png);
+}
+.incubatedEggs6 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs6.png);
+}
+.incubatedEggs7 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs7.png);
+}
+.incubatedEggs8 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs8.png);
+}
+.incubatedEggs9 {
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs9.png);
+}
+.incubatedEggs10 { /* la imagen para cuando hay 10 o mas huevos es la misma */
+	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs10plus.png);
+}
+
+
+/***** Eggs Management: buy eggs *****/
+
+#monsterRaceDesc {
+	width: 350px;
+}
+
+
+/***** Form Born Monster *****/
+
+#bornMonster_image {
+	float: left;
+	background-image: url(../images/illustrations/monster_borning.png);
+	width: 302px;
+	height: 300px;
+	margin: 0;
+	padding: 0;
+}
+
+#bornMonster_form {
+	float: left;
+	margin: 20px 0 10px 0;
+}
+
+#bornMonsterWindow div.field span.label {
+    float: left;    
+    text-align: left;
+    font-weight: bold;
+	line-height:1.6em;
+	width: 100%;
+}
+
+#bornMonsterWindow div.field span.entry {
+    float: left;   
+    text-align: left;
+    margin-top: 10px;
+}
+
+#bornMonsterWindow  div.button {
+	float: right;
+    margin-top: 10px;
+}
+
+/***** Ayuda Tooltip ******/
+
+.attribute_details_content {
+	color: #666;
+	font-size: 10px;
+	margin-left: 5px;
+	margin-top: 8px;
+	display: block;
+}

@@ -1,0 +1,68 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Formatea y muestra los atributos de un monstruo
+-->
+  
+  <jsp:directive.attribute name="property" required="true"
+  		description="Tipo de atributos. Si type='composeAttrs' entonces se accede al metodo
+  			 monster.getComposeAttrs(), teniendo en cuenta que moster es la variable Monster en la request"/>
+  
+  <jsp:directive.attribute name="monsterName" required="false"
+  		description="nombre del objeto en la request donde esta el mostruo (por defecto monster)"/>
+  <c:if test="${empty monsterName}"><c:set var="monsterName" value="monster" /></c:if>
+	
+	<c:set var="title"><fmt:message key="Monster.attr.${property}"/></c:set>
+  	<c:set var="desc"><fmt:message key="Monster.attr.${property}.desc"/></c:set>
+	<h3 title="${title} - ${desc}" class="cursor_help">${title}</h3>
+	<ul>
+		<c:forEach items="${requestScope[monsterName][property]}" var="attr">
+			<li class="data_row attribute_row">
+				<customtag:attr_icon attrType="${attr.key}"/>
+				<span class="data_value attribute_level">${attr.value.level} </span>
+				<span class="data_value attribute_name"><fmt:message key="Monster.attr.${attr.key}"/></span>
+				
+				<!-- Descripcion de los atributos -->
+				<span class="data_value attribute_description">
+					<c:choose>
+					<c:when test="${attr.value.type.attrClass == 'ComposeAttr'}">
+					<!-- Cuando es un attr compuesto. Hay que traducir cada elemento del array .description y concatenarlos -->
+						<c:forEach items="${attr.value.description}" var="desc" varStatus="loop">
+							<c:if test="${not(loop.first or loop.last)}"> <!-- porque el primero y el ultimo son parentesis -->
+								<c:choose> <!-- por convenio las cadenas que empiecen por attr.* deben ser traducidas -->
+								<c:when test="${fn:contains(desc,'attr.')}">
+									<fmt:message key="Monster.${desc}"/>
+									<c:if test="${!empty attr.value.valueDescription[loop.index]}"> <!-- se les une el valor -->
+										<c:out value=" (${attr.value.valueDescription[loop.index]})"/></c:if>
+								</c:when>
+								<c:otherwise>${desc}</c:otherwise>
+								</c:choose>
+								<c:out value=" "/>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:otherwise><fmt:message key="Monster.attr.${attr.key}.brief"/></c:otherwise>
+					</c:choose>
+				</span>
+				
+				<!-- Campos ocultos para construir el tooltip desde javascript -->
+				<div class="hidden_m_icon" style="display: none"><customtag:attr_icon attrType="${attr.key}" size="m"/></div>
+				<div class="hidden_attribute_details" style="display: none">
+					<fmt:message key="Monster.attr.${attr.key}.desc"/>
+					<span class="attribute_details_content">
+						<fmt:message key="Monster.attr.exp">
+							<fmt:param value="${attr.value.exp*100}"/>
+							<fmt:param value="${attr.value.level+1}"/>
+						</fmt:message>
+					</span>
+				</div>
+			</li>
+		</c:forEach>
+	</ul>
+	
+</jsp:root>

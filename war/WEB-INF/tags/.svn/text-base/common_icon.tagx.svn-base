@@ -1,0 +1,70 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Muestra un icono identificable (como el de la basura) y le pone un title descriptivo
+--> 		
+			
+  <jsp:directive.attribute name="id" required="true"
+  		description="Uno de los identificadores reconocidos a continuacion"/>
+  				
+  <jsp:directive.attribute name="img" required="false"
+  		description="Alunos iconos pueden ser imagenes individuales (en vez de divs con backgrounds). Darle cualquier valor a este atributo para que se use img"/>
+  
+  <jsp:directive.attribute name="style" required="false"
+  		description="Estilos opcionales que se pueden aplicar al icono (en el div) a mayores del background-position.
+  			Lo normal es utilizarlo para aplicar algo de margin-left o margin-right."/>
+  		
+  <c:choose>
+  <c:when test="${id=='garbage'}">
+	<c:set var="title"><fmt:message key="Lair.garbage" /> - <fmt:message key="Lair.garbage.desc"/></c:set>  		
+	<c:choose>
+	<c:when test="${!empty img}">
+	  <img src="images/theme/icons/garbage_small.png" title="${title}" style="${style}"/>
+  	</c:when>
+	<c:otherwise>
+	  <customtag:icon id="8" size="s" title="${title}" style="${style}"/>
+	</c:otherwise>
+	</c:choose>
+  </c:when>
+  		
+  <c:when test="${id=='money'}">
+  	<c:set var="title"><fmt:message key="Lair.money" /> - <fmt:message key="Lair.money.desc"/> </c:set>
+  	<c:choose>
+	<c:when test="${!empty img}">
+	  <img src="images/theme/icons/money_small.png" title="${title}" style="${style}"/>
+  	</c:when>
+	<c:otherwise>
+	  <customtag:icon id="10" size="s" title="${title}" style="${style}"/>
+	</c:otherwise>
+	</c:choose>
+  </c:when>
+  
+  <c:when test="${id=='effort'}">
+	<c:set var="title"><fmt:message key="Lair.effort" /> - <fmt:message key="Lair.effort.desc"/></c:set>  		
+	<c:choose>
+	<c:when test="${!empty img}">
+	  <img src="images/theme/icons/effort_small.png" title="${title}" style="${style}"/>
+  	</c:when>
+	<c:otherwise>
+	  <customtag:icon id="24" size="s" title="${title}" style="${style}"/>
+	</c:otherwise>
+	</c:choose>
+  </c:when>
+  		
+  <c:when test="${id=='vitalSpace'}">
+  	<c:set var="title"><fmt:message key="Monster.race.vitalSpace" /> - <fmt:message key="Monster.race.vitalSpace.desc"/> </c:set>
+  	<c:choose>
+	<c:when test="${!empty img}">
+	  <img src="images/theme/icons/vitalSpace_small.png" title="${title}" style="${style}"/>
+  	</c:when>
+	<c:otherwise>
+	  <customtag:icon id="11" size="s" title="${title}" style="${style}"/>
+	</c:otherwise>
+	</c:choose>
+  </c:when>
+  </c:choose>
+
+</jsp:root>

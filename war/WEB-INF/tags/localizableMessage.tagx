@@ -1,0 +1,22 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			version="2.0">
+<!--	
+	Muestra el mensaje internacionalizado de un objeto que implemente la interface LocalizableMessage.
+	Simplemente hay que indicar en var cual es ese objeto y devuelve el texto del mensaje.
+--> 		
+			
+  <jsp:directive.attribute name="var" required="true"
+  		type="es.udc.mizquierdo.j2ee.thearsmonsters.http.view.applicationobjects.LocalizableMessage"
+  		description="Objeto que implemente la interface
+  			 es.udc.mizquierdo.j2ee.thearsmonsters.http.view.applicationobjects.LocalizableMessage,
+  			 para mostrar como un mensaje internacionalizado."/>
+  			
+	<fmt:message key="${var.messageKey}">
+		<c:forEach items="${var.messageParams}" var="messageParam">
+			<fmt:param>${messageParam}</fmt:param>
+		</c:forEach>
+	</fmt:message>
+	
+</jsp:root>

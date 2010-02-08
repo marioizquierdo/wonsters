@@ -1,0 +1,18 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          version="2.0">
+
+	<customtag:info_message titleKey="NotImplementedPage.frontPageTitle" 
+		key="NotImplementedPage.description" status="ERROR" style="margin: 20px;"/>
+		
+	<customtag:info_message titleKey="NotImplementedPage.browserSupport.title" 
+		status="ERROR" style="margin: 20px;">
+		<fmt:message key="NotImplementedPage.browserSupport">rt">
+			<fmt:param><a href="http://www.firefox.com">firefox</a></fmt:param>rt">
+			<fmt:param><a href="http://www.opera.com">opera</a></fmt:param>
+		</fmt:message>	
+	</customtag:info_message>
+		
+</jsp:root>

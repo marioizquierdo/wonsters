@@ -1,0 +1,147 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+          	xmlns:html="http://struts.apache.org/tags-html"
+			version="2.0">
+			
+  <!-- Constante: Ancho del marco de la ventana (para calcular el ancho total)
+  		El valor debe ser igual que el que se usa en CSS para las clases .tl .tr .bl y .br --> 
+  <c:set var="frame_widht" value="5"/>
+           
+  <!-- 	
+  		Modo de empleo: este custom tag define ventanas con tags para poder ver diferentes contenidos en su interior. 
+		Cada ventana definida necesita un id unico. Debe haber tantos divs internos como tags (que no sean enlaces) tenga la ventana. 
+		Los tags se definen en el atributo tags como una lista separada por comas, cuyos identificadores se deben
+		corresponder con los identificadores de los divs internos.
+		
+		Ejemplo: Una ventana de ancho 200px donde hay dos tags, para ver y para comprar huevos de monstruo:
+		<custom_tags:window id="eggsWin" title="key.title" window_width="200" 
+		    tags="showEggs: key.message.show, buyEggs: key.message.buy">
+			<div id="eggsWin_showEggs"> contenido que se muestra si se pulsa en el tag: key.message.show </div>
+			<div id="eggsWin_buyEggs"> contenido de la vista para "buy eggs" </div>
+		</custom_tags:window>
+		
+		Ejemplo: Una ventana con tres tags para ver los atributos de un monstruo, de 300px de ancho. El tercer tag, en lugar
+		de mostrar un contenido distinto, redirige a otra accion distinta (donde se supone que hay una ventana similar),
+		y por defecto se muestra el tag composeAttrs seleccionado.
+		<custom_tags:window id="monsterDetails" window_width="300" selected_tag="composeAttrs" 
+		    tags="simpleAttrs: Monster.simpleAttrs, 
+		        composeAttrs: Monster.composeAttrs, 
+		        skills: Monster.skills => MonsterSkills.do">
+			<div id="monsterDetails_simpleAttrs"> Atributos simples del monstruo </div>
+			<div id="monsterDetails_composeAttrs"> Atributos compuestos </div>
+			<div id="monsterDetails_skills"> este contenido nunca se visualiza porque se redirige a MonsterSkills.do 
+			      por lo tanto este div no es necesario ponerlo </div>
+		</custom_tags:window>
+		
+		Puede verse que lo importante es que los identificadores sean diferentes para cada ventana.
+		Las claves que se incluyen son los textos identificativos que generan un mensaje diferente segun el locale 
+		(ya que son los keys de mensaje en los ficheros Messages.properties)
+		
+		Los tags que enlazan a otras paginas se indican sumando a la derecha " => AccionStruts.do".
+		La accion struts especificada se utiliza internamente con <html:link action="AccionStruts.do"/>, por lo que
+		mantiene la session y todo lo necesario.
+		
+		Para ver mas detalles sobre cada atributo, leer la description en sus definiciones a continuacion.
+  -->
+  
+  <jsp:directive.attribute name="id" required="true"
+  		description="Identificador unico de la ventana (necesario para identificarla con javascript)"/>
+  		
+  <jsp:directive.attribute name="window_width" required="false"
+  		description="Ancho de la ventana en pixeles (por defecto 770). Incluye los bordes."/>
+  		<c:if test="${empty window_width}"><c:set var="window_width" value="770" /></c:if>
+  
+  <jsp:directive.attribute name="title" required="false"
+  		description="Key del titulo de la ventana en el fichero Messages.properties"/>
+  		
+  <jsp:directive.attribute name="titleValue" required="false"
+  		description="Texto literal del titulo de la ventana, si tambien se indica 'title', 'titleValue' se concatena 
+  			a continuacion del anterior (es decir, que se pueden usar conjuntamente los dos)"/>
+  		
+  <jsp:directive.attribute name="tags" required="false"
+  		description="Tags de la ventana. Es una lista de tags separadas por comas, donde cada tag sigue el
+  		  formato 'tagId: tagTitleKey' o bien 'tagId: tagTitleKey => tagStrutsAction'.
+  			'tagId' es el identificador del tag, que se debe usar concatenado con el id de la ventana
+  			en el id de cada div interior. (custom_tag:window id='winId', y tags='tag1: key...' entoces el div
+  			interno tiene que ser div id='windId_tag1' para ser identificado por javascript al mostrarse).
+  			'tagTitleKey' representa una entrada de Messages.properties, que es el titulo del tag.
+  			'tagStrutsAction' es opcional y hace que en lugar de abrir una ventana interna, el tag
+  			se convierte en un enlace para ir a la accion indicada. 
+  			El orden en el que se pongan los tags es el mismo que saldra en la vista.
+  			Ejemplo: tags='search: Lair.searchLairs, lair: Lair.lairView, new_rooms: Lair.newRoomsAvaliable => NewRoomsAvaliable.do'"/>
+  
+  <jsp:directive.attribute name="selected_tag" required="false"
+  		description="Nombre del Tag seleccionado. Por defecto es el primero de los tags enumerados. 
+  			Tambien se puede indicar el parametro '{id}_selected_tag' en la URL, donde {id} es el identificador de esta ventana. 
+  			Por ejemplo, si en 'Monsters.do' se define {custom_tags:window id='mVentana' tags='tuno: Tag.uno, tdos: Tag.dos'}, 
+  			al invocar la URL 'Monsters.do?mVentana_selected_tag=tdos', entonces aparece el tag 'tdos' seleccionado por defecto, 
+  			aunque se haya indicado el atributo selected_tag='tuno'." />
+		<c:set var="param_name" value="${id}_selected_tag"/>
+		<c:if test="${!empty param[param_name]}"><c:set var="selected_tag" value="${param[param_name]}" /></c:if>
+		<c:if test="${empty selected_tag}"><c:set var="selected_tag" value="${fn:trim(fn:substringBefore(tags, ':'))}" /></c:if>
+		
+  
+  <!-- Draw the window -->
+  <div id="${id}" class="rounded_window" style="width:${window_width}px">
+	<div class="atTop" style="float:left; width:${window_width}px">
+		<div class="tl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+		<div class="tm" style="float:left; width:${window_width - 2*frame_widht}px">
+		
+			<!-- Header and title -->
+			<div class="window_header" id="${id}_title">
+				<c:if test="${!empty title}"><fmt:message key="${title}"/></c:if>
+				<c:out value="${titleValue}"/>
+			</div>
+			
+			<!-- Tags list -->
+			<c:if test="${!empty tags}">
+				<div class="window_tags">
+				<c:forEach items="${fn:split(tags, ',')}" var="tag" varStatus="loop">
+					<!-- cada tag es "tagId: tagTitleKey" o bien "tagId: tagTitleKey => tagStrutsAction" -->
+					<c:set var="tagId" value="${fn:trim(fn:substringBefore(tag, ':'))}"/>
+					<c:set var="tagStrutsAction" value="${fn:trim(fn:substringAfter(tag, '=>'))}"/>
+					<c:choose><c:when test="${empty tagStrutsAction}"> <!-- tag sin enlace? -->
+						<c:set var="tagTitleKey" value="${fn:trim(fn:substringAfter(tag, ':'))}"/>
+		                <div class="window_tag" onClick="ThearsmonstersLib.showWindowSection('${id}', '${tagId}');">
+		                  <div id="${id}_${tagId}_tag"><fmt:message key="${tagTitleKey}"/></div>
+		                </div>
+		        	</c:when><c:otherwise>
+						<c:set var="tagTitleKey" value="${fn:trim(fn:substringAfter(fn:substringBefore(tag, '=>'), ':'))}"/>
+		        		<html:link action="${tagStrutsAction}">
+		        			<div class="window_tag">
+		        				<div id="${id}_${tagId}_tag"><fmt:message key="${tagTitleKey}"/></div>
+		                	</div>
+		                </html:link>
+		        	</c:otherwise></c:choose>
+	            </c:forEach>
+	            </div>
+            </c:if>
+            
+        </div>
+		<div class="tr" style="float:left"><img src="images/theme/empty_pixel.png"/></div></div>
+		<div class="atMiddle" style="float:left; width:${window_width}px"><div class="ml"><div class="mr"><div class="mlt"><div class="mrt">
+			<div class="m content_box" id="${id}_content" style="display:none">
+				
+				<jsp:doBody/>
+				
+			</div>		
+		</div></div></div></div></div>
+	<div class="atBottom" style="float:left; width:${window_width}px">
+		<div class="bl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+		<div class="bm" style="float:left; width:${window_width - 2*frame_widht}px"><img src="images/theme/empty_pixel.png"/></div>
+		<div class="br" style="float:left"><img src="images/theme/empty_pixel.png"/></div></div>
+  </div>
+
+  <c:if test="${!empty id}">
+	  <!-- Script para mostrar solamente el contenido de un tag (en un principio es el primero, pero puede recibirse por parametro) -->
+	  <![CDATA[<script languaje='JavaScript' type='text/javascript'>
+	  		$(function() {
+	    		ThearsmonstersLib.showWindowSection('${id}', '${selected_tag}');
+	    		$('#${id}_content').show();
+	  		});
+	  </script>]]>
+  </c:if>
+  
+</jsp:root>

@@ -1,0 +1,61 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+              		
+<c:url var="monsterStylesURL" value="/css/MonsterStyles.css" />
+<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
+
+<customtag:window id="monstersList" title="Monsters.title"
+	tags="monsters: MainMenu.link.monsters, 
+		viewEggs: EggsManagement.viewEggs => EggsManagement.do?eggsManagement_selected_tag=viewEggs,
+		buyEggs: EggsManagement.buyEggs => EggsManagement.do?eggsManagement_selected_tag=buyEggs">
+	
+	<div id="monstersList_monsters"><c:choose>
+	
+		<c:when test="${fn:length(monsters) == 0}">
+			<customtag:info_message key="Monsters.thereIsNoMonsters" icon_id="0" style="margin: 15px;"/>
+		</c:when>
+		
+		<c:otherwise>
+			<table class="table2 linkRows">
+			<tr>
+			    <th><fmt:message key="Monster.race"/></th>
+			    <th><fmt:message key="Monster.name"/></th>
+			    <th><fmt:message key="Monster.bestWorkSkill"/></th>
+			    <th><div class="m_middle"><customtag:attr_icon attrType="Strenght" size="m"/></div></th>
+			    <th><div class="m_middle"><customtag:attr_icon attrType="Agility" size="m"/></div></th>
+			    <th><div class="m_middle"><customtag:attr_icon attrType="Intelligence" size="m"/></div></th>
+			    <th><div class="m_middle"><customtag:attr_icon attrType="Vitality" size="m"/></div></th>
+			    <th><div class="m_middle"><customtag:attr_icon attrType="Charisma" size="m"/></div></th>
+			    <th><div class="m_middle"><customtag:attr_icon attrType="Happiness" size="m"/></div></th>
+			</tr>
+		    <c:forEach items="${monsters}" var="monster" varStatus="loop" >
+		    
+			    <c:url var="monsterURL" value="Monster.do">
+					<c:param name="monsterId" value="${monster.monsterId}"/>
+				</c:url>
+			    
+			    <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}"
+						onclick="document.location.href='${monsterURL}';">
+			    	<td><customtag:monster_image race="${monster.race}"/></td>
+			    	<td>${monster.name}</td>
+			    	<td><fmt:message key="Monster.attr.${monster.bestWorkSkill}"/></td>
+			    	<td>${monster.simpleAttr.Strenght.level}</td>
+			    	<td>${monster.simpleAttr.Agility.level}</td>
+			    	<td>${monster.simpleAttr.Intelligence.level}</td>
+			    	<td>${monster.simpleAttr.Vitality.level}</td>
+			    	<td>${monster.simpleAttr.Charisma.level}</td>
+			    	<td>${monster.simpleAttr.Happiness.level}</td>
+			    </tr>
+		    </c:forEach>
+			</table>
+		</c:otherwise>
+	</c:choose></div>
+</customtag:window>
+
+</jsp:root>
