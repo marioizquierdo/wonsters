@@ -7,6 +7,7 @@ syntax: glob
 *.class
 *.hgrc
 *~
+war/WEB-INF/classes/*
 
 
 # Se pueden matchear ignores complejos usando la sintaxis de las expresiones regulares de Perl.
