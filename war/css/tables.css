@@ -1,0 +1,93 @@
+/**
+  * Estilos para las tablas que se utilicen en el layout.
+  */
+
+
+/***** Table1: con filas marrones *****/
+
+.table1 {
+	border: 1px  solid black;
+	border-collapse: separate;
+	border-spacing: 0px;
+    background-color: white;
+    margin: 10px auto 10px auto;
+    color: black;
+}
+
+.table1 a {
+	color: black;
+}
+
+.table1 th {
+	height: 25px;
+	padding: 0 10px 0 10px;
+	border-top: none;
+	border-bottom: 1px solid black;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	/* background-image, border-left, border-right
+	  dependen del color: estan en WindowStyles.css */
+}
+
+.table1 td {
+	border-top: none;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #ddd;
+	border-bottom: none;
+}
+
+.table1 .trImpar {
+	background-color: #ddd;
+}
+
+.table1 .trPar {
+	background-color: #fff;
+}
+
+
+/*** Table2: con filas grises ***/
+
+.table2 {
+	width: 97%;
+	border-top: none;
+	border-left: none;
+	border-right: 1px solid #ddd;
+	border-bottom: 2px solid #ddd;
+	border-collapse: separate;
+	border-spacing: 0px;
+    margin: 10px auto 10px auto;
+}
+
+.table2 th {
+    background: url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
+	height: 25px;
+	padding: 0 10px 0 10px;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.table2 th.mini {
+	font-weight: lighter;
+	font-size: 10px;
+}
+
+.table2 td, .table2 th {
+	border-top: none;
+	border-right: 1px solid #fff;
+	border-left: 1px solid #ddd;
+	border-bottom: none;
+}
+
+.table2 .trImpar {
+	background-color: #eee;
+}
+
+.table2 .trPar {
+	background-color: #fff;
+}
+
+.linkRows tbody tr:hover {
+	color: #dd4411;
+	cursor: pointer;
+}
