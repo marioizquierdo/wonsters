@@ -6,18 +6,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import es.engade.thearsmonsters.model.entities.common.Id;
+import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
-import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
+import es.engade.thearsmonsters.model.util.CalendarTools;
+import es.engade.thearsmonsters.model.util.Format;
 
 public class Monster implements Serializable {
 
 	private static final long serialVersionUID = 5232245628626701489L;
 	private Id id;
-	private User user;
+	private Lair lair;
 	private Map<AttrType, Attr> workSkills; 
 	private Map<AttrType, Attr> simpleAttrs;
 	//private List<Task> tasks;
@@ -29,23 +31,23 @@ public class Monster implements Serializable {
 	
 	public Monster(){}
 	
-	public Monster(Id Id, MonsterRace race, User user, String name, Calendar borningDate, Calendar cocoonCloseUpDate,
+	public Monster(Id Id, MonsterRace race, Lair lair, String name, Calendar borningDate, Calendar cocoonCloseUpDate,
 			MonsterAge ageState){
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
 		this.setId(Id);
-		this.user= user;
-		this.race = race;
-		this.name = name;
-		this.borningDate = borningDate;
-		this.cocoonCloseUpDate = cocoonCloseUpDate;
-		this.ageState = ageState;
+		this.setLair(lair);
+		this.setRace(race);
+		this.setName(name);
+		this.setBorningDate(borningDate);
+		this.setCocoonCloseUpDate(cocoonCloseUpDate);
+		this.setAgeState(ageState);
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
 	}
 
 	//-- GETTERS --//
 	public Id getId() { return id; }
-	public User getUser() {return user;}	
+	public Lair getLair() {return lair;}	
 	public MonsterAge getAgeState(){return ageState;}	
 	public Calendar getBorningDate(){return borningDate;}
 	public Calendar getCocoonCloseUpDate(){return cocoonCloseUpDate;}
@@ -54,8 +56,12 @@ public class Monster implements Serializable {
 	
 	//-- SETTERS --//
 	public void setId(Id id) { this.id = id; }
-	public void setName(String name) {this.name = name;}
-	public void setAgeState(MonsterAge ageState) {this.ageState = ageState;}
+	public void setLair(Lair lair) { this.lair = lair; }
+	public void setRace(MonsterRace race) { this.race = race; }
+	public void setName(String name) { this.name = name; }
+	public void setBorningDate(Calendar borningDate) { this.borningDate = borningDate; }
+	public void setCocoonCloseUpDate(Calendar cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
+	public void setAgeState(MonsterAge ageState) { this.ageState = ageState; }
 	
 
 	
@@ -115,7 +121,32 @@ public class Monster implements Serializable {
 	public Map<AttrType, Attr> getSimpleAttrs() { return this.simpleAttrs; }
 	public Attr getWorkSkill(AttrType type) { return workSkills.get(type); }
 	public Map<AttrType, Attr> getWorkSkills() { return this.workSkills; }
-		
+	
+	public String toString() {
+		return Format.p(this.getClass(), new Object[]{
+			"race", race,
+			"ageState", ageState,
+			"name", name, 
+			"id", id,
+			"lair-user", lair.getUser().getLoginName(),
+			"borningDate", borningDate,
+			"cocoonCloseUpDate", cocoonCloseUpDate,
+		});
+	}
+	
+	/**
+	 * Se iguala este monstruo con otro.
+	 * No se tienen en cuenta ni la guarida ni los atributos del monstruo.
+	 */
+	public boolean equals(Monster m) {
+		return 
+			this.getRace().equals(m.getRace()) &&
+			this.getAgeState().equals(m.getAgeState()) &&
+			this.getName().equals(m.getName()) &&
+			this.getId().equals(m.getId()) &&
+			CalendarTools.equals(this.getBorningDate(), m.getBorningDate()) &&
+			CalendarTools.equals(this.getCocoonCloseUpDate(), m.getCocoonCloseUpDate());
+	}
 	
 //-- Private methods --//
 

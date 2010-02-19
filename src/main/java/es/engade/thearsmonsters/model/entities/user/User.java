@@ -2,6 +2,7 @@ package es.engade.thearsmonsters.model.entities.user;
 
 import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
+import es.engade.thearsmonsters.model.util.Format;
 
 public class User {
 
@@ -61,19 +62,23 @@ public class User {
         this.userDetails = userDetails;
         
     }
+	
+	
+	
+	public String toString() {
+		return Format.p(this.getClass(), new Object[]{
+			"loginName", loginName,
+			"encryptedPassword", encryptedPassword,
+			"userDetails", userDetails,
+		});
+	}
     
+	/**
+	 * Compara este usuario con otro
+	 * Como el loginName es œnico, basta con comparar el loginName para saber si es el mismo usuario.
+	 */
     public boolean equals(User user) {
-    	return (
-    	user.getLoginName().equals(loginName)						&&
-    	/*userProfileVO.getEncryptedPassword().equals(encryptedPassword)	&&*/
-    	user.getUserDetails().equals(userDetails)		
-    	);
-    }
-    
-    public String toString() {
-        return new String("loginName = " + loginName + " | " +
-            "encryptedPassword = " + encryptedPassword + " | " +
-            userDetails);
+    	return user.getLoginName().equals(loginName);
     }
     
 }

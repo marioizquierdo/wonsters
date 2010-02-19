@@ -2,6 +2,8 @@ package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
 
+import es.engade.thearsmonsters.model.util.Format;
+
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 200911261653L;
@@ -18,10 +20,10 @@ public class Address implements Serializable {
         
     }
     
+
+    
     public String toString() {
-        return new String("street = " + street + " | " +
-            "building = " + building + " | " +
-            "floor = " + floor);
+        return "Address(" + street + ", " + building + ", " + floor + ")";
     }
 
 	public int getStreet() {

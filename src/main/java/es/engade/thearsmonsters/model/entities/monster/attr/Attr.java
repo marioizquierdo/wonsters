@@ -67,8 +67,15 @@ public abstract class Attr implements Serializable {
 			this.getExp() == a.getExp();
 	}
 	
+	// Muestra algo como Strength(5), o Agility(10+55%)
 	public String toString() {
-		return getType() + "[" + getLevel() + ", " + getExp() + "]";
+		String s = getType().toString();
+		s += "(" + getLevel();
+		if(getExp() > 0) {
+			s += "+" + getExp() + "%"; 
+		}
+		s += ")";
+		return s;
 	}
 	
 }

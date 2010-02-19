@@ -13,6 +13,7 @@ import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.types.TradeOffice;
 import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
 import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.util.Format;
 
 public class Lair {
 
@@ -282,17 +283,20 @@ public class Lair {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-	public String toString() {
-        return new String("user = " + user.getLoginName() + " | " +
-                "money = " + money + " | " +
-                "garbage = " + garbage + " | " +
-                "vitalSpaceOccupied = " + vitalSpaceOccupied + " | " +
-                address);
-    }
 	
-	public boolean equals(Object o) {
-		Lair lair = (Lair)o;
+	
+	
+	public String toString() {
+		return Format.p(this.getClass(), new Object[]{
+			"user", user.getLoginName(),
+			"money", money,
+			"garbage", garbage,
+			"vitalSpaceOccupied", vitalSpaceOccupied,
+			"address", address,
+		});
+	}
+	
+	public boolean equals(Lair lair) {
 		return 
 		    this.user.equals(lair.user) &&
 		    this.getMoney() == lair.getMoney() &&
@@ -317,12 +321,5 @@ public class Lair {
 			return(this.getRoomsMap().keySet().equals(lair.getRoomsMap().keySet()));
 		}
 	}
-
-
-//	public void executeTasks(byte turn) throws NoTasksLoadedException, InternalErrorException, MonsterAttributeException, InWorksException{
-//		for(Room room:rooms){
-//			room.executeTasks(turn, this);
-//		}
-//	}
     
 }

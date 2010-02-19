@@ -7,6 +7,8 @@ import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
+import es.engade.thearsmonsters.model.util.CalendarTools;
+import es.engade.thearsmonsters.model.util.Format;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class MonsterEgg implements Serializable {
@@ -105,23 +107,27 @@ public class MonsterEgg implements Serializable {
 		if(!isIncubated()) throw new InternalErrorException(new Exception("Epoch to burn undefined by now"));
 		return borningDate.getTimeInMillis();
 	}
-
 	
-//	public boolean equals(Object theobject) {
-//		MonsterEgg eggVO = (MonsterEgg) theobject;
-//		return (this.getEggId() == eggVO.getEggId() &&
-//				this.getParentId() == eggVO.getParentId() &&
-//				this.getRace().equals(eggVO.getRace()) &&
-//				this.getLoginName().equals(eggVO.getLoginName()) &&
-//				CalendarTools.equals(this.getBorningDate(), eggVO.getBorningDate()));
-//	}
+	
+	
+	public String toString() {
+		return Format.p(this.getClass(), new Object[]{
+			"race", race,
+			"parent-name", parent.getName(),
+			"lair-user", lair.getUser().getLoginName(),
+			"borningDate", borningDate
+		});
+	}
+	
+	/**
+	 * Compara este huevo con otro.
+	 * No se tienen en cuenta ni el parent ni la guarida.
+	 */
+	public boolean equals(MonsterEgg e) {
+		return (this.getId().equals(e.getId()) &&
+				this.getRace().equals(e.getRace()) &&
+				CalendarTools.equals(this.getBorningDate(), e.getBorningDate()));
+	}
 
-//	public String toString() {
-//        return new String("eggId = " + eggId + " | " +
-//                "parentId = " + parentId + " | " +
-//                "parentName = " + parentName + " | " +
-//                "race = " + race + " | " +
-//                "loginName = " + loginName + " | " +
-//                "borningDate = " + CalendarTools.toString(borningDate));
-//    }
+
 }
