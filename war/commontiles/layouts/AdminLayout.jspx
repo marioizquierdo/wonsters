@@ -39,8 +39,20 @@ fmt:setLocale tag will not be necessary.
   	<fmt:message key="Thearsmonsters"/><c:out value=" - "/>
     <fmt:message key="${title}"/>    
   </title>
-  <c:url var="stylesURL" value="/css/adminStyles.css" />
-  <link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
+  
+  <!-- Stylesheets -->
+  <c:url var="resetDefaultsCSS" value="/css/reset_defaults.css" />
+  <c:url var="commonStylesCSS" value="/css/common_styles.css" />
+  <c:url var="formsCSS" value="/css/forms.css" />
+  <c:url var="tablesCSS" value="/css/tables.css" />
+  <c:url var="adminCSS" value="/css/admin.css" />
+  
+  <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${commonStylesCSS}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${formsCSS}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${tablesCSS}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${adminCSS}" type="text/css" media="all" />
+  
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 </head>
 
