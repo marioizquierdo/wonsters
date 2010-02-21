@@ -50,7 +50,7 @@
   <!-- =========================== Welcome page ============================ -->
 
   <welcome-file-list>
-    <welcome-file>Index.jspx</welcome-file>
+    <welcome-file>index.jspx</welcome-file>
   </welcome-file-list>
   
   <!-- ========================== Environment entries ====================== -->

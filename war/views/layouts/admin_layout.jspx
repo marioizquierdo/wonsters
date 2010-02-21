@@ -81,7 +81,11 @@ fmt:setLocale tag will not be necessary.
 			</div>
 		</div>
 		
-		<div id="footer"><tiles:get name="footer"/></div>
+		<div id="footer">
+			<fmt:message key="DefaultFooter.softwareBy"/> 
+			<a href="http://www.tic.udc.es/~mizquierdo">
+			Mario Izquierdo</a> (<a href="mailto:tothemario@gmail.com">tothemario@gmail.com</a>)
+		</div>
 	
 	</div>
 
