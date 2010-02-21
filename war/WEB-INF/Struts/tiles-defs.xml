@@ -140,7 +140,7 @@
     
     <definition name=".NotImplementedPageFrontPage" extends=".FrontPageBase">
         <put name="title"     value="NotImplementedPage.frontPageTag" />
-        <put name="content"   value="/views/front_page/alfaVersionNotes.jspx" />
+        <put name="content"   value="/views/front_page/release_notes.jspx" />
         <put name="frontPageWindow_selected_tag" value="release_info" />
     </definition>
     
