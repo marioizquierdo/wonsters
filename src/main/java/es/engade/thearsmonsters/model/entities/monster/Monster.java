@@ -14,7 +14,7 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
-import es.engade.thearsmonsters.model.entities.monsterActivity.monsterActivity.*;
+import es.engade.thearsmonsters.model.entities.monsterActivity.monsteractivity.*;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.util.CalendarTools;
@@ -163,11 +163,11 @@ public class Monster implements Serializable {
 	
 	public int taskHours(){
 		int s = 0;
-		MonsterActivity activity;
-		for (int i=0;i<this.activities.length();i++) {
-			activity = (MonsterActivity) activities.elementAt(i);
-			s+=activity.hoursAmount();
-		}
+//		MonsterActivity activity;
+//		for (int i=0;i<this.activities.length();i++) {
+//			activity = (MonsterActivity) activities.elementAt(i);
+//			s+=activity.hoursAmount();
+//		}
 		return s;
 	}
 	
