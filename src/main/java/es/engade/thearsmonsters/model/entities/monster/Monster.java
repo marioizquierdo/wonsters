@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import antlr.collections.List;
+
 import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
@@ -12,6 +14,9 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
+import es.engade.thearsmonsters.model.entities.monsterActivity.monsterActivity.*;
+import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.util.CalendarTools;
 import es.engade.thearsmonsters.model.util.Format;
 
@@ -26,6 +31,9 @@ public class Monster implements Serializable {
 	private MonsterAge ageState;
 	private Calendar borningDate;
 	private Calendar cocoonCloseUpDate;
+	private Calendar freeTurnsTimestamp;
+	private int freeTurns;
+	private List activities;
 	private String name;
 	private MonsterRace race;
 	
@@ -146,6 +154,41 @@ public class Monster implements Serializable {
 			this.getId().equals(m.getId()) &&
 			CalendarTools.equals(this.getBorningDate(), m.getBorningDate()) &&
 			CalendarTools.equals(this.getCocoonCloseUpDate(), m.getCocoonCloseUpDate());
+	}
+	
+	/** 
+	 * Se obtiene los turnos que ya estan asignados a este monstruo en otras actividades
+	 * @return int, Devuelve el numero de turnos ocupados en realizar sus actividades asignadas
+	 */
+	
+	public int taskHours(){
+		int s = 0;
+		MonsterActivity activity;
+		for (int i=0;i<this.activities.length();i++) {
+			activity = (MonsterActivity) activities.elementAt(i);
+			s+=activity.hoursAmount();
+		}
+		return s;
+	}
+	
+	/**
+	 * Refresca el numero de turnos libres disponibles para el monstruo
+	 */
+	void refreshFreeTurns(){
+		Calendar calendar;
+		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
+		int sleepHours = 14 - dormitorie.getLevel();
+		int turnsPerDay = 24 - sleepHours - this.taskHours();
+		//falta esta linea
+		 int daysFromTimestamp=0;//=Calendar.getInstance(). - this.freeTurnsTimestamp;
+		
+		freeTurns += turnsPerDay * daysFromTimestamp;
+		this.freeTurnsTimestamp = Calendar.getInstance();
+		
+	}
+	void useFreeTurns(){
+		this.freeTurns-=1;
+		this.refreshFreeTurns();
 	}
 	
 //-- Private methods --//
