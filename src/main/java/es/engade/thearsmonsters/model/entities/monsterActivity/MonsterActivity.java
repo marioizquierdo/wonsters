@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.model.entities.monsterActivity.monsteractivity;
+package es.engade.thearsmonsters.model.entities.monsteractivity;
 
 import java.io.Serializable;
 
