@@ -105,7 +105,8 @@ public class PaginatorChunk implements Serializable {
     	return this;
     }
 
-	public String toString() {
+	@Override
+    public String toString() {
         return new String("list = [" + list + "] | " +
                 "startIndex = " + startIndex + " | " +
                 "count = " + count + " | " +

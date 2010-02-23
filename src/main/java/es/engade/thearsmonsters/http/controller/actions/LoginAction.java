@@ -20,6 +20,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class LoginAction extends AThearsmonstersDefaultAction {
 
+    @Override
     public ActionForward doExecute(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response)

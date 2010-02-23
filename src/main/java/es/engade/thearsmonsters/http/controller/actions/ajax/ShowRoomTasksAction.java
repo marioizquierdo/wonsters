@@ -18,6 +18,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class ShowRoomTasksAction extends DefaultHTMLAjaxAction {
 	
+    @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
     		ActionForm form, HttpServletRequest request,
         	HttpServletResponse response)

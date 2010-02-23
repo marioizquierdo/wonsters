@@ -12,7 +12,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacadeMock;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -20,6 +19,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class ToBanUser extends DefaultAdminAction {
 	
+    @Override
     public ActionForward doExecute(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response)

@@ -335,7 +335,8 @@ public abstract class Room {
 
 	/* ------------- Object Override Methods ------------- */
 	
-	public String toString() {
+	@Override
+    public String toString() {
         return new String(
                 "roomId = " + id + " | " +
         		"lairId = " + lair.getId() + " | " +
@@ -346,7 +347,8 @@ public abstract class Room {
 //                getTasksToString());
     }
 	
-	public boolean equals(Object theObject) {
+	@Override
+    public boolean equals(Object theObject) {
 		Room room = (Room)theObject;
 		return 
 			//this.roomId == room.getRoomId() &&

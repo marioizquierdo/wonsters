@@ -33,23 +33,28 @@ public class TradeOffice extends Room {
     	super(lair);
     }
 	
-	public RoomType getRoomType() {
+	@Override
+    public RoomType getRoomType() {
 		return RoomType.TradeOffice;
 	}
 
-	protected double _gUpg(int level) {
+	@Override
+    protected double _gUpg(int level) {
 		return 100 * Math.pow(1.8, level-1);
 	}
 
-	protected double _eUpg(int level) {
+	@Override
+    protected double _eUpg(int level) {
 		return getEffortBuild() * Math.pow(1.6, level-1);
 	}
 
-	protected double _gEnl(int size) {
+	@Override
+    protected double _gEnl(int size) {
 		return getGarbageBuild() * 4 * Math.pow(1.4, size-1);
 	}
 
-	protected double _eEnl(int size) {
+	@Override
+    protected double _eEnl(int size) {
 		return getEffortBuild() * 2 * Math.pow(1.4, size-1);
 	}
 	

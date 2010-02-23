@@ -65,7 +65,8 @@ public class User {
 	
 	
 	
-	public String toString() {
+	@Override
+    public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 			"loginName", loginName,
 			"encryptedPassword", encryptedPassword,

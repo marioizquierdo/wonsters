@@ -25,6 +25,7 @@ import es.engade.thearsmonsters.util.struts.action.DefaultAction;
  */
 public class AThearsmonstersDefaultAction extends DefaultAction {
 	
+    @Override
     protected ActionForward doExecute(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response)
@@ -38,6 +39,7 @@ public class AThearsmonstersDefaultAction extends DefaultAction {
     /**
      * Extra specific on error stuff for Thearsmonsters Actions 
      */
+    @Override
     protected void extraDoOnException(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response, Exception exception)

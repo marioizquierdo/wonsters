@@ -33,10 +33,12 @@ public class MessageForm extends DefaultActionForm {
 		this.content = content;
 	}
 
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
+	@Override
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
         reset();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping,
         HttpServletRequest request) {
 

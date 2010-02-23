@@ -10,17 +10,13 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import es.engade.thearsmonsters.model.entities.monster.Monster;
-import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
-import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacadeMock;
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 
 public class SetTaskAjaxAction extends DefaultHTMLAjaxAction {
 	
-	protected ActionForward doExecuteGameAction(ActionMapping mapping, 
+	@Override
+    protected ActionForward doExecuteGameAction(ActionMapping mapping, 
 			ActionForm form, HttpServletRequest request, 
 			HttpServletResponse response) 
 			throws IOException, ServletException, InternalErrorException {

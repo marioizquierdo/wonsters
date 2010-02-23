@@ -37,7 +37,7 @@ public class Format {
 			DateFormat formatter;
 			Date date;
 			formatter = new SimpleDateFormat(DATE_FORMAT);
-			date = (Date) formatter.parse(dateStr);
+			date = formatter.parse(dateStr);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 		} catch (ParseException e) {

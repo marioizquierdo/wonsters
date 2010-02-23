@@ -12,7 +12,8 @@ public abstract class RoomInWorksState  extends RoomState {
 		this.effortDone = effortDone;
 	}
 
-	public int getEffortDone() throws InWorksException {
+	@Override
+    public int getEffortDone() throws InWorksException {
 		return effortDone;
 	}
 
@@ -20,11 +21,13 @@ public abstract class RoomInWorksState  extends RoomState {
 		this.effortDone = effortDone;
 	}
 	
-	public boolean isInWorks() {
+	@Override
+    public boolean isInWorks() {
 		return true;
 	}
 	
-	public String toString() {
+	@Override
+    public String toString() {
         try {
 			return new String(
 					getWorksType() + "(effortDone = " + effortDone + ")");

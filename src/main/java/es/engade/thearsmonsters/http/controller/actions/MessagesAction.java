@@ -10,13 +10,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import es.engade.thearsmonsters.http.controller.session.SessionManager;
-import es.engade.thearsmonsters.http.view.actionforms.MessageForm;
-import es.engade.thearsmonsters.model.util.PaginatorChunk;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class MessagesAction extends AThearsmonstersDefaultAction {
 	
+    @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
     		ActionForm form, HttpServletRequest request,
         	HttpServletResponse response)

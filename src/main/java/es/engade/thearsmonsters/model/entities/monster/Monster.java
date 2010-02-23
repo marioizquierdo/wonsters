@@ -14,7 +14,6 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
-import es.engade.thearsmonsters.model.entities.monsteractivity.*;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.util.CalendarTools;
@@ -130,7 +129,8 @@ public class Monster implements Serializable {
 	public Attr getWorkSkill(AttrType type) { return workSkills.get(type); }
 	public Map<AttrType, Attr> getWorkSkills() { return this.workSkills; }
 	
-	public String toString() {
+	@Override
+    public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 			"race", race,
 			"ageState", ageState,

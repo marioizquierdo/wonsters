@@ -13,15 +13,18 @@ public class AttrComposeMult extends AttrCompose {
 		super(type, leftAttr, rightAttr);
 	}
 	
-	protected int composeLevel(int leftAttrValue, int rightAttrValue) {
+	@Override
+    protected int composeLevel(int leftAttrValue, int rightAttrValue) {
 		return leftAttrValue * rightAttrValue;
 	}
 	
-	protected String getComposeSimbol() {
+	@Override
+    protected String getComposeSimbol() {
 		return "*";
 	}
 
-	protected List<String> brackets(List<String> description) {
+	@Override
+    protected List<String> brackets(List<String> description) {
 		return description; // Los componentes de la multiplicación no necesitan paréntesis
 	}
 

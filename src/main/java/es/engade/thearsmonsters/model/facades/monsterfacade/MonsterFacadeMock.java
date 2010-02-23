@@ -7,7 +7,6 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;

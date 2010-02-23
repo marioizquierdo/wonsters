@@ -46,6 +46,7 @@ public class LoginResult implements Serializable {
 		);
     }
     
+    @Override
     public String toString() {
         return new String("firstName = " + firstName + " | " +
             "encryptedPassword = " + encryptedPassword + " | " +

@@ -15,6 +15,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class LogoutAction extends AThearsmonstersDefaultAction {
 
+    @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response)

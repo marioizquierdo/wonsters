@@ -110,7 +110,8 @@ public class MonsterEgg implements Serializable {
 	
 	
 	
-	public String toString() {
+	@Override
+    public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 			"race", race,
 			"parent-name", parent.getName(),

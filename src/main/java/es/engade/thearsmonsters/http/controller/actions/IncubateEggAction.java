@@ -20,6 +20,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class IncubateEggAction extends AThearsmonstersDefaultAction {
 
+    @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response)
