@@ -1,6 +1,4 @@
-
 /********** Monster ***************/
-
 #monsterRightBlock {
 	float: left;
 	margin-left: 10px;
@@ -21,7 +19,6 @@
 }
 
 /******** Tareas del monsturo (ventana izquierda) *********/
-
 #monsterLeftBlock {
 	float: left;
 	width: 240px;
@@ -41,7 +38,8 @@
 }
 
 .last_task { /* tambien es un .task */
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
+		bottom;
 	padding-bottom: 8px;
 }
 
@@ -62,6 +60,7 @@
 	font-size: 10px;
 	float: left;
 }
+
 .task .data_value .room_reference {
 	color: #777;
 	font-size: 10px;
@@ -75,9 +74,9 @@
 }
 
 /******** TaskManager (ventana emergente para asignar tareas) *******/
-
 #task_manager_window {
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
+		bottom;
 	border: 1px solid #ccc;
 	padding: 10px 10px 0 10px;
 	float: left;
@@ -109,16 +108,15 @@
 	margin-top: 10px;
 }
 
-#task_manager_window ul.errors_list div.error_description, #task_manager_window div.error_description {
+#task_manager_window ul.errors_list div.error_description,#task_manager_window div.error_description
+	{
 	float: left;
 	margin-left: 5px;
 	width: 190px;
 	padding-bottom: 10px;
 }
 
-
 /******** Detalles del mosntruo (ventana abajo) *********/
-
 #MonsterDetailsWrapper {
 	text-align: left;
 	margin: 3px 10px 10px 10px;
@@ -148,13 +146,11 @@
 	font-size: 10px;
 }
 
-
 /***** Eggs Management: view eggs *****/
-
-
 .egg_slot {
 	border: 1px solid #ccc;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
+		bottom;
 	text-align: left;
 	float: left;
 	margin-top: 10px;
@@ -171,7 +167,7 @@
 	margin-left: 10px;
 }
 
-.li-actions-title a, .li-actions-title a:hover {
+.li-actions-title a,.li-actions-title a:hover {
 	text-decoration: none;
 	font-size: 16px;
 	font-weight: bold;
@@ -179,57 +175,77 @@
 	margin-bottom: 5px;
 }
 
-.incubatedEggs { /* Propiedades generales, pero depende del numero de huevos se pone una imagen diferente */
+.incubatedEggs {
+	/* Propiedades generales, pero depende del numero de huevos se pone una imagen diferente */
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: bottom left;
 	padding-bottom: 150px;
 	width: 760px;
 }
+
 .incubatedEggs0 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs0.png);
-}
-.incubatedEggs1 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs1.png);
-}
-.incubatedEggs2 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs2.png);
-}
-.incubatedEggs3 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs3.png);
-}
-.incubatedEggs4 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs4.png);
-}
-.incubatedEggs5 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs5.png);
-}
-.incubatedEggs6 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs6.png);
-}
-.incubatedEggs7 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs7.png);
-}
-.incubatedEggs8 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs8.png);
-}
-.incubatedEggs9 {
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs9.png);
-}
-.incubatedEggs10 { /* la imagen para cuando hay 10 o mas huevos es la misma */
-	background-image: url(../images/illustrations/incubatedEggs/incubatedEggs10plus.png);
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs0.png);
 }
 
+.incubatedEggs1 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs1.png);
+}
+
+.incubatedEggs2 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs2.png);
+}
+
+.incubatedEggs3 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs3.png);
+}
+
+.incubatedEggs4 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs4.png);
+}
+
+.incubatedEggs5 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs5.png);
+}
+
+.incubatedEggs6 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs6.png);
+}
+
+.incubatedEggs7 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs7.png);
+}
+
+.incubatedEggs8 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs8.png);
+}
+
+.incubatedEggs9 {
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs9.png);
+}
+
+.incubatedEggs10 {
+	/* la imagen para cuando hay 10 o mas huevos es la misma */
+	background-image:
+		url(../images/illustrations/incubatedEggs/incubatedEggs10plus.png);
+}
 
 /***** Eggs Management: buy eggs *****/
-
 #monsterRaceDesc {
 	width: 350px;
 }
 
-
 /***** Form Born Monster *****/
-
 #bornMonster_image {
 	float: left;
 	background-image: url(../images/illustrations/monster_borning.png);
@@ -245,26 +261,25 @@
 }
 
 #bornMonsterWindow div.field span.label {
-    float: left;    
-    text-align: left;
-    font-weight: bold;
-	line-height:1.6em;
+	float: left;
+	text-align: left;
+	font-weight: bold;
+	line-height: 1.6em;
 	width: 100%;
 }
 
 #bornMonsterWindow div.field span.entry {
-    float: left;   
-    text-align: left;
-    margin-top: 10px;
+	float: left;
+	text-align: left;
+	margin-top: 10px;
 }
 
 #bornMonsterWindow  div.button {
 	float: right;
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 /***** Ayuda Tooltip ******/
-
 .attribute_details_content {
 	color: #666;
 	font-size: 10px;

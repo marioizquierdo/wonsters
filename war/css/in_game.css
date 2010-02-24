@@ -1,42 +1,42 @@
 body {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 12px; 
-    text-align: center;
-    margin: 0;
-    padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
 }
 
 #inGame #background_header {
-    height: 300px;
-    width: 100%;
-    background: #eee url(../images/theme/background_inGame_header.jpg) repeat-x top left;
+	height: 300px;
+	width: 100%;
+	background: #eee url(../images/theme/background_inGame_header.jpg)
+		repeat-x top left;
 }
 
 #inGame {
-    background: #eee url(../images/theme/background_inGame_repeat.jpg) repeat 0 300px;
+	background: #eee url(../images/theme/background_inGame_repeat.jpg)
+		repeat 0 300px;
 }
 
 #window {
-    margin: auto;
-    width: 770px;
+	margin: auto;
+	width: 770px;
 }
 
 #footer {
-    padding-top: 5px;
-    text-align: center;
-    width: 100%;
-    float: left;
-    clear: both;
+	padding-top: 5px;
+	text-align: center;
+	width: 100%;
+	float: left;
+	clear: both;
 }
 
-
 /**Content**/
-
 #content {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    min-height: 200px;
-    width: 100%;
-    float: left;
-    clear: both;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	min-height: 200px;
+	width: 100%;
+	float: left;
+	clear: both;
 }

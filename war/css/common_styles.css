@@ -1,40 +1,35 @@
-/*******************************/
-/******** COMMON STYLES ********/
-/*******************************/
-
-/****** Layout ******/
-
+/*******************************/ /******** COMMON STYLES ********/
+	/*******************************/ /****** Layout ******/
 body {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 12px; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
 	text-align: center;
 	margin: 0;
 	padding: 0;
 }
 
 #background_header {
-	position:absolute;
+	position: absolute;
 	width: 100%;
 	overflow: visible;
 }
 
 #window {
 	margin: auto;
-    width: 770px;
+	width: 770px;
 }
 
 #footer {
-    padding-top: 5px;
-    text-align: center;
-    width: 100%;
-    float: left;
-    clear: both;
+	padding-top: 5px;
+	text-align: center;
+	width: 100%;
+	float: left;
+	clear: both;
 }
 
-
 /****** Icons ******/
-
-.s_ico { /* La imagen es un trozo de un "sprite" vertical donde cada icono está debajo del otro */
+.s_ico {
+	/* La imagen es un trozo de un "sprite" vertical donde cada icono está debajo del otro */
 	float: left;
 	width: 12px;
 	height: 12px;
@@ -42,10 +37,11 @@ body {
 	background-image: url(../images/theme/icons/small_icons.png);
 	background-color: transparent;
 	background-repeat: no-repeat;
-	/* background-position: -12*n. Donde 'n' es el numero del icono. Esta propiedad hay que ponerla en el attr style */ 
+	/* background-position: -12*n. Donde 'n' es el numero del icono. Esta propiedad hay que ponerla en el attr style */
 }
 
-.m_ico { /* La imagen es un trozo de un "sprite" vertical donde cada icono está debajo del otro */
+.m_ico {
+	/* La imagen es un trozo de un "sprite" vertical donde cada icono está debajo del otro */
 	float: left;
 	width: 16px;
 	height: 16px;
@@ -53,7 +49,7 @@ body {
 	background-image: url(../images/theme/icons/medium_icons.png);
 	background-color: transparent;
 	background-repeat: no-repeat;
-	/* background-position: -16*n. Donde 'n' es el numero del icono. Esta propiedad hay que ponerla en el attr style */ 
+	/* background-position: -16*n. Donde 'n' es el numero del icono. Esta propiedad hay que ponerla en el attr style */
 }
 
 div.m_middle {
@@ -61,31 +57,26 @@ div.m_middle {
 	width: 16px;
 }
 
-
 /*** Tooltip ***/
-
 #tooltip {
 	position: absolute;
 	z-index: 3000;
 	border: 1px solid black;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
+		bottom left;
 	padding: 5px;
 }
 
-#tooltip h3, #tooltip div { 
+#tooltip h3,#tooltip div {
 	margin: 0;
 	text-align: left;
 }
 
-#tooltip div { 
+#tooltip div {
 	color: #333;
 }
 
-
-
-
 /****** Content. ******/
-
 div.p_header {
 	font-weight: bold;
 	font-size: 14px;
@@ -100,10 +91,10 @@ div.p_content {
 	display: block;
 }
 
-div.p_content span.label { 
-    text-align: left;
-    font-weight: bold;
-	line-height:2.3em;
+div.p_content span.label {
+	text-align: left;
+	font-weight: bold;
+	line-height: 2.3em;
 }
 
 p.info {
@@ -114,10 +105,11 @@ p.info {
 
 p.info_mini {
 	margin: 5px 0px 0px 0px;
-    font-size: 90%;
+	font-size: 90%;
 }
 
-.data_row { /* Por ejemplo los datos a la derecha de la imagen del monstruo */
+.data_row {
+	/* Por ejemplo los datos a la derecha de la imagen del monstruo */
 	float: left;
 	padding: 2px;
 	text-align: left;
@@ -142,12 +134,11 @@ p.info_mini {
 }
 
 /***** Info with icon ******/
-
 div.info_slot {
 	float: left;
 	margin: 5px 10px 5px 10px;
 	width: 740px;
-    text-align: left;
+	text-align: left;
 	color: #444;
 }
 
@@ -165,7 +156,6 @@ h3.info_slot_header {
 }
 
 /***** FlashMessages *******/
-
 #flashMessages {
 	float: left;
 	width: 770px;
@@ -181,7 +171,8 @@ h3.info_slot_header {
 	text-align: left;
 	margin: 10px 10px 0 10px;
 	padding: 4px 10px 4px 8px;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
+		bottom;
 	border: 1px solid #666;
 }
 
@@ -191,11 +182,10 @@ h3.info_slot_header {
 }
 
 /****** Error messages. ******/
-
 .errorMessage {
-    font-weight: bold;
-    color: red;
-    display: block;
+	font-weight: bold;
+	color: red;
+	display: block;
 }
 
 .actionInfo_ERROR {

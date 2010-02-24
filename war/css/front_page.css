@@ -1,24 +1,27 @@
 /***** FRONT PAGE STYLES *****/
-
 #frontPage #background_header {
 	height: 300px;
 	width: 100%;
-	background: #eee url(../images/theme/frontPage/background_header.jpg) repeat-x top left;
+	background: #eee url(../images/theme/frontPage/background_header.jpg)
+		repeat-x top left;
 }
 
 #frontPage {
-    background: #eee url(../images/theme/frontPage/background_repeat.jpg) repeat 0px 300px;
+	background: #eee url(../images/theme/frontPage/background_repeat.jpg)
+		repeat 0px 300px;
 }
 
 #monsters_logo_wrapper {
 	float: left;
 	width: 770px;
 	height: 250px;
-	background: url(../images/thearsmonsters_logo.png) no-repeat center center;
+	background: url(../images/thearsmonsters_logo.png) no-repeat center
+		center;
 }
 
 #monsters_logo {
-	background: url(../images/theme/frontPage/logo_frontPage.png) no-repeat top left;
+	background: url(../images/theme/frontPage/logo_frontPage.png) no-repeat
+		top left;
 	width: 1252px;
 	height: 250px;
 	position: relative;
@@ -37,11 +40,11 @@
 
 #frontPageWindow_content {
 	padding-bottom: 10px;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
+		bottom left;
 }
 
 /*** Login Panel (top) ***/
-
 #loginPanel {
 	float: left;
 	width: 770px;
@@ -54,7 +57,9 @@
 
 #loginPanel .atMiddle {
 	float: left;
-	background: #447 url(../images/theme/frontPage/login_panel_background.png) repeat-x bottom left;
+	background: #447
+		url(../images/theme/frontPage/login_panel_background.png) repeat-x
+		bottom left;
 	padding: 12px 0 0 0;
 	width: 768px; /* 770 with borders */
 	border-left: 1px solid black;
@@ -66,20 +71,26 @@
 }
 
 #loginPanel .bm {
-	background: #114 url(../images/theme/frontPage/login_panel_background_bottom.png) repeat-x bottom left;
+	background: #114
+		url(../images/theme/frontPage/login_panel_background_bottom.png)
+		repeat-x bottom left;
 }
 
 #loginPanel .bl {
-	background: transparent url(../images/theme/frontPage/login_panel_background_bottom_left.png);
+	background: transparent
+		url(../images/theme/frontPage/login_panel_background_bottom_left.png);
 }
 
 #loginPanel .br {
-	background: transparent url(../images/theme/frontPage/login_panel_background_bottom_right.png);
+	background: transparent
+		url(../images/theme/frontPage/login_panel_background_bottom_right.png)
+		;
 }
 
 .loginErrors {
 	border: 1px solid black;
-	background: white url(../images/theme/windows/red/header_repeat-x.png) repeat-x 0 -27px;
+	background: white url(../images/theme/windows/red/header_repeat-x.png)
+		repeat-x 0 -27px;
 	padding: 5px;
 	margin: 0 20px 10px 20px;
 	color: white;
@@ -88,4 +99,3 @@
 .loginBlock {
 	margin-right: 10px;
 }
-

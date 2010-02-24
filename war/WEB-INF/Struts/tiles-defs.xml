@@ -6,206 +6,203 @@
 
 <tiles-definitions>
 
-    <!-- ====== In Game ====== -->
+	<!-- ====== In Game ====== -->
 
-    <definition name=".InGameBase" page="/views/layouts/in_game_layout.jspx">
-        <put name="title"   value="${title}" />
-        <put name="color"   value="grey" /> <!-- values: green, blue, red, purple, yellow, grey -->
-        <put name="menu"    value="/views/layouts/in_game_menu.jspx" />
-        <put name="content" value="${content}" />
-        <put name="footer"  value="/views/layouts/in_game_footer.jspx" />
-    </definition>
-    
-    <definition name=".BornMonsterForm" extends=".InGameBase" >
-        <put name="title"   value="BornMonsterForm.title" />
-        <put name="color"   value="green" />
-        <put name="content" value="/views/in_game/monsters/form_born_monster.jspx" />
-    </definition>
-    
-    <definition name=".Building" extends=".InGameBase" >
-        <put name="title"   value="Building.title" />
-        <put name="color"   value="blue" />
-        <put name="content" value="/views/in_game/lair/lairs_navigator.jspx" />
-    </definition>
-    
-    <definition name=".ChangePassword" extends=".InGameBase" >
-        <put name="title"   value="ChangePassword.title" />
-        <put name="content" value="/views/in_game/user_profile/change_password.jspx" />
-    </definition>
-    
-    <definition name=".ChangeResourcesForm" extends=".InGameBase" >
-        <put name="title"   value="ChangeResources.title" />
-        <put name="color"   value="blue" />
-        <put name="content" value="/views/in_game/lair/form_change_resources.jspx" />
-    </definition>
-    
-    <definition name=".Confirmation" extends=".InGameBase" >
-        <put name="title"   value="Confirmation.title" />
-        <put name="content" value="/views/in_game/common/confirmation_message.jspx" />
-    </definition>
-    
-    <definition name=".EggsManagement" extends=".InGameBase" >
-        <put name="title"   value="EggsManagement.title" />
-        <put name="color"   value="green" />
-        <put name="content" value="/views/in_game/monster/eggs_management.jspx" />
-    </definition>
-    
-    <definition name=".Guild" extends=".InGameBase" >
-        <put name="title"   value="Guild.title" />
-        <put name="color"   value="red" />
-        <put name="content" value="/views/in_game/common/not_implemented_page.jspx" />
-    </definition>
-    
-    <definition name=".InternalError" extends=".InGameBase" >
-        <put name="title"   value="ErrorMessages.internalError.title" />
-        <put name="content" value="/views/in_game/common/internal_error_message.jspx" />
-    </definition>
-    
-    <definition name=".Lair" extends=".InGameBase" >
-        <put name="title"   value="Lair.title" />
-        <put name="color"   value="blue" />
-        <put name="content" value="/views/in_game/lair/lair.jspx" />
-    </definition>
-    
-    <definition name=".Messages" extends=".InGameBase" >
-        <put name="title"   value="Messages.title" />
-        <put name="color"   value="yellow" />
-        <put name="content" value="/views/in_game/messages/messages_list.jspx" />
-    </definition>
-    
-    <definition name=".Missions" extends=".InGameBase" >
-        <put name="title"   value="Missions.title" />
-        <put name="color"   value="purple" />
-        <put name="content" value="/views/in_game/common/not_implemented_page.jspx" />
-    </definition>
-    
-    <definition name=".Monster" extends=".InGameBase" >
-        <put name="title"   value="Monster.title" />
-        <put name="color"   value="green" />
-        <put name="content" value="/views/in_game/monsters/monster.jspx" />
-    </definition>
-    
-    <definition name=".Monsters" extends=".InGameBase" >
-        <put name="title"   value="Monsters.title" />
-        <put name="color"   value="green" />
-        <put name="content" value="/views/in_game/monsters/monsters_list.jspx" />
-    </definition>
-    
-    <definition name=".NewRoomsAvaliable" extends=".InGameBase" >
-        <put name="title"   value="Lair.newRoomsAvaliable" />
-        <put name="color"   value="blue" />
-        <put name="content" value="/views/in_game/lair/new_rooms_avaliable.jspx" />
-    </definition>
-    
-    <definition name=".SearchPublicRooms" extends=".InGameBase" >
-        <put name="title"   value="SearchPublicRooms.title" />
-        <put name="content" value="/views/in_game/lair/search_public_rooms.jspx" />
-    </definition>
-    
-    <definition name=".UpdateUserProfileDetails" extends=".InGameBase" >
-        <put name="title"   value="UpdateUserProfileDetails.title" />
-        <put name="content" value="/views/in_game/user_profile/update_user_profile_details.jspx" />
-    </definition>
+	<definition name=".InGameBase" page="/views/layouts/in_game_layout.jspx">
+		<put name="title" value="${title}" />
+		<put name="color" value="grey" /> <!-- values: green, blue, red, purple, yellow, grey -->
+		<put name="menu" value="/views/layouts/in_game_menu.jspx" />
+		<put name="content" value="${content}" />
+		<put name="footer" value="/views/layouts/in_game_footer.jspx" />
+	</definition>
+
+	<definition name=".BornMonsterForm" extends=".InGameBase">
+		<put name="title" value="BornMonsterForm.title" />
+		<put name="color" value="green" />
+		<put name="content" value="/views/in_game/monsters/form_born_monster.jspx" />
+	</definition>
+
+	<definition name=".Building" extends=".InGameBase">
+		<put name="title" value="Building.title" />
+		<put name="color" value="blue" />
+		<put name="content" value="/views/in_game/lair/lairs_navigator.jspx" />
+	</definition>
+
+	<definition name=".ChangePassword" extends=".InGameBase">
+		<put name="title" value="ChangePassword.title" />
+		<put name="content" value="/views/in_game/user_profile/change_password.jspx" />
+	</definition>
+
+	<definition name=".ChangeResourcesForm" extends=".InGameBase">
+		<put name="title" value="ChangeResources.title" />
+		<put name="color" value="blue" />
+		<put name="content" value="/views/in_game/lair/form_change_resources.jspx" />
+	</definition>
+
+	<definition name=".Confirmation" extends=".InGameBase">
+		<put name="title" value="Confirmation.title" />
+		<put name="content" value="/views/in_game/common/confirmation_message.jspx" />
+	</definition>
+
+	<definition name=".EggsManagement" extends=".InGameBase">
+		<put name="title" value="EggsManagement.title" />
+		<put name="color" value="green" />
+		<put name="content" value="/views/in_game/monster/eggs_management.jspx" />
+	</definition>
+
+	<definition name=".Guild" extends=".InGameBase">
+		<put name="title" value="Guild.title" />
+		<put name="color" value="red" />
+		<put name="content" value="/views/in_game/common/not_implemented_page.jspx" />
+	</definition>
+
+	<definition name=".InternalError" extends=".InGameBase">
+		<put name="title" value="ErrorMessages.internalError.title" />
+		<put name="content" value="/views/in_game/common/internal_error_message.jspx" />
+	</definition>
+
+	<definition name=".Lair" extends=".InGameBase">
+		<put name="title" value="Lair.title" />
+		<put name="color" value="blue" />
+		<put name="content" value="/views/in_game/lair/lair.jspx" />
+	</definition>
+
+	<definition name=".Messages" extends=".InGameBase">
+		<put name="title" value="Messages.title" />
+		<put name="color" value="yellow" />
+		<put name="content" value="/views/in_game/messages/messages_list.jspx" />
+	</definition>
+
+	<definition name=".Missions" extends=".InGameBase">
+		<put name="title" value="Missions.title" />
+		<put name="color" value="purple" />
+		<put name="content" value="/views/in_game/common/not_implemented_page.jspx" />
+	</definition>
+
+	<definition name=".Monster" extends=".InGameBase">
+		<put name="title" value="Monster.title" />
+		<put name="color" value="green" />
+		<put name="content" value="/views/in_game/monsters/monster.jspx" />
+	</definition>
+
+	<definition name=".Monsters" extends=".InGameBase">
+		<put name="title" value="Monsters.title" />
+		<put name="color" value="green" />
+		<put name="content" value="/views/in_game/monsters/monsters_list.jspx" />
+	</definition>
+
+	<definition name=".NewRoomsAvaliable" extends=".InGameBase">
+		<put name="title" value="Lair.newRoomsAvaliable" />
+		<put name="color" value="blue" />
+		<put name="content" value="/views/in_game/lair/new_rooms_avaliable.jspx" />
+	</definition>
+
+	<definition name=".SearchPublicRooms" extends=".InGameBase">
+		<put name="title" value="SearchPublicRooms.title" />
+		<put name="content" value="/views/in_game/lair/search_public_rooms.jspx" />
+	</definition>
+
+	<definition name=".UpdateUserProfileDetails" extends=".InGameBase">
+		<put name="title" value="UpdateUserProfileDetails.title" />
+		<put name="content"
+			value="/views/in_game/user_profile/update_user_profile_details.jspx" />
+	</definition>
     
     
     <!-- ====== Front Page ====== -->
-    
-    <definition name=".FrontPageBase" page="/views/layouts/front_page_layout.jspx">
-        <put name="title"     value="FrontPage.title" />
-        <put name="color"     value="blue" /> <!-- values: green, blue, red, purple, yellow, grey -->
-        <put name="content"   value="${content}" />
-        <put name="footer"    value="/views/layouts/front_page_footer.jspx" />
-        <put name="frontPageWindow_selected_tag" value="${selected}" /> <!-- selected tag for the bottom window -->
-    </definition>
-    
-     <definition name=".ConceptArt" extends=".FrontPageBase" >
-        <put name="title"     value="ConceptArt.frontPageTitle" />
-        <put name="content"   value="/views/front_page/concept_art.jspx" />
-        <put name="color"   value="blue" />
-        <put name="frontPageWindow_selected_tag" value="concept_art" />
-    </definition>
 
-	<definition name=".Credits" extends=".FrontPageBase" >
-        <put name="title"     value="Credits.frontPageTitle" />
-        <put name="content"   value="/views/front_page/credits.jspx" />
-        <put name="color"   value="blue" />
-        <put name="frontPageWindow_selected_tag" value="credits" />
-    </definition>
+	<definition name=".FrontPageBase" page="/views/layouts/front_page_layout.jspx">
+		<put name="title" value="FrontPage.title" />
+		<put name="color" value="blue" /> <!-- values: green, blue, red, purple, yellow, grey -->
+		<put name="content" value="${content}" />
+		<put name="footer" value="/views/layouts/front_page_footer.jspx" />
+		<put name="frontPageWindow_selected_tag" value="${selected}" /> <!-- selected tag for the bottom window -->
+	</definition>
 
-    <definition name=".FrontPage" extends=".FrontPageBase">
-        <put name="title"     value="FrontPage.title" />
-        <put name="content"   value="/views/front_page/game_presentation.jspx" />
-        <put name="frontPageWindow_selected_tag" value="start" />
-    </definition>
-    
-    <definition name=".NotImplementedPageFrontPage" extends=".FrontPageBase">
-        <put name="title"     value="NotImplementedPage.frontPageTag" />
-        <put name="content"   value="/views/front_page/release_notes.jspx" />
-        <put name="frontPageWindow_selected_tag" value="release_info" />
-    </definition>
-    
-    <definition name=".RegisterUser" extends=".FrontPageBase" >
-        <put name="title"     value="RegisterUser.title" />
-        <put name="content"   value="/views/front_page/register_user.jspx" />
-        <put name="color"   value="blue" />
-        <put name="frontPageWindow_selected_tag" value="register" />
-    </definition>
-    
-    <definition name=".Screenshots" extends=".FrontPageBase" >
-        <put name="title"     value="Screenshot.frontPageTitle" />
-        <put name="content"   value="/views/front_page/screenshots.jspx" />
-        <put name="color"   value="blue" />
-        <put name="frontPageWindow_selected_tag" value="screenshots" />
-    </definition>
-    
-   
-    
-    <!-- ====== Admin section ====== -->
-    
-    <definition name=".AdminBase" page="/views/layouts/admin_layout.jspx">
-        <put name="title"       value="${title}" />
-        <put name="headerTitle" value="${headerSpecificAsKey}" />
-        <put name="sidebar"     value="/views/layouts/admin_sidebar.jspx" />
-        <put name="content"     value="${content}" />
-    </definition>
-    
-    <definition name=".AdminMainPage" extends=".AdminBase" >
-        <put name="title"       value="AdminMainPage.title" />
-        <put name="headerTitle" value="AdminMainPage.title" />
-        <put name="content"     value="/views/layouts/admin/main_page.jspx" />
-    </definition>
-    
-    <definition name=".AdminAutentication" extends=".AdminBase" >
-        <put name="title"       value="AdminAutentication.title" />
-        <put name="headerTitle" value="AdminAutentication.header" />
-        <put name="sidebar"     value="/views/layouts/admin/authentication_info.jspx" />
-        <put name="content"     value="/views/layouts/admin/authentication.jspx" />
-    </definition>
-    
-    <definition name=".AdminShowUserProfile" extends=".AdminBase" >
-        <put name="title"       value="AdminShowUserProfile.title" />
-        <put name="headerTitle" value="AdminShowUserProfile.header" />
-        <put name="content"     value="/views/layouts/admin/show_user_profile.jspx" />
-    </definition>
-    
-    
-    <!-- ====== Ajax section ======== --> 
-    
-    <definition name=".HTMLAjaxBase" page="/views/layouts/html_ajax_layout.jspx">
-        <put name="content" value="${content}" />
-    </definition>
+	<definition name=".ConceptArt" extends=".FrontPageBase">
+		<put name="title" value="ConceptArt.frontPageTitle" />
+		<put name="content" value="/views/front_page/concept_art.jspx" />
+		<put name="color" value="blue" />
+		<put name="frontPageWindow_selected_tag" value="concept_art" />
+	</definition>
 
-    <definition name=".ShowRoomTasks" extends=".HTMLAjaxBase" >
-        <put name="title"   value="ShowRoomTasks.title" />
-        <put name="content" value="/views/in_game/lair/ajax/_room_tasks.jspx" />
-    </definition>
-    
-    <definition name=".TasksManager" extends=".HTMLAjaxBase">
-        <put name="content" value="/views/in_game/monsters/ajax/_tasks_manager.jspx" />
-    </definition>
-    
-    <definition name=".Task" extends=".HTMLAjaxBase">
-        <put name="content" value="/views/in_game/monsters/ajax/_task.jspx" />
-    </definition>
-    
+	<definition name=".Credits" extends=".FrontPageBase">
+		<put name="title" value="Credits.frontPageTitle" />
+		<put name="content" value="/views/front_page/credits.jspx" />
+		<put name="color" value="blue" />
+		<put name="frontPageWindow_selected_tag" value="credits" />
+	</definition>
+
+	<definition name=".FrontPage" extends=".FrontPageBase">
+		<put name="title" value="FrontPage.title" />
+		<put name="content" value="/views/front_page/game_presentation.jspx" />
+		<put name="frontPageWindow_selected_tag" value="start" />
+	</definition>
+
+	<definition name=".NotImplementedPageFrontPage" extends=".FrontPageBase">
+		<put name="title" value="NotImplementedPage.frontPageTag" />
+		<put name="content" value="/views/front_page/release_notes.jspx" />
+		<put name="frontPageWindow_selected_tag" value="release_info" />
+	</definition>
+
+	<definition name=".RegisterUser" extends=".FrontPageBase">
+		<put name="title" value="RegisterUser.title" />
+		<put name="content" value="/views/front_page/register_user.jspx" />
+		<put name="color" value="blue" />
+		<put name="frontPageWindow_selected_tag" value="register" />
+	</definition>
+
+	<definition name=".Screenshots" extends=".FrontPageBase">
+		<put name="title" value="Screenshot.frontPageTitle" />
+		<put name="content" value="/views/front_page/screenshots.jspx" />
+		<put name="color" value="blue" />
+		<put name="frontPageWindow_selected_tag" value="screenshots" />
+	</definition>
+	<!-- ====== Admin section ====== -->
+
+	<definition name=".AdminBase" page="/views/layouts/admin_layout.jspx">
+		<put name="title" value="${title}" />
+		<put name="headerTitle" value="${headerSpecificAsKey}" />
+		<put name="sidebar" value="/views/layouts/admin_sidebar.jspx" />
+		<put name="content" value="${content}" />
+	</definition>
+
+	<definition name=".AdminMainPage" extends=".AdminBase">
+		<put name="title" value="AdminMainPage.title" />
+		<put name="headerTitle" value="AdminMainPage.title" />
+		<put name="content" value="/views/layouts/admin/main_page.jspx" />
+	</definition>
+
+	<definition name=".AdminAutentication" extends=".AdminBase">
+		<put name="title" value="AdminAutentication.title" />
+		<put name="headerTitle" value="AdminAutentication.header" />
+		<put name="sidebar" value="/views/layouts/admin/authentication_info.jspx" />
+		<put name="content" value="/views/layouts/admin/authentication.jspx" />
+	</definition>
+
+	<definition name=".AdminShowUserProfile" extends=".AdminBase">
+		<put name="title" value="AdminShowUserProfile.title" />
+		<put name="headerTitle" value="AdminShowUserProfile.header" />
+		<put name="content" value="/views/layouts/admin/show_user_profile.jspx" />
+	</definition>
+
+
+	<!-- ====== Ajax section ======== -->
+
+	<definition name=".HTMLAjaxBase" page="/views/layouts/html_ajax_layout.jspx">
+		<put name="content" value="${content}" />
+	</definition>
+
+	<definition name=".ShowRoomTasks" extends=".HTMLAjaxBase">
+		<put name="title" value="ShowRoomTasks.title" />
+		<put name="content" value="/views/in_game/lair/ajax/_room_tasks.jspx" />
+	</definition>
+
+	<definition name=".TasksManager" extends=".HTMLAjaxBase">
+		<put name="content" value="/views/in_game/monsters/ajax/_tasks_manager.jspx" />
+	</definition>
+
+	<definition name=".Task" extends=".HTMLAjaxBase">
+		<put name="content" value="/views/in_game/monsters/ajax/_task.jspx" />
+	</definition>
 </tiles-definitions>

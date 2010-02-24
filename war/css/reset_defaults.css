@@ -2,76 +2,116 @@
  * Resetea los estilos por defecto de los distintos navegadores para estandarizar el CSS.
  * Se fijan nuestros propios valores por defecto a los elementos HTML.
  */
-
 * {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline:0;
-  font-family: 'Arial', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans Regular', Verdana, sans-serif;
-  text-decoration: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-family: 'Arial', 'Lucida Grande', 'Lucida Sans Unicode',
+		'Lucida Sans Regular', Verdana, sans-serif;
+	text-decoration: none;
 }
 
 /***** Main *****/
-
-html, body {
-  color: #444;
-  padding: 0;
-  margin: 0;
+html,body {
+	color: #444;
+	padding: 0;
+	margin: 0;
 }
 
-html, body, p, th, td, li, dd, dt, ol, ul {
-  font-size: 14px;
-  color: #444;
+html,body,p,th,td,li,dd,dt,ol,ul {
+	font-size: 14px;
+	color: #444;
 }
-
 
 /***** Text *****/
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
-  color: #444;
+h1,h2,h3,h4,h5,h6 {
+	font-weight: normal;
+	color: #444;
 }
 
-h1 { font-size: 2em; letter-spacing:-1px; margin: 20px 0;}
-h2 { font-size: 1.5em; }
-h3 { font-size: 1.2em ; }
-h4 { font-size: 1.0em; }
-h5 { font-size: 0.9em; }
-h6 { font-size: 0.8em; }
+h1 {
+	font-size: 2em;
+	letter-spacing: -1px;
+	margin: 20px 0;
+}
 
-p { font-size: 14px; line-height: 20px; }
+h2 {
+	font-size: 1.5em;
+}
+
+h3 {
+	font-size: 1.2em;
+}
+
+h4 {
+	font-size: 1.0em;
+}
+
+h5 {
+	font-size: 0.9em;
+}
+
+h6 {
+	font-size: 0.8em;
+}
+
+p {
+	font-size: 14px;
+	line-height: 20px;
+}
 
 blockquote {
-  padding: 5px 15px;
-  background: #f6f6f6;
-  margin: 10px 0;
-  border: 1px solid #eee;
+	padding: 5px 15px;
+	background: #f6f6f6;
+	margin: 10px 0;
+	border: 1px solid #eee;
 }
 
-input, select, textarea { font-size: 100%; }
+input,select,textarea {
+	font-size: 100%;
+}
 
-img { display: block; border: none;}
-
+img {
+	display: block;
+	border: none;
+}
 
 /***** Lists (ul, ol) *****/
-
-ul, ol {
+ul,ol {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-ul li,
-ol li {
+ul li,ol li {
 	border: none;
 	padding: 0;
 }
 
 /***** Links *****/
+a {
+	text-decoration: none;
+	color: #d41;
+	border: none;
+}
 
-a { text-decoration: none; color: #d41; border: none; }
-a:visited { }
-a:hover { text-decoration: underline; cursor: pointer; color: #d41;}
-h1 a { text-decoration: none; color: #444; }
-h3 a { text-decoration: none; color: #444; }
+a:visited {
+	
+}
+
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+	color: #d41;
+}
+
+h1 a {
+	text-decoration: none;
+	color: #444;
+}
+
+h3 a {
+	text-decoration: none;
+	color: #444;
+}

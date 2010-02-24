@@ -1,17 +1,13 @@
 /**
   * Estilos para las tablas que se utilicen en el layout.
-  */
-
-
-/***** Table1: con filas marrones *****/
-
+  */ /***** Table1: con filas marrones *****/
 .table1 {
-	border: 1px  solid black;
+	border: 1px solid black;
 	border-collapse: separate;
 	border-spacing: 0px;
-    background-color: white;
-    margin: 10px auto 10px auto;
-    color: black;
+	background-color: white;
+	margin: 10px auto 10px auto;
+	color: black;
 }
 
 .table1 a {
@@ -45,9 +41,7 @@
 	background-color: #fff;
 }
 
-
 /*** Table2: con filas grises ***/
-
 .table2 {
 	width: 97%;
 	border-top: none;
@@ -56,11 +50,12 @@
 	border-bottom: 2px solid #ddd;
 	border-collapse: separate;
 	border-spacing: 0px;
-    margin: 10px auto 10px auto;
+	margin: 10px auto 10px auto;
 }
 
 .table2 th {
-    background: url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
+	background: url(../images/theme/table2_th_fade.jpg) repeat-x bottom left
+		;
 	height: 25px;
 	padding: 0 10px 0 10px;
 	font-weight: bold;
@@ -72,7 +67,7 @@
 	font-size: 10px;
 }
 
-.table2 td, .table2 th {
+.table2 td,.table2 th {
 	border-top: none;
 	border-right: 1px solid #fff;
 	border-left: 1px solid #ddd;

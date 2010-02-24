@@ -1,5 +1,4 @@
 /* Room images */
-
 .EyeOfTheLife {
 	background-image: url(../images/buildings/eyeOfTheLife.jpg);
 }
@@ -120,9 +119,7 @@
 	background-image: url(../images/buildings/elevator.jpg);
 }
 
-
 /* Lair layout */
-
 .lairBox {
 	float: left;
 	clear: both;
@@ -141,10 +138,10 @@
 
 .lairRoom {
 	width: 75px;
-    float: left;
-    font-size: 10px;
-    cursor: pointer;
-    background-position: 0 0;
+	float: left;
+	font-size: 10px;
+	cursor: pointer;
+	background-position: 0 0;
 }
 
 .lairRoom:hover {
@@ -157,7 +154,7 @@
 
 .endOfLair {
 	width: 20px;
-    float: left;
+	float: left;
 }
 
 .lairBackgrounds .endOfLairLeft {
@@ -170,10 +167,7 @@
 	height: 100px;
 }
 
-
-
 /* Room details (roomAttributes) */
-
 #roomAttributes {
 	margin-top: 10px;
 	text-align: left;
@@ -192,7 +186,7 @@
 	width: 700px;
 }
 
-.roomAttributes_info, .roomAttributes_actions {
+.roomAttributes_info,.roomAttributes_actions {
 	margin-top: 0.6em;
 	margin-left: 10px;
 	float: left;
@@ -210,27 +204,19 @@ span.attr {
 	font-weight: bold;
 }
 
-
-
 /* New Rooms Avaliable */
-
 #lairWindow0 {
-	padding-top: 10px;	
+	padding-top: 10px;
 }
 
-
-
 /* Search form */
-
-#lairWindow2, #buildingWindow2 {
+#lairWindow2,#buildingWindow2 {
 	margin-top: 15px;
 }
 
-
 /* Building pager */
-
 .buildingPagers {
-	float:left;
+	float: left;
 	clear: both;
 	width: 100%;
 	margin-top: 8px;
@@ -251,7 +237,7 @@ span.attr {
 }
 
 div.pager_header {
-    color: #dd4411;
+	color: #dd4411;
 	font-weight: bold;
 	font-size: 12px;
 	text-align: center;
@@ -259,7 +245,7 @@ div.pager_header {
 	margin-bottom: 5px;
 }
 
-div.pager_content a, div.pager_content a:hover {
+div.pager_content a,div.pager_content a:hover {
 	text-decoration: none;
 }
 
@@ -271,9 +257,7 @@ div.pager_content a, div.pager_content a:hover {
 	margin-left: 5px;
 }
 
-
 /* Building view */
-
 .buildingView {
 	text-align: center;
 	width: 100%;
@@ -314,11 +298,7 @@ div.pager_content a, div.pager_content a:hover {
 	background-color: #9C7F53;
 }
 
-
-
 /* Change Resources */
-
-#changeGarbageForMoney_content, #changeMoneyForGarbage_content {
+#changeGarbageForMoney_content,#changeMoneyForGarbage_content {
 	padding-bottom: 20px;
 }
-

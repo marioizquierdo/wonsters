@@ -1,7 +1,6 @@
 /**
   * Maquetaci—n del menœ superior del layout principal
   */
-
 #menu {
 	width: 770px;
 	height: 100px;
@@ -60,7 +59,7 @@
 	margin: 0;
 }
 
-#menu_box, #menu_logo, #menu_info {
+#menu_box,#menu_logo,#menu_info {
 	float: left;
 }
 
@@ -97,7 +96,7 @@
 	margin-left: 5px;
 	font-size: 10px;
 }
-	
+
 #menu_info_right {
 	float: left;
 	width: 6px;
@@ -149,9 +148,9 @@
 }
 
 #menuWelcome {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 #menuLinks a {
-    color : #fffac6;
+	color: #fffac6;
 }
