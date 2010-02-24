@@ -30,6 +30,7 @@ public class Confirmation extends AThearsmonstersDefaultAction {
 
     private final static String CONFIRM_DATA_SESSION_ATTRIBUTE = "confirmData";
 
+    @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response)
@@ -83,7 +84,7 @@ public class Confirmation extends AThearsmonstersDefaultAction {
     	Map<String, String> parameters = new HashMap<String, String>();
     	for(Enumeration e=request.getParameterNames(); e.hasMoreElements(); ) { 
     		String paramName = (String)e.nextElement();
-    		String paramValue = (String)request.getParameter(paramName);
+    		String paramValue = request.getParameter(paramName);
     		parameters.put(paramName, paramValue);
     	}
     	return parameters;

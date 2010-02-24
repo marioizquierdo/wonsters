@@ -11,11 +11,13 @@ public class RoomUpgradingState extends RoomInWorksState {
 		super(effortDone);
 	}
 	
-	public WorksType getWorksType() throws InWorksException {
+	@Override
+    public WorksType getWorksType() throws InWorksException {
 		return WorksType.Upgrading;
 	}
 	
-	public boolean equals(Object theObject) {
+	@Override
+    public boolean equals(Object theObject) {
 		try {
 			RoomUpgradingState state = (RoomUpgradingState) theObject;
 			return this.getEffortDone() == state.getEffortDone();

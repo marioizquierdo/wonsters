@@ -33,23 +33,28 @@ public class TruffleFarm extends Room {
     	super(lair);
     }
 	
-	public RoomType getRoomType() {
+	@Override
+    public RoomType getRoomType() {
 		return RoomType.TruffleFarm;
 	}
 
-	protected double _gUpg(int level) {
+	@Override
+    protected double _gUpg(int level) {
 		return getGarbageBuild() * Math.pow(1.4, level-1);
 	}
 
-	protected double _eUpg(int level) {
+	@Override
+    protected double _eUpg(int level) {
 		return getEffortBuild() * Math.pow(1.3, level-1);
 	}
 
-	protected double _gEnl(int size) {
+	@Override
+    protected double _gEnl(int size) {
 		return (getGarbageBuild() / 2) * Math.pow(1.8, size-1);
 	}
 
-	protected double _eEnl(int size) {
+	@Override
+    protected double _eEnl(int size) {
 		return (getEffortBuild() / 2) * Math.pow(1.8, size-1);
 	}
 	

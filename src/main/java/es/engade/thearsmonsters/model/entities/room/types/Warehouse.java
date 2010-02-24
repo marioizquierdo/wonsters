@@ -36,15 +36,18 @@ public class Warehouse extends Room {
     	super(lair);
     }
 	
-	public RoomType getRoomType() {
+	@Override
+    public RoomType getRoomType() {
 		return RoomType.Warehouse;
 	}
 
-	protected double _gEnl(int size) {
+	@Override
+    protected double _gEnl(int size) {
 		return 100 * Math.pow(1.4, size-1);
 	}
 
-	protected double _eEnl(int size) {
+	@Override
+    protected double _eEnl(int size) {
 		return 30 * Math.pow(1.6, size-1);
 	}
 	

@@ -39,10 +39,12 @@ public class BornMonsterForm extends DefaultActionForm {
 	}
 
 
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
+	@Override
+    public void reset(ActionMapping mapping, HttpServletRequest request) {
         reset();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping,
         HttpServletRequest request) {
         

@@ -11,11 +11,13 @@ public class AttrComposeSum extends AttrCompose {
 		super(type, leftAttr, rightAttr);
 	}
 	
-	protected int composeLevel(int leftAttrValue, int rightAttrValue) {
+	@Override
+    protected int composeLevel(int leftAttrValue, int rightAttrValue) {
 		return leftAttrValue + rightAttrValue;
 	}
 	
-	protected String getComposeSimbol() {
+	@Override
+    protected String getComposeSimbol() {
 		return "+";
 	}
 	

@@ -13,19 +13,23 @@ public class GarbageHarvest extends MonsterAction {
 		super(monster, room);
 	}
 	
-	public List<MonsterAge> allowedMonsterAges() {
+	@Override
+    public List<MonsterAge> allowedMonsterAges() {
 		return ages("Adult");
 	}
 	
-	public List<RoomType> allowedRoomTypes() {
+	@Override
+    public List<RoomType> allowedRoomTypes() {
 		return rooms("Warehouse");
 	}
 
-	protected boolean checkExtraConditions() {
+	@Override
+    protected boolean checkExtraConditions() {
 		return true; // TODO: ¿hay algo más que comprobar aquí?
 	}
 	
-	protected void doExecute() {
+	@Override
+    protected void doExecute() {
 		// TODO Dale caña aquí a la movida
 
 	}

@@ -16,11 +16,13 @@ public class RoomPublicAccessOpen  extends RoomPublicAccess {
 		this.marketingText = marketingText;
 	}
 	
-	public boolean isPublished() {
+	@Override
+    public boolean isPublished() {
 		return true;
 	}
 	
-	public int getPublicPrice() throws PublicAccessException {
+	@Override
+    public int getPublicPrice() throws PublicAccessException {
 		return price;
 	}
 
@@ -28,7 +30,8 @@ public class RoomPublicAccessOpen  extends RoomPublicAccess {
 		this.price = price;
 	}
 	
-	public int getPublicGuildPrice() throws PublicAccessException {
+	@Override
+    public int getPublicGuildPrice() throws PublicAccessException {
 		return guildPrice;
 	}
 
@@ -36,7 +39,8 @@ public class RoomPublicAccessOpen  extends RoomPublicAccess {
 		this.guildPrice = guildPrice;
 	}
 	
-	public String getPublicMarketingText() throws PublicAccessException {
+	@Override
+    public String getPublicMarketingText() throws PublicAccessException {
 		return marketingText;
 	}
 
@@ -44,14 +48,16 @@ public class RoomPublicAccessOpen  extends RoomPublicAccess {
 		this.marketingText = marketingText;
 	}
 	
-	public String toString() {
+	@Override
+    public String toString() {
         return new String(
                 "price = " + price + " | " +
         		"guildPrice = " + guildPrice + " | " +
                 "marketingText = " + marketingText);
     }
 	
-	public boolean equals(Object theObject) {
+	@Override
+    public boolean equals(Object theObject) {
 		try {
 			RoomPublicAccessOpen access = (RoomPublicAccessOpen) theObject;
 			return 

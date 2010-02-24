@@ -286,7 +286,8 @@ public class Lair {
 	
 	
 	
-	public String toString() {
+	@Override
+    public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 			"user", user.getLoginName(),
 			"money", money,

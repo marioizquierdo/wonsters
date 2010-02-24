@@ -43,10 +43,12 @@ public class ChangePasswordForm extends DefaultActionForm {
         this.retypeNewPassword = retypeNewPassword;
     }
     
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         reset();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping,
         HttpServletRequest request) {
         

@@ -17,7 +17,8 @@ public abstract class AttrCompose extends Attr {
 		this.rightAttr = rightAttr;
 	}
 	
-	public void addExp(int exp) throws UnsupportedOperationException {
+	@Override
+    public void addExp(int exp) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("Can not add experience to a compose attribute");
 	}
 	
@@ -28,15 +29,18 @@ public abstract class AttrCompose extends Attr {
 	 * a través de sus agregados. Sin embargo, en caso de querer saber la exp de este
 	 * atributo, la media sería el valor más correcto.
 	 */
-	public int getExp() {
+	@Override
+    public int getExp() {
 		return (leftAttr.getExp() + rightAttr.getExp()) / 2;
 	}
 	
-	public int getLevel() {
+	@Override
+    public int getLevel() {
 		return composeLevel(leftAttr.getLevel(), rightAttr.getLevel());
 	}
 	
-	public List<String> getDescription() {
+	@Override
+    public List<String> getDescription() {
 		List<String> desc = new ArrayList<String>();
 		desc.addAll(leftAttr.getDescription());
 		desc.add(getComposeSimbol());
@@ -44,7 +48,8 @@ public abstract class AttrCompose extends Attr {
 		return brackets(desc);
 	}
 	
-	public List<String> getValueDescription() {
+	@Override
+    public List<String> getValueDescription() {
 		List<String> desc = new ArrayList<String>();
 		desc.addAll(leftAttr.getValueDescription());
 		desc.add(getComposeSimbol());

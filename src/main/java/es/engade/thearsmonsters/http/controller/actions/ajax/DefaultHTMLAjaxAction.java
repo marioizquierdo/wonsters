@@ -29,6 +29,7 @@ public abstract class DefaultHTMLAjaxAction extends AThearsmonstersDefaultAction
      * </ul>
      *
      */
+    @Override
     protected ActionForward doOnException(
         ActionMapping mapping, ActionForm form, HttpServletRequest request,
         HttpServletResponse response, Exception exception)

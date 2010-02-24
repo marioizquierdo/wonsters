@@ -59,7 +59,8 @@ public abstract class Attr implements Serializable {
 	public abstract List<String> getValueDescription();
 	
 	
-	public boolean equals(Object o) {
+	@Override
+    public boolean equals(Object o) {
 		Attr a = (Attr) o;
 		return 
 			this.getType().equals(a.getType()) &&
@@ -68,7 +69,8 @@ public abstract class Attr implements Serializable {
 	}
 	
 	// Muestra algo como Strength(5), o Agility(10+55%)
-	public String toString() {
+	@Override
+    public String toString() {
 		String s = getType().toString();
 		s += "(" + getLevel();
 		if(getExp() > 0) {

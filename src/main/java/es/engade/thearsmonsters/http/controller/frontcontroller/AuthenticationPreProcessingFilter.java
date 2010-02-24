@@ -26,6 +26,7 @@ public class AuthenticationPreProcessingFilter extends PreProcessingFilter {
         super(nextFilter);
     }
 
+    @Override
     protected ActionForward doProcess(HttpServletRequest request, 
             HttpServletResponse response, Action action, ActionForm form,
             ActionMapping mapping) throws IOException, ServletException,

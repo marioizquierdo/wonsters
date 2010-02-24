@@ -73,12 +73,14 @@ public class RoomData implements Serializable {
 //	}
 
     
+    @Override
     public String toString() {
         return 
         	"lastChangeResourcesTurn = "+lastChangeResourcesTurn;
     }
 	
-	public boolean equals(Object o) {
+	@Override
+    public boolean equals(Object o) {
 		RoomData roomData = (RoomData) o;
 		return
 			this.getLastChangeResourcesTurn() == roomData.getLastChangeResourcesTurn();

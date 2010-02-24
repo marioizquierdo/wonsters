@@ -60,7 +60,8 @@ public class UserDetails implements Serializable {
 	}
 	
 
-	public String toString() {
+	@Override
+    public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 			"firstName", firstName,
 			"surname", surname,

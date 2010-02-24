@@ -29,22 +29,26 @@ public class AttrBase extends Attr {
 		this.level = level;
 	}
 	
-	public void addExp(int exp) {
+	@Override
+    public void addExp(int exp) {
 		// La excepción MonsterAttrException la generan los atributos compuestos, 
 		// ya que a esos no se les puede añadir experiencia directamente
 		 this.level += (this.exp + exp) / 100;
 		 this.exp = (this.exp + exp) % 100;
 	}
 	
-	public int getLevel() {
+	@Override
+    public int getLevel() {
 		return this.level;
 	}
 	
-	public int getExp(){
+	@Override
+    public int getExp(){
 		return this.exp;
 	}
 	
-	public List<String> getDescription() {
+	@Override
+    public List<String> getDescription() {
 		List<String> desc = new ArrayList<String>();
 		if(getType().getAttrClass().equals(AttrTypeClass.WorkSkill)) {
 			desc.add("attr.skill");
@@ -53,7 +57,8 @@ public class AttrBase extends Attr {
 		return desc;
 	}
 	
-	public List<String> getValueDescription() {
+	@Override
+    public List<String> getValueDescription() {
 		List<String> desc = new ArrayList<String>();
 		// hay que añadir una cadena vacía para que se mantengan los índices con getDescription()
 		if(getType().getAttrClass().equals(AttrTypeClass.WorkSkill)) {

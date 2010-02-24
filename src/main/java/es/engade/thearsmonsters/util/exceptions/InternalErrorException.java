@@ -11,6 +11,7 @@ public class InternalErrorException extends Exception {
         encapsulatedException = exception;
     }
 
+    @Override
     public String getMessage() {
         return encapsulatedException.getMessage();
     }
@@ -19,16 +20,19 @@ public class InternalErrorException extends Exception {
         return encapsulatedException;
     }
     
+    @Override
     public void printStackTrace() {
         printStackTrace(System.err);
     }
     
+    @Override
     public void printStackTrace(PrintStream printStream) {
         super.printStackTrace(printStream);
         printStream.println("***Information about encapsulated exception***");
         encapsulatedException.printStackTrace(printStream);
     }
     
+    @Override
     public void printStackTrace(PrintWriter printWriter) {
         super.printStackTrace(printWriter);
         printWriter.println("***Information about encapsulated exception***");

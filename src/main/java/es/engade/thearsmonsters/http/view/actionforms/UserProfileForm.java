@@ -98,10 +98,12 @@ public class UserProfileForm extends DefaultActionForm {
         this.language = language;
     }
 
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         reset();
     }
 
+    @Override
     public ActionErrors validate(ActionMapping mapping,
         HttpServletRequest request) {
         

@@ -6,11 +6,13 @@ public class RoomNormalState  extends RoomState {
 	
 	public RoomNormalState() {}
 
-	public boolean isInWorks() {
+	@Override
+    public boolean isInWorks() {
 		return false;
 	}
 	
-	public boolean equals(Object theObject) {
+	@Override
+    public boolean equals(Object theObject) {
 		try {
 			RoomNormalState state = (RoomNormalState) theObject;
 			return !state.isInWorks();
@@ -19,7 +21,8 @@ public class RoomNormalState  extends RoomState {
 		}
 	}
 	
-	public String toString() {
+	@Override
+    public String toString() {
         return new String("Normal State");
     }
 }

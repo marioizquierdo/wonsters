@@ -32,15 +32,18 @@ public class Dormitories extends Room {
         this.state = new RoomNormalState();
     }
 	
-	public RoomType getRoomType() {
+	@Override
+    public RoomType getRoomType() {
 		return RoomType.Dormitories;
 	}
 
-	protected double _gEnl(int size) {
+	@Override
+    protected double _gEnl(int size) {
 		return 20 * Math.pow(1.15, size-1);
 	}
 
-	protected double _eEnl(int size) {
+	@Override
+    protected double _eEnl(int size) {
 		return 50 * Math.pow(1.1, size-1);
 	}
 	

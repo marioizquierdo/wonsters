@@ -59,6 +59,7 @@ public class BuildingChunk implements Serializable {
 		return lairs;
 	}
     
+    @Override
     public String toString() {
         return new String(
         		"lairs = " + lairs + " | " +

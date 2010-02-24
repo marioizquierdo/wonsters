@@ -34,7 +34,8 @@ public class EyeOfTheLife extends Room {
         this.state = new RoomNormalState();
     }
 	
-	public RoomType getRoomType() {
+	@Override
+    public RoomType getRoomType() {
 		return RoomType.EyeOfTheLife;
 	}
 	

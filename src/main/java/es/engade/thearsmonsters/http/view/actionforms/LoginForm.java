@@ -42,10 +42,12 @@ public class LoginForm extends DefaultActionForm {
         this.rememberMyPassword = rememberMyPassword;
     }
     
+    @Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         reset();
     }
     
+    @Override
     public ActionErrors validate(ActionMapping mapping,
         HttpServletRequest request) {
         

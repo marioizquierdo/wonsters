@@ -30,6 +30,7 @@ public class SetRoomInWorksStateAction extends AThearsmonstersDefaultAction {
 	private static final String CANCEL_WORKS = "CANCEL_WORKS";
 	private static final String BUILD_NEW_ROOM = "BUILD_NEW_ROOM";
 
+    @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
         ActionForm form, HttpServletRequest request,
         HttpServletResponse response)
