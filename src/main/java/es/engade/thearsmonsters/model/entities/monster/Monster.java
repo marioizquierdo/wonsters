@@ -19,6 +19,7 @@ import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.util.CalendarTools;
 import es.engade.thearsmonsters.model.util.Format;
+import es.engade.thearsmonsters.model.monsteraction.*;
 
 public class Monster implements Serializable {
 
@@ -51,6 +52,12 @@ public class Monster implements Serializable {
 		this.setAgeState(ageState);
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
+		this.freeTurns = 0;
+
+		/* Esto de aqui abajo no se si esta bien */
+		this.freeTurnsTimestamp= CalendarTools.now();
+		this.activities = (List)new java.util.ArrayList<MonsterAction>();
+		
 	}
 
 	//-- GETTERS --//
@@ -186,6 +193,10 @@ public class Monster implements Serializable {
 		this.freeTurnsTimestamp = Calendar.getInstance();
 		
 	}
+	
+	/**
+	 * Consume un turno y refresca el atributo turnsPerDay
+	 */
 	void useFreeTurns(){
 		this.freeTurns-=1;
 		this.refreshFreeTurns();

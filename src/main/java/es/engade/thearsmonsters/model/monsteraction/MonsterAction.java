@@ -37,7 +37,7 @@ public abstract class MonsterAction {
 	
 	
 	/**
-	 * Teniendo en cuentalos datos incluidos (monster y room), valida si esta tarea
+	 * Teniendo en cuenta los datos incluidos (monster y room), valida si esta tarea
 	 * se puede ejecutar o no.
 	 */
 	public boolean isValid() {

@@ -5,7 +5,7 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 
-import com.google.appengine.tools.development.ApiProxyLocalImpl;
+//import com.google.appengine.tools.development.ApiProxyLocalImpl;
 import com.google.apphosting.api.ApiProxy;
 
 /**
@@ -28,7 +28,7 @@ public class GaeTest {
 	@Before
     public final void setEnvironmentForCurrentThread() throws Exception {
         ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
-        ApiProxy.setDelegate(new ApiProxyLocalImpl(new File(".")){});
+        //ApiProxy.setDelegate(new ApiProxyLocalImpl(new File(".")){});
     }
 
 	@After
