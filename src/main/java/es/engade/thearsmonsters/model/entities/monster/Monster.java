@@ -55,7 +55,7 @@ public class Monster implements Serializable {
 
 		/* Esto de aqui abajo no se si esta bien */
 		this.freeTurnsTimestamp= CalendarTools.now();
-		this.activities = (List)new java.util.ArrayList<MonsterAction>();
+		this.activities = null;
 		
 	}
 
@@ -182,16 +182,19 @@ public class Monster implements Serializable {
 	 * Refresca el numero de turnos libres disponibles para el monstruo
 	 */
 	void refreshFreeTurns(){
-		Calendar calendar;
+		
+		Calendar calendarToday = CalendarTools.now();
 		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
 		int sleepHours = 14 - dormitorie.getLevel();
 		int turnsPerDay = 24 - sleepHours - this.taskHours();
-		//falta esta linea
-		 int daysFromTimestamp=0;//=Calendar.getInstance(). - this.freeTurnsTimestamp;
+		int daysFromTimestamp = 0;
 		
+		if (calendarToday.get(Calendar.YEAR) == this.freeTurnsTimestamp.get(Calendar.YEAR))
+			daysFromTimestamp = calendarToday.get(Calendar.DAY_OF_YEAR) - this.freeTurnsTimestamp.get(Calendar.DAY_OF_YEAR);
+		else daysFromTimestamp = (calendarToday.get(Calendar.DAY_OF_YEAR) + 365) - (this.freeTurnsTimestamp.get(Calendar.DAY_OF_YEAR));
 		freeTurns += turnsPerDay * daysFromTimestamp;
 		this.freeTurnsTimestamp = Calendar.getInstance();
-		
+			
 	}
 	
 	/**
