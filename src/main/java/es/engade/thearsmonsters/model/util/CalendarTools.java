@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.model.util;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Clase de ayuda para simplificar el manejo de Calendars.
@@ -21,6 +22,17 @@ public class CalendarTools {
 		Calendar t = Calendar.getInstance();
 		t.add(Calendar.DAY_OF_MONTH, -1);
 		return t;
+	}
+	
+	public static long distanceInMilliseconds(Calendar c1,Calendar c2){
+		return (c2.getTimeInMillis() - c1.getTimeInMillis());
+	}
+	
+	public static Float  distanceInDays(Calendar c1,Calendar c2){
+		long millisecondsAsDay = 24 * 60 * 60 * 1000;
+		long milliseconds = CalendarTools.distanceInMilliseconds(c1, c2);
+		float days = milliseconds / millisecondsAsDay;
+		return days;
 	}
 	
 	

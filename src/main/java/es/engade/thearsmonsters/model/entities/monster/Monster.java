@@ -51,7 +51,7 @@ public class Monster implements Serializable {
 		this.setAgeState(ageState);
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
-		this.freeTurns = 0;
+		this.freeTurns = 11;
 
 		/* Esto de aqui abajo no se si esta bien */
 		this.freeTurnsTimestamp= CalendarTools.now();
@@ -67,6 +67,7 @@ public class Monster implements Serializable {
 	public Calendar getCocoonCloseUpDate(){return cocoonCloseUpDate;}
 	public String getName(){return name;}
 	public MonsterRace getRace(){return race;}
+	public int getFreeTurns() {return freeTurns;}
 	
 	//-- SETTERS --//
 	public void setId(Id id) { this.id = id; }
@@ -136,6 +137,56 @@ public class Monster implements Serializable {
 	public Attr getWorkSkill(AttrType type) { return workSkills.get(type); }
 	public Map<AttrType, Attr> getWorkSkills() { return this.workSkills; }
 	
+	
+	
+	
+	//-- METHODS TO MANAGE MONSTER JOB TURNS --//	
+	
+	/** 
+	 * Se obtiene los turnos que ya estan asignados a este monstruo en otras actividades
+	 * @return int, Devuelve el numero de turnos ocupados en realizar sus actividades asignadas
+	 */
+	
+	public int taskHours(){
+		int s = 0;
+//		MonsterActivity activity;
+//		for (int i=0;i<this.activities.length();i++) {
+//			activity = (MonsterActivity) activities.elementAt(i);
+//			s+=activity.hoursAmount();
+//		}
+		return s;
+	}
+	
+	/**
+	 * Refresca el numero de turnos libres disponibles para el monstruo
+	 */
+	public void refreshFreeTurns(){
+		
+		int sleepHours,turnsPerDay;
+		float daysFromTimestamp;
+		Calendar calendarToday = CalendarTools.now();
+		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
+		
+		sleepHours = 14 - dormitorie.getLevel();
+		turnsPerDay = 24 - sleepHours - this.taskHours();
+		daysFromTimestamp = CalendarTools.distanceInDays(this.freeTurnsTimestamp, calendarToday);
+		
+		this.freeTurns += turnsPerDay * daysFromTimestamp;
+		this.freeTurnsTimestamp = Calendar.getInstance();
+			
+	}
+	
+	/**
+	 * Consume un turno y refresca el atributo turnsPerDay
+	 */
+	public void useFreeTurns(){
+		this.freeTurns-=1;
+		this.refreshFreeTurns();
+	}
+	
+	
+	
+	
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
@@ -163,47 +214,6 @@ public class Monster implements Serializable {
 			CalendarTools.equals(this.getCocoonCloseUpDate(), m.getCocoonCloseUpDate());
 	}
 	
-	/** 
-	 * Se obtiene los turnos que ya estan asignados a este monstruo en otras actividades
-	 * @return int, Devuelve el numero de turnos ocupados en realizar sus actividades asignadas
-	 */
-	
-	public int taskHours(){
-		int s = 0;
-//		MonsterActivity activity;
-//		for (int i=0;i<this.activities.length();i++) {
-//			activity = (MonsterActivity) activities.elementAt(i);
-//			s+=activity.hoursAmount();
-//		}
-		return s;
-	}
-	
-	/**
-	 * Refresca el numero de turnos libres disponibles para el monstruo
-	 */
-	void refreshFreeTurns(){
-		
-		Calendar calendarToday = CalendarTools.now();
-		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
-		int sleepHours = 14 - dormitorie.getLevel();
-		int turnsPerDay = 24 - sleepHours - this.taskHours();
-		int daysFromTimestamp = 0;
-		
-		if (calendarToday.get(Calendar.YEAR) == this.freeTurnsTimestamp.get(Calendar.YEAR))
-			daysFromTimestamp = calendarToday.get(Calendar.DAY_OF_YEAR) - this.freeTurnsTimestamp.get(Calendar.DAY_OF_YEAR);
-		else daysFromTimestamp = (calendarToday.get(Calendar.DAY_OF_YEAR) + 365) - (this.freeTurnsTimestamp.get(Calendar.DAY_OF_YEAR));
-		freeTurns += turnsPerDay * daysFromTimestamp;
-		this.freeTurnsTimestamp = Calendar.getInstance();
-			
-	}
-	
-	/**
-	 * Consume un turno y refresca el atributo turnsPerDay
-	 */
-	void useFreeTurns(){
-		this.freeTurns-=1;
-		this.refreshFreeTurns();
-	}
 	
 //-- Private methods --//
 

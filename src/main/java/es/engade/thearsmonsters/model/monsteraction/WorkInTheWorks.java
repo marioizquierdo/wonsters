@@ -9,18 +9,18 @@ import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 
 
 
-public class Sleep extends MonsterAction{
+public class WorkInTheWorks extends MonsterAction{
 	
-	public Sleep(Monster monster, Room room) {
+	public WorkInTheWorks(Monster monster, Room room) {
 		super(monster, room);
 	}
 	
 	public List<MonsterAge> allowedMonsterAges() {
-		return ages("Child,Cocoon,Adult,Old");
+		return ages("Adult");
 	}
 	
 	public List<RoomType> allowedRoomTypes() {
-		return rooms("Dormitories");
+		return rooms("all");
 	}
 
 	protected boolean checkExtraConditions() {
