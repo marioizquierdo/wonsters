@@ -40,13 +40,13 @@
   <link rel="StyleSheet" href="${pikachooseCSS}" type="text/css" media="all" />
   
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+  <![CDATA[
   <!--[if IE lt 7]>
     <script type="text/javascript">
-	   //<![CDATA>
 	       alert("Estas usando un navegador antiguo. Por favor, utiliza Firefox, Safari, Google Chrome, o una version as nueva del Internet Explorer");
-	   //]]>
     </script>
   <![endif]-->
+  ]]>
   
 </head>
 
