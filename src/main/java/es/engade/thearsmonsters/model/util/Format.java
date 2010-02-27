@@ -3,12 +3,14 @@ package es.engade.thearsmonsters.model.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Format {
@@ -81,15 +83,27 @@ public class Format {
 	}
 	
 	/**
-	 * Convierte un array en un conjunto. Los elementos del conjunto ser√°n
-	 * del mismo tipo que el array (clase cl especificada)
+	 * Convierte un array en un conjunto. Los elementos del conjunto serán
+	 * del mismo tipo que el array (clase especificada)
 	 */
-	public static <klass> Set<klass> arrayToSet(klass[] array) {
+	public static <klass> Set<klass> set(klass[] array) {
 		Set<klass> set = new HashSet<klass>();
 		for(klass o: array) {
 			set.add(o);
 		}
 		return set;
+	}
+	
+	/**
+	 * Convierte un array en una ArrayList. Los elementos de la lista serán
+	 * del mismo tipo que el array (clase especificada)
+	 */
+	public static <klass> List<klass> list(klass[] array) {
+		List<klass> list = new ArrayList<klass>();
+		for(klass o: array) {
+			list.add(o);
+		}
+		return list;
 	}
 	
 	private static String p(String key, Calendar value) {

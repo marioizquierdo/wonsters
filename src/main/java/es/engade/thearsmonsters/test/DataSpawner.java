@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.test;
 
 import java.util.Calendar;
+import java.util.Set;
 
 import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
@@ -11,11 +12,7 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
-import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
-import es.engade.thearsmonsters.model.entities.room.RoomPublicAccessOpen;
-import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
-import es.engade.thearsmonsters.model.entities.room.state.RoomState;
-import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
+import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.util.CalendarTools;
@@ -27,121 +24,157 @@ import es.engade.thearsmonsters.model.util.CalendarTools;
 public class DataSpawner {
 	
 	public static final Calendar now = CalendarTools.now();
-
-	// TODO: Hay que implementar los demás generateXXX igual que generateMonster
-	public enum MonsterInstance {
-		Child		(new Monster(Id.fromString("child"), MonsterRace.Bu, null, "Josito", now, now, MonsterAge.Child)), 
-		Adult		(new Monster(Id.fromString("adult"), MonsterRace.Bu, null, "Iago", now, now, MonsterAge.Adult)), 
-		Old			(new Monster(Id.fromString("old"),   MonsterRace.Bu, null, "Matias", now, now, MonsterAge.Old));
-		private final Monster monster;
-		MonsterInstance(Monster monster) {this.monster = monster;}
-		public Monster getInstance() {return this.monster;}
+	public static final Calendar tomorrow = CalendarTools.tomorrow();
+	
+	/**
+	 * Igual que generateUserScaffold(String userLogin), pero con login aleatorio.
+	 */
+	public static User generateUserScaffold() {
+		String randomLogin = "login_" + ((int) (Math.random() * 10000));
+		return generateUserScaffold(randomLogin);
+	}
+	
+	/**
+	 * Construye un usuario con su guarida, salas, monstruos y huevos de monstruo,
+	 * con todas las relaciones entre ellos establecidas.
+	 * 
+	 * @param userLogin es el nombre del usuario. La contraseña será userLogin + "_pass".
+	 */
+	public static User generateUserScaffold(String userLogin) {
 		
-	}
+	    //*** USER ***//
+		
+		User user = new User(userLogin, userLogin + "_pass", 
+    			new UserDetails("Fulano", "Delapeña", "fulano@delapeña.es", "es"));
 
-    //DEFAULT LAIR VALUES
-	public static final int DEFAULT_LAIR_MONEY = 1000;
-	public static final int DEFAULT_LAIR_GARBAGE = 1000;
-    public static final int DEFAULT_LAIR_OCCUPIED_VITAL_SPACE = 10;
-    public static final byte DEFAULT_LAIR_INITIAL_SLEEPING_TURN = 0;
-    public static final byte DEFAULT_LAIR_INITIAL_MEAL_TURN = 12;
-    public static final long DEFAULT_LAIR_LAST_CHANGE_RESOURCES_TURN = 10000;
-    public static final int DEFAULT_LAIR_STREET = 1;
-    public static final int DEFAULT_LAIR_BUILDING = 1;
-    public static final int DEFAULT_LAIR_FLOOR = 1;
+		//*** LAIR ***//
+    
+		Lair lair = new Lair(null, user,
+	        1000, // money 
+	        1000, // garbage
+	        10,   // occupied vital space
+	        new RoomData(100), 
+	        new Address(1, 1, 1));
 	
-    //DEFAULT USER VALUES
-    public static final String DEFAULT_USER_LOGIN = "testLogin";
-    public static final String DEFAULT_USER_PASSWORD = "clearPassword";
-    public static final String DEFAULT_USER_NAME = "Testfulano";
-    public static final String DEFAULT_USER_SURNAME = "Delapeña";
-    public static final String DEFAULT_USER_EMAIL = "fulano@delapeña.es";
-    public static final String DEFAULT_USER_LANGUAGE = "es";
+		user.setLair(lair); // add to user
     
-    //DEFAULT MONSTER VALUES
-    public static final MonsterAge DEFAULT_MONSTER_AGESTATE = MonsterAge.Adult;
-    public static final MonsterRace DEFAULT_MONSTER_RACE = MonsterRace.Mongo;
     
-    //DEFAULT ROOM VALUES
-    public static final int DEFAULT_ROOM_LEVEL = 1;
-    public static final int DEFAULT_ROOM_SIZE = 5;
-    public static final int DEFAULT_ROOM_PRICE = 10;
-    public static final int DEFAULT_ROOM_GUILD_PRICE = 3;
-    public static final String DEFAULT_ROOM_MARKETING_TEXT = "vente p'acá";
+		//*** ROOMS ***//
+	
+		Room eyeOfTheLife = RoomType.newRoom(RoomType.EyeOfTheLife.code(), lair);
+		Room dormitories = RoomType.newRoom(RoomType.Dormitories.code(), lair);
+    	Room warehouse = RoomType.newRoom(RoomType.Warehouse.code(), lair);
+    	Room truffleFarm = RoomType.newRoom(RoomType.TruffleFarm.code(), lair);
+    	Room tradeOffice = RoomType.newRoom(RoomType.TradeOffice.code(), lair);
     
-    //LAIR GENERATOR
-	public Lair generateLair(){
-		return new Lair(null, generateUser()
-		        , DEFAULT_LAIR_MONEY, DEFAULT_LAIR_GARBAGE
-		        , DEFAULT_LAIR_OCCUPIED_VITAL_SPACE, DEFAULT_LAIR_INITIAL_SLEEPING_TURN
-		        , DEFAULT_LAIR_INITIAL_MEAL_TURN, generateRoomData(), generateAddress());
-	}
+    	// modify and add to lair
+    	dormitories.setSize(15); 
+    	dormitories.setLevel(10); 
+    	dormitories.setStateCancelWorks();
+    	
+    	lair.addRoom(eyeOfTheLife).addRoom(dormitories).
+    		addRoom(warehouse).addRoom(truffleFarm).addRoom(tradeOffice);
 
-	public RoomData generateRoomData(){
-	    return new RoomData(DEFAULT_LAIR_LAST_CHANGE_RESOURCES_TURN);
+
+    
+    	//*** MONSTER EGGS ***//
+    
+    	MonsterEgg monsterEggBu = new MonsterEgg (Id.autoGenerate(), lair,
+    		MonsterRace.Bu, null, null);
+    
+    	MonsterEgg monsterEggOcodomo = new MonsterEgg (Id.autoGenerate(), lair,
+    		MonsterRace.Ocodomo, null, null);
+   
+    	lair.addMonsterEgg(monsterEggBu).addMonsterEgg(monsterEggOcodomo); // Add to lair
+    
+    	
+    	//*** MONSTERS ***//
+		Monster child = new Monster(Id.autoGenerate(), lair, MonsterRace.Bu,      "Josito", now, now, MonsterAge.Child); 
+		Monster adult =	new Monster(Id.autoGenerate(), lair, MonsterRace.Polbo,   "Héctor",   now, now, MonsterAge.Adult);
+		Monster old   = new Monster(Id.autoGenerate(), lair, MonsterRace.Ocodomo, "Matías", now, now, MonsterAge.Old);
+    	
+		lair.addMonster(child).addMonster(adult).addMonster(old);
+    	
+		
+    	//*** return user ***//
+    	return user;
+	}
+    
+	
+	
+	/*** Generate User ***/
+	public static User generateUser() {
+		return generateUserScaffold();
 	}
 	
-	public Address generateAddress(){
-	    return new Address(DEFAULT_LAIR_STREET,DEFAULT_LAIR_BUILDING,DEFAULT_LAIR_FLOOR);
+	public static User generateUser(String loginName) {
+		return generateUserScaffold(loginName);
 	}
+	
+	/*** Generate Lair ***/
+	public static Lair generateLair() {
+		return generateUserScaffold().getLair();
+	}
+	
+	/*** Generate Room ***/
+	public static Room generateRoom() {
+		return generateUserScaffold().getLair().getRoom(RoomType.EyeOfTheLife);
+	}
+	// TODO: generar salas por tipo de sala.
+	
+	
+	/*** Generate MonsterEggs ***/
+	// TODO: generar huevos de monstruo
+	
+	
+	/*** Generate Monsters ***/
+	
+	
+	/**
+	 * Instancias de Monstruo.
+	 * Son los diferentes monstruos que se pueden obtener con el DataSpawner. 
+	 */
+	public enum MonsterInstance { Child, Adult, Old	}
     
-	//USER GENERATOR
-    public User generateUser(){
-        return new User(DEFAULT_USER_LOGIN, DEFAULT_USER_PASSWORD, generateUserDetails());
-    }
-    
-    public UserDetails generateUserDetails(){
-        return new UserDetails(DEFAULT_USER_NAME, DEFAULT_USER_SURNAME
-                , DEFAULT_USER_EMAIL, DEFAULT_USER_LANGUAGE);
-    }
-    
-    //MONSTER EGG GENERATOR
-    public MonsterEgg generateMonsterEgg(){
-        return new MonsterEgg (null, generateMonster(), 
-                DEFAULT_MONSTER_RACE, generateLair(), generateBorningDate());
-    }
-
-    public Calendar generateBorningDate() {
-        //TODO que fecha devuelvo?
-        return null;
-    }
-
-    //MONSTER GENERATOR
     
     /**
      * Devuelve un monstruo aleatorio de entre las MonsterInstances disponibles.
      */
     public static Monster generateMonster() {
     	int randomIndex = (int) (Math.random() * MonsterInstance.values().length);
-    	Monster randomMonster = MonsterInstance.values()[randomIndex].getInstance();
-    	return randomMonster;
+    	MonsterInstance randomInstance = MonsterInstance.values()[randomIndex];
+    	return generateMonster(randomInstance);
     }
     
     /**
      * Devuelve la instancia del MonsterInstance seleccionado.
      */
-    public static Monster generateMonster(MonsterInstance which) {
-    	return which.getInstance();
+    public static Monster generateMonster(MonsterInstance criteria) {
+    	switch(criteria) {
+    	case Child:
+    		return findMonsterByAge(MonsterAge.Child);
+    	case Adult:
+			return findMonsterByAge(MonsterAge.Adult);
+    	case Old:
+			return findMonsterByAge(MonsterAge.Old);
+    	default: return null;
+    	}
     }
     
-    public Calendar generateCocoonCloseUpDate() {
-        // TODO otra fecha!!!
-        return null;
+    
+    
+//// Private
+    
+    private static Monster findMonsterByAge(MonsterAge age) {
+    	Set<Monster> monsters = generateUserScaffold().getLair().getMonsters();
+		for(Monster m : monsters) {
+			if(m.getAge().equals(age)) {
+				return m;
+			}
+		};
+		return null;
     }
     
-    //ROOM GENERATOR
-    public Room generateRoom(){
-        return new Dormitories(null, generateLair(), DEFAULT_ROOM_LEVEL, DEFAULT_ROOM_SIZE,
-                generateRoomPublicAccess(), generateRoomState());
-    }
+    
 
-    private RoomPublicAccess generateRoomPublicAccess() {
-        // TODO Auto-generated method stub
-        return new RoomPublicAccessOpen(DEFAULT_ROOM_PRICE, 
-                DEFAULT_ROOM_GUILD_PRICE, DEFAULT_ROOM_MARKETING_TEXT);
-    }
-
-    private RoomState generateRoomState() {
-        return new RoomNormalState();
-    }
 }

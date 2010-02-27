@@ -213,6 +213,11 @@ public abstract class Room {
 	public abstract RoomType getRoomType();
 	
 	/**
+	 * Alias of getRoomType()
+	 */
+	public RoomType getType() { return getRoomType(); }
+	
+	/**
 	 * Garbage needed for build this room type.
 	 */
 	public int getGarbageBuild() {return this.getRoomType().getGarbageBuild();}

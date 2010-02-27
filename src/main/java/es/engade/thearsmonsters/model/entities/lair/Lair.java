@@ -2,12 +2,15 @@ package es.engade.thearsmonsters.model.entities.lair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import es.engade.thearsmonsters.model.entities.common.Id;
+import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
+import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.types.TradeOffice;
@@ -21,18 +24,17 @@ public class Lair {
     private int money;
     private int garbage;
     private int vitalSpaceOccupied;
-    private byte defaultInitialSleepTurn;
-    private byte defaultInitialMealTurn;
     private User user;
     private RoomData roomData;
     private Address address;
     private List<Room> rooms;
-    private Map<String, Room> roomsMap; // for JSTL access
+    
+    private Set<Monster> monsters;
+    private Set<MonsterEgg> monsterEggs;
 
     public Lair() {}
     
 	public Lair(Id lairId, User user, int money, int garbage, int vitalSpaceOccupied,
-    		byte defaultInitialSleepTurn, byte defaultInitialMealTurn, 
     		RoomData roomData, Address address) {
         
 		this.id = lairId;
@@ -40,13 +42,10 @@ public class Lair {
         this.money = money;
         this.garbage = garbage;
         this.vitalSpaceOccupied = vitalSpaceOccupied;
-        this.defaultInitialSleepTurn = defaultInitialSleepTurn;
-        this.defaultInitialMealTurn = defaultInitialMealTurn;
         this.roomData = roomData;
         this.roomData.setLair(this);
         this.address = address;
         this.rooms = null;
-        this.roomsMap = null;
     }
 	
 	
@@ -61,20 +60,25 @@ public class Lair {
 	}
     
     /**
-     * @return the rooms of this lair, indexed by the roomType.
-     */
-    public Map<String, Room> getRoomsMap() throws NoRoomsLoadedException {
-    	if(roomsMap == null) throw new NoRoomsLoadedException();
-		return roomsMap;
-	}
-    
-    /**
      * @param roomType identify the room
      * @return a specific Room in this lair or null if that room is not present.
      */
-    public Room getRoom(RoomType roomType) throws NoRoomsLoadedException {
-		return getRoomsMap().get(roomType.toString());
+    public Room getRoom(RoomType roomType) {
+    	for(Room room : rooms) {
+    		if(room.getType().equals(roomType)) {
+    			return room;
+    		}
+    	}
+		return null;
 	}
+    
+    /**
+     * Get room by String (representing a RoomType).
+     * Useful for JSTL access to Rooms.
+     */
+    public Room getRoom(String roomType) {
+    	return getRoom(RoomType.valueOf(roomType));
+    }
 
     /**
      * Set or refresh the list (or map) of rooms of this lair.
@@ -82,21 +86,15 @@ public class Lair {
      */
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
-    	this.roomsMap = new HashMap<String, Room>();
-    	for(Room room : rooms) {
-    		this.roomsMap.put(room.getRoomType().toString(), room);
-    	}
 	}
 	
 	/**
 	 * Add a new room to the lair.
-	 * Note: Use this method instead of lair.getRooms().add(room) because the
-	 * 		roomsMap needs to be enlarged too.
+	 * Example: lair.addRoom(warehause).addRoom(truffleFarm);
 	 */
-	public void addRoom(Room room) {
-		List<Room> rooms = this.getRooms();
-		rooms.add(room);
-		this.setRooms(rooms);
+	public Lair addRoom(Room room) {
+		this.getRooms().add(room);
+		return this;
 	}
 	
 	/**
@@ -104,9 +102,12 @@ public class Lair {
 	 */
 	public List<RoomType> getNewRoomsAvaliable() throws  NoRoomsLoadedException {
 		List<RoomType> newRoomsAvaliable = new ArrayList<RoomType>();
-		Set<String> buildedRooms = getRoomsMap().keySet();
+		Set<RoomType> buildedRooms = new HashSet<RoomType>();
+		for(Room room : rooms) {
+			buildedRooms.add(room.getType());
+		}
 
-		for(RoomType roomType : RoomType.values()) { // En esta implementacion, se a√±aden todas las que hay menos las construidas
+		for(RoomType roomType : RoomType.values()) { // En esta implementacion, se añaden todas las que hay menos las construidas
 			if(!buildedRooms.contains(roomType.toString())) {
 				newRoomsAvaliable.add(roomType);
 			}
@@ -224,67 +225,38 @@ public class Lair {
 		return getVitalSpace() - getVitalSpaceOccupied();
 	}
 
+	
 
 	/***** Common getters and setters *****/
-	
-	public byte getDefaultInitialSleepTurn() {
-		return defaultInitialSleepTurn;
-	}
 
-	public Id getId() {
-		return id;
-	}
+	public Id getId() { return id; }
+	public void setId(Id lairId) { this.id = lairId; }
+	public int getMoney() { return money; }
+	public void setMoney(int money) { this.money = money; }
+	public int getGarbage() { return garbage; }
+	public void setGarbage(int garbage) { this.garbage = garbage; }
+	public Address getAddress() { return address; }
+	public User getUser() { return user; }
+	public void setUser(User user) { this.user = user; }
+	public void setAddress(Address address) { this.address = address; }
 
-	public void setId(Id lairId) {
-		this.id = lairId;
-	}
-
-
-	public void setDefaultInitialSleepTurn(byte defaultInitialSleepTurn) {
-		this.defaultInitialSleepTurn = defaultInitialSleepTurn;
-	}
-
-	public byte getDefaultInitialMealTurn() {
-		return defaultInitialMealTurn;
-	}
-
-	public void setDefaultInitialMealTurn(byte defaultInitialMealTurn) {
-		this.defaultInitialMealTurn = defaultInitialMealTurn;
-	}
-
-	public int getMoney() {
-		return money;
-	}
-	
-	public void setMoney(int money) {
-		this.money = money;
-	}
-
-	public int getGarbage() {
-		return garbage;
-	}
-	
-	public void setGarbage(int garbage) {
-		this.garbage = garbage;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-	
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 	
 	
+	/**** Monsters and eggs ****/
+	
+	public Set<Monster> getMonsters() { return monsters; }
+	public void setMonsters(Set<Monster> monsters) { this.monsters = monsters; }
+	public Set<MonsterEgg> getMonsterEggs() { return monsterEggs; }
+	public void setMonsterEggs(Set<MonsterEgg> monsterEggs) { this.monsterEggs = monsterEggs; }
+	public Lair addMonsterEgg(MonsterEgg monsterEgg) {
+		this.monsterEggs.add(monsterEgg);
+		return this;
+	}
+	public Lair addMonster(Monster monster) {
+		this.monsters.add(monster);
+		return this;
+	}
+
 	
 	@Override
     public String toString() {
@@ -303,8 +275,6 @@ public class Lair {
 		    this.getMoney() == lair.getMoney() &&
 		    this.getGarbage() == lair.getGarbage() &&
 		    this.getVitalSpaceOccupied() == lair.getVitalSpaceOccupied() &&
-		    this.getDefaultInitialMealTurn() == lair.getDefaultInitialMealTurn() &&
-		    this.getDefaultInitialSleepTurn() == lair.getDefaultInitialSleepTurn() &&
 		    this.getAddress().equals(lair.getAddress()) &&
 		    roomsEquals(lair);
 	}
@@ -319,7 +289,7 @@ public class Lair {
 		} else if((this.rooms == null && lair.rooms != null) || (this.rooms != null && lair.rooms == null)) {
 			return false;
 		} else {
-			return(this.getRoomsMap().keySet().equals(lair.getRoomsMap().keySet()));
+			return Format.set(rooms.toArray()).equals(Format.set(lair.rooms.toArray()));
 		}
 	}
     

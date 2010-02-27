@@ -22,72 +22,72 @@ import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
  * When a new type of room is implemented, the enumeration must be enlarged
  */
 public enum RoomType {
-	// RoomType name		// code, sleepingAllowed, mealingAllowed, publicable, garbageBuild, effortBuild,
+	// RoomType name		// code, publicable, garbageBuild, effortBuild,
 							// maxSize, maxLevel,						// {-1: no limits, x(x>=0): exactly x}
 							// maxWorkers, maxCustomers,				// {-2: no limits, -1: until no more free space, x(x>=0): exactly x monsters}
 							// allowedWorkerAges, allowedCustomerAges	// List of ages allowed for that TaskRole
 	
-	EyeOfTheLife 			((byte)1, false, true, false, 0, 0, 
+	EyeOfTheLife 			((byte)1, false, 0, 0, 
 							1, 1, 
 							0, -2, 
 							nobody(), everybody()),
 							
-	Warehouse				((byte)2, false, false, false, 0, 1, 
+	Warehouse				((byte)2, false, 0, 1, 
 							-1, 1,
 							-1, 0,
 							ages("Adult"), nobody()),
 							
-	TradeOffice				((byte)3, false, false, false, 50, 30, 
+	TradeOffice				((byte)3, false, 50, 30, 
 							-1, 10, 
 							0, 0,
 							nobody(), nobody()),
 					
-	TruffleFarm				((byte)4, false, false, false, 300, 150, 
+	TruffleFarm				((byte)4, false, 300, 150, 
 							-1, 10, 
 							-1, 0, 
 							ages("Adult"), nobody()),
 							
-	Dormitories				((byte)5, true, false, false, 0, 0,
+	Dormitories				((byte)5, false, 0, 0,
 							-1, 1, 
 							0, -2, 
 							nobody(), everybody());
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom
-	MetalLeisureRoom		((byte)6, false, false, true, garbageBuild, effortBuild, 
+	MetalLeisureRoom		((byte)6, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	ChillOutLeisureRoom		((byte)7, false, false, true, garbageBuild, effortBuild, 
+	ChillOutLeisureRoom		((byte)7, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	TechnoLeisureRoom		((byte)8, false, false, true, garbageBuild, effortBuild, 
+	TechnoLeisureRoom		((byte)8, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	ReggaetonLeisureRoom	((byte)9, false, false, true, garbageBuild, effortBuild, 
+	ReggaetonLeisureRoom	((byte)9, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	IndieRockLeisureRoom	((byte)10, false, false, true, garbageBuild, effortBuild, 
+	IndieRockLeisureRoom	((byte)10, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	Gym						((byte)11, false, false, true, garbageBuild, effortBuild, 
+	Gym						((byte)11, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	Classroom				((byte)12, false, false, true, garbageBuild, effortBuild, 
+	Classroom				((byte)12, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList")),
 							
-	Nursery					((byte)13, false, true, true, garbageBuild, effortBuild, 
+	Nursery					((byte)13, true, garbageBuild, effortBuild, 
 							maxSize, maxLevel, 
 							maxWorkers, maxCustomers, 
 							list("ageWorkerList"), list("ageCustomerList"));
@@ -161,8 +161,6 @@ public enum RoomType {
 	}
 	
 	private final byte code; // Codigo del tipo de sala en la BBDD
-	private final boolean sleepingAllowed; // Indica si en esta sala se pueden gastar las horas para dormir (idem para todas las edades)
-	private final boolean mealingAllowed; // Si en esta sala se pueden gastar las horas para comer (siempre es lo mismo para todas las edades)
 	private final boolean publicable;
 	private final int garbageBuild;
 	private final int effortBuild;
@@ -173,13 +171,11 @@ public enum RoomType {
 	private final List<MonsterAge> ageWorker; // esto puede ser diferente para cada edad
 	private final List<MonsterAge> ageCustomer;
 	
-	RoomType(byte code, boolean sleepingAllowed, boolean mealingAllowed, boolean publicable, int garbageBuild, int effortBuild,
+	RoomType(byte code, boolean publicable, int garbageBuild, int effortBuild,
 			int maxSize, int maxLevel, 
 			int maxWorkers, int maxCustomers,
 			List<MonsterAge> ageWorker, List<MonsterAge> ageCustomer) {
 		this.code = code;
-		this.sleepingAllowed = sleepingAllowed;
-		this.mealingAllowed = mealingAllowed;
 		this.publicable = publicable;
 		this.garbageBuild = garbageBuild;
 		this.effortBuild = effortBuild;
@@ -194,8 +190,6 @@ public enum RoomType {
 	// Getters
 	public byte code()   {return code;}
 	public byte getCode() {return code;}
-	public boolean isSleepingAllowed() { return sleepingAllowed;}
-	public boolean isMealingAllowed() { return mealingAllowed;}
 	public boolean isPublicable() {return publicable;}
 	public int getGarbageBuild() {return garbageBuild;}
 	public int getEffortBuild() {return effortBuild;}

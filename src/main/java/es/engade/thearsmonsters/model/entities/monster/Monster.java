@@ -28,7 +28,7 @@ public class Monster implements Serializable {
 	private Map<AttrType, Attr> workSkills; 
 	private Map<AttrType, Attr> simpleAttrs;
 	//private List<Task> tasks;
-	private MonsterAge ageState;
+	private MonsterAge age;
 	private Calendar borningDate;
 	private Calendar cocoonCloseUpDate;
 	private Calendar freeTurnsTimestamp;
@@ -39,7 +39,7 @@ public class Monster implements Serializable {
 	
 	public Monster(){}
 	
-	public Monster(Id Id, MonsterRace race, Lair lair, String name, Calendar borningDate, Calendar cocoonCloseUpDate,
+	public Monster(Id Id, Lair lair, MonsterRace race, String name, Calendar borningDate, Calendar cocoonCloseUpDate,
 			MonsterAge ageState){
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
 		this.setId(Id);
@@ -48,7 +48,7 @@ public class Monster implements Serializable {
 		this.setName(name);
 		this.setBorningDate(borningDate);
 		this.setCocoonCloseUpDate(cocoonCloseUpDate);
-		this.setAgeState(ageState);
+		this.setAge(ageState);
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
 		this.freeTurns = 11;
@@ -62,7 +62,7 @@ public class Monster implements Serializable {
 	//-- GETTERS --//
 	public Id getId() { return id; }
 	public Lair getLair() {return lair;}	
-	public MonsterAge getAgeState(){return ageState;}	
+	public MonsterAge getAge(){return age;}	
 	public Calendar getBorningDate(){return borningDate;}
 	public Calendar getCocoonCloseUpDate(){return cocoonCloseUpDate;}
 	public String getName(){return name;}
@@ -76,12 +76,12 @@ public class Monster implements Serializable {
 	public void setName(String name) { this.name = name; }
 	public void setBorningDate(Calendar borningDate) { this.borningDate = borningDate; }
 	public void setCocoonCloseUpDate(Calendar cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
-	public void setAgeState(MonsterAge ageState) { this.ageState = ageState; }
+	public void setAge(MonsterAge ageState) { this.age = ageState; }
 	
 
 	
 	public void metamorphosisToAdul(){
-		this.ageState = MonsterAge.Adult;
+		this.age = MonsterAge.Adult;
 	}
 	
 	
@@ -191,7 +191,7 @@ public class Monster implements Serializable {
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 			"race", race,
-			"ageState", ageState,
+			"ageState", age,
 			"name", name, 
 			"id", id,
 			"lair-user", lair.getUser().getLoginName(),
@@ -207,7 +207,7 @@ public class Monster implements Serializable {
 	public boolean equals(Monster m) {
 		return 
 			this.getRace().equals(m.getRace()) &&
-			this.getAgeState().equals(m.getAgeState()) &&
+			this.getAge().equals(m.getAge()) &&
 			this.getName().equals(m.getName()) &&
 			this.getId().equals(m.getId()) &&
 			CalendarTools.equals(this.getBorningDate(), m.getBorningDate()) &&

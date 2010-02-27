@@ -50,7 +50,7 @@ public abstract class MonsterAction {
 		return this.allowedRoomTypes().contains(this.room.getRoomType());
 	}
 	protected boolean checkBasicMonsterConditions() {
-		return this.allowedMonsterAges().contains(this.monster.getAgeState());
+		return this.allowedMonsterAges().contains(this.monster.getAge());
 			//&& monster.hasFreeTurns(); TODO: añadir este método en monster.
 	}
 	protected boolean checkExtraConditions() {

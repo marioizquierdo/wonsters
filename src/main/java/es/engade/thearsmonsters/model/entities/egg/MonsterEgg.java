@@ -25,13 +25,13 @@ public class MonsterEgg implements Serializable {
 	
 	public MonsterEgg () {}
 	
-	public MonsterEgg (Id id, Monster parent, 
-			MonsterRace race, Lair lair, Calendar borningDate) {
+	public MonsterEgg (Id id, Lair lair, MonsterRace race, 
+			Calendar borningDate, Monster parent) {
 		this.id = id;
-		this.parent = parent;
-		this.race = race;
 		this.lair = lair;
+		this.race = race;
 		this.borningDate = borningDate;
+		this.parent = parent;
 	}
 	
 	public Id getId() {
