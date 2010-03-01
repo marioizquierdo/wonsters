@@ -89,9 +89,9 @@ public class DataSpawner {
     
     	
     	//*** MONSTERS ***//
-		Monster child = new Monster(Id.autoGenerate(), lair, MonsterRace.Bu,      "Josito", now, now, MonsterAge.Child); 
-		Monster adult =	new Monster(Id.autoGenerate(), lair, MonsterRace.Polbo,   "Héctor",   now, now, MonsterAge.Adult);
-		Monster old   = new Monster(Id.autoGenerate(), lair, MonsterRace.Ocodomo, "Matías", now, now, MonsterAge.Old);
+		Monster child = new Monster(Id.autoGenerate(), lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLoginName(), now, now, MonsterAge.Child); 
+		Monster adult =	new Monster(Id.autoGenerate(), lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLoginName(), now, now, MonsterAge.Adult);
+		Monster old   = new Monster(Id.autoGenerate(), lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLoginName(), now, now, MonsterAge.Old);
     	
 		lair.addMonster(child).addMonster(adult).addMonster(old);
     	
@@ -128,44 +128,53 @@ public class DataSpawner {
 	
 	
 	/*** Generate Monsters ***/
-	
-	
-	/**
-	 * Instancias de Monstruo.
-	 * Son los diferentes monstruos que se pueden obtener con el DataSpawner. 
-	 */
-	public enum MonsterInstance { Child, Adult, Old	}
     
     
     /**
      * Devuelve un monstruo aleatorio de entre las MonsterInstances disponibles.
      */
     public static Monster generateMonster() {
-    	int randomIndex = (int) (Math.random() * MonsterInstance.values().length);
-    	MonsterInstance randomInstance = MonsterInstance.values()[randomIndex];
+    	int randomIndex = (int) (Math.random() * MonsterWhatIs.values().length);
+    	MonsterWhatIs randomInstance = MonsterWhatIs.values()[randomIndex];
     	return generateMonster(randomInstance);
     }
     
     /**
-     * Devuelve la instancia del MonsterInstance seleccionado.
+     * Devuelve nuevo monstruo generado con todas sus relaciones establecidas.
+     * Es decir, que cada vez que se genera un monstruo, también se genera su guarida, usuario, salas, etc,
+     * y todo es nuevo (dos llamadas a generateMonster(MonsterWhatIs.Child) devuelven dos monstruos diferentes,
+     * con guaridas diferentes, pero asegurándose de que al menos tienen la edad Child.
      */
-    public static Monster generateMonster(MonsterInstance criteria) {
+    public static Monster generateMonster(MonsterWhatIs criteria) {
     	switch(criteria) {
     	case Child:
-    		return findMonsterByAge(MonsterAge.Child);
+    		return generateMonsterByAge(MonsterAge.Child);
     	case Adult:
-			return findMonsterByAge(MonsterAge.Adult);
+			return generateMonsterByAge(MonsterAge.Adult);
     	case Old:
-			return findMonsterByAge(MonsterAge.Old);
+			return generateMonsterByAge(MonsterAge.Old);
     	default: return null;
     	}
     }
+    
+	/**
+	 * Instancias de Monstruo.
+	 * Son los diferentes monstruos que se pueden obtener con el DataSpawner,
+	 * se trata de una enumeración con elementos que describen alguna característica importante del
+	 * tipo de monstruo que se va a devolver (para identificarlo).
+	 */
+	public enum MonsterWhatIs { 
+		Child, // Monstruo con edad = Child
+		Adult, // Monstruo con edad = Adult
+		Old	   // Monstruo con edad = Old
+		// Añadir más tipos de monstruo que es necesario autogenerar.
+	}
     
     
     
 //// Private
     
-    private static Monster findMonsterByAge(MonsterAge age) {
+    private static Monster generateMonsterByAge(MonsterAge age) {
     	Set<Monster> monsters = generateUserScaffold().getLair().getMonsters();
 		for(Monster m : monsters) {
 			if(m.getAge().equals(age)) {
