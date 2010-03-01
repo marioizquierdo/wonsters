@@ -10,6 +10,7 @@ import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
 import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
 import es.engade.thearsmonsters.model.entities.room.exceptions.PublicAccessException;
 import es.engade.thearsmonsters.model.entities.room.state.RoomEnlargingState;
+import es.engade.thearsmonsters.model.entities.room.state.RoomInWorksState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
@@ -397,28 +398,8 @@ public abstract class Room {
 		return v;
 	}
 
-//    private void addEffortDone(int constructionLevel) throws InWorksException {
-//        if(isInWorks()){
-//            ((RoomInWorksState)getState()).setEffortDone(getEffortDone() + constructionLevel);
-//            
-//            if(this.isInInitialState()){
-//                if(getEffortDone() > this.getEffortBuild()){
-//                    setSize(1);
-//                    this.setState(new RoomNormalState());
-//                }
-//            }else if(getState().getWorksType().equals(WorksType.Enlarging)) {
-//                if(getEffortDone() > this.getEffortEnlarge()){
-//                    setSize(getSize() + 1);
-//                    this.setState(new RoomNormalState());
-//                }                
-//            }else if(getState().getWorksType().equals(WorksType.Upgrading)){
-//                if(getEffortDone() > this.getEffortUpgrade()){
-//                    setLevel(getLevel() + 1);
-//                    this.setState(new RoomNormalState());
-//                }                
-//            }
-//           
-//        }
-//    }
+
+        
+    
 }
 
