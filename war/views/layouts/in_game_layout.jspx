@@ -23,15 +23,14 @@
     <fmt:message key="Thearsmonsters"/><c:out value=" - "/>
     <fmt:message key="${title}"/>
   </title>
-<<<<<<< local
   <c:url var="stylesURL" value="/css/styles.css" />
   <c:url var="windowStylesURL" value="/css/WindowStyles.css" />
   <link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${windowStylesURL}" type="text/css" media="all" />
-  <link rel="icon" href="favicon.ico">
-=======
+  <link rel="icon" href="favicon.ico"/>
   
   <!-- Stylesheets -->
+  
   <c:url var="resetDefaultsCSS" value="/css/reset_defaults.css" />
   <c:url var="commonStylesCSS" value="/css/common_styles.css" />
   <c:url var="menuCSS" value="/css/menu.css" />
@@ -49,8 +48,6 @@
   <link rel="StyleSheet" href="${windowTagAndColorsCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${lairStylesCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${monsterStylesCSS}" type="text/css" media="all" />
-  
->>>>>>> other
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/> 
 </head>
 

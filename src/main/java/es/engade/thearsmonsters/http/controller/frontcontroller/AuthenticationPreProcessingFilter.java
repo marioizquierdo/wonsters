@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
+import es.engade.thearsmonsters.test.DataSpawner;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 /**
@@ -31,22 +32,31 @@ public class AuthenticationPreProcessingFilter extends PreProcessingFilter {
             HttpServletResponse response, Action action, ActionForm form,
             ActionMapping mapping) throws IOException, ServletException,
                 InternalErrorException {
-                
-    	ThearsmonstersActionMapping thearsmonstersActionMapping =
-	        (ThearsmonstersActionMapping) mapping;
-	
-	    if (thearsmonstersActionMapping.getAuthenticationRequired()) {
-	    	
-	        if (SessionManager.isUserAuthenticated(request)) {
-	            return null;
-	        } else {    	
-		        return mapping.findForward("AuthenticationPage");
-		    }
         
-        } else {
-            return null;
-        }
-            
-    }
+//TODO: Código temporal para poder acceder a partes que requieran autentificación
+        request.getSession().setAttribute("myLair", DataSpawner.generateLair());
+        request.getSession().setAttribute("isAdmin", true);
+        return null;
 
+//**************************************************************************
+//**********        ANTIGUO CODIGO DEL PREPROCESSING FILTER      ***********
+//**************************************************************************
+//    	ThearsmonstersActionMapping thearsmonstersActionMapping =
+//	        (ThearsmonstersActionMapping) mapping;
+//
+//	
+//	    if (thearsmonstersActionMapping.getAuthenticationRequired()) {
+//	    	
+//	        if (SessionManager.isUserAuthenticated(request)) {
+//	            return null;
+//	        } else {    	
+//		        return mapping.findForward("AuthenticationPage");
+//		    }
+//        
+//        } else {
+//            return null;
+//        }
+//
+
+    }
 }

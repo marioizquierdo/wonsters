@@ -19,7 +19,7 @@ import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.test.DataSpawner;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.DataSpawner.MonsterWhatIs;
+import es.engade.thearsmonsters.test.DataSpawner.MonsterInstance;
 
 public class MonsterActionTest extends GaeTest{
 
@@ -31,9 +31,9 @@ public class MonsterActionTest extends GaeTest{
 	@Before
     public void setUp() throws Exception {
 		lair = new Lair();
-		monsterChild = DataSpawner.generateMonster(MonsterWhatIs.Child);
-		monsterAdult = DataSpawner.generateMonster(MonsterWhatIs.Adult);
-		monsterOld = DataSpawner.generateMonster(MonsterWhatIs.Old);
+		monsterChild = DataSpawner.generateMonster(MonsterInstance.Child);
+		monsterAdult = DataSpawner.generateMonster(MonsterInstance.Adult);
+		monsterOld = DataSpawner.generateMonster(MonsterInstance.Old);
 		monsterChild.setLair(lair);
 		monsterAdult.setLair(lair);
 		monsterOld.setLair(lair);
@@ -123,7 +123,7 @@ public class MonsterActionTest extends GaeTest{
 
     	monsterChild.refreshFreeTurns();
     	
-    	/* Estamos en el mismo día que se creo por lo que debe seguir siendo = a 0 */ 
+    	/* Estamos en el mismo dï¿½a que se creo por lo que debe seguir siendo = a 0 */ 
     	assertEquals(monsterChild.getFreeTurns(),11);
     	
      	/* Utilizo un turno */
