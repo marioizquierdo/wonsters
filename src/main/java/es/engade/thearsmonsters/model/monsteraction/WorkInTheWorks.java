@@ -62,7 +62,5 @@ public class WorkInTheWorks extends MonsterAction{
         }
         
 	}
-           
-
 
 }
