@@ -79,10 +79,10 @@ public class DataSpawner {
     
     	//*** MONSTER EGGS ***//
     
-    	MonsterEgg monsterEggBu = new MonsterEgg (Id.autoGenerate(), lair,
+    	MonsterEgg monsterEggBu = new MonsterEgg (lair,
     		MonsterRace.Bu, null, null);
     
-    	MonsterEgg monsterEggOcodomo = new MonsterEgg (Id.autoGenerate(), lair,
+    	MonsterEgg monsterEggOcodomo = new MonsterEgg (lair,
     		MonsterRace.Ocodomo, null, null);
    
     	lair.addMonsterEgg(monsterEggBu).addMonsterEgg(monsterEggOcodomo); // Add to lair
