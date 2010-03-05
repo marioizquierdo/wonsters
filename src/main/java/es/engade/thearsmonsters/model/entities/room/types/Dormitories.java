@@ -7,6 +7,7 @@ import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
+import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
 
 /**
  * Es donde los monstruos descansan cada día.

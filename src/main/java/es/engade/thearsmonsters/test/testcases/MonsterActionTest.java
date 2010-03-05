@@ -10,7 +10,11 @@ import org.junit.Test;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.room.Room;
+import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
+import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
 import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.entities.room.types.TruffleFarm;
 import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
@@ -19,6 +23,7 @@ import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.test.DataSpawner;
 import es.engade.thearsmonsters.test.GaeTest;
+import es.engade.thearsmonsters.test.DataSpawner.LairWhatIs;
 import es.engade.thearsmonsters.test.DataSpawner.MonsterWhatIs;
 
 public class MonsterActionTest extends GaeTest{
@@ -100,38 +105,72 @@ public class MonsterActionTest extends GaeTest{
     	WorkInTheWorks actionOldFarm 	= 			new WorkInTheWorks(monsterOld,truffleFarm);
     	
     	
+    	/* Los dormitorios se crean por defecto en estado normal */
     	assertFalse(actionChildDormitories.isValid());
-    	assertTrue(actionAdultDormitories.isValid());
+    	assertFalse(actionAdultDormitories.isValid());
     	assertFalse(actionOldDormitories.isValid());
+    	
+    	
     	assertFalse(actionChildFarm.isValid());
     	assertTrue(actionAdultFarm.isValid());
     	assertFalse(actionOldFarm.isValid());
     }
 
+    
     @Test 
-    public void testUseFreeTurns() {
+    public void testBuildRoom() {
+    	int contador = 0;
+    	int levelInitial = 0;
+    	int effortToUpgrade = 0;
+    	int initialFreeTurns = 0;
+    	int turnsToUpgrade = 0;
     	
-    	int freeTurns;
-    	Dormitories dormitories = new Dormitories(monsterChild.getLair());
-    	List<Room> rooms = new java.util.Vector<Room>();
-    	rooms.add(dormitories);
-    	lair.setRooms(rooms);
+    	// Instancio una guarida nueva con los valores iniciales 
+    	Lair lair = DataSpawner.generateLair(LairWhatIs.InInitialState);
     	
-    	freeTurns = monsterChild.getFreeTurns();
-    	/* Se acaba de crear el monstruo, sus turnos deben ser 0 */
-    	assertEquals(freeTurns,11);
+    	//Utilizo el monstruo adulto para establecerle un numero de turnos alto
+    	monsterAdult.setFreeTurns(1000);
+    	
+    	//Añado el monstruo a la guarida y le añado experiencia en la construccion
+    	lair.addMonster(monsterAdult);
+    	monsterAdult.addExp(AttrType.ConstructorSkill,100);
+    	monsterAdult.addExp(AttrType.Strenght,100);
+    	
+    	/* Creo una room de tipo TruffleFarm */
+    	TruffleFarm truffleFarm =(TruffleFarm) RoomType.newRoom(RoomType.TruffleFarm.getCode(), lair);
+    	
+    	/* Añado la room creada a la guarida */
+    	lair.addRoom(truffleFarm);
+    	
+    	/* Creo la accion */
+    	WorkInTheWorks actionAdultFarm	= new WorkInTheWorks(monsterAdult,truffleFarm);
 
-    	monsterChild.refreshFreeTurns();
+    	/*Obtengo el esfuerzo que hay que hacer para subir de nivel la sala */
+    	effortToUpgrade = truffleFarm.getEffortUpgrade();;
     	
-    	/* Estamos en el mismo día que se creo por lo que debe seguir siendo = a 0 */ 
-    	assertEquals(monsterChild.getFreeTurns(),11);
+    	/*Obtengo el numero de turnos necesarios para subir de nivel la sala, 
+    	 * dividiendo el esfuerzo entre el nivel del monstruo en la construccion */
+    	turnsToUpgrade =  effortToUpgrade/monsterAdult.getAttr(AttrType.Construction).getLevel();
     	
-     	/* Utilizo un turno */
-    	monsterChild.useFreeTurns();
+    	/*Obtengo el numero de turnos libres iniciales que tiene el monstruo */
+    	initialFreeTurns = monsterAdult.getFreeTurns();
     	
-    	/*Deberiamos tener un turno menos */
-    	assertEquals(monsterChild.getFreeTurns(),freeTurns-1);
-
+    	/* Obtengo el nivel inicial de la sala */
+    	levelInitial = truffleFarm.getLevel();
+    	
+    	
+    	/* Ejecuto el numero de turnos necesarios para subir de nivel la sala */
+    	while (contador < turnsToUpgrade){
+    		actionAdultFarm.execute();
+    		contador ++;
+    	}
+    	
+    	/* Compruebo que la sala subio de nivel */
+    	assertEquals(truffleFarm.getLevel(),levelInitial+1);
+    	
+    	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
+    	assertEquals(initialFreeTurns,turnsToUpgrade  + monsterAdult.getFreeTurns());
+    	
     }
-
+    
 }

@@ -53,7 +53,7 @@ public abstract class Room {
      */
     public Room(Lair lair) {
     	// Set with default values.
-    	this(null, lair, 1, 0, new RoomPublicAccessClose(), new RoomEnlargingState(0));
+    	this(null, lair, 1, 0, new RoomPublicAccessClose(), new RoomUpgradingState(0));
     }
     
 	public Id getId() {

@@ -66,6 +66,7 @@ public abstract class MonsterAction {
 	 */
 	public boolean execute() {
 		if(isValid()) {
+			monster.setFreeTurns(monster.getFreeTurns()- 1);
 			doExecute();
 			return true;
 		} else {

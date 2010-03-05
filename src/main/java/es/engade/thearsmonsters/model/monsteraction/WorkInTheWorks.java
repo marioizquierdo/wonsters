@@ -40,27 +40,27 @@ public class WorkInTheWorks extends MonsterAction{
 	 */
 	protected void doExecute() {
         try {
-		        ((RoomInWorksState)room.getState()).setEffortDone(room.getEffortDone() + monster.getAttr(AttrType.Construction).getLevel());
-	            if(room.isInInitialState()){
-	                if(room.getEffortDone() > room.getEffortBuild()){
-	                	room.setSize(1);
-	                	room.setState(new RoomNormalState());
-	                }
-	            }else if(room.getState().getWorksType().equals(WorksType.Enlarging)) {
-	                if(room.getEffortDone() > room.getEffortEnlarge()){
-	                	room.setSize(room.getSize() + 1);
-	                    room.setState(new RoomNormalState());
-	                }                
-	            }else if(room.getState().getWorksType().equals(WorksType.Upgrading)){
-	                if(room.getEffortDone() > room.getEffortUpgrade()){
-	                	room.setLevel(room.getLevel() + 1);
-	                    room.setState(new RoomNormalState());
-	                }                
-	            }
+		  ((RoomInWorksState)room.getState()).setEffortDone(room.getEffortDone() + monster.getAttr(AttrType.Construction).getLevel());
+	      
+		  if(room.isInInitialState()){
+	          if(room.getEffortDone() > room.getEffortBuild()){
+	             room.setSize(1);
+	             room.setState(new RoomNormalState());
+	           }
+	      	}else if(room.getState().getWorksType().equals(WorksType.Enlarging)) {
+            if(room.getEffortDone() > room.getEffortEnlarge()){
+            	room.setSize(room.getSize() + 1);
+                room.setState(new RoomNormalState());
+            }                
+	      	}else 
+	      		if(room.getState().getWorksType().equals(WorksType.Upgrading)){
+		            if(room.getEffortDone() >= room.getEffortUpgrade()){
+		            	room.setLevel(room.getLevel() + 1);
+		                room.setState(new RoomNormalState());
+		            }                
+	      		}
         } catch (InWorksException e) {
             throw new RuntimeException(e);
         }
-        
-	}
-
+    }
 }

@@ -77,7 +77,7 @@ public class Monster implements Serializable {
 	public void setBorningDate(Calendar borningDate) { this.borningDate = borningDate; }
 	public void setCocoonCloseUpDate(Calendar cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
 	public void setAge(MonsterAge ageState) { this.age = ageState; }
-	
+	public void setFreeTurns(int freeTurns) { this.freeTurns = freeTurns;}
 
 	
 	public void metamorphosisToAdul(){

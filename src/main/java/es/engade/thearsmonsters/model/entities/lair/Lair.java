@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Vector;
 
 import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
@@ -45,7 +46,9 @@ public class Lair {
         this.roomData = roomData;
         this.roomData.setLair(this);
         this.address = address;
-        this.rooms = null;
+        this.rooms = new java.util.Vector<Room>();
+        this.monsters = new HashSet<Monster>();
+        this.monsterEggs = new HashSet<MonsterEgg>();
     }
 	
 	

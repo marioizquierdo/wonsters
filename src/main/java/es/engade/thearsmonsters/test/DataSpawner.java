@@ -12,7 +12,10 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
+import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.entities.room.state.RoomState;
+import es.engade.thearsmonsters.model.entities.room.types.EyeOfTheLife;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.util.CalendarTools;
@@ -169,6 +172,40 @@ public class DataSpawner {
 		Old	   // Monstruo con edad = Old
 		// Añadir más tipos de monstruo que es necesario autogenerar.
 	}
+	
+    
+	
+	/*** Generate Lair ***/
+	
+	/**
+     * Devuelve una nueva guarida.
+     * Existen dos posibilidades, se devuelve una guarida con todas las relaciones establecidas
+     * (TestDefault) o por el contrario un objeto guarida con sus valores iniciales (TestDefault) . 
+     */
+    public static Lair generateLair(LairWhatIs criteria){
+    	switch(criteria){
+    	case InInitialState:
+    		return DataSpawner.generateInitialLair();
+    	case TestDefault:
+    		return DataSpawner.generateLair();
+    	default: return null;
+    	}
+    }
+    
+
+    
+	/**
+	 * Instancias de Guarida.
+	 * Son las diferentes guaridas que se pueden obtener con el DataSpawner,
+	 * se trata de una enumeración con elementos que describen alguna característica importante del
+	 * tipo de guarida que se va a devolver (para identificarlo).
+	 */
+	public enum LairWhatIs { 
+		InInitialState, // Guarida en estado inicial (sin monstruos y solo con el ojo de la vida) 
+		TestDefault , //   Devuelve la guarida test por defecto, generada en generateUserScaffold
+		// Añadir más tipos de guaridas que es necesario autogenerar.
+	}
+
     
     
     
@@ -183,6 +220,23 @@ public class DataSpawner {
 		};
 		return null;
     }
+    
+	/**
+     * Devuelve una nueva guarida con los valores iniciales.
+     * Es decir la guarida estar� el estado inicial en el que comienzas el juego, sin monstruos y
+     * solo con el ojo de la vida
+     */
+	private static Lair generateInitialLair(){
+		Lair lair = new Lair(Id.autoGenerate(),DataSpawner.generateUserScaffold(),
+		        1000, // money 
+		        1000, // garbage
+		        10,   // occupied vital space
+		        new RoomData(100), 
+		        new Address(1, 1, 1));
+		EyeOfTheLife eyeOfTheLife = new EyeOfTheLife(lair);
+		lair.addRoom(eyeOfTheLife);
+		return lair;
+	}
     
     
 
