@@ -1,8 +1,16 @@
 package es.engade.thearsmonsters.model.entities.room;
 
+import java.io.Serializable;
 import java.util.List;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.api.datastore.Key;
+
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
@@ -10,18 +18,32 @@ import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
 import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
 import es.engade.thearsmonsters.model.entities.room.exceptions.PublicAccessException;
 import es.engade.thearsmonsters.model.entities.room.state.RoomEnlargingState;
-import es.engade.thearsmonsters.model.entities.room.state.RoomInWorksState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
 
-public abstract class Room {
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
+public abstract class Room implements Serializable {
+    
+    private static final long serialVersionUID = 20100305L;
 
-    protected Id id;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    protected Key id;
+    
+    @Persistent
     protected Lair lair;
+    
+    @Persistent
     protected int level;
+    
+    @Persistent
     protected int size;
+    
+    @Persistent
     protected RoomPublicAccess publicAccess;
+    
+    @Persistent
     protected RoomState state; 
     
     /* ----------------- Basic Methods ----------------- */
@@ -35,9 +57,8 @@ public abstract class Room {
      * @param publicAccess State Pattern to manage the public access operations
      * @param state State Pattern to manage the room state operations
      */
-    public Room(Id roomId, Lair lair, int level, int size, 
+    public Room(Lair lair, int level, int size, 
     		RoomPublicAccess publicAccess, RoomState state) {
-        this.id = roomId;
         this.lair = lair;
         this.level = level;
         this.size = size;
@@ -53,14 +74,14 @@ public abstract class Room {
      */
     public Room(Lair lair) {
     	// Set with default values.
-    	this(null, lair, 1, 0, new RoomPublicAccessClose(), new RoomUpgradingState(0));
+    	this(lair, 1, 0, new RoomPublicAccessClose(), new RoomEnlargingState(0));
     }
     
-	public Id getId() {
+	public Key getId() {
 		return id;
 	}
     
-    public void setId(Id roomId) {
+    public void setId(Key roomId) {
         this.id = roomId;
     }
 
@@ -353,17 +374,50 @@ public abstract class Room {
 //                getTasksToString());
     }
 	
+	
 	@Override
-    public boolean equals(Object theObject) {
-		Room room = (Room)theObject;
-		return 
-			//this.roomId == room.getRoomId() &&
-		    this.lair.equals(room.lair) &&
-		    this.level == room.getLevel() &&
-		    this.size == room.getSize() &&
-		    this.publicAccess.equals(room.getPublicAccess()) &&
-		    this.state.equals(room.getState());
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((lair == null) ? 0 : lair.hashCode());
+        result = prime * result + level;
+        result = prime * result
+                + ((publicAccess == null) ? 0 : publicAccess.hashCode());
+        result = prime * result + size;
+        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Room other = (Room) obj;
+        if (lair == null) {
+            if (other.lair != null)
+                return false;
+        } else if (!lair.equals(other.lair))
+            return false;
+        if (level != other.level)
+            return false;
+        if (publicAccess == null) {
+            if (other.publicAccess != null)
+                return false;
+        } else if (!publicAccess.equals(other.publicAccess))
+            return false;
+        if (size != other.size)
+            return false;
+        if (state == null) {
+            if (other.state != null)
+                return false;
+        } else if (!state.equals(other.state))
+            return false;
+        return true;
+    }
 	
 	
 	/*----------- Helper methods -----------*/

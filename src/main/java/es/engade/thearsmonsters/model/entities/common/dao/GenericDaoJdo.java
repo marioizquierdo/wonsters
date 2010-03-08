@@ -7,6 +7,8 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
+import org.springframework.orm.jdo.PersistenceManagerFactoryUtils;
+
 public class GenericDaoJdo<T, PK extends Serializable> implements GenericDao<T, PK>{
 
     protected PersistenceManagerFactory pmf;
@@ -17,17 +19,16 @@ public class GenericDaoJdo<T, PK extends Serializable> implements GenericDao<T, 
     @SuppressWarnings("unchecked")
     public GenericDaoJdo()
     {
-//        this.pmf = pmf;
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().
                 getGenericSuperclass()).getActualTypeArguments()[0]; 
     }
 
-    public T makePersistent(final T gaeObject) {  
-        return pmf.getPersistenceManager().makePersistent(gaeObject); 
+    public T makePersistent(final T gaeObject) {
+        return getPersistenceManager().makePersistent(gaeObject);
   }  
     
     public T get(PK id) {
-        PersistenceManager pm = pmf.getPersistenceManager();
+        PersistenceManager pm = getPersistenceManager();
         T obj = null;
         //T detached = null;
 
@@ -52,7 +53,7 @@ public class GenericDaoJdo<T, PK extends Serializable> implements GenericDao<T, 
     }
 
     public T save(T obj) {
-        PersistenceManager pm = pmf.getPersistenceManager();
+        PersistenceManager pm = getPersistenceManager();
         try {
                 pm.makePersistent(obj);
         } finally {
@@ -62,7 +63,7 @@ public class GenericDaoJdo<T, PK extends Serializable> implements GenericDao<T, 
     }
 
     public void remove(T obj) {
-        PersistenceManager pm = pmf.getPersistenceManager();
+        PersistenceManager pm = getPersistenceManager();
         try {
                 pm.deletePersistent(obj);
         } finally {
@@ -70,19 +71,12 @@ public class GenericDaoJdo<T, PK extends Serializable> implements GenericDao<T, 
         }
     }
 
-    
-//    public T get(final PK id) {  
-//    final T gaeObject = getPersistenceManager()  
-//    .getObjectById(persistentClass, id);  
-//    return getPersistenceManager().detachCopy(gaeObject);  
-//    }  
-    
-//    private PersistenceManager getPersistenceManager() {  
-//      return JDOHelper.getPersistenceManagerFactory("transactions-optional")
-//      .getPersistenceManager();  
-//    }
-    
-    public void setPersistenceManagerFactory(PersistenceManagerFactory pmf) {
+    public void setPmf(PersistenceManagerFactory pmf) {
         this.pmf = pmf;
     }
+    
+    private PersistenceManager getPersistenceManager() {  
+        return PersistenceManagerFactoryUtils  
+            .getPersistenceManager(pmf, true);
+    }  
 }

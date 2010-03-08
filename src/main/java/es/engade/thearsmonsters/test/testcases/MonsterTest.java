@@ -1,16 +1,18 @@
 package es.engade.thearsmonsters.test.testcases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import es.engade.thearsmonsters.model.entities.monster.*;
-import es.engade.thearsmonsters.model.entities.monster.attr.*;
-import es.engade.thearsmonsters.model.entities.monster.enums.*;
+import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
+import es.engade.thearsmonsters.model.entities.monster.attr.AttrBase;
+import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.util.CalendarTools;
 import es.engade.thearsmonsters.test.FactoryData;
 import es.engade.thearsmonsters.test.GaeTest;
@@ -19,7 +21,7 @@ import es.engade.thearsmonsters.test.FactoryData.MonsterWhatIs;
 
 public class MonsterTest extends GaeTest {
 	
-	Calendar now;
+	Date now;
 	Monster m1;
 
 	@Before

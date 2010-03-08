@@ -101,11 +101,11 @@ public enum RoomType {
 	static public Room newRoom(byte roomTypeCode, Id roomId, Lair lair, 
 			int level, int size, RoomPublicAccess publicAccess, RoomState state) {
 		switch(roomTypeCode) {
-		case 01: return new EyeOfTheLife(roomId, lair, level, size, publicAccess, state);
-		case 02: return new Warehouse(roomId, lair, level, size, publicAccess, state);
-		case 03: return new TradeOffice(roomId, lair, level, size, publicAccess, state);
-		case 04: return new TruffleFarm(roomId, lair, level, size, publicAccess, state);
-		case 05: return new Dormitories(roomId, lair, level, size, publicAccess, state);
+		case 01: return new EyeOfTheLife(lair, level, size, publicAccess, state);
+		case 02: return new Warehouse(lair, level, size, publicAccess, state);
+		case 03: return new TradeOffice(lair, level, size, publicAccess, state);
+		case 04: return new TruffleFarm(lair, level, size, publicAccess, state);
+		case 05: return new Dormitories(lair, level, size, publicAccess, state);
 		/*case 06: return new MetalLeisureRoom(roomId, loginName, level, size, publicAccess, state);
 		case 07: return new ChillOutLeisureRoom(roomId, loginName, level, size, publicAccess, state);
 		case 08: return new TechnoLeisureRoom(roomId, loginName, level, size, publicAccess, state);

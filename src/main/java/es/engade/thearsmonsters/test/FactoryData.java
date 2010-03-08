@@ -1,9 +1,8 @@
 package es.engade.thearsmonsters.test;
 
-import java.util.Calendar;
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -12,9 +11,7 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
-import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.state.RoomState;
 import es.engade.thearsmonsters.model.entities.room.types.EyeOfTheLife;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
@@ -26,8 +23,8 @@ import es.engade.thearsmonsters.model.util.CalendarTools;
  */
 public class FactoryData {
 	
-	public static final Calendar now = CalendarTools.now();
-	public static final Calendar tomorrow = CalendarTools.tomorrow();
+	public static final Date now = CalendarTools.now();
+	public static final Date tomorrow = CalendarTools.tomorrow();
     
 	
 	
@@ -145,7 +142,7 @@ public class FactoryData {
 //// Private
     
     private static Monster generateMonsterByAge(MonsterAge age) {
-    	Set<Monster> monsters = generateRandUserScaffold().getLair().getMonsters();
+    	List<Monster> monsters = generateRandUserScaffold().getLair().getMonsters();
 		for(Monster m : monsters) {
 			if(m.getAge().equals(age)) {
 				return m;
@@ -160,7 +157,7 @@ public class FactoryData {
      * solo con el ojo de la vida
      */
 	private static Lair generateInitialLair(){
-		Lair lair = new Lair(Id.autoGenerate(),FactoryData.generateRandUserScaffold(),
+		Lair lair = new Lair(FactoryData.generateRandUserScaffold(),
 		        1000, // money 
 		        1000, // garbage
 		        10,   // occupied vital space
@@ -212,7 +209,7 @@ public class FactoryData {
 
 		//*** LAIR ***//
     
-		Lair lair = new Lair(null, user,
+		Lair lair = new Lair(user,
 	        1000, // money 
 	        1000, // garbage
 	        10,   // occupied vital space
@@ -243,18 +240,18 @@ public class FactoryData {
     	//*** MONSTER EGGS ***//
     
     	MonsterEgg monsterEggBu = new MonsterEgg (lair,
-    		MonsterRace.Bu, null, null);
+    		MonsterRace.Bu, null);
     
     	MonsterEgg monsterEggOcodomo = new MonsterEgg (lair,
-    		MonsterRace.Ocodomo, null, null);
+    		MonsterRace.Ocodomo, null);
    
     	lair.addMonsterEgg(monsterEggBu).addMonsterEgg(monsterEggOcodomo); // Add to lair
     
     	
     	//*** MONSTERS ***//
-		Monster child = new Monster(Id.autoGenerate(), lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLoginName(), now, now, MonsterAge.Child); 
-		Monster adult =	new Monster(Id.autoGenerate(), lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLoginName(), now, now, MonsterAge.Adult);
-		Monster old   = new Monster(Id.autoGenerate(), lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLoginName(), now, now, MonsterAge.Old);
+		Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLoginName(), now, now, MonsterAge.Child); 
+		Monster adult =	new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLoginName(), now, now, MonsterAge.Adult);
+		Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLoginName(), now, now, MonsterAge.Old);
     	
 		lair.addMonster(child).addMonster(adult).addMonster(old);
     	

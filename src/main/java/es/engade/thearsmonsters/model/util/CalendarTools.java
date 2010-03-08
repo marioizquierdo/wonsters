@@ -8,19 +8,23 @@ import java.util.Date;
  */
 public class CalendarTools {
 
-	public static Calendar now() {
-		return Calendar.getInstance();
+	public static Date now() {
+		return new Date();
 	}
 	
-	public static Calendar tomorrow() {
-		Calendar t = Calendar.getInstance();
-		t.add(Calendar.DAY_OF_MONTH, 1);
+	//TODO: Hacer que sea tomorrow
+	public static Date tomorrow() {
+//		Calendar t = Calendar.getInstance();
+//		t.add(Calendar.DAY_OF_MONTH, 1);
+	    Date t = new Date();
 		return t;
 	}
 	
-	public static Calendar yesterday() {
-		Calendar t = Calendar.getInstance();
-		t.add(Calendar.DAY_OF_MONTH, -1);
+	//TODO: Hacer que sea yesterday
+	public static Date yesterday() {
+//		Calendar t = Calendar.getInstance();
+//		t.add(Calendar.DAY_OF_MONTH, -1);
+	    Date t = new Date();
 		return t;
 	}
 	
@@ -35,6 +39,12 @@ public class CalendarTools {
 		return days;
 	}
 	
+	public static Float  distanceInDays(Date c1,Date c2){
+        long millisecondsAsDay = 24 * 60 * 60 * 1000;
+        long milliseconds = c2.getTime() - c1.getTime();
+        float days = milliseconds / millisecondsAsDay;
+        return days;
+    }
 	
 	/**
 	 * Compara los Calendar teniendo en cuenta que cualquiera de ellos

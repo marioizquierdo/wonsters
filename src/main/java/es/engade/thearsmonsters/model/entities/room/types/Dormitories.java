@@ -1,6 +1,5 @@
 package es.engade.thearsmonsters.model.entities.room.types;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
@@ -22,9 +21,11 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
  */
 public class Dormitories extends Room {
 	
-	public Dormitories(Id roomId, Lair lair, int level, int size, 
+    private static final long serialVersionUID = 20100305L;
+    
+	public Dormitories(Lair lair, int level, int size, 
     		RoomPublicAccess publicAccess, RoomState state) {
-		super(roomId, lair, level, size, publicAccess, state);
+		super(lair, level, size, publicAccess, state);
 	}
 	
     public Dormitories(Lair lair) {

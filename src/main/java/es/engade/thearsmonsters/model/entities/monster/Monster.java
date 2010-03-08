@@ -1,48 +1,82 @@
 package es.engade.thearsmonsters.model.entities.monster;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import antlr.collections.List;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
+import com.google.appengine.api.datastore.Key;
+
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
-import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
-import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
+import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.util.CalendarTools;
 import es.engade.thearsmonsters.model.util.Format;
-import es.engade.thearsmonsters.model.monsteraction.*;
 
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Monster implements Serializable {
 
-	private static final long serialVersionUID = 5232245628626701489L;
-	private Id id;
+    private static final long serialVersionUID = 20100305L;
+	
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key id;
+    
+    @Persistent
 	private Lair lair;
-	private Map<AttrType, Attr> workSkills; 
+    
+    @Persistent(serialized="true") 
+	private Map<AttrType, Attr> workSkills;
+    
+    @Persistent(serialized="true") 
 	private Map<AttrType, Attr> simpleAttrs;
 	//private List<Task> tasks;
+    
+    @Persistent
 	private MonsterAge age;
-	private Calendar borningDate;
-	private Calendar cocoonCloseUpDate;
-	private Calendar freeTurnsTimestamp;
+    
+    @Persistent
+	private Date borningDate;
+    
+    @Persistent
+	private Date cocoonCloseUpDate;
+    
+    @Persistent
+	private Date freeTurnsTimestamp;
+    
+    @Persistent
 	private int freeTurns;
-	private List activities;
+    
+    @Persistent(serialized="true", defaultFetchGroup="true")
+	private List<MonsterActivity> activities;
+    
+    @Persistent
 	private String name;
+    
+    @Persistent
 	private MonsterRace race;
 	
-	public Monster(){}
+	public Monster(){
+	    activities = new ArrayList<MonsterActivity>();
+	}
 	
-	public Monster(Id Id, Lair lair, MonsterRace race, String name, Calendar borningDate, Calendar cocoonCloseUpDate,
+	public Monster(Lair lair, MonsterRace race, String name, Date borningDate, Date cocoonCloseUpDate,
 			MonsterAge ageState){
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
-		this.setId(Id);
 		this.setLair(lair);
 		this.setRace(race);
 		this.setName(name);
@@ -54,28 +88,28 @@ public class Monster implements Serializable {
 		this.freeTurns = 11;
 
 		/* Esto de aqui abajo no se si esta bien */
-		this.freeTurnsTimestamp= CalendarTools.now();
-		this.activities = null;
+		this.freeTurnsTimestamp= new Date();
+		this.activities = new ArrayList<MonsterActivity>();
 		
 	}
 
 	//-- GETTERS --//
-	public Id getId() { return id; }
+	public Key getId() { return id; }
 	public Lair getLair() {return lair;}	
 	public MonsterAge getAge(){return age;}	
-	public Calendar getBorningDate(){return borningDate;}
-	public Calendar getCocoonCloseUpDate(){return cocoonCloseUpDate;}
+	public Date getBorningDate(){return borningDate;}
+	public Date getCocoonCloseUpDate(){return cocoonCloseUpDate;}
 	public String getName(){return name;}
 	public MonsterRace getRace(){return race;}
 	public int getFreeTurns() {return freeTurns;}
 	
 	//-- SETTERS --//
-	public void setId(Id id) { this.id = id; }
+	public void setId(Key id) { this.id = id; }
 	public void setLair(Lair lair) { this.lair = lair; }
 	public void setRace(MonsterRace race) { this.race = race; }
 	public void setName(String name) { this.name = name; }
-	public void setBorningDate(Calendar borningDate) { this.borningDate = borningDate; }
-	public void setCocoonCloseUpDate(Calendar cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
+	public void setBorningDate(Date borningDate) { this.borningDate = borningDate; }
+	public void setCocoonCloseUpDate(Date cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
 	public void setAge(MonsterAge ageState) { this.age = ageState; }
 	public void setFreeTurns(int freeTurns) { this.freeTurns = freeTurns;}
 
@@ -164,7 +198,7 @@ public class Monster implements Serializable {
 		
 		int sleepHours,turnsPerDay;
 		float daysFromTimestamp;
-		Calendar calendarToday = CalendarTools.now();
+		Date calendarToday = new Date();
 		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
 		
 		sleepHours = 14 - dormitorie.getLevel();
@@ -172,7 +206,7 @@ public class Monster implements Serializable {
 		daysFromTimestamp = CalendarTools.distanceInDays(this.freeTurnsTimestamp, calendarToday);
 		
 		this.freeTurns += turnsPerDay * daysFromTimestamp;
-		this.freeTurnsTimestamp = Calendar.getInstance();
+		this.freeTurnsTimestamp = new Date();
 			
 	}
 	
@@ -194,27 +228,76 @@ public class Monster implements Serializable {
 			"ageState", age,
 			"name", name, 
 			"id", id,
-			"lair-user", lair.getUser().getLoginName(),
+//			"lair-user", lair.getUser().getLoginName(),
 			"borningDate", borningDate,
 			"cocoonCloseUpDate", cocoonCloseUpDate,
 		});
 	}
 	
+	
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((age == null) ? 0 : age.hashCode());
+        result = prime * result
+                + ((borningDate == null) ? 0 : borningDate.hashCode());
+        result = prime
+                * result
+                + ((cocoonCloseUpDate == null) ? 0 : cocoonCloseUpDate
+                        .hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((race == null) ? 0 : race.hashCode());
+        return result;
+    }
+
 	/**
-	 * Se iguala este monstruo con otro.
-	 * No se tienen en cuenta ni la guarida ni los atributos del monstruo.
-	 */
-	public boolean equals(Monster m) {
-		return 
-			this.getRace().equals(m.getRace()) &&
-			this.getAge().equals(m.getAge()) &&
-			this.getName().equals(m.getName()) &&
-			this.getId().equals(m.getId()) &&
-			CalendarTools.equals(this.getBorningDate(), m.getBorningDate()) &&
-			CalendarTools.equals(this.getCocoonCloseUpDate(), m.getCocoonCloseUpDate());
-	}
-	
-	
+     * Se iguala este monstruo con otro.
+     * No se tienen en cuenta ni la guarida ni los atributos del monstruo.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Monster other = (Monster) obj;
+        if (age == null) {
+            if (other.age != null)
+                return false;
+        } else if (!age.equals(other.age))
+            return false;
+        if (borningDate == null) {
+            if (other.borningDate != null)
+                return false;
+        } else if (!borningDate.equals(other.borningDate))
+            return false;
+        if (cocoonCloseUpDate == null) {
+            if (other.cocoonCloseUpDate != null)
+                return false;
+        } else if (!cocoonCloseUpDate.equals(other.cocoonCloseUpDate))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (race == null) {
+            if (other.race != null)
+                return false;
+        } else if (!race.equals(other.race))
+            return false;
+        return true;
+    }
+
 //-- Private methods --//
 
 

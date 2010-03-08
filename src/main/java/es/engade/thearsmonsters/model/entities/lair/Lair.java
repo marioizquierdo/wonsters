@@ -1,14 +1,19 @@
 package es.engade.thearsmonsters.model.entities.lair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.api.datastore.Key;
+
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
@@ -19,36 +24,61 @@ import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.util.Format;
 
-public class Lair {
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
+public class Lair implements Serializable {
 
-	private Id id;
+    private static final long serialVersionUID = 20100305L;
+    
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key id;
+    
+    @Persistent
     private int money;
+    
+    @Persistent
     private int garbage;
+    
+    @Persistent
     private int vitalSpaceOccupied;
+    
+    @Persistent(defaultFetchGroup="true")
     private User user;
+    
+    @Persistent(serialized="true",defaultFetchGroup="true")
     private RoomData roomData;
+    
+    @Persistent(serialized="true",defaultFetchGroup="true")
     private Address address;
+    
+    @Persistent
     private List<Room> rooms;
     
-    private Set<Monster> monsters;
-    private Set<MonsterEgg> monsterEggs;
-
-    public Lair() {}
+    @Persistent(mappedBy = "lair")
+    private List<Monster> monsters;
     
-	public Lair(Id lairId, User user, int money, int garbage, int vitalSpaceOccupied,
+    @Persistent(mappedBy = "lair")
+    private List<MonsterEgg> monsterEggs;
+
+    public Lair() {
+        this.rooms = new ArrayList<Room>();
+        this.monsters = new ArrayList<Monster>();
+        this.monsterEggs = new ArrayList<MonsterEgg>();
+    }
+    
+	public Lair(User user, int money, int garbage, int vitalSpaceOccupied,
     		RoomData roomData, Address address) {
         
-		this.id = lairId;
         this.user = user;
         this.money = money;
         this.garbage = garbage;
         this.vitalSpaceOccupied = vitalSpaceOccupied;
         this.roomData = roomData;
-        this.roomData.setLair(this);
+//        this.roomData.setLair(this);
         this.address = address;
-        this.rooms = new java.util.Vector<Room>();
-        this.monsters = new HashSet<Monster>();
-        this.monsterEggs = new HashSet<MonsterEgg>();
+        this.rooms = new ArrayList<Room>();
+        this.monsters = new ArrayList<Monster>();
+        this.monsterEggs = new ArrayList<MonsterEgg>();
     }
 	
 	
@@ -110,7 +140,7 @@ public class Lair {
 			buildedRooms.add(room.getType());
 		}
 
-		for(RoomType roomType : RoomType.values()) { // En esta implementacion, se a–aden todas las que hay menos las construidas
+		for(RoomType roomType : RoomType.values()) { // En esta implementacion, se aï¿½aden todas las que hay menos las construidas
 			if(!buildedRooms.contains(roomType.toString())) {
 				newRoomsAvaliable.add(roomType);
 			}
@@ -232,8 +262,8 @@ public class Lair {
 
 	/***** Common getters and setters *****/
 
-	public Id getId() { return id; }
-	public void setId(Id lairId) { this.id = lairId; }
+	public Key getId() { return id; }
+	public void setId(Key lairId) { this.id = lairId; }
 	public int getMoney() { return money; }
 	public void setMoney(int money) { this.money = money; }
 	public int getGarbage() { return garbage; }
@@ -247,10 +277,10 @@ public class Lair {
 	
 	/**** Monsters and eggs ****/
 	
-	public Set<Monster> getMonsters() { return monsters; }
-	public void setMonsters(Set<Monster> monsters) { this.monsters = monsters; }
-	public Set<MonsterEgg> getMonsterEggs() { return monsterEggs; }
-	public void setMonsterEggs(Set<MonsterEgg> monsterEggs) { this.monsterEggs = monsterEggs; }
+	public List<Monster> getMonsters() { return monsters; }
+	public void setMonsters(List<Monster> monsters) { this.monsters = monsters; }
+	public List<MonsterEgg> getMonsterEggs() { return monsterEggs; }
+	public void setMonsterEggs(List<MonsterEgg> monsterEggs) { this.monsterEggs = monsterEggs; }
 	public Lair addMonsterEgg(MonsterEgg monsterEgg) {
 		this.monsterEggs.add(monsterEgg);
 		return this;
@@ -264,7 +294,7 @@ public class Lair {
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
-			"user", user.getLoginName(),
+		    "user", user,
 			"money", money,
 			"garbage", garbage,
 			"vitalSpaceOccupied", vitalSpaceOccupied,
@@ -272,16 +302,48 @@ public class Lair {
 		});
 	}
 	
-	public boolean equals(Lair lair) {
-		return 
-		    this.user.equals(lair.user) &&
-		    this.getMoney() == lair.getMoney() &&
-		    this.getGarbage() == lair.getGarbage() &&
-		    this.getVitalSpaceOccupied() == lair.getVitalSpaceOccupied() &&
-		    this.getAddress().equals(lair.getAddress()) &&
-		    roomsEquals(lair);
-	}
-	
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + garbage;
+        result = prime * result + money;
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        result = prime * result + vitalSpaceOccupied;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Lair other = (Lair) obj;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equals(other.address))
+            return false;
+        if (garbage != other.garbage)
+            return false;
+        if (money != other.money)
+            return false;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        if (vitalSpaceOccupied != other.vitalSpaceOccupied)
+            return false;
+        if (!roomsEquals((Lair)obj))
+            return false;
+        return true;
+    }
+
 	/**
 	 * Compare this lair rooms with another one. Return true if both have no rooms loaded yet, or if
 	 * both contains the same rooms. 

@@ -6,6 +6,17 @@
 
 	<distributable />
 
+	<!-- instantiates the spring application context -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- location of main spring app context configuration -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	
 	<!--
 		======================= Standard TagLibs configuration ==============
 	-->

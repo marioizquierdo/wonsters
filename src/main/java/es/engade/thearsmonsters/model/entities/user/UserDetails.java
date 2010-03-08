@@ -7,10 +7,13 @@ import es.engade.thearsmonsters.model.util.Format;
 public class UserDetails implements Serializable {
 
 	private static final long serialVersionUID = 200911261607L;
-	
+
 	private String firstName;
+
     private String surname;
+
     private String email;
+
     private String language;
     
 	public UserDetails(String firstName, String surname, String email, String language) {    

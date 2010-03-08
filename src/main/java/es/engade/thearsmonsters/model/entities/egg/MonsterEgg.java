@@ -1,7 +1,6 @@
 package es.engade.thearsmonsters.model.entities.egg;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -12,31 +11,27 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
-import es.engade.thearsmonsters.model.util.CalendarTools;
 import es.engade.thearsmonsters.model.util.Format;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class MonsterEgg implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 20091210L;
+	private static final long serialVersionUID = 20100305L;
 	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key id;
 	
-	private Monster parent;
+//	@NotPersistent
+//	private Monster parent;
 	
 	@Persistent
 	private MonsterRace race;
 	
+	@Persistent
 	private Lair lair;
 	
 	@Persistent
@@ -45,12 +40,12 @@ public class MonsterEgg implements Serializable {
 	public MonsterEgg () {}
 	
 	public MonsterEgg (Lair lair, MonsterRace race, 
-			Date borningDate, Monster parent) {
+			Date borningDate) { //, Monster parent) {
 //		this.id = id;
 		this.lair = lair;
 		this.race = race;
 		this.borningDate = borningDate;
-		this.parent = parent;
+//		this.parent = parent;
 	}
 	
 	public Key getId() {
@@ -61,13 +56,13 @@ public class MonsterEgg implements Serializable {
 		this.id = id;
 	}
 
-	public Monster getParent() {
-		return parent;
-	}
-
-	public void setParent(Monster parent) {
-		this.parent = parent;
-	}
+//	public Monster getParent() {
+//		return parent;
+//	}
+//
+//	public void setParent(Monster parent) {
+//		this.parent = parent;
+//	}
 
 	public MonsterRace getRace() {
 		return race;
@@ -130,24 +125,56 @@ public class MonsterEgg implements Serializable {
 	
 	
 	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((borningDate == null) ? 0 : borningDate.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((race == null) ? 0 : race.hashCode());
+        return result;
+    }
+
+	/**
+     * Compara este huevo con otro.
+     * No se tienen en cuenta ni el parent ni la guarida.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        MonsterEgg other = (MonsterEgg) obj;
+        if (borningDate == null) {
+            if (other.borningDate != null)
+                return false;
+        } else if (!borningDate.equals(other.borningDate))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (lair == null) {
+            if (other.lair != null)
+                return false;
+        } else if (!race.equals(other.race))
+            return false;
+        return true;
+    }
+
+    @Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
+		    "key", id,
 			"race", race,
 //			"parent-name", parent.getName(),
 //			"lair-user", lair.getUser().getLoginName(),
 			"borningDate", borningDate
 		});
 	}
-	
-	/**
-	 * Compara este huevo con otro.
-	 * No se tienen en cuenta ni el parent ni la guarida.
-	 */
-	public boolean equals(MonsterEgg e) {
-		return (this.getId().equals(e.getId()) &&
-				this.getRace().equals(e.getRace()) &&
-				CalendarTools.equals(this.getBorningDate(), e.getBorningDate()));
-	}
-
 
 }

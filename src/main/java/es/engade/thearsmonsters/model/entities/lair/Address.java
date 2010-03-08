@@ -10,6 +10,24 @@ public class Address implements Serializable {
     private int building;
     private int floor;
     
+    public void setStreet(int street) {
+        this.street = street;
+    }
+
+
+
+    public void setBuilding(int building) {
+        this.building = building;
+    }
+
+
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+
+
     public Address(int street, int building, int floor) {
         
         this.street = street;

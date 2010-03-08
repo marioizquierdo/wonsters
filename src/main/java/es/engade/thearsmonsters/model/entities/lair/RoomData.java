@@ -18,11 +18,9 @@ public class RoomData implements Serializable {
 	private static final long serialVersionUID = 200911261651L;
 
 	private long lastChangeResourcesTurn;
-    private Lair lair;
     
     public RoomData(long lastChangeResourcesTurn) {
         this.lastChangeResourcesTurn = lastChangeResourcesTurn;
-    	this.lair = null;
     }
     
     /**
@@ -32,14 +30,6 @@ public class RoomData implements Serializable {
     public RoomData() {
     	this(0);
     }
-
-	public Lair getLair() {
-		return lair;
-	}
-
-	public void setLair(Lair lair) {
-		this.lair = lair;
-	}
 
 	public long getLastChangeResourcesTurn() {
 		return lastChangeResourcesTurn;
