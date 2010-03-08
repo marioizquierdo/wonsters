@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.test;
+package es.engade.thearsmonsters.test.facade;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.test;
+package es.engade.thearsmonsters.test.util;
 
 import java.util.Date;
 import java.util.List;

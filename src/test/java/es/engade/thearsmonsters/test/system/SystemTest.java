@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.test.testcases;
+package es.engade.thearsmonsters.test.system;
 
 import static org.junit.Assert.assertEquals;
 

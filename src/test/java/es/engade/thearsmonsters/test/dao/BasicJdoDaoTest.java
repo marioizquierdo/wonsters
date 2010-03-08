@@ -1,24 +1,18 @@
-package jdoDao;
+package es.engade.thearsmonsters.test.dao;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.dev.LocalDatastoreService;
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
 import com.google.appengine.api.labs.taskqueue.dev.LocalTaskQueue;
 import com.google.appengine.api.labs.taskqueue.dev.QueueStateInfo;
-import com.google.appengine.tools.development.ApiProxyLocal;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalTaskQueueTestConfig;
-import com.google.apphosting.api.ApiProxy;
 
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
@@ -33,11 +27,9 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.test.GaeTest;
 
-public class BasicJdoDaoTest {
-
-    private final LocalServiceTestHelper helper =
-        new LocalServiceTestHelper(new LocalTaskQueueTestConfig());
+public class BasicJdoDaoTest extends GaeTest{
 
     private static MonsterEggDao monsterEggDao;
     private static LairDao lairDao;
@@ -55,24 +47,6 @@ public class BasicJdoDaoTest {
 //        roomDao = appContext.getBean(RoomDao.class);
     }
     
-    @Before
-    public void setUp() {
-        helper.setUp();
-        ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
-        ApiProxy.setDelegate(LocalServiceTestHelper.getApiProxyLocal());
-        ApiProxyLocal proxy = (ApiProxyLocal) ApiProxy.getDelegate();
-        proxy.setProperty(LocalDatastoreService.NO_STORAGE_PROPERTY, Boolean.TRUE.toString());
-    }
-
-    @After
-    public void tearDown() {
-        ApiProxyLocal proxy = (ApiProxyLocal) ApiProxy.getDelegate();
-        LocalDatastoreService datastoreService = (LocalDatastoreService) proxy.getService("datastore_v3");
-        datastoreService.clearProfiles();
-        helper.tearDown();
-    }
-
-
     // Run this test twice to demonstrate we're not leaking state across tests.
     // If we _are_ leaking state across tests we'll get an exception on the
     // second test because there will already be a task with the given name.

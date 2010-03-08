@@ -13,7 +13,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
-import es.engade.thearsmonsters.test.TestFacade;
+import es.engade.thearsmonsters.test.facade.TestFacade;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.struts.action.DefaultAction;
 /**

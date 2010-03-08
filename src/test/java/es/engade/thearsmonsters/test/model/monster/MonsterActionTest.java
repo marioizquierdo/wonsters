@@ -1,9 +1,8 @@
-package es.engade.thearsmonsters.test.testcases;
+package es.engade.thearsmonsters.test.model.monster;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,20 +10,17 @@ import org.junit.Test;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
-import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
-import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
 import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
 import es.engade.thearsmonsters.model.entities.room.types.TruffleFarm;
 import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
 import es.engade.thearsmonsters.model.monsteraction.CultivateTruffles;
 import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
-import es.engade.thearsmonsters.test.FactoryData;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.FactoryData.LairWhatIs;
-import es.engade.thearsmonsters.test.FactoryData.MonsterWhatIs;
+import es.engade.thearsmonsters.test.util.FactoryData;
+import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
+import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhatIs;
 
 public class MonsterActionTest extends GaeTest{
 

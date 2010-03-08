@@ -1,12 +1,12 @@
 package es.engade.thearsmonsters.test;
 
-import java.io.File;
-
 import org.junit.After;
 import org.junit.Before;
 
-import com.google.appengine.tools.development.*;
-//import com.google.appengine.tools.development.;
+import com.google.appengine.api.datastore.dev.LocalDatastoreService;
+import com.google.appengine.tools.development.ApiProxyLocal;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.appengine.tools.development.testing.LocalTaskQueueTestConfig;
 import com.google.apphosting.api.ApiProxy;
 
 /**
@@ -24,19 +24,24 @@ import com.google.apphosting.api.ApiProxy;
  */
 public class GaeTest {
 	
-	String pepe = "hola";
+    private final LocalServiceTestHelper helper =
+        new LocalServiceTestHelper(new LocalTaskQueueTestConfig());
 
 	@Before
     public final void setEnvironmentForCurrentThread() throws Exception {
+	    helper.setUp();
         ApiProxy.setEnvironmentForCurrentThread(new TestEnvironment());
-//        ApiProxy.setDelegate(new ApiProxyLocalImpl(new File(".")){});
+        ApiProxy.setDelegate(LocalServiceTestHelper.getApiProxyLocal());
+        ApiProxyLocal proxy = (ApiProxyLocal) ApiProxy.getDelegate();
+        proxy.setProperty(LocalDatastoreService.NO_STORAGE_PROPERTY, Boolean.TRUE.toString());
     }
 
 	@After
     public final void unsetEnvironmentForCurrentThread() throws Exception {
-        // not strictly necessary to null these out but there's no harm either
-        ApiProxy.setDelegate(null);
-        ApiProxy.setEnvironmentForCurrentThread(null);
+	    ApiProxyLocal proxy = (ApiProxyLocal) ApiProxy.getDelegate();
+        LocalDatastoreService datastoreService = (LocalDatastoreService) proxy.getService("datastore_v3");
+        datastoreService.clearProfiles();
+        helper.tearDown();
     }
 
 }

@@ -1,4 +1,4 @@
-package jdoDao;
+package es.engade.thearsmonsters.test.model.user;
 
 import com.google.apphosting.api.ApiProxy;
 

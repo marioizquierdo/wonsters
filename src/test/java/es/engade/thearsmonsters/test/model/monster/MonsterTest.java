@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.test.testcases;
+package es.engade.thearsmonsters.test.model.monster;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,9 +14,9 @@ import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
 import es.engade.thearsmonsters.model.entities.monster.attr.AttrBase;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.util.CalendarTools;
-import es.engade.thearsmonsters.test.FactoryData;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.FactoryData.MonsterWhatIs;
+import es.engade.thearsmonsters.test.util.FactoryData;
+import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhatIs;
 
 
 public class MonsterTest extends GaeTest {
