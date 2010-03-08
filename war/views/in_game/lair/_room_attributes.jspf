@@ -73,7 +73,7 @@
 	
 	
 	<!-- Room Actions (links) -->
-	<c:if test="${lair.loginName == sessionScope.loginName}">
+	<c:if test="${lair.user.loginName == sessionScope.loginName}">
 	<div class="roomAttributes_actions">
 		<ul>
             

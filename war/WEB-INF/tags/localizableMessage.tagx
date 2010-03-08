@@ -8,9 +8,9 @@
 --> 		
 			
   <jsp:directive.attribute name="var" required="true"
-  		type="es.udc.mizquierdo.j2ee.thearsmonsters.http.view.applicationobjects.LocalizableMessage"
+  		type="es.engade.thearsmonsters.http.view.applicationobjects.LocalizableMessage"
   		description="Objeto que implemente la interface
-  			 es.udc.mizquierdo.j2ee.thearsmonsters.http.view.applicationobjects.LocalizableMessage,
+  			 es.engade.thearsmonsters.http.view.applicationobjects.LocalizableMessage,
   			 para mostrar como un mensaje internacionalizado."/>
   			
 	<fmt:message key="${var.messageKey}">

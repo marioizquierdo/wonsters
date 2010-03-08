@@ -5,6 +5,8 @@ import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.test.FactoryData;
+import es.engade.thearsmonsters.test.FactoryData.LairWhatIs;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -15,8 +17,8 @@ public class UserFacadeMock implements UserFacade {
 	private Lair lair;
 	
 	public UserFacadeMock() {
-		user = new User();
-		lair = new Lair();
+		lair = FactoryData.generate(LairWhatIs.Default);
+		user = lair.getUser();
 	}
 	
 	public void changePassword(String oldClearPassword, String newClearPassword)

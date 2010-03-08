@@ -24,7 +24,7 @@
     <fmt:message key="${title}"/>
   </title>
   <c:url var="stylesURL" value="/css/styles.css" />
-  <c:url var="windowStylesURL" value="/css/WindowStyles.css" />
+  <c:url var="windowStylesURL" value="/css/window_tag_and_colors.css" />
   <link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${windowStylesURL}" type="text/css" media="all" />
   <link rel="icon" href="favicon.ico"/>

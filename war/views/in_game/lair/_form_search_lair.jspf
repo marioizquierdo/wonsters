@@ -12,7 +12,7 @@
             <fmt:message key="UserProfile.loginName"/>
         </span>
         <span class="entry">
-        	<input type="text" name="loginName" value="${lair.loginName}" />  
+        	<input type="text" name="loginName" value="${lair.user.loginName}" />  
         </span>
         <span class="button">
 	        <input type="submit" value="${buttonText}" />
@@ -29,21 +29,21 @@
         	<fmt:message key="Building.street"/>
         </span>
         <span class="entry">
-       		<input type="text" name="street" value="${lair.addressVO.street}"
+       		<input type="text" name="street" value="${lair.address.street}"
        			size="3" maxlength="3" />
         </span>
         <span class="label">
         	<fmt:message key="Building.building"/>
         </span>
         <span class="entry">
-       		<input type="text" name="building" value="${lair.addressVO.building}"
+       		<input type="text" name="building" value="${lair.address.building}"
        			size="3" maxlength="3" />
         </span>
         <span class="label">
         	<fmt:message key="Building.floor"/>
         </span>
         <span class="entry">
-       		<input type="text" name="floor" value="${lair.addressVO.floor}"
+       		<input type="text" name="floor" value="${lair.address.floor}"
        			size="3" maxlength="3" />
         </span>
         <span class="button">

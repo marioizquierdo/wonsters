@@ -6,34 +6,31 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
-    		
-<c:url var="stylesURL" value="/css/LairStyles.css" />
-<link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
 
 <![CDATA[
     <script type="text/javascript" src="javascript/show_rooms_tasks_ajax.js"></script>
 ]]> 
 
 <c:choose>
-	<c:when test="${lair.loginName == sessionScope.loginName}">
+	<c:when test="${lair.user.loginName == sessionScope.myLair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${lair.addressVO.street}&amp;building=${lair.addressVO.building}" />
+			value="?street=${lair.address.street}&amp;building=${lair.address.building}" />
 	</c:when>
 	<c:when test="${empty lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.error"/></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${myLair.addressVO.street}&amp;building=${myLair.addressVO.building}" />
+			value="?street=${myLair.address.street}&amp;building=${myLair.address.building}" />
 	</c:when>
 	<c:otherwise>
 		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
-			<fmt:param value="${lair.loginName}"/>
-			<fmt:param value="${lair.addressVO.street}"/>
-			<fmt:param value="${lair.addressVO.building}"/>
-			<fmt:param value="${lair.addressVO.floor}"/>
+			<fmt:param value="${lair.user.loginName}"/>
+			<fmt:param value="${lair.address.street}"/>
+			<fmt:param value="${lair.address.building}"/>
+			<fmt:param value="${lair.address.floor}"/>
 		</fmt:message></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${lair.addressVO.street}&amp;building=${lair.addressVO.building}" />
+			value="?street=${lair.address.street}&amp;building=${lair.address.building}" />
 	</c:otherwise>
 </c:choose>
 
@@ -123,7 +120,7 @@
 	
 	<!-- Formulario para buscar guaridas -->
 	<div id="lairWindow_search_lairs">
-		<jsp:directive.include file="/lairContents/_form_search_lair.jspf"/>
+		<jsp:directive.include file="_form_search_lair.jspf"/>
 	</div>
 
 </customtag:window>
@@ -137,7 +134,7 @@
 <div id="roomAttributes_hide" style="display:none">
 	<customtag:window id="roomAttributes">
 	    <c:forEach items="${lair.rooms}" var="room" varStatus="loop" >
-	    	<jsp:directive.include file="/lairContents/_room_attributes.jspf"/>
+	    	<jsp:directive.include file="_room_attributes.jspf"/>
 		</c:forEach>
 	</customtag:window>
 	

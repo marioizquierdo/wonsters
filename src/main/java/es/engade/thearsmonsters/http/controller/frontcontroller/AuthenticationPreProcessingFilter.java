@@ -35,8 +35,6 @@ public class AuthenticationPreProcessingFilter extends PreProcessingFilter {
                 InternalErrorException {
         
 //TODO: Código temporal para poder acceder a partes que requieran autentificación
-        request.getSession().setAttribute("myLair", FactoryData.generate(LairWhatIs.Default));
-        request.getSession().setAttribute("isAdmin", true);
         return null;
 
 //**************************************************************************
