@@ -52,6 +52,21 @@ public class CalendarTools {
 	}
 	
 	/**
+     * Compara dos Date teniendo en cuenta que cualquiera de ellos
+     * puede ser nulo. (Si ambos son nulos, se consideran iguales).
+     * No tiene en cuenta los milisegundos, ya que en la base de datos, se almacenan con una precisión de segundos.
+     */
+    public static boolean equals(Date c1, Date c2) {
+        if(c1==null) {
+            if(c2==null) return true;
+            return false;
+        } else {
+            if(c2==null) return false;
+            return c1.getTime()/1000 == c2.getTime()/1000;
+        }
+    }
+	
+	/**
 	 * Representa el Calendar en un formato legible, teniendo en cuenta que puede ser Null.
 	 */
 	public static String toString(Calendar c) {

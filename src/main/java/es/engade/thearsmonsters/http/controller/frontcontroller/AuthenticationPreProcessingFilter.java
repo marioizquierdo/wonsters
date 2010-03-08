@@ -12,7 +12,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
-import es.engade.thearsmonsters.test.DataSpawner;
+import es.engade.thearsmonsters.test.FactoryData;
+import es.engade.thearsmonsters.test.FactoryData.LairWhatIs;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 /**
@@ -34,7 +35,7 @@ public class AuthenticationPreProcessingFilter extends PreProcessingFilter {
                 InternalErrorException {
         
 //TODO: Código temporal para poder acceder a partes que requieran autentificación
-        request.getSession().setAttribute("myLair", DataSpawner.generateLair());
+        request.getSession().setAttribute("myLair", FactoryData.generate(LairWhatIs.Default));
         request.getSession().setAttribute("isAdmin", true);
         return null;
 

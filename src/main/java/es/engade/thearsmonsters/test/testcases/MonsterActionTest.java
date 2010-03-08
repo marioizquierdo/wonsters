@@ -21,10 +21,10 @@ import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
 import es.engade.thearsmonsters.model.monsteraction.CultivateTruffles;
 import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
-import es.engade.thearsmonsters.test.DataSpawner;
+import es.engade.thearsmonsters.test.FactoryData;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.DataSpawner.LairWhatIs;
-import es.engade.thearsmonsters.test.DataSpawner.MonsterWhatIs;
+import es.engade.thearsmonsters.test.FactoryData.LairWhatIs;
+import es.engade.thearsmonsters.test.FactoryData.MonsterWhatIs;
 
 public class MonsterActionTest extends GaeTest{
 
@@ -36,9 +36,9 @@ public class MonsterActionTest extends GaeTest{
 	@Before
     public void setUp() throws Exception {
 		lair = new Lair();
-		monsterChild = DataSpawner.generateMonster(MonsterWhatIs.Child);
-		monsterAdult = DataSpawner.generateMonster(MonsterWhatIs.Adult);
-		monsterOld = DataSpawner.generateMonster(MonsterWhatIs.Old);
+		monsterChild = FactoryData.generate(MonsterWhatIs.Child);
+		monsterAdult = FactoryData.generate(MonsterWhatIs.Adult);
+		monsterOld = FactoryData.generate(MonsterWhatIs.Old);
 		monsterChild.setLair(lair);
 		monsterAdult.setLair(lair);
 		monsterOld.setLair(lair);
@@ -126,7 +126,7 @@ public class MonsterActionTest extends GaeTest{
     	int turnsToUpgrade = 0;
     	
     	// Instancio una guarida nueva con los valores iniciales 
-    	Lair lair = DataSpawner.generateLair(LairWhatIs.InInitialState);
+    	Lair lair = FactoryData.generate(LairWhatIs.InInitialState);
     	
     	//Utilizo el monstruo adulto para establecerle un numero de turnos alto
     	monsterAdult.setFreeTurns(1000);

@@ -12,8 +12,9 @@ import es.engade.thearsmonsters.model.entities.monster.*;
 import es.engade.thearsmonsters.model.entities.monster.attr.*;
 import es.engade.thearsmonsters.model.entities.monster.enums.*;
 import es.engade.thearsmonsters.model.util.CalendarTools;
-import es.engade.thearsmonsters.test.DataSpawner;
+import es.engade.thearsmonsters.test.FactoryData;
 import es.engade.thearsmonsters.test.GaeTest;
+import es.engade.thearsmonsters.test.FactoryData.MonsterWhatIs;
 
 
 public class MonsterTest extends GaeTest {
@@ -27,7 +28,7 @@ public class MonsterTest extends GaeTest {
         now = CalendarTools.now();
         
         // Monsters
-        m1 = DataSpawner.generateMonster();
+        m1 = FactoryData.generate(MonsterWhatIs.Rand);
     }
     
     
