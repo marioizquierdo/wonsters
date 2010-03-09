@@ -40,6 +40,17 @@
   <link rel="StyleSheet" href="${pikachooseCSS}" type="text/css" media="all" />
   
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+
+
+  <!-- Javascript. -->   
+  <![CDATA[
+  	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
+  	<script type='text/javascript' src='javascript/lib/jquery.dimensions.js'></script>
+  	<script type='text/javascript' src='javascript/lib/jquery.tooltip.js'></script>
+  	<script type='text/javascript' src='javascript/lib/thearsmonsters_lib.js'></script>
+  	<script type='text/javascript' src='javascript/common_tooltips.js'></script>
+  ]]> 
+
   <![CDATA[
   <!--[if lt IE 7]>
     <script type="text/javascript">
@@ -47,17 +58,8 @@
     </script>
   <![endif]-->
   ]]>
-  
-</head>
 
-<!-- Javascript. -->   
-<![CDATA[
-	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
-	<script type='text/javascript' src='javascript/lib/jquery.dimensions.js'></script>
-	<script type='text/javascript' src='javascript/lib/jquery.tooltip.js'></script>
-	<script type='text/javascript' src='javascript/lib/thearsmonsters_lib.js'></script>
-	<script type='text/javascript' src='javascript/common_tooltips.js'></script>
-]]> 
+</head>
 
 <!-- Start of HTML body. -->
 
