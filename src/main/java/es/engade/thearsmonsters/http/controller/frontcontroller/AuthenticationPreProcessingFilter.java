@@ -12,8 +12,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
-import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 /**

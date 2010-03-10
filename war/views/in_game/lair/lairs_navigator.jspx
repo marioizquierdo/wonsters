@@ -6,7 +6,7 @@
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
     		
-<c:url var="stylesURL" value="/css/LairStyles.css" />
+<c:url var="stylesURL" value="/css/lair_styles.css" />
 <link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
 
 <customtag:window id="buildingWindow" 
@@ -122,7 +122,7 @@
 	
 	<!-- Lair Search -->
 	<div id="buildingWindow_search_lairs">
-		<jsp:directive.include file="/lairContents/_form_search_lair.jspf"/>
+		<jsp:directive.include file="_form_search_lair.jspf"/>
 	</div>
 
 </customtag:window>

@@ -7,7 +7,7 @@
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
               		
-<c:url var="monsterStylesURL" value="/css/MonsterStyles.css" />
+<c:url var="monsterStylesURL" value="/css/monster_styles.css" />
 <link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
 
 <customtag:window id="monstersList" title="Monsters.title"

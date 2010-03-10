@@ -47,7 +47,7 @@
 	<definition name=".EggsManagement" extends=".InGameBase">
 		<put name="title" value="EggsManagement.title" />
 		<put name="color" value="green" />
-		<put name="content" value="/views/in_game/monster/eggs_management.jspx" />
+		<put name="content" value="/views/in_game/monsters/eggs_management.jspx" />
 	</definition>
 
 	<definition name=".Guild" extends=".InGameBase">

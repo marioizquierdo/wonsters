@@ -1,5 +1,5 @@
 /**
-  * Maquetaci—n del menœ superior del layout principal
+  * Maquetaciï¿½n del menï¿½ superior del layout principal
   */
 #menu {
 	width: 770px;
@@ -26,6 +26,7 @@
 
 .menu_window img {
 	margin-top: 15px;
+    margin-left: 38px;
 }
 
 #logo_bottom_links {

@@ -20,9 +20,8 @@ $(function() {
 $(function(){
 	$.fn.autoscroll = function() {
 		jQuery('html,body').animate({
-			scrollTop: this.offset().top
-		},
+			scrollTop: this.offset().top},
 		0);
 		return this;
 	};
-	})(jQuery);
+});
