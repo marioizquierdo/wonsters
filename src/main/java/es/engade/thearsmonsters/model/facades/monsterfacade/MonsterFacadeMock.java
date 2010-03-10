@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -11,6 +12,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
+import es.engade.thearsmonsters.test.util.FactoryData;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -26,7 +28,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 	}
 	
 	public List<MonsterEgg> findEggs(Lair lair) throws InternalErrorException {
-		return eggsList;
+		return lair.getMonsterEggs();
 	}
 
 	public void incubateEgg(long eggId, Lair lair)
@@ -53,11 +55,12 @@ public class MonsterFacadeMock implements MonsterFacade {
 
 	public List<Monster> findLairMonsters(Lair lair)
 			throws InternalErrorException {
-		return null;
+		return lair.getMonsters();
 	}
 
 	public Monster findMonster(long monsterId) throws InternalErrorException,
 			InstanceNotFoundException {
+		
 		return null;
 	}
 

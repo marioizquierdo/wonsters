@@ -34,7 +34,7 @@ public class ShellEggAction extends AThearsmonstersDefaultAction {
         MonsterFacade monsterFacade =new MonsterFacadeMock();
         try {
 	        /* Get data. */
-	        long eggId = Long.parseLong(request.getParameter("eggId"));
+	        long eggId = Long.parseLong(request.getParameter("id"));
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */

@@ -53,7 +53,7 @@
 	<definition name=".Guild" extends=".InGameBase">
 		<put name="title" value="Guild.title" />
 		<put name="color" value="red" />
-		<put name="content" value="/views/in_game/common/not_implemented_page.jspx" />
+		<put name="content" value="/views/common/not_implemented_page.jspx" />
 	</definition>
 
 	<definition name=".InternalError" extends=".InGameBase">
@@ -76,7 +76,7 @@
 	<definition name=".Missions" extends=".InGameBase">
 		<put name="title" value="Missions.title" />
 		<put name="color" value="purple" />
-		<put name="content" value="/views/in_game/common/not_implemented_page.jspx" />
+		<put name="content" value="/views/common/not_implemented_page.jspx" />
 	</definition>
 
 	<definition name=".Monster" extends=".InGameBase">

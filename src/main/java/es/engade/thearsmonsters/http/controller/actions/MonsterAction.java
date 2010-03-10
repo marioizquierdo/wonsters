@@ -29,10 +29,10 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
     	Long monsterId;
     	
     	/* Get Request Data */
-		if(request.getParameter("monsterId")==null) {
+		if(request.getParameter("id")==null) {
 	        return mapping.findForward("Monsters");
 		}else{
-			monsterId = Long.parseLong(request.getParameter("monsterId"));
+			monsterId = Long.parseLong(request.getParameter("id"));
 		}
     	
         /* Find Monster. */
