@@ -72,13 +72,51 @@ public class UserDetails implements Serializable {
 			"language", language,
 		});
 	}
-    
-    public boolean equals(UserDetails userDetails) {
-    	return (
-    	userDetails.getFirstName().equals(firstName)	&&
-    	userDetails.getSurname().equals(surname)		&&
-    	userDetails.getEmail().equals(email)			&&
-    	userDetails.getLanguage().equals(language)
-    	);
+ 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result
+                + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result
+                + ((language == null) ? 0 : language.hashCode());
+        result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+        return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserDetails other = (UserDetails) obj;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (language == null) {
+            if (other.language != null)
+                return false;
+        } else if (!language.equals(other.language))
+            return false;
+        if (surname == null) {
+            if (other.surname != null)
+                return false;
+        } else if (!surname.equals(other.surname))
+            return false;
+        return true;
+    }
+    
+    
 }

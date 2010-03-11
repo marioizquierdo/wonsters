@@ -2,81 +2,91 @@ package es.engade.thearsmonsters.model.entities.common.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
-import org.springframework.orm.jdo.PersistenceManagerFactoryUtils;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.orm.jdo.JdoObjectRetrievalFailureException;
+import org.springframework.orm.jdo.support.JdoDaoSupport;
 
-public class GenericDaoJdo<T, PK extends Serializable> implements GenericDao<T, PK>{
+import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
 
-    protected PersistenceManagerFactory pmf;
+public class GenericDaoJdo <T, PK extends Serializable>  extends JdoDaoSupport implements GenericDao<T, PK> {
 
-    protected Class<T> persistentClass;
-    
-    /** Constructor, defining the PersistenceManagerFactory to use. */
+    private Class<T> persistentClass;
+
     @SuppressWarnings("unchecked")
-    public GenericDaoJdo()
-    {
+    public GenericDaoJdo() {
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().
-                getGenericSuperclass()).getActualTypeArguments()[0]; 
+                getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    public T makePersistent(final T gaeObject) {
-        return getPersistenceManager().makePersistent(gaeObject);
-  }  
+     public boolean exists(PK id) {
+            T entity = (T) getJdoTemplate().getObjectById(this.persistentClass, id);
+            return entity != null;
+     }
     
-    public T get(PK id) {
-        PersistenceManager pm = getPersistenceManager();
-        T obj = null;
-        //T detached = null;
-
-        try {
-                obj = pm.getObjectById(persistentClass, id);
-                // If you're using transactions, you can call
-                // pm.setDetachAllOnCommit(true) before committing to automatically
-                // detach all objects without calls to detachCopy or detachCopyAll.
-                //detached = pm.detachCopy(obj);
-                return obj;
-                //System.out.println("__Generic__DaoImpl:get(detached) - " + detached);
-        } catch (JDOObjectNotFoundException e) {
-                // e.printStackTrace();
-                System.err.println(e.getMessage());
-                // ignore
-                // could not retrieve entity of kind __Index__ with key __Index__("xyz")
-                return null;
-        } finally {
-                pm.close();
-        }
-        //return detached;
-    }
-
-    public T save(T obj) {
-        PersistenceManager pm = getPersistenceManager();
-        try {
-                pm.makePersistent(obj);
-        } finally {
-                pm.close();
-        }
-        return obj;
-    }
-
-    public void remove(T obj) {
-        PersistenceManager pm = getPersistenceManager();
-        try {
-                pm.deletePersistent(obj);
-        } finally {
-                pm.close();
-        }
-    }
-
-    public void setPmf(PersistenceManagerFactory pmf) {
-        this.pmf = pmf;
-    }
+     public T get(PK id) {
+         T entity;
+         try {
+            entity = (T) getJdoTemplate().getObjectById(this.persistentClass, id);
+         } catch (JdoObjectRetrievalFailureException e) {
+             if (e.contains(JDOObjectNotFoundException.class)) {
+                 throw new EntityNotFoundException(this.persistentClass, id);
+             } else
+                 throw e;
+         }
     
-    private PersistenceManager getPersistenceManager() {  
-        return PersistenceManagerFactoryUtils  
-            .getPersistenceManager(pmf, true);
-    }  
+            if (entity == null) {
+                throw new EntityNotFoundException(this.persistentClass, id); 
+//                ObjectRetrievalFailureException(this.persistentClass, id);
+            }
+    
+            return entity;
+     }
+     
+//     public T getByKey(Key id) {
+//            T entity = (T) getJdoTemplate().getObjectById(this.persistentClass, id);
+//    
+//            if (entity == null) {
+//                throw new ObjectRetrievalFailureException(this.persistentClass, id);
+//            }
+//    
+//            return entity;
+//     }
+    
+     public List<T> getAll() {
+      return new ArrayList<T>(getJdoTemplate().find(persistentClass));
+     }
+    
+     public List<T> getAllDistinct() {
+            Collection<T> result = new LinkedHashSet<T>(getAll());
+            return new ArrayList<T>(result);
+     }
+    
+     public void remove(PK id) {
+         PersistenceManager pm = this.getPersistenceManager();
+         T objToDelete = pm.getObjectById(this.persistentClass, id);
+         pm.deletePersistent(objToDelete);
+//         getJdoTemplate().deletePersistent(this.get(id)); 
+     }
+    
+     public T save(T object) {
+      return (T) getJdoTemplate().makePersistent(object);
+     }
+     
+     public T update(T object) {
+         return (T) getJdoTemplate().makePersistent(object);
+        }
+    
+     public void setPmf(PersistenceManagerFactory pmf) {
+         this.setPersistenceManagerFactory(pmf);
+     }
+
 }

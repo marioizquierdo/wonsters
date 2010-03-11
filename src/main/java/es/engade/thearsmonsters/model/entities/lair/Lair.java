@@ -42,7 +42,7 @@ public class Lair implements Serializable {
     @Persistent
     private int vitalSpaceOccupied;
     
-    @Persistent(defaultFetchGroup="true")
+    @Persistent(defaultFetchGroup="true", mappedBy = "lair")
     private User user;
     
     @Persistent(serialized="true",defaultFetchGroup="true")
