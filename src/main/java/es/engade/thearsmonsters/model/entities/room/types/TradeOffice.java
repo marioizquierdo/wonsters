@@ -25,39 +25,12 @@ public class TradeOffice extends Room {
 	
     private static final long serialVersionUID = 20100305L;
     
-	public TradeOffice(Lair lair, int level, int size, 
+	public TradeOffice(Lair lair, int level,
     		RoomPublicAccess publicAccess, RoomState state) {
-		super(lair, level, size, publicAccess, state);
-	}
-	
-    public TradeOffice(Lair lair) {
-    	super(lair);
-    }
-	
-	@Override
-    public RoomType getRoomType() {
-		return RoomType.TradeOffice;
+		super(lair, RoomType.TradeOffice, level, publicAccess, state);
 	}
 
-	@Override
-    protected double _gUpg(int level) {
-		return 100 * Math.pow(1.8, level-1);
-	}
 
-	@Override
-    protected double _eUpg(int level) {
-		return getEffortBuild() * Math.pow(1.6, level-1);
-	}
-
-	@Override
-    protected double _gEnl(int size) {
-		return getGarbageBuild() * 4 * Math.pow(1.4, size-1);
-	}
-
-	@Override
-    protected double _eEnl(int size) {
-		return getEffortBuild() * 2 * Math.pow(1.4, size-1);
-	}
 	
 	
 	/* ---- Exclusive TradeOffice methods ---- */
@@ -70,7 +43,7 @@ public class TradeOffice extends Room {
 	}
 	
 	public int getMoneyStorageCapacityBySize(int size) {
-		return gEnl(size) * 4; // need always to be more than _gEnl
+		return getGarbageEnlarge(size) * 4; // need always to be more than _gEnl
 	}
 	
 	/**

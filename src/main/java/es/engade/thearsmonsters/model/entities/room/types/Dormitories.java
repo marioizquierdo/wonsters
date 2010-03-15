@@ -4,9 +4,7 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
-import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
 
 /**
  * Es donde los monstruos descansan cada día.
@@ -23,30 +21,9 @@ public class Dormitories extends Room {
 	
     private static final long serialVersionUID = 20100305L;
     
-	public Dormitories(Lair lair, int level, int size, 
+	public Dormitories(Lair lair, int level,
     		RoomPublicAccess publicAccess, RoomState state) {
-		super(lair, level, size, publicAccess, state);
-	}
-	
-    public Dormitories(Lair lair) {
-    	super(lair);
-    	this.size = 1;
-        this.state = new RoomNormalState();
-    }
-	
-	@Override
-    public RoomType getRoomType() {
-		return RoomType.Dormitories;
-	}
-
-	@Override
-    protected double _gEnl(int size) {
-		return 20 * Math.pow(1.15, size-1);
-	}
-
-	@Override
-    protected double _eEnl(int size) {
-		return 50 * Math.pow(1.1, size-1);
+		super(lair, RoomType.Dormitories, level, publicAccess, state);
 	}
 	
 }

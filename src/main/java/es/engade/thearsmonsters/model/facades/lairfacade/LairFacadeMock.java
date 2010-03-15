@@ -3,7 +3,6 @@ package es.engade.thearsmonsters.model.facades.lairfacade;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
@@ -14,7 +13,8 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
-import es.engade.thearsmonsters.test.util.*;
+import es.engade.thearsmonsters.test.util.FactoryData;
+import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -24,14 +24,14 @@ public class LairFacadeMock implements LairFacade {
 	private Lair lair;
 	
 	public LairFacadeMock() {
-		lair = FactoryData.generate(FactoryData.LairWhatIs.Default);
+		lair = FactoryData.generate(LairWhatIs.Default);
 		lairs = new ArrayList<Lair>();
 		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.Default));
 		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.InInitialState));
 		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.InInitialState));
-		
-		
 	}
+	
+	@Override
 	public void cancelWorks(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
 			InstanceNotFoundException, NoRoomsLoadedException {
@@ -50,6 +50,7 @@ public class LairFacadeMock implements LairFacade {
 	public void createNewRoom(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
 			NoRoomsLoadedException, InsuficientGarbageException {
+		lair.addRoom(roomType.build(lair));
 	}
 
 	@Override

@@ -13,20 +13,6 @@ public enum LeisureRoomType {
 	ReggaetonLeisureRoom	(RoomType.ReggaetonLeisureRoom),
 	IndieRockLeisureRoom	(RoomType.IndieRockLeisureRoom)*/;
 	
-	/**
-	 * If you know the code then you can get the corresponding enum instance
-	 */
-	static public LeisureRoomType getFromCode(byte code) 
-		throws InstanceNotFoundException {
-		
-		for(LeisureRoomType e : LeisureRoomType.values()) {
-			if(code == e.code()) return e;
-		}
-			
-		throw new InstanceNotFoundException(
-        	"LeisureRoomType not found (code="+ code +")", 
-        	LeisureRoomType.class.getName());
-	}
 	
 	/**
 	 * Devuelve una sala aleatoria
@@ -40,7 +26,5 @@ public enum LeisureRoomType {
 	
 	private final RoomType type; // Tipo correspondiente en RoomType
 	LeisureRoomType(RoomType type) {this.type = type;}
-	public byte code()   { return type.code(); }
-	public boolean equals(LeisureRoomType roomType) { return this.code() == roomType.code();}
 	
 }

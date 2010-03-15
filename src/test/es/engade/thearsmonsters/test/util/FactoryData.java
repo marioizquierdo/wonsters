@@ -12,7 +12,6 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.types.EyeOfTheLife;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.util.CalendarTools;
@@ -163,7 +162,7 @@ public class FactoryData {
 		        10,   // occupied vital space
 		        new RoomData(100), 
 		        new Address(1, 1, 1));
-		EyeOfTheLife eyeOfTheLife = new EyeOfTheLife(lair);
+		Room eyeOfTheLife = RoomType.EyeOfTheLife.build(lair);
 		lair.addRoom(eyeOfTheLife);
 		return lair;
 	}
@@ -221,14 +220,13 @@ public class FactoryData {
     
 		//*** ROOMS ***//
 	
-		Room eyeOfTheLife = RoomType.newRoom(RoomType.EyeOfTheLife.code(), lair);
-		Room dormitories = RoomType.newRoom(RoomType.Dormitories.code(), lair);
-    	Room warehouse = RoomType.newRoom(RoomType.Warehouse.code(), lair);
-    	Room truffleFarm = RoomType.newRoom(RoomType.TruffleFarm.code(), lair);
-    	Room tradeOffice = RoomType.newRoom(RoomType.TradeOffice.code(), lair);
+		Room eyeOfTheLife = RoomType.EyeOfTheLife.build(lair);
+		Room dormitories = RoomType.Dormitories.build(lair);
+    	Room warehouse = RoomType.Warehouse.build(lair);
+    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
+    	Room tradeOffice = RoomType.TradeOffice.build(lair);
     
     	// modify and add to lair
-    	dormitories.setSize(15); 
     	dormitories.setLevel(10); 
     	dormitories.setStateCancelWorks();
     	

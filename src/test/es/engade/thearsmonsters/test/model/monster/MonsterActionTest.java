@@ -10,10 +10,8 @@ import org.junit.Test;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
+import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
-import es.engade.thearsmonsters.model.entities.room.types.TruffleFarm;
-import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
 import es.engade.thearsmonsters.model.monsteraction.CultivateTruffles;
 import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
@@ -31,7 +29,7 @@ public class MonsterActionTest extends GaeTest{
 	
 	@Before
     public void setUp() throws Exception {
-		lair = new Lair();
+		lair = FactoryData.generate(LairWhatIs.Default);
 		monsterChild = FactoryData.generate(MonsterWhatIs.Child);
 		monsterAdult = FactoryData.generate(MonsterWhatIs.Adult);
 		monsterOld = FactoryData.generate(MonsterWhatIs.Old);
@@ -44,8 +42,8 @@ public class MonsterActionTest extends GaeTest{
     @Test 
     public void testCultivateTruffles() {
     	
-    	Dormitories dormitories = new Dormitories(lair);
-    	TruffleFarm truffleFarm = new TruffleFarm(lair);
+    	Room dormitories = RoomType.Dormitories.build(lair);
+    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
     	
     	CultivateTruffles actionChildDormitories = 	new CultivateTruffles(monsterChild,dormitories);
     	CultivateTruffles actionAdultDormitories = 	new CultivateTruffles(monsterAdult,dormitories);
@@ -67,8 +65,8 @@ public class MonsterActionTest extends GaeTest{
 
     @Test 
     public void testGarbageHarvest() {
-    	Warehouse wareHouse = new Warehouse(lair);
-    	TruffleFarm truffleFarm = new TruffleFarm(lair);
+    	Room wareHouse = RoomType.Warehouse.build(lair);
+    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
     	
     	GarbageHarvest actionChildWarehouse = 	new GarbageHarvest(monsterChild,wareHouse);
     	GarbageHarvest actionAdultWarehouse = 	new GarbageHarvest(monsterAdult,wareHouse);
@@ -89,8 +87,9 @@ public class MonsterActionTest extends GaeTest{
     
     @Test 
     public void testWorkInTheWorks() {
-    	Dormitories dormitories = new Dormitories(lair);
-    	TruffleFarm truffleFarm = new TruffleFarm(lair);
+    	Room dormitories = RoomType.Dormitories.build(lair);
+    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
+    	
     	
     	WorkInTheWorks actionChildDormitories = 	new WorkInTheWorks(monsterChild,dormitories);
     	WorkInTheWorks actionAdultDormitories = 	new WorkInTheWorks(monsterAdult,dormitories);
@@ -127,15 +126,15 @@ public class MonsterActionTest extends GaeTest{
     	//Utilizo el monstruo adulto para establecerle un numero de turnos alto
     	monsterAdult.setFreeTurns(1000);
     	
-    	//Añado el monstruo a la guarida y le añado experiencia en la construccion
+    	//Aï¿½ado el monstruo a la guarida y le aï¿½ado experiencia en la construccion
     	lair.addMonster(monsterAdult);
     	monsterAdult.addExp(AttrType.ConstructorSkill,100);
     	monsterAdult.addExp(AttrType.Strenght,100);
     	
     	/* Creo una room de tipo TruffleFarm */
-    	TruffleFarm truffleFarm =(TruffleFarm) RoomType.newRoom(RoomType.TruffleFarm.getCode(), lair);
+    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
     	
-    	/* Añado la room creada a la guarida */
+    	/* AÃ±ado la room creada a la guarida */
     	lair.addRoom(truffleFarm);
     	
     	/* Creo la accion */

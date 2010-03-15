@@ -3,240 +3,184 @@ package es.engade.thearsmonsters.model.entities.room.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
+import es.engade.thearsmonsters.model.entities.room.RoomPublicAccessClose;
+import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
-import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
-import es.engade.thearsmonsters.model.entities.room.types.EyeOfTheLife;
-import es.engade.thearsmonsters.model.entities.room.types.TradeOffice;
-import es.engade.thearsmonsters.model.entities.room.types.TruffleFarm;
-import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
+import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
 
 /**
- * This enumeration makes easier to return a concrete class of a Room
- * depending on the database field: 'Room.roomType'
- * When a new type of room is implemented, the enumeration must be enlarged
+ * Tipos de sala
+ * Esta enumeración es a su vez:
+ *   - Una enumeración de los tipos de sala que hay (RoomType.values();)
+ *   - Un índice con los datos estáticos para cada tipo de sala (RoomType.Warehouse.getGarbageBuild();)
+ *   - Una factoría para el estado inicial de las salas (RoomType.Warehouse.build(lair);)
+ *   - Una estrategia para la clase Room, ya que delega algunas operaciones en su type (room.getEffortUpgrade)
+ *   
+ *  Cuando se añada un nuevo tipo de sala, prácticamente toda su información se añade en esta clase.
  */
 public enum RoomType {
-	// RoomType name		// code, publicable, garbageBuild, effortBuild,
-							// maxSize, maxLevel,						// {-1: no limits, x(x>=0): exactly x}
-							// maxWorkers, maxCustomers,				// {-2: no limits, -1: until no more free space, x(x>=0): exactly x monsters}
-							// allowedWorkerAges, allowedCustomerAges	// List of ages allowed for that TaskRole
+	// RoomType name		// publicable, garbageBuild, effortBuild,
+							// initialLevel, maxLevel	// {maxLvel = -1 => no limits}
 	
-	EyeOfTheLife 			((byte)1, false, 0, 0, 
-							1, 1, 
-							0, -2, 
-							nobody(), everybody()),
+	EyeOfTheLife 			(false, 0, 0, 
+							1, 1),
 							
-	Warehouse				((byte)2, false, 0, 1, 
-							-1, 1,
-							-1, 0,
-							ages("Adult"), nobody()),
+	Warehouse				(false, 0, 1, 
+							1, 1),
 							
-	TradeOffice				((byte)3, false, 50, 30, 
-							-1, 10, 
-							0, 0,
-							nobody(), nobody()),
+	TradeOffice				(false, 50, 30, 
+							1, 10),
 					
-	TruffleFarm				((byte)4, false, 300, 150, 
-							-1, 10, 
-							-1, 0, 
-							ages("Adult"), nobody()),
+	TruffleFarm				(false, 300, 150, 
+							1, 10),
 							
-	Dormitories				((byte)5, false, 0, 0,
-							-1, 1, 
-							0, -2, 
-							nobody(), everybody());
+	Dormitories				(false, 0, 0,
+							1, 1);
+	
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom
-	MetalLeisureRoom		((byte)6, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	MetalLeisureRoom		(...),
 							
-	ChillOutLeisureRoom		((byte)7, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	ChillOutLeisureRoom		(...),
 							
-	TechnoLeisureRoom		((byte)8, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	TechnoLeisureRoom		(...),
 							
-	ReggaetonLeisureRoom	((byte)9, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	ReggaetonLeisureRoom	(...),
 							
-	IndieRockLeisureRoom	((byte)10, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	IndieRockLeisureRoom	(...),
 							
-	Gym						((byte)11, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	Gym						(...),
 							
-	Classroom				((byte)12, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList")),
+	Classroom				(...),
 							
-	Nursery					((byte)13, true, garbageBuild, effortBuild, 
-							maxSize, maxLevel, 
-							maxWorkers, maxCustomers, 
-							list("ageWorkerList"), list("ageCustomerList"));
+	Nursery					(...);
 	*/
-	// ...
+	// ..
 	
-	/**
-	 * Create a new Room depending on the roomType type code
-	 * @return a concrete class of Room extension or null if the roomType is not a RoomType.code
-	 */
-	static public Room newRoom(byte roomTypeCode, Id roomId, Lair lair, 
-			int level, int size, RoomPublicAccess publicAccess, RoomState state) {
-		switch(roomTypeCode) {
-		case 01: return new EyeOfTheLife(lair, level, size, publicAccess, state);
-		case 02: return new Warehouse(lair, level, size, publicAccess, state);
-		case 03: return new TradeOffice(lair, level, size, publicAccess, state);
-		case 04: return new TruffleFarm(lair, level, size, publicAccess, state);
-		case 05: return new Dormitories(lair, level, size, publicAccess, state);
-		/*case 06: return new MetalLeisureRoom(roomId, login, level, size, publicAccess, state);
-		case 07: return new ChillOutLeisureRoom(roomId, login, level, size, publicAccess, state);
-		case 08: return new TechnoLeisureRoom(roomId, login, level, size, publicAccess, state);
-		case 09: return new IndieRockLeisureRoom(roomId, login, level, size, publicAccess, state);
-		case 10: return new ReggaetonLeisureRoom(roomId, login, level, size, publicAccess, state);
-		case 11: return new Gym(roomId, login, level, size, publicAccess, state);
-		case 12: return new Classroom(roomId, login, level, size, publicAccess, state);publicAccess, state); */
-    	// ...
-		
-		default: return null;
-		}
-		
-	}    	
-	
-	/**
-	 * Create a new Room depending on the roomType type code with its Default State
-	 * @return a concrete class of Room extension or null if the roomType is not a RoomType.code
-	 */
-	static public Room newRoom(byte roomTypeCode, Lair lair) {
-		switch(roomTypeCode) {
-		case 1: return new EyeOfTheLife(lair);
-		case 2: return new Warehouse(lair);
-		case 3: return new TradeOffice(lair);
-		case 4: return new TruffleFarm(lair);
-		case 5: return new Dormitories(lair);
-		/*case 6: return new MetalLeisureRoom(login);
-		case 7: return new ChillOutLeisureRoom(login);
-		case 8: return new TechnoLeisureRoom(login);
-		case 9: return new IndieRockLeisureRoom(login);
-		case 10: return new ReggaetonLeisureRoom(login);
-		case 11: return new Gym(login);
-		case 12: return new Classroom(login);
-		case 13: return new Nursery(login); */
-    	// ...
-		
-		default: return null;
-		}
-	}
-	
-	/**
-	 * If you know the code then you can get the corresponding enum instance
-	 */
-	static public RoomType getFromCode(byte code) 
-		throws InstanceNotFoundException {
-		
-		for(RoomType e : RoomType.values()) {
-			if(code == e.code()) return e;
-		}
-			
-		throw new InstanceNotFoundException(
-        	"RoomType not found (code="+ code +")", 
-        		RoomType.class.getName());
-	}
-	
-	private final byte code; // Codigo del tipo de sala en la BBDD
+
 	private final boolean publicable;
 	private final int garbageBuild;
 	private final int effortBuild;
-	private final int maxSize;
+	private final int initialLevel;
 	private final int maxLevel;
-	private final int maxWorkers;
-	private final int maxCustomers;
-	private final List<MonsterAge> ageWorker; // esto puede ser diferente para cada edad
-	private final List<MonsterAge> ageCustomer;
 	
-	RoomType(byte code, boolean publicable, int garbageBuild, int effortBuild,
-			int maxSize, int maxLevel, 
-			int maxWorkers, int maxCustomers,
-			List<MonsterAge> ageWorker, List<MonsterAge> ageCustomer) {
-		this.code = code;
+	RoomType(boolean publicable, int garbageBuild, int effortBuild,
+			int initialLevel, int maxLevel) {
 		this.publicable = publicable;
 		this.garbageBuild = garbageBuild;
 		this.effortBuild = effortBuild;
-		this.maxSize = maxSize;    // {-1: no limits, x(x>=0): exactly x}
-		this.maxLevel = maxLevel;  // {-1: no limits, x(x>=0): exactly x}
-		this.maxWorkers = maxWorkers;		// {-2: no limits, -1: until no more free space, x(x>=0): exactly x monsters}
-		this.maxCustomers = maxCustomers;	// {-2: no limits, -1: until no more free space, x(x>=0): exactly x monsters}
-		this.ageWorker = ageWorker;
-		this.ageCustomer = ageCustomer;
+		this.initialLevel = initialLevel;
+		this.maxLevel = maxLevel;            // {-1: no limits, x(x>=0): exactly x}
 	}
 	
 	// Getters
-	public byte code()   {return code;}
-	public byte getCode() {return code;}
 	public boolean isPublicable() {return publicable;}
 	public int getGarbageBuild() {return garbageBuild;}
 	public int getEffortBuild() {return effortBuild;}
-	public int getMaxSize() {return maxSize;}
+	public int getInitialLevel() {return initialLevel;}
 	public int getMaxLevel() {return maxLevel;}
-	public int getMaxWorkers() {return maxWorkers;}
-	public int getMaxCustomers() {return maxCustomers;}
-	public List<MonsterAge> getAgeWorker() {return ageWorker;}
-	public List<MonsterAge> getAgeCustomer() {return ageCustomer;}
 	
-	public boolean equals(RoomType roomType) {return this.code() == roomType.code();}
 	
-	private static List<MonsterAge> ages(String stringList) {
-		return MonsterAge.list(stringList);
-	}
-	private static List<MonsterAge> nobody() {
-		return MonsterAge.list("");
-	}
-	private static List<MonsterAge> everybody() {
-		return MonsterAge.list("all");
+	
+	/**
+	 * Factroy method.
+	 * @return a new instance of a Room at its initial state, depending on this RoomType.
+	 */
+	public Room build(Lair lair) {
+		RoomPublicAccess publicAccess;
+		RoomState state;
+		
+		// EyeOfTheLife y Dormitories starts in normal state,
+		// the other rooms starts in works state: monsters must to build them.
+		if(this.equals(EyeOfTheLife) || this.equals(Dormitories)) {
+			state = new RoomNormalState();
+		} else {
+			state = new RoomUpgradingState(0);
+		}
+		
+		// All rooms starts with closed public access.
+		publicAccess = new RoomPublicAccessClose();
+		
+		// Instantiate new room
+		return new Room(lair, this, this.initialLevel, publicAccess, state);
 	}
 	
 	
 	/**
-	 * Convierte la representación de una lista en String a la lista real.
-	 * Se usa para simplificar la definición de listas de tipos de sala.
-	 * @param stringList Literales de AgeState separados por comas, xej: "Warehouse, TruffleFarm, EyeOfTheLife",
- 	 * 			o bien el string "all", que incluye a todas las edades,
- 	 * 			o bien un string vacío "", que devuelve una lista vacía.
-	 * @return Lista de RoomTypes correspondientes con los elementos declarados en el String de entrada.
+	 * Acts as Strategy method for Room delegation in getGarbageUpgrade
 	 */
-	public static List<RoomType> list(String stringList) {
-		if(stringList.equals("") || stringList==null) { // devuelve lista vacía
-			return new ArrayList<RoomType>(0);
-		}else if(stringList.toLowerCase().equals("all")) { // all significa añadir todos los tipos que haya en AgeState
-			List<RoomType> list = new ArrayList<RoomType>(MonsterAge.values().length);
-			for(RoomType ageState : RoomType.values()) {
-				list.add(ageState);
-			}
-			return list;
-		} else {
-			String[] stringArray = stringList.split(","); // Se separan por comas
-			List<RoomType> list = new ArrayList<RoomType>(stringArray.length); // Se define la lista
-			for(String e : stringArray) { // se convierte cada String en su elemento de AgeState correspondiente
-				list.add(Enum.valueOf(RoomType.class, e.trim()));
-			}
-			return list;
+	public double getGarbageUpgrade(int level) {
+		switch (this) {
+		case TradeOffice: return 100 * Math.pow(1.8, level-1);
+		case TruffleFarm: return getGarbageBuild() * Math.pow(1.4, level-1);
+		case Dormitories: return 20 * Math.pow(1.15, level-1);
+		default: return -1;
 		}
 	}
+   
+	/**
+	 * Acts as Strategy method for Room delegation in getEffortUpgrade
+	 */
+	public double getEffortUpgrade(int level) {
+		level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
+		switch (this) {
+		case TradeOffice: return getEffortBuild() * Math.pow(1.6, level);
+		case TruffleFarm: return getEffortBuild() * Math.pow(1.3, level-1);
+		case Dormitories: return 50 * Math.pow(1.1, level);
+		default: return -1;
+		}
+	}
+   
+   /**
+    * ENLARGE NOT SUPPORTED IN THIS VERSION
+    * Garbage needed to enlarge to that size.
+    */
+	public double getGarbageEnlarge(int size) {
+ 	   switch (this) {
+ 	   /* Por ahora, enlarge no soportado */
+ 		default: return -1;	/* Por defecto indica que no se puede agrandar */
+ 	   }
+    }
+    /**
+     * ENLARGE NOT SUPPORTED IN THIS VERSION
+     * Effort needed to enlarge to that size.
+     */
+     public double getEffortEnlarge(int size) {
+  	   switch (this) {
+  	   /* Por ahora, enlarge no soportado */
+  		default: return -1;	/* Por defecto indica que no se puede agrandar */
+  	   }
+     }
+     
+     
+ 	/**
+ 	 * Convierte la representación de una lista en String a la lista real.
+ 	 * Se usa para simplificar la definición de listas de tipos de sala.
+ 	 * @param stringList Literales de AgeState separados por comas, xej: "Warehouse, TruffleFarm, EyeOfTheLife",
+  	 * 			o bien el string "all", que incluye a todas las edades,
+  	 * 			o bien un string vacío "", que devuelve una lista vacía.
+ 	 * @return Lista de RoomTypes correspondientes con los elementos declarados en el String de entrada.
+ 	 */
+ 	public static List<RoomType> list(String stringList) {
+ 		if(stringList.equals("") || stringList==null) { // devuelve lista vacía
+ 			return new ArrayList<RoomType>(0);
+ 		}else if(stringList.toLowerCase().equals("all")) { // all significa añadir todos los tipos que haya en AgeState
+ 			List<RoomType> list = new ArrayList<RoomType>(RoomType.values().length);
+ 			for(RoomType ageState : RoomType.values()) {
+ 				list.add(ageState);
+ 			}
+ 			return list;
+ 		} else {
+ 			String[] stringArray = stringList.split(","); // Se separan por comas
+ 			List<RoomType> list = new ArrayList<RoomType>(stringArray.length); // Se define la lista
+ 			for(String e : stringArray) { // se convierte cada String en su elemento de AgeState correspondiente
+ 				list.add(Enum.valueOf(RoomType.class, e.trim()));
+ 			}
+ 			return list;
+ 		}
+ 	}
+	   
+		
 }

@@ -28,29 +28,13 @@ public class Warehouse extends Room {
 	
     private static final long serialVersionUID = 20100305L;
     
-	public Warehouse(Lair lair, int level, int size, 
+	public Warehouse(Lair lair, int level, 
     		RoomPublicAccess publicAccess, RoomState state) {
-		super(lair, level, size, publicAccess, state);
+		super(lair, RoomType.Warehouse, level, publicAccess, state);
 	}
 	
-    public Warehouse(Lair lair) {
-    	super(lair);
-    }
-	
-	@Override
-    public RoomType getRoomType() {
-		return RoomType.Warehouse;
-	}
 
-	@Override
-    protected double _gEnl(int size) {
-		return 100 * Math.pow(1.4, size-1);
-	}
 
-	@Override
-    protected double _eEnl(int size) {
-		return 30 * Math.pow(1.6, size-1);
-	}
 	
 	
 	/***** Exclusive Warehouse methods *******/
@@ -63,7 +47,7 @@ public class Warehouse extends Room {
 		if(size<=0) {
 			return 0;
 		} else {
-			return gEnl(size) * 5; // need always to be more than _gEnl
+			return getGarbageEnlarge(size) * 5; // need always to be more than _gEnl
 		}
 	}
 	

@@ -83,7 +83,7 @@ public class Format {
 	}
 	
 	/**
-	 * Convierte un array en un conjunto. Los elementos del conjunto ser‡n
+	 * Convierte un array en un conjunto. Los elementos del conjunto serï¿½n
 	 * del mismo tipo que el array (clase especificada)
 	 */
 	public static <klass> Set<klass> set(klass[] array) {
@@ -95,7 +95,7 @@ public class Format {
 	}
 	
 	/**
-	 * Convierte un array en una ArrayList. Los elementos de la lista ser‡n
+	 * Convierte un array en una ArrayList. Los elementos de la lista serï¿½n
 	 * del mismo tipo que el array (clase especificada)
 	 */
 	public static <klass> List<klass> list(klass[] array) {
@@ -137,5 +137,23 @@ public class Format {
 		}
 		return p + "]";
 	}
-
+	
+	
+	/**
+	 * Cast a double value into a integer and
+	 * round to zero the less significant digits.
+	 */
+	public static int roundValue(double value) {
+		int v = (int) value;
+		if(v > 100000000) {
+			v = (v/1000000) * 1000000;
+		} else if(v > 100000) {
+			v = (v/1000) * 1000;
+		} else if(v > 10000) {
+			v = (v/100) * 100;
+		} else if(v > 1000) {
+			v = (v/10) * 10;
+		}
+		return v;
+	}
 }

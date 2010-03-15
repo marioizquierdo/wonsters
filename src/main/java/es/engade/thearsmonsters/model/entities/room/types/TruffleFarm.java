@@ -25,38 +25,10 @@ public class TruffleFarm extends Room {
 	
     private static final long serialVersionUID = 20100305L;
     
-	public TruffleFarm(Lair lair, int level, int size, 
+	public TruffleFarm(Lair lair, int level, 
     		RoomPublicAccess publicAccess, RoomState state) {
-		super(lair, level, size, publicAccess, state);
-	}
-	
-    public TruffleFarm(Lair lair) {
-    	super(lair);
-    }
-	
-	@Override
-    public RoomType getRoomType() {
-		return RoomType.TruffleFarm;
+		super(lair, RoomType.TruffleFarm, level, publicAccess, state);
 	}
 
-	@Override
-    protected double _gUpg(int level) {
-		return getGarbageBuild() * Math.pow(1.4, level-1);
-	}
 
-	@Override
-    protected double _eUpg(int level) {
-		return getEffortBuild() * Math.pow(1.3, level-1);
-	}
-
-	@Override
-    protected double _gEnl(int size) {
-		return (getGarbageBuild() / 2) * Math.pow(1.8, size-1);
-	}
-
-	@Override
-    protected double _eEnl(int size) {
-		return (getEffortBuild() / 2) * Math.pow(1.8, size-1);
-	}
-	
 }

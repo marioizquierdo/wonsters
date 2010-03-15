@@ -1,7 +1,6 @@
 package es.engade.thearsmonsters.model.entities.room;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -12,7 +11,6 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
 import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
@@ -21,9 +19,10 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomEnlargingState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
+import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public abstract class Room implements Serializable {
+public class Room implements Serializable {
     
     private static final long serialVersionUID = 20100305L;
 
@@ -44,37 +43,28 @@ public abstract class Room implements Serializable {
     protected RoomPublicAccess publicAccess;
     
     @Persistent
-    protected RoomState state; 
+    protected RoomState state;
+    
+    @Persistent
+    protected RoomType type;
     
     /* ----------------- Basic Methods ----------------- */
     
+    public Room() {}
+    
     /**
-     * Basic VO constructor
-     * @param roomId Room identifier
-     * @param lair Name of the room's owner lair
-     * @param level Current level of the room
-     * @param size Current number of places
-     * @param publicAccess State Pattern to manage the public access operations
-     * @param state State Pattern to manage the room state operations
+     * Constructor
      */
-    public Room(Lair lair, int level, int size, 
+    public Room(Lair lair, RoomType type, int level, 
     		RoomPublicAccess publicAccess, RoomState state) {
         this.lair = lair;
+        this.type = type;
         this.level = level;
-        this.size = size;
+        this.size = 1; // Size not used in this version
+        
         this.publicAccess = publicAccess;
         this.state = state;
 //        removeTasks();
-    }
-    
-    /**
-     * Default initial state when the room is created
-     * Subclasses must override this constructor for special initial state.
-     * @param lair: the owner lair of the room
-     */
-    public Room(Lair lair) {
-    	// Set with default values.
-    	this(lair, 1, 0, new RoomPublicAccessClose(), new RoomEnlargingState(0));
     }
     
 	public Key getId() {
@@ -224,15 +214,15 @@ public abstract class Room implements Serializable {
 	 */
 	public boolean isInInitialState() {
 		// Compare this with a new defined room in its initial state.
-		return this.equals(
-				RoomType.newRoom(
-						this.getRoomType().code(), this.getLair()));
+		return this.equals(type.build(lair));
 	}
 	
 	/**
 	 * RoomType in terms of RoomType enumeration
 	 */
-	public abstract RoomType getRoomType();
+	public  RoomType getRoomType(){
+		return this.type;
+	}
 	
 	/**
 	 * Alias of getRoomType()
@@ -251,96 +241,61 @@ public abstract class Room implements Serializable {
 	/**
 	 * @return Garbage needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
-	public int getGarbageUpgrade() {return gUpg(this.getLevel());}
+	public int getGarbageUpgrade() {return getGarbageUpgrade(this.getLevel());}
 	/**
 	 * @return Effort needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
-	public int getEffortUpgrade() {return eUpg(this.getLevel());}
+	public int getEffortUpgrade() {return getEffortUpgrade(this.getLevel());}
 	/**
 	 * @return Garbage needed for Enlarging one more place (-1 if cannot be enlarged)
 	 */
-	public int getGarbageEnlarge() {return gEnl(this.getSize());}
+	public int getGarbageEnlarge() {return getGarbageEnlarge(this.getSize());}
 	/**
 	 * @return Effort needed for Enlarging one more place (-1 if cannot be enlarged)
 	 */
-	public int getEffortEnlarge() {return eEnl(this.getSize());}
+	public int getEffortEnlarge() {return getEffortEnlarge(this.getSize());}
 
 	/**
 	 * Garbage needed for upgrading.
 	 * gUpg(level) = gUpg * fgUpg^level, level in [1 .. maxLevel-1]
 	 * @return -1 if cannot be upgraded, the garbage needed otherwise
 	 */
-	public int gUpg(int level) {
-		if(level<1 || (getMaxLevel()>=0 && level>=getMaxLevel())) return -1;
-		return roundValue(_gUpg(level));
+	public int getGarbageUpgrade(int level) {
+		if(level<1 || (getMaxLevel() >= 0 && level >= getMaxLevel())) return -1;
+		return Format.roundValue(type.getGarbageUpgrade(level));
 	}
-	protected double _gUpg(int level) {return -1;}; // template to extend only if needed
 
 	/**
 	 * Effort needed for upgrading.
 	 * eUpg(level) = eUpg * feUpg^level, level in [1 .. maxLevel-1]
 	 * @return -1 if cannot be upgraded, the effort needed otherwise
 	 */
-	public int eUpg(int level) {
-		if(level<1 || (getMaxLevel()>=0 && level>=getMaxLevel())) return -1;
-		return roundValue(_eUpg(level));
+	public int getEffortUpgrade(int level) {
+		if(level<1 || (getMaxLevel() >= 0 && level >= getMaxLevel())) return -1;
+		return Format.roundValue(type.getEffortUpgrade(level));
 		
 	}
-	protected double _eUpg(int level) {return -1;}; // template to extend only if needed
 
 	/**
 	 * Garbage needed for enlarging.
 	 * gEnl(level) = gEnl * fgEnl^size, size in [0 .. maxSize-1]
 	 * @return -1 if cannot be enlarged, the garbage needed otherwise
 	 */
-	public int gEnl(int size) {
-		if(size<0 || (getMaxSize()>=0 && size>=getMaxSize())) return -1;
-		return roundValue(_gEnl(size));
+	public int getGarbageEnlarge(int size) {
+		return Format.roundValue(type.getGarbageEnlarge(size));
 	}
-	protected double _gEnl(int size) {return -1;}; // template to extend only if needed
+	
 	
 	/**
 	 * Effort needed for enlarging.
 	 * eEnl(level) = eEnl * feEnl^size, size in [0 .. maxSize-1]
 	 * @return -1 if cannot be enlarged, the effort needed otherwise
 	 */
-	public int eEnl(int size) {
+	public int getEffortEnlarge(int size) {
 		if(size<0 || (getMaxSize()>=0 && size>=getMaxSize())) return -1;
-		return roundValue(_eEnl(size));
+		return Format.roundValue(type.getEffortEnlarge(size));
 	}
-	protected double _eEnl(int size) {return -1;}; // template to extend only if needed
 	
-	/**
-	 * Max number of Employees allowed
-	 * @return <ul>
-	 *   <li>[0..N], exactly from 0 to N monsters (0 means nobody can enter the room).</li>
-	 *   <li>-1, free size, only until there are more free size.</li>
-	 *   <li>-2, there is no maxEmployees, any number is allowed.</li>
-	 *   </ul>
-	 */
-	public int getMaxWorkers() {return this.getRoomType().getMaxWorkers();}
-	
-	/**
-	 * Max number of Customers allowed
-	 * @return <ul>
-	 *   <li>[0..N], exactly from 0 to N monsters.</li>
-	 *   <li>-1, free size, only until there are more free size</li>
-	 *   <li>-2, there is no maxCustomers, any number is allowed.</li>
-	 *   </ul>
-	 */
-	public int getMaxCustomers() {return this.getRoomType().getMaxCustomers();}
-	
-	/**
-	 * Allowed ages of Employees to work in this room type
-	 * @return AgeState subset List [Child, Adult or Old]
-	 */
-	public List<MonsterAge> getAgeWorker() {return this.getRoomType().getAgeWorker();}
-	
-	/**
-	 * Allowed ages of Customers to work in this room type
-	 * @return AgeState subset List  [Child, Adult or Old]
-	 */
-	public List<MonsterAge> getAgeCustomer() {return this.getRoomType().getAgeCustomer();}
 	
 	/**
 	 * Weather this room type may be published (true) or not (false)
@@ -351,7 +306,7 @@ public abstract class Room implements Serializable {
 	 * Max size allowed for this room type
 	 * @return if return -1 means there is no max size (inf)
 	 */
-	public int getMaxSize() {return this.getRoomType().getMaxSize();}
+	public int getMaxSize() {return 1; /* type.getMaxSize(); */} // NOT SUPPORTED IN THIS VERSION
 	
 	/**
 	 * Max level allowed for this room type
@@ -364,16 +319,14 @@ public abstract class Room implements Serializable {
 	
 	@Override
     public String toString() {
-        return new String(
-                "roomId = " + id + " | " +
-        		"lairId = " + lair.getId() + " | " +
-                "level = " + level + " | " +
-                "size = " + size + " | " +
-                publicAccess + " | " +
-                state + " | ");
-//                getTasksToString());
-    }
-	
+		return Format.p(this.getClass(), new Object[]{
+			"login", lair.getUser().getLogin(),
+			"type", type,
+			"level", level, 
+			"state", state,
+			"publicAccess", publicAccess
+		});
+	}
 	
 	@Override
     public int hashCode() {
@@ -418,41 +371,6 @@ public abstract class Room implements Serializable {
             return false;
         return true;
     }
-	
-	
-	/*----------- Helper methods -----------*/
-	
-//	/**
-//	 * Makes a copy of the original list but the elements still be the same.
-//	 * @return Another list pointing to the same elements in the same order.
-//	 */
-//	private List<TaskVO> keepReferences(List<TaskVO> list) {
-//		List<TaskVO> clone = new ArrayList<TaskVO>(list.size());
-//		for(TaskVO task : list) {
-//			clone.add(task);
-//		}
-//		return clone;
-//	}
-	
-	/**
-	 * Cast a double value into a integer and
-	 * round to zero the less significant digits.
-	 */
-	protected int roundValue(double value) {
-		int v = (int) value;
-		if(v > 100000000) {
-			v = (v/1000000) * 1000000;
-		} else if(v > 100000) {
-			v = (v/1000) * 1000;
-		} else if(v > 10000) {
-			v = (v/100) * 100;
-		} else if(v > 1000) {
-			v = (v/10) * 10;
-		}
-		return v;
-	}
-
-
         
     
 }

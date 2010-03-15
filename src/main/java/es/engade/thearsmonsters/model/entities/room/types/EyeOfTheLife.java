@@ -4,7 +4,6 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.RoomPublicAccess;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
 
 /**
@@ -27,18 +26,7 @@ public class EyeOfTheLife extends Room {
     
 	public EyeOfTheLife(Lair lair, int level, int size, 
     		RoomPublicAccess publicAccess, RoomState state) {
-		super(lair, level, size, publicAccess, state);
+		super(lair, RoomType.EyeOfTheLife, level, publicAccess, state);
 	}
-	
-    public EyeOfTheLife(Lair lair) {
-    	super(lair);
-    	this.size = 1;
-        this.state = new RoomNormalState();
-    }
-	
-	@Override
-    public RoomType getRoomType() {
-		return RoomType.EyeOfTheLife;
-	}
-	
+
 }
