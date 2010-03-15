@@ -55,7 +55,7 @@ public class BuildingChunk implements Serializable {
 		return previousBuildingStreet;
 	}
 
-	public List<Lair> getLairVOs() {
+	public List<Lair> getLairs() {
 		return lairs;
 	}
     

@@ -88,19 +88,19 @@
 			    <th><fmt:message key="Lair.garbage"/></th>
 			</tr>
 			
-			<c:forEach items="${building.lairVOs}" var="lair" varStatus="loop">
+			<c:forEach items="${building.lairs}" var="lair" varStatus="loop">
 				<c:url var="lairURL" value="Lair.do">
-					<c:param name="login" value="${lair.login}"/>
+					<c:param name="login" value="${lair.user.login}"/>
 				</c:url>
 				
 				<c:choose>
 				<c:when test="${!empty lair}">
 					<tr class="trContent 
 								${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
-								${(lair.login == sessionScope.login) ? ' myLair' : ''}"
+								${(lair == sessionScope.myLair) ? ' myLair' : ''}"
 							onclick="document.location.href='${lairURL}';">
 						<td> <a href="${lairURL}"><c:out value="${loop.index}"/></a> </td>
-						<td> <a href="${lairURL}"><c:out value=" ${lair.login}"/></a> </td>
+						<td> <a href="${lairURL}"><c:out value=" ${lair.user.login}"/></a> </td>
 					    <td> <fmt:formatNumber value="${lair.vitalSpaceOccupied}"/> </td>
 					    <td> <fmt:formatNumber value="${lair.money}"/> </td>
 					    <td> <fmt:formatNumber value="${lair.garbage}"/> </td>

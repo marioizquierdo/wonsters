@@ -61,7 +61,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 	public Monster findMonster(String monsterId) throws InternalErrorException,
 			InstanceNotFoundException {
 		
-		return null;
+		return FactoryData.generate(FactoryData.MonsterWhatIs.Adult);
 	}
 
 	public Monster metamorphosisToAdult(String monsterId, Lair lair)

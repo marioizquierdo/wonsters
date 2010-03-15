@@ -103,6 +103,12 @@ public class Monster implements Serializable {
 	public MonsterRace getRace(){return race;}
 	public int getFreeTurns() {return freeTurns;}
 	
+	//Ñapa: Hay que calcular los días a partir del nacimiento del mounstro
+	//TODO: Estas funciones
+	public int getAgeDays(){ return 3;}
+	public int getAgePercentageLived(){ return 25;}
+	public Attr getBestWorkSkill(){return this.workSkills.get(1);}
+	
 	//-- SETTERS --//
 	public void setId(Key id) { this.id = id; }
 	public void setLair(Lair lair) { this.lair = lair; }

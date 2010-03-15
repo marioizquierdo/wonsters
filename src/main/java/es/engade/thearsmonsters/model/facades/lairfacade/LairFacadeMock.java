@@ -14,6 +14,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
+import es.engade.thearsmonsters.test.util.*;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -23,8 +24,13 @@ public class LairFacadeMock implements LairFacade {
 	private Lair lair;
 	
 	public LairFacadeMock() {
-		lair = new Lair();
+		lair = FactoryData.generate(FactoryData.LairWhatIs.Default);
 		lairs = new ArrayList<Lair>();
+		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.Default));
+		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.InInitialState));
+		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.InInitialState));
+		
+		
 	}
 	public void cancelWorks(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
