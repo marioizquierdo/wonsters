@@ -28,7 +28,7 @@ public class LoginAction extends AThearsmonstersDefaultAction {
         
         /* Get data. */
         LoginForm loginForm = (LoginForm) form;
-        String loginName = loginForm.getLoginName();
+        String login = loginForm.getLogin();
         String password = loginForm.getPassword();
         boolean rememberMyPassword = loginForm.getRememberMyPassword();
 
@@ -37,12 +37,12 @@ public class LoginAction extends AThearsmonstersDefaultAction {
         
         try {
 
-            SessionManager.login(request, response, loginName, password,
+            SessionManager.login(request, response, login, password,
                 rememberMyPassword, false);
                 
         } catch (InstanceNotFoundException e) {
-            errors.add("loginName", new ActionMessage(
-                "ErrorMessages.loginName.notFound"));
+            errors.add("login", new ActionMessage(
+                "ErrorMessages.login.notFound"));
         } catch (IncorrectPasswordException e) {
             errors.add("password", new ActionMessage(
                 "ErrorMessages.password.incorrect"));

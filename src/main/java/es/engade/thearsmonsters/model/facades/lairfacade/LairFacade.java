@@ -27,15 +27,15 @@ public interface LairFacade {
     	throws InstanceNotFoundException, InternalErrorException;
     
 	/**
-	 * Find a lair with all its rooms by loginName.
+	 * Find a lair with all its rooms by login.
 	 */
-    public Lair findLair(String loginName) 
+    public Lair findLairByLogin(String login) 
     	throws InstanceNotFoundException, InternalErrorException;   
     
 	/**
 	 * Find a lair with all its rooms by address.
 	 */
-    public Lair findLair(int street, int building, int floor) 
+    public Lair findLairByAddress(int street, int building, int floor) 
 		throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException;
     
     /**

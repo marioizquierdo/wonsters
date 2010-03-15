@@ -10,24 +10,24 @@ public class OnlyOneChangePerGameDayException  extends ModelException implements
 	
 	private long thisChangeTurn;
 	private long lastChangeTurn;
-	private String loginName;
+	private String login;
 	private String messageKey;
 	private String[] messageParams;
 	
-    public OnlyOneChangePerGameDayException(long thisChangeTurn, long lastChangeTurn, String loginName) {
+    public OnlyOneChangePerGameDayException(long thisChangeTurn, long lastChangeTurn, String login) {
         super("Cant do the change in turn "+thisChangeTurn+" because the las change was made in turn "+
-        		lastChangeTurn+". At lair of "+loginName);
+        		lastChangeTurn+". At lair of "+login);
         this.thisChangeTurn = thisChangeTurn;
         this.lastChangeTurn = lastChangeTurn;
-        this.loginName = loginName;
+        this.login = login;
         
         this.messageKey = "FlashMessage.OnlyOneChangePerGameDayException";
         byte dayTurn = GameConf.getDayTurn(lastChangeTurn); // The day turn of today you must have to wait for
         this.messageParams = new String[]{dayTurn+"", turnsToWaitFor()+""};
     }
     
-    public OnlyOneChangePerGameDayException(long lastChangeTurn, String loginName) {
-    	this(GameConf.getCurrentTurn(), lastChangeTurn, loginName);
+    public OnlyOneChangePerGameDayException(long lastChangeTurn, String login) {
+    	this(GameConf.getCurrentTurn(), lastChangeTurn, login);
     }
 
 	public long getThisChangeTurn() {
@@ -38,8 +38,8 @@ public class OnlyOneChangePerGameDayException  extends ModelException implements
 		return lastChangeTurn;
 	}
 
-	public String getLoginName() {
-		return loginName;
+	public String getLogin() {
+		return login;
 	}
 
 	public String getMessageKey() {

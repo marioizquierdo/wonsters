@@ -22,7 +22,7 @@ public class UserProfileForm extends DefaultActionForm {
         new String[] {REGISTER_ACTION, UPDATE_ACTION});
 
     private String action;
-    private String loginName;
+    private String login;
     private String password;
     private String retypePassword;
     private String firstName;
@@ -42,12 +42,12 @@ public class UserProfileForm extends DefaultActionForm {
         this.action = action;
     }
     
-    public String getLoginName() {
-        return loginName;
+    public String getLogin() {
+        return login;
     }
     
-    public void setLoginName(String loginName) {
-        this.loginName = loginName.trim();
+    public void setLogin(String login) {
+        this.login = login.trim();
     }
     
     public String getPassword() {
@@ -113,7 +113,7 @@ public class UserProfileForm extends DefaultActionForm {
             ACTION_TYPES);
 
         if (REGISTER_ACTION.equals(action)) {
-            PropertyValidator.validateMandatory(errors, "loginName", loginName);
+            PropertyValidator.validateMandatory(errors, "login", login);
             boolean validatePassword = PropertyValidator.validateMandatory(
                 errors, "password", password);
             validatePassword = validatePassword &&
@@ -136,7 +136,7 @@ public class UserProfileForm extends DefaultActionForm {
     
     private void reset() {
         action = null;
-        loginName = null;
+        login = null;
         password = null;
         retypePassword = null;
         firstName = null;

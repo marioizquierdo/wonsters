@@ -11,19 +11,19 @@ public class WarehouseFullStorageException  extends ModelException implements Lo
 	private int garbageInTheWarehouse;
 	private int garbageToStore;
 	private int garbageStorageCapacity;
-	private String loginName;
+	private String login;
 	private String messageKey;
 	private String[] messageParams;
 	
     public WarehouseFullStorageException(int garbageInTheWarehouse, int garbageToStore, 
-    		int garbageStorageCapacity, String loginName) {
+    		int garbageStorageCapacity, String login) {
         super("Having "+ garbageInTheWarehouse +", try to store "+ garbageToStore +" of garbage in the " +
         		"Warehouse, but the maximun storage capacity is "+ garbageStorageCapacity +
-        		". In the lair of "+ loginName);
+        		". In the lair of "+ login);
         this.garbageInTheWarehouse = garbageInTheWarehouse;
         this.garbageToStore = garbageToStore;
         this.garbageStorageCapacity = garbageStorageCapacity;
-        this.loginName = loginName;
+        this.login = login;
         
         this.messageKey = "FlashMessage.WarehouseFullStorageException";
         this.messageParams = new String[]{garbageInTheWarehouse+"", garbageToStore+"", garbageStorageCapacity+""};
@@ -45,8 +45,8 @@ public class WarehouseFullStorageException  extends ModelException implements Lo
 		return messageKey;
 	}
 
-	public String getLoginName() {
-		return loginName;
+	public String getLogin() {
+		return login;
 	}
 
 	public String[] getMessageParams() {

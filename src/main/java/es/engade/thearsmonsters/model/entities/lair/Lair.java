@@ -186,7 +186,7 @@ public class Lair implements Serializable {
 			return Math.min(getGarbage(), garbageNeededForFillTheTradeOffice);
 		} else {
 			throw new RuntimeException("Change resources is not possible without " +
-					"TradeOffice. At lair of '"+user.getLoginName()+"'");
+					"TradeOffice. At lair of '"+user.getLogin()+"'");
 		}
 	}
 	
@@ -204,7 +204,7 @@ public class Lair implements Serializable {
 			return Math.min(getMoney(), moneyNeededForFillTheWarehouse);
 		} else {
 			throw new RuntimeException("Change resources is not possible without " +
-					"TradeOffice. At lair of '"+user.getLoginName()+"'");
+					"TradeOffice. At lair of '"+user.getLogin()+"'");
 		}
     }
 	

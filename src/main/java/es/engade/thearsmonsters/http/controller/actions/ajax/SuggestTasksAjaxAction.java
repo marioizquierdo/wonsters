@@ -48,11 +48,11 @@ public class SuggestTasksAjaxAction extends DefaultHTMLAjaxAction {
 //        RoomType roomType = roomTypeStr != null ? 
 //				RoomType.valueOf(roomTypeStr) : null;
 //        
-//        String loginName = SessionManager.getLoginName(request);
+//        String login = SessionManager.getLogin(request);
 //            
 //        /* Model action */
 //        List<TaskVO> sTasks = delegateTask.getSuggestedTasks(
-//        		ageState, loginName, turn, monsterId, 
+//        		ageState, login, turn, monsterId, 
 //        		isSleepingTurn, isMealingTurn, roomType, exceptTaskType);
 //        
 //        /* Set request parameters */

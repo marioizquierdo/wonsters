@@ -6,15 +6,15 @@
           
 <html:xhtml/>
 
-<html:form action="AdminLogin.do" focus="loginName">
+<html:form action="AdminLogin.do" focus="login">
         
     <div class="field">        
         <span class="label">
-            <fmt:message key="UserProfile.loginName"/>
+            <fmt:message key="UserProfile.login"/>
         </span>
         <span class="entry">    
-            <html:text property="loginName" size="16" maxlength="30"/>
-            <html:errors property="loginName"/>
+            <html:text property="login" size="16" maxlength="30"/>
+            <html:errors property="login"/>
         </span>
     </div>
     

@@ -59,7 +59,7 @@ public class LairFacadeMock implements LairFacade {
 	}
 
 	@Override
-	public Lair findLair(String loginName) throws InstanceNotFoundException,
+	public Lair findLairByLogin(String login) throws InstanceNotFoundException,
 			InternalErrorException {
 		return lair;
 	}

@@ -106,13 +106,13 @@ public enum RoomType {
 		case 03: return new TradeOffice(lair, level, size, publicAccess, state);
 		case 04: return new TruffleFarm(lair, level, size, publicAccess, state);
 		case 05: return new Dormitories(lair, level, size, publicAccess, state);
-		/*case 06: return new MetalLeisureRoom(roomId, loginName, level, size, publicAccess, state);
-		case 07: return new ChillOutLeisureRoom(roomId, loginName, level, size, publicAccess, state);
-		case 08: return new TechnoLeisureRoom(roomId, loginName, level, size, publicAccess, state);
-		case 09: return new IndieRockLeisureRoom(roomId, loginName, level, size, publicAccess, state);
-		case 10: return new ReggaetonLeisureRoom(roomId, loginName, level, size, publicAccess, state);
-		case 11: return new Gym(roomId, loginName, level, size, publicAccess, state);
-		case 12: return new Classroom(roomId, loginName, level, size, publicAccess, state);publicAccess, state); */
+		/*case 06: return new MetalLeisureRoom(roomId, login, level, size, publicAccess, state);
+		case 07: return new ChillOutLeisureRoom(roomId, login, level, size, publicAccess, state);
+		case 08: return new TechnoLeisureRoom(roomId, login, level, size, publicAccess, state);
+		case 09: return new IndieRockLeisureRoom(roomId, login, level, size, publicAccess, state);
+		case 10: return new ReggaetonLeisureRoom(roomId, login, level, size, publicAccess, state);
+		case 11: return new Gym(roomId, login, level, size, publicAccess, state);
+		case 12: return new Classroom(roomId, login, level, size, publicAccess, state);publicAccess, state); */
     	// ...
 		
 		default: return null;
@@ -131,14 +131,14 @@ public enum RoomType {
 		case 3: return new TradeOffice(lair);
 		case 4: return new TruffleFarm(lair);
 		case 5: return new Dormitories(lair);
-		/*case 6: return new MetalLeisureRoom(loginName);
-		case 7: return new ChillOutLeisureRoom(loginName);
-		case 8: return new TechnoLeisureRoom(loginName);
-		case 9: return new IndieRockLeisureRoom(loginName);
-		case 10: return new ReggaetonLeisureRoom(loginName);
-		case 11: return new Gym(loginName);
-		case 12: return new Classroom(loginName);
-		case 13: return new Nursery(loginName); */
+		/*case 6: return new MetalLeisureRoom(login);
+		case 7: return new ChillOutLeisureRoom(login);
+		case 8: return new TechnoLeisureRoom(login);
+		case 9: return new IndieRockLeisureRoom(login);
+		case 10: return new ReggaetonLeisureRoom(login);
+		case 11: return new Gym(login);
+		case 12: return new Classroom(login);
+		case 13: return new Nursery(login); */
     	// ...
 		
 		default: return null;

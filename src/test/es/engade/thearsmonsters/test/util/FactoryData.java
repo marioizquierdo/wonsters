@@ -33,8 +33,8 @@ public class FactoryData {
 		return generateRandUserScaffold();
 	}
 	
-	public static User generateUser(String loginName) {
-		return generateUserScaffold(loginName);
+	public static User generateUser(String login) {
+		return generateUserScaffold(login);
 	}
 	
 	/*** Generate Lair ***/
@@ -249,9 +249,9 @@ public class FactoryData {
     
     	
     	//*** MONSTERS ***//
-		Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLoginName(), now, now, MonsterAge.Child); 
-		Monster adult =	new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLoginName(), now, now, MonsterAge.Adult);
-		Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLoginName(), now, now, MonsterAge.Old);
+		Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLogin(), now, now, MonsterAge.Child); 
+		Monster adult =	new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLogin(), now, now, MonsterAge.Adult);
+		Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLogin(), now, now, MonsterAge.Old);
     	
 		lair.addMonster(child).addMonster(adult).addMonster(old);
     	

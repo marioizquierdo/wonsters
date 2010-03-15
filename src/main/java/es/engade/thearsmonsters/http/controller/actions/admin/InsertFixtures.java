@@ -33,7 +33,7 @@ public class InsertFixtures extends DefaultAction {
     	
         /* Create fixtures */
     	try {
-    		testFacade.addFixtureDatas(loginNames());
+    		testFacade.addFixtureDatas(logins());
     		
 			SessionManager.login(request, response, "a", "a", true, false); // se supone que se inserta el usuario a, contraseña a
 			return mapping.findForward("GameStart");
@@ -46,13 +46,13 @@ public class InsertFixtures extends DefaultAction {
         
     }
     
-    private List<String> loginNames() {
-		List<String> loginNames = new ArrayList<String>();
-		loginNames.add("a"); // a is the admin user by default
-		loginNames.add("b");
-		loginNames.add("c");
-		loginNames.add("d");
-		return loginNames;
+    private List<String> logins() {
+		List<String> logins = new ArrayList<String>();
+		logins.add("a"); // a is the admin user by default
+		logins.add("b");
+		logins.add("c");
+		logins.add("d");
+		return logins;
     }
 
 }

@@ -28,23 +28,20 @@ public class LoginAsAdminAction extends DefaultAdminAction {
         
         /* Get data. */
         LoginForm loginForm = (LoginForm) form;
-        String loginName = loginForm.getLoginName();
+        String login = loginForm.getLogin();
         String password = loginForm.getPassword();
 
         /* Do login. */
         ActionMessages errors = new ActionMessages();
         
         try {
-
-            SessionManager.login(request, response, loginName, password,
-                false, true);
+            SessionManager.login(request, response, login, password, false, true);
                 
         } catch (InstanceNotFoundException e) {
-            errors.add("loginName", new ActionMessage(
-                "ErrorMessages.loginName.notFound"));
+            errors.add("login", new ActionMessage( "ErrorMessages.login.notFound"));
+            
         } catch (IncorrectPasswordException e) {
-            errors.add("password", new ActionMessage(
-                "ErrorMessages.password.incorrect"));
+            errors.add("password", new ActionMessage("ErrorMessages.password.incorrect"));
         }
         
         /* Return ActionForward. */

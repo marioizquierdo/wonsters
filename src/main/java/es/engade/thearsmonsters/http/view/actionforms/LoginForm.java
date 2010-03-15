@@ -10,7 +10,7 @@ import es.engade.thearsmonsters.util.struts.action.PropertyValidator;
 
 public class LoginForm extends DefaultActionForm {
 
-    private String loginName;
+    private String login;
     private String password;
     private boolean rememberMyPassword;
     
@@ -18,12 +18,12 @@ public class LoginForm extends DefaultActionForm {
         reset();
     }
     
-    public String getLoginName() {
-        return loginName;
+    public String getLogin() {
+        return login;
     }
     
-    public void setLoginName(String loginName) {
-        this.loginName = loginName.trim();
+    public void setLogin(String login) {
+        this.login = login.trim();
     }
     
     public String getPassword() {
@@ -53,7 +53,7 @@ public class LoginForm extends DefaultActionForm {
         
         ActionErrors errors = new ActionErrors();
 
-        PropertyValidator.validateMandatory(errors, "loginName", loginName);
+        PropertyValidator.validateMandatory(errors, "login", login);
         PropertyValidator.validateMandatory(errors, "password", password);
         
         return errors;
@@ -61,7 +61,7 @@ public class LoginForm extends DefaultActionForm {
     }
     
     private void reset() {
-        loginName = null;
+        login = null;
         password = null;
         rememberMyPassword = false;
     }

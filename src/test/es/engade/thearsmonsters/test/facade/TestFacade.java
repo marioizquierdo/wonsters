@@ -22,20 +22,20 @@ public class TestFacade {
             
     }
     
-	public void addFixtureDatas(List<String> loginNames)
+	public void addFixtureDatas(List<String> logins)
 		throws FullPlacesException, InternalErrorException {
             
             // Añadir guarida, monstruos y movidas a cada usuario utilizando las otras fachadas.
 	}
 	
-	public void addFixtureData(String loginName)
+	public void addFixtureData(String login)
 		throws FullPlacesException, InternalErrorException {
-		List<String> loginNames = new ArrayList<String>(1);
-		loginNames.add(loginName);
-		addFixtureDatas(loginNames);
+		List<String> logins = new ArrayList<String>(1);
+		logins.add(login);
+		addFixtureDatas(logins);
 	}
     
-	public void deleteFixtureData(String loginName)
+	public void deleteFixtureData(String login)
 		throws InstanceNotFoundException, InternalErrorException {
 		// borrar a la peña
 	}

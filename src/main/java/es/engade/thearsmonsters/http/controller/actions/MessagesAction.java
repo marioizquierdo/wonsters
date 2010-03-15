@@ -45,7 +45,7 @@ public class MessagesAction extends AThearsmonstersDefaultAction {
 //        
 //        /* Prepare form for new messages */
 //        MessageForm messageForm = (MessageForm) form;
-//        messageForm.setAuthor(SessionManager.getLoginName(request));
+//        messageForm.setAuthor(SessionManager.getLogin(request));
         
         /* Return ActionForward. */
         return mapping.findForward("Messages");

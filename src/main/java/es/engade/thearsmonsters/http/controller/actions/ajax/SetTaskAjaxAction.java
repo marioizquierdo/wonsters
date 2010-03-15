@@ -27,14 +27,14 @@ public class SetTaskAjaxAction extends DefaultHTMLAjaxAction {
 //		
 //        byte turn = Byte.parseByte(request.getParameter("turn"));		
 //        long monsterId = Long.parseLong(request.getParameter("monsterId"));
-//        String roomLoginName = request.getParameter("roomLoginName");
+//        String roomLogin = request.getParameter("roomLogin");
 //		RoomType roomRoomType = RoomType.valueOf(request.getParameter("roomRoomType"));
 //		TaskRole role = TaskRole.valueOf(request.getParameter("role"));
 //            
 //        /* Model action */
 //        Monster monster;
 //		try {
-//			monster = delegateTask.setTask(turn, monsterId, roomLoginName, roomRoomType, role);
+//			monster = delegateTask.setTask(turn, monsterId, roomLogin, roomRoomType, role);
 //	        
 //		// If setTasks throws InvalidTaskExceptions, the task will be the previous task (for replace in the view)
 //		// and a list of errors will be put in the request (to show in the view).

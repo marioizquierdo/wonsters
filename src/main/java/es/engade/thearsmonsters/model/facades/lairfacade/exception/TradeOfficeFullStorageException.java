@@ -11,19 +11,19 @@ public class TradeOfficeFullStorageException  extends ModelException implements 
 	private int moneyInTheTradeOffice;
 	private int moneyToStore;
 	private int moneyStorageCapacity;
-	private String loginName;
+	private String login;
 	private String messageKey;
 	private String[] messageParams;
 	
     public TradeOfficeFullStorageException(int moneyInTheTradeOffice, int moneyToStore, 
-    		int moneyStorageCapacity, String loginName) {
+    		int moneyStorageCapacity, String login) {
         super("Having "+ moneyInTheTradeOffice +", try to store "+ moneyToStore +" of money in the " +
         		"TradeOffice, but the maximun storage capacity is "+ moneyStorageCapacity +
-        		". In the lair of "+ loginName);
+        		". In the lair of "+ login);
         this.moneyInTheTradeOffice = moneyInTheTradeOffice;
         this.moneyToStore = moneyToStore;
         this.moneyStorageCapacity = moneyStorageCapacity;
-        this.loginName = loginName;
+        this.login = login;
         
         this.messageKey = "FlashMessage.TradeOfficeFullStorageException";
         this.messageParams = new String[]{moneyInTheTradeOffice+"", moneyToStore+"", moneyStorageCapacity+""};
@@ -41,8 +41,8 @@ public class TradeOfficeFullStorageException  extends ModelException implements 
 		return moneyStorageCapacity;
 	}
 
-	public String getLoginName() {
-		return loginName;
+	public String getLogin() {
+		return login;
 	}
 
 	public String getMessageKey() {

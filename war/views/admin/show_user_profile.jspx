@@ -9,10 +9,10 @@
 
     <div class="field">        
         <span class="label">
-            <fmt:message key="UserProfile.loginName"/>
+            <fmt:message key="UserProfile.login"/>
         </span>
         <span class="entry">
-        	<c:out value="${userProfile.loginName}"/>
+        	<c:out value="${userProfile.login}"/>
         </span>
     </div>
     
@@ -36,7 +36,7 @@
     
     <div class="field">
     <c:set var="confirm_text"><fmt:message key="AdminShowUserProfile.confirmToBanUser"/></c:set>
-		<html:link action="AdminToBanUser.do?loginName=${userProfile.loginName}"
+		<html:link action="AdminToBanUser.do?login=${userProfile.login}"
 			onclick="if(!confirm('${confirm_text}'))return false">
 			<fmt:message key="AdminShowUserProfile.toBanUser"/>
 		</html:link>

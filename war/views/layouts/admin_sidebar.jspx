@@ -8,11 +8,11 @@
     
 <li>
 
-  <html:form action="AdminFindUserProfile.do" method="GET" focus="loginName">
+  <html:form action="AdminFindUserProfile.do" method="GET" focus="login">
     
-    <fmt:message key="UserProfile.loginName"/>
-    <html:errors property="loginName"/>
-    <html:text property="loginName" size="16" maxlength="30"/>
+    <fmt:message key="UserProfile.login"/>
+    <html:errors property="login"/>
+    <html:text property="login" size="16" maxlength="30"/>
     <html:submit>
         <fmt:message key="Buttons.find"/>
     </html:submit>

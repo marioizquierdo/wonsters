@@ -104,7 +104,7 @@ public final class SessionManager {
     private final static String USER_FACADE_SESSION_ATTRIBUTE = "userFacade";
     private final static String LAIR_SESSION_ATTRIBUTE = "myLair";
 
-    public static final String LOGIN_NAME_COOKIE = "loginName";
+    public static final String LOGIN_NAME_COOKIE = "login";
     public static final String ENCRYPTED_PASSWORD_COOKIE = "encryptedPassword";
 
     private static final int COOKIES_TIME_TO_LIVE_REMEMBER_MY_PASSWORD =
@@ -114,7 +114,7 @@ public final class SessionManager {
     private SessionManager() {}
     
     public final static void login(HttpServletRequest request,
-        HttpServletResponse response, String loginName,
+        HttpServletResponse response, String login,
         String clearPassword, boolean rememberMyPassword, boolean loginAsAdmin) 
         throws IncorrectPasswordException, InstanceNotFoundException,
             InternalErrorException {
@@ -123,12 +123,12 @@ public final class SessionManager {
          * Try to login, and if successful, update session with the necessary 
          * objects for an authenticated user.
          */ 
-        LoginResult loginResult = doLogin(request, loginName, 
+        LoginResult loginResult = doLogin(request, login, 
             clearPassword, false, loginAsAdmin);
             
         /* Add cookies if requested. */
         if (rememberMyPassword) {
-            leaveCookies(response, loginName, 
+            leaveCookies(response, login, 
                 loginResult.getEncryptedPassword(),
                 COOKIES_TIME_TO_LIVE_REMEMBER_MY_PASSWORD);
         }
@@ -136,14 +136,14 @@ public final class SessionManager {
     }
     
     public final static void registerUser(HttpServletRequest request,
-        String loginName, String clearPassword, 
+        String login, String clearPassword, 
         UserDetails UserDetails) 
         throws DuplicateInstanceException, InternalErrorException, FullPlacesException {
         
         /* Register user. */
         UserFacade userFacade  = new UserFacadeMock();
             
-        userFacade.registerUser(loginName, clearPassword, 
+        userFacade.registerUser(login, clearPassword, 
             UserDetails);
             
         /* 
@@ -287,13 +287,13 @@ public final class SessionManager {
          * Check if the login name and the encrypted password come as 
          * cookies. 
          */
-        String loginName = null;
+        String login = null;
         String encryptedPassword = null;
         int foundCookies = 0;
 
         for (int i=0; (i<cookies.length) && (foundCookies < 2); i++) {
             if (cookies[i].getName().equals(LOGIN_NAME_COOKIE)) {
-                loginName = cookies[i].getValue();
+                login = cookies[i].getValue();
                 foundCookies++;
             }
             if (cookies[i].getName().equals(ENCRYPTED_PASSWORD_COOKIE)) {
@@ -310,29 +310,29 @@ public final class SessionManager {
          * objects for an authenticated user.
          */
         try {
-            doLogin(request, loginName, encryptedPassword, true, false);
+            doLogin(request, login, encryptedPassword, true, false);
         } catch (InternalErrorException e) {
             throw e;
-        } catch (Exception e) { // Incorrect loginName or encryptedPassword
+        } catch (Exception e) { // Incorrect login or encryptedPassword
             return;
         }
 
     }
     
     private final static void leaveCookies(HttpServletResponse response,
-        String loginName, String encryptedPassword, int timeToLive) {
+        String login, String encryptedPassword, int timeToLive) {
         
          /* Create cookies. */
-        Cookie loginNameCookie = new Cookie(LOGIN_NAME_COOKIE, loginName);
+        Cookie loginCookie = new Cookie(LOGIN_NAME_COOKIE, login);
         Cookie encryptedPasswordCookie = new Cookie(ENCRYPTED_PASSWORD_COOKIE, 
             encryptedPassword);
 
         /* Set maximum age to cookies. */
-        loginNameCookie.setMaxAge(timeToLive);
+        loginCookie.setMaxAge(timeToLive);
         encryptedPasswordCookie.setMaxAge(timeToLive);
 
         /* Add cookies to response. */
-        response.addCookie(loginNameCookie);
+        response.addCookie(loginCookie);
         response.addCookie(encryptedPasswordCookie);
 
     }
@@ -343,15 +343,15 @@ public final class SessionManager {
      * session the necessary objects for an authenticated user.
      */
     private final static LoginResult doLogin(HttpServletRequest request,
-         String loginName, String password, boolean passwordIsEncrypted,
+         String login, String password, boolean passwordIsEncrypted,
          boolean loginAsAdmin) 
          throws IncorrectPasswordException, InstanceNotFoundException, 
                 InternalErrorException {
          
-        /* Check "loginName" and "clearPassword". */
+        /* Check "login" and "clearPassword". */
         UserFacade userFacade = getUserFacade(request);
         LoginResult loginResult = userFacade.login(
-            loginName, password, passwordIsEncrypted, loginAsAdmin);
+            login, password, passwordIsEncrypted, loginAsAdmin);
  
 
         /* Insert necessary objects in the session. */

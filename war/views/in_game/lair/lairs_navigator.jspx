@@ -82,7 +82,7 @@
 	
 			<tr>
 			    <th><fmt:message key="Building.floor"/></th>
-			    <th><fmt:message key="Lair.loginName"/></th>
+			    <th><fmt:message key="Lair.login"/></th>
 			    <th><fmt:message key="Monster.race.vitalSpace"/></th>
 			    <th><fmt:message key="Lair.money"/></th>
 			    <th><fmt:message key="Lair.garbage"/></th>
@@ -90,17 +90,17 @@
 			
 			<c:forEach items="${building.lairVOs}" var="lair" varStatus="loop">
 				<c:url var="lairURL" value="Lair.do">
-					<c:param name="loginName" value="${lair.loginName}"/>
+					<c:param name="login" value="${lair.login}"/>
 				</c:url>
 				
 				<c:choose>
 				<c:when test="${!empty lair}">
 					<tr class="trContent 
 								${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
-								${(lair.loginName == sessionScope.loginName) ? ' myLair' : ''}"
+								${(lair.login == sessionScope.login) ? ' myLair' : ''}"
 							onclick="document.location.href='${lairURL}';">
 						<td> <a href="${lairURL}"><c:out value="${loop.index}"/></a> </td>
-						<td> <a href="${lairURL}"><c:out value=" ${lair.loginName}"/></a> </td>
+						<td> <a href="${lairURL}"><c:out value=" ${lair.login}"/></a> </td>
 					    <td> <fmt:formatNumber value="${lair.vitalSpaceOccupied}"/> </td>
 					    <td> <fmt:formatNumber value="${lair.money}"/> </td>
 					    <td> <fmt:formatNumber value="${lair.garbage}"/> </td>

@@ -5,14 +5,14 @@
 
 <form action="Lair.do" method="GET">
 	<div class="p_header">
-		<fmt:message key="Lair.search.byLoginName"/>
+		<fmt:message key="Lair.search.byLogin"/>
 	</div>
     <div class="p_content">
         <span class="label">
-            <fmt:message key="UserProfile.loginName"/>
+            <fmt:message key="UserProfile.login"/>
         </span>
         <span class="entry">
-        	<input type="text" name="loginName" value="${lair.user.loginName}" />  
+        	<input type="text" name="login" value="${lair.user.login}" />  
         </span>
         <span class="button">
 	        <input type="submit" value="${buttonText}" />

@@ -32,7 +32,7 @@ public class RegisterUserAction extends AThearsmonstersDefaultAction {
             
         /* Get data. */
         UserProfileForm userProfileForm = (UserProfileForm) form;
-        String loginName = userProfileForm.getLoginName();
+        String login = userProfileForm.getLogin();
         String clearPassword = userProfileForm.getPassword();
         UserDetails userProfileDetails = new UserDetails(
             userProfileForm.getFirstName(), userProfileForm.getSurname(),
@@ -43,12 +43,12 @@ public class RegisterUserAction extends AThearsmonstersDefaultAction {
         ActionMessages errors = new ActionMessages();
           
         try {
-            SessionManager.registerUser(request, loginName, clearPassword,
+            SessionManager.registerUser(request, login, clearPassword,
                 userProfileDetails);
 
         } catch (DuplicateInstanceException e) {
-            errors.add("loginName",
-                new ActionMessage("ErrorMessages.loginName.alreadyExists"));
+            errors.add("login",
+                new ActionMessage("ErrorMessages.login.alreadyExists"));
         } catch (FullPlacesException e) {
         	FlashMessage.showError(request, e);
 		}            
@@ -56,13 +56,13 @@ public class RegisterUserAction extends AThearsmonstersDefaultAction {
         /* Return ActionForward. */
         if (errors.isEmpty()) {
         	try {
-				SessionManager.login(request, response, loginName, clearPassword, true, false);
+				SessionManager.login(request, response, login, clearPassword, true, false);
 			} catch (InstanceNotFoundException e) {
 				throw new InternalErrorException(e);
 			} catch (IncorrectPasswordException e) {
 				throw new InternalErrorException(e);
 			}
-			FlashMessage.show(request, "FlashMessage.WelcomeToTheGame", loginName, FlashMessage.Status.GOOD_NEW, null);
+			FlashMessage.show(request, "FlashMessage.WelcomeToTheGame", login, FlashMessage.Status.GOOD_NEW, null);
 			FlashMessage.show(request, "FlashMessage.GameStartInfo", "", FlashMessage.Status.INFO, null);
 			FlashMessage.show(request, "FlashMessage.GameStartWarning", "", FlashMessage.Status.ERROR, null);
             return mapping.findForward("GameStart");

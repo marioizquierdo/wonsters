@@ -31,8 +31,8 @@ public class ToBanUser extends DefaultAdminAction {
     	List<String> errors = new ArrayList<String>();
         	
     	/* Get Data */
-        String loginName = request.getParameter("loginName");
-		if(loginName=="" || loginName==null) {
+        String login = request.getParameter("login");
+		if(login=="" || login==null) {
 			errors.add("AdminShowActionResults.ToBanUser.loginFail");
 	        return  saveMessagesAndForward(success, errors, mapping, request);
 		}
@@ -40,11 +40,11 @@ public class ToBanUser extends DefaultAdminAction {
         /* Delete UserProfile (and his Lair, monsters, etc). */
     	try {
     		UserFacade userFacade = new UserFacadeMock();
-    		userFacade.removeUserProfile(loginName);
+    		userFacade.removeUserProfile(login);
 			success.add("AdminShowActionResults.ToBanUser.Success");
 			
 		} catch (InstanceNotFoundException e) {
-			errors.add("ErrorMessages.loginName.notFound");
+			errors.add("ErrorMessages.login.notFound");
 		}
         
         /* Return ActionForward.*/

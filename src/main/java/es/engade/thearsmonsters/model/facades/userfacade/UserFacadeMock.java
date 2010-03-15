@@ -33,24 +33,24 @@ public class UserFacadeMock implements UserFacade {
 		return user;
 	}
 
-	public User findUserProfile(String loginName)
+	public User findUserProfile(String login)
 			throws InstanceNotFoundException, InternalErrorException {
 		return user;
 	}
 
-	public LoginResult login(String loginName, String password,
+	public LoginResult login(String login, String password,
 			boolean passwordIsEncrypted, boolean loginAsAdmin)
 			throws InstanceNotFoundException, IncorrectPasswordException,
 			InternalErrorException {
 		return new LoginResult(lair, "testName", "encryptedPass", "es");
 	}
 
-	public void registerUser(String loginName, String clearPassword,
+	public void registerUser(String login, String clearPassword,
 			UserDetails userDetails) throws FullPlacesException,
 			DuplicateInstanceException, InternalErrorException {
 	}
 
-	public void removeUserProfile(String loginName)
+	public void removeUserProfile(String login)
 			throws InternalErrorException, InstanceNotFoundException {
 	}
 

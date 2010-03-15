@@ -24,7 +24,7 @@ public class User implements Serializable {
 	private Key id;
     
     @Persistent
-    private String loginName;
+    private String login;
     
     @Persistent
     private String encryptedPassword;
@@ -43,12 +43,12 @@ public class User implements Serializable {
 		this.id = userId;
 	}
 
-	public String getLoginName() {
-		return loginName;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getEncryptedPassword() {
@@ -77,10 +77,10 @@ public class User implements Serializable {
 
 	public User() {}
 	
-	public User(String loginName, String encryptedPassword,
+	public User(String login, String encryptedPassword,
         UserDetails userDetails) {
         
-        this.loginName = loginName;
+        this.login = login;
         this.encryptedPassword = encryptedPassword;
         this.userDetails = userDetails;
         
@@ -89,7 +89,7 @@ public class User implements Serializable {
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
-			"loginName", loginName,
+			"login", login,
 			"encryptedPassword", encryptedPassword,
 			"userDetails", userDetails,
 		});
@@ -100,13 +100,13 @@ public class User implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result
-                + ((loginName == null) ? 0 : loginName.hashCode());
+                + ((login == null) ? 0 : login.hashCode());
         return result;
     }
 
 	/**
      * Compara este usuario con otro
-     * Como el loginName es unico, basta con comparar el loginName para saber si es el mismo usuario.
+     * Como el login es unico, basta con comparar el login para saber si es el mismo usuario.
      */
     @Override
     public boolean equals(Object obj) {
@@ -117,10 +117,10 @@ public class User implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (loginName == null) {
-            if (other.loginName != null)
+        if (login == null) {
+            if (other.login != null)
                 return false;
-        } else if (!loginName.equals(other.loginName))
+        } else if (!login.equals(other.login))
             return false;
         return true;
     }

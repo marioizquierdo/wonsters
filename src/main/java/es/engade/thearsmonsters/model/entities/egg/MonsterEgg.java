@@ -172,7 +172,7 @@ public class MonsterEgg implements Serializable {
 		    "key", id,
 			"race", race,
 //			"parent-name", parent.getName(),
-//			"lair-user", lair.getUser().getLoginName(),
+//			"lair-user", lair.getUser().getLogin(),
 			"borningDate", borningDate
 		});
 	}

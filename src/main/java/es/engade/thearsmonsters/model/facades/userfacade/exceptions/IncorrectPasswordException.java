@@ -6,15 +6,15 @@ public class IncorrectPasswordException extends ModelException {
 
 	private static final long serialVersionUID = 200912142050L;
 	
-    private String loginName;
+    private String login;
     
-    public IncorrectPasswordException(String loginName) {
-        super("Incorrect password exception => loginName = " + loginName);
-        this.loginName = loginName;
+    public IncorrectPasswordException(String login) {
+        super("Incorrect password exception => login = " + login);
+        this.login = login;
     }
     
-    public String getLoginName() {
-        return loginName;
+    public String getLogin() {
+        return login;
     }
     
     /* Test code. Uncomment for testing. */

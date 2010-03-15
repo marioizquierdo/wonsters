@@ -11,13 +11,13 @@ public class InWorksActionException  extends ModelException {
         super(message);
     }
 
-    public InWorksActionException(String message, String loginName, RoomType roomType) {
-        super(message+ " - in room "+ roomType +" of the "+ loginName +"'s lair.");
+    public InWorksActionException(String message, String login, RoomType roomType) {
+        super(message+ " - in room "+ roomType +" of the "+ login +"'s lair.");
     }
     
-    public InWorksActionException(String loginName, RoomType roomType, boolean isInWorks) {
+    public InWorksActionException(String login, RoomType roomType, boolean isInWorks) {
         super("Action not bound: The room "+ roomType +
-        		" from "+ loginName +"'s lair "+
+        		" from "+ login +"'s lair "+
         		(isInWorks? "is in works yet" : "is not in works"));
     }
     

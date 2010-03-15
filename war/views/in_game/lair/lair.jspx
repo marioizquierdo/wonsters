@@ -12,7 +12,7 @@
 ]]> 
 
 <c:choose>
-	<c:when test="${lair.user.loginName == sessionScope.myLair}">
+	<c:when test="${lair == sessionScope.myLair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
 		<c:set var="lair_neighbors" 
 			value="?street=${lair.address.street}&amp;building=${lair.address.building}" />
@@ -24,7 +24,7 @@
 	</c:when>
 	<c:otherwise>
 		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
-			<fmt:param value="${lair.user.loginName}"/>
+			<fmt:param value="${lair.user.login}"/>
 			<fmt:param value="${lair.address.street}"/>
 			<fmt:param value="${lair.address.building}"/>
 			<fmt:param value="${lair.address.floor}"/>

@@ -228,7 +228,7 @@ public class Monster implements Serializable {
 			"ageState", age,
 			"name", name, 
 			"id", id,
-//			"lair-user", lair.getUser().getLoginName(),
+//			"lair-user", lair.getUser().getLogin(),
 			"borningDate", borningDate,
 			"cocoonCloseUpDate", cocoonCloseUpDate,
 		});

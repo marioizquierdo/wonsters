@@ -19,25 +19,25 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
  */
 public interface UserFacade {
 
-    public void registerUser(String loginName, String clearPassword,
+    public void registerUser(String login, String clearPassword,
         UserDetails userDetails)
         throws FullPlacesException, DuplicateInstanceException, InternalErrorException;
 
-    public LoginResult login(String loginName, String password,
+    public LoginResult login(String login, String password,
         boolean passwordIsEncrypted, boolean loginAsAdmin)
         throws InstanceNotFoundException, IncorrectPasswordException,
             InternalErrorException;
         
     public User findUserProfile() throws InternalErrorException;
     
-    public User findUserProfile(String loginName) 
+    public User findUserProfile(String login) 
     	throws InstanceNotFoundException, InternalErrorException;
     
     public void updateUserProfileDetails(
         UserDetails userProfileDetailsVO)
         throws InternalErrorException;
     
-	public void removeUserProfile(String loginName)
+	public void removeUserProfile(String login)
 		throws InternalErrorException, InstanceNotFoundException;
 
     public void changePassword(String oldClearPassword, 
@@ -47,7 +47,7 @@ public interface UserFacade {
     public int countUsers() throws InternalErrorException;
     
 
-    //------- Messages ------// (no son usuarios pero tampoco se va a hacer una fachada nueva solo por esto) 
+    //------- Messages ------// (no son usuarios pero tampoco se va a hacer una fachada nueva por estos 2 metodos, que en futuras versiones serán eliminados) 
     
 //    public MessageVO createMessage(String author, String content) throws InternalErrorException;
 //    

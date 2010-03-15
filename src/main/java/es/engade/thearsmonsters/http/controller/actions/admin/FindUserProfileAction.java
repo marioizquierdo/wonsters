@@ -29,10 +29,10 @@ public class FindUserProfileAction extends DefaultAdminAction {
         ActionMessages errors = new ActionMessages();
     	
     	/* Get Data */
-        String loginName = request.getParameter("loginName");
-		if(loginName=="" || loginName==null) {
-			errors.add("loginName",
-	                new ActionMessage("ErrorMessages.loginName.notFound"));
+        String login = request.getParameter("login");
+		if(login=="" || login==null) {
+			errors.add("login",
+	                new ActionMessage("ErrorMessages.login.notFound"));
 			saveErrors(request, errors);            
             return new ActionForward(mapping.getInput());
 		}
@@ -42,14 +42,14 @@ public class FindUserProfileAction extends DefaultAdminAction {
     		
     		UserFacade userFacade = new UserFacadeMock();
     		
-			User userProfile = userFacade.findUserProfile(loginName);
+			User userProfile = userFacade.findUserProfile(login);
 			   
-			/* Set attribute loginName on Request */
+			/* Set attribute login on Request */
     		request.setAttribute("userProfile", userProfile);
 			
 		} catch (InstanceNotFoundException e) {
-            errors.add("loginName",
-                new ActionMessage("ErrorMessages.loginName.notFound"));
+            errors.add("login",
+                new ActionMessage("ErrorMessages.login.notFound"));
 		}
         
         /* Return ActionForward.*/

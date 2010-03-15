@@ -56,7 +56,7 @@ public class RoomData implements Serializable {
 //	 */
 //	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() {
 //		if(!isReadyToChangeResources()) {
-//			return new OnlyOneChangePerGameDayException(this.lastChangeResourcesTurn, this.lair.getLoginName());
+//			return new OnlyOneChangePerGameDayException(this.lastChangeResourcesTurn, this.lair.getLogin());
 //		} else {
 //			return null;
 //		}

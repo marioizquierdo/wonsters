@@ -73,12 +73,12 @@
 			  	<div class="atMiddle">
 					
 					<!-- content -->
-					<html:form action="Login.do" focus="loginName">
-						<c:set var="loginError"><html:errors property="loginName"/></c:set>
+					<html:form action="Login.do" focus="login">
+						<c:set var="loginError"><html:errors property="login"/></c:set>
 						<c:set var="passwordError"><html:errors property="password"/></c:set>
 						<c:if test="${not empty loginError or not empty passwordError}">
 							<div class="loginErrors" style="display: none;">
-						        <html:errors property="loginName"/>
+						        <html:errors property="login"/>
 						        <html:errors property="password"/>
 					        </div>
 					        <![CDATA[<script type='text/javascript'>$(function(){
@@ -88,7 +88,7 @@
 					    
 					    <span class="loginBlock">
 				        	<fmt:message key="AuthenticationContent.user"/>&#160;
-					        <html:text property="loginName" size="12" maxlength="30"/>
+					        <html:text property="login" size="12" maxlength="30"/>
 					    </span>
 					    <span class="loginBlock">
 					        <fmt:message key="AuthenticationContent.pass"/>&#160;

@@ -34,11 +34,11 @@ public class LairAction extends AThearsmonstersDefaultAction {
 
     	try {
     		/*
-    		 * Esta acción puede recibir los parámetro en la url: street, building, floor, loginName y showRoomType.
+    		 * Esta acción puede recibir los parámetro en la url: street, building, floor, login y showRoomType.
     		 * Si se reciben solamente street y building entonces se inserta un BuildingChunkVO en la
     		 * 		request que contenga las diferentes guaridas y se redirige a ShowBuilding.do
     		 * Si se reciben street, building y floor (que identifiquen una guarida por su dirección) o
-    		 * 		bien un loginName entonces se inserta una LairVO en la request para mostrar sus datos.
+    		 * 		bien un login entonces se inserta una LairVO en la request para mostrar sus datos.
     		 * 		(si la guarida es la misma que la de la sesión, como se supone que esta última está
     		 * 		siempre actualizada, entonces no hace falta recargarla de la base de datos).
     		 * El parámetro showRoomType no influye en esta acción. Solo sirve para saber si en la vista
@@ -76,17 +76,17 @@ public class LairAction extends AThearsmonstersDefaultAction {
 	    		}
 	    	} else {
 	    	
-		    	/* Buscar guarida por loginName */
-	            String loginName = request.getParameter("loginName");
+		    	/* Buscar guarida por login */
+	            String login = request.getParameter("login");
 	    		
 	    		// Si el login name es el del usuario regustrado entonces la guarida es la que esta en la sesión
-	    		// Si no hay loginName, se entiende que es el del jugador logueado.
-	    		if(loginName=="" || loginName==null || 
-	    				loginName.equals(myLair.getUser().getLoginName())) {
+	    		// Si no hay login, se entiende que es el del jugador logueado.
+	    		if(login=="" || login==null || 
+	    				login.equals(myLair.getUser().getLogin())) {
 	    			lair = myLair;
 	    			
 	    		} else { // Sino pues carga la guarida de ese otro jugador
-	    			lair = lairFacade.findLair(loginName);
+	    			lair = lairFacade.findLairByLogin(login);
 	    		}
 	    	}
 
