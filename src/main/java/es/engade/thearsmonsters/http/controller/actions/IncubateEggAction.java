@@ -30,7 +30,7 @@ public class IncubateEggAction extends AThearsmonstersDefaultAction {
         
         try {
 	        /* Get data. */
-	        long eggId = Long.parseLong(request.getParameter("id"));
+	        String eggId = request.getParameter("id");
 	    	Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */

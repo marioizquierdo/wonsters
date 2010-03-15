@@ -12,7 +12,6 @@ public class BornMonsterForm extends DefaultActionForm {
 
     private String monsterName;
     private String eggId;
-    private Long eggIdAsLong;
         
     public BornMonsterForm() {
         reset();
@@ -34,10 +33,6 @@ public class BornMonsterForm extends DefaultActionForm {
 		this.eggId = eggId;
 	}
 
-	public long getEggIdAsLong() {
-		return eggIdAsLong;
-	}
-
 
 	@Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
@@ -49,19 +44,15 @@ public class BornMonsterForm extends DefaultActionForm {
         HttpServletRequest request) {
         
         ActionErrors errors = new ActionErrors();
-        eggIdAsLong = new Long(PropertyValidator.validateLong(
-        		errors,"eggId", eggId, true, 1, Long.MAX_VALUE));
 
         PropertyValidator.validateMandatory(errors, "monsterName", monsterName);
 
         return errors;
-        
     }
     
     private void reset() {
     	monsterName = "";
-    	eggId = null;
-    	eggIdAsLong = null;
+    	eggId = "";
     }
     
 }

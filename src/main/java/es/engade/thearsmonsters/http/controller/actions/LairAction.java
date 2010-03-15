@@ -63,7 +63,7 @@ public class LairAction extends AThearsmonstersDefaultAction {
 		    			lair = myLair;
 		    			
 		    		} else { // Sino pues la recupera de la base de datos
-		    	    	lair = lairFacade.findLair(street, building, floor);
+		    	    	lair = lairFacade.findLairByAddress(street, building, floor);
 		    		}
 	    			
 	    		}else{

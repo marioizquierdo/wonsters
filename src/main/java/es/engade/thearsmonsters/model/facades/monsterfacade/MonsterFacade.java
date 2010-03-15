@@ -26,21 +26,21 @@ public interface MonsterFacade extends Serializable {
      * Shell an existing egg from the given lair.
      * @return the money gained in the shell.
      */
-    public Integer shellEgg(long eggId, Lair lair) 
+    public Integer shellEgg(String eggId, Lair lair) 
     	throws InternalErrorException, InstanceNotFoundException;
     
-    public void incubateEgg(long eggId, Lair lair)
+    public void incubateEgg(String eggId, Lair lair)
 		throws InternalErrorException, InstanceNotFoundException, InsuficientVitalSpaceException;
     
-    public Monster bornMonster(long eggId, String monsterName, Lair lair)
+    public Monster bornMonster(String eggId, String monsterName, Lair lair)
     	throws InternalErrorException, InstanceNotFoundException, MonsterGrowException, InsuficientVitalSpaceException;
     
-    public Monster metamorphosisToAdult(long monsterId, Lair lair)
+    public Monster metamorphosisToAdult(String monsterId, Lair lair)
 		throws InternalErrorException, InstanceNotFoundException, MonsterGrowException;
     
     public List<Monster> findLairMonsters(Lair lair)
     	throws InternalErrorException;
     
-    public Monster findMonster(long monsterId)
+    public Monster findMonster(String monsterId)
     	throws InternalErrorException, InstanceNotFoundException;
 }

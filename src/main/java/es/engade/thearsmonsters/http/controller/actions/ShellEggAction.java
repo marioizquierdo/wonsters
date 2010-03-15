@@ -31,10 +31,10 @@ public class ShellEggAction extends AThearsmonstersDefaultAction {
     			"EggsManagement.do", request, mapping);
     	if(confirm != null) return confirm;
     	
-        MonsterFacade monsterFacade =new MonsterFacadeMock();
+        MonsterFacade monsterFacade = new MonsterFacadeMock();
         try {
 	        /* Get data. */
-	        long eggId = Long.parseLong(request.getParameter("id"));
+	        String eggId = request.getParameter("id");
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */

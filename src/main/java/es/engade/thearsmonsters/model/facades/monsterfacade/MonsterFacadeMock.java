@@ -31,16 +31,16 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return lair.getMonsterEggs();
 	}
 
-	public void incubateEgg(long eggId, Lair lair)
+	public void incubateEgg(String eggId, Lair lair)
 			throws InternalErrorException, InstanceNotFoundException,
 			InsuficientVitalSpaceException {
 	}
 
-	public Integer shellEgg(long eggId, Lair lair)
+	public Integer shellEgg(String eggId, Lair lair)
 			throws InternalErrorException, InstanceNotFoundException {
 		return 3;
 	}
-	public Monster bornMonster(long eggId, String monsterName, Lair lair) 
+	public Monster bornMonster(String eggId, String monsterName, Lair lair) 
 			throws InternalErrorException,
 			InstanceNotFoundException, MonsterGrowException,
 			InsuficientVitalSpaceException {
@@ -58,13 +58,13 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return lair.getMonsters();
 	}
 
-	public Monster findMonster(long monsterId) throws InternalErrorException,
+	public Monster findMonster(String monsterId) throws InternalErrorException,
 			InstanceNotFoundException {
 		
 		return null;
 	}
 
-	public Monster metamorphosisToAdult(long monsterId, Lair lair)
+	public Monster metamorphosisToAdult(String monsterId, Lair lair)
 			throws InternalErrorException, InstanceNotFoundException,
 			MonsterGrowException {
 		return null;

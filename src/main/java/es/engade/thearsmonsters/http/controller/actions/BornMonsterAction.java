@@ -36,7 +36,7 @@ public class BornMonsterAction extends AThearsmonstersDefaultAction {
 	        try {
 		        /* Get data. */
 	            BornMonsterForm bornMonsterForm = (BornMonsterForm) form;
-		        long eggId = bornMonsterForm.getEggIdAsLong();
+		        String eggId = bornMonsterForm.getEggId();
 		        String monsterName = bornMonsterForm.getMonsterName();
 		        Lair lair = SessionManager.getMyLair(request);
 		            

@@ -31,7 +31,7 @@ public class MetamorphosisToAdultAction extends AThearsmonstersDefaultAction {
 	        
 
 	        /* Get data. */
-	        long monsterId = Long.parseLong(request.getParameter("monsterId"));
+	        String monsterId = request.getParameter("monsterId");
 	        Lair lair = SessionManager.getMyLair(request);
 	        
 	        try {   

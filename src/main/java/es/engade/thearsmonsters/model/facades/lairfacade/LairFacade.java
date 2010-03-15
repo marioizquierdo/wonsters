@@ -23,7 +23,7 @@ public interface LairFacade {
 	/**
 	 * Find a lair with all its rooms by lair Id.
 	 */
-    public Lair findLair(Id lairId) 
+    public Lair findLair(String lairId) 
     	throws InstanceNotFoundException, InternalErrorException;
     
 	/**

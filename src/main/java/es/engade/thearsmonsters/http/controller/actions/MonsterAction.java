@@ -25,21 +25,14 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
         throws IOException, ServletException, InternalErrorException {
         
     	MonsterFacade monsterFacade = new MonsterFacadeMock();
+    	String monsterId = request.getParameter("id");
     	Monster monster;
-    	Long monsterId;
-    	
-    	/* Get Request Data */
-		if(request.getParameter("id")==null) {
-	        return mapping.findForward("Monsters");
-		}else{
-			monsterId = Long.parseLong(request.getParameter("id"));
-		}
     	
         /* Find Monster. */
 		try {
 			monster = monsterFacade.findMonster(monsterId);
 		} catch (InstanceNotFoundException e) {
-	        return mapping.findForward("Monsters");
+	        return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
 		}
 		
 		/* Set request attributes */

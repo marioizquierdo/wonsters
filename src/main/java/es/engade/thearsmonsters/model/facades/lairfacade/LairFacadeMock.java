@@ -53,7 +53,7 @@ public class LairFacadeMock implements LairFacade {
 	}
 	
 	@Override
-	public Lair findLair(Id lairId) throws InstanceNotFoundException,
+	public Lair findLair(String lairId) throws InstanceNotFoundException,
 			InternalErrorException {
 		return lair;
 	}
@@ -65,7 +65,7 @@ public class LairFacadeMock implements LairFacade {
 	}
 
 	@Override
-	public Lair findLair(int street, int building, int floor)
+	public Lair findLairByAddress(int street, int building, int floor)
 			throws InstanceNotFoundException, InternalErrorException,
 			IncorrectAddressException {
 		return lair;
