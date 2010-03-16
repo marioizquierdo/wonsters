@@ -19,8 +19,6 @@ import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedExce
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.types.TradeOffice;
-import es.engade.thearsmonsters.model.entities.room.types.Warehouse;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.util.Format;
 
@@ -156,21 +154,21 @@ public class Lair implements Serializable {
 	}
 	
 	public int getGarbageStorageCapacity() throws NoRoomsLoadedException {
-		Warehouse warehouse = (Warehouse) getRoom(RoomType.Warehouse);
-		if(warehouse != null) {
-			return warehouse.getGarbageStorageCapacity();
-		} else {
+//		Room warehouse = getRoom(RoomType.Warehouse);
+//		if(warehouse != null) {
+//			return warehouse.getGarbageStorageCapacity();
+//		} else {
 			return 0; // If there is no warehouse, no garbage can be stored
-		}
+//		}
 	}
 	
 	public int getMoneyStorageCapacity() throws NoRoomsLoadedException {
-		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
-		if(tradeOffice != null) {
-			return tradeOffice.getMoneyStorageCapacity();
-		} else {
+//		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
+//		if(tradeOffice != null) {
+//			return tradeOffice.getMoneyStorageCapacity();
+//		} else {
 			return 0; // If there is no tradeOffice, no money can be stored
-		}
+//		}
 	}
 	
 	/**
@@ -178,34 +176,35 @@ public class Lair implements Serializable {
 	 * @trows NullPointerException if the TradeOffice is not in the lair (take care).
 	 */
 	public int getChangeResourcesMaxGarbageAmountEnabled() {
-		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
-		if(tradeOffice != null) {
-			int freeMoneyStorageCapacity = getMoneyStorageCapacity() - getMoney();
-			int garbageNeededForFillTheTradeOffice = (freeMoneyStorageCapacity * 
-				100 / (100 - tradeOffice.getPercentageCommision())) + 1;
-			return Math.min(getGarbage(), garbageNeededForFillTheTradeOffice);
-		} else {
-			throw new RuntimeException("Change resources is not possible without " +
-					"TradeOffice. At lair of '"+user.getLogin()+"'");
-		}
+//		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
+//		if(tradeOffice != null) {
+//			int freeMoneyStorageCapacity = getMoneyStorageCapacity() - getMoney();
+//			int garbageNeededForFillTheTradeOffice = (freeMoneyStorageCapacity * 
+//				100 / (100 - tradeOffice.getPercentageCommision())) + 1;
+//			return Math.min(getGarbage(), garbageNeededForFillTheTradeOffice);
+//		} else {
+//			throw new RuntimeException("Change resources is not possible without " +
+//					"TradeOffice. At lair of '"+user.getLogin()+"'");
+//		}
+	    return 0; //TODO: Mientras no se cambia a patrón estrategia
 	}
 	
 	/**
 	 * When change money for garbage, which is the max cuantity allowed.
 	 * @trows NullPointerException if the TradeOffice is not in the lair (take care).
 	 */
-	
     public int getChangeResourcesMaxMoneyAmountEnabled() {
-		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
-		if(tradeOffice != null) {
-			int freeGarbageStorageCapacity = getGarbageStorageCapacity() - getGarbage();
-			int moneyNeededForFillTheWarehouse = (freeGarbageStorageCapacity * 
-				100 / (100 - tradeOffice.getPercentageCommision())) + 1;
-			return Math.min(getMoney(), moneyNeededForFillTheWarehouse);
-		} else {
-			throw new RuntimeException("Change resources is not possible without " +
-					"TradeOffice. At lair of '"+user.getLogin()+"'");
-		}
+//		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
+//		if(tradeOffice != null) {
+//			int freeGarbageStorageCapacity = getGarbageStorageCapacity() - getGarbage();
+//			int moneyNeededForFillTheWarehouse = (freeGarbageStorageCapacity * 
+//				100 / (100 - tradeOffice.getPercentageCommision())) + 1;
+//			return Math.min(getMoney(), moneyNeededForFillTheWarehouse);
+//		} else {
+//			throw new RuntimeException("Change resources is not possible without " +
+//					"TradeOffice. At lair of '"+user.getLogin()+"'");
+//		}
+        return 0; //TODO: Mientras no se cambia a patrón estrategia
     }
 	
 	

@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.Globals;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
-import es.engade.thearsmonsters.model.facades.userfacade.UserFacadeMock;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
@@ -111,8 +112,24 @@ public final class SessionManager {
         30 * 24 * 3600; // 30 days
     private static final int COOKIES_TIME_TO_LIVE_REMOVE = 0;
 
+    @Autowired
+    private static UserFacade userFacade;
+    
     private SessionManager() {}
     
+    public static UserFacade getUserFacade() {
+        return userFacade;
+    }
+
+    public static void setUserFacade(UserFacade userFacade) {
+        SessionManager.userFacade = userFacade;
+    }
+
+    static {
+        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(
+                new String[] {"applicationContext.xml"});
+        userFacade = appContext.getBean(UserFacade.class);
+    }
     public final static void login(HttpServletRequest request,
         HttpServletResponse response, String login,
         String clearPassword, boolean rememberMyPassword, boolean loginAsAdmin) 
@@ -141,7 +158,7 @@ public final class SessionManager {
         throws DuplicateInstanceException, InternalErrorException, FullPlacesException {
         
         /* Register user. */
-        UserFacade userFacade  = new UserFacadeMock();
+//        UserFacade userFacade  = new UserFacadeMock();
             
         userFacade.registerUser(login, clearPassword, 
             UserDetails);
@@ -158,9 +175,6 @@ public final class SessionManager {
     public final static void updateUserProfileDetails(
         HttpServletRequest request, UserDetails UserDetails) 
         throws InternalErrorException  {
-        
-        /* Update user's profile details. */
-        UserFacade userFacade = new UserFacadeMock();
             
         userFacade.updateUserProfileDetails(UserDetails);
         
@@ -176,7 +190,7 @@ public final class SessionManager {
         InternalErrorException  {
         
         /* Change user's password. */
-        UserFacade userFacade = new UserFacadeMock();
+//        UserFacade userFacade = new UserFacadeMock();
             
         userFacade.changePassword(oldClearPassword, newClearPassword);
             
@@ -201,23 +215,23 @@ public final class SessionManager {
     
     }
 
-    public final static UserFacade getUserFacade(
-        HttpServletRequest request) throws InternalErrorException {
-
-        HttpSession session = request.getSession(true);
-        UserFacade UserFacade = 
-            (UserFacade) session.getAttribute(
-                USER_FACADE_SESSION_ATTRIBUTE);
-                
-        if (UserFacade == null) {
-            UserFacade = new UserFacadeMock();
-            session.setAttribute(USER_FACADE_SESSION_ATTRIBUTE,
-                UserFacade);
-        }
-
-        return UserFacade;
-        
-    }
+//    public final static UserFacade getUserFacade(
+//        HttpServletRequest request) throws InternalErrorException {
+//
+//        HttpSession session = request.getSession(true);
+//        UserFacade UserFacade = 
+//            (UserFacade) session.getAttribute(
+//                USER_FACADE_SESSION_ATTRIBUTE);
+//                
+//        if (UserFacade == null) {
+//            UserFacade = new UserFacadeMock();
+//            session.setAttribute(USER_FACADE_SESSION_ATTRIBUTE,
+//                UserFacade);
+//        }
+//
+//        return UserFacade;
+//        
+//    }
     
     /**
      * Guarantees that the session will have the necessary objects if the user
@@ -349,7 +363,7 @@ public final class SessionManager {
                 InternalErrorException {
          
         /* Check "login" and "clearPassword". */
-        UserFacade userFacade = getUserFacade(request);
+//        UserFacade userFacade = getUserFacade(request);
         LoginResult loginResult = userFacade.login(
             login, password, passwordIsEncrypted, loginAsAdmin);
  

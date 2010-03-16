@@ -22,6 +22,12 @@
 		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
 		<property name="persistenceManagerFactoryName" value="transactions-optional" />
 	</bean>
+	
+	<bean id="pmfProvider"
+		class="es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProviderImpl">
+		<property name="pmf" ref="persistenceManagerFactory" />
+	</bean>
+	
 	<bean id="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">
 		<property name="persistenceManagerFactory" ref="persistenceManagerFactory" />
 	</bean>
@@ -39,18 +45,18 @@
 <!--		<property name="personDao" ref="personDao" />-->
 <!--	</bean>-->
 	<bean id="userDao" class="es.engade.thearsmonsters.model.entities.user.dao.UserDaoJdo">
-		<property name="pmf" ref="persistenceManagerFactory" />
+		<property name="pmfProvider" ref="pmfProvider" />
 	</bean>
 	<bean id="lairDao" class="es.engade.thearsmonsters.model.entities.lair.dao.LairDaoJdo">
-		<property name="pmf" ref="persistenceManagerFactory" />
+		<property name="pmfProvider" ref="pmfProvider" />
 	</bean>
 	<bean id="roomDao" class="es.engade.thearsmonsters.model.entities.room.dao.RoomDaoJdo">
-		<property name="pmf" ref="persistenceManagerFactory" />
+		<property name="pmfProvider" ref="pmfProvider" />
 	</bean>
 	<bean id="monsterDao" class="es.engade.thearsmonsters.model.entities.monster.dao.MonsterDaoJdo">
-		<property name="pmf" ref="persistenceManagerFactory" />
+		<property name="pmfProvider" ref="pmfProvider" />
 	</bean>
 	<bean id="monsterEggDao" class="es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDaoJdo">
-		<property name="pmf" ref="persistenceManagerFactory" />
+		<property name="pmfProvider" ref="pmfProvider" />
 	</bean>
 </beans>

@@ -1,5 +1,7 @@
 package es.engade.thearsmonsters.model.facades.userfacade;
 
+import org.springframework.stereotype.Service;
+
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
@@ -11,6 +13,7 @@ import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
+@Service("userFacade")
 public class UserFacadeMock implements UserFacade {
 
 	private User user;

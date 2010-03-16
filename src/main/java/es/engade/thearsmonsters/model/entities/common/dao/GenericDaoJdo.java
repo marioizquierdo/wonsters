@@ -9,13 +9,12 @@ import java.util.List;
 
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.jdo.JdoObjectRetrievalFailureException;
 import org.springframework.orm.jdo.support.JdoDaoSupport;
 
 import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
+import es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProvider;
 
 public class GenericDaoJdo <T, PK extends Serializable>  extends JdoDaoSupport implements GenericDao<T, PK> {
 
@@ -84,9 +83,9 @@ public class GenericDaoJdo <T, PK extends Serializable>  extends JdoDaoSupport i
      public T update(T object) {
          return (T) getJdoTemplate().makePersistent(object);
         }
-    
-     public void setPmf(PersistenceManagerFactory pmf) {
-         this.setPersistenceManagerFactory(pmf);
+     
+     public void setPmfProvider(PMFProvider pmfp) {
+             this.setPersistenceManagerFactory(pmfp.getPmf());
      }
 
 }

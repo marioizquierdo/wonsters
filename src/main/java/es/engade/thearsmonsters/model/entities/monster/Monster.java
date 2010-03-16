@@ -22,9 +22,6 @@ import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
-import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.types.Dormitories;
-import es.engade.thearsmonsters.model.util.CalendarTools;
 import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -201,19 +198,19 @@ public class Monster implements Serializable {
 	 * Refresca el numero de turnos libres disponibles para el monstruo
 	 */
 	public void refreshFreeTurns(){
-		
-		int sleepHours,turnsPerDay;
-		float daysFromTimestamp;
-		Date calendarToday = new Date();
-		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
-		
-		sleepHours = 14 - dormitorie.getLevel();
-		turnsPerDay = 24 - sleepHours - this.taskHours();
-		daysFromTimestamp = CalendarTools.distanceInDays(this.freeTurnsTimestamp, calendarToday);
-		
-		this.freeTurns += turnsPerDay * daysFromTimestamp;
-		this.freeTurnsTimestamp = new Date();
-			
+//		
+//		int sleepHours,turnsPerDay;
+//		float daysFromTimestamp;
+//		Date calendarToday = new Date();
+//		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
+//		
+//		sleepHours = 14 - dormitorie.getLevel();
+//		turnsPerDay = 24 - sleepHours - this.taskHours();
+//		daysFromTimestamp = CalendarTools.distanceInDays(this.freeTurnsTimestamp, calendarToday);
+//		
+//		this.freeTurns += turnsPerDay * daysFromTimestamp;
+//		this.freeTurnsTimestamp = new Date();
+//			
 	}
 	
 	/**
