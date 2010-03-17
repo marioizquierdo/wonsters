@@ -15,6 +15,7 @@ import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
 import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
 import es.engade.thearsmonsters.model.entities.room.exceptions.PublicAccessException;
+import es.engade.thearsmonsters.model.entities.room.publicaccess.RoomPublicAccess;
 import es.engade.thearsmonsters.model.entities.room.state.RoomEnlargingState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;

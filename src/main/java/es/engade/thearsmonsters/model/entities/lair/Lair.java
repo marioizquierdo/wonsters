@@ -15,11 +15,11 @@ import javax.jdo.annotations.PrimaryKey;
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
-import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -36,9 +36,6 @@ public class Lair implements Serializable {
     
     @Persistent
     private int garbage;
-    
-    @Persistent
-    private int vitalSpaceOccupied;
     
     @Persistent(defaultFetchGroup="true", mappedBy = "lair")
     private User user;
@@ -58,21 +55,16 @@ public class Lair implements Serializable {
     @Persistent(mappedBy = "lair")
     private List<MonsterEgg> monsterEggs;
 
-    public Lair() {
-        this.rooms = new ArrayList<Room>();
-        this.monsters = new ArrayList<Monster>();
-        this.monsterEggs = new ArrayList<MonsterEgg>();
-    }
+    public Lair() {}
     
-	public Lair(User user, int money, int garbage, int vitalSpaceOccupied,
+	public Lair(User user, int money, int garbage,
     		RoomData roomData, Address address) {
         
         this.user = user;
         this.money = money;
         this.garbage = garbage;
-        this.vitalSpaceOccupied = vitalSpaceOccupied;
         this.roomData = roomData;
-//        this.roomData.setLair(this);
+        this.roomData.setLair(this);
         this.address = address;
         this.rooms = new ArrayList<Room>();
         this.monsters = new ArrayList<Monster>();
@@ -80,13 +72,13 @@ public class Lair implements Serializable {
     }
 	
 	
-	/****** Rooms ******/
+	
+	//------ Rooms ------//
 
     /**
      * @return the rooms of this lair.
      */
-    public List<Room> getRooms() throws NoRoomsLoadedException {
-    	if(rooms == null) throw new NoRoomsLoadedException();
+    public List<Room> getRooms() {
 		return rooms;
 	}
     
@@ -121,7 +113,7 @@ public class Lair implements Serializable {
 	
 	/**
 	 * Add a new room to the lair.
-	 * Example: lair.addRoom(warehause).addRoom(truffleFarm);
+	 * Chainable: lair.addRoom(warehause).addRoom(truffleFarm);
 	 */
 	public Lair addRoom(Room room) {
 		this.getRooms().add(room);
@@ -129,9 +121,9 @@ public class Lair implements Serializable {
 	}
 	
 	/**
-	 * List of roomTypes available to build with the current lair state.
+	 * List of roomTypes available to build within the current lair state.
 	 */
-	public List<RoomType> getNewRoomsAvaliable() throws  NoRoomsLoadedException {
+	public List<RoomType> getNewRoomsAvaliable() {
 		List<RoomType> newRoomsAvaliable = new ArrayList<RoomType>();
 		Set<RoomType> buildedRooms = new HashSet<RoomType>();
 		for(Room room : rooms) {
@@ -146,120 +138,10 @@ public class Lair implements Serializable {
 		return newRoomsAvaliable;
 	}
 	
-	
-	/****** RoomData and specific Room methods ******/
-	
-	public RoomData getRoomData() {
-		return this.roomData;
-	}
-	
-	public int getGarbageStorageCapacity() throws NoRoomsLoadedException {
-//		Room warehouse = getRoom(RoomType.Warehouse);
-//		if(warehouse != null) {
-//			return warehouse.getGarbageStorageCapacity();
-//		} else {
-			return 0; // If there is no warehouse, no garbage can be stored
-//		}
-	}
-	
-	public int getMoneyStorageCapacity() throws NoRoomsLoadedException {
-//		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
-//		if(tradeOffice != null) {
-//			return tradeOffice.getMoneyStorageCapacity();
-//		} else {
-			return 0; // If there is no tradeOffice, no money can be stored
-//		}
-	}
-	
-	/**
-	 * When change garbage for money, which is the max cuantity allowed.
-	 * @trows NullPointerException if the TradeOffice is not in the lair (take care).
-	 */
-	public int getChangeResourcesMaxGarbageAmountEnabled() {
-//		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
-//		if(tradeOffice != null) {
-//			int freeMoneyStorageCapacity = getMoneyStorageCapacity() - getMoney();
-//			int garbageNeededForFillTheTradeOffice = (freeMoneyStorageCapacity * 
-//				100 / (100 - tradeOffice.getPercentageCommision())) + 1;
-//			return Math.min(getGarbage(), garbageNeededForFillTheTradeOffice);
-//		} else {
-//			throw new RuntimeException("Change resources is not possible without " +
-//					"TradeOffice. At lair of '"+user.getLogin()+"'");
-//		}
-	    return 0; //TODO: Mientras no se cambia a patrón estrategia
-	}
-	
-	/**
-	 * When change money for garbage, which is the max cuantity allowed.
-	 * @trows NullPointerException if the TradeOffice is not in the lair (take care).
-	 */
-    public int getChangeResourcesMaxMoneyAmountEnabled() {
-//		TradeOffice tradeOffice = (TradeOffice) getRoom(RoomType.TradeOffice);
-//		if(tradeOffice != null) {
-//			int freeGarbageStorageCapacity = getGarbageStorageCapacity() - getGarbage();
-//			int moneyNeededForFillTheWarehouse = (freeGarbageStorageCapacity * 
-//				100 / (100 - tradeOffice.getPercentageCommision())) + 1;
-//			return Math.min(getMoney(), moneyNeededForFillTheWarehouse);
-//		} else {
-//			throw new RuntimeException("Change resources is not possible without " +
-//					"TradeOffice. At lair of '"+user.getLogin()+"'");
-//		}
-        return 0; //TODO: Mientras no se cambia a patrón estrategia
-    }
-	
-	
-	/****** Vital Space ******/
-
-	/**
-	 * Amount of vital space used by the monsters.
-	 */
-	public int getVitalSpaceOccupied() {
-		return vitalSpaceOccupied;
-	}
-	
-	/**
-	 * Total amount of vital space. Is dormitories.size * 10
-	 */
-	public int getVitalSpace() throws NoRoomsLoadedException {
-		Room dormitories = getRoom(RoomType.Dormitories); 
-		if(dormitories != null) {
-			return dormitories.getSize() * 10;
-		} else {
-			return 0;
-		}
-	}
-	
-	public void setVitalSpaceOccupied(int occupiedVitalSpace) {
-		this.vitalSpaceOccupied = occupiedVitalSpace;
-	}
-	
-//	/**
-//	 * Given all the monsters of this lair, recalculate the vital Space
-//	 * @return true if the occupied vital space was changed, false if still be the same.
-//	 */
-//	public boolean setVitalSpaceOccupied(List<Monster> lairMonsters) {
-//		int newOccupiedVitalSpace = 0;
-//		for(Monster m : lairMonsters) {
-//			newOccupiedVitalSpace += m.getRace().getVitalSpace();
-//		}
-//		if(newOccupiedVitalSpace == this.vitalSpaceOccupied) {
-//			return false;
-//		} else {
-//			this.vitalSpaceOccupied = newOccupiedVitalSpace;
-//			return true;
-//		}
-//	}
-	
-	/**
-	 * The rest of vital space avaliable (vitalSpace - vitalSpaceOcuppied)
-	 */
-	public int getVitalSpaceFree() throws NoRoomsLoadedException {
-		return getVitalSpace() - getVitalSpaceOccupied();
-	}
 
 	
 
-	/***** Common getters and setters *****/
+	//------ Common getters and setters ------//
 
 	public Key getId() { return id; }
 	public void setId(Key lairId) { this.id = lairId; }
@@ -273,8 +155,22 @@ public class Lair implements Serializable {
 	public void setAddress(Address address) { this.address = address; }
 
 	
+	//------ RoomData delegations (roomData is private, so its public methods are exposed in the lair interface) ------//
 	
-	/**** Monsters and eggs ****/
+	public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }
+	public int getVitalSpace() { return roomData.getVitalSpace(); }
+	public boolean setVitalSpaceOccupied() { return roomData.setVitalSpaceOccupied(); }
+	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(); }
+	public void setLastChangeResourcesTurnToNow() { roomData.setLastChangeResourcesTurnToNow(); }
+	public boolean isReadyToChangeResources() { return roomData.isReadyToChangeResources(); }
+	public int getChangeResourcesMaxGarbageAmountEnabled() { return roomData.getChangeResourcesMaxGarbageAmountEnabled(); }
+	public int getChangeResourcesMaxMoneyAmountEnabled() { return roomData.getChangeResourcesMaxMoneyAmountEnabled(); }
+	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() { return roomData.getOnlyOneChangePerGameDayException(); }
+	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(); }
+	public int getPercentageCommision() { return roomData.getPercentageCommision(); }
+	
+	
+	//------ Monsters and eggs ------//
 	
 	public List<Monster> getMonsters() { return monsters; }
 	public void setMonsters(List<Monster> monsters) { this.monsters = monsters; }
@@ -290,13 +186,14 @@ public class Lair implements Serializable {
 	}
 
 	
+	//------ Object overrides ------//
+	
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
 		    "user", user,
 			"money", money,
 			"garbage", garbage,
-			"vitalSpaceOccupied", vitalSpaceOccupied,
 			"address", address,
 		});
 	}
@@ -309,7 +206,6 @@ public class Lair implements Serializable {
         result = prime * result + garbage;
         result = prime * result + money;
         result = prime * result + ((user == null) ? 0 : user.hashCode());
-        result = prime * result + vitalSpaceOccupied;
         return result;
     }
 
@@ -335,8 +231,6 @@ public class Lair implements Serializable {
             if (other.user != null)
                 return false;
         } else if (!user.equals(other.user))
-            return false;
-        if (vitalSpaceOccupied != other.vitalSpaceOccupied)
             return false;
         if (!roomsEquals((Lair)obj))
             return false;

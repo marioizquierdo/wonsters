@@ -8,7 +8,6 @@ import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
 import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -20,7 +19,7 @@ public class UserFacadeMock implements UserFacade {
 	private Lair lair;
 	
 	public UserFacadeMock() {
-		lair = FactoryData.generate(LairWhatIs.Default);
+		lair = FactoryData.LairWhatIs.Default.build();
 		user = lair.getUser();
 	}
 	

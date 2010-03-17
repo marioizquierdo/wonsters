@@ -1,9 +1,7 @@
 package es.engade.thearsmonsters.model.entities.room.enums;
 
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
-
 /**
- * Subconjunto de RoomType
+ * Subset of RoomType
  */
 public enum LeisureRoomType {
 	EyeOfTheLife		(RoomType.EyeOfTheLife) /*, MOCK IMPLEMENTATION mientras no haya leisures de verdad
@@ -25,6 +23,7 @@ public enum LeisureRoomType {
 	}
 	
 	private final RoomType type; // Tipo correspondiente en RoomType
-	LeisureRoomType(RoomType type) {this.type = type;}
+	LeisureRoomType(RoomType type) { this.type = type; }
+	public final RoomType getType() { return this.type; }
 	
 }

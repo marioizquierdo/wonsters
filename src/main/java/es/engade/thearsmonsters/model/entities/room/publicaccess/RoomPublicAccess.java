@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.model.entities.room;
+package es.engade.thearsmonsters.model.entities.room.publicaccess;
 
 import java.io.Serializable;
 

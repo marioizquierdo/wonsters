@@ -14,7 +14,6 @@ import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameter
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeMock;
@@ -74,9 +73,6 @@ public class SetRoomInWorksStateAction extends AThearsmonstersDefaultAction {
 		} catch (InstanceNotFoundException e) {
         	throw new InternalErrorException(e);	
         	
-		} catch (NoRoomsLoadedException e) {
-			// ¿Why session lair have no rooms?
-        	throw new InternalErrorException(e);
 		}
 		
         return (new ForwardParameters()).add("showRoomType", roomType.toString()).forward(mapping.findForward("ShowLair"));

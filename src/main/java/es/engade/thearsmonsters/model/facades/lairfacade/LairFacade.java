@@ -1,9 +1,6 @@
 package es.engade.thearsmonsters.model.facades.lairfacade;
 
-
-import es.engade.thearsmonsters.model.entities.common.Id;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksActionException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
@@ -53,7 +50,7 @@ public interface LairFacade {
      * @throws NoRoomsLoadedException if the lair have not its rooms loaded
      */
     public void createNewRoom(Lair lair, RoomType roomType)
-    	throws InWorksActionException, InternalErrorException, NoRoomsLoadedException, InsuficientGarbageException;
+    	throws InWorksActionException, InternalErrorException, InsuficientGarbageException;
     	    
     /**
      * Set the room's state to upgrading level and store the new state in the database.
@@ -67,14 +64,14 @@ public interface LairFacade {
      * @throws NoRoomsLoadedException if the lair have not its rooms loaded
      */
     public void setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
-		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, NoRoomsLoadedException, InsuficientGarbageException;
+		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, InsuficientGarbageException;
     
     /**
      * Similar to setRoomUpgradingInWorksState.
      * @see setRoomUpgradingInWorksState(LairVO lair, RoomType roomType)
      */
     public void setRoomEnlargingInWorksState(Lair lair, RoomType roomType)
-		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, NoRoomsLoadedException, InsuficientGarbageException;
+		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, InsuficientGarbageException;
     
     /**
      * Similar to setRoomUpgradingInWorksState. The effort done will be lost, but the garbage
@@ -82,12 +79,12 @@ public interface LairFacade {
      * @see setRoomUpgradingInWorksState(LairVO lair, RoomType roomType)
      */
     public void cancelWorks(Lair lair, RoomType roomType)
-		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, NoRoomsLoadedException;
+		throws InWorksActionException, InternalErrorException, InstanceNotFoundException;
     
     /**
      * changeResources("money", amount, lair) spent the specified amount of money and charge
      * the corresponding garbage in the lair (less the commission, depending on TradeOffice level).<br/>
-     * With "garbage" do de same but changing garbage for money.
+     * With "garbage" do the same but changing garbage for money.
      * @return the amount of the other resource gained (is the arg amount less the commission).
      * @throws WarehouseFullStorageException if the garbage obtained on the change is greather than the Warehouse storage capacity
      * @throws TradeOfficeFullStorageException if the money obtained on the change is greather than the TradeOffice storage capacity
@@ -95,7 +92,7 @@ public interface LairFacade {
      * @throws InsuficientMoneyException if money_or_garbage=="money" and amount is greather than current money in the lair
      */
     public int changeResources(String money_or_garbage, int amount, Lair lair)
-    	throws NoRoomsLoadedException, WarehouseFullStorageException, TradeOfficeFullStorageException, InsuficientGarbageException, InsuficientMoneyException, OnlyOneChangePerGameDayException, InternalErrorException;
+    	throws WarehouseFullStorageException, TradeOfficeFullStorageException, InsuficientGarbageException, InsuficientMoneyException, OnlyOneChangePerGameDayException, InternalErrorException;
     
 
 }

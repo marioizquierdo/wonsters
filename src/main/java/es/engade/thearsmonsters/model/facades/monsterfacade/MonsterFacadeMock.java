@@ -12,7 +12,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhatIs;
+import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhoIs;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -44,7 +44,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 			throws InternalErrorException,
 			InstanceNotFoundException, MonsterGrowException,
 			InsuficientVitalSpaceException {
-		return FactoryData.generate(MonsterWhatIs.Child);
+		return FactoryData.MonsterWhoIs.Child.build();
 	}
 
 	public MonsterEgg buyEgg(MonsterRace race, Lair lair)
@@ -61,7 +61,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 	public Monster findMonster(String monsterId) throws InternalErrorException,
 			InstanceNotFoundException {
 		
-		return FactoryData.generate(MonsterWhatIs.Adult);
+		return FactoryData.MonsterWhoIs.Adult.build();
 	}
 
 	public Monster metamorphosisToAdult(String monsterId, Lair lair)

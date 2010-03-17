@@ -4,9 +4,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Clase de ayuda para simplificar el manejo de Calendars.
+ * Clase de ayuda para simplificar el manejo de Fechas
  */
-public class CalendarTools {
+// TODO: Hay que cambiar todos los Calendar por Dates
+public class DateTools {
 
 	public static Date now() {
 		return new Date();
@@ -34,7 +35,7 @@ public class CalendarTools {
 	
 	public static Float  distanceInDays(Calendar c1,Calendar c2){
 		long millisecondsAsDay = 24 * 60 * 60 * 1000;
-		long milliseconds = CalendarTools.distanceInMilliseconds(c1, c2);
+		long milliseconds = DateTools.distanceInMilliseconds(c1, c2);
 		float days = milliseconds / millisecondsAsDay;
 		return days;
 	}

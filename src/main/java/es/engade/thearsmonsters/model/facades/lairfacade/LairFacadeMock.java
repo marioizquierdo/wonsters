@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksActionException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
@@ -14,7 +13,6 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChange
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
 import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -24,22 +22,22 @@ public class LairFacadeMock implements LairFacade {
 	private Lair lair;
 	
 	public LairFacadeMock() {
-		lair = FactoryData.generate(LairWhatIs.Default);
+		lair = FactoryData.LairWhatIs.Default.build();
 		lairs = new ArrayList<Lair>();
-		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.Default));
-		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.InInitialState));
-		lairs.add(FactoryData.generate(FactoryData.LairWhatIs.InInitialState));
+		lairs.add(FactoryData.LairWhatIs.Default.build("YO"));
+		lairs.add(FactoryData.LairWhatIs.InInitialState.build("Mi vecino"));
+		lairs.add(FactoryData.LairWhatIs.InInitialState.build("Mi otro vecino"));
 	}
 	
 	@Override
 	public void cancelWorks(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
-			InstanceNotFoundException, NoRoomsLoadedException {
+			InstanceNotFoundException{
 	}
 
 	@Override
 	public int changeResources(String moneyOrGarbage, int amount, Lair lair)
-			throws NoRoomsLoadedException, WarehouseFullStorageException,
+			throws WarehouseFullStorageException,
 			TradeOfficeFullStorageException, InsuficientGarbageException,
 			InsuficientMoneyException, OnlyOneChangePerGameDayException,
 			InternalErrorException {
@@ -48,8 +46,7 @@ public class LairFacadeMock implements LairFacade {
 
 	@Override
 	public void createNewRoom(Lair lair, RoomType roomType)
-			throws InWorksActionException, InternalErrorException,
-			NoRoomsLoadedException, InsuficientGarbageException {
+			throws InWorksActionException, InternalErrorException, InsuficientGarbageException {
 		lair.addRoom(roomType.build(lair));
 	}
 
@@ -81,15 +78,13 @@ public class LairFacadeMock implements LairFacade {
 	@Override
 	public void setRoomEnlargingInWorksState(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
-			InstanceNotFoundException, NoRoomsLoadedException,
-			InsuficientGarbageException {
+			InstanceNotFoundException, InsuficientGarbageException {
 	}
 
 	@Override
 	public void setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
-			InstanceNotFoundException, NoRoomsLoadedException,
-			InsuficientGarbageException {
+			InstanceNotFoundException, InsuficientGarbageException {
 	}
 
 }

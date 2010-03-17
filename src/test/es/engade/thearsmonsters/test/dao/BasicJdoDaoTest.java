@@ -54,7 +54,7 @@ public class BasicJdoDaoTest extends GaeTest{
     @Test
     public void testSaveOnCascade() {
         
-        User user = FactoryData.generateRandUser();
+        User user = FactoryData.UserWhoIs.Random.build();
         //TODO: Hasta que se elimine la herencia en Room
         user.getLair().setRooms(null);
         
@@ -136,7 +136,7 @@ public class BasicJdoDaoTest extends GaeTest{
     @Test
     public void testRemoveOnCascade() {
         
-        User user = FactoryData.generateRandUser();
+        User user = FactoryData.UserWhoIs.Random.build();
       //TODO: Hasta que se elimine la herencia en Room
         user.getLair().setRooms(null);
         

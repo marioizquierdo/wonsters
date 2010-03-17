@@ -18,7 +18,7 @@ import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.test.GaeTest;
 import es.engade.thearsmonsters.test.util.FactoryData;
 import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
-import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhatIs;
+import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhoIs;
 
 public class MonsterActionTest extends GaeTest{
 
@@ -29,10 +29,10 @@ public class MonsterActionTest extends GaeTest{
 	
 	@Before
     public void setUp() throws Exception {
-		lair = FactoryData.generate(LairWhatIs.Default);
-		monsterChild = FactoryData.generate(MonsterWhatIs.Child);
-		monsterAdult = FactoryData.generate(MonsterWhatIs.Adult);
-		monsterOld = FactoryData.generate(MonsterWhatIs.Old);
+		lair = FactoryData.LairWhatIs.Default.build();
+		monsterChild = FactoryData.MonsterWhoIs.Child.build();
+		monsterAdult = FactoryData.MonsterWhoIs.Adult.build();
+		monsterOld = FactoryData.MonsterWhoIs.Old.build();
 		monsterChild.setLair(lair);
 		monsterAdult.setLair(lair);
 		monsterOld.setLair(lair);
@@ -121,7 +121,7 @@ public class MonsterActionTest extends GaeTest{
     	int turnsToUpgrade = 0;
     	
     	// Instancio una guarida nueva con los valores iniciales 
-    	Lair lair = FactoryData.generate(LairWhatIs.InInitialState);
+    	Lair lair = FactoryData.LairWhatIs.InInitialState.build();
     	
     	//Utilizo el monstruo adulto para establecerle un numero de turnos alto
     	monsterAdult.setFreeTurns(1000);

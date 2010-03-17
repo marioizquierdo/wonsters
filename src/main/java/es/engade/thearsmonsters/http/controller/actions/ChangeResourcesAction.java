@@ -14,7 +14,6 @@ import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.http.view.actionforms.ChangeResourcesForm;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.lair.exceptions.NoRoomsLoadedException;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeMock;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
@@ -55,8 +54,6 @@ public class ChangeResourcesAction extends AThearsmonstersDefaultAction {
 		        	FlashMessage.show(request, "ChangeResources.doneMessage");
 		        }
 				
-			} catch (NoRoomsLoadedException e) {
-				throw new InternalErrorException(e);
 			} catch (OnlyOneChangePerGameDayException e) {
 				FlashMessage.showError(request, e);
 			} catch (WarehouseFullStorageException e) {

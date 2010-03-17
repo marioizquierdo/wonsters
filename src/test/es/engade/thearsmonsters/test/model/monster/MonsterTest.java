@@ -13,10 +13,9 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
 import es.engade.thearsmonsters.model.entities.monster.attr.AttrBase;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
-import es.engade.thearsmonsters.model.util.CalendarTools;
+import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.test.GaeTest;
 import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhatIs;
 
 
 public class MonsterTest extends GaeTest {
@@ -27,10 +26,10 @@ public class MonsterTest extends GaeTest {
 	@Before
     public void setUp() throws Exception {
         // Dates
-        now = CalendarTools.now();
+        now = DateTools.now();
         
         // Monsters
-        m1 = FactoryData.generate(MonsterWhatIs.Rand);
+        m1 = FactoryData.MonsterWhoIs.Random.build();
     }
     
     
