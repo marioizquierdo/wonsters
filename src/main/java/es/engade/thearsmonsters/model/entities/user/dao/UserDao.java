@@ -7,4 +7,7 @@ import es.engade.thearsmonsters.model.entities.user.User;
 
 public interface UserDao extends GenericDao<User, Key> {
 
+    public User findUserByLogin(String login);
+    
+    public int getNumberOfUsers();
 }

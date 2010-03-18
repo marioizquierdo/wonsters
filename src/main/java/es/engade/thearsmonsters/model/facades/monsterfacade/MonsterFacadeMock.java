@@ -11,10 +11,10 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
-import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhoIs;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
+import es.engade.thearsmonsters.util.factory.FactoryData;
+import es.engade.thearsmonsters.util.factory.FactoryData.MonsterWhoIs;
 
 public class MonsterFacadeMock implements MonsterFacade {
 

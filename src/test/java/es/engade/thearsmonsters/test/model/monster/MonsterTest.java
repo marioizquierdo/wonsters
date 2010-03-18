@@ -15,7 +15,7 @@ import es.engade.thearsmonsters.model.entities.monster.attr.AttrBase;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.util.FactoryData;
+import es.engade.thearsmonsters.util.factory.FactoryData;
 
 
 public class MonsterTest extends GaeTest {

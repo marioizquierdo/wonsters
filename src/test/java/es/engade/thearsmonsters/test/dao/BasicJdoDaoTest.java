@@ -20,8 +20,9 @@ import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.test.AppContext;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.util.FactoryData;
+import es.engade.thearsmonsters.util.factory.FactoryData;
 
 public class BasicJdoDaoTest extends GaeTest{
 
@@ -32,8 +33,7 @@ public class BasicJdoDaoTest extends GaeTest{
 //    private static RoomDao roomDao;
     
     static {
-        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"});
+        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
         monsterEggDao = appContext.getBean(MonsterEggDao.class);
         lairDao = appContext.getBean(LairDao.class);
         userDao = appContext.getBean(UserDao.class);

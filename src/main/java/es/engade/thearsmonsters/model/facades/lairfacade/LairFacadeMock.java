@@ -12,9 +12,9 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
-import es.engade.thearsmonsters.test.util.FactoryData;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
+import es.engade.thearsmonsters.util.factory.FactoryData;
 
 public class LairFacadeMock implements LairFacade {
 

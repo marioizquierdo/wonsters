@@ -17,6 +17,7 @@ import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -126,8 +127,7 @@ public final class SessionManager {
     }
 
     static {
-        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(
-                new String[] {"applicationContext.xml"});
+        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
         userFacade = appContext.getBean(UserFacade.class);
     }
     public final static void login(HttpServletRequest request,

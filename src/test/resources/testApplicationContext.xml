@@ -19,12 +19,14 @@
 		
 	<!-- JDO -->
 	<bean id="persistenceManagerFactory"
-		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">
+		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean"
+		scope="singleton">
 		<property name="persistenceManagerFactoryName" value="transactions-optional" />
 	</bean>
 	
 	<bean id="pmfProvider"
-		class="es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProviderImpl">
+		class="es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProviderImpl"
+		scope="singleton">
 		<property name="pmf" ref="persistenceManagerFactory" />
 	</bean>
 	

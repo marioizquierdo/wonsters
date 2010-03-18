@@ -8,5 +8,10 @@ public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(Class entityClass, Object id) {
         super("Cannot retrieve " + entityClass.getName() + " with key " + id);
     }
+    
+    @SuppressWarnings("unchecked")
+    public EntityNotFoundException(Class entityClass, String message) {
+        super("Cannot retrieve " + entityClass.getName() + ": " + message);
+    }
 
 }

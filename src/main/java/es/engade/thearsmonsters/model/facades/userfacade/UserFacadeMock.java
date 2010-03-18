@@ -7,10 +7,10 @@ import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
-import es.engade.thearsmonsters.test.util.FactoryData;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
+import es.engade.thearsmonsters.util.factory.FactoryData;
 
 @Service("userFacade")
 public class UserFacadeMock implements UserFacade {

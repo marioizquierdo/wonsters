@@ -16,9 +16,9 @@ import es.engade.thearsmonsters.model.monsteraction.CultivateTruffles;
 import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.test.GaeTest;
-import es.engade.thearsmonsters.test.util.FactoryData;
-import es.engade.thearsmonsters.test.util.FactoryData.LairWhatIs;
-import es.engade.thearsmonsters.test.util.FactoryData.MonsterWhoIs;
+import es.engade.thearsmonsters.util.factory.FactoryData;
+import es.engade.thearsmonsters.util.factory.FactoryData.LairWhatIs;
+import es.engade.thearsmonsters.util.factory.FactoryData.MonsterWhoIs;
 
 public class MonsterActionTest extends GaeTest{
 
