@@ -15,6 +15,7 @@ import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.test.AppContext;
 import es.engade.thearsmonsters.test.GaeTest;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
 
 public class UserDaoTest extends GaeTest {
@@ -61,7 +62,7 @@ public class UserDaoTest extends GaeTest {
     }
     
     @Test
-    public void testFindByLogin() {
+    public void testFindByLogin() throws InstanceNotFoundException {
         
         User recoveredUser = userDao.findUserByLogin(persistentUser.getLogin());
         
@@ -69,8 +70,8 @@ public class UserDaoTest extends GaeTest {
         
     }
     
-    @Test(expected=EntityNotFoundException.class)
-    public void testFindNonExistentUserByLogin() {
+    @Test(expected=InstanceNotFoundException.class)
+    public void testFindNonExistentUserByLogin() throws InstanceNotFoundException {
         
         User recoveredUser = userDao.findUserByLogin(NON_EXISTENT_LOGIN);
 

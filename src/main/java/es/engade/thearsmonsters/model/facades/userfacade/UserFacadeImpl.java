@@ -2,7 +2,6 @@ package es.engade.thearsmonsters.model.facades.userfacade;
 
 import javax.jdo.annotations.Transactional;
 
-import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -16,6 +15,9 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 public class UserFacadeImpl implements UserFacade {
 
     private UserDao userDao;
+    
+    // Internal state
+    private String login = null;
     
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
@@ -35,7 +37,14 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public User findUserProfile() throws InternalErrorException {
-        // TODO Pillar el login de la sesión?
+
+        if (login != null)
+            try {
+                return findUserProfile(login);
+            } catch (InstanceNotFoundException e) {
+                // Internal Error: A logged user should exist
+                throw new InternalErrorException(e);
+            }
         return null;
     }
 
@@ -53,15 +62,16 @@ public class UserFacadeImpl implements UserFacade {
             throws InstanceNotFoundException, IncorrectPasswordException,
             InternalErrorException {
 
-            return userDao.login(login, password, passwordIsEncrypted, loginAsAdmin);
+            LoginResult loginResult = userDao.login(login, password, passwordIsEncrypted, loginAsAdmin);
+            this.login = login;
+            
+            return loginResult;
     }
 
     @Transactional
     public void registerUser(String login, String clearPassword,
             UserDetails userDetails) throws FullPlacesException,
             DuplicateInstanceException, InternalErrorException {
-
-        //TODO: Como se testea/lanza FullPlacesException???
         
         try {
             User user = userDao.findUserByLogin(login);
@@ -73,6 +83,7 @@ public class UserFacadeImpl implements UserFacade {
 
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
             userDao.save(newUser);
+            this.login = login;
         }
 
     }
@@ -84,14 +95,28 @@ public class UserFacadeImpl implements UserFacade {
         User user = userDao.findUserByLogin(login);
         
         userDao.remove(user.getId());
+        
+        this.login = null;
 
     }
 
-    @Override
+    @Transactional
     public void updateUserProfileDetails(UserDetails userProfileDetailsVO)
             throws InternalErrorException {
-        // TODO Auto-generated method stub
+        
+        if (login == null) {
+            throw new InternalErrorException(new Exception("Unexistent user"));
+        }
 
+        try {
+            User user = userDao.findUserByLogin(login);
+            
+            user.setUserDetails(userProfileDetailsVO);
+            userDao.update(user);
+        } catch (InstanceNotFoundException e) {
+            // Internal Error: A logged user should exist
+            throw new InternalErrorException(e);
+        }
     }
 
 }

@@ -6,7 +6,6 @@ import javax.jdo.Query;
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
-import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
@@ -28,8 +27,7 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         User user = null;
         try {
 //            List<User> results = (List<User>) query.execute(login);
-//            if (results.size() == 1)
-//                user = results.get(0);
+//            user = results.get(0);
             user = (User) query.execute(login);
         } finally {
             query.closeAll();
@@ -63,9 +61,15 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         User user = findUserByLogin(login);
         String encryptedPassword = user.getEncryptedPassword();
         
-        if (!PasswordEncrypter.isClearPasswordCorrect(password, encryptedPassword))
-            throw new IncorrectPasswordException(login);
-        
+        if (!passwordIsEncrypted) {
+            if (!PasswordEncrypter.isClearPasswordCorrect(password, encryptedPassword))
+                throw new IncorrectPasswordException(login);
+        }
+        else {
+            if (!encryptedPassword.equals(password)) 
+                throw new IncorrectPasswordException(login);
+        }
+                
         Lair lair = user.getLair();
         String firstName = user.getUserDetails().getFirstName();
         String language = user.getUserDetails().getLanguage();

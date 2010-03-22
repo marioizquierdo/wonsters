@@ -14,7 +14,7 @@ import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGr
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public interface MonsterFacade extends Serializable {
+public interface MonsterFacade {
 
     public MonsterEgg buyEgg(MonsterRace race, Lair lair)
         throws InternalErrorException, InsuficientMoneyException, MaxEggsException;
