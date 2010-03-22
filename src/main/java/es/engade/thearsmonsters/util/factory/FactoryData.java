@@ -24,7 +24,7 @@ public class FactoryData {
 	
 	public static final Date now = DateTools.now();
 	public static final Date tomorrow = DateTools.tomorrow();
-    
+	
 	
 	
 	//------ Build Users ------//
@@ -39,7 +39,7 @@ public class FactoryData {
 		// ...
 		
 		public User build() { return generateUserScaffold(); } // default
-		public User build(String login) { return null; } // default
+		public User build(String login) { return generateUserScaffold(login); } // default
 	}
 	
 	
