@@ -177,12 +177,26 @@ public class Lair implements Serializable {
 	public List<MonsterEgg> getMonsterEggs() { return monsterEggs; }
 	public void setMonsterEggs(List<MonsterEgg> monsterEggs) { this.monsterEggs = monsterEggs; }
 	public Lair addMonsterEgg(MonsterEgg monsterEgg) {
+	    monsterEgg.setLair(this);
 		this.monsterEggs.add(monsterEgg);
 		return this;
 	}
+	public Lair removeMonsterEgg(MonsterEgg monsterEgg) {
+	    monsterEgg.setLair(null);
+	    this.monsterEggs.remove(monsterEgg);
+	    return this;
+	}
 	public Lair addMonster(Monster monster) {
+	    monster.setLair(this);
 		this.monsters.add(monster);
+		this.setVitalSpaceOccupied();
 		return this;
+	}
+	public Lair removeMonster(Monster monster) {
+	    monster.setLair(null);
+	    this.monsters.remove(monster);
+	    this.setVitalSpaceOccupied();
+	    return this;
 	}
 
 	

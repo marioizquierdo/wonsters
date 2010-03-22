@@ -6,12 +6,17 @@ import javax.jdo.Query;
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
-import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
+import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
     
-    public User findUserByLogin(String login) {
+    public User findUserByLogin(String login) 
+        throws InstanceNotFoundException {
         PersistenceManager pm = getPersistenceManager();
         
         Query query = pm.newQuery(User.class);
@@ -22,14 +27,14 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         User user = null;
         try {
 //            List<User> results = (List<User>) query.execute(login);
-//            if (results.size() == 1)
-//                user = results.get(0);
+//            user = results.get(0);
             user = (User) query.execute(login);
         } finally {
             query.closeAll();
         }
         if (user == null)
-            throw new EntityNotFoundException(User.class, "Unexistent login " + login);
+            throw new InstanceNotFoundException(login, User.class.getName());
+//            throw new EntityNotFoundException(User.class, "Unexistent login " + login);
         return user;
     }
 
@@ -48,5 +53,29 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         }
         int numberOfUsers = Integer.parseInt(numberOfUsersStr);
         return numberOfUsers;
+    }
+    
+    public LoginResult login(String login, String password, boolean passwordIsEncrypted, boolean loginAsAdmin) 
+            throws IncorrectPasswordException, InstanceNotFoundException {
+        
+        User user = findUserByLogin(login);
+        String encryptedPassword = user.getEncryptedPassword();
+        
+        if (!passwordIsEncrypted) {
+            if (!PasswordEncrypter.isClearPasswordCorrect(password, encryptedPassword))
+                throw new IncorrectPasswordException(login);
+        }
+        else {
+            if (!encryptedPassword.equals(password)) 
+                throw new IncorrectPasswordException(login);
+        }
+                
+        Lair lair = user.getLair();
+        String firstName = user.getUserDetails().getFirstName();
+        String language = user.getUserDetails().getLanguage();
+        
+        
+        LoginResult lr = new LoginResult(lair, firstName, encryptedPassword, language);
+        return lr;
     }
 }

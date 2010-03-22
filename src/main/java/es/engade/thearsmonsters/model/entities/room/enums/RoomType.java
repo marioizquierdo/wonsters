@@ -25,92 +25,51 @@ public enum RoomType {
 	// RoomType name		// publicable, garbageBuild, effortBuild,
 							// initialLevel, maxLevel	// {maxLvel = -1 => no limits}
 	
-	// TODO: Información de salas desactualizada. Hay que repasar estos comentarios y poenrlos bien.
-	// Trono implementará las MonsterActions en base a estas descripciones (cuande estén bien).
 	/**
 	 * Esta sala es un poco especial. Es la primera que aparece en el juego, no es necesario construirla, 
 	 * no se puede ampliar y no se puede mejorar. El ojo de la vida es el encargado de incubar 
 	 * los huevos de monstruo que se compran o producen, también es donde las crías realizan 
-	 * la metamorfosis para convertirse en adultos. Esta sala no tiene límite de plazas, es decir, 
-	 * que pueden entrar todos los monstruos que se desee simultáneamente. 
-	 * También es capaz de producir un mínimo de alimento, lo necesario para que los monstruos no 
-	 * mueran de hambre, y determina el espacio vital inicial de la guarida 
-	 * (para aumentarlo habrá que construir unos dormitorios). 
-	 * En principio es donde se alimentan las crías y los adultos, aunque luego se puede cambiar para 
-	 * la cocina o el comedor.
+	 * la metamorfosis para convertirse en adultos.
+	 * Aquí en principio no se realiza ninguna tarea.
 	 */
 	EyeOfTheLife 			(false, 0, 0, 
+							1, 1),
+							
+	/**
+	 * Es donde los monstruos descansan cada día.
+	 * Al igual que el Ojo de la Vida, no es necesario construirla porque ya aparece al 
+	 * comienzo del juego, en cambio sí que se puede mejorar su nivel. 
+	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
+	 * Aquí tampoco se realiza ninguna acción.
+	 */
+	Dormitories				(false, 0, 0,
 							1, 1),
 	
 	/**
 	 * Es donde se almacena la basura de la guarida. 
-	 * Su tamaño limita la cantidad de recursos que se pueden tener ahorrados. 
-	 * Cada plaza del almacén se corresponde con cierta cantidad de basura (una constante predeterminada, 
-	 * por ejemplo 1000 de basura por plaza). Solamente puede tener monstruos empleados 
-	 * (no clientes) adultos, que se encargan de recolectar basura durante las franjas horarias 
-	 * que tengan asignadas. Aunque supuestamente esta tarea se realice fuera del almacén, 
-	 * solamente podrán trabajar tantos monstruos simultáneos como plazas haya (para mantener la 
-	 * coherencia con el resto de las salas). Si el almacén llega al máximo de capacidad los monstruos 
-	 * no podrán recolectar más basura.
-	 * Los atributos de los monstruos se verán más adelante con detalle. 
-	 * Los que se usan para las tareas de la guarida son los <b>atributos compuestos específicos</b>, 
-	 * que son el resultado de combinar atributos simples y compuestos generales con las <b>habilidades de 
-	 * trabajo</b>, las cuales mejoran con la práctica (es decir, mejoran un poco cada vez que se realice 
-	 * la tarea asociada). La cantidad de basura que recolecta un monstruo por franja horaria viene 
-	 * determinada por su atributo \emph{recolección de basura}.
-	 * Esta sala no se puede subir de nivel (actualizar), solamente ampliar para tener un mayor espacio de almacenamiento.
+	 * Su nivel limita la cantidad de basura que se pueden tener almacenada 
+	 * (ver roomData.getGarbageStorageCapacity()).
+	 * La acción que se realiza aquí es "recolección de basura". Por cada turno
+	 * dedicado se recolecta tanta basura como el atributo compuesto "GarbageHarvest".
 	 */
 	Warehouse				(false, 0, 1, 
-							1, 1),
+							1, -1),
 							
 	/**
-	 * Es donde se guarda el dinero en forma de monedas de oro. 
-	 * Además permite intercambiar dinero por basura y viceversa, es decir, que para conseguir dinero se 
-	 * puede recolectar basura y luego cambiarla en esta sala. 
-	 * Los monstruos no necesitan entrar nunca, a menos que sea como obreros. 
-	 * El cambio de basura por dinero lo hace el jugador directa e instantáneamente. 
-	 * Solamente se puede hacer un intercambio basura-dinero por día de juego. 
-	 * Además el cambio no es en proporción 1 a 1 porque se cobra comisión. 
-	 * Cuando se construye la oficina, en nivel uno, el cambio es de 1 a 0.5, y lo mismo a la inversa. 
-	 * Es decir, que si se cambia dinero por basura y luego basura por dinero en realidad estamos 
-	 * perdiendo muchos recursos. Cuanto mayor sea el nivel de la oficina de comercio, 
-	 * menor será la comisión cobrada, pudiendo llegar a la relación ideal 1 a 1 (nivel 10). 
-	 * En ningún caso se puede ganar dinero haciendo cambios.
-	 * Cuanto más grande sea el tamaño, más cantidad de dinero se puede almacenar.
+	 * Donde se realiza el cambio de basura por dinero.
+	 * Cuanto más nivel tenga la oficina de comercio, menos comisión se cobra
+	 * por cambio y más dinero se puede almacenar.
+	 * Aquí no se realiza ninguna tarea por parte de los monstruos.
 	 */			
 	TradeOffice				(false, 50, 30, 
 							1, 10),
 	
 	/**
-	 * Los monstruos cubren sus necesidades alimenticias solamente con una sustancia 
-	 * que produce el Ojo de la Vida, las trufas en realidad son como golosinas para los niños, 
-	 * y repercuten directamente en su felicidad. 
-	 * La temporada de trufas se completa en un ciclo de una semana de juego (siete días de juego). 
-	 * Durante cada ciclo se van acumulando trufas por cada franja horaria gracias a los monstruos 
-	 * que ejercen la tarea de cultivo dentro de ella. El tamaño de la sala condiciona el número de 
-	 * monstruos que pueden cultivar a la vez. La cantidad de trufas producidas depende de la suma 
-	 * del nivel del atributo compuesto \emph{cultivo} de cada monstruo junto con el nivel de la sala. 
-	 * Al terminar la semana se completa el ciclo y se reparten las trufas acumuladas entre todos 
-	 * los monstruos de la guarida (cantidad de espacio vital cubierto), determinando el nivel de 
-	 * felicidad de la semana siguiente. Es decir, cuantas más trufas se cosechen durante una semana, 
-	 * más felices serán los monstruos durante la semana siguiente.
+	 * Debería acumular trufas... TODO
 	 */
 	TruffleFarm				(false, 300, 150, 
-							1, 10),
+							1, 10);
 	
-	/**
-	 * Es donde los monstruos descansan cada día.
-	 * Al igual que el Ojo de la Vida, no es necesario construirla porque ya aparece al 
-	 * comienzo del juego, en cambio sí que se puede (y se debe) ampliar y mejorar. 
-	 * El concepto de plaza en esta sala es diferente al que tienen las demás; 
-	 * las plazas del dormitorio determinan el <b>espacio vital</b> que hay en la guarida 
-	 * (las razas mejores necesitan más espacio vital), por lo tanto el tamaño de los 
-	 * apartamentos indica el número de monstruos que puede haber en la guarida. 
-	 * El nivel de los dormitorios influye en el carisma de todos los monstruos de la guarida, 
-	 * unos buenos dormitorios implican mayor aceptación social.
-	 */
-	Dormitories				(false, 0, 0,
-							1, 1);
 	
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom
 	MetalLeisureRoom		(...),
