@@ -12,13 +12,11 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.monsteraction.CultivateTruffles;
 import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
+import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.test.GaeTest;
 import es.engade.thearsmonsters.util.factory.FactoryData;
-import es.engade.thearsmonsters.util.factory.FactoryData.LairWhatIs;
-import es.engade.thearsmonsters.util.factory.FactoryData.MonsterWhoIs;
 
 public class MonsterActionTest extends GaeTest{
 
@@ -33,82 +31,40 @@ public class MonsterActionTest extends GaeTest{
 		monsterChild = FactoryData.MonsterWhoIs.Child.build();
 		monsterAdult = FactoryData.MonsterWhoIs.Adult.build();
 		monsterOld = FactoryData.MonsterWhoIs.Old.build();
-		monsterChild.setLair(lair);
-		monsterAdult.setLair(lair);
-		monsterOld.setLair(lair);
+		lair.addMonster(monsterChild);
+		lair.addMonster(monsterAdult);
+		lair.addMonster(monsterOld);
 	}
 
-
     @Test 
-    public void testCultivateTruffles() {
-    	
-    	Room dormitories = RoomType.Dormitories.build(lair);
-    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
-    	
-    	CultivateTruffles actionChildDormitories = 	new CultivateTruffles(monsterChild,dormitories);
-    	CultivateTruffles actionAdultDormitories = 	new CultivateTruffles(monsterAdult,dormitories);
-    	CultivateTruffles actionOldDormitories = 	new CultivateTruffles(monsterOld,dormitories);
-    	
-    	CultivateTruffles actionChildFarm 	= 	new CultivateTruffles(monsterChild,truffleFarm);
-    	CultivateTruffles actionAdultFarm	= 	new CultivateTruffles(monsterAdult,truffleFarm);
-    	CultivateTruffles actionOldFarm 	= 	new CultivateTruffles(monsterOld,truffleFarm);
-    	
-    	
-    	assertFalse(actionChildDormitories.isValid());
-    	assertFalse(actionAdultDormitories.isValid());
-    	assertFalse(actionOldDormitories.isValid());
-    	assertFalse(actionChildFarm.isValid());
-    	assertTrue(actionAdultFarm.isValid());
-    	assertFalse(actionOldFarm.isValid());
-    	
-    }
+    public void testGarbageHarvestValid() {
+    	Room wareHouse = FactoryData.RoomWhatIs.Warehouse.build();
+    	Room tradeOffice = FactoryData.RoomWhatIs.TradeOffice.build();    	
 
-    @Test 
-    public void testGarbageHarvest() {
-    	Room wareHouse = RoomType.Warehouse.build(lair);
-    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
-    	
-    	GarbageHarvest actionChildWarehouse = 	new GarbageHarvest(monsterChild,wareHouse);
-    	GarbageHarvest actionAdultWarehouse = 	new GarbageHarvest(monsterAdult,wareHouse);
-    	GarbageHarvest actionOldWarehouse = 	new GarbageHarvest(monsterOld,wareHouse);
-    	
-    	GarbageHarvest actionChildFarm 	= 	new GarbageHarvest(monsterChild,truffleFarm);
-    	GarbageHarvest actionAdultFarm	= 	new GarbageHarvest(monsterAdult,truffleFarm);
-    	GarbageHarvest actionOldFarm 	= 	new GarbageHarvest(monsterOld,truffleFarm);
-    	
-    	
-    	assertFalse(actionChildWarehouse.isValid());
-    	assertTrue(actionAdultWarehouse.isValid());
-    	assertFalse(actionOldWarehouse.isValid());
-    	assertFalse(actionChildFarm.isValid());
-    	assertFalse(actionAdultFarm.isValid());
-    	assertFalse(actionOldFarm.isValid());
+    	assertTrue(( new GarbageHarvest(monsterAdult, wareHouse)).isValid()); // Solo los adultos pueden trabajar en el Almacén
+    	assertFalse((new GarbageHarvest(monsterChild, wareHouse)).isValid());
+    	assertFalse((new GarbageHarvest(monsterOld,   wareHouse)).isValid());
+    	assertFalse((new GarbageHarvest(monsterChild, tradeOffice)).isValid());
+    	assertFalse((new GarbageHarvest(monsterAdult, tradeOffice)).isValid());
+    	assertFalse((new GarbageHarvest(monsterOld,   tradeOffice)).isValid());
     }
     
     @Test 
-    public void testWorkInTheWorks() {
-    	Room dormitories = RoomType.Dormitories.build(lair);
-    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
+    public void testWorkInTheWorksValid() {
+    	Room roomInWorks = FactoryData.RoomWhatIs.InWorks.build();
+    	Room room = FactoryData.RoomWhatIs.InNormalState.build();
     	
+    	assertTrue(roomInWorks.isInWorks());
+    	assertFalse(room.isInWorks());
     	
-    	WorkInTheWorks actionChildDormitories = 	new WorkInTheWorks(monsterChild,dormitories);
-    	WorkInTheWorks actionAdultDormitories = 	new WorkInTheWorks(monsterAdult,dormitories);
-    	WorkInTheWorks actionOldDormitories = 		new WorkInTheWorks(monsterOld,dormitories);
-    	
-    	WorkInTheWorks actionChildFarm 	= 			new WorkInTheWorks(monsterChild,truffleFarm);
-    	WorkInTheWorks actionAdultFarm	= 			new WorkInTheWorks(monsterAdult,truffleFarm);
-    	WorkInTheWorks actionOldFarm 	= 			new WorkInTheWorks(monsterOld,truffleFarm);
-    	
-    	
-    	/* Los dormitorios se crean por defecto en estado normal */
-    	assertFalse(actionChildDormitories.isValid());
-    	assertFalse(actionAdultDormitories.isValid());
-    	assertFalse(actionOldDormitories.isValid());
-    	
-    	
-    	assertFalse(actionChildFarm.isValid());
-    	assertTrue(actionAdultFarm.isValid());
-    	assertFalse(actionOldFarm.isValid());
+
+    	assertTrue((new WorkInTheWorks(monsterAdult, roomInWorks)).isValid()); // Solo los adultos pueden trabajar en las obras
+    	assertFalse((new WorkInTheWorks(monsterChild, roomInWorks)).isValid());
+    	assertFalse((new WorkInTheWorks(monsterOld,   roomInWorks)).isValid());
+
+    	assertFalse((new WorkInTheWorks(monsterAdult, room)).isValid());
+    	assertFalse((new WorkInTheWorks(monsterChild, room)).isValid());
+    	assertFalse((new WorkInTheWorks(monsterOld,   room)).isValid());
     }
 
     
@@ -123,49 +79,42 @@ public class MonsterActionTest extends GaeTest{
     	// Instancio una guarida nueva con los valores iniciales 
     	Lair lair = FactoryData.LairWhatIs.InInitialState.build();
     	
-    	//Utilizo el monstruo adulto para establecerle un numero de turnos alto
-    	monsterAdult.setFreeTurns(1000);
-    	
-    	//A�ado el monstruo a la guarida y le a�ado experiencia en la construccion
+    	//Añado el monstruo a la guarida y le añado experiencia en la construccion
     	lair.addMonster(monsterAdult);
-    	monsterAdult.addExp(AttrType.ConstructorSkill,100);
-    	monsterAdult.addExp(AttrType.Strenght,100);
+    	monsterAdult.addExp(AttrType.ConstructorSkill, 100);
+    	monsterAdult.addExp(AttrType.Strenght, 100);
     	
-    	/* Creo una room de tipo TruffleFarm */
-    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
-    	
-    	/* Añado la room creada a la guarida */
-    	lair.addRoom(truffleFarm);
+    	/* Creo una room de tipo TradeOffice */
+    	Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
     	
     	/* Creo la accion */
-    	WorkInTheWorks actionAdultFarm	= new WorkInTheWorks(monsterAdult,truffleFarm);
+    	MonsterAction action = new WorkInTheWorks(monsterAdult, tradeOffice);
 
-    	/*Obtengo el esfuerzo que hay que hacer para subir de nivel la sala */
-    	effortToUpgrade = truffleFarm.getEffortUpgrade();;
+    	/* Obtengo el esfuerzo que hay que hacer para subir de nivel la sala */
+    	effortToUpgrade = tradeOffice.getEffortUpgrade();
     	
-    	/*Obtengo el numero de turnos necesarios para subir de nivel la sala, 
+    	/* Obtengo el numero de turnos necesarios para subir de nivel la sala, 
     	 * dividiendo el esfuerzo entre el nivel del monstruo en la construccion */
-    	turnsToUpgrade =  effortToUpgrade/monsterAdult.getAttr(AttrType.Construction).getLevel();
+    	turnsToUpgrade = effortToUpgrade / monsterAdult.getComposeAttr(AttrType.Construction).getLevel();
     	
-    	/*Obtengo el numero de turnos libres iniciales que tiene el monstruo */
+    	/* Le pongo más turnos libres de los necesarios, para asegurarnos de que puede terminar la obra */
+    	monsterAdult.setFreeTurns(turnsToUpgrade + 10);
     	initialFreeTurns = monsterAdult.getFreeTurns();
     	
     	/* Obtengo el nivel inicial de la sala */
-    	levelInitial = truffleFarm.getLevel();
-    	
+    	levelInitial = tradeOffice.getLevel();
     	
     	/* Ejecuto el numero de turnos necesarios para subir de nivel la sala */
     	while (contador < turnsToUpgrade){
-    		actionAdultFarm.execute();
+    		action.execute();
     		contador ++;
     	}
     	
     	/* Compruebo que la sala subio de nivel */
-    	assertEquals(truffleFarm.getLevel(),levelInitial+1);
+    	assertEquals(tradeOffice.getLevel(), levelInitial + 1);
     	
     	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
-    	assertEquals(initialFreeTurns,turnsToUpgrade  + monsterAdult.getFreeTurns());
-    	
+    	assertEquals(initialFreeTurns, turnsToUpgrade + monsterAdult.getFreeTurns());
     }
     
 }

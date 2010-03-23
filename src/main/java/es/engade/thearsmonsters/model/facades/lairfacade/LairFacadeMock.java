@@ -47,7 +47,7 @@ public class LairFacadeMock implements LairFacade {
 	@Override
 	public void createNewRoom(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException, InsuficientGarbageException {
-		lair.addRoom(roomType.build(lair));
+		lair.buildRoom(roomType);
 	}
 
 	@Override

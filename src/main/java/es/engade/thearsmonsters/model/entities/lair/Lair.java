@@ -104,20 +104,30 @@ public class Lair implements Serializable {
     }
 
     /**
-     * Set or refresh the list (or map) of rooms of this lair.
-     * The order of the rooms may be the order shown in the view.
+     * Set or refresh the list of rooms of this lair.
+     * The order of the rooms will be the order shown in the view.
      */
-	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
+	public void setRooms(List<Room> newRooms) {
+		rooms.clear(); // vacía la lista
+		for(Room room : newRooms) {
+			room.setLair(this); // establece el doble enlace.
+			rooms.add(room); // y añade la nueva Room
+		}
 	}
 	
 	/**
-	 * Add a new room to the lair.
-	 * Chainable: lair.addRoom(warehause).addRoom(truffleFarm);
+	 * Add a new room to the lair in its initial state.
+	 * Sets the relation between the lair and the room.
+	 * Used for build a new Room.
+	 * If that roomType exists yet in the lair, returns that room (doesn't build a new room).
 	 */
-	public Lair addRoom(Room room) {
-		this.getRooms().add(room);
-		return this;
+	public Room buildRoom(RoomType roomType) {
+		Room room = this.getRoom(roomType);
+		if(room == null) {
+			room = roomType.build(this);
+			rooms.add(room);
+		} 
+		return room;
 	}
 	
 	/**

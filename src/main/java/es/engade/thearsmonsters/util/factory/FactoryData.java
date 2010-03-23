@@ -84,18 +84,54 @@ public class FactoryData {
 	 * Ejemplo: FactoryData.RoomWhatIs.EyeOfTheLife.build();
 	 */
 	public enum RoomWhatIs {
-		EyeOfTheLife {
+		/**
+		 * Sala en su estado inicial, cuando se compra y se construye.
+		 */
+		InInitialState,
+		
+		/**
+		 * Sala en obras.
+		 */
+		InWorks {
 			public Room build() {
-				return generateUserScaffold().getLair().getRoom(RoomType.EyeOfTheLife);
+				return FactoryData.RoomWhatIs.InWorks.build(RoomType.TradeOffice); // pone TradeOffice si no se indica un tipo
+			}
+			public Room build(RoomType roomType) { 
+				Room room = generateRoomByType(roomType);
+				room.setStateStartUpgrading();
+				return room; 
 			}
 		},
-		Warehouse {
+		
+		/**
+		 * Sala que no está en obras.
+		 */
+		InNormalState {
 			public Room build() {
-				return generateUserScaffold().getLair().getRoom(RoomType.Warehouse);
+				return FactoryData.RoomWhatIs.InNormalState.build(RoomType.TradeOffice); // pone TradeOffice si no se indica un tipo
 			}
+			public Room build(RoomType roomType) { 
+				Room room = generateRoomByType(roomType);
+				room.setStateCancelWorks();
+				return room; 
+			}
+		},
+		
+		EyeOfTheLife {
+			public Room build() { return generateRoomByType(RoomType.EyeOfTheLife); }
+		},
+		Dormitories {
+			public Room build() { return generateRoomByType(RoomType.Dormitories); }
+		},
+		Warehouse {
+			public Room build() { return generateRoomByType(RoomType.Warehouse); }
+		},
+		TradeOffice {
+			public Room build() { return generateRoomByType(RoomType.TradeOffice); }
 		};
 		
-		public Room build() { return null; } // default
+		public Room build() { return generateRoomByType(RoomType.EyeOfTheLife); } // default
+		public Room build(RoomType roomType) { return generateRoomByType(roomType); } // default
 	}
 	
 	
@@ -175,7 +211,8 @@ public class FactoryData {
 	private static Lair generateInitialLair(String login) {
 		User scaffold = generateUserScaffold(login);
 		Lair lair = scaffold.getLair();
-		lair.addRoom(RoomType.EyeOfTheLife.build(lair));
+		lair.buildRoom(RoomType.EyeOfTheLife);
+		lair.buildRoom(RoomType.Dormitories);
 		return lair;
 	}
 	
@@ -193,6 +230,10 @@ public class FactoryData {
 	
 	private static Lair generateDefaultLair() {
 		return generateDefaultLair(randomLogin());
+	}
+	
+	private static Room generateRoomByType(RoomType roomType) {
+		return generateUserScaffold().getLair().getRoom(roomType);
 	}
     
     /**
@@ -240,19 +281,17 @@ public class FactoryData {
     
     
 		//*** ROOMS ***//
-	
-		Room eyeOfTheLife = RoomType.EyeOfTheLife.build(lair);
-		Room dormitories = RoomType.Dormitories.build(lair);
-    	Room warehouse = RoomType.Warehouse.build(lair);
-    	Room truffleFarm = RoomType.TruffleFarm.build(lair);
-    	Room tradeOffice = RoomType.TradeOffice.build(lair);
+		
+		lair.buildRoom(RoomType.EyeOfTheLife);
+		Room dormitories = lair.buildRoom(RoomType.Dormitories);
+    	Room warehouse = lair.buildRoom(RoomType.Warehouse);
+    	Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
     
-    	// modify and add to lair
+    	// modify rooms
     	dormitories.setLevel(10); 
-    	dormitories.setStateCancelWorks();
-    	
-    	lair.addRoom(eyeOfTheLife).addRoom(dormitories).
-    		addRoom(warehouse).addRoom(truffleFarm).addRoom(tradeOffice);
+    	warehouse.setLevel(3); 
+    	warehouse.setStateCancelWorks();
+    	tradeOffice.setLevel(2);
 
 
     

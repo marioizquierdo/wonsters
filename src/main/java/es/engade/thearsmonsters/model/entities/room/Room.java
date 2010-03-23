@@ -12,11 +12,9 @@ import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.entities.room.enums.WorksType;
 import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
 import es.engade.thearsmonsters.model.entities.room.exceptions.PublicAccessException;
 import es.engade.thearsmonsters.model.entities.room.publicaccess.RoomPublicAccess;
-import es.engade.thearsmonsters.model.entities.room.state.RoomEnlargingState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomState;
 import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
@@ -115,6 +113,9 @@ public class Room implements Serializable {
 	public void setLair(Lair lair) {
 		this.lair = lair;
 	}
+	
+	
+	/* ---------------- State (inWorks) Methods ---------------- */
 
 	/**
 	 * Change the state of the room to RoomUpgradingState,
@@ -133,20 +134,21 @@ public class Room implements Serializable {
 	}
 	
 	/**
+	 * Deprecated
 	 * Change the state of the room to RoomEnlargingState,
 	 * at the begining of works (effortDone = 0).
 	 * @return true if the state was changed, false weather
 	 * 		the room is inWorks yet or weather the room can not
 	 * 		be enlarged one place more.
 	 */
-	public boolean setStateStartEnlarging() {
-        if(!isInWorks() && isEnlargable()) {
-        	setState(new RoomEnlargingState(0));
-        	return true;
-        } else {
-        	return false;
-        }
-	}
+//	public boolean setStateStartEnlarging() {
+//        if(!isInWorks() && isEnlargable()) {
+//        	setState(new RoomEnlargingState(0));
+//        	return true;
+//        } else {
+//        	return false;
+//        }
+//	}
 	
 	/**
 	 * Change the state of the room to normal, canceling the effortDone
@@ -173,11 +175,12 @@ public class Room implements Serializable {
 	}
 	
 	/**
+	 * DEPRECATED
 	 * @return True if this room can be enlarged one more place. False otherwise.
 	 */
-	public boolean isEnlargable() {
-		return this.getGarbageEnlarge() >= 0;
-	}
+//	public boolean isEnlargable() {
+//		return this.getGarbageEnlarge() >= 0;
+//	}
 
 	public boolean isPublished() {
 		return publicAccess.isPublished();
@@ -203,12 +206,12 @@ public class Room implements Serializable {
 		return state.getEffortDone();
 	}
 	
-	public WorksType getWorksType() throws InWorksException {
-		return state.getWorksType();
-	}
+//	public WorksType getWorksType() throws InWorksException {
+//		return state.getWorksType();
+//	}
+	
 	
 	/* ---------------- Room Type Methods ---------------- */
-	/* Override depending on the roomType implementation */
 	
 	/**
 	 * @return true if this room is in works for build at level 1, size 0 (generally)

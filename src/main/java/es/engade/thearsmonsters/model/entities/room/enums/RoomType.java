@@ -22,8 +22,7 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
  *  Cuando se añada un nuevo tipo de sala, prácticamente toda su información se añade en esta clase.
  */
 public enum RoomType {
-	// RoomType name		// publicable, garbageBuild, effortBuild,
-							// initialLevel, maxLevel	// {maxLvel = -1 => no limits}
+	// RoomType name		// publicable, garbageBuild, effortBuild, maxLevel (-1 => no limit)
 	
 	/**
 	 * Esta sala es un poco especial. Es la primera que aparece en el juego, no es necesario construirla, 
@@ -32,8 +31,7 @@ public enum RoomType {
 	 * la metamorfosis para convertirse en adultos.
 	 * Aquí en principio no se realiza ninguna tarea.
 	 */
-	EyeOfTheLife 			(false, 0, 0, 
-							1, 1),
+	EyeOfTheLife 			(false, 0, 0, 1),
 							
 	/**
 	 * Es donde los monstruos descansan cada día.
@@ -42,8 +40,7 @@ public enum RoomType {
 	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
 	 * Aquí tampoco se realiza ninguna acción.
 	 */
-	Dormitories				(false, 0, 0,
-							1, 1),
+	Dormitories				(false, 0, 0, 1),
 	
 	/**
 	 * Es donde se almacena la basura de la guarida. 
@@ -52,8 +49,7 @@ public enum RoomType {
 	 * La acción que se realiza aquí es "recolección de basura". Por cada turno
 	 * dedicado se recolecta tanta basura como el atributo compuesto "GarbageHarvest".
 	 */
-	Warehouse				(false, 0, 1, 
-							1, -1),
+	Warehouse				(false, 0, 1, -1),
 							
 	/**
 	 * Donde se realiza el cambio de basura por dinero.
@@ -61,17 +57,14 @@ public enum RoomType {
 	 * por cambio y más dinero se puede almacenar.
 	 * Aquí no se realiza ninguna tarea por parte de los monstruos.
 	 */			
-	TradeOffice				(false, 50, 30, 
-							1, 10),
-	
-	/**
-	 * Debería acumular trufas... TODO
-	 */
-	TruffleFarm				(false, 300, 150, 
-							1, 10);
+	TradeOffice				(false, 50, 30, 10);
+
 	
 	
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom
+	
+	Gym						(...),
+	
 	MetalLeisureRoom		(...),
 							
 	ChillOutLeisureRoom		(...),
@@ -82,7 +75,7 @@ public enum RoomType {
 							
 	IndieRockLeisureRoom	(...),
 							
-	Gym						(...),
+	TruffleFarm				(...),
 							
 	Classroom				(...),
 							
@@ -94,23 +87,19 @@ public enum RoomType {
 	private final boolean publicable;
 	private final int garbageBuild;
 	private final int effortBuild;
-	private final int initialLevel;
 	private final int maxLevel;
 	
-	RoomType(boolean publicable, int garbageBuild, int effortBuild,
-			int initialLevel, int maxLevel) {
+	RoomType(boolean publicable, int garbageBuild, int effortBuild, int maxLevel) {
 		this.publicable = publicable;
 		this.garbageBuild = garbageBuild;
 		this.effortBuild = effortBuild;
-		this.initialLevel = initialLevel;
-		this.maxLevel = maxLevel;            // {-1: no limits, x(x>=0): exactly x}
+		this.maxLevel = maxLevel; // {-1: no limit, x | x >= 0: exactly x}
 	}
 	
 	// Getters
 	public boolean isPublicable() {return publicable;}
 	public int getGarbageBuild() {return garbageBuild;}
 	public int getEffortBuild() {return effortBuild;}
-	public int getInitialLevel() {return initialLevel;}
 	public int getMaxLevel() {return maxLevel;}
 	
 	
@@ -122,20 +111,23 @@ public enum RoomType {
 	public Room build(Lair lair) {
 		RoomPublicAccess publicAccess;
 		RoomState state;
+		int initialLevel;
 		
 		// EyeOfTheLife y Dormitories starts in normal state,
 		// the other rooms starts in works state: monsters must to build them.
 		if(this.equals(EyeOfTheLife) || this.equals(Dormitories)) {
 			state = new RoomNormalState();
+			initialLevel = 1;
 		} else {
 			state = new RoomUpgradingState(0);
+			initialLevel = 0;
 		}
 		
 		// All rooms starts with closed public access.
 		publicAccess = new RoomPublicAccessClose();
 		
 		// Instantiate new room
-		return new Room(lair, this, this.initialLevel, publicAccess, state);
+		return new Room(lair, this, initialLevel, publicAccess, state);
 	}
 	
 	
@@ -145,7 +137,6 @@ public enum RoomType {
 	public double getGarbageUpgrade(int level) {
 		switch (this) {
 		case TradeOffice: return 100 * Math.pow(1.8, level-1);
-		case TruffleFarm: return getGarbageBuild() * Math.pow(1.4, level-1);
 		case Dormitories: return 20 * Math.pow(1.15, level-1);
 		default: return -1;
 		}
@@ -158,7 +149,6 @@ public enum RoomType {
 		level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
 		switch (this) {
 		case TradeOffice: return getEffortBuild() * Math.pow(1.6, level);
-		case TruffleFarm: return getEffortBuild() * Math.pow(1.3, level-1);
 		case Dormitories: return 50 * Math.pow(1.1, level);
 		default: return -1;
 		}
