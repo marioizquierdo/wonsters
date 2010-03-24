@@ -13,8 +13,8 @@ import javax.jdo.PersistenceManager;
 import org.springframework.orm.jdo.JdoObjectRetrievalFailureException;
 import org.springframework.orm.jdo.support.JdoDaoSupport;
 
-import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
 import es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProvider;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 public class GenericDaoJdo <T, PK extends Serializable>  extends JdoDaoSupport implements GenericDao<T, PK> {
 
@@ -31,34 +31,26 @@ public class GenericDaoJdo <T, PK extends Serializable>  extends JdoDaoSupport i
             return entity != null;
      }
     
-     public T get(PK id) {
+     public T get(PK id) 
+         throws InstanceNotFoundException {
+         
          T entity;
          try {
             entity = (T) getJdoTemplate().getObjectById(this.persistentClass, id);
          } catch (JdoObjectRetrievalFailureException e) {
              if (e.contains(JDOObjectNotFoundException.class)) {
-                 throw new EntityNotFoundException(this.persistentClass, id);
+                 throw new InstanceNotFoundException(id, this.persistentClass.getName());
              } else
                  throw e;
          }
     
             if (entity == null) {
-                throw new EntityNotFoundException(this.persistentClass, id); 
+                throw new InstanceNotFoundException(id, this.persistentClass.getName());
 //                ObjectRetrievalFailureException(this.persistentClass, id);
             }
     
             return entity;
      }
-     
-//     public T getByKey(Key id) {
-//            T entity = (T) getJdoTemplate().getObjectById(this.persistentClass, id);
-//    
-//            if (entity == null) {
-//                throw new ObjectRetrievalFailureException(this.persistentClass, id);
-//            }
-//    
-//            return entity;
-//     }
     
      public List<T> getAll() {
       return new ArrayList<T>(getJdoTemplate().find(persistentClass));

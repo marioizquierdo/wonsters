@@ -23,19 +23,29 @@ public class UserFacadeImpl implements UserFacade {
         this.userDao = userDao;
     }
 
-    @Override
+    @Transactional
     public void changePassword(String oldClearPassword, String newClearPassword)
             throws IncorrectPasswordException, InternalErrorException {
-        // TODO Pillar el login de la sesión?
+        
+        try {
+            User user = userDao.findUserByLogin(login);
+            
+            if (!PasswordEncrypter.isClearPasswordCorrect(oldClearPassword, user.getEncryptedPassword()))
+                throw new IncorrectPasswordException(login);
+                
+            user.setEncryptedPassword(PasswordEncrypter.crypt(newClearPassword));
+            userDao.update(user);
+                
+        } catch (InstanceNotFoundException e) {
+            throw new InternalErrorException(e);
+        }
 
     }
 
-    @Override
     public int countUsers() throws InternalErrorException {
         return userDao.getNumberOfUsers();
     }
 
-    @Override
     public User findUserProfile() throws InternalErrorException {
 
         if (login != null)
@@ -48,7 +58,6 @@ public class UserFacadeImpl implements UserFacade {
         return null;
     }
 
-    @Override
     public User findUserProfile(String login) throws InstanceNotFoundException,
             InternalErrorException {
         
@@ -56,7 +65,6 @@ public class UserFacadeImpl implements UserFacade {
         
     }
 
-    @Override
     public LoginResult login(String login, String password,
             boolean passwordIsEncrypted, boolean loginAsAdmin)
             throws InstanceNotFoundException, IncorrectPasswordException,
