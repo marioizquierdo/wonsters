@@ -44,7 +44,11 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throws InternalErrorException, InstanceNotFoundException,
             MonsterGrowException, InsuficientVitalSpaceException {
 
-     // Buscar el huevo referenciado
+        // Comprueba que se puede parsear la clave
+        if (!KeyUtils.isParseable(eggId))
+            throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+        
+        // Buscar el huevo referenciado
         MonsterEgg egg = monsterEggDao.get(KeyUtils.fromString(eggId));
         if(!egg.isReadyToBorn()) throw new MonsterGrowException(null);
         
@@ -53,11 +57,9 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throw new InsuficientVitalSpaceException(egg.getRace().getVitalSpace(), lair.getVitalSpaceFree());
         }
         
-        // Comprueba que el loginName es del dueño del huevo
-        //TODO: ??
-//        if(!loginName.equals(egg..getLoginName())) {
-//            throw new InstanceNotFoundException(eggId, MonsterEggVO.class.getName());
-//        }
+        // Comprueba que coincide la guarida
+        if (! lair.getMonsterEggs().contains(egg))
+            throw new InstanceNotFoundException(KeyUtils.fromString(eggId), MonsterEgg.class.getName());
             
         // Se crea el monstruo recién nacido
         //TODO: Como se crea esto??
@@ -80,14 +82,14 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throws InternalErrorException, InsuficientMoneyException,
             MaxEggsException {
 
-     // Comprueba que se sitio para guardar más huevos
+        // Comprueba que se sitio para guardar más huevos
         int MaxEggs = 10; // TODO: Tomar de config.
         int eggsCount = monsterEggDao.getNumberOfEggsByLair(lair);
         if(eggsCount >= MaxEggs) {
             throw new MaxEggsException();
         }
         
-     // Resta la cantidad de dinero que vale el huevo
+        // Resta la cantidad de dinero que vale el huevo
         int eggPrice = race.getBuyEggPrice();
         int money = lair.getMoney();
         if (eggPrice > money) {
@@ -95,7 +97,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
         }
         lair.setMoney(money - eggPrice);
         
-     // Almacena el huevo adquirido en la BBDD
+        // Almacena el huevo adquirido en la BBDD
         MonsterEgg egg = new MonsterEgg(
                 lair, race, new Date());
         lair.addMonsterEgg(egg);
@@ -122,6 +124,10 @@ public class MonsterFacadeImpl implements MonsterFacade {
     public Monster findMonster(String monsterId) throws InternalErrorException,
             InstanceNotFoundException {
 
+        // Comprueba que se puede parsear la clave
+        if (!KeyUtils.isParseable(monsterId))
+            throw new InstanceNotFoundException(monsterId, Monster.class.getName());
+        
         return monsterDao.get(KeyUtils.fromString(monsterId));
         
     }
@@ -131,11 +137,15 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throws InternalErrorException, InstanceNotFoundException,
             InsuficientVitalSpaceException {
 
+        // Comprueba que se puede parsear la clave
+        if (!KeyUtils.isParseable(eggId))
+            throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+        
         MonsterEgg egg = monsterEggDao.get(KeyUtils.fromString(eggId));
         
         // Comprueba que coincide la guarida
-        if (! egg.getLair().equals(lair))
-            throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+        if (! lair.getMonsterEggs().contains(egg))
+            throw new InstanceNotFoundException(KeyUtils.fromString(eggId), MonsterEgg.class.getName());
         
         // Comprueba que hay suficiente espacio vital
         int spaceNeeded = egg.getRace().getVitalSpace();
@@ -143,11 +153,6 @@ public class MonsterFacadeImpl implements MonsterFacade {
         if(spaceNeeded > spaceAvaliable) {
             throw new InsuficientVitalSpaceException(spaceNeeded, spaceAvaliable);
         }
-        
-        // Comprueba que el loginName es del dueño del huevo
-//        if(!loginName.equals(egg.getLoginName())) {
-//            throw new InstanceNotFoundException(eggId, MonsterEggVO.class.getName());
-//        }
         
         // Pone el huevo a incubar fijando su fecha de nacimiento (date)
         egg.setBorningDate();
@@ -161,18 +166,17 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throws InternalErrorException, InstanceNotFoundException,
             MonsterGrowException {
 
+        // Comprueba que se puede parsear la clave
+        if (!KeyUtils.isParseable(monsterId))
+            throw new InstanceNotFoundException(monsterId, Monster.class.getName());
+
         // Buscar el monstruo
         Monster m = monsterDao.get(KeyUtils.fromString(monsterId));
         if(!m.getAge().equals(MonsterAge.Child)) throw new MonsterGrowException(m.getId());
         
         // Comprueba que coincide la guarida
-        if (! m.getLair().equals(lair))
-            throw new InstanceNotFoundException(monsterId, Monster.class.getName());
-        
-        // Comprueba que el loginName es del dueño del monstruo
-//        if(!loginName.equals(m.getLoginName())) {
-//            throw new InstanceNotFoundException(monsterId, Monster.class.getName());
-//        }
+        if (! lair.getMonsters().contains(m))
+            throw new InstanceNotFoundException(KeyUtils.fromString(monsterId), Monster.class.getName());
             
         // Se cambia la edad del monstruo y se fija una fecha para cuando salga del capuyo
         // TODO:
@@ -189,12 +193,16 @@ public class MonsterFacadeImpl implements MonsterFacade {
     public Integer shellEgg(String eggId, Lair lair)
             throws InternalErrorException, InstanceNotFoundException {
         
+        // Comprueba que se puede parsear la clave
+        if (!KeyUtils.isParseable(eggId))
+            throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+        
         MonsterEgg egg = monsterEggDao.get(KeyUtils.fromString(eggId));
         int eggSalePrice = egg.getRace().getShellEggPrice();
         
-     // Comprueba que coincide la guarida
-        if (! egg.getLair().equals(lair))
-            throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+        // Comprueba que coincide la guarida
+        if (! lair.getMonsterEggs().contains(egg))
+            throw new InstanceNotFoundException(KeyUtils.fromString(eggId), MonsterEgg.class.getName());
         
         // Se añade el precio de venta en la guarida y se guarda el resultado en la BBDD
         lair.setMoney(lair.getMoney() + eggSalePrice);

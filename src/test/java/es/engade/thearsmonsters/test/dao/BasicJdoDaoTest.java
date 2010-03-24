@@ -12,7 +12,6 @@ import com.google.appengine.api.labs.taskqueue.dev.LocalTaskQueue;
 import com.google.appengine.api.labs.taskqueue.dev.QueueStateInfo;
 import com.google.appengine.tools.development.testing.LocalTaskQueueTestConfig;
 
-import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
@@ -22,6 +21,7 @@ import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.test.AppContext;
 import es.engade.thearsmonsters.test.GaeTest;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
 
 public class BasicJdoDaoTest extends GaeTest{
@@ -52,7 +52,8 @@ public class BasicJdoDaoTest extends GaeTest{
     }
 
     @Test
-    public void testSaveOnCascade() {
+    public void testSaveOnCascade() 
+        throws InstanceNotFoundException {
         
         User user = FactoryData.UserWhoIs.Random.build();
         //TODO: Hasta que se elimine la herencia en Room
@@ -84,7 +85,8 @@ public class BasicJdoDaoTest extends GaeTest{
     }
     
     @Test
-    public void testUpdate() {
+    public void testUpdate() 
+        throws InstanceNotFoundException {
     
         UserDetails oldUD = new UserDetails("nome", "apldo", "a@b.c", "spanish");
         UserDetails newUD = new UserDetails("Antonio", "Testuser", "c@b.a", "turkish");
@@ -107,7 +109,7 @@ public class BasicJdoDaoTest extends GaeTest{
     }
     
     @Test
-    public void testRemoveSingleInstance() {
+    public void testRemoveSingleInstance() throws InstanceNotFoundException {
         
         // persist
         
@@ -125,7 +127,7 @@ public class BasicJdoDaoTest extends GaeTest{
         try {
             userDao.get(userKey);
             assert(false);
-        } catch (EntityNotFoundException e) {
+        } catch (InstanceNotFoundException e) {
             assert(true);
         }
 
@@ -134,7 +136,7 @@ public class BasicJdoDaoTest extends GaeTest{
     }
     
     @Test
-    public void testRemoveOnCascade() {
+    public void testRemoveOnCascade() throws InstanceNotFoundException {
         
         User user = FactoryData.UserWhoIs.Random.build();
       //TODO: Hasta que se elimine la herencia en Room
@@ -154,7 +156,7 @@ public class BasicJdoDaoTest extends GaeTest{
         try {
             userDao.get(userKey);
             assert(false);
-        } catch (EntityNotFoundException e) {
+        } catch (InstanceNotFoundException e) {
             assert(true);
         }
         
@@ -162,7 +164,7 @@ public class BasicJdoDaoTest extends GaeTest{
         try {
             monsterDao.get(monsterKey);
             assert(false);
-        } catch (EntityNotFoundException e) {
+        } catch (InstanceNotFoundException e) {
             assert(true);
         }
     }
