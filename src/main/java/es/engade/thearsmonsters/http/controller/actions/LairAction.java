@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.lairfacade.BuildingChunk;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
-import es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeMock;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
+import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -28,7 +29,8 @@ public class LairAction extends AThearsmonstersDefaultAction {
         HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
     	
-    	LairFacade lairFacade = new LairFacadeMock();
+        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
+        LairFacade lairFacade = (LairFacade) appContext.getBean("lairFacade");
     	Lair lair;
     	
 

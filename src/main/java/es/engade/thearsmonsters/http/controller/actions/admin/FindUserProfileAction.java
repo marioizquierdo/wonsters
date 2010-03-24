@@ -11,10 +11,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
-import es.engade.thearsmonsters.model.facades.userfacade.UserFacadeMock;
+import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -40,7 +41,8 @@ public class FindUserProfileAction extends DefaultAdminAction {
         /* Find UserProfile. */
     	try {
     		
-    		UserFacade userFacade = new UserFacadeMock();
+    	    ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
+    	    UserFacade userFacade = (UserFacade) appContext.getBean("userFacade");
     		
 			User userProfile = userFacade.findUserProfile(login);
 			   

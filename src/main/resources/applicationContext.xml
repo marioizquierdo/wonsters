@@ -61,4 +61,6 @@
 	
 	<!-- Facades -->
 	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeMock"/>
+	<bean id="lairFacade" class="es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeMock"/>
+	<bean id="monsterFacade" class="es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacadeMock"/>
 </beans>

@@ -128,7 +128,7 @@ public final class SessionManager {
 
     static {
         ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-        userFacade = appContext.getBean(UserFacade.class);
+        userFacade = (UserFacade) appContext.getBean("userFacade");
     }
     public final static void login(HttpServletRequest request,
         HttpServletResponse response, String login,
@@ -158,7 +158,6 @@ public final class SessionManager {
         throws DuplicateInstanceException, InternalErrorException, FullPlacesException {
         
         /* Register user. */
-//        UserFacade userFacade  = new UserFacadeMock();
             
         userFacade.registerUser(login, clearPassword, 
             UserDetails);
@@ -190,7 +189,6 @@ public final class SessionManager {
         InternalErrorException  {
         
         /* Change user's password. */
-//        UserFacade userFacade = new UserFacadeMock();
             
         userFacade.changePassword(oldClearPassword, newClearPassword);
             

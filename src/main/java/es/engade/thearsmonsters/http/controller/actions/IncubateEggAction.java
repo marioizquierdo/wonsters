@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
-import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacadeMock;
+import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -26,7 +27,8 @@ public class IncubateEggAction extends AThearsmonstersDefaultAction {
         HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
     	
-        MonsterFacade monsterFacade = new MonsterFacadeMock();
+        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
+        MonsterFacade monsterFacade = (MonsterFacade) appContext.getBean("monsterFacade");
         
         try {
 	        /* Get data. */
