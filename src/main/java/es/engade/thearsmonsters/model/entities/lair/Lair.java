@@ -178,6 +178,7 @@ public class Lair implements Serializable {
 	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() { return roomData.getOnlyOneChangePerGameDayException(); }
 	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(); }
 	public int getPercentageCommision() { return roomData.getPercentageCommision(); }
+	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(); }
 	
 	
 	//------ Monsters and eggs ------//

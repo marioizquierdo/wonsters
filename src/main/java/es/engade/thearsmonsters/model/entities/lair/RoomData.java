@@ -128,7 +128,7 @@ public class RoomData implements Serializable {
 	
 	private int getMoneyStorageCapacityByLevel(Room tradeOffice) {
 		if(tradeOffice != null) {
-			return getTradeOffice().getGarbageEnlarge(tradeOffice.getLevel()) * 4; // need always to be more than garbageUpgrade
+			return tradeOffice.getGarbageUpgrade() * 4; // need always to be more than garbageUpgrade
 		} else {
 			return 0; // While there is no tradeOffice, no money can be stored
 		}

@@ -245,26 +245,26 @@ public class Room implements Serializable {
 	/**
 	 * @return Garbage needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
-	public int getGarbageUpgrade() {return getGarbageUpgrade(this.getLevel());}
+	public int getGarbageUpgrade() {return getGarbageUpgradeWhenLevel(this.getLevel());}
 	/**
 	 * @return Effort needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
-	public int getEffortUpgrade() {return getEffortUpgrade(this.getLevel());}
+	public int getEffortUpgrade() {return getEffortUpgradeWhenLevel(this.getLevel());}
 	/**
 	 * @return Garbage needed for Enlarging one more place (-1 if cannot be enlarged)
 	 */
-	public int getGarbageEnlarge() {return getGarbageEnlarge(this.getSize());}
+	//public int getGarbageEnlarge() {return getGarbageEnlarge(this.getSize());}
 	/**
 	 * @return Effort needed for Enlarging one more place (-1 if cannot be enlarged)
 	 */
-	public int getEffortEnlarge() {return getEffortEnlarge(this.getSize());}
+	//public int getEffortEnlarge() {return getEffortEnlarge(this.getSize());}
 
 	/**
 	 * Garbage needed for upgrading.
 	 * gUpg(level) = gUpg * fgUpg^level, level in [1 .. maxLevel-1]
 	 * @return -1 if cannot be upgraded, the garbage needed otherwise
 	 */
-	public int getGarbageUpgrade(int level) {
+	public int getGarbageUpgradeWhenLevel(int level) {
 		if(level<1 || (getMaxLevel() >= 0 && level >= getMaxLevel())) return -1;
 		return Format.roundValue(type.getGarbageUpgrade(level));
 	}
@@ -274,32 +274,11 @@ public class Room implements Serializable {
 	 * eUpg(level) = eUpg * feUpg^level, level in [1 .. maxLevel-1]
 	 * @return -1 if cannot be upgraded, the effort needed otherwise
 	 */
-	public int getEffortUpgrade(int level) {
+	public int getEffortUpgradeWhenLevel(int level) {
 		if(level<1 || (getMaxLevel() >= 0 && level >= getMaxLevel())) return -1;
 		return Format.roundValue(type.getEffortUpgrade(level));
 		
 	}
-
-	/**
-	 * Garbage needed for enlarging.
-	 * gEnl(level) = gEnl * fgEnl^size, size in [0 .. maxSize-1]
-	 * @return -1 if cannot be enlarged, the garbage needed otherwise
-	 */
-	public int getGarbageEnlarge(int size) {
-		return Format.roundValue(type.getGarbageEnlarge(size));
-	}
-	
-	
-	/**
-	 * Effort needed for enlarging.
-	 * eEnl(level) = eEnl * feEnl^size, size in [0 .. maxSize-1]
-	 * @return -1 if cannot be enlarged, the effort needed otherwise
-	 */
-	public int getEffortEnlarge(int size) {
-		if(size<0 || (getMaxSize()>=0 && size>=getMaxSize())) return -1;
-		return Format.roundValue(type.getEffortEnlarge(size));
-	}
-	
 	
 	/**
 	 * Weather this room type may be published (true) or not (false)

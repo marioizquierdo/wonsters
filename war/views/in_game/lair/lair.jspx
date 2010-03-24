@@ -88,10 +88,8 @@
 				    		<div class="lairRoomInfo">
 					    		<c:choose><c:when test="${room.inInitialState}">
 					    			<fmt:message key="Lair.room.newRoom"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%</c:when>
-								<c:when test="${room.worksType=='Upgrading'}">
-									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%</c:when>
-								<c:otherwise> <!-- Enlarging -->
-									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortEnlarge)}"/>%</c:otherwise>
+								<c:otherwise> <!-- Upgrading -->
+									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%</c:otherwise>
 								</c:choose>
 				    		</div>
 				    	</c:if>

@@ -24,15 +24,13 @@
 			
 			<!-- Concrete info for each type of room -->
 			<c:if test="${room.roomType == 'TradeOffice'}">
-				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.moneyStorageCapacity"/></span>: <fmt:formatNumber value="${room.moneyStorageCapacity}"/> <customtag:common_icon id="money" img="true"/></li>
-				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.percentageCommision"/></span>: <fmt:formatNumber value="${room.percentageCommision}"/>%</li>
+				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.moneyStorageCapacity"/></span>: <fmt:formatNumber value="${lair.moneyStorageCapacity}"/> <customtag:common_icon id="money" img="true"/></li>
+				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.percentageCommision"/></span>: <fmt:formatNumber value="${lair.percentageCommision}"/>%</li>
 			</c:if>
 			<c:if test="${room.roomType == 'Warehouse'}">
-				<li><span class="attr"><fmt:message key="Lair.room.Warehouse.garbageStorageCapacity"/></span>: <fmt:formatNumber value="${room.garbageStorageCapacity}"/> <customtag:common_icon id="garbage" img="true"/></li>
+				<li><span class="attr"><fmt:message key="Lair.room.Warehouse.garbageStorageCapacity"/></span>: <fmt:formatNumber value="${lair.garbageStorageCapacity}"/> <customtag:common_icon id="garbage" img="true"/></li>
 			</c:if>
-			<c:if test="${room.roomType == 'TruffleFarm'}">
-				<li><span class="attr"><fmt:message key="Lair.room.TruffleFarm.truffleAmount"/></span>: <fmt:formatNumber value="0"/></li>
-			</c:if>
+
 			
 			<!-- Public room info -->
 			<c:if test="${room.publicable}"><c:choose>
@@ -49,22 +47,17 @@
 				<li><span class="attr"><fmt:message key="Lair.room.inWorks"/></span>:
 					<c:choose><c:when test="${room.inInitialState}">
 						<fmt:message key="Lair.room.inWorks.buildNewRoom"/></c:when>
-					<c:when test="${room.worksType=='Upgrading'}">
-						<fmt:message key="Lair.room.inWorks.upgrading"/></c:when>
-					<c:otherwise> <!-- Enlarging -->
-						<fmt:message key="Lair.room.inWorks.enlarging"/></c:otherwise>
+					<c:otherwise> <!-- Upgrading -->
+						<fmt:message key="Lair.room.inWorks.upgrading"/></c:otherwise>
 					</c:choose>
 				</li>
 				<li><span class="attr"><fmt:message key="Lair.room.inWorks.effortDone" /></span>:
 					<c:choose><c:when test="${room.inInitialState}">
 						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortBuild}"/> 
 						(<fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%)</c:when>
-					<c:when test="${room.worksType=='Upgrading'}">
+					<c:otherwise> <!-- Upgrading -->
 						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortUpgrade}"/> 
-						(<fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%)</c:when>
-					<c:otherwise> <!-- Enlarging -->
-						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortEnlarge}"/> 
-						(<fmt:formatNumber value="${100*(room.effortDone/room.effortEnlarge)}"/>%)</c:otherwise>
+						(<fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%)</c:otherwise>
 					</c:choose>
 				</li>
 			</c:if>
@@ -82,32 +75,15 @@
             
 			<!-- Works actions -->
 			<c:choose><c:when test="${room.inWorks}">
-				<c:if test="${!room.inInitialState}"><c:choose>
-					<c:when test="${room.worksType=='Upgrading'}">			
+				<c:if test="${!room.inInitialState}">		
 						<customtag:roomAction icon_id="19" action="SetRoomInWorksState.do?action=CANCEL_WORKS&roomType=${room.roomType}"
 								messageKey="Lair.room.actions.cancelWorks">
 							(<fmt:message key="Common.getBack"> 
 								<fmt:param><fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/></fmt:param>
 							</fmt:message>)
 						</customtag:roomAction>
-					</c:when>
-					<c:otherwise> <!-- Enlarging -->				
-						<customtag:roomAction icon_id="19" action="SetRoomInWorksState.do?action=CANCEL_WORKS&roomType=${room.roomType}"
-								messageKey="Lair.room.actions.cancelWorks">
-							(<fmt:message key="Common.getBack"> 
-								<fmt:param><fmt:formatNumber value="${room.garbageEnlarge}"/> <customtag:common_icon id="garbage" img="true"/></fmt:param>
-							</fmt:message>)
-						</customtag:roomAction>
-					</c:otherwise>
-				</c:choose></c:if></c:when>
+				</c:if></c:when>
 			<c:otherwise>		
-				<c:if test="${room.enlargable}">
-					<customtag:roomAction icon_id="17" action="SetRoomInWorksState.do?action=ENLARGE&roomType=${room.roomType}"
-						messageKey="Lair.room.actions.enlarge">
-						(<fmt:formatNumber value="${room.garbageEnlarge}"/> <customtag:common_icon id="garbage" img="true"/>, 
-						<fmt:formatNumber value="${room.effortEnlarge}"/> <customtag:common_icon id="effort" img="true"/>)
-					</customtag:roomAction>
-				</c:if>
 				<c:if test="${room.upgradable}">
 					<customtag:roomAction icon_id="18" action="SetRoomInWorksState.do?action=UPGRADE&roomType=${room.roomType}"
 						messageKey="Lair.room.actions.upgrade">

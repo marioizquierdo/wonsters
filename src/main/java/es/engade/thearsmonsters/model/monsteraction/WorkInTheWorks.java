@@ -34,33 +34,31 @@ public class WorkInTheWorks extends MonsterAction{
 	}
 	
 	/**
-	 * Esta acci—n modifica el estado de las obras de una sala, aumentando la cantidad de effortDone
-	 * realizado. Si la sala supera la cantidad necesaria para aumentar de nivel (o de tama–o), el estado
+	 * Esta acciï¿½n modifica el estado de las obras de una sala, aumentando la cantidad de effortDone
+	 * realizado. Si la sala supera la cantidad necesaria para aumentar de nivel (o de tamaï¿½o), el estado
 	 * de la sala vuelve a ser NormalState.
 	 */
 	protected void doExecute() {
-        try {
-		  ((RoomInWorksState)room.getState()).setEffortDone(room.getEffortDone() + monster.getAttr(AttrType.Construction).getLevel());
-	      
-		  if(room.isInInitialState()){
-	          if(room.getEffortDone() > room.getEffortBuild()){
-	             room.setSize(1);
-	             room.setState(new RoomNormalState());
-	           }
-	      	}else if(room.getState().getWorksType().equals(WorksType.Enlarging)) {
-            if(room.getEffortDone() > room.getEffortEnlarge()){
-            	room.setSize(room.getSize() + 1);
-                room.setState(new RoomNormalState());
-            }                
-	      	}else 
-	      		if(room.getState().getWorksType().equals(WorksType.Upgrading)){
-		            if(room.getEffortDone() >= room.getEffortUpgrade()){
-		            	room.setLevel(room.getLevel() + 1);
-		                room.setState(new RoomNormalState());
-		            }                
-	      		}
-        } catch (InWorksException e) {
-            throw new RuntimeException(e);
-        }
-    }
+		try {
+			((RoomInWorksState) room.getState()).setEffortDone(room
+			        .getEffortDone()
+			        + monster.getAttr(AttrType.Construction).getLevel());
+
+			if (room.isInInitialState()) {
+				if (room.getEffortDone() > room.getEffortBuild()) {
+					room.setSize(1);
+					room.setState(new RoomNormalState());
+				}
+			} else {
+				if (room.getState().getWorksType().equals(WorksType.Upgrading)) {
+					if (room.getEffortDone() >= room.getEffortUpgrade()) {
+						room.setLevel(room.getLevel() + 1);
+						room.setState(new RoomNormalState());
+					}
+				}
+			}
+		} catch (InWorksException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
