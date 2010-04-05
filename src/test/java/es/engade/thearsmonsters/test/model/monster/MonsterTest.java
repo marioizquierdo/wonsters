@@ -80,33 +80,32 @@ public class MonsterTest extends GaeTest {
 
     @Test
     public void testAddExp() {
-    	// Creamos un atributo nuevo para asegurarnos de que empieza en nivel 1, con experiencia 0.
-    	Attr attr = new AttrBase(AttrType.Agility, 1, 0); 
+    	// Creamos un atributo nuevo para asegurarnos de que empieza en nivel 1, con experiencia 0. 
 
     	// Sumamos 10 inicialmente (no debe de subir de nivel)
-		attr.addExp(10);
-		assertEquals(attr.getLevel(), 1);
-		assertEquals(attr.getExp(), 10);
+    	m1.addExp(AttrType.Agility,10);
+		assertEquals(m1.getAttr(AttrType.Agility).getLevel(), 0);
+		assertEquals(m1.getAttr(AttrType.Agility).getExp(), 10);
 	    
 		// Luego 100 (debería subir un nivel).
-		attr.addExp(100);
-		assertEquals(attr.getLevel(), 2);
-		assertEquals(attr.getExp(), 10);
+		m1.addExp(AttrType.Agility,100);
+		assertEquals(m1.getAttr(AttrType.Agility).getLevel(), 1);
+		assertEquals(m1.getAttr(AttrType.Agility).getExp(), 10);
 		
 		// Luego otros 10 (no debe subir de nivel)
-		m1.getAttr(AttrType.Agility).addExp(10);
-		assertEquals(attr.getLevel(), 2);
-		assertEquals(attr.getExp(), 20);
+		m1.addExp(AttrType.Agility,10);
+		assertEquals(m1.getAttr(AttrType.Agility).getLevel(), 1);
+		assertEquals(m1.getAttr(AttrType.Agility).getExp(), 20);
 		
 		// Luego otros 90 (debe subir otro nivel)
-		m1.getAttr(AttrType.Agility).addExp(90);
-		assertEquals(attr.getLevel(), 3);
-		assertEquals(attr.getExp(), 10);
+		m1.addExp(AttrType.Agility,90);
+		assertEquals(m1.getAttr(AttrType.Agility).getLevel(), 2);
+		assertEquals(m1.getAttr(AttrType.Agility).getExp(), 10);
 		
 		// Luego 333 más (debe subir 3 niveles)
-		m1.getAttr(AttrType.Agility).addExp(333);
-		assertEquals(attr.getLevel(), 6);
-		assertEquals(attr.getExp(), 43);
+		m1.addExp(AttrType.Agility,333);
+		assertEquals(m1.getAttr(AttrType.Agility).getLevel(), 5);
+		assertEquals(m1.getAttr(AttrType.Agility).getExp(), 43);
     }
     
     @Test(expected=UnsupportedOperationException.class)

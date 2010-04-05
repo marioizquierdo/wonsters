@@ -208,11 +208,27 @@ public class FactoryData {
      * Es decir la guarida estará el estado inicial en el que comienzas el juego, sin monstruos y
      * solo con el ojo de la vida.
      */
-	private static Lair generateInitialLair(String login) {
-		User scaffold = generateUserScaffold(login);
-		Lair lair = scaffold.getLair();
+	private static Lair generateInitialLair(String userLogin) {
+		
+		User user = new User(userLogin, userLogin + "_pass", 
+    			new UserDetails("Fulano", "Delapeña", "fulano@delapeña.es", "es"));
+
+		//*** LAIR ***//
+    
+		Lair lair = new Lair(user,
+	        0, // money 
+	        0, // garbage
+	        new RoomData(0, 0), // lastChangeResourcesTurn and occupied vital space
+	        new Address(0, 0, 0)); // geographical position
+	
+		user.setLair(lair); // add to user
+    
+    
+		//*** ROOMS ***//
+		
 		lair.buildRoom(RoomType.EyeOfTheLife);
 		lair.buildRoom(RoomType.Dormitories);
+    	
 		return lair;
 	}
 	
@@ -273,7 +289,7 @@ public class FactoryData {
     
 		Lair lair = new Lair(user,
 	        1000, // money 
-	        1000, // garbage
+	        500, // garbage
 	        new RoomData(100, 10), // lastChangeResourcesTurn and occupied vital space
 	        new Address(1, 1, 1)); // geographical position
 	
@@ -289,7 +305,7 @@ public class FactoryData {
     
     	// modify rooms
     	dormitories.setLevel(10); 
-    	warehouse.setLevel(3); 
+    	warehouse.setLevel(15); 
     	warehouse.setStateCancelWorks();
     	tradeOffice.setLevel(2);
 

@@ -76,11 +76,7 @@ public class MonsterActionTest extends GaeTest{
     	int initialFreeTurns = 0;
     	int turnsToUpgrade = 0;
     	
-    	// Instancio una guarida nueva con los valores iniciales 
-    	Lair lair = FactoryData.LairWhatIs.InInitialState.build();
-    	
-    	//Añado el monstruo a la guarida y le añado experiencia en la construccion
-    	lair.addMonster(monsterAdult);
+    	//Añado experiencia en la construccion
     	monsterAdult.addExp(AttrType.ConstructorSkill, 100);
     	monsterAdult.addExp(AttrType.Strenght, 100);
     	
@@ -115,6 +111,32 @@ public class MonsterActionTest extends GaeTest{
     	
     	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
     	assertEquals(initialFreeTurns, turnsToUpgrade + monsterAdult.getFreeTurns());
+    }
+    
+    @Test
+    public void testHarvestGarbage(){
+    	
+    	int maxGarbage = lair.getGarbageStorageCapacity();
+    	int contador = 0;
+    	
+    	//Añado experiencia en la recolección
+    	monsterAdult.addExp(AttrType.HarvesterSkill, 100);
+    	monsterAdult.addExp(AttrType.Strenght, 100);
+    	
+    	MonsterAction action = new GarbageHarvest(monsterAdult, lair.getRoom(RoomType.Warehouse));
+    	
+    	monsterAdult.setFreeTurns(1000);
+    	
+    	while (lair.getGarbage() < maxGarbage ){
+    		action.execute();
+    		contador++;
+    	}
+    	
+    	//comprobamos que gasta los turnos del mounstro
+    	assertEquals(1000-contador,monsterAdult.getFreeTurns());
+    	
+    	//comprobamos que se ha llenado de basura
+    	assertEquals(lair.getGarbage(), maxGarbage);
     }
     
 }

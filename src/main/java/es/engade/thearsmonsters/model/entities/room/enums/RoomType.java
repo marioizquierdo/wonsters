@@ -138,6 +138,7 @@ public enum RoomType {
 		switch (this) {
 		case TradeOffice: return 100 * Math.pow(1.8, level-1);
 		case Dormitories: return 20 * Math.pow(1.15, level-1);
+		case Warehouse: return 10 * Math.pow(1.2, level-1);
 		default: return -1;
 		}
 	}
@@ -150,6 +151,7 @@ public enum RoomType {
 		switch (this) {
 		case TradeOffice: return getEffortBuild() * Math.pow(1.6, level);
 		case Dormitories: return 50 * Math.pow(1.1, level);
+		case Warehouse: return 50 * Math.pow(1.1, level);
 		default: return -1;
 		}
 	}

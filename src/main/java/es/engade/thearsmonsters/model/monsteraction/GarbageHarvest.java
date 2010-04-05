@@ -3,6 +3,7 @@ package es.engade.thearsmonsters.model.monsteraction;
 import java.util.List;
 
 import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
@@ -25,13 +26,23 @@ public class GarbageHarvest extends MonsterAction {
 
 	@Override
     protected boolean checkExtraConditions() {
-		return true; // TODO: ¿hay algo más que comprobar aquí?
+		return (room.getLair().getGarbage() < room.getLair().getGarbageStorageCapacity());
+		 // TODO: ¿hay algo más que comprobar aquí
 	}
-	
+	 
 	@Override
     protected void doExecute() {
-		// TODO Dale caña aquí a la movida
-
+		int currentGarbage = room.getLair().getGarbage();
+		int maxGarbage = room.getLair().getGarbageStorageCapacity();
+		int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest).getLevel();
+		
+		if ((maxGarbage - currentGarbage) < monsterHarvestAttr){
+			room.getLair().setGarbage(maxGarbage);
+		}else {
+			room.getLair().setGarbage(currentGarbage + monsterHarvestAttr); 
+		}
+			
+		monster.addExp(AttrType.HarvesterSkill, 20);
 	}
 
 }
