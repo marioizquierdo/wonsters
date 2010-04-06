@@ -31,6 +31,7 @@
   <c:url var="windowTagAndColorsCSS" value="/css/window_tag_and_colors.css" />
   <c:url var="frontPageCSS" value="/css/front_page.css" />
   <c:url var="pikachooseCSS" value="/css/front_page.css" />
+  <c:url var="tipTipCSS" value="/css/tipTip.css" />
   
   <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${commonStylesCSS}" type="text/css" media="all" />
@@ -38,6 +39,7 @@
   <link rel="StyleSheet" href="${windowTagAndColorsCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${frontPageCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${pikachooseCSS}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${tipTipCSS}" type="text/css" media="all" />
   
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 
@@ -45,10 +47,9 @@
   <!-- Javascript. -->   
   <![CDATA[
   	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
-  	<script type='text/javascript' src='javascript/lib/jquery.dimensions.js'></script>
-  	<script type='text/javascript' src='javascript/lib/jquery.tooltip.js'></script>
+  	<script type='text/javascript' src='javascript/lib/jquery.tipTip.js'></script>
   	<script type='text/javascript' src='javascript/lib/thearsmonsters_lib.js'></script>
-  	<script type='text/javascript' src='javascript/common_tooltips.js'></script>
+  	<script type='text/javascript' src='javascript/front_page_layout.js'></script>
   ]]> 
 
   <![CDATA[

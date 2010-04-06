@@ -20,14 +20,16 @@ $( function() {
 		var e = $(this);
 		e.find('.attribute_level, .attribute_name, .attribute_description')
 			.css('cursor', 'help')
-			.tooltip({
+			.tipTip({
 			    delay: 100,
-			    bodyHandler: function() { 
-		        	return '<h3>'+ e.find('.hidden_m_icon').html()+'&nbsp;'+
-		        	e.find('.attribute_name').text()+'</h3>'+ 
-		        	'<div>'+e.find('.'+HIDDEN_DESC_CLASS).text()+'</div>'+
-		        	e.find('.hidden_attribute_details').html(); 
-	    	}
-	    });
+			    fadeIn: 100,
+			    fadeOut: 400,
+			    defaultPosition: 'left',
+			    content: '<h3>'+ e.find('.hidden_m_icon').html() +'&nbsp;'+
+		        	e.find('.attribute_name').text() +'</h3>'+ 
+		        	'<div>'+ e.find('.'+HIDDEN_DESC_CLASS).text() +'</div>'+
+		        	e.find('.hidden_attribute_details').html()
+	    	})
+	    	;
 	});
 });

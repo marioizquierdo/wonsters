@@ -17,17 +17,6 @@
  	<script type="text/javascript" src="javascript/image_up.js"></script>
 	<script type="text/javascript" src="javascript/fix_attrs_descriptions.js"></script>
 	<script type="text/javascript" src="javascript/count_down.js"></script>
-	<script type="text/javascript" src="javascript/manage_tasks.js"></script>
-	<script type="text/javascript">
-		// Inicializa el objeto monsterTasksManager pasandole los datos necesarios.
-		// Este objeto es accesible desde los eventos del script manage_tasks.js
-		var monsterTasksManager = newMonsterTasksManager({
-				monsterId: ${monster.id}, 
-				ageState: '${monster.age}',
-				ajaxContentURL: '${ajaxTasksManagerURL}', // La url se codifica con c:url (JSP)
-				managerWindowId: 'task_manager_window'
-			});		
-	</script>
 ]]> 
 
 <div id="monsterLeftBlock">

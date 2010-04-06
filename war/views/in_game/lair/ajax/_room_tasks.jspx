@@ -9,14 +9,7 @@
     		
     		
  	<customtag:window id="showRoomTasks" titleValue="tareas sala (sin traducir)">
-	    <c:forEach items="${room.tasks}" var="turnTasks" varStatus="loop" >
-	        <h2> turno ${loop.index} </h2>
-	        <ul>
-	             <c:forEach items="${turnTasks}" var="task" varStatus="loop2" >
-	                 <li>${task.monsterId}: <fmt:message key="Task.TaskType.${task.type}"/></li>
-	             </c:forEach>
-	        </ul>
-	    </c:forEach>
+		Not implemented (sin traducir)
 	</customtag:window>
 
     		

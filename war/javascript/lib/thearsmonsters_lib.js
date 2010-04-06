@@ -45,7 +45,7 @@ var ThearsmonstersLib = function() {
 		    
 		    // Ademas oculta la ventana de la lista de tareas (_show_room_tasks)
 		    $('#load_room_tasks_container').hide();
-		    
+		    return false;
 		},
 		
 		/**

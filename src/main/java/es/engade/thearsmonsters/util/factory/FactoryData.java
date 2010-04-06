@@ -3,6 +3,8 @@ package es.engade.thearsmonsters.util.factory;
 import java.util.Date;
 import java.util.List;
 
+import com.google.appengine.api.datastore.KeyFactory;
+
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -323,9 +325,15 @@ public class FactoryData {
     
     	
     	//*** MONSTERS ***//
-		Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLogin(), now, now, MonsterAge.Child); 
+		Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLogin(), now, now, MonsterAge.Child);
 		Monster adult =	new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLogin(), now, now, MonsterAge.Adult);
 		Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLogin(), now, now, MonsterAge.Old);
+		
+		// Poner un id cualquiera, hay que poner un id válido
+		//child.setId(KeyFactory.stringToKey("0"));
+		//adult.setId(KeyFactory.stringToKey("0"));
+		//old.setId(KeyFactory.stringToKey("0"));
+		
     	
 		lair.addMonster(child).addMonster(adult).addMonster(old);
     	

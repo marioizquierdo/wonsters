@@ -72,20 +72,21 @@ public class Monster implements Serializable {
 	}
 	
 	public Monster(Lair lair, MonsterRace race, String name, Date borningDate, Date cocoonCloseUpDate,
-			MonsterAge ageState){
-		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
+			MonsterAge ageState) {
 		this.setLair(lair);
 		this.setRace(race);
 		this.setName(name);
 		this.setBorningDate(borningDate);
 		this.setCocoonCloseUpDate(cocoonCloseUpDate);
 		this.setAge(ageState);
+
+		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
 		this.freeTurns = 11;
 
 		/* Esto de aqui abajo no se si esta bien */
-		this.freeTurnsTimestamp= new Date();
+		this.freeTurnsTimestamp = new Date();
 		this.activities = new ArrayList<MonsterActivity>();
 		
 	}
