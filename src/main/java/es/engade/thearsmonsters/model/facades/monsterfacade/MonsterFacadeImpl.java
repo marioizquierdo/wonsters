@@ -1,10 +1,14 @@
 package es.engade.thearsmonsters.model.facades.monsterfacade;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.jdo.annotations.Transactional;
 
+import com.google.appengine.api.datastore.Key;
+
+import es.engade.thearsmonsters.http.controller.actions.MonsterAction;
 import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
@@ -14,10 +18,15 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
+import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
+import es.engade.thearsmonsters.model.entities.room.Room;
+import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
+import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
+import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -214,7 +223,78 @@ public class MonsterFacadeImpl implements MonsterFacade {
         monsterEggDao.remove(egg.getId());
         
         return eggSalePrice;
-        
+    }
+    
+    // Es NO transaccional
+    public List<MonsterAction>suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
+    
+    	List listActionsValid = new ArrayList();;
+    	WorkInTheWorks workInTheWorks;
+    	Room room;
+    	
+    	
+    	/* Recogo el monster del dao, al estilo de findMonster, a lo mejor se puede quitar el argumento
+    	 * Key del metodo y enviar directamente el monster en ese caso borrar las lineas siguientes
+    	 */
+    	Monster monster = monsterDao.get(monsterId);
+    	
+    	/* Obtengo la guarida asociada al monstruo */
+    	Lair lair = monster.getLair();
+    	
+    	
+    	
+    	/* Voy creando las posibles acciones, y compruebo si se pueden ejecutar,
+    	 * molaba que hubiese un sitio donde estuviese almacenado las distintas acciones posibles
+    	 * (a lo mejor ya lo hay y no lo encuentro)
+    	 * en este caso como solo hay dos y para tirar palante las creo y compruebo a pelo
+    	 */
+    	GarbageHarvest garbage = new GarbageHarvest(monster,lair.getRoom(RoomType.Warehouse));
+    	if(garbage.isValid()) listActionsValid.add(garbage);
+    	
+    	
+    	
+    	/* Ahora me pongo a comprobar en que salas se puede poner a trabajar el monstruo como obrero */
+    	List<Room> roomsInLair = lair.getRooms();
+    	for (int i =0 ; i<roomsInLair.size(); i++){
+    		room = roomsInLair.get(i);
+    		workInTheWorks = new WorkInTheWorks(monster,room);
+    		if (workInTheWorks.isValid()) listActionsValid.add(workInTheWorks);
+    	}
+    	
+    	
+    	
+    	return listActionsValid;
+    	
+    }
+    
+    @Transactional
+    boolean executeMonsterAction(String monsterActionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
+    	
+    	/* Recogo el monster del dao, al estilo de findMonster, a lo mejor se puede quitar el argumento
+    	 * Key del metodo y enviar directamente el monster en ese caso borrar las lineas siguientes
+    	 */
+    	Monster monster = monsterDao.get(monsterId);
+    	
+    	/* Obtengo la guarida asociada al monstruo */
+    	Lair lair = monster.getLair();
+    	
+    	/* Obtengo la room de la guarida del monstruo indicada */
+    	Room room = lair.getRoom(roomType);
+    	
+    	
+    	/* En función del tipo de monsterAction ejecutaré la acción indicada */
+    	
+    	if (monsterActionType.toUpperCase().equals("GARBAGEHARVEST")) {
+    		GarbageHarvest garbage = new GarbageHarvest(monster,room);
+    		return (garbage.execute());
+    	}
+    	
+    	if (monsterActionType.toUpperCase().equals("WORKINTHEWORKS")) {
+    		WorkInTheWorks workInTheWorks = new WorkInTheWorks(monster,room);
+    		return (workInTheWorks.execute());
+    	}
+    	
+    	return false;
     }
 
 }
