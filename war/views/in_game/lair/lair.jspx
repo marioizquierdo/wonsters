@@ -57,7 +57,7 @@
 			    
 			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
 			    	<c:set var="roomTitle">
-			    		<fmt:message key="Lair.room.${room.roomType}"/> - <fmt:message key="Common.clickToSeeDetails"/>
+			    		<h3> <fmt:message key="Lair.room.${room.roomType}"/></h3> <p><fmt:message key="Common.clickToSeeDetails"/></p>
 			    	</c:set>
 				    <div class="lairRoom ${room.roomType}" title="${roomTitle}" 
 				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 

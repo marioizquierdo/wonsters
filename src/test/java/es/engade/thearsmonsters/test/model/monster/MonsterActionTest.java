@@ -12,9 +12,8 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
-import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.test.GaeTest;
 import es.engade.thearsmonsters.util.factory.FactoryData;
 
@@ -38,19 +37,21 @@ public class MonsterActionTest extends GaeTest{
 
     @Test 
     public void testGarbageHarvestValid() {
+    	MonsterActionType garbageHarvest = MonsterActionType.GarbageHarvest;
     	Room wareHouse = FactoryData.RoomWhatIs.Warehouse.build();
     	Room tradeOffice = FactoryData.RoomWhatIs.TradeOffice.build();    	
 
-    	assertTrue(( new GarbageHarvest(monsterAdult, wareHouse)).isValid()); // Solo los adultos pueden trabajar en el Almacén
-    	assertFalse((new GarbageHarvest(monsterChild, wareHouse)).isValid());
-    	assertFalse((new GarbageHarvest(monsterOld,   wareHouse)).isValid());
-    	assertFalse((new GarbageHarvest(monsterChild, tradeOffice)).isValid());
-    	assertFalse((new GarbageHarvest(monsterAdult, tradeOffice)).isValid());
-    	assertFalse((new GarbageHarvest(monsterOld,   tradeOffice)).isValid());
+    	assertTrue( garbageHarvest.isValid(monsterAdult, wareHouse)); // Solo los adultos pueden trabajar en el Almacén
+    	assertFalse(garbageHarvest.isValid(monsterChild, wareHouse));
+    	assertFalse(garbageHarvest.isValid(monsterOld,   wareHouse));
+    	assertFalse(garbageHarvest.isValid(monsterChild, tradeOffice));
+    	assertFalse(garbageHarvest.isValid(monsterAdult, tradeOffice));
+    	assertFalse(garbageHarvest.isValid(monsterOld,   tradeOffice));
     }
     
     @Test 
     public void testWorkInTheWorksValid() {
+    	MonsterActionType workInTheWorks = MonsterActionType.WorkInTheWorks;
     	Room roomInWorks = FactoryData.RoomWhatIs.InWorks.build();
     	Room room = FactoryData.RoomWhatIs.InNormalState.build();
     	
@@ -58,20 +59,19 @@ public class MonsterActionTest extends GaeTest{
     	assertFalse(room.isInWorks());
     	
 
-    	assertTrue((new WorkInTheWorks(monsterAdult, roomInWorks)).isValid()); // Solo los adultos pueden trabajar en las obras
-    	assertFalse((new WorkInTheWorks(monsterChild, roomInWorks)).isValid());
-    	assertFalse((new WorkInTheWorks(monsterOld,   roomInWorks)).isValid());
-
-    	assertFalse((new WorkInTheWorks(monsterAdult, room)).isValid());
-    	assertFalse((new WorkInTheWorks(monsterChild, room)).isValid());
-    	assertFalse((new WorkInTheWorks(monsterOld,   room)).isValid());
+    	assertTrue( workInTheWorks.isValid(monsterAdult, roomInWorks)); // Solo los adultos pueden trabajar en las obras
+    	assertFalse(workInTheWorks.isValid(monsterChild, roomInWorks));
+    	assertFalse(workInTheWorks.isValid(monsterOld,   roomInWorks));
+    	assertFalse(workInTheWorks.isValid(monsterAdult, room));
+    	assertFalse(workInTheWorks.isValid(monsterChild, room));
+    	assertFalse(workInTheWorks.isValid(monsterOld,   room));
     }
 
     
     @Test 
     public void testBuildRoom() {
     	int contador = 0;
-    	int levelInitial = 0;
+    	int initialLevel = 0;
     	int effortToUpgrade = 0;
     	int initialFreeTurns = 0;
     	int turnsToUpgrade = 0;
@@ -84,7 +84,7 @@ public class MonsterActionTest extends GaeTest{
     	Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
     	
     	/* Creo la accion */
-    	MonsterAction action = new WorkInTheWorks(monsterAdult, tradeOffice);
+    	MonsterAction action = MonsterActionType.WorkInTheWorks.build(monsterAdult, tradeOffice);
 
     	/* Obtengo el esfuerzo que hay que hacer para subir de nivel la sala */
     	effortToUpgrade = tradeOffice.getEffortUpgrade();
@@ -98,7 +98,7 @@ public class MonsterActionTest extends GaeTest{
     	initialFreeTurns = monsterAdult.getFreeTurns();
     	
     	/* Obtengo el nivel inicial de la sala */
-    	levelInitial = tradeOffice.getLevel();
+    	initialLevel = tradeOffice.getLevel();
     	
     	/* Ejecuto el numero de turnos necesarios para subir de nivel la sala */
     	while (contador < turnsToUpgrade){
@@ -107,7 +107,7 @@ public class MonsterActionTest extends GaeTest{
     	}
     	
     	/* Compruebo que la sala subio de nivel */
-    	assertEquals(tradeOffice.getLevel(), levelInitial + 1);
+    	assertEquals(tradeOffice.getLevel(), initialLevel + 1);
     	
     	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
     	assertEquals(initialFreeTurns, turnsToUpgrade + monsterAdult.getFreeTurns());
@@ -118,24 +118,27 @@ public class MonsterActionTest extends GaeTest{
     	
     	int maxGarbage = lair.getGarbageStorageCapacity();
     	int contador = 0;
+    	int maxTurns = 1000;
     	
-    	//Añado experiencia en la recolección
+    	//Añadir experiencia en la recolección de basura
     	monsterAdult.addExp(AttrType.HarvesterSkill, 100);
     	monsterAdult.addExp(AttrType.Strenght, 100);
     	
-    	MonsterAction action = new GarbageHarvest(monsterAdult, lair.getRoom(RoomType.Warehouse));
+    	MonsterAction action = MonsterActionType.GarbageHarvest.build(monsterAdult, RoomType.Warehouse);
     	
-    	monsterAdult.setFreeTurns(1000);
+    	monsterAdult.setFreeTurns(maxTurns);
     	
-    	while (lair.getGarbage() < maxGarbage ){
+    	while (lair.getGarbage() < maxGarbage && contador < maxTurns){
     		action.execute();
     		contador++;
     	}
+    	// Si llega hasta aquí es que el bucle se quedó pillado (por ejemplo porque no añade basura)
+    	assertTrue(contador < maxTurns);
     	
-    	//comprobamos que gasta los turnos del mounstro
-    	assertEquals(1000-contador,monsterAdult.getFreeTurns());
-    	
-    	//comprobamos que se ha llenado de basura
+    	// comprobamos que el monstruo gasta los turnos que debe gastar
+    	assertEquals(1000 - contador, monsterAdult.getFreeTurns());
+    	 
+    	// comprobamos que la guarida se ha llenado de basura
     	assertEquals(lair.getGarbage(), maxGarbage);
     }
     

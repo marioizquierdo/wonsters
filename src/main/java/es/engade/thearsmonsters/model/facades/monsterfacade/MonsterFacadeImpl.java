@@ -17,16 +17,15 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
-import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
 import es.engade.thearsmonsters.model.entities.room.Room;
+import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
-import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
-import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -34,6 +33,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
 
     private MonsterDao monsterDao;
     private MonsterEggDao monsterEggDao;
+    private RoomDao roomDao;
     private LairDao lairDao;
     
     public void setMonsterDao(MonsterDao monsterDao) {
@@ -42,6 +42,10 @@ public class MonsterFacadeImpl implements MonsterFacade {
 
     public void setMonsterEggDao(MonsterEggDao monsterEggDao) {
         this.monsterEggDao = monsterEggDao;
+    }
+
+    public void setRoomDao(RoomDao roomDao) {
+        this.roomDao = roomDao;
     }
 
     public void setLairDao(LairDao lairDao) {
@@ -226,75 +230,53 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
     
     // Es NO transaccional
-    public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
-    
-    	List listActionsValid = new ArrayList();
-    	WorkInTheWorks workInTheWorks;
-    	Room room;
-    	
+    public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{ 	
     	
     	/* Recogo el monster del dao, al estilo de findMonster, a lo mejor se puede quitar el argumento
     	 * Key del metodo y enviar directamente el monster en ese caso borrar las lineas siguientes
     	 */
     	Monster monster = monsterDao.get(monsterId);
-    	
-    	/* Obtengo la guarida asociada al monstruo */
     	Lair lair = monster.getLair();
+    	List<MonsterAction> suggestedActions = new ArrayList<MonsterAction>();
     	
     	
-    	
-    	/* Voy creando las posibles acciones, y compruebo si se pueden ejecutar,
-    	 * molaba que hubiese un sitio donde estuviese almacenado las distintas acciones posibles
-    	 * (a lo mejor ya lo hay y no lo encuentro)
-    	 * en este caso como solo hay dos y para tirar palante las creo y compruebo a pelo
-    	 */
-    	GarbageHarvest garbage = new GarbageHarvest(monster,lair.getRoom(RoomType.Warehouse));
-    	if(garbage.isValid()) listActionsValid.add(garbage);
-    	
-    	
-    	
-    	/* Ahora me pongo a comprobar en que salas se puede poner a trabajar el monstruo como obrero */
-    	List<Room> roomsInLair = lair.getRooms();
-    	for (int i =0 ; i<roomsInLair.size(); i++){
-    		room = roomsInLair.get(i);
-    		workInTheWorks = new WorkInTheWorks(monster,room);
-    		if (workInTheWorks.isValid()) listActionsValid.add(workInTheWorks);
+    	// Para cada sala se comprueba si se puede ejecutar alguna acción en ella,
+    	// para ello hay que comprobar todas las combinaciones posibles room - monsterAction.
+    	for (Room room : lair.getRooms()) {
+    		for (MonsterActionType actionType : MonsterActionType.values()) {
+    			MonsterAction action = actionType.build(monster, room);
+    			if(action.isValid()) {
+    				suggestedActions.add(action); // solo se sugieren acciones válidas
+    			}
+    		}
     	}
     	
-    	
-    	
-    	return listActionsValid;
+    	return suggestedActions;
     	
     }
     
     @Transactional
-    boolean executeMonsterAction(String monsterActionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
+    public boolean executeMonsterAction(MonsterActionType actionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
     	
-    	/* Recogo el monster del dao, al estilo de findMonster, a lo mejor se puede quitar el argumento
-    	 * Key del metodo y enviar directamente el monster en ese caso borrar las lineas siguientes
+    	/* Al estilo de findMonster, a lo mejor se puede quitar el argumento
+    	 * Key del metodo y enviar directamente el monster en ese caso borrar la linea siguiente
     	 */
     	Monster monster = monsterDao.get(monsterId);
-    	
-    	/* Obtengo la guarida asociada al monstruo */
     	Lair lair = monster.getLair();
-    	
-    	/* Obtengo la room de la guarida del monstruo indicada */
     	Room room = lair.getRoom(roomType);
     	
     	
-    	/* En función del tipo de monsterAction ejecutaré la acción indicada */
+    	// Ejecuta la acción
+    	boolean success = actionType.execute(monster, room);
     	
-    	if (monsterActionType.toUpperCase().equals("GARBAGEHARVEST")) {
-    		GarbageHarvest garbage = new GarbageHarvest(monster,room);
-    		return (garbage.execute());
+    	if(success) { // guarda los resultados
+    		monsterDao.save(monster);
+    		lairDao.save(lair);
+    		roomDao.save(room);
+    		return true;
+    	} else {
+    		return false;
     	}
-    	
-    	if (monsterActionType.toUpperCase().equals("WORKINTHEWORKS")) {
-    		WorkInTheWorks workInTheWorks = new WorkInTheWorks(monster,room);
-    		return (workInTheWorks.execute());
-    	}
-    	
-    	return false;
     }
 
 }

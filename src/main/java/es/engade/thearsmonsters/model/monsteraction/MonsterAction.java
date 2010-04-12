@@ -8,83 +8,55 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 
-public abstract class MonsterAction {
+public class MonsterAction {
+	
+	private MonsterActionType type;
+	private Monster monster;
+	private Room room;
 	
 	/**
-	 * Es el monstruo que ejecuta la acción
+	 * Constructor genérico, la room puede ser de la guarida del monstruo o de fuera.
 	 */
-	protected Monster monster;
+	public MonsterAction(MonsterActionType type, Monster monster, Room room) {
+	    this.type = type;
+	    this.monster = monster;
+	    this.room = room;
+    }
 	
 	/**
-	 * Sala donde se ejecuta la acción.
-	 * La guarida se obtiene a partir de esta sala.
+	 * Acción que se realiza en la misma guarida que el monstruo.
 	 */
-	protected Room room;
-	
-	protected RoomType roomType;
-	protected List<MonsterAge> ageStates;
-	
-	public MonsterAction(Monster monster, Room room) {
-		this.monster = monster;
-		this.room = room;
+	public MonsterAction(MonsterActionType type, Monster monster, RoomType roomType) {
+		this(type, monster, monster.getLair().getRoom(roomType));
 	}
 	
-	public Monster getMonster() { return this.monster; }
-	public Room getRoom() { return this.room; }
-	public Lair getLair() { return this.getRoom().getLair(); }
-	public abstract List<RoomType> allowedRoomTypes();
-	public abstract List<MonsterAge> allowedMonsterAges();
 	
+	//*** Getters ***//
+
+	public MonsterActionType getType() { return type; }
+	public Monster getMonster() { return monster;  }
+	public Room getRoom() { return room; }
+	public Lair getLair() { return room.getLair(); }
+	public List<MonsterAge> getAllowedMonsterAges() { return type.getAllowedMonsterAges(); }
+	public List<RoomType> getAllowedRoomTypes() { return type.getAllowedRoomTypes(); }
+	
+	
+	//*** Validate and Execute ***//
 	
 	/**
-	 * Teniendo en cuenta los datos incluidos (monster y room), valida si esta tarea
-	 * se puede ejecutar o no.
+	 * Devuelve true si esta action es válida, es decir, si se puede ejecutar.
+	 * Se puede usar desde aquí o bien directamente desde el MonsterActionType.isValid
 	 */
 	public boolean isValid() {
-		return checkBasicRoomConditions() &&
-			checkBasicMonsterConditions() &&
-			checkExtraConditions();
-	}
-
-	protected boolean checkBasicRoomConditions() {
-		return this.allowedRoomTypes().contains(this.room.getRoomType());
-	}
-	protected boolean checkBasicMonsterConditions() {
-		return this.allowedMonsterAges().contains(this.monster.getAge());
-			//&& monster.hasFreeTurns(); TODO: añadir este método en monster.
-	}
-	protected boolean checkExtraConditions() {
-		return true;
+		return type.isValid(monster, room);
 	}
 	
 	/**
-	 * Ejecuta la acción del monstruo y modifica el estado del monstruo, de la sala
-	 * y de la guarida de esa sala (posiblemente también el de los demás monstruos
-	 * que tengan actividad en esa sala en ese mismo momento.
-	 * Tener en cuenta que execute hace un isValid previamente.
-	 * @return true si se ha podido guardar. False si la tarea no es válida.
+	 * Valida la tarea y la ejecuta, con ello modifica el estado del monstruo, de la sala y de la guarida. 
+	 * @return true si la tarea es válida y se ha ejecutado, false en caso contrario (si devuelve false, ningún cambio ha sido realizado).
 	 */
 	public boolean execute() {
-		if(isValid()) {
-			monster.setFreeTurns(monster.getFreeTurns()- 1);
-			doExecute();
-			return true;
-		} else {
-			return false;
-		}
-		
+		return type.execute(monster, room);
 	}
 	
-	public abstract String getType();
-	
-	protected abstract void doExecute();
-	
-	protected List<MonsterAge> ages(String stringList) {
-		return MonsterAge.list(stringList);
-	}
-	
-	protected List<RoomType> rooms(String stringList) {
-		return RoomType.list(stringList);
-	}
-
 }

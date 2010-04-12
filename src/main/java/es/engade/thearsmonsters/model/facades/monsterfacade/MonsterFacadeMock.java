@@ -14,9 +14,8 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
-import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
-import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
@@ -77,15 +76,17 @@ public class MonsterFacadeMock implements MonsterFacade {
 	}
 	
 	public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
-		List listActionsValid = new ArrayList();
+		List<MonsterAction> actions = new ArrayList<MonsterAction>();
 		Monster monster = FactoryData.MonsterWhoIs.Adult.build();
-		GarbageHarvest garbage = new GarbageHarvest(monster,monster.getLair().getRoom(RoomType.Warehouse));
-		WorkInTheWorks work = new WorkInTheWorks(monster,monster.getLair().getRoom(RoomType.TradeOffice));
-		WorkInTheWorks work2 = new WorkInTheWorks(monster,monster.getLair().getRoom(RoomType.Dormitories));
-		listActionsValid.add(garbage);
-		listActionsValid.add(work);
-		listActionsValid.add(work2);
-		return listActionsValid;
+		actions.add(MonsterActionType.GarbageHarvest.build(monster, RoomType.Warehouse));
+		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.TradeOffice));
+		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.Warehouse));
+		return actions;
+	}
+	
+	public boolean executeMonsterAction(MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
+		throws InstanceNotFoundException {
+		return true;
 	}
 
 }

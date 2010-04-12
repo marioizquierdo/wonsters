@@ -22,6 +22,7 @@ import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
+import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -93,13 +94,13 @@ public class Monster implements Serializable {
 
 	//-- GETTERS --//
 	public Key getId() { return id; }
-	public Lair getLair() {return lair;}	
-	public MonsterAge getAge(){return age;}	
-	public Date getBorningDate(){return borningDate;}
-	public Date getCocoonCloseUpDate(){return cocoonCloseUpDate;}
-	public String getName(){return name;}
-	public MonsterRace getRace(){return race;}
-	public int getFreeTurns() {return freeTurns;}
+	public Lair getLair() { return lair; }	
+	public MonsterAge getAge() { return age; }	
+	public Date getBorningDate() { return borningDate; }
+	public Date getCocoonCloseUpDate() { return cocoonCloseUpDate; }
+	public String getName() { return name; }
+	public MonsterRace getRace() { return race; }
+	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
 	
 	//Ñapa: Hay que calcular los días a partir del nacimiento del mounstro
 	//TODO: Estas funciones
@@ -115,7 +116,7 @@ public class Monster implements Serializable {
 	public void setBorningDate(Date borningDate) { this.borningDate = borningDate; }
 	public void setCocoonCloseUpDate(Date cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
 	public void setAge(MonsterAge ageState) { this.age = ageState; }
-	public void setFreeTurns(int freeTurns) { this.freeTurns = freeTurns;}
+	// setFreeTurns está en la sección de las monster actions.
 
 	
 	public void metamorphosisToAdul(){
@@ -179,13 +180,13 @@ public class Monster implements Serializable {
 	
 	
 	
-	//-- METHODS TO MANAGE MONSTER JOB TURNS --//	
+	//-- MONSTER ACTIONS (turns) --//	
 	
 	/** 
 	 * Se obtiene los turnos que ya estan asignados a este monstruo en otras actividades
+	 * TODO: cuando se implementen las MonsterActivities hay que descomentar este método.
 	 * @return int, Devuelve el numero de turnos ocupados en realizar sus actividades asignadas
 	 */
-	
 	public int taskHours(){
 		int s = 0;
 //		MonsterActivity activity;
@@ -197,30 +198,83 @@ public class Monster implements Serializable {
 	}
 	
 	/**
-	 * Refresca el numero de turnos libres disponibles para el monstruo
+	 * Refresca el valor de los freeTurns (y de freeTurnsTimestamp) para el momento timestamp,
+	 * que debe ser posterior a freeTurnsTimestamp (no se puede refrescar hacia el pasado).
+	 * @throws IllegalArgumentException si timestamp es antes de freeTurnsTimestamp.
 	 */
-	public void refreshFreeTurns(){
-//		
-//		int sleepHours,turnsPerDay;
-//		float daysFromTimestamp;
-//		Date calendarToday = new Date();
-//		Dormitories dormitorie = (Dormitories) this.lair.getRoom(RoomType.Dormitories);
-//		
-//		sleepHours = 14 - dormitorie.getLevel();
-//		turnsPerDay = 24 - sleepHours - this.taskHours();
-//		daysFromTimestamp = CalendarTools.distanceInDays(this.freeTurnsTimestamp, calendarToday);
-//		
-//		this.freeTurns += turnsPerDay * daysFromTimestamp;
-//		this.freeTurnsTimestamp = new Date();
-//			
+	private void refreshFreeTurns(Date timestamp) {
+		if(timestamp.before(freeTurnsTimestamp)) {
+			throw new IllegalArgumentException("the value of the param timestamp can not be before freeTurnsTimestamp");
+		}
+		
+		freeTurns = getFreeTurns(timestamp); // turnos libres que hay en ese momento.
+		freeTurnsTimestamp = timestamp;
 	}
 	
 	/**
-	 * Consume un turno y refresca el atributo turnsPerDay
+	 * Refresca el valor de los freeTurns y de freeTurnsTimestamp al momento actual.
 	 */
-	public void useFreeTurns(){
-		this.freeTurns-=1;
-		this.refreshFreeTurns();
+	private void refreshFreeTurns() {
+		refreshFreeTurns(DateTools.now());
+	}
+	
+	/**
+	 * Número de turnos libres que tiene el monstruo en el instante timestamp
+	 */
+	public int getFreeTurns(Date timestamp) {
+		// El atributo freeTurns es válido para el momento freeTurnsTimestamp,
+		// en el momento timestamp su valor puede ser distinto, 
+		// ya que los turnos se acumulan constantemente.
+		
+		if(timestamp.before(freeTurnsTimestamp)) { 
+			throw new IllegalArgumentException("the value of the param timestamp can not be before freeTurnsTimestamp."); 
+		}
+		
+		int turnsPerDay = 15 - this.taskHours(); // turnos acumulados cada día
+		float daysFromTimestamp = DateTools.distanceInDays(this.freeTurnsTimestamp, timestamp);
+		
+		// En el momento actual, los freeTurns son los que había en el instante freeTurnsTimestamp
+		// mas el número de turnos acumulados (según los dias que han pasado desde el último timpestamp)
+		return  this.freeTurns + turnsPerDay * ((int)daysFromTimestamp);
+	}
+	
+	/**
+	 * Número de turnis libres que tiene el monstruo en este momento.
+	 * (se van incrementando gradualmente al cabo del tiempo)
+	 */
+	public int getFreeTurns() {
+		return getFreeTurns(DateTools.now());
+	}
+	
+	/**
+	 * Pone los turnos indicados, y actualiza freeTurnsTimestamp al momento actual.
+	 * NOTA: Este método solo se debe usar desde los tests. Normalmente se usará useFreeTurn para restar un turno.
+	 */
+	public void setFreeTurns(int freeTurns) {
+		if(freeTurns <= 0) { throw new IllegalArgumentException("freeTurns must be greather than 0");}
+		refreshFreeTurns();
+		this.freeTurns = freeTurns;
+	}
+	
+	/**
+	 * @return true if there are free turns, false if not.
+	 */
+	public boolean isFreeTurnsAvailable() { 
+		return getFreeTurns() > 0;
+	}
+	
+	/**
+	 * Consume un turno.
+	 * @return true si se ha podido usar el turno, o false si ya no le quedaban turnos libres.
+	 */
+	public boolean useFreeTurn() {
+		if(isFreeTurnsAvailable()) {
+			this.freeTurns -= 1;
+			refreshFreeTurns();
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	

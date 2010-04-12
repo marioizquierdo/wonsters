@@ -98,7 +98,7 @@
 			  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
 			  	</c:set>
 			  	<li class="data_row">	
-				  	<span id="grow_to_adult_button" class="button_box" title="${title} - ${desc}">
+				  	<span id="grow_to_adult_button" class="button_box" title="${title} ${desc}">
 						<html:link action="MetamorphosisToAdult.do?monsterId=${monster.id}">${title}</html:link>
 				  	</span>
 			  	</li>
