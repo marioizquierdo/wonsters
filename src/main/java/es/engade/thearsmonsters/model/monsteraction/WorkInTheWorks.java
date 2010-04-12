@@ -61,4 +61,13 @@ public class WorkInTheWorks extends MonsterAction{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public String getType(){
+		return "workInTheWorks";
+	}
+
+	//Cuando se implmente la enum MonsterActionType los toStrings se ponen en la clase monsterAction
+	public String toString() {
+		return "Trabajar en las obras de " + room.getRoomType() + "(st)";
+	}
 }

@@ -3,6 +3,8 @@ package es.engade.thearsmonsters.model.facades.monsterfacade;
 import java.io.Serializable;
 import java.util.List;
 
+import com.google.appengine.api.datastore.Key;
+
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
@@ -11,6 +13,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
+import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -43,4 +46,9 @@ public interface MonsterFacade {
     
     public Monster findMonster(String monsterId)
     	throws InternalErrorException, InstanceNotFoundException;
+    
+    public List<MonsterAction> suggestMonsterActions(Key monsterId) 
+    	throws InstanceNotFoundException;
+
 }
+

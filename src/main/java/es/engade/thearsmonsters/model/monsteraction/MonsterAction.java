@@ -75,6 +75,8 @@ public abstract class MonsterAction {
 		
 	}
 	
+	public abstract String getType();
+	
 	protected abstract void doExecute();
 	
 	protected List<MonsterAge> ages(String stringList) {

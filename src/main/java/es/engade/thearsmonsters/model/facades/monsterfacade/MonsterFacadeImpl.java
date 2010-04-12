@@ -8,7 +8,6 @@ import javax.jdo.annotations.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 
-import es.engade.thearsmonsters.http.controller.actions.MonsterAction;
 import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
@@ -26,6 +25,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
+import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -226,9 +226,9 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
     
     // Es NO transaccional
-    public List<MonsterAction>suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
+    public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
     
-    	List listActionsValid = new ArrayList();;
+    	List listActionsValid = new ArrayList();
     	WorkInTheWorks workInTheWorks;
     	Room room;
     	

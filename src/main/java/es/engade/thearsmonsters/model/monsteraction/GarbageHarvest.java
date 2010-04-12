@@ -44,5 +44,14 @@ public class GarbageHarvest extends MonsterAction {
 			
 		monster.addExp(AttrType.HarvesterSkill, 20);
 	}
+	
+	public String getType(){
+		return "garbageHarvest";
+	}
+	
+	//Cuando se implmente la enum MonsterActionType los toStrings se ponen en la clase monsterAction
+	public String toString() {
+		return "Recolectar basura(st)";
+	}
 
 }

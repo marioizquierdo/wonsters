@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.http.controller.actions;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,13 +32,16 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
         MonsterFacade monsterFacade = (MonsterFacade) appContext.getBean("monsterFacade");
     	String monsterId = request.getParameter("id");
     	Monster monster;
-    	
+    	List suggestMonsterActions;
         /* Find Monster. */
 		try {
 			monster = monsterFacade.findMonster(monsterId);
+			suggestMonsterActions = monsterFacade.suggestMonsterActions(monster.getId());
 		} catch (InstanceNotFoundException e) {
 	        return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
 		}
+		
+		request.setAttribute("suggestMonsterActions",suggestMonsterActions);
 		
 		/* Set request attributes */
 		request.setAttribute("monster", monster);

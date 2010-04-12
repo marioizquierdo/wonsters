@@ -20,6 +20,57 @@
 ]]> 
 
 <div id="monsterLeftBlock">
+<customtag:window id="MonsterTasks" titleValue="Monster.jobs.title" window_width="240">
+    <div id="turns_left">
+        <customtag:monsterBrief_data_row property="freeTurns">
+            <span class="monster_turns">${monster.freeTurns}</span>
+        </customtag:monsterBrief_data_row>
+    </div>
+    
+    <c:choose>
+    
+    <c:when test="${fn:length(suggestMonsterActions) == 0}">
+            <customtag:info_message key="Monster.jobs.thereIsNoJobs" icon_id="0" style="margin: 15px; width: 240px;"/>
+    </c:when>
+    
+    <c:otherwise>
+    
+      <html:form action="ExecuteMonsterTasks">
+        
+        <html:hidden property="monsterId" value="${monster.id}"/>
+    
+        <c:forEach items="${suggestMonsterActions}" var="monsterAction" varStatus="loop" >
+            <!--  
+                 Por otro lado, esta lista debe hacerse con tags ul + li, y si la lista entera supone
+                 mucho codigo y muy complejo, debera moverse para un jspf
+                    -->
+                    
+        
+            <html:hidden property="${monsterAction.type}_roomType" value="${monsterAction.room.roomType}"/>
+                
+            <div class="field">        
+                <span class="label">
+                    ${monsterAction} <!-- En vez de imprimir directamente monsterAction se compondra una clave para el fmt tag -->
+                </span>
+                <span class="entry">    
+                    <html:text property="${monsterAction.type}"></html:text>
+                </span>
+            </div>
+                    
+        </c:forEach>
+        
+        <div class="button end_button">        
+                <html:submit>
+                    <fmt:message key="Buttons.update"/>
+                </html:submit>
+            </div>      
+        
+      </html:form>  
+    </c:otherwise>
+    
+    </c:choose>
+    
+</customtag:window>
 </div>
 
 <div id="monsterRightBlock">

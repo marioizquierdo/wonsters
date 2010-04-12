@@ -3,14 +3,20 @@ package es.engade.thearsmonsters.model.facades.monsterfacade;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.datastore.Key;
+
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
+import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
+import es.engade.thearsmonsters.model.monsteraction.GarbageHarvest;
+import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
+import es.engade.thearsmonsters.model.monsteraction.WorkInTheWorks;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
@@ -68,6 +74,18 @@ public class MonsterFacadeMock implements MonsterFacade {
 			throws InternalErrorException, InstanceNotFoundException,
 			MonsterGrowException {
 		return null;
+	}
+	
+	public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
+		List listActionsValid = new ArrayList();
+		Monster monster = FactoryData.MonsterWhoIs.Adult.build();
+		GarbageHarvest garbage = new GarbageHarvest(monster,monster.getLair().getRoom(RoomType.Warehouse));
+		WorkInTheWorks work = new WorkInTheWorks(monster,monster.getLair().getRoom(RoomType.TradeOffice));
+		WorkInTheWorks work2 = new WorkInTheWorks(monster,monster.getLair().getRoom(RoomType.Dormitories));
+		listActionsValid.add(garbage);
+		listActionsValid.add(work);
+		listActionsValid.add(work2);
+		return listActionsValid;
 	}
 
 }

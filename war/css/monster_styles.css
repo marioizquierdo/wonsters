@@ -24,6 +24,20 @@
 	width: 240px;
 }
 
+.turns_left {
+	float: left;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    width: 220px;
+    text-align: center;
+	}
+	
+.monster_turns{
+	padding:   10px;
+	font-size: xx-large;
+	vertical-align: middle;
+	}
+	
 .task {
 	float: left;
 	padding: 5px;

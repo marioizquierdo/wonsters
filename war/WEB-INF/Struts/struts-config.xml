@@ -21,6 +21,9 @@
 
     <form-bean name="confirmationForm"
 		type="es.engade.thearsmonsters.http.view.actionforms.ConfirmationForm"/>
+		
+     <form-bean name="executeMonsterTasksForm"
+        type="es.engade.thearsmonsters.http.view.actionforms.ExecuteMonsterTasksForm"/>
 
     <form-bean name="messageForm"
 		type="es.engade.thearsmonsters.http.view.actionforms.MessageForm"/>
@@ -118,6 +121,13 @@
         <set-property property="authenticationRequired" value="true"/>
         <forward name="EggsManagement"
                  path=".EggsManagement"/></action>
+                 
+    <!-- nhapa -->
+    <action path="/ExecuteMonsterTasks"
+            type="es.engade.thearsmonsters.http.controller.actions.ExecuteMonsterTasksAction"
+            name="executeMonsterTasksForm" scope="request" validate="true">
+        <set-property property="authenticationRequired" value="true"/>
+       </action> 
 			
 	<action path="/Guild"
             type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
