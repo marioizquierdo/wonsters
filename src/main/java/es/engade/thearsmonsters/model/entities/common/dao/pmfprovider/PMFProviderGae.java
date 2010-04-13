@@ -7,6 +7,7 @@ public class PMFProviderGae implements PMFProvider {
 
     private static final PersistenceManagerFactory persistentManagerFactory =
         JDOHelper.getPersistenceManagerFactory("transactions-optional");
+
     
     public PersistenceManagerFactory getPmf() {
         return persistentManagerFactory;
