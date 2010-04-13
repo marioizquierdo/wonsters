@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameters;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
@@ -33,8 +32,7 @@ public class BornMonsterAction extends AThearsmonstersDefaultAction {
         throws IOException, ServletException, InternalErrorException {
     	    	
         
-            ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-            MonsterFacade monsterFacade = (MonsterFacade) appContext.getBean("monsterFacade");
+            MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
 
 	        Monster monster = null;
 	        try {

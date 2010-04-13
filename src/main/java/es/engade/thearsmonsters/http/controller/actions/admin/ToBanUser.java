@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
 import es.engade.thearsmonsters.util.configuration.AppContext;
@@ -40,8 +39,7 @@ public class ToBanUser extends DefaultAdminAction {
 
         /* Delete UserProfile (and his Lair, monsters, etc). */
     	try {
-    	    ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-    	    UserFacade userFacade = (UserFacade) appContext.getBean("userFacade");
+    	    UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
 
     		userFacade.removeUserProfile(login);
 			success.add("AdminShowActionResults.ToBanUser.Success");

@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
+import com.google.storage.onestore.v3.OnestoreEntity.PropertyValue.UserValue;
+
+import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -43,18 +45,20 @@ public class UserFacadeTest extends GaeTest {
     static {
         ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
         userDao = appContext.getBean(UserDao.class);
-        userFacade = (UserFacade) appContext.getBean("userFacade");
+        
     }
     
     @Before
     public void populateDB() {
+        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
+        userFacade = (UserFacade) appContext.getBean("userFacade");
         
         int numberOfUsers = 0;
         User user = FactoryData.UserWhoIs.Random.build();
         user.setLogin(LOGIN);
         user.setEncryptedPassword(PasswordEncrypter.crypt(PASSWORD));
         //TODO: Hasta que se elimine la herencia en Room
-        user.getLair().setRooms(null);
+        user.getLair().setRooms(new ArrayList<Room>());
         
         // PERSIST
 
@@ -64,7 +68,7 @@ public class UserFacadeTest extends GaeTest {
         
         while (numberOfUsers < NUMBER_OF_USERS) {
             allPersistentUsers.add(FactoryData.UserWhoIs.Random.build());
-            allPersistentUsers.get(numberOfUsers).getLair().setRooms(null);
+            allPersistentUsers.get(numberOfUsers).getLair().setRooms(new ArrayList<Room>());
             userDao.save(allPersistentUsers.get(numberOfUsers));
             numberOfUsers++;
         }
@@ -110,7 +114,6 @@ public class UserFacadeTest extends GaeTest {
         
         User recoveredUser = userDao.findUserByLogin(NON_EXISTENT_LOGIN);
 
-        System.out.println("USER -> "+ recoveredUser);
     }
     
     @Test
@@ -137,7 +140,7 @@ public class UserFacadeTest extends GaeTest {
     public void testLoginFailPassword() throws InstanceNotFoundException, 
     IncorrectPasswordException, InternalErrorException {
         
-        LoginResult loginResult = userFacade.login(LOGIN, INCORRECT_PASSWORD, false, false);
+        userFacade.login(LOGIN, INCORRECT_PASSWORD, false, false);
         
     }
     
@@ -145,8 +148,26 @@ public class UserFacadeTest extends GaeTest {
     public void testLoginFailUser() throws InstanceNotFoundException, 
     IncorrectPasswordException, InternalErrorException {
         
-        LoginResult loginResult = userFacade.login(NON_EXISTENT_LOGIN, INCORRECT_PASSWORD, false, false);
+        userFacade.login(NON_EXISTENT_LOGIN, INCORRECT_PASSWORD, false, false);
         
+    }
+    
+    // Este test falla por intentar acceder a un método dependiente del
+    // estado, que aún no se ha inicializado
+    @Test(expected = InternalErrorException.class)
+    public void testFindUserProfileNonState() throws InternalErrorException {
+        User recoveredUser = userFacade.findUserProfile();
+        System.out.println(recoveredUser);
+    }
+    
+    // Se prueba que se inicialice bien el estado con "login"
+    @Test
+    public void testFindUserProfileAfterLogin() throws Throwable {
+        
+        userFacade.login(LOGIN, PASSWORD, false, false);
+        User recoveredUser = userFacade.findUserProfile();
+        
+        assertEquals(persistentUser, recoveredUser);
     }
     
     @Test
@@ -157,7 +178,7 @@ public class UserFacadeTest extends GaeTest {
         
         User user = FactoryData.UserWhoIs.Random.build();
         user.setLogin(LOGIN_TO_REMOVE);
-        user.getLair().setRooms(null);
+        user.getLair().setRooms(new ArrayList<Room>());
         
         // PERSIST
 
@@ -171,5 +192,40 @@ public class UserFacadeTest extends GaeTest {
         } catch (InstanceNotFoundException e) {
             assert(true);
         }
+    }
+    
+    @Test(expected = InstanceNotFoundException.class)
+    public void testRemoveUnexistentUserProfile() 
+        throws InstanceNotFoundException, InternalErrorException {
+        
+        userFacade.removeUserProfile(NON_EXISTENT_LOGIN);
+        
+    }
+    
+    @Test(expected=InternalErrorException.class)
+    public void testUpdateUserProfileNonState() throws InstanceNotFoundException, InternalErrorException {
+        
+        UserDetails details = new UserDetails("updatedName", "updateSurname",
+                "updatedEmail", "sp");
+        userFacade.updateUserProfileDetails(details);
+
+    }
+
+    @Test
+    public void testUpdateUserProfileAfterLogin() throws Throwable {
+        
+        userFacade.login(LOGIN, PASSWORD, false, false);
+        User userBeforeUpdate = userFacade.findUserProfile();
+        
+        UserDetails details = new UserDetails("updatedName", "updateSurname",
+                "updatedEmail", "sp");
+        
+        assert(!userBeforeUpdate.getUserDetails().equals(details));
+        
+        userFacade.updateUserProfileDetails(details);
+        
+        User userAfterUpdate = userFacade.findUserProfile();
+        assertEquals(details, userAfterUpdate.getUserDetails());
+
     }
 }

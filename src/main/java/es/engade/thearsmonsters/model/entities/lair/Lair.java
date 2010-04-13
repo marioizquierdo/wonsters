@@ -55,7 +55,11 @@ public class Lair implements Serializable {
     @Persistent(mappedBy = "lair")
     private List<MonsterEgg> monsterEggs;
 
-    public Lair() {}
+    public Lair() {
+        this.rooms = new ArrayList<Room>();
+        this.monsters = new ArrayList<Monster>();
+        this.monsterEggs = new ArrayList<MonsterEgg>();
+    }
     
 	public Lair(User user, int money, int garbage,
     		RoomData roomData, Address address) {
@@ -109,10 +113,11 @@ public class Lair implements Serializable {
      */
 	public void setRooms(List<Room> newRooms) {
 		rooms.clear(); // vacía la lista
-		for(Room room : newRooms) {
-			room.setLair(this); // establece el doble enlace.
-			rooms.add(room); // y añade la nueva Room
-		}
+		if (newRooms != null)
+    		for(Room room : newRooms) {
+    			room.setLair(this); // establece el doble enlace.
+    			rooms.add(room); // y añade la nueva Room
+    		}
 	}
 	
 	/**
@@ -216,7 +221,7 @@ public class Lair implements Serializable {
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
-		    "user", user,
+		    "user", user.getLogin(),
 			"money", money,
 			"garbage", garbage,
 			"address", address,

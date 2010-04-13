@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.model.facades.lairfacade;
 
-import javax.jdo.annotations.Transactional;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.lair.Address;

@@ -11,7 +11,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
@@ -41,8 +40,7 @@ public class FindUserProfileAction extends DefaultAdminAction {
         /* Find UserProfile. */
     	try {
     		
-    	    ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-    	    UserFacade userFacade = (UserFacade) appContext.getBean("userFacade");
+    	    UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
     		
 			User userProfile = userFacade.findUserProfile(login);
 			   

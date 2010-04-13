@@ -63,7 +63,8 @@
 	</bean>
 	
 	<!-- Facades -->
-	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeImpl">
+	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeImpl"
+	scope="prototype">
 			<property name="userDao" ref="userDao" />
 	</bean>
 	<bean id="lairFacade" class="es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeImpl">

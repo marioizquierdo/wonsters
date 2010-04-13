@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameters;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
@@ -36,8 +35,7 @@ public class SetRoomInWorksStateAction extends AThearsmonstersDefaultAction {
         HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
     	
-        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-        LairFacade lairFacade = (LairFacade) appContext.getBean("lairFacade");
+        LairFacade lairFacade = (LairFacade) AppContext.getInstance().getAppContext().getBean("lairFacade");
 
         /* Get data. */
         RoomType roomType = RoomType.valueOf(request.getParameter("roomType"));

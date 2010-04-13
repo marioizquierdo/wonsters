@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
@@ -127,8 +126,7 @@ public final class SessionManager {
     }
 
     static {
-        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-        userFacade = (UserFacade) appContext.getBean("userFacade");
+        userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
     }
     public final static void login(HttpServletRequest request,
         HttpServletResponse response, String login,

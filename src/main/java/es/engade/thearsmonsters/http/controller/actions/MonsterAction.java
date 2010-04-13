@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.google.appengine.api.datastore.KeyFactory;
 
@@ -28,8 +27,7 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
         	HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
         
-        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-        MonsterFacade monsterFacade = (MonsterFacade) appContext.getBean("monsterFacade");
+        MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
     	String monsterId = request.getParameter("id");
     	Monster monster;
     	List suggestMonsterActions;

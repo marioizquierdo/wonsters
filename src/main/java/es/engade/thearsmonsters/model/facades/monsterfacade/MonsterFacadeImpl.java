@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.jdo.annotations.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 

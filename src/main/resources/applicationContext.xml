@@ -18,17 +18,25 @@
 	<tx:annotation-driven />
 		
 	<!-- JDO -->
-<!--	<bean id="persistenceManagerFactory"-->
-<!--		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean">-->
-<!--		<property name="persistenceManagerFactoryName" value="transactions-optional" />-->
-<!--	</bean>-->
+<!--org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean-->
+<!--org.datanucleus.store.appengine.jdo.DatastoreJDOPersistenceManager-->
+	<bean id="persistenceManagerFactory"
+		class="org.springframework.orm.jdo.LocalPersistenceManagerFactoryBean"
+		scope="singleton">
+		<property name="persistenceManagerFactoryName" value="transactions-optional" />
+	</bean>
 
-<bean id="pmfProvider"
-		class="es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProviderGae"/>
+<!--	<bean id="pmfProvider"-->
+<!--		class="es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProviderGae"/>-->
+	<bean id="pmfProvider"
+		class="es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProviderImpl"
+		scope="singleton">
+		<property name="pmf" ref="persistenceManagerFactory" />
+	</bean>
 	
-<!--	<bean id="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">-->
-<!--		<property name="persistenceManagerFactory" ref="persistenceManagerFactory" />-->
-<!--	</bean>-->
+	<bean id="transactionManager" class="org.springframework.orm.jdo.JdoTransactionManager">
+		<property name="persistenceManagerFactory" ref="persistenceManagerFactory" />
+	</bean>
 
 <!--	-->
 <!--	 JPA -->
@@ -60,7 +68,10 @@
 	</bean>
 	
 	<!-- Facades -->
-	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeMock"/>
+	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeImpl"
+		scope="prototype">
+			<property name="userDao" ref="userDao" />
+	</bean>
 	<bean id="lairFacade" class="es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeMock"/>
 	<bean id="monsterFacade" class="es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacadeMock"/>
 </beans>

@@ -10,7 +10,6 @@ import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.http.view.actionforms.UserProfileForm;
 import es.engade.thearsmonsters.http.view.applicationobjects.Languages;
@@ -56,8 +55,7 @@ public class EditUserProfileAction extends AThearsmonstersDefaultAction {
              */           
             if ("UPDATE".equals(action)) {
             
-                ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-                UserFacade userFacade = (UserFacade) appContext.getBean("userFacade");
+                UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
                 User userProfile = userFacade.
                         findUserProfile();
                 UserDetails userProfileDetails = 

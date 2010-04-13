@@ -1,6 +1,9 @@
 package es.engade.thearsmonsters.model.facades.userfacade;
 
-import javax.jdo.annotations.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
@@ -12,8 +15,11 @@ import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
+@Service("userFacade")
+@Transactional
 public class UserFacadeImpl implements UserFacade {
 
+    @Autowired
     private UserDao userDao;
     
     // Internal state
@@ -23,7 +29,6 @@ public class UserFacadeImpl implements UserFacade {
         this.userDao = userDao;
     }
 
-    @Transactional
     public void changePassword(String oldClearPassword, String newClearPassword)
             throws IncorrectPasswordException, InternalErrorException {
         
@@ -42,22 +47,27 @@ public class UserFacadeImpl implements UserFacade {
 
     }
 
+    @Transactional(readOnly=true)
     public int countUsers() throws InternalErrorException {
         return userDao.getNumberOfUsers();
     }
 
+    @Transactional(readOnly=true)
     public User findUserProfile() throws InternalErrorException {
 
-        if (login != null)
+        if (login == null) {
+            throw new InternalErrorException(new Exception("Unexistent user"));
+        }
+        else
             try {
                 return findUserProfile(login);
             } catch (InstanceNotFoundException e) {
                 // Internal Error: A logged user should exist
                 throw new InternalErrorException(e);
             }
-        return null;
     }
 
+    @Transactional(readOnly=true)
     public User findUserProfile(String login) throws InstanceNotFoundException,
             InternalErrorException {
         
@@ -65,6 +75,7 @@ public class UserFacadeImpl implements UserFacade {
         
     }
 
+    @Transactional(readOnly=true)
     public LoginResult login(String login, String password,
             boolean passwordIsEncrypted, boolean loginAsAdmin)
             throws InstanceNotFoundException, IncorrectPasswordException,
@@ -76,7 +87,6 @@ public class UserFacadeImpl implements UserFacade {
             return loginResult;
     }
 
-    @Transactional
     public void registerUser(String login, String clearPassword,
             UserDetails userDetails) throws FullPlacesException,
             DuplicateInstanceException, InternalErrorException {
@@ -96,7 +106,6 @@ public class UserFacadeImpl implements UserFacade {
 
     }
 
-    @Transactional
     public void removeUserProfile(String login) throws InternalErrorException,
             InstanceNotFoundException {
 
@@ -108,7 +117,6 @@ public class UserFacadeImpl implements UserFacade {
 
     }
 
-    @Transactional
     public void updateUserProfileDetails(UserDetails userProfileDetailsVO)
             throws InternalErrorException {
         

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.http.view.actionforms.MessageForm;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
@@ -29,8 +28,7 @@ public class CreateMessageAction extends AThearsmonstersDefaultAction {
         String author = messageForm.getAuthor();
         String content = messageForm.getContent();                  
         
-        ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
-        UserFacade userFacade = (UserFacade) appContext.getBean("userFacade");
+        UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
 
         /* Create Message. */
         //userFacade.createMessage(author, content);           
