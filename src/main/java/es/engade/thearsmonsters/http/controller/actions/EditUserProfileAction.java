@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.view.actionforms.UserProfileForm;
 import es.engade.thearsmonsters.http.view.applicationobjects.Languages;
 import es.engade.thearsmonsters.model.entities.user.User;
@@ -55,9 +56,9 @@ public class EditUserProfileAction extends AThearsmonstersDefaultAction {
              */           
             if ("UPDATE".equals(action)) {
             
-                UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
-                User userProfile = userFacade.
-                        findUserProfile();
+//                UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
+                User userProfile = SessionManager.
+                        findUserProfile(request);
                 UserDetails userProfileDetails = 
                     userProfile.getUserDetails();
 

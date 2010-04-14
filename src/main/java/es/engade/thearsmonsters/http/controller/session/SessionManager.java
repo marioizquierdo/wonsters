@@ -11,7 +11,9 @@ import org.apache.struts.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
+import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
@@ -102,8 +104,8 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 public final class SessionManager {
 
     public final static String IS_ADMIN_SESSION_ATTRIBUTE = "isAdmin";
-    private final static String USER_FACADE_SESSION_ATTRIBUTE = "userFacade";
     private final static String LAIR_SESSION_ATTRIBUTE = "myLair";
+    private final static String LOGIN_SESSION_ATTRIBUTE = "loginName";
 
     public static final String LOGIN_NAME_COOKIE = "login";
     public static final String ENCRYPTED_PASSWORD_COOKIE = "encryptedPassword";
@@ -114,6 +116,8 @@ public final class SessionManager {
 
     @Autowired
     private static UserFacade userFacade;
+    @Autowired
+    private static LairFacade lairFacade;
     
     private SessionManager() {}
     
@@ -125,9 +129,19 @@ public final class SessionManager {
         SessionManager.userFacade = userFacade;
     }
 
+    public static LairFacade getLairFacade() {
+        return lairFacade;
+    }
+
+    public static void setLairFacade(LairFacade lairFacade) {
+        SessionManager.lairFacade = lairFacade;
+    }
+
     static {
         userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
+        lairFacade = (LairFacade) AppContext.getInstance().getAppContext().getBean("lairFacade");
     }
+    
     public final static void login(HttpServletRequest request,
         HttpServletResponse response, String login,
         String clearPassword, boolean rememberMyPassword, boolean loginAsAdmin) 
@@ -140,7 +154,11 @@ public final class SessionManager {
          */ 
         LoginResult loginResult = doLogin(request, login, 
             clearPassword, false, loginAsAdmin);
-            
+
+        /* Save login into session */
+        saveAttribute(request, LOGIN_SESSION_ATTRIBUTE, login);
+        saveAttribute(request, LAIR_SESSION_ATTRIBUTE, loginResult.getLair());
+        
         /* Add cookies if requested. */
         if (rememberMyPassword) {
             leaveCookies(response, login, 
@@ -160,6 +178,9 @@ public final class SessionManager {
         userFacade.registerUser(login, clearPassword, 
             UserDetails);
             
+        /* Save login into session */
+        saveAttribute(request, LOGIN_SESSION_ATTRIBUTE, login);
+        
         /* 
          * Update session with the necessary objects for an authenticated
          * user. 
@@ -169,11 +190,35 @@ public final class SessionManager {
 
     }
     
+    public final static User findUserProfile(HttpServletRequest request) 
+    throws InternalErrorException {
+        
+        String login = (String) getAttribute(request, LOGIN_SESSION_ATTRIBUTE);
+        
+     // If user login is not in the session
+        if(login == null) { 
+            throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
+        }
+        
+        try {
+            return userFacade.findUserProfile(login);
+        } catch (InstanceNotFoundException e) {
+            return null;
+        }
+    }
+    
     public final static void updateUserProfileDetails(
         HttpServletRequest request, UserDetails UserDetails) 
         throws InternalErrorException  {
             
-        userFacade.updateUserProfileDetails(UserDetails);
+        String login = (String) getAttribute(request, LOGIN_SESSION_ATTRIBUTE);
+        
+     // If user login is not in the session
+        if(login == null) { 
+            throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
+        }
+        
+        userFacade.updateUserProfileDetails(login, UserDetails);
         
         /* Update user's session objects.*/
         Locale locale = new Locale(UserDetails.getLanguage());
@@ -186,9 +231,16 @@ public final class SessionManager {
         String newClearPassword) throws IncorrectPasswordException,
         InternalErrorException  {
         
+        String login = (String) getAttribute(request, LOGIN_SESSION_ATTRIBUTE);
+        
+        // If user login is not in the session
+        if(login == null) { 
+           throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
+        }
+           
         /* Change user's password. */
             
-        userFacade.changePassword(oldClearPassword, newClearPassword);
+        userFacade.changePassword(login, oldClearPassword, newClearPassword);
             
         /* Remove cookies. */
         leaveCookies(response, "", "", COOKIES_TIME_TO_LIVE_REMOVE);
@@ -204,7 +256,7 @@ public final class SessionManager {
     
         /* Remove cookies. */
         leaveCookies(response, "", "", COOKIES_TIME_TO_LIVE_REMOVE);
-    
+
         /* Invalidate session. */
         HttpSession session = request.getSession(true);
         session.invalidate();
@@ -388,14 +440,25 @@ public final class SessionManager {
      * the Lair stored in session synchronization is responsibility of Model Actions.
      * @return the user's lair stored in the session, or a new one loaded from the database.
      * @throws RuntimeException if lair is not in the session (may be the user has not logged in).
+     * @throws InternalErrorException 
+     * @throws InstanceNotFoundException 
      */
-    public static Lair getMyLair(HttpServletRequest request) throws RuntimeException {
+    public static Lair getMyLair(HttpServletRequest request) throws RuntimeException, InternalErrorException {
     	HttpSession session = request.getSession(true);
 		Lair lair = (Lair) session.getAttribute(LAIR_SESSION_ATTRIBUTE);
 		
 		// If lair is not in the session, load it from the database and set it in the session
 		if(lair == null) { 
-	        throw new RuntimeException("Error: There is no lair in the session. User must doLogin first.");
+		    String login = (String) session.getAttribute(LAIR_SESSION_ATTRIBUTE);
+		    if (login == null) {
+		        throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
+		    }
+		    try {
+                lair = lairFacade.findLairByLogin(login); 
+//              lair = userFacade.findUserProfile(login).getLair();
+            } catch (InstanceNotFoundException e) {
+                throw new RuntimeException("Error: Can't load user lair");
+            }
 		}
 		
 		return lair;
@@ -411,4 +474,11 @@ public final class SessionManager {
     	session.removeAttribute(LAIR_SESSION_ATTRIBUTE);
     }
 
+    private static void saveAttribute(HttpServletRequest request, String name, Object value) {
+        request.getSession(true).setAttribute(name, value);
+    }
+    
+    private static Object getAttribute(HttpServletRequest request, String name) {
+        return request.getSession(false).getAttribute(name);
+    }
 }

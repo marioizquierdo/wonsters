@@ -27,20 +27,19 @@ public interface UserFacade {
         boolean passwordIsEncrypted, boolean loginAsAdmin)
         throws InstanceNotFoundException, IncorrectPasswordException,
             InternalErrorException;
-        
-    public User findUserProfile() throws InternalErrorException;
-    
+
     public User findUserProfile(String login) 
     	throws InstanceNotFoundException, InternalErrorException;
     
     public void updateUserProfileDetails(
+        String login, 
         UserDetails userProfileDetailsVO)
         throws InternalErrorException;
     
 	public void removeUserProfile(String login)
 		throws InternalErrorException, InstanceNotFoundException;
 
-    public void changePassword(String oldClearPassword, 
+    public void changePassword(String login, String oldClearPassword, 
         String newClearPassword) throws IncorrectPasswordException,
         InternalErrorException;
     

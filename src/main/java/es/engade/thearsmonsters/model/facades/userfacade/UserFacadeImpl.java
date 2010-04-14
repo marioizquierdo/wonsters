@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -14,6 +15,7 @@ import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
+import es.engade.thearsmonsters.util.factory.FactoryData;
 
 @Service("userFacade")
 @Transactional
@@ -22,14 +24,11 @@ public class UserFacadeImpl implements UserFacade {
     @Autowired
     private UserDao userDao;
     
-    // Internal state
-    private String login = null;
-    
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 
-    public void changePassword(String oldClearPassword, String newClearPassword)
+    public void changePassword(String login, String oldClearPassword, String newClearPassword)
             throws IncorrectPasswordException, InternalErrorException {
         
         try {
@@ -53,21 +52,6 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Transactional(readOnly=true)
-    public User findUserProfile() throws InternalErrorException {
-
-        if (login == null) {
-            throw new InternalErrorException(new Exception("Unexistent user"));
-        }
-        else
-            try {
-                return findUserProfile(login);
-            } catch (InstanceNotFoundException e) {
-                // Internal Error: A logged user should exist
-                throw new InternalErrorException(e);
-            }
-    }
-
-    @Transactional(readOnly=true)
     public User findUserProfile(String login) throws InstanceNotFoundException,
             InternalErrorException {
         
@@ -82,7 +66,6 @@ public class UserFacadeImpl implements UserFacade {
             InternalErrorException {
 
             LoginResult loginResult = userDao.login(login, password, passwordIsEncrypted, loginAsAdmin);
-            this.login = login;
             
             return loginResult;
     }
@@ -100,8 +83,12 @@ public class UserFacadeImpl implements UserFacade {
         } catch (InstanceNotFoundException e) {
 
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
+            Lair newLair = FactoryData.LairWhatIs.InInitialState.build(login);
+            newLair.setUser(newUser);
+            newUser.setLair(newLair);
+           
             userDao.save(newUser);
-            this.login = login;
+
         }
 
     }
@@ -112,17 +99,11 @@ public class UserFacadeImpl implements UserFacade {
         User user = userDao.findUserByLogin(login);
         
         userDao.remove(user.getId());
-        
-        this.login = null;
 
     }
 
-    public void updateUserProfileDetails(UserDetails userProfileDetailsVO)
+    public void updateUserProfileDetails(String login, UserDetails userProfileDetailsVO)
             throws InternalErrorException {
-        
-        if (login == null) {
-            throw new InternalErrorException(new Exception("Unexistent user"));
-        }
 
         try {
             User user = userDao.findUserByLogin(login);

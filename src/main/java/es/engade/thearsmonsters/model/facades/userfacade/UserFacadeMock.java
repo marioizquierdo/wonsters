@@ -23,16 +23,12 @@ public class UserFacadeMock implements UserFacade {
 		user = lair.getUser();
 	}
 	
-	public void changePassword(String oldClearPassword, String newClearPassword)
+	public void changePassword(String login, String oldClearPassword, String newClearPassword)
 			throws IncorrectPasswordException, InternalErrorException {
 	}
 
 	public int countUsers() throws InternalErrorException {
 		return 1;
-	}
-
-	public User findUserProfile() throws InternalErrorException {
-		return user;
 	}
 
 	public User findUserProfile(String login)
@@ -56,7 +52,7 @@ public class UserFacadeMock implements UserFacade {
 			throws InternalErrorException, InstanceNotFoundException {
 	}
 
-	public void updateUserProfileDetails(UserDetails userProfileDetailsVO)
+	public void updateUserProfileDetails(String login, UserDetails userProfileDetailsVO)
 			throws InternalErrorException {
 	}
 

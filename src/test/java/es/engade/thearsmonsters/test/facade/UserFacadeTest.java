@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.google.storage.onestore.v3.OnestoreEntity.PropertyValue.UserValue;
-
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
@@ -154,21 +152,21 @@ public class UserFacadeTest extends GaeTest {
     
     // Este test falla por intentar acceder a un método dependiente del
     // estado, que aún no se ha inicializado
-    @Test(expected = InternalErrorException.class)
-    public void testFindUserProfileNonState() throws InternalErrorException {
-        User recoveredUser = userFacade.findUserProfile();
-        System.out.println(recoveredUser);
-    }
+//    @Test(expected = InternalErrorException.class)
+//    public void testFindUserProfileNonState() throws InternalErrorException {
+//        User recoveredUser = userFacade.findUserProfile();
+//        System.out.println(recoveredUser);
+//    }
     
     // Se prueba que se inicialice bien el estado con "login"
-    @Test
-    public void testFindUserProfileAfterLogin() throws Throwable {
-        
-        userFacade.login(LOGIN, PASSWORD, false, false);
-        User recoveredUser = userFacade.findUserProfile();
-        
-        assertEquals(persistentUser, recoveredUser);
-    }
+//    @Test
+//    public void testFindUserProfileAfterLogin() throws Throwable {
+//        
+//        userFacade.login(LOGIN, PASSWORD, false, false);
+//        User recoveredUser = userFacade.findUserProfile();
+//        
+//        assertEquals(persistentUser, recoveredUser);
+//    }
     
     @Test
     public void testRemoveUserProfile() 
@@ -202,29 +200,29 @@ public class UserFacadeTest extends GaeTest {
         
     }
     
-    @Test(expected=InternalErrorException.class)
-    public void testUpdateUserProfileNonState() throws InstanceNotFoundException, InternalErrorException {
-        
-        UserDetails details = new UserDetails("updatedName", "updateSurname",
-                "updatedEmail", "sp");
-        userFacade.updateUserProfileDetails(details);
-
-    }
+//    @Test(expected=InternalErrorException.class)
+//    public void testUpdateUserProfileNonState() throws InstanceNotFoundException, InternalErrorException {
+//        
+//        UserDetails details = new UserDetails("updatedName", "updateSurname",
+//                "updatedEmail", "sp");
+//        userFacade.updateUserProfileDetails(details);
+//
+//    }
 
     @Test
     public void testUpdateUserProfileAfterLogin() throws Throwable {
         
         userFacade.login(LOGIN, PASSWORD, false, false);
-        User userBeforeUpdate = userFacade.findUserProfile();
+        User userBeforeUpdate = userFacade.findUserProfile(LOGIN);
         
         UserDetails details = new UserDetails("updatedName", "updateSurname",
                 "updatedEmail", "sp");
         
         assert(!userBeforeUpdate.getUserDetails().equals(details));
         
-        userFacade.updateUserProfileDetails(details);
+        userFacade.updateUserProfileDetails(LOGIN, details);
         
-        User userAfterUpdate = userFacade.findUserProfile();
+        User userAfterUpdate = userFacade.findUserProfile(LOGIN);
         assertEquals(details, userAfterUpdate.getUserDetails());
 
     }

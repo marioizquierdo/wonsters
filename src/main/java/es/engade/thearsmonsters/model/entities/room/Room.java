@@ -38,13 +38,13 @@ public class Room implements Serializable {
     @Persistent
     protected int size;
     
-    @Persistent
+    @Persistent(serialized="true",defaultFetchGroup="true")
     protected RoomPublicAccess publicAccess;
     
-    @Persistent
+    @Persistent(serialized="true",defaultFetchGroup="true")
     protected RoomState state;
     
-    @Persistent
+    @Persistent(serialized="true",defaultFetchGroup="true")
     protected RoomType type;
     
     /* ----------------- Basic Methods ----------------- */

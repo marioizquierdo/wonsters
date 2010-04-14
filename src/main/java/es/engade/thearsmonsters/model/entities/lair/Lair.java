@@ -46,7 +46,7 @@ public class Lair implements Serializable {
     @Persistent(serialized="true",defaultFetchGroup="true")
     private Address address;
     
-    @Persistent
+    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
     private List<Room> rooms;
     
     @Persistent(mappedBy = "lair")
