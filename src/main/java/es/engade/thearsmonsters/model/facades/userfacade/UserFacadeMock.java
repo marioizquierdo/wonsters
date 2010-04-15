@@ -40,12 +40,16 @@ public class UserFacadeMock implements UserFacade {
 			boolean passwordIsEncrypted, boolean loginAsAdmin)
 			throws InstanceNotFoundException, IncorrectPasswordException,
 			InternalErrorException {
-		return new LoginResult(lair, "testName", "encryptedPass", "es");
+		return new LoginResult(lair, user.getLogin(), "testName", "encryptedPass", "es");
 	}
 
-	public void registerUser(String login, String clearPassword,
+	public LoginResult registerUser(String login, String clearPassword,
 			UserDetails userDetails) throws FullPlacesException,
 			DuplicateInstanceException, InternalErrorException {
+	    return new LoginResult(lair, user.getLogin(), 
+	            user.getUserDetails().getFirstName(), 
+	            user.getEncryptedPassword(), 
+	            user.getUserDetails().getLanguage());
 	}
 
 	public void removeUserProfile(String login)

@@ -75,7 +75,7 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         String language = user.getUserDetails().getLanguage();
         
         
-        LoginResult lr = new LoginResult(lair, firstName, encryptedPassword, language);
+        LoginResult lr = new LoginResult(lair, login, firstName, encryptedPassword, language);
         return lr;
     }
 }

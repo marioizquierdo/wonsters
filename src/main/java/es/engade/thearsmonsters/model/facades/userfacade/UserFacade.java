@@ -19,7 +19,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
  */
 public interface UserFacade {
 
-    public void registerUser(String login, String clearPassword,
+    public LoginResult registerUser(String login, String clearPassword,
         UserDetails userDetails)
         throws FullPlacesException, DuplicateInstanceException, InternalErrorException;
 

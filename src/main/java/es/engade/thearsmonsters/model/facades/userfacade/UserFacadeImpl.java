@@ -70,7 +70,7 @@ public class UserFacadeImpl implements UserFacade {
             return loginResult;
     }
 
-    public void registerUser(String login, String clearPassword,
+    public LoginResult registerUser(String login, String clearPassword,
             UserDetails userDetails) throws FullPlacesException,
             DuplicateInstanceException, InternalErrorException {
         
@@ -88,6 +88,9 @@ public class UserFacadeImpl implements UserFacade {
             newUser.setLair(newLair);
            
             userDao.save(newUser);
+            
+            return new LoginResult(newLair, login, userDetails.getFirstName(), 
+                    newUser.getEncryptedPassword(), userDetails.getLanguage());
 
         }
 
