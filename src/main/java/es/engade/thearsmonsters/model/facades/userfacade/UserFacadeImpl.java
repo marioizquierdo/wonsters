@@ -83,9 +83,7 @@ public class UserFacadeImpl implements UserFacade {
         } catch (InstanceNotFoundException e) {
 
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
-            Lair newLair = FactoryData.LairWhatIs.InInitialState.build(login);
-            newLair.setUser(newUser);
-            newUser.setLair(newLair);
+            Lair newLair = FactoryData.LairWhatIs.InInitialState.build(newUser);
            
             userDao.save(newUser);
             

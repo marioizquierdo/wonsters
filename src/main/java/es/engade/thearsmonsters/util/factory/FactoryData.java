@@ -3,8 +3,6 @@ package es.engade.thearsmonsters.util.factory;
 import java.util.Date;
 import java.util.List;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -62,6 +60,9 @@ public class FactoryData {
 			public Lair build(String login) {
 				return generateInitialLair(login);
 			}
+			public Lair build(User user) {
+                return generateInitialLair(user);
+            }
 		},
 		Default { 				// Guarida test por defecto, generada en generateUserScaffold
 			public Lair build() {
@@ -70,11 +71,15 @@ public class FactoryData {
 			public Lair build(String login) {
 				return generateDefaultLair(login);
 			}
+			public Lair build(User user) {
+                return generateDefaultLair(user);
+            }
 		};
 		// ...
 		
 		public Lair build() { return null; } // default
 		public Lair build(String login) { return null; } // default
+		public Lair build(User user) { return null; } // default
 	}
 	
 	
@@ -205,6 +210,31 @@ public class FactoryData {
 		return null;
     }
     
+    /**
+     * Devuelve una nueva guarida con los valores iniciales.
+     * Es decir la guarida estará el estado inicial en el que comienzas el juego, sin monstruos y
+     * solo con el ojo de la vida.
+     */
+    private static Lair generateInitialLair(User user) {
+        
+        //*** LAIR ***//
+    
+        Lair lair = new Lair(user,
+            0, // money 
+            0, // garbage
+            new RoomData(0, 0), // lastChangeResourcesTurn and occupied vital space
+            new Address(0, 0, 0)); // geographical position
+    
+        user.setLair(lair); // add to user
+    
+        //*** ROOMS ***//
+        
+        lair.buildRoom(RoomType.EyeOfTheLife);
+        lair.buildRoom(RoomType.Dormitories);
+        
+        return lair;
+    }
+    
 	/**
      * Devuelve una nueva guarida con los valores iniciales.
      * Es decir la guarida estará el estado inicial en el que comienzas el juego, sin monstruos y
@@ -217,19 +247,7 @@ public class FactoryData {
 
 		//*** LAIR ***//
     
-		Lair lair = new Lair(user,
-	        0, // money 
-	        0, // garbage
-	        new RoomData(0, 0), // lastChangeResourcesTurn and occupied vital space
-	        new Address(0, 0, 0)); // geographical position
-	
-		user.setLair(lair); // add to user
-    
-    
-		//*** ROOMS ***//
-		
-		lair.buildRoom(RoomType.EyeOfTheLife);
-		lair.buildRoom(RoomType.Dormitories);
+		Lair lair = generateInitialLair(user);
     	
 		return lair;
 	}
@@ -245,6 +263,10 @@ public class FactoryData {
 	private static Lair generateDefaultLair(String login) {
 		return generateUserScaffold(login).getLair();
 	}
+	
+	private static Lair generateDefaultLair(User user) {
+        return generateUserScaffold(user).getLair();
+    }
 	
 	private static Lair generateDefaultLair() {
 		return generateDefaultLair(randomLogin());
@@ -280,6 +302,63 @@ public class FactoryData {
 	 * 
 	 * @param userLogin es el nombre del usuario. La contraseña será userLogin + "_pass".
 	 */
+private static User generateUserScaffold(User user) {
+
+        //*** LAIR ***//
+    
+        Lair lair = new Lair(user,
+            1000, // money 
+            500, // garbage
+            new RoomData(100, 10), // lastChangeResourcesTurn and occupied vital space
+            new Address(1, 1, 1)); // geographical position
+    
+        user.setLair(lair); // add to user
+    
+    
+        //*** ROOMS ***//
+        
+        lair.buildRoom(RoomType.EyeOfTheLife);
+        Room dormitories = lair.buildRoom(RoomType.Dormitories);
+        Room warehouse = lair.buildRoom(RoomType.Warehouse);
+        Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
+    
+        // modify rooms
+        dormitories.setLevel(10); 
+        warehouse.setLevel(15); 
+        warehouse.setStateCancelWorks();
+        tradeOffice.setLevel(2);
+
+
+    
+        //*** MONSTER EGGS ***//
+    
+        MonsterEgg monsterEggBu = new MonsterEgg (lair,
+            MonsterRace.Bu, null);
+    
+        MonsterEgg monsterEggOcodomo = new MonsterEgg (lair,
+            MonsterRace.Ocodomo, null);
+   
+        lair.addMonsterEgg(monsterEggBu).addMonsterEgg(monsterEggOcodomo); // Add to lair
+    
+        
+        //*** MONSTERS ***//
+        Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLogin(), now, now, MonsterAge.Child);
+        Monster adult = new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLogin(), now, now, MonsterAge.Adult);
+        Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLogin(), now, now, MonsterAge.Old);
+        
+        // Poner un id cualquiera, hay que poner un id válido
+        //child.setId(KeyFactory.stringToKey("0"));
+        //adult.setId(KeyFactory.stringToKey("0"));
+        //old.setId(KeyFactory.stringToKey("0"));
+        
+        
+        lair.addMonster(child).addMonster(adult).addMonster(old);
+        
+        
+        //*** return user ***//
+        return user;
+    }
+
 	private static User generateUserScaffold(String userLogin) {
 		
 	    //*** USER ***//
@@ -287,59 +366,7 @@ public class FactoryData {
 		User user = new User(userLogin, userLogin + "_pass", 
     			new UserDetails("Fulano", "Delapeña", "fulano@delapeña.es", "es"));
 
-		//*** LAIR ***//
-    
-		Lair lair = new Lair(user,
-	        1000, // money 
-	        500, // garbage
-	        new RoomData(100, 10), // lastChangeResourcesTurn and occupied vital space
-	        new Address(1, 1, 1)); // geographical position
-	
-		user.setLair(lair); // add to user
-    
-    
-		//*** ROOMS ***//
-		
-		lair.buildRoom(RoomType.EyeOfTheLife);
-		Room dormitories = lair.buildRoom(RoomType.Dormitories);
-    	Room warehouse = lair.buildRoom(RoomType.Warehouse);
-    	Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
-    
-    	// modify rooms
-    	dormitories.setLevel(10); 
-    	warehouse.setLevel(15); 
-    	warehouse.setStateCancelWorks();
-    	tradeOffice.setLevel(2);
-
-
-    
-    	//*** MONSTER EGGS ***//
-    
-    	MonsterEgg monsterEggBu = new MonsterEgg (lair,
-    		MonsterRace.Bu, null);
-    
-    	MonsterEgg monsterEggOcodomo = new MonsterEgg (lair,
-    		MonsterRace.Ocodomo, null);
-   
-    	lair.addMonsterEgg(monsterEggBu).addMonsterEgg(monsterEggOcodomo); // Add to lair
-    
-    	
-    	//*** MONSTERS ***//
-		Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLogin(), now, now, MonsterAge.Child);
-		Monster adult =	new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLogin(), now, now, MonsterAge.Adult);
-		Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLogin(), now, now, MonsterAge.Old);
-		
-		// Poner un id cualquiera, hay que poner un id válido
-		//child.setId(KeyFactory.stringToKey("0"));
-		//adult.setId(KeyFactory.stringToKey("0"));
-		//old.setId(KeyFactory.stringToKey("0"));
-		
-    	
-		lair.addMonster(child).addMonster(adult).addMonster(old);
-    	
-		
-    	//*** return user ***//
-    	return user;
+    	return generateUserScaffold(user);
 	}
     
 

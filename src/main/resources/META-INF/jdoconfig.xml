@@ -13,5 +13,7 @@
 		<property name="javax.jdo.option.RetainValues" value="true" />
 		<property name="datanucleus.appengine.autoCreateDatastoreTxns"
 			value="true" />
+		<property name="datanucleus.appengine.ignorableMetaDataBehavior" 
+			value="NONE" />
 	</persistence-manager-factory>
 </jdoconfig>

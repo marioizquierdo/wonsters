@@ -1,11 +1,13 @@
 package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
@@ -37,7 +39,7 @@ public class Lair implements Serializable {
     @Persistent
     private int garbage;
     
-    @Persistent(defaultFetchGroup="true", mappedBy = "lair")
+    @Persistent(mappedBy = "lair")
     private User user;
     
     @Persistent(serialized="true",defaultFetchGroup="true")
@@ -47,12 +49,15 @@ public class Lair implements Serializable {
     private Address address;
     
     @Persistent(mappedBy = "lair",defaultFetchGroup="true")
+    @Element(dependent = "true")
     private List<Room> rooms;
     
     @Persistent(mappedBy = "lair")
+    @Element(dependent = "true")
     private List<Monster> monsters;
     
     @Persistent(mappedBy = "lair")
+    @Element(dependent = "true")
     private List<MonsterEgg> monsterEggs;
 
     public Lair() {
@@ -63,7 +68,6 @@ public class Lair implements Serializable {
     
 	public Lair(User user, int money, int garbage,
     		RoomData roomData, Address address) {
-        
         this.user = user;
         this.money = money;
         this.garbage = garbage;
