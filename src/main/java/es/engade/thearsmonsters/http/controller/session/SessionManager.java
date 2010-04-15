@@ -104,7 +104,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 public final class SessionManager {
 
     public final static String IS_ADMIN_SESSION_ATTRIBUTE = "isAdmin";
-//    private final static String LAIR_SESSION_ATTRIBUTE = "myLair";
+    private final static String LAIR_SESSION_ATTRIBUTE = "myLair";
     private final static String LOGIN_SESSION_ATTRIBUTE = "loginName";
 
     public static final String LOGIN_NAME_COOKIE = "login";
@@ -156,8 +156,8 @@ public final class SessionManager {
             clearPassword, false, loginAsAdmin);
 
         /* Save login into session */
+        setSessionAttribute(request, LAIR_SESSION_ATTRIBUTE, loginResult.getLair());
         setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
-//        saveAttribute(request, LAIR_SESSION_ATTRIBUTE, loginResult.getLair());
         
         /* Add cookies if requested. */
         if (rememberMyPassword) {
@@ -167,7 +167,7 @@ public final class SessionManager {
         }
         
     }
-    
+        
     public final static void registerUser(HttpServletRequest request,
         String login, String clearPassword, 
         UserDetails UserDetails) 
@@ -247,24 +247,6 @@ public final class SessionManager {
         session.invalidate();
     
     }
-
-//    public final static UserFacade getUserFacade(
-//        HttpServletRequest request) throws InternalErrorException {
-//
-//        HttpSession session = request.getSession(true);
-//        UserFacade UserFacade = 
-//            (UserFacade) session.getAttribute(
-//                USER_FACADE_SESSION_ATTRIBUTE);
-//                
-//        if (UserFacade == null) {
-//            UserFacade = new UserFacadeMock();
-//            session.setAttribute(USER_FACADE_SESSION_ATTRIBUTE,
-//                UserFacade);
-//        }
-//
-//        return UserFacade;
-//        
-//    }
     
     /**
      * Guarantees that the session will have the necessary objects if the user
@@ -387,27 +369,25 @@ public final class SessionManager {
      * session the necessary objects for an authenticated user.
      */
     private final static LoginResult doLogin(HttpServletRequest request,
-         String login, String password, boolean passwordIsEncrypted,
-         boolean loginAsAdmin) 
-         throws IncorrectPasswordException, InstanceNotFoundException, 
-                InternalErrorException {
-         
-        /* Check "login" and "clearPassword". */
-//        UserFacade userFacade = getUserFacade(request);
-        LoginResult loginResult = userFacade.login(
-            login, password, passwordIsEncrypted, loginAsAdmin);
- 
+            String login, String password, boolean passwordIsEncrypted,
+            boolean loginAsAdmin) 
+            throws IncorrectPasswordException, InstanceNotFoundException, 
+                   InternalErrorException {
+            
+           /* Check "login" and "clearPassword". */
+//           UserFacade userFacade = getUserFacade(request);
+           LoginResult loginResult = userFacade.login(
+               login, password, passwordIsEncrypted, loginAsAdmin);
+    
 
-        /* Insert necessary objects in the session. */
-        Locale locale = new Locale(loginResult.getLanguage());
-        updateSesssionForAuthenticatedUser(request, locale);
-        setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
-        
-    	
-    	if(loginAsAdmin) setSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, true); // Esto no es demasiado peligroso ???s
-        
-        /* Return "loginResult". */
-        return loginResult;
+           /* Insert necessary objects in the session. */
+           Locale locale = new Locale(loginResult.getLanguage());
+           updateSesssionForAuthenticatedUser(request, locale);
+           
+           if(loginAsAdmin) setSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, true); // Esto no es demasiado peligroso ???s
+           
+           /* Return "loginResult". */
+           return loginResult;
          
     }
     
@@ -424,30 +404,35 @@ public final class SessionManager {
      * @throws InternalErrorException 
      */
     public static Lair getMyLair(HttpServletRequest request) throws RuntimeException, InternalErrorException {
-    	LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, true);
-    	if (loginResult == null || loginResult.getLogin() == null) {
+        
+        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, true);
+        if (loginResult == null || loginResult.getLogin() == null) {
             throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
         }
+        
+        Lair lair = null;
+        if (loginResult.isPersistentLair()) {
+            lair = loginResult.getLair();
+        }
 
-    	Lair lair;
-    	if (loginResult.isPersistentLair()) {
-    	    lair = loginResult.getLair();
-    	} else {
-    	    // If lair is not in the session or it is not persistent,
-    	    // load it from the database and set it in the session
+        // If lair is not in the session, load it from the database and set it in the session
+        if(lair == null) { 
+          // If lair is not in the session or it is not persistent,
+          // load it from the database and set it in the session
             String login = loginResult.getLogin();
 
             try {
                 lair = lairFacade.findLairByLogin(login); 
-//                lair = userFacade.findUserProfile(login).getLair();
                 loginResult.setLair(lair);
-                setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
+//                setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
             } catch (InstanceNotFoundException e) {
                 throw new RuntimeException("Error: Can't load user lair");
             }
-    	}
 
-		return lair;
+        }
+        
+        return lair;
+  
     }
     
     public static String getMyLogin(HttpServletRequest request) throws RuntimeException {
