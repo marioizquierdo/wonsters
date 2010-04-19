@@ -71,7 +71,7 @@
 		<ul>
             
             <!-- Show Tasks -->
-            <customtag:roomAction icon_id="3" action="ajax/ShowRoomTasks.do?roomType=${room.roomType}" messageKey="Lair.room.actions.showTasks" cssClass="show_room_tasks" />  
+            <!-- <customtag:roomAction icon_id="3" action="ajax/ShowRoomTasks.do?roomType=${room.roomType}" messageKey="Lair.room.actions.showTasks" cssClass="show_room_tasks" /> -->  
             
 			<!-- Works actions -->
 			<c:choose><c:when test="${room.inWorks}">

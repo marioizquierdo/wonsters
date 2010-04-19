@@ -1,5 +1,5 @@
 /**
- *   Añade comportamiento Ajaxa a los enlaces que muestra las tareas de cada sala.
+ *   Añade comportamiento Ajax a los enlaces que muestra las tareas de cada sala.
  */
 $(function() {
     $('li.show_room_tasks a').click(function() {

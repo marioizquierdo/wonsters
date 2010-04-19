@@ -15,6 +15,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -30,16 +31,17 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
     	String monsterId = request.getParameter("id");
     	Monster monster;
-    	List suggestMonsterActions;
+    	List<MonsterActionSuggestion> suggestedMonsterActions;
+    	
         /* Find Monster. */
 		try {
 			monster = monsterFacade.findMonster(monsterId);
-			suggestMonsterActions = monsterFacade.suggestMonsterActions(monster.getId());
+			suggestedMonsterActions = monsterFacade.suggestMonsterActions(monster);
 		} catch (InstanceNotFoundException e) {
 	        return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
 		}
 		
-		request.setAttribute("suggestMonsterActions",suggestMonsterActions);
+		request.setAttribute("suggestedMonsterActions", suggestedMonsterActions);
 		
 		/* Set request attributes */
 		request.setAttribute("monster", monster);

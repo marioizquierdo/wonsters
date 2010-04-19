@@ -10,62 +10,54 @@
 <c:url var="monsterStylesURL" value="/css/monster_styles.css" />
 <link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
 
-<!-- URL para realizar la peticion ajax de taskManager -->
-<c:url var="ajaxTasksManagerURL" value="/ajax/TaskManager.do"/>
-
 <![CDATA[
  	<script type="text/javascript" src="javascript/image_up.js"></script>
 	<script type="text/javascript" src="javascript/fix_attrs_descriptions.js"></script>
 	<script type="text/javascript" src="javascript/count_down.js"></script>
 ]]> 
 
+<!-- Monster Actions -->
 <div id="monsterLeftBlock">
-<customtag:window id="MonsterTasks" titleValue="Monster.jobs.title" window_width="240">
-    <div id="turns_left">
-        <customtag:monsterBrief_data_row property="freeTurns">
-            <span class="monster_turns">${monster.freeTurns}</span>
-        </customtag:monsterBrief_data_row>
+<customtag:window id="monster_tasks" title="Monster.actions.title" window_width="240">
+
+    <div class="field free_turns">
+        <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
+        <span class="free_turns_value">${monster.freeTurns}</span>
     </div>
     
-    <c:choose>
+    <c:choose><c:when test="${fn:length(suggestedMonsterActions) == 0}">
+      <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" />
     
-    <c:when test="${fn:length(suggestMonsterActions) == 0}">
-            <customtag:info_message key="Monster.jobs.thereIsNoJobs" icon_id="0" style="margin: 15px; width: 240px;"/>
-    </c:when>
+    </c:when><c:otherwise>
     
-    <c:otherwise>
-    
-      <html:form action="ExecuteMonsterTasks">
+      <html:form action="ExecuteMonsterActions">
         
         <html:hidden property="monsterId" value="${monster.id}"/>
-    
-        <c:forEach items="${suggestMonsterActions}" var="monsterAction" varStatus="loop" >
-            <!--  
-                 Por otro lado, esta lista debe hacerse con tags ul + li, y si la lista entera supone
-                 mucho codigo y muy complejo, debera moverse para un jspf
-                    -->
-                    
-        
-            <html:hidden property="${monsterAction.type}_roomType" value="${monsterAction.room.roomType}"/>
-                
-            <div class="field">        
-                <span class="label">
-                    ${monsterAction} <!-- En vez de imprimir directamente monsterAction se compondra una clave para el fmt tag -->
-                </span>
-                <span class="entry">    
-                    <html:text property="${monsterAction.type}"></html:text>
-                </span>
+        <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
+        	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
+        	<c:set var="suggestedAction" value="suggestedAction(${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType})" />
+            <div class="field">
+                <div class="monsterActionSuggestion_input">
+                    <html:text property="${suggestedAction}" size="2" />                
+                </div>
+                <div class="monsterActionSuggestion_description">
+                	<span class="monsterActionSuggestion_description_actionType">
+                		<fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" />
+                		<html:errors property="${suggestedAction}"/>
+                	</span>
+                	<span class="monsterActionSuggestion_description_roomType">
+                		<fmt:message key="Lair.room.${MASuggestion.roomType}" />
+                	</span>
+                </div>
             </div>
-                    
         </c:forEach>
         
         <div class="button end_button">        
-                <html:submit>
-                    <fmt:message key="Buttons.update"/>
-                </html:submit>
-            </div>      
+        	<html:submit><fmt:message key="Buttons.ok"/></html:submit>
+        </div>      
         
       </html:form>  
+      
     </c:otherwise>
     
     </c:choose>

@@ -26,15 +26,15 @@
 
 #tiptip_content {
 	font-size: 12px;
-	color: #000;
+	color: white;
 	padding: 4px 8px;
-	border: 1px solid #666;
-	border: 1px solid rgba(0,0,0, 0.25);
-	background-color: #fffff9;
-	background-color: rgba(255,255,235, 0.92);
+	border: 1px solid black;
+	background-color: #447;
+	
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
+	
 	box-shadow: 0 0 3px #555;
 	-webkit-box-shadow: 0 0 3px #555;
 	-moz-box-shadow: 0 0 3px #555;
@@ -50,67 +50,58 @@
 }
 
 #tiptip_holder.tip_top #tiptip_arrow {
-	border-top-color: #666;
-	border-top-color: rgba(25,25,23, 0.35);
+	border-top-color: black;
 }
 
 #tiptip_holder.tip_bottom #tiptip_arrow {
-	border-bottom-color: #666;
-	border-bottom-color: rgba(25,25,23, 0.35);
+	border-bottom-color: black;
 }
 
 #tiptip_holder.tip_right #tiptip_arrow {
-	border-right-color: #666;
-	border-right-color: rgba(25,25,23, 0.35);
+	border-right-color: black;
 }
 
 #tiptip_holder.tip_left #tiptip_arrow {
-	border-left-color: #666;
-	border-left-color: rgba(25,25,23, 0.35);
+	border-left-color: black;
 }
 
 
 #tiptip_holder.tip_top #tiptip_arrow_inner {
 	margin-top: -7px;
 	margin-left: -6px;
-	border-top-color: #fffff9;
-	border-top-color: rgba(255,255,235, 0.92);
+	border-top-color: #447;
 }
 
 #tiptip_holder.tip_bottom #tiptip_arrow_inner {
 	margin-top: -5px;
 	margin-left: -6px;
-	border-bottom-color: #fffff9;
-	border-bottom-color: rgba(255,255,235, 0.92);
+	border-bottom-color: #447;
 }
 
 #tiptip_holder.tip_right #tiptip_arrow_inner {
 	margin-top: -6px;
 	margin-left: -5px;
-	border-right-color: #fffff9;
-	border-right-color: rgba(255,255,235, 0.92);
+	border-right-color: #447;
 }
 
 #tiptip_holder.tip_left #tiptip_arrow_inner {
 	margin-top: -6px;
 	margin-left: -7px;
-	border-left-color: #fffff9;
-	border-left-color: rgba(255,255,235,0 .92);
+	border-left-color: #447;
 }
 
 /* Webkit Hacks  */
 @media screen and (-webkit-min-device-pixel-ratio:0) {	
 	#tiptip_content {
 		padding: 4px 8px 5px 8px;
-		background-color: rgba(255,255,235,0.88);
+		background-color: #447;
 	}
 	#tiptip_holder.tip_bottom #tiptip_arrow_inner { 
-		border-bottom-color: rgba(255,255,235,0.92);
+		border-bottom-color: #447;
 	}
 	#tiptip_holder.tip_top #tiptip_arrow_inner { 
-		border-top-color: rgba(255,255,235,0.92);
+		border-top-color: #447;
 	}
 }
 
-/* IE7 Hacks in ie7_hacks.css */
 

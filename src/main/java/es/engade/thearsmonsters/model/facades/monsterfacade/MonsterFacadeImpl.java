@@ -25,6 +25,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -229,15 +230,14 @@ public class MonsterFacadeImpl implements MonsterFacade {
         return eggSalePrice;
     }
     
-    // Es NO transaccional
-    public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{ 	
-    	
-    	/* Recogo el monster del dao, al estilo de findMonster, a lo mejor se puede quitar el argumento
-    	 * Key del metodo y enviar directamente el monster en ese caso borrar las lineas siguientes
-    	 */
-    	Monster monster = monsterDao.get(monsterId);
+    public List<MonsterActionSuggestion> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{ 	
+    	return suggestMonsterActions(monsterDao.get(monsterId));
+    }
+    
+    public List<MonsterActionSuggestion> suggestMonsterActions(Monster monster) throws InstanceNotFoundException{ 	
+
     	Lair lair = monster.getLair();
-    	List<MonsterAction> suggestedActions = new ArrayList<MonsterAction>();
+    	List<MonsterActionSuggestion> suggestedActions = new ArrayList<MonsterActionSuggestion>();
     	
     	
     	// Para cada sala se comprueba si se puede ejecutar alguna acción en ella,
@@ -246,13 +246,13 @@ public class MonsterFacadeImpl implements MonsterFacade {
     		for (MonsterActionType actionType : MonsterActionType.values()) {
     			MonsterAction action = actionType.build(monster, room);
     			if(action.isValid()) {
-    				suggestedActions.add(action); // solo se sugieren acciones válidas
+    				// solo se sugieren posibles acciones válidas
+    				suggestedActions.add(action.getSuggestion());
     			}
     		}
     	}
     	
     	return suggestedActions;
-    	
     }
     
     @Transactional

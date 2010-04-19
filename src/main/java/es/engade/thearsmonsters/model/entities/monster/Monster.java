@@ -42,7 +42,6 @@ public class Monster implements Serializable {
     
     @Persistent(serialized="true") 
 	private Map<AttrType, Attr> simpleAttrs;
-	//private List<Task> tasks;
     
     @Persistent
 	private MonsterAge age;

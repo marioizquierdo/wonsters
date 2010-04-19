@@ -15,6 +15,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -52,8 +53,15 @@ public interface MonsterFacade {
     /**
      * Sugerir acciones que puede hacer el monstruo en su propia guarida
      */
-    public List<MonsterAction> suggestMonsterActions(Key monsterId) 
+    public List<MonsterActionSuggestion> suggestMonsterActions(Key monsterId) 
     	throws InstanceNotFoundException;
+    
+    /**
+     * Lo mismo que suggestMonsterActions(Key monsterId) pero es mejor usar
+     * esta si ya se tiene el monstruo (evita hacer otra consulta).
+     */
+    public List<MonsterActionSuggestion> suggestMonsterActions(Monster monster) 
+		throws InstanceNotFoundException;
     
     /**
      * Ejecutar una acción de un monstruo en una sala de su propia guarida

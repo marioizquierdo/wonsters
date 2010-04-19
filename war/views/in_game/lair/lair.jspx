@@ -6,6 +6,9 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
+    		
+<c:url var="lairStylesURL" value="/css/lair_styles.css" />
+<link rel="StyleSheet" href="${lairStylesURL}" type="text/css" media="all" />
 
 <![CDATA[
     <script type="text/javascript" src="javascript/show_rooms_tasks_ajax.js"></script>
@@ -57,7 +60,17 @@
 			    
 			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
 			    	<c:set var="roomTitle">
-			    		<h3> <fmt:message key="Lair.room.${room.roomType}"/></h3> <p><fmt:message key="Common.clickToSeeDetails"/></p>
+			    		<div><fmt:message key="Lair.room.${room.roomType}"/></div>
+				    	<div><fmt:message key="Lair.room.level"/>: ${room.level}</div>
+				    	<c:if test="${room.inWorks}">
+				    		<div>
+					    		<c:choose><c:when test="${room.inInitialState}">
+					    			<fmt:message key="Lair.room.newRoom"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%</c:when>
+								<c:otherwise> <!-- Upgrading -->
+									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%</c:otherwise>
+								</c:choose>
+				    		</div>
+				    	</c:if>
 			    	</c:set>
 				    <div class="lairRoom ${room.roomType}" title="${roomTitle}" 
 				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 
@@ -69,35 +82,6 @@
 				<div class="endOfLair endOfLairRight"><img src="images/theme/empty_pixel.png"/></div>
 			</div>
 			
-			<!-- Informacion de las salas (bloque igual que el de imagenes pero cambiando el contenido) -->
-			<div class="lairBox">
-				<div class="endOfLair"><img src="images/theme/empty_pixel.png"/></div>
-		    	
-		    	<html:link action="Lair.do${lair_neighbors}">
-				    <div class="lairRoom"><fmt:message key="Lair.buildingView"/></div>
-		    	</html:link>
-			    
-			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
-				    <div id="lairRoom_${room.roomType}" class="lairRoom"
-				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 
-				    		${fn:length(lair.rooms)}, ${loop.index}, '${room.roomType}')">
-				    	<div><fmt:message key="Lair.room.${room.roomType}"/></div>
-				    	<div class="lairRoomInfo"><fmt:message key="Lair.room.size"/>: ${room.size}</div>
-				    	<div class="lairRoomInfo"><fmt:message key="Lair.room.level"/>: ${room.level}</div>
-				    	<c:if test="${room.inWorks}">
-				    		<div class="lairRoomInfo">
-					    		<c:choose><c:when test="${room.inInitialState}">
-					    			<fmt:message key="Lair.room.newRoom"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%</c:when>
-								<c:otherwise> <!-- Upgrading -->
-									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%</c:otherwise>
-								</c:choose>
-				    		</div>
-				    	</c:if>
-    		    	</div>
-				</c:forEach>
-				
-				<div class="endOfLair"><img src="images/theme/empty_pixel.png"/></div>
-			</div>
 		</c:when>
 		
 		<!-- Vista de una Guarida vacia -->

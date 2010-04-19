@@ -58,7 +58,7 @@
 
 	<definition name=".InternalError" extends=".InGameBase">
 		<put name="title" value="ErrorMessages.internalError.title" />
-		<put name="content" value="/views/in_game/common/internal_error_message.jspx" />
+		<put name="content" value="/views/common/internal_error_message.jspx" />
 	</definition>
 
 	<definition name=".Lair" extends=".InGameBase">
@@ -198,11 +198,4 @@
 		<put name="content" value="/views/in_game/lair/ajax/_room_tasks.jspx" />
 	</definition>
 
-	<definition name=".TasksManager" extends=".HTMLAjaxBase">
-		<put name="content" value="/views/in_game/monsters/ajax/_tasks_manager.jspx" />
-	</definition>
-
-	<definition name=".Task" extends=".HTMLAjaxBase">
-		<put name="content" value="/views/in_game/monsters/ajax/_task.jspx" />
-	</definition>
 </tiles-definitions>

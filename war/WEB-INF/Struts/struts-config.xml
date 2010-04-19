@@ -22,8 +22,8 @@
     <form-bean name="confirmationForm"
 		type="es.engade.thearsmonsters.http.view.actionforms.ConfirmationForm"/>
 		
-     <form-bean name="executeMonsterTasksForm"
-        type="es.engade.thearsmonsters.http.view.actionforms.ExecuteMonsterTasksForm"/>
+     <form-bean name="monsterActionsToDoForm"
+        type="es.engade.thearsmonsters.http.view.actionforms.MonsterActionsToDoForm"/>
 
     <form-bean name="messageForm"
 		type="es.engade.thearsmonsters.http.view.actionforms.MessageForm"/>
@@ -44,6 +44,7 @@
     <forward name="InternalError" path="/InternalError.do"/>
     <forward name="Confirmation" path="/Confirmation.do"/>
     <forward name="GameStart" path="/Lair.do" redirect="true"/>
+    <forward name="Monster" path="/Monster.do" redirect="true"/>
 </global-forwards>
 
 <!-- ============ Action Mapping Definitions ============================== -->
@@ -56,8 +57,7 @@
         	name="bornMonsterForm" scope="request" validate="true"
             input=".BornMonsterForm">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="EggsManagement" path="/EggsManagement.do" redirect="true"/>
-        <forward name="Monster" path="/Monster.do" redirect="true"/></action>
+        <forward name="EggsManagement" path="/EggsManagement.do" redirect="true"/></action>
         		 
     <action path="/BornMonsterForm"
 			type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
@@ -122,12 +122,11 @@
         <forward name="EggsManagement"
                  path=".EggsManagement"/></action>
                  
-    <!-- nhapa -->
-    <action path="/ExecuteMonsterTasks"
-            type="es.engade.thearsmonsters.http.controller.actions.ExecuteMonsterTasksAction"
-            name="executeMonsterTasksForm" scope="request" validate="true">
-        <set-property property="authenticationRequired" value="true"/>
-       </action> 
+    <action path="/ExecuteMonsterActions"
+            type="es.engade.thearsmonsters.http.controller.actions.ExecuteMonsterActionsAction"
+            name="monsterActionsToDoForm" scope="request" validate="true"
+            input="/Monster.do">
+        <set-property property="authenticationRequired" value="true"/></action> 
 			
 	<action path="/Guild"
             type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
@@ -167,8 +166,7 @@
             
     <action path="/MetamorphosisToAdult"
 			type="es.engade.thearsmonsters.http.controller.actions.MetamorphosisToAdultAction">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="Monster" path="/Monster.do" redirect="true"/></action>
+        <set-property property="authenticationRequired" value="true"/></action>
 			
 	<action path="/Missions"
             type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
@@ -186,15 +184,13 @@
 			type="es.engade.thearsmonsters.http.controller.actions.MonstersAction"
             parameter=".Monsters">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="Monsters"
-                 path=".Monsters"/></action>
+        <forward name="Monsters" path=".Monsters"/></action>
                      
     <action path="/NewRoomsAvaliable"
             type="es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction"
             parameter=".NewRoomsAvaliable">
         <set-property property="authenticationRequired" value="true"/></action>
 
-     
     <action path="/RegisterUser"
 			type="es.engade.thearsmonsters.http.controller.actions.RegisterUserAction"
             name="userProfileForm" scope="request" validate="true"
@@ -230,9 +226,9 @@
         <forward name="EditUserProfile" 
         		 path="/EditUserProfile.do"/></action>
                  
+    
              
     <!-- ========= Front Page Action Mappings ========== -->
-    
 
     <action path="/ConceptArt"
             type="org.apache.struts.actions.ForwardAction"
@@ -297,21 +293,12 @@
       		 
     <!-- ========= Ajax Action Mappigs ========== -->
     <!-- This actions are simple. Only needs return html to insert in DOM objects -->
-    
-    <action path="/ajax/SetTask"
-            type="es.engade.thearsmonsters.http.controller.actions.ajax.SetTaskAjaxAction">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="ajaxTile" path=".Task"/></action>
         
    <action path="/ajax/ShowRoomTasks"
              type="es.engade.thearsmonsters.http.controller.actions.ajax.ShowRoomTasksAction">
          <set-property property="authenticationRequired" value="true"/>
          <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>
-	
-    <action path="/ajax/TaskManager"
-            type="es.engade.thearsmonsters.http.controller.actions.ajax.SuggestTasksAjaxAction">
-        <set-property property="authenticationRequired" value="true"/>
-    	<forward name="ajaxTile" path=".TasksManager"/></action>
+
 
 
     <!-- ===================================================================

@@ -43,8 +43,6 @@ var ThearsmonstersLib = function() {
 		    $(r+roomNumber).attr('class', 'lairRoomBackground '+roomType+'_BIG');
 		    $(r+'_title').text($(r+roomNumber+'_defineTitle').text());
 		    
-		    // Ademas oculta la ventana de la lista de tareas (_show_room_tasks)
-		    $('#load_room_tasks_container').hide();
 		    return false;
 		},
 		

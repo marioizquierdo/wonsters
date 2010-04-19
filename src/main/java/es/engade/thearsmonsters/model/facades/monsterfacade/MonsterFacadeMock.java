@@ -15,6 +15,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -75,13 +76,16 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return null;
 	}
 	
-	public List<MonsterAction> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
-		List<MonsterAction> actions = new ArrayList<MonsterAction>();
-		Monster monster = FactoryData.MonsterWhoIs.Adult.build();
-		actions.add(MonsterActionType.GarbageHarvest.build(monster, RoomType.Warehouse));
-		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.TradeOffice));
-		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.Warehouse));
+	public List<MonsterActionSuggestion> suggestMonsterActions(Monster monster) throws InstanceNotFoundException{
+		List<MonsterActionSuggestion> actions = new ArrayList<MonsterActionSuggestion>();
+		actions.add(MonsterActionType.GarbageHarvest.build(monster, RoomType.Warehouse).getSuggestion());
+		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.TradeOffice).getSuggestion());
+		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.Warehouse).getSuggestion());
 		return actions;
+	}
+	
+	public List<MonsterActionSuggestion> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
+		return suggestMonsterActions(FactoryData.MonsterWhoIs.Adult.build());
 	}
 	
 	public boolean executeMonsterAction(MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 

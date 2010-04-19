@@ -34,8 +34,6 @@
   <c:url var="formsCSS" value="/css/forms.css" />
   <c:url var="tablesCSS" value="/css/tables.css" />
   <c:url var="windowTagAndColorsCSS" value="/css/window_tag_and_colors.css" />
-  <c:url var="lairStylesCSS" value="/css/lair_styles.css" />
-  <c:url var="monsterStylesCSS" value="/css/monster_styles.css" />
   <c:url var="tipTipCSS" value="/css/tipTip.css" />
   
   <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
@@ -45,8 +43,6 @@
   <link rel="StyleSheet" href="${formsCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${tablesCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${windowTagAndColorsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${lairStylesCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${monsterStylesCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${tipTipCSS}" type="text/css" media="all" />
   
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/> 

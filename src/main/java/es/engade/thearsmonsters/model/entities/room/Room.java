@@ -63,7 +63,6 @@ public class Room implements Serializable {
         
         this.publicAccess = publicAccess;
         this.state = state;
-//        removeTasks();
     }
     
 	public Key getId() {
@@ -134,29 +133,9 @@ public class Room implements Serializable {
 	}
 	
 	/**
-	 * Deprecated
-	 * Change the state of the room to RoomEnlargingState,
-	 * at the begining of works (effortDone = 0).
-	 * @return true if the state was changed, false weather
-	 * 		the room is inWorks yet or weather the room can not
-	 * 		be enlarged one place more.
-	 */
-//	public boolean setStateStartEnlarging() {
-//        if(!isInWorks() && isEnlargable()) {
-//        	setState(new RoomEnlargingState(0));
-//        	return true;
-//        } else {
-//        	return false;
-//        }
-//	}
-	
-	/**
 	 * Change the state of the room to normal, canceling the effortDone
-	 * in the current works.<br>
-	 * NOTE: The tasks will not be changed here. The CancelWorksAction
-	 * of the facade will cancel the current builder jobs.
-	 * @return true if the state was changed or 
-	 * 		false if the room is not inWorks.
+	 * in the current works.
+	 * @return true if the state was changed or false if the room is not currentlly inWorks.
 	 */
 	public boolean setStateCancelWorks() {
         if(isInWorks() && getLevel() > 0) {

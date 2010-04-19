@@ -59,4 +59,16 @@ public class MonsterAction {
 		return type.execute(monster, room);
 	}
 	
+
+	//*** Other ***//
+	
+	/**
+	 * Devuelve una sugerencia para realizar esta misma action.
+	 * Esto es una instancia de MonsterActionSuggestion con los datos de esta action.
+	 */
+	public MonsterActionSuggestion getSuggestion() {
+		String monsterId = monster.getId() == null ? "" : monster.getId().toString();
+		return new MonsterActionSuggestion(type, monsterId, room.getType());
+	}
+	
 }
