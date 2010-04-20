@@ -140,7 +140,7 @@ public class MonsterFacadeTest extends GaeTest {
         assertEquals(persistentChildMonster.getAge(), MonsterAge.Child);
         
         String monsterId = KeyUtils.toString(persistentChildMonster.getId());
-        Monster recoveredMonster = monsterFacade.metamorphosisToAdult(monsterId, persistentUser.getLair());
+        Monster recoveredMonster = monsterFacade.metamorphosisToAdult(persistentUser.getLair(), monsterId);
         
         //TODO de momento falla pq no está implementado metamorphosisToAdult
         assertEquals(MonsterAge.Adult, recoveredMonster.getAge());
@@ -155,7 +155,7 @@ public class MonsterFacadeTest extends GaeTest {
         assert(!persistentAdultMonster.getAge().equals(MonsterAge.Child));
         
         String monsterId = KeyUtils.toString(persistentAdultMonster.getId());
-        monsterFacade.metamorphosisToAdult(monsterId, persistentUser.getLair());
+        monsterFacade.metamorphosisToAdult(persistentUser.getLair(), monsterId);
         
     }
     
@@ -168,7 +168,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         String monsterId = KeyUtils.toString(persistentChildMonster.getId());
         
-        monsterFacade.metamorphosisToAdult(monsterId, anotherPersistentUser.getLair());
+        monsterFacade.metamorphosisToAdult(anotherPersistentUser.getLair(), monsterId);
         
     }
     
@@ -186,7 +186,7 @@ public class MonsterFacadeTest extends GaeTest {
     public void testFindMonster()
     throws InternalErrorException, InstanceNotFoundException {
         
-        Monster monster = monsterFacade.findMonster(KeyUtils.toString(persistentChildMonster.getId()));
+        Monster monster = monsterFacade.findMonster(null, KeyUtils.toString(persistentChildMonster.getId()));
         
         assertEquals(persistentChildMonster, monster);
         
@@ -196,7 +196,7 @@ public class MonsterFacadeTest extends GaeTest {
     public void testFindMonsterFail()
     throws InternalErrorException, InstanceNotFoundException {
         
-        monsterFacade.findMonster(UNEXISTENT_MONSTER_ID);
+        monsterFacade.findMonster(null, UNEXISTENT_MONSTER_ID);
         
     }
 }

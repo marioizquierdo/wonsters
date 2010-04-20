@@ -30,12 +30,21 @@ public interface UserFacade {
 
     public User findUserProfile(String login) 
     	throws InstanceNotFoundException, InternalErrorException;
-    
+
+    /**
+     * Modifica los datos del usuario. No hace falta pasarle el password
+     * porque en el caso de uso no se solicita clave. 
+     */
     public void updateUserProfileDetails(
         String login, 
         UserDetails userProfileDetailsVO)
         throws InternalErrorException;
     
+    /**
+     * Futuramente debería de solicitar el password en claro para que no
+     * venga tu hermano cabrón y te borre la cuenta.
+     * 
+     */
 	public void removeUserProfile(String login)
 		throws InternalErrorException, InstanceNotFoundException;
 

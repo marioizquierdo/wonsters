@@ -38,7 +38,7 @@ public class ShellEggAction extends AThearsmonstersDefaultAction {
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
-			Integer moneyBack = monsterFacade.shellEgg(eggId, lair);
+			Integer moneyBack = monsterFacade.shellEgg(lair, eggId);
 			
 			/* Show results */
 			FlashMessage.show(request, "EggsManagement.shellEggs.doneMessage", moneyBack.toString());

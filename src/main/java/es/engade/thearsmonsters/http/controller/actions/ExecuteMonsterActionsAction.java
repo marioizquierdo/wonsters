@@ -43,7 +43,7 @@ public class ExecuteMonsterActionsAction extends AThearsmonstersDefaultAction {
 	    		MonsterActionSuggestion action = entry.getKey();
 	    		Integer times = entry.getValue();
 	        	for(int i = 0; i < times; i++) {
-		                monsterFacade.executeMonsterAction(action.getMonsterActionType(), monsterId, action.getRoomType());
+		                monsterFacade.executeMonsterAction(null, action.getMonsterActionType(), monsterId, action.getRoomType());
 	        	}
 	        }
         } catch (Exception e) {

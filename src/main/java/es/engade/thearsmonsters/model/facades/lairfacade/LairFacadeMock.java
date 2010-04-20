@@ -29,13 +29,12 @@ public class LairFacadeMock implements LairFacade {
 		lairs.add(FactoryData.LairWhatIs.InInitialState.build("Mi otro vecino"));
 	}
 	
-	@Override
 	public void cancelWorks(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
 			InstanceNotFoundException{
 	}
 
-	@Override
+	
 	public int changeResources(String moneyOrGarbage, int amount, Lair lair)
 			throws WarehouseFullStorageException,
 			TradeOfficeFullStorageException, InsuficientGarbageException,
@@ -44,44 +43,43 @@ public class LairFacadeMock implements LairFacade {
 		return 2000;
 	}
 
-	@Override
 	public void createNewRoom(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException, InsuficientGarbageException {
 		lair.buildRoom(roomType);
 	}
 
-	@Override
+	
 	public BuildingChunk findBuilding(int street, int building)
 			throws InternalErrorException, IncorrectAddressException {
 		return new BuildingChunk(lairs, 2, 2, 2, 0, 0, 0);
 	}
 	
-	@Override
+	
 	public Lair findLair(String lairId) throws InstanceNotFoundException,
 			InternalErrorException {
 		return lair;
 	}
 
-	@Override
+	
 	public Lair findLairByLogin(String login) throws InstanceNotFoundException,
 			InternalErrorException {
 		return lair;
 	}
 
-	@Override
+	
 	public Lair findLairByAddress(int street, int building, int floor)
 			throws InstanceNotFoundException, InternalErrorException,
 			IncorrectAddressException {
 		return lair;
 	}
 
-	@Override
+	
 	public void setRoomEnlargingInWorksState(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
 			InstanceNotFoundException, InsuficientGarbageException {
 	}
 
-	@Override
+	
 	public void setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
 			throws InWorksActionException, InternalErrorException,
 			InstanceNotFoundException, InsuficientGarbageException {

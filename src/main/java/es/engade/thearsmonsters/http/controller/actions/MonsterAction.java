@@ -35,8 +35,8 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
     	
         /* Find Monster. */
 		try {
-			monster = monsterFacade.findMonster(monsterId);
-			suggestedMonsterActions = monsterFacade.suggestMonsterActions(monster);
+			monster = monsterFacade.findMonster(null, monsterId);
+			suggestedMonsterActions = monsterFacade.suggestMonsterActions(null, monster);
 		} catch (InstanceNotFoundException e) {
 	        return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
 		}

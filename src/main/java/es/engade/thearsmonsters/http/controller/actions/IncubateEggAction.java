@@ -34,7 +34,7 @@ public class IncubateEggAction extends AThearsmonstersDefaultAction {
 	    	Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
-			monsterFacade.incubateEgg(eggId, lair);
+			monsterFacade.incubateEgg(lair, eggId);
 			
 		} catch (InstanceNotFoundException e) {
         	request.setAttribute("actionStatus", "ERROR");
