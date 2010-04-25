@@ -14,13 +14,11 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
-import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
-import es.engade.thearsmonsters.util.factory.FactoryData.MonsterWhoIs;
 
 public class MonsterFacadeMock implements MonsterFacade {
 
@@ -37,23 +35,23 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return lair.getMonsterEggs();
 	}
 
-	public void incubateEgg(String eggId, Lair lair)
+	public void incubateEgg(Lair lair, String eggId)
 			throws InternalErrorException, InstanceNotFoundException,
 			InsuficientVitalSpaceException {
 	}
 
-	public Integer shellEgg(String eggId, Lair lair)
+	public Integer shellEgg(Lair lair, String eggId)
 			throws InternalErrorException, InstanceNotFoundException {
 		return 3;
 	}
-	public Monster bornMonster(String eggId, String monsterName, Lair lair) 
+	public Monster bornMonster(Lair lair, String eggId, String monsterName) 
 			throws InternalErrorException,
 			InstanceNotFoundException, MonsterGrowException,
 			InsuficientVitalSpaceException {
 		return FactoryData.MonsterWhoIs.Child.build();
 	}
 
-	public MonsterEgg buyEgg(MonsterRace race, Lair lair)
+	public MonsterEgg buyEgg(Lair lair, MonsterRace race)
 			throws InternalErrorException, InsuficientMoneyException,
 			MaxEggsException {
 		return egg;
@@ -64,19 +62,19 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return lair.getMonsters();
 	}
 
-	public Monster findMonster(String monsterId) throws InternalErrorException,
+	public Monster findMonster(Lair lair, String monsterId) throws InternalErrorException,
 			InstanceNotFoundException {
 		
 		return FactoryData.MonsterWhoIs.Adult.build();
 	}
 
-	public Monster metamorphosisToAdult(String monsterId, Lair lair)
+	public Monster metamorphosisToAdult(Lair lair, String monsterId)
 			throws InternalErrorException, InstanceNotFoundException,
 			MonsterGrowException {
 		return null;
 	}
 	
-	public List<MonsterActionSuggestion> suggestMonsterActions(Monster monster) throws InstanceNotFoundException{
+	public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, Monster monster) throws InstanceNotFoundException{
 		List<MonsterActionSuggestion> actions = new ArrayList<MonsterActionSuggestion>();
 		actions.add(MonsterActionType.GarbageHarvest.build(monster, RoomType.Warehouse).getSuggestion());
 		actions.add(MonsterActionType.WorkInTheWorks.build(monster, RoomType.TradeOffice).getSuggestion());
@@ -84,11 +82,11 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return actions;
 	}
 	
-	public List<MonsterActionSuggestion> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{
-		return suggestMonsterActions(FactoryData.MonsterWhoIs.Adult.build());
+	public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, String monsterId) throws InstanceNotFoundException{
+		return suggestMonsterActions(null, FactoryData.MonsterWhoIs.Adult.build());
 	}
 	
-	public boolean executeMonsterAction(MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
+	public boolean executeMonsterAction(Lair lair, MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
 		throws InstanceNotFoundException {
 		return true;
 	}

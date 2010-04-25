@@ -1,6 +1,5 @@
 package es.engade.thearsmonsters.model.facades.monsterfacade;
 
-import java.io.Serializable;
 import java.util.List;
 
 import com.google.appengine.api.datastore.Key;
@@ -22,7 +21,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public interface MonsterFacade {
 
-    public MonsterEgg buyEgg(MonsterRace race, Lair lair)
+    public MonsterEgg buyEgg(Lair lair, MonsterRace race)
         throws InternalErrorException, InsuficientMoneyException, MaxEggsException;
 
     public List<MonsterEgg> findEggs(Lair lair)
@@ -32,44 +31,39 @@ public interface MonsterFacade {
      * Shell an existing egg from the given lair.
      * @return the money gained in the shell.
      */
-    public Integer shellEgg(String eggId, Lair lair) 
+    public Integer shellEgg(Lair lair, String eggId) 
     	throws InternalErrorException, InstanceNotFoundException;
     
-    public void incubateEgg(String eggId, Lair lair)
+    public void incubateEgg(Lair lair, String eggId)
 		throws InternalErrorException, InstanceNotFoundException, InsuficientVitalSpaceException;
     
-    public Monster bornMonster(String eggId, String monsterName, Lair lair)
+    public Monster bornMonster(Lair lair, String eggId, String monsterName)
     	throws InternalErrorException, InstanceNotFoundException, MonsterGrowException, InsuficientVitalSpaceException;
     
-    public Monster metamorphosisToAdult(String monsterId, Lair lair)
+    public Monster metamorphosisToAdult(Lair lair, String monsterId)
 		throws InternalErrorException, InstanceNotFoundException, MonsterGrowException;
     
     public List<Monster> findLairMonsters(Lair lair)
     	throws InternalErrorException;
     
-    public Monster findMonster(String monsterId)
+    public Monster findMonster(Lair lair, String monsterId)
     	throws InternalErrorException, InstanceNotFoundException;
     
     /**
      * Sugerir acciones que puede hacer el monstruo en su propia guarida
+     * @param lair TODO
      */
-    public List<MonsterActionSuggestion> suggestMonsterActions(Key monsterId) 
+    public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, String monsterId) 
     	throws InstanceNotFoundException;
-    
-    /**
-     * Lo mismo que suggestMonsterActions(Key monsterId) pero es mejor usar
-     * esta si ya se tiene el monstruo (evita hacer otra consulta).
-     */
-    public List<MonsterActionSuggestion> suggestMonsterActions(Monster monster) 
-		throws InstanceNotFoundException;
     
     /**
      * Ejecutar una acción de un monstruo en una sala de su propia guarida
      * TODO: Hay que implementar un caso de uso más eficiente, que permita ejecutar varias
      * acciones y que cada una de ellas pueda consumir varios turnos, y que al final guarde los cambios en la base
      * de datos tan solo una vez.
+     * @param lair TODO
      */
-    public boolean executeMonsterAction(MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
+    public boolean executeMonsterAction(Lair lair, MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
     	throws InstanceNotFoundException;
 
 }

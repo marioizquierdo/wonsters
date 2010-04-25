@@ -54,7 +54,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Transactional
-    public Monster bornMonster(String eggId, String monsterName, Lair lair)
+    public Monster bornMonster(Lair lair, String eggId, String monsterName)
             throws InternalErrorException, InstanceNotFoundException,
             MonsterGrowException, InsuficientVitalSpaceException {
 
@@ -92,7 +92,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Transactional
-    public MonsterEgg buyEgg(MonsterRace race, Lair lair)
+    public MonsterEgg buyEgg(Lair lair, MonsterRace race)
             throws InternalErrorException, InsuficientMoneyException,
             MaxEggsException {
 
@@ -135,7 +135,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
         
     }
 
-    public Monster findMonster(String monsterId) throws InternalErrorException,
+    public Monster findMonster(Lair lair, String monsterId) throws InternalErrorException,
             InstanceNotFoundException {
 
         // Comprueba que se puede parsear la clave
@@ -147,7 +147,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Transactional
-    public void incubateEgg(String eggId, Lair lair)
+    public void incubateEgg(Lair lair, String eggId)
             throws InternalErrorException, InstanceNotFoundException,
             InsuficientVitalSpaceException {
 
@@ -176,7 +176,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
 
     }
 
-    public Monster metamorphosisToAdult(String monsterId, Lair lair)
+    public Monster metamorphosisToAdult(Lair lair, String monsterId)
             throws InternalErrorException, InstanceNotFoundException,
             MonsterGrowException {
 
@@ -204,7 +204,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Transactional
-    public Integer shellEgg(String eggId, Lair lair)
+    public Integer shellEgg(Lair lair, String eggId)
             throws InternalErrorException, InstanceNotFoundException {
         
         // Comprueba que se puede parsear la clave
@@ -230,39 +230,40 @@ public class MonsterFacadeImpl implements MonsterFacade {
         return eggSalePrice;
     }
     
-    public List<MonsterActionSuggestion> suggestMonsterActions(Key monsterId) throws InstanceNotFoundException{ 	
-    	return suggestMonsterActions(monsterDao.get(monsterId));
-    }
-    
-    public List<MonsterActionSuggestion> suggestMonsterActions(Monster monster) throws InstanceNotFoundException{ 	
-
-    	Lair lair = monster.getLair();
-    	List<MonsterActionSuggestion> suggestedActions = new ArrayList<MonsterActionSuggestion>();
-    	
-    	
-    	// Para cada sala se comprueba si se puede ejecutar alguna acción en ella,
-    	// para ello hay que comprobar todas las combinaciones posibles room - monsterAction.
-    	for (Room room : lair.getRooms()) {
-    		for (MonsterActionType actionType : MonsterActionType.values()) {
-    			MonsterAction action = actionType.build(monster, room);
-    			if(action.isValid()) {
-    				// solo se sugieren posibles acciones válidas
-    				suggestedActions.add(action.getSuggestion());
-    			}
-    		}
-    	}
-    	
-    	return suggestedActions;
+    public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, String monsterId) throws InstanceNotFoundException{
+        
+        //TODO: En TODOS los casos de uso de las fachadas, al igual que aquí, hay que hacer lo siguiente:
+        // 1. Mirar en lair si se encuentra un monstruo con ese monsterId
+        // 2. Si se encuentra, ese es el monstruo (y nos ahorramos la consulta a BBDD)
+        // 3. Si no se encuentra, devuelve un InstanceNotFoundException, excepto casos raros en los que puede
+        //    acceder usando el DAO.
+        Monster monster = monsterDao.get(monsterId);
+        List<MonsterActionSuggestion> suggestedActions = new ArrayList<MonsterActionSuggestion>();
+        
+        
+        // Para cada sala se comprueba si se puede ejecutar alguna acción en ella,
+        // para ello hay que comprobar todas las combinaciones posibles room - monsterAction.
+        for (Room room : lair.getRooms()) {
+            for (MonsterActionType actionType : MonsterActionType.values()) {
+                MonsterAction action = actionType.build(monster, room);
+                if(action.isValid()) {
+                    // solo se sugieren posibles acciones válidas
+                    suggestedActions.add(action.getSuggestion());
+                }
+            }
+        }
+        
+        return suggestedActions;
+        
     }
     
     @Transactional
-    public boolean executeMonsterAction(MonsterActionType actionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
+    public boolean executeMonsterAction(Lair lair, MonsterActionType actionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
     	
     	/* Al estilo de findMonster, a lo mejor se puede quitar el argumento
     	 * Key del metodo y enviar directamente el monster en ese caso borrar la linea siguiente
     	 */
     	Monster monster = monsterDao.get(monsterId);
-    	Lair lair = monster.getLair();
     	Room room = lair.getRoom(roomType);
     	
     	

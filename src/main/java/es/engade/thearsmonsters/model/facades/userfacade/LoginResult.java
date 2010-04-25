@@ -29,6 +29,8 @@ public class LoginResult implements Serializable {
     }
     
     public Lair getLair() {
+        if (!lairPersistentState)
+            throw new RuntimeException("Lair is detached!!");
         return lair;
     }
 

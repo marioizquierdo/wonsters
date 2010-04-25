@@ -44,7 +44,7 @@ public class BuyEggAction extends AThearsmonstersDefaultAction {
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
-			monsterFacade.buyEgg(eggRace, lair);
+			monsterFacade.buyEgg(lair, eggRace);
 			FlashMessage.show(request, "EggsManagement.buyEggs.doneMessage", eggRace.getBuyEggPrice()+"");
 			
 		} catch (InsuficientMoneyException e) {

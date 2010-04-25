@@ -43,7 +43,7 @@ public class BornMonsterAction extends AThearsmonstersDefaultAction {
 		        Lair lair = SessionManager.getMyLair(request);
 		            
 		        /* Model action */
-				monster = monsterFacade.bornMonster(eggId, monsterName, lair);
+				monster = monsterFacade.bornMonster(lair, eggId, monsterName);
 				
 				/* Notify message */
 				FlashMessage.show(request, "BornMonster.doneMessage", monster.getName());
