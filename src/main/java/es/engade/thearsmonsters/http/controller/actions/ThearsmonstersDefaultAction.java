@@ -23,7 +23,7 @@ import es.engade.thearsmonsters.util.struts.action.DefaultAction;
  * A Struts default org.apache.struts.actions.ForwardAction may be changed for this one if
  * 	the view uses the myLair session property.
  */
-public class AThearsmonstersDefaultAction extends DefaultAction {
+public class ThearsmonstersDefaultAction extends DefaultAction {
 	
     @Override
     protected ActionForward doExecute(ActionMapping mapping,

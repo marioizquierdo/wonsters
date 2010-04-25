@@ -33,6 +33,6 @@
   			Lo normal es utilizarlo para aplicar algo de margin-left o margin-right."/>
   			
 	<div class="${size}_ico" style="background-position: 0 ${-pixels*id}px; ${style}" title="${title}" >
-		<img src="images/theme/empty_pixel.png"/></div>
+		<img src="/images/theme/empty_pixel.png"/></div>
 	
 </jsp:root>

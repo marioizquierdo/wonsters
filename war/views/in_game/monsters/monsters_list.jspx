@@ -7,13 +7,11 @@
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
               		
-<c:url var="monsterStylesURL" value="/css/monster_styles.css" />
-<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
 
 <customtag:window id="monstersList" title="Monsters.title"
 	tags="monsters: MainMenu.link.monsters, 
-		viewEggs: EggsManagement.viewEggs => EggsManagement.do?eggsManagement_selected_tag=viewEggs,
-		buyEggs: EggsManagement.buyEggs => EggsManagement.do?eggsManagement_selected_tag=buyEggs">
+		viewEggs: EggsManagement.viewEggs => monster/eggs.do?eggsManagement_selected_tag=viewEggs,
+		buyEggs: EggsManagement.buyEggs => monster/eggs.do?eggsManagement_selected_tag=buyEggs">
 	
 	<div id="monstersList_monsters"><c:choose>
 	
@@ -36,7 +34,7 @@
 			</tr>
 		    <c:forEach items="${monsters}" var="monster" varStatus="loop" >
 		    
-			    <c:url var="monsterURL" value="Monster.do">
+			    <c:url var="monsterURL" value="monster.do">
 					<c:param name="monsterId" value="${monster.id}"/>
 				</c:url>
 			    

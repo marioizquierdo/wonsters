@@ -26,7 +26,7 @@ var ThearsmonstersLib = function() {
 		
 		/**
 		 * Muestra en una ventana los detalles de una sala. Se utiliza desde
-		 * lairContents/lair.jspx (en eventos onClick y al final del archivo).
+		 * views/in_game/lair/lair.jspx (en eventos onClick y al final del archivo).
 		 */
 		showRoom: function(wrapperId, numRooms, roomNumber, roomType) {
 			var r = '#'+wrapperId;

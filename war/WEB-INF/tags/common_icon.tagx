@@ -22,7 +22,7 @@
 	<c:set var="title"><fmt:message key="Lair.garbage" /> - <fmt:message key="Lair.garbage.desc"/></c:set>  		
 	<c:choose>
 	<c:when test="${!empty img}">
-	  <img src="images/theme/icons/garbage_small.png" title="${title}" style="${style}"/>
+	  <img src="/images/theme/icons/garbage_small.png" title="${title}" style="${style}"/>
   	</c:when>
 	<c:otherwise>
 	  <customtag:icon id="8" size="s" title="${title}" style="${style}"/>
@@ -34,7 +34,7 @@
   	<c:set var="title"><fmt:message key="Lair.money" /> - <fmt:message key="Lair.money.desc"/> </c:set>
   	<c:choose>
 	<c:when test="${!empty img}">
-	  <img src="images/theme/icons/money_small.png" title="${title}" style="${style}"/>
+	  <img src="/images/theme/icons/money_small.png" title="${title}" style="${style}"/>
   	</c:when>
 	<c:otherwise>
 	  <customtag:icon id="10" size="s" title="${title}" style="${style}"/>
@@ -46,7 +46,7 @@
 	<c:set var="title"><fmt:message key="Lair.effort" /> - <fmt:message key="Lair.effort.desc"/></c:set>  		
 	<c:choose>
 	<c:when test="${!empty img}">
-	  <img src="images/theme/icons/effort_small.png" title="${title}" style="${style}"/>
+	  <img src="/images/theme/icons/effort_small.png" title="${title}" style="${style}"/>
   	</c:when>
 	<c:otherwise>
 	  <customtag:icon id="24" size="s" title="${title}" style="${style}"/>
@@ -58,7 +58,7 @@
   	<c:set var="title"><fmt:message key="Monster.race.vitalSpace" /> - <fmt:message key="Monster.race.vitalSpace.desc"/> </c:set>
   	<c:choose>
 	<c:when test="${!empty img}">
-	  <img src="images/theme/icons/vitalSpace_small.png" title="${title}" style="${style}"/>
+	  <img src="/images/theme/icons/vitalSpace_small.png" title="${title}" style="${style}"/>
   	</c:when>
 	<c:otherwise>
 	  <customtag:icon id="11" size="s" title="${title}" style="${style}"/>

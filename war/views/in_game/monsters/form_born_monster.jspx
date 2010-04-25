@@ -7,19 +7,16 @@
           version="2.0">
            
 <html:xhtml/>
-              		
-<c:url var="monsterStylesURL" value="/css/MonsterStyles.css" />
-<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
 
 <customtag:window id="bornMonsterWindow" title="BornMonsterForm.title">
 
-	<div id="bornMonster_image"><img src="images/theme/empty_pixel.png"/></div>
+	<div id="bornMonster_image"><img src="/images/theme/empty_pixel.png"/></div>
 	
 	<div id="bornMonster_form">
 		<customtag:info_message key="BornMonsterForm.info" icon_id="6"
 			style="width: 400px;" content_style="width: 375px" >
 	
-			<html:form action="BornMonster.do" focus="monsterName">
+			<html:form action="monster/born_action.do" focus="monsterName">
 				<html:hidden property="eggId" value="${param.eggId}"/>
 			    <div class="field">        
 			        <span class="label">

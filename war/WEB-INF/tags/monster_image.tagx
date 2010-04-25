@@ -23,6 +23,6 @@
 		<c:otherwise><fmt:message key="Monster.age.${type}"/></c:otherwise>
 	</c:choose></c:set>
 	
-	<img src="images/monsters/${race}/${type}.png" title="${title} - ${desc}"/>
+	<img src="/images/monsters/${race}/${type}.png" title="${title} - ${desc}"/>
 	
 </jsp:root>

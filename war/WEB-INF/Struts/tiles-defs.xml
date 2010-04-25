@@ -41,7 +41,7 @@
 
 	<definition name=".Confirmation" extends=".InGameBase">
 		<put name="title" value="Confirmation.title" />
-		<put name="content" value="/views/in_game/common/confirmation_message.jspx" />
+		<put name="content" value="/views/common/confirmation_message.jspx" />
 	</definition>
 
 	<definition name=".EggsManagement" extends=".InGameBase">
@@ -91,10 +91,10 @@
 		<put name="content" value="/views/in_game/monsters/monsters_list.jspx" />
 	</definition>
 
-	<definition name=".NewRoomsAvaliable" extends=".InGameBase">
+	<definition name=".RoomsReadyToBuild" extends=".InGameBase">
 		<put name="title" value="Lair.newRoomsAvaliable" />
 		<put name="color" value="blue" />
-		<put name="content" value="/views/in_game/lair/new_rooms_avaliable.jspx" />
+		<put name="content" value="/views/in_game/lair/rooms_ready_to_build.jspx" />
 	</definition>
 
 	<definition name=".SearchPublicRooms" extends=".InGameBase">

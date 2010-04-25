@@ -58,7 +58,7 @@ fmt:setLocale tag will not be necessary.
 
 <!-- Javascript initializer (Load initial js data). -->
 <![CDATA[
-	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
+	<script type='text/javascript' src='/javascript/lib/jquery.js'></script>
 ]]>
 
 <!-- Start of HTML body. -->

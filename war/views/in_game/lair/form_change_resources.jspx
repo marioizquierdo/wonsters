@@ -6,9 +6,6 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
-    		
-<c:url var="stylesURL" value="/css/LairStyles.css" />
-<link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
 
 <!-- Common references around the body -->
 <c:set var="notReadyToChangeYet" value="${myLair.roomData.onlyOneChangePerGameDayException}"/>
@@ -19,7 +16,7 @@
 <!-- Include javascript only if the change is ready to made -->
 <c:if test="${empty notReadyToChangeYet}">
 	<![CDATA[
-		<script type='text/javascript' src='javascript/change_resources.js'></script>
+		<script type='text/javascript' src='/javascript/change_resources.js'></script>
 	]]>
 	<div id="change_resources_js_data" style="display:none">
 		<div id="crdata_maxGarbageAmountEnabled">${maxGarbageAmountEnabled}</div>
@@ -67,7 +64,7 @@
 		</div>
 		
 		<c:choose><c:when test="${empty notReadyToChangeYet}">
-			<html:form action="ChangeResources.do">
+			<html:form action="lair/change_resources_action.do">
 				<html:errors property="garbage"/>
 				<html:hidden property="money" value="0"/>
 			    <div class="info_slot">
@@ -142,7 +139,7 @@
 		</div>
 		
 		<c:choose><c:when test="${empty notReadyToChangeYet}">
-			<html:form action="ChangeResources.do">
+			<html:form action="lair/change_resources_action.do">
 				<html:errors property="money"/>
 				<html:hidden property="garbage" value="0"/>
 			    <div class="info_slot">

@@ -149,8 +149,8 @@ public class Lair implements Serializable {
 			buildedRooms.add(room.getType());
 		}
 
-		for(RoomType roomType : RoomType.values()) { // En esta implementacion, se a�aden todas las que hay menos las construidas
-			if(!buildedRooms.contains(roomType.toString())) {
+		for(RoomType roomType : RoomType.values()) { // En esta implementacion, se añaden todas las que hay menos las construidas
+			if(!buildedRooms.contains(roomType)) {
 				newRoomsAvaliable.add(roomType);
 			}
 		}

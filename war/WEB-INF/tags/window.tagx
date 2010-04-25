@@ -86,7 +86,7 @@
   <!-- Draw the window -->
   <div id="${id}" class="rounded_window" style="width:${window_width}px">
 	<div class="atTop" style="float:left; width:${window_width}px">
-		<div class="tl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+		<div class="tl" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
 		<div class="tm" style="float:left; width:${window_width - 2*frame_widht}px">
 		
 			<!-- Header and title -->
@@ -120,7 +120,7 @@
             </c:if>
             
         </div>
-		<div class="tr" style="float:left"><img src="images/theme/empty_pixel.png"/></div></div>
+		<div class="tr" style="float:left"><img src="/images/theme/empty_pixel.png"/></div></div>
 		<div class="atMiddle" style="float:left; width:${window_width}px"><div class="ml"><div class="mr"><div class="mlt"><div class="mrt">
 			<div class="m content_box" id="${id}_content" style="display:none">
 				
@@ -129,9 +129,9 @@
 			</div>		
 		</div></div></div></div></div>
 	<div class="atBottom" style="float:left; width:${window_width}px">
-		<div class="bl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
-		<div class="bm" style="float:left; width:${window_width - 2*frame_widht}px"><img src="images/theme/empty_pixel.png"/></div>
-		<div class="br" style="float:left"><img src="images/theme/empty_pixel.png"/></div></div>
+		<div class="bl" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
+		<div class="bm" style="float:left; width:${window_width - 2*frame_widht}px"><img src="/images/theme/empty_pixel.png"/></div>
+		<div class="br" style="float:left"><img src="/images/theme/empty_pixel.png"/></div></div>
   </div>
 
   <c:if test="${!empty id}">

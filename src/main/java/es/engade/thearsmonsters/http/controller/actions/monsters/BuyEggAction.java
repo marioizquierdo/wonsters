@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.http.controller.actions;
+package es.engade.thearsmonsters.http.controller.actions.monsters;
 
 import java.io.IOException;
 
@@ -10,6 +10,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
+import es.engade.thearsmonsters.http.controller.actions.Confirmation;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -21,7 +23,7 @@ import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class BuyEggAction extends AThearsmonstersDefaultAction {
+public class BuyEggAction extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
@@ -31,7 +33,7 @@ public class BuyEggAction extends AThearsmonstersDefaultAction {
     	
     	// Hay que confirmar la acción antes de que se ejecute
     	ActionForward confirm = Confirmation.confirm("EggsManagement.buyEggs.confirm", 
-    			"EggsManagement.do?eggsManagement=2", request, mapping);
+    			"monster/eggs.do", request, mapping);
     	if(confirm != null) return confirm;
     	
     	// Ejecutar la acción
@@ -55,7 +57,7 @@ public class BuyEggAction extends AThearsmonstersDefaultAction {
 			throw new InternalErrorException(e);
 		}
 
-        return mapping.findForward("EggsManagement");
+        return mapping.findForward("MonsterEggs");
         
     }
     

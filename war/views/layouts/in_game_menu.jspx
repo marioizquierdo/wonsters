@@ -11,7 +11,7 @@
  
   <div id="menu_logo" class="menu_window">
     <c:set var="image_title"><fmt:message key="Thearsmonsters"/></c:set>
-  	<img src="images/thearsmonsters_logo.png" title="${image_title}"/>
+  	<img src="/images/thearsmonsters_logo.png" title="${image_title}"/>
   	<div id="logo_bottom_links">
   		<fmt:message key="MainMenu.menu"/>
   	</div>
@@ -30,9 +30,9 @@
 			</ul>
 		</div></div></div></div>
 		<div class="atBottom" style="float:left; width:145px">
-			<div class="bl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
-			<div class="bm" style="float:left; width:135px"><img src="images/theme/empty_pixel.png"/></div>
-			<div class="br" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+			<div class="bl" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
+			<div class="bm" style="float:left; width:135px"><img src="/images/theme/empty_pixel.png"/></div>
+			<div class="br" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
 		</div>
 	</div>
   </div>
@@ -40,7 +40,7 @@
   <div id="menu_box">
   
     <div id="menu_info">
-      <div id="menu_info_left"><img src="images/theme/empty_pixel.png"/></div>
+      <div id="menu_info_left"><img src="/images/theme/empty_pixel.png"/></div>
       <div id="menu_info_content">
       	<div id="menu_info_content_garbage" class="menu_info_item">
       		<customtag:common_icon id="garbage"/><span class="description">
@@ -62,15 +62,15 @@
       	</div>
       	
       </div>
-      <div id="menu_info_right"><img src="images/theme/empty_pixel.png"/></div>
+      <div id="menu_info_right"><img src="/images/theme/empty_pixel.png"/></div>
     </div>
     
     <div id="menu_links">
-      <html:link action="Lair.do">
+      <html:link action="lair.do">
           <div class="menu_link" id="guarida"><div class="menu_text">
           	<fmt:message key="MainMenu.link.lair"/></div></div></html:link>
           	
-      <html:link action="Monsters.do">
+      <html:link action="monsters/of_lair.do">
           <div class="menu_link" id="monstruos"><div class="menu_text">
           	<fmt:message key="MainMenu.link.monsters"/></div></div></html:link>
           	
