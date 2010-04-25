@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.http.controller.actions;
+package es.engade.thearsmonsters.http.controller.actions.monsters;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,16 +11,15 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
+import es.engade.thearsmonsters.http.controller.session.SessionManager;
+import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
-import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.util.configuration.AppContext;
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class MonsterAction extends AThearsmonstersDefaultAction {
+public class MonstersAction extends ThearsmonstersDefaultAction {
 	
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
@@ -29,25 +28,17 @@ public class MonsterAction extends AThearsmonstersDefaultAction {
         throws IOException, ServletException, InternalErrorException {
         
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
-    	String monsterId = request.getParameter("id");
-    	Monster monster;
-    	List<MonsterActionSuggestion> suggestedMonsterActions;
+    	List<Monster> monsters;
+		Lair myLair = SessionManager.getMyLair(request);
     	
-        /* Find Monster. */
-		try {
-			monster = monsterFacade.findMonster(monsterId);
-			suggestedMonsterActions = monsterFacade.suggestMonsterActions(monster);
-		} catch (InstanceNotFoundException e) {
-	        return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
-		}
-		
-		request.setAttribute("suggestedMonsterActions", suggestedMonsterActions);
+        /* Find User Monsters. */
+		monsters = monsterFacade.findLairMonsters(myLair);
 		
 		/* Set request attributes */
-		request.setAttribute("monster", monster);
+		request.setAttribute("monsters", monsters);
         
         /* Return ActionForward. */    
-        return mapping.findForward("Monster");
+        return mapping.findForward("Monsters");
     
     }
 }

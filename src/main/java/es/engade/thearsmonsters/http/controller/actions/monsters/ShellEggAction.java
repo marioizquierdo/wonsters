@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.http.controller.actions;
+package es.engade.thearsmonsters.http.controller.actions.monsters;
 
 import java.io.IOException;
 
@@ -10,18 +10,17 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
+import es.engade.thearsmonsters.http.controller.actions.Confirmation;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class BuyEggAction extends AThearsmonstersDefaultAction {
+public class ShellEggAction extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
@@ -29,30 +28,26 @@ public class BuyEggAction extends AThearsmonstersDefaultAction {
         HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
     	
-    	// Hay que confirmar la acción antes de que se ejecute
-    	ActionForward confirm = Confirmation.confirm("EggsManagement.buyEggs.confirm", 
-    			"EggsManagement.do?eggsManagement=2", request, mapping);
+    	// Confirmación
+    	ActionForward confirm = Confirmation.confirm("EggsManagement.shellEggs.confirm", 
+    			"EggsManagement.do", request, mapping);
     	if(confirm != null) return confirm;
     	
-    	// Ejecutar la acción
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
         try {
-        	
-            /* Get data. */
-            byte eggRaceCode = Byte.parseByte(request.getParameter("eggRaceCode"));
-	        MonsterRace eggRace = MonsterRace.getFromCode(eggRaceCode);
+	        /* Get data. */
+	        String eggId = request.getParameter("id");
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
-			monsterFacade.buyEgg(eggRace, lair);
-			FlashMessage.show(request, "EggsManagement.buyEggs.doneMessage", eggRace.getBuyEggPrice()+"");
+			Integer moneyBack = monsterFacade.shellEgg(eggId, lair);
 			
-		} catch (InsuficientMoneyException e) {
-			FlashMessage.showError(request, e, null);
-		} catch (MaxEggsException e) {
-			FlashMessage.showError(request, e, null);
+			/* Show results */
+			FlashMessage.show(request, "EggsManagement.shellEggs.doneMessage", moneyBack.toString());
+			
+			
 		} catch (InstanceNotFoundException e) {
-			throw new InternalErrorException(e);
+        	throw new InternalErrorException(e);
 		}
 
         return mapping.findForward("EggsManagement");

@@ -11,12 +11,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import es.engade.thearsmonsters.http.controller.actions.AThearsmonstersDefaultAction;
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 
 /**
  * Works as a DefaultAction, but the error handling findForward is diferent.
  */
-public abstract class DefaultHTMLAjaxAction extends AThearsmonstersDefaultAction {
+public abstract class DefaultHTMLAjaxAction extends ThearsmonstersDefaultAction {
     
     /**
      * Treats an <code>Exception</code> thrown by

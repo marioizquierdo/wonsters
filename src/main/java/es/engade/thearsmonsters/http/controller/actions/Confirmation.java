@@ -18,7 +18,7 @@ import es.engade.thearsmonsters.http.view.applicationobjects.ConfirmationData;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 /**
- * Este método de confirmación trata de simplificar la confirmación de acciones que la necesiten
+ * Este método de confirmación trata de simplificar la confirmación de acciones que la necesiten.
  * Con esto se puede evitar que alguien se confunda pulsando sin querer un enlace que le puede hacer perder recursos
  * Por ejemplo: BuyEgg, compra un huevo, pero alomejor no quería gastar dinero
  * También se evitan ataques de URLs malintencionadas, aunque no es infranqueable:
@@ -26,7 +26,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
  * Este parámetro puede pasarse también por GET y también puede crearse un formulario desde otra página con esto
  * Pero almenos las medidas de seguridad son las mínimas
  */
-public class Confirmation extends AThearsmonstersDefaultAction {
+public class Confirmation extends ThearsmonstersDefaultAction {
 
     private final static String CONFIRM_DATA_SESSION_ATTRIBUTE = "confirmData";
 

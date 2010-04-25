@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.http.controller.actions;
+package es.engade.thearsmonsters.http.controller.actions.monsters;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionMapping;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameters;
 import es.engade.thearsmonsters.http.view.actionforms.MonsterActionsToDoForm;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
@@ -22,7 +23,7 @@ import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class ExecuteMonsterActionsAction extends AThearsmonstersDefaultAction {
+public class ExecuteMonsterActionsAction extends ThearsmonstersDefaultAction {
 	
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,

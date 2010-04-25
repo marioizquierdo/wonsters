@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.http.controller.actions;
+package es.engade.thearsmonsters.http.controller.actions.userprofile;
 
 import java.io.IOException;
 
@@ -10,13 +10,14 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.http.view.actionforms.UserProfileForm;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
     
-public class UpdateUserProfileDetailsAction extends AThearsmonstersDefaultAction {
+public class UpdateUserProfileDetailsAction extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
