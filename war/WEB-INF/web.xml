@@ -70,7 +70,7 @@
 	-->
 
 	<welcome-file-list>
-		<welcome-file>index.jspx</welcome-file>
+		<welcome-file>FrontPage.do</welcome-file>
 	</welcome-file-list>
 
 	<!--
