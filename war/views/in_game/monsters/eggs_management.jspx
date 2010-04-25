@@ -12,7 +12,7 @@
 ]]> 
 
 <customtag:window id="eggsManagement" title="EggsManagement.title" selected_tag="viewEggs"
-	tags="monsters: MainMenu.link.monsters => Monsters.do, 
+	tags="monsters: MainMenu.link.monsters => monsters/of_lair.do, 
 		viewEggs: EggsManagement.viewEggs, 
 		buyEggs: EggsManagement.buyEggs" >
 	
@@ -44,7 +44,7 @@
 							<c:choose><c:when test="${egg.incubated}">
 					    		<c:choose><c:when test="${egg.readyToBorn}">
 						    		<c:choose><c:when test="${myLair.vitalSpaceFree >= egg.race.vitalSpace}">
-								    	<html:link action="BornMonsterForm.do?eggId=${egg.id}">
+								    	<html:link action="monster/born.do?eggId=${egg.id}">
 									    	<fmt:message key="Buttons.born"/>
 										</html:link></c:when>
 							    	<c:otherwise>
@@ -54,7 +54,7 @@
 							    				<fmt:param value="${myLair.vitalSpaceFree}"/>
 							    			</fmt:message>
 							    		</c:set>
-							    		<span class="cursor_help" title=" - ${why_cant_born}">
+							    		<span class="cursor_help" title="${why_cant_born}">
 						    				<fmt:message key="Buttons.born"/>
 						    			</span></c:otherwise>
 									</c:choose>
@@ -68,13 +68,13 @@
 								</c:choose>
 					    		</c:when>
 			    			<c:otherwise>
-						    	<html:link action="IncubateEgg.do?eggId=${egg.id}">
+						    	<html:link action="monster/egg/incubate.do?eggId=${egg.id}">
 							    	<fmt:message key="Buttons.incubate"/>
 								</html:link></c:otherwise>
 							</c:choose>
 						</li>
 						<li>
-							<html:link action="ShellEgg.do?eggId=${egg.id}">
+							<html:link action="monster/egg/shell.do?eggId=${egg.id}">
 						    	<fmt:message key="Buttons.shell"/>
 							</html:link>
 							(<fmt:message key="Common.getBack">
@@ -109,7 +109,7 @@
 		    	<td>${race.buyEggPrice}</td>
 		    	<td>${race.vitalSpace}</td>
 		    	
-		    	<td><html:link action="BuyEgg.do?eggRaceCode=${race.code}">
+		    	<td><html:link action="monster/egg/buy.do?eggRaceCode=${race.code}">
 			    	<fmt:message key="Buttons.buy"/>
 				</html:link></td>
 		    </tr>

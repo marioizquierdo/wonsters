@@ -55,7 +55,7 @@ public class BornMonsterAction extends ThearsmonstersDefaultAction {
 				throw new InternalErrorException(e);
 			} catch (InsuficientVitalSpaceException e) {
 				FlashMessage.showError(request, e, "eggsManagement1");
-				return mapping.findForward("EggsManagement");
+				return mapping.findForward("MonsterEggs");
 			}
 
 			return (new ForwardParameters()).add("monsterId", monster.getId().toString()).forward(mapping.findForward("Monster"));

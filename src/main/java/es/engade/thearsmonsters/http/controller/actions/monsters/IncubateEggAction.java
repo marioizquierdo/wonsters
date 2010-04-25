@@ -47,7 +47,7 @@ public class IncubateEggAction extends ThearsmonstersDefaultAction {
 			
 		}
 
-        return mapping.findForward("EggsManagement");
+        return mapping.findForward("MonsterEggs");
         
     }
     

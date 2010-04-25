@@ -20,11 +20,13 @@
 			<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
 				<div>
 					<c:choose><c:when test="${myLair.garbage >= newRoom.garbageBuild}">
-						<ul><customtag:roomAction icon_id="25" action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}"
+						<ul>
+							<customtag:roomAction icon_id="25" action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}"
 								messageKey="Lair.room.actions.buildNewRoom">
-							(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
-								<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
-						</customtag:roomAction></ul>
+								(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
+									<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
+							</customtag:roomAction>
+						</ul>
 					</c:when><c:otherwise>
 						<div class="bold">
 							<customtag:icon id="19" size="s" style="margin-right: 5px"/>

@@ -30,7 +30,7 @@ public class ShellEggAction extends ThearsmonstersDefaultAction {
     	
     	// Confirmación
     	ActionForward confirm = Confirmation.confirm("EggsManagement.shellEggs.confirm", 
-    			"EggsManagement.do", request, mapping);
+    			"monster/eggs.do", request, mapping);
     	if(confirm != null) return confirm;
     	
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
@@ -50,7 +50,7 @@ public class ShellEggAction extends ThearsmonstersDefaultAction {
         	throw new InternalErrorException(e);
 		}
 
-        return mapping.findForward("EggsManagement");
+        return mapping.findForward("MonsterEggs");
         
     }
     

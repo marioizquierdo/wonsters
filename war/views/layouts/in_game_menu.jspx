@@ -70,7 +70,7 @@
           <div class="menu_link" id="guarida"><div class="menu_text">
           	<fmt:message key="MainMenu.link.lair"/></div></div></html:link>
           	
-      <html:link action="Monsters.do">
+      <html:link action="monsters/of_lair.do">
           <div class="menu_link" id="monstruos"><div class="menu_text">
           	<fmt:message key="MainMenu.link.monsters"/></div></div></html:link>
           	

@@ -41,7 +41,7 @@ public class EggsManagementAction extends ThearsmonstersDefaultAction {
 		request.setAttribute("races", races);
         
         /* Return ActionForward. */    
-        return mapping.findForward("EggsManagement");
+        return mapping.findForward("MonsterEggs");
     
     }
 }

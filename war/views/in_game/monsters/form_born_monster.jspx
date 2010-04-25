@@ -16,7 +16,7 @@
 		<customtag:info_message key="BornMonsterForm.info" icon_id="6"
 			style="width: 400px;" content_style="width: 375px" >
 	
-			<html:form action="BornMonster.do" focus="monsterName">
+			<html:form action="monster/born_action.do" focus="monsterName">
 				<html:hidden property="eggId" value="${param.eggId}"/>
 			    <div class="field">        
 			        <span class="label">

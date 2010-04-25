@@ -33,7 +33,7 @@ public class BuyEggAction extends ThearsmonstersDefaultAction {
     	
     	// Hay que confirmar la acción antes de que se ejecute
     	ActionForward confirm = Confirmation.confirm("EggsManagement.buyEggs.confirm", 
-    			"EggsManagement.do?eggsManagement=2", request, mapping);
+    			"monster/eggs.do", request, mapping);
     	if(confirm != null) return confirm;
     	
     	// Ejecutar la acción
@@ -57,7 +57,7 @@ public class BuyEggAction extends ThearsmonstersDefaultAction {
 			throw new InternalErrorException(e);
 		}
 
-        return mapping.findForward("EggsManagement");
+        return mapping.findForward("MonsterEggs");
         
     }
     

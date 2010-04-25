@@ -28,7 +28,7 @@
     
     </c:when><c:otherwise>
     
-      <html:form action="ExecuteMonsterActions">
+      <html:form action="monster/do_actions">
         
         <html:hidden property="monsterId" value="${monster.id}"/>
         <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
@@ -89,7 +89,7 @@
 			  	</c:set>
 			  	<li class="data_row">	
 				  	<span id="grow_to_adult_button" class="button_box" title="${title} ${desc}">
-						<html:link action="MetamorphosisToAdult.do?monsterId=${monster.id}">${title}</html:link>
+						<html:link action="monster/metamorphosis_to_adult.do?monsterId=${monster.id}">${title}</html:link>
 				  	</span>
 			  	</li>
 			</c:if>

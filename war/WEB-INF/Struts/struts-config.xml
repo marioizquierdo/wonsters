@@ -43,7 +43,8 @@
     <forward name="InternalError" path="/InternalError.do"/>
     <forward name="Confirmation" path="/Confirmation.do"/>
     <forward name="GameStart" path="/lair.do" redirect="true"/>
-    <forward name="Monster" path="/Monster.do" redirect="true"/>
+    <forward name="Monster" path="/monster.do" redirect="true"/>
+    <forward name="MonsterEggs" path="/monster/eggs.do" redirect="true"/>
 </global-forwards>
 
 
@@ -67,107 +68,103 @@
         		 
    
    <!-- ========== Lair Actions (/lair/_.do) ========== -->
-        
-    <!-- /Lair -->   
-	<action path="/lair"
-			type="es.engade.thearsmonsters.http.controller.actions.lair.LairAction"
-            parameter=".Lair">
+    
+   <action path="/lair"
+		   type="es.engade.thearsmonsters.http.controller.actions.lair.LairAction"
+           parameter=".Lair">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowLair" path=".Lair"/>
         <forward name="ShowBuilding" path=".Building"/></action>
-        
-    <!-- /ChangeResourcesForm --> 		 
+        		 
     <action path="/lair/change_resources"
 			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
 			parameter=".ChangeResourcesForm">
         <set-property property="authenticationRequired" value="true"/></action>
              
-    <!--/ChangeResources -->
     <action path="/lair/change_resources_action"
 			type="es.engade.thearsmonsters.http.controller.actions.lair.ChangeResourcesAction"
             name="changeResourcesForm" scope="request" validate="true"
             input=".ChangeResources">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowResults" path="/lair/change_resources.do"/></action>
-
-    <!-- /NewRoomsAvaliable -->                                
+                              
     <action path="/lair/rooms/ready_to_build"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
-            parameter=".NewRoomsAvaliable">
+            parameter=".RoomsReadyToBuild">
         <set-property property="authenticationRequired" value="true"/></action>
-         
-    <!-- /SetRoomInWorksState -->   
+          
     <action path="/lair/room/change_in_works_state"
 			type="es.engade.thearsmonsters.http.controller.actions.lair.SetRoomInWorksStateAction">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowLair" path="/lair.do" redirect="true"/></action>
          
-    <!-- /ShowRoomTasks -->
    <action path="/lair/room/tasks"
-             type="es.engade.thearsmonsters.http.controller.actions.lair.ShowRoomTasksAction">
-         <set-property property="authenticationRequired" value="true"/>
-         <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>
+           type="es.engade.thearsmonsters.http.controller.actions.lair.ShowRoomTasksAction">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>
     
     
         
 	<!-- ========== Monster Actions (/monsters/_.do) ========== -->
 
-    <action path="/BornMonster"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.BornMonsterAction"
-        	name="bornMonsterForm" scope="request" validate="true"
-            input=".BornMonsterForm">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="EggsManagement" path="/EggsManagement.do" redirect="true"/></action>
-        		 
-    <action path="/BornMonsterForm"
+	<!-- /BornMonsterForm -->  		 
+    <action path="/monster/born"
 			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
 			parameter=".BornMonsterForm">
         <set-property property="authenticationRequired" value="true"/></action>
-        		 
-    <action path="/BuyEgg"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEggAction">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="EggsManagement" 
-        		 path="/EggsManagement.do" redirect="true"/></action>
+        	
+	<!-- /BornMonster -->
+    <action path="/monster/born_action"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.BornMonsterAction"
+        	name="bornMonsterForm" scope="request" validate="true"
+            input=".BornMonsterForm">
+        <set-property property="authenticationRequired" value="true"/></action>
         
-    <action path="/EggsManagement"
+	<!-- /BuyEgg -->	 
+    <action path="/monster/egg/buy"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEggAction">
+        <set-property property="authenticationRequired" value="true"/></action>
+        
+	<!-- /EggsManagement -->
+    <action path="/monster/eggs"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.EggsManagementAction"
             parameter=".EggsManagement">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="EggsManagement"
-                 path=".EggsManagement"/></action>
-                 
-    <action path="/ExecuteMonsterActions"
+        <forward name="MonsterEggs" path=".EggsManagement"/></action>
+         
+	<!-- /ExecuteMonsterActions -->        
+    <action path="/monster/do_actions"
             type="es.engade.thearsmonsters.http.controller.actions.monsters.ExecuteMonsterActionsAction"
             name="monsterActionsToDoForm" scope="request" validate="true"
-            input="/Monster.do">
+            input="/monster.do">
         <set-property property="authenticationRequired" value="true"/></action> 
 	
-    <action path="/IncubateEgg"
+	<!-- /IncubateEgg -->
+    <action path="/monster/egg/incubate"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.IncubateEggAction">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="EggsManagement" 
-        		 path="/EggsManagement.do" redirect="true"/></action>
-               
-    <action path="/ShellEgg"
+        <set-property property="authenticationRequired" value="true"/></action>
+         
+	<!--/ShellEgg  -->      
+    <action path="/monster/egg/shell"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShellEggAction"
             validate="true">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="EggsManagement" 
-        		 path="/EggsManagement.do" redirect="true"/></action>
-                        
-    <action path="/MetamorphosisToAdult"
+        <set-property property="authenticationRequired" value="true"/></action>
+         
+	<!-- /MetamorphosisToAdult -->               
+    <action path="/monster/metamorphosis_to_adult"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MetamorphosisToAdultAction">
         <set-property property="authenticationRequired" value="true"/></action>
-            
-    <action path="/Monster"
+         
+	<!-- /Monster -->   
+    <action path="/monster"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterAction"
             parameter=".Monster">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="Monster" path=".Monster"/>
-        <forward name="Monsters" path="/Monsters.do" redirect="true"/></action>
-                                   
-    <action path="/Monsters"
+        <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/></action>
+         
+	<!-- /Monsters -->                          
+    <action path="/monsters/of_lair"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonstersAction"
             parameter=".Monsters">
         <set-property property="authenticationRequired" value="true"/>
