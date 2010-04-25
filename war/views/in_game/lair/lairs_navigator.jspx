@@ -94,7 +94,7 @@
 				<c:when test="${!empty lair}">
 					<tr class="trContent 
 								${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
-								${(lair == sessionScope.myLair) ? ' myLair' : ''}"
+								${(lair == my.lair) ? ' myLair' : ''}"
 							onclick="document.location.href='${lairURL}';">
 						<td> <a href="${lairURL}"><c:out value="${loop.index}"/></a> </td>
 						<td> <a href="${lairURL}"><c:out value=" ${lair.user.login}"/></a> </td>

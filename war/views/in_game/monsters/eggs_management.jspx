@@ -43,7 +43,7 @@
 						<li>
 							<c:choose><c:when test="${egg.incubated}">
 					    		<c:choose><c:when test="${egg.readyToBorn}">
-						    		<c:choose><c:when test="${myLair.vitalSpaceFree >= egg.race.vitalSpace}">
+						    		<c:choose><c:when test="${my.lair.vitalSpaceFree >= egg.race.vitalSpace}">
 								    	<html:link action="monster/born.do?eggId=${egg.id}">
 									    	<fmt:message key="Buttons.born"/>
 										</html:link></c:when>
@@ -51,7 +51,7 @@
 							    		<c:set var="why_cant_born">
 							    			<fmt:message key="FlashMessage.InsuficientVitalSpaceException">
 							    				<fmt:param value="${egg.race.vitalSpace}"/>
-							    				<fmt:param value="${myLair.vitalSpaceFree}"/>
+							    				<fmt:param value="${my.lair.vitalSpaceFree}"/>
 							    			</fmt:message>
 							    		</c:set>
 							    		<span class="cursor_help" title="${why_cant_born}">

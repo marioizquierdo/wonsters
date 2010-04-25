@@ -8,10 +8,10 @@
     		version="2.0">
 
 <!-- Common references around the body -->
-<c:set var="notReadyToChangeYet" value="${myLair.roomData.onlyOneChangePerGameDayException}"/>
-<c:set var="maxGarbageAmountEnabled" value="${myLair.changeResourcesMaxGarbageAmountEnabled}"/>
-<c:set var="maxMoneyAmountEnabled" value="${myLair.changeResourcesMaxMoneyAmountEnabled}"/>
-<c:set var="tradeOfficePercentageCommission" value="${myLair.roomsMap.TradeOffice.percentageCommision}"/>
+<c:set var="notReadyToChangeYet" value="${my.lair.roomData.onlyOneChangePerGameDayException}"/>
+<c:set var="maxGarbageAmountEnabled" value="${my.lair.changeResourcesMaxGarbageAmountEnabled}"/>
+<c:set var="maxMoneyAmountEnabled" value="${my.lair.changeResourcesMaxMoneyAmountEnabled}"/>
+<c:set var="tradeOfficePercentageCommission" value="${my.lair.roomsMap.TradeOffice.percentageCommision}"/>
 
 <!-- Include javascript only if the change is ready to made -->
 <c:if test="${empty notReadyToChangeYet}">
@@ -31,7 +31,7 @@
 		<div class="info_slot">    
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
 			<div class="info_slot_content"> <!-- Show message depending on the cuantity of maxGarbageAmountEnabled -->
-				<c:choose><c:when test="${myLair.garbage == maxGarbageAmountEnabled}">
+				<c:choose><c:when test="${my.lair.garbage == maxGarbageAmountEnabled}">
 					<fmt:message key="ChangeResources.GarbageMaxCuantityToChange1">
 						<fmt:param>
 							<fmt:formatNumber value="${maxGarbageAmountEnabled}"/> 
@@ -57,7 +57,7 @@
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
 			<div class="info_slot_content">
 				<fmt:message key="ChangeResources.CommissionCharged">
-					<fmt:param value="${myLair.roomsMap.TradeOffice.level}"/>
+					<fmt:param value="${my.lair.roomsMap.TradeOffice.level}"/>
 					<fmt:param value="${tradeOfficePercentageCommission}"/>
 				</fmt:message>
 			</div>
@@ -106,7 +106,7 @@
 		<div class="info_slot">
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
 			<div class="info_slot_content"> <!-- Show message depending on the cuantity of maxMoneyAmountEnabled -->
-				<c:choose><c:when test="${myLair.money == maxMoneyAmountEnabled}">
+				<c:choose><c:when test="${my.lair.money == maxMoneyAmountEnabled}">
 					<fmt:message key="ChangeResources.MoneyMaxCuantityToChange1">
 						<fmt:param>
 							<fmt:formatNumber value="${maxMoneyAmountEnabled}"/> 
@@ -132,7 +132,7 @@
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
 			<div class="info_slot_content">
 				<fmt:message key="ChangeResources.CommissionCharged">
-					<fmt:param value="${myLair.roomsMap.TradeOffice.level}"/>
+					<fmt:param value="${my.lair.roomsMap.TradeOffice.level}"/>
 					<fmt:param value="${tradeOfficePercentageCommission}"/>
 				</fmt:message>
 			</div>

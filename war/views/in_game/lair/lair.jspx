@@ -12,7 +12,7 @@
 ]]> 
 
 <c:choose>
-	<c:when test="${lair == sessionScope.myLair}">
+	<c:when test="${lair == my.lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
 		<c:set var="lair_neighbors" 
 			value="?street=${lair.address.street}&amp;building=${lair.address.building}" />
@@ -20,7 +20,7 @@
 	<c:when test="${empty lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.error"/></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${myLair.address.street}&amp;building=${myLair.address.building}" />
+			value="?street=${my.lair.address.street}&amp;building=${my.lair.address.building}" />
 	</c:when>
 	<c:otherwise>
 		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
@@ -51,7 +51,7 @@
 			
 				<div class="endOfLair endOfLairLeft"><img src="/images/theme/empty_pixel.png"/></div>
 				
-				<html:link action="Lair.do${lair_neighbors}">
+				<html:link action="lair.do${lair_neighbors}">
 					<div class="lairRoom elevator"><img src="/images/theme/empty_pixel.png"/></div>
 			    </html:link>
 			    

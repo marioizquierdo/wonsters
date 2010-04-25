@@ -7,7 +7,7 @@
           version="2.0" >         
 
 <c:choose>
-<c:when test="${(!empty sessionScope.myLair)}">   
+<c:when test="${!empty my.lair}">   
  
   <div id="menu_logo" class="menu_window">
     <c:set var="image_title"><fmt:message key="Thearsmonsters"/></c:set>
@@ -44,20 +44,20 @@
       <div id="menu_info_content">
       	<div id="menu_info_content_garbage" class="menu_info_item">
       		<customtag:common_icon id="garbage"/><span class="description">
-      			<fmt:formatNumber value="${sessionScope.myLair.garbage}"/>/
-      			<fmt:formatNumber value="${sessionScope.myLair.garbageStorageCapacity}"/>
+      			<fmt:formatNumber value="${my.lair.garbage}"/>/
+      			<fmt:formatNumber value="${my.lair.garbageStorageCapacity}"/>
       		</span>
       	</div>
       	<div id="menu_info_content_money" class="menu_info_item">
       		<customtag:common_icon id="money"/><span class="description">
-      			<fmt:formatNumber value="${sessionScope.myLair.money}"/>/
-      			<fmt:formatNumber value="${sessionScope.myLair.moneyStorageCapacity}"/>
+      			<fmt:formatNumber value="${my.lair.money}"/>/
+      			<fmt:formatNumber value="${my.lair.moneyStorageCapacity}"/>
       		</span>
       	</div>
       	<div id="menu_info_content_vitalSpace" class="menu_info_item">
       		<customtag:common_icon id="vitalSpace"/><span class="description">
-      			<fmt:formatNumber value="${sessionScope.myLair.vitalSpaceOccupied}"/>/
-      			<fmt:formatNumber value="${sessionScope.myLair.vitalSpace}"/>
+      			<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}"/>/
+      			<fmt:formatNumber value="${my.lair.vitalSpace}"/>
       		</span>
       	</div>
       	

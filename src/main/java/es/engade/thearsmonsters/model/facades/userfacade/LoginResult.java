@@ -29,12 +29,14 @@ public class LoginResult implements Serializable {
     }
     
     public Lair getLair() {
-        if (!lairPersistentState)
+        if (!lairPersistentState || lair == null)
             throw new RuntimeException("Lair is detached!!");
         return lair;
     }
 
     public void setLair(Lair lair) {
+        if (lair == null)
+            throw new RuntimeException("Attempting to set a null Lair!!");
         this.lair = lair;
         lairPersistentState = true;
     }
@@ -42,6 +44,7 @@ public class LoginResult implements Serializable {
     public boolean detachLair() {
         boolean oldState = lairPersistentState;
         lairPersistentState = false;
+        lair = null;
         return oldState;
     }
     

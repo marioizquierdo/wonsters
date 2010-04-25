@@ -9,7 +9,7 @@
 <html:xhtml/>
 
 <customtag:window id="userProfileWindow" 
-	title="UpdateUserProfileDetails.headerSpecific" titleValue=" ${sessionScope.myLair.user.login}"
+	title="UpdateUserProfileDetails.headerSpecific" titleValue=" ${my.login}"
 	tags="editUserProfile: UpdateUserProfileDetailsContent.changeInfo, 
 		changePassword: UpdateUserProfileDetailsContent.changePassword => ShowChangePassword.do" >
 

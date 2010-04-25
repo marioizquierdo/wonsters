@@ -66,7 +66,7 @@
 	
 	
 	<!-- Room Actions (links) -->
-	<c:if test="${lair == sessionScope.myLair}">
+	<c:if test="${lair == my.lair}">
 	<div class="roomAttributes_actions">
 		<ul>
             

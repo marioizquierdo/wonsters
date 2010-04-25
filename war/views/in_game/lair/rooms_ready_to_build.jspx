@@ -10,16 +10,16 @@
 <customtag:window id="lairWindow" title="Lair.myLair"
 	tags="new_rooms: Lair.newRoomsAvaliable, 
 		lair: Lair.lairView => lair.do, 
-		lairs_navigator: Lair.buildingView => lair.do?street=${myLair.address.street}&amp;building=${myLair.address.building}, 
+		lairs_navigator: Lair.buildingView => lair.do?street=${my.lair.address.street}&amp;building=${my.lair.address.building}, 
 		search_lairs: Lair.searchLairs => lair.do?lairWindow_selected_tag=search_lairs">
 	
 	<div id="lairWindow_new_rooms">
 		<customtag:info_message key="Lair.newRoomsAvaliable.description"/>
 		
-		<c:forEach items="${myLair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
+		<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
 			<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
 				<div>
-					<c:choose><c:when test="${myLair.garbage >= newRoom.garbageBuild}">
+					<c:choose><c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
 						<ul>
 							<customtag:roomAction icon_id="25" action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}"
 								messageKey="Lair.room.actions.buildNewRoom">
@@ -32,7 +32,7 @@
 							<customtag:icon id="19" size="s" style="margin-right: 5px"/>
 							<fmt:message key="FlashMessage.InsuficientGarbageException">
 								<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
-								<fmt:param><fmt:formatNumber value="${myLair.garbage}"/></fmt:param>
+								<fmt:param><fmt:formatNumber value="${my.lair.garbage}"/></fmt:param>
 							</fmt:message>
 						</div>
 					</c:otherwise></c:choose>

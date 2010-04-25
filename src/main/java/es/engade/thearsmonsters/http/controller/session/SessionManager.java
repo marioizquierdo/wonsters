@@ -103,9 +103,9 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
  */
 public final class SessionManager {
 
-    public final static String IS_ADMIN_SESSION_ATTRIBUTE = "isAdmin";
-    private final static String LAIR_SESSION_ATTRIBUTE = "myLair";
-    private final static String LOGIN_SESSION_ATTRIBUTE = "loginName";
+    // nombre del atributo en sesión para el LoginResult devuelto en el
+    // proceso de login. Contiene la guarida del usuario (my.lair)
+    private final static String LOGIN_RESULT_SESSION_ATTRIBUTE = "my";
 
     public static final String LOGIN_NAME_COOKIE = "login";
     public static final String ENCRYPTED_PASSWORD_COOKIE = "encryptedPassword";
@@ -156,8 +156,7 @@ public final class SessionManager {
             clearPassword, false, loginAsAdmin);
 
         /* Save login into session */
-        setSessionAttribute(request, LAIR_SESSION_ATTRIBUTE, loginResult.getLair());
-        setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
+        setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
         
         /* Add cookies if requested. */
         if (rememberMyPassword) {
@@ -179,7 +178,7 @@ public final class SessionManager {
             UserDetails);
             
         /* Save login into session */
-        setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
+        setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
         
         /* 
          * Update session with the necessary objects for an authenticated
@@ -282,8 +281,10 @@ public final class SessionManager {
     public final static boolean isUserAuthenticatedAsAdmin(
     		HttpServletRequest request) {
         
-            return	isUserAuthenticated(request) &&
-    				getSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, false) != null;
+//        Se debe añadir y mirar en LoginResult
+            return	false;
+//            isUserAuthenticated(request) &&
+//    				getSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, false) != null;
         
     }
     
@@ -384,7 +385,7 @@ public final class SessionManager {
            Locale locale = new Locale(loginResult.getLanguage());
            updateSesssionForAuthenticatedUser(request, locale);
            
-           if(loginAsAdmin) setSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, true); // Esto no es demasiado peligroso ???s
+//           if(loginAsAdmin) setSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, true); // Esto no es demasiado peligroso ???s
            
            /* Return "loginResult". */
            return loginResult;
@@ -405,7 +406,7 @@ public final class SessionManager {
      */
     public static Lair getMyLair(HttpServletRequest request) throws RuntimeException, InternalErrorException {
         
-        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, true);
+        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, true);
         if (loginResult == null || loginResult.getLogin() == null) {
             throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
         }
@@ -440,7 +441,7 @@ public final class SessionManager {
 
         String login = null;
 
-        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, false);
+        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, false);
         if (loginResult != null) {
             login = loginResult.getLogin();
             throwException = (login == null);
@@ -461,10 +462,10 @@ public final class SessionManager {
      */
     public static void removeMyLair(HttpServletRequest request) {
 
-        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, true);
+        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, true);
     	if (loginResult != null) {
         	loginResult.detachLair();
-        	setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
+        	setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
     	}
     }
 
