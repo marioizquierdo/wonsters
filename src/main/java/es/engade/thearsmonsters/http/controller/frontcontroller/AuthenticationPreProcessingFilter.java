@@ -31,29 +31,26 @@ public class AuthenticationPreProcessingFilter extends PreProcessingFilter {
             HttpServletResponse response, Action action, ActionForm form,
             ActionMapping mapping) throws IOException, ServletException,
                 InternalErrorException {
-        
-//TODO: Código temporal para poder acceder a partes que requieran autentificación
-        return null;
 
 //**************************************************************************
 //**********        ANTIGUO CODIGO DEL PREPROCESSING FILTER      ***********
 //**************************************************************************
-//    	ThearsmonstersActionMapping thearsmonstersActionMapping =
-//	        (ThearsmonstersActionMapping) mapping;
-//
-//	
-//	    if (thearsmonstersActionMapping.getAuthenticationRequired()) {
-//	    	
-//	        if (SessionManager.isUserAuthenticated(request)) {
-//	            return null;
-//	        } else {    	
-//		        return mapping.findForward("AuthenticationPage");
-//		    }
-//        
-//        } else {
-//            return null;
-//        }
-//
+    	ThearsmonstersActionMapping thearsmonstersActionMapping =
+	        (ThearsmonstersActionMapping) mapping;
+
+	
+	    if (thearsmonstersActionMapping.getAuthenticationRequired()) {
+	    	
+	        if (SessionManager.isUserAuthenticated(request)) {
+	            return null;
+	        } else {    	
+		        return mapping.findForward("AuthenticationPage");
+		    }
+        
+        } else {
+            return null;
+        }
+
 
     }
 }

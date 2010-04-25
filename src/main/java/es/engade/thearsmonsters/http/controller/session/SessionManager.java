@@ -103,8 +103,13 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
  */
 public final class SessionManager {
 
-    // nombre del atributo en sesión para el LoginResult devuelto en el
-    // proceso de login. Contiene la guarida del usuario (my.lair)
+    /** 
+     * Nombre del atributo en sesión para el LoginResult devuelto en el
+     * proceso de login.
+     * Desde la vista se accede a sus propiedades por ejemplo:
+     *   ${my.login}  // accede al login del usuario logeado
+     *   ${my.lair}   // guardia del usuario logeado
+     */
     private final static String LOGIN_RESULT_SESSION_ATTRIBUTE = "my";
 
     public static final String LOGIN_NAME_COOKIE = "login";
@@ -152,41 +157,29 @@ public final class SessionManager {
          * Try to login, and if successful, update session with the necessary 
          * objects for an authenticated user.
          */ 
-        LoginResult loginResult = doLogin(request, login, 
-            clearPassword, false, loginAsAdmin);
-
-        /* Save login into session */
-        setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
+        LoginResult loginResult = doLogin(request, login, clearPassword, false, loginAsAdmin);
         
         /* Add cookies if requested. */
         if (rememberMyPassword) {
-            leaveCookies(response, login, 
-                loginResult.getEncryptedPassword(),
-                COOKIES_TIME_TO_LIVE_REMEMBER_MY_PASSWORD);
+            leaveCookies(response, loginResult);
         }
         
     }
         
     public final static void registerUser(HttpServletRequest request,
         String login, String clearPassword, 
-        UserDetails UserDetails) 
+        UserDetails userDetails) 
         throws DuplicateInstanceException, InternalErrorException, FullPlacesException {
         
-        /* Register user. */
+        // Register user
             
-       LoginResult loginResult = userFacade.registerUser(login, clearPassword, 
-            UserDetails);
+       LoginResult loginResult = userFacade.registerUser(login, clearPassword, userDetails);
             
-        /* Save login into session */
+        // Save login result into session
         setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
         
-        /* 
-         * Update session with the necessary objects for an authenticated
-         * user. 
-         */
-        Locale locale = new Locale(UserDetails.getLanguage());
-        updateSesssionForAuthenticatedUser(request, locale);
-
+        // Update session with the necessary objects for an authenticated user
+        changeSessionLocale(request, new Locale(userDetails.getLanguage()));
     }
     
     public final static User findUserProfile(HttpServletRequest request) 
@@ -211,8 +204,7 @@ public final class SessionManager {
         
         /* Update user's session objects.*/
         Locale locale = new Locale(UserDetails.getLanguage());
-        
-        updateSesssionForAuthenticatedUser(request, locale);
+        changeSessionLocale(request, locale);
     }
 
     public final static void changePassword(HttpServletRequest request, 
@@ -227,7 +219,7 @@ public final class SessionManager {
         userFacade.changePassword(login, oldClearPassword, newClearPassword);
             
         /* Remove cookies. */
-        leaveCookies(response, "", "", COOKIES_TIME_TO_LIVE_REMOVE);
+        leaveCookies(response, null);
         
     }
 
@@ -239,7 +231,7 @@ public final class SessionManager {
         HttpServletResponse response) throws InternalErrorException {
     
         /* Remove cookies. */
-        leaveCookies(response, "", "", COOKIES_TIME_TO_LIVE_REMOVE);
+        leaveCookies(response, null);
 
         /* Invalidate session. */
         HttpSession session = request.getSession(true);
@@ -286,15 +278,6 @@ public final class SessionManager {
 //            isUserAuthenticated(request) &&
 //    				getSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, false) != null;
         
-    }
-    
-    private final static void updateSesssionForAuthenticatedUser(
-        HttpServletRequest request, Locale locale) 
-    	throws InternalErrorException {
-        
-        /* Insert objects in session. */
-        setSessionAttribute(request, Globals.LOCALE_KEY, locale);
-
     }
     
     /**
@@ -346,13 +329,20 @@ public final class SessionManager {
 
     }
     
-    private final static void leaveCookies(HttpServletResponse response,
-        String login, String encryptedPassword, int timeToLive) {
+    /**
+     * Deja las cookies necesarias en la sesión (login y encryptedPassword).
+     * Si se pone leaveCookes(request, null) lo que hace es borrarlas.
+     * @param loginResult contiene la información necesaria para crear las cookies.
+     * 		Si es null, entonces elimina las elimina.
+     */
+    private final static void leaveCookies(HttpServletResponse response, LoginResult loginResult) {
+    	int timeToLive = COOKIES_TIME_TO_LIVE_REMEMBER_MY_PASSWORD;
+    	String login = loginResult == null ? "" : loginResult.getLogin();
+    	String encryptedPassword = loginResult == null ? "" : loginResult.getEncryptedPassword();
         
          /* Create cookies. */
         Cookie loginCookie = new Cookie(LOGIN_NAME_COOKIE, login);
-        Cookie encryptedPasswordCookie = new Cookie(ENCRYPTED_PASSWORD_COOKIE, 
-            encryptedPassword);
+        Cookie encryptedPasswordCookie = new Cookie(ENCRYPTED_PASSWORD_COOKIE, encryptedPassword);
 
         /* Set maximum age to cookies. */
         loginCookie.setMaxAge(timeToLive);
@@ -361,7 +351,13 @@ public final class SessionManager {
         /* Add cookies to response. */
         response.addCookie(loginCookie);
         response.addCookie(encryptedPasswordCookie);
-
+    }
+    
+    /**
+     * Modifica el locale de la aplicación modificandolo de la sesión.
+     */
+    public final static void changeSessionLocale(HttpServletRequest request, Locale locale) {
+    	setSessionAttribute(request, Globals.LOCALE_KEY, locale);
     }
     
     /**
@@ -376,14 +372,13 @@ public final class SessionManager {
                    InternalErrorException {
             
            /* Check "login" and "clearPassword". */
-//           UserFacade userFacade = getUserFacade(request);
            LoginResult loginResult = userFacade.login(
                login, password, passwordIsEncrypted, loginAsAdmin);
     
 
            /* Insert necessary objects in the session. */
-           Locale locale = new Locale(loginResult.getLanguage());
-           updateSesssionForAuthenticatedUser(request, locale);
+           setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
+           changeSessionLocale(request, new Locale(loginResult.getLanguage()));
            
 //           if(loginAsAdmin) setSessionAttribute(request, IS_ADMIN_SESSION_ATTRIBUTE, true); // Esto no es demasiado peligroso ???s
            
@@ -398,15 +393,15 @@ public final class SessionManager {
      * Using this, Model Actions don't need to 
      * load the lair each time from the database, but they need to store the 
      * results back if the 
-     * Lair instance or any of its Rooms was changed. The database info and 
+     * Lair instance or any of its inner objects was changed. The database info and 
      * the Lair stored in session synchronization is responsibility of Model Actions.
      * @return the user's lair stored in the session, or a new one loaded from the database.
-     * @throws RuntimeException if lair is not in the session (may be the user has not logged in).
+     * @throws RuntimeException if the user is not logged in.
      * @throws InternalErrorException 
      */
     public static Lair getMyLair(HttpServletRequest request) throws RuntimeException, InternalErrorException {
         
-        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, true);
+        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE);
         if (loginResult == null || loginResult.getLogin() == null) {
             throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
         }
@@ -425,7 +420,6 @@ public final class SessionManager {
             try {
                 lair = lairFacade.findLairByLogin(login); 
                 loginResult.setLair(lair);
-//                setSessionAttribute(request, LOGIN_SESSION_ATTRIBUTE, loginResult);
             } catch (InstanceNotFoundException e) {
                 throw new RuntimeException("Error: Can't load user lair");
             }
@@ -437,22 +431,12 @@ public final class SessionManager {
     }
     
     public static String getMyLogin(HttpServletRequest request) throws RuntimeException {
-        boolean throwException = false;
-
-        String login = null;
-
         LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, false);
-        if (loginResult != null) {
-            login = loginResult.getLogin();
-            throwException = (login == null);
+        if (loginResult != null && loginResult.getLogin() != null && loginResult.getLogin() != "") {
+        	return loginResult.getLogin();
         } else {
-            throwException = true;
+        	throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
         }
-
-        if (throwException) {
-            throw new RuntimeException("Error: There is no user in the session. User must doLogin first.");
-        }
-        return login;
     }
     
     /**
@@ -461,11 +445,9 @@ public final class SessionManager {
      * If the myLair attribute is not in the session, this method do nothing.
      */
     public static void removeMyLair(HttpServletRequest request) {
-
-        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, true);
+        LoginResult loginResult = (LoginResult) getSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE);
     	if (loginResult != null) {
         	loginResult.detachLair();
-        	setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
     	}
     }
 
@@ -473,6 +455,9 @@ public final class SessionManager {
         request.getSession(true).setAttribute(name, value);
     }
     
+    private static Object getSessionAttribute(HttpServletRequest request, String name) {
+    	return getSessionAttribute(request, name, true);
+    }
     private static Object getSessionAttribute(HttpServletRequest request, String name, boolean create) {
         return request.getSession(create).getAttribute(name);
     }
