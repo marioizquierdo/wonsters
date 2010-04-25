@@ -46,10 +46,10 @@
 
   <!-- Javascript. -->   
   <![CDATA[
-  	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
-  	<script type='text/javascript' src='javascript/lib/jquery.tipTip.js'></script>
-  	<script type='text/javascript' src='javascript/lib/thearsmonsters_lib.js'></script>
-  	<script type='text/javascript' src='javascript/front_page_layout.js'></script>
+  	<script type='text/javascript' src='/javascript/lib/jquery.js'></script>
+  	<script type='text/javascript' src='/javascript/lib/jquery.tipTip.js'></script>
+  	<script type='text/javascript' src='/javascript/lib/thearsmonsters_lib.js'></script>
+  	<script type='text/javascript' src='/javascript/front_page_layout.js'></script>
   ]]> 
 
   <![CDATA[
@@ -108,16 +108,16 @@
 				
 				<!-- Window Bottom: Builded with the same structure than customtag:window -->
 				<div class="atBottom" style="float:left; width:770px">
-					<div class="bl" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
-					<div class="bm" style="float:left; width:760px"><img src="images/theme/empty_pixel.png"/></div>
-					<div class="br" style="float:left"><img src="images/theme/empty_pixel.png"/></div>
+					<div class="bl" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
+					<div class="bm" style="float:left; width:760px"><img src="/images/theme/empty_pixel.png"/></div>
+					<div class="br" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
 				</div>
 			</div>
 		</div>
 	
 		<!-- Logo and monsters illustration -->
 		<div id="monsters_logo_wrapper">
-			<div id="monsters_logo"><img src="images/theme/empty_pixel.png"/></div>
+			<div id="monsters_logo"><img src="/images/theme/empty_pixel.png"/></div>
 		</div>
 	
 		<!-- Info Panel (bottom). -->	

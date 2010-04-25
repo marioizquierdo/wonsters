@@ -71,12 +71,12 @@
 		<ul>
             
             <!-- Show Tasks -->
-            <!-- <customtag:roomAction icon_id="3" action="ShowRoomTasks.do?roomType=${room.roomType}" messageKey="Lair.room.actions.showTasks" cssClass="show_room_tasks" /> -->  
+            <!-- <customtag:roomAction icon_id="3" action="lair/room/tasks.do?roomType=${room.roomType}" messageKey="Lair.room.actions.showTasks" cssClass="show_room_tasks" /> -->  
             
 			<!-- Works actions -->
 			<c:choose><c:when test="${room.inWorks}">
 				<c:if test="${!room.inInitialState}">		
-						<customtag:roomAction icon_id="19" action="SetRoomInWorksState.do?action=CANCEL_WORKS&roomType=${room.roomType}"
+						<customtag:roomAction icon_id="19" action="lair/room/change_in_works_state.do?action=CANCEL_WORKS&roomType=${room.roomType}"
 								messageKey="Lair.room.actions.cancelWorks">
 							(<fmt:message key="Common.getBack"> 
 								<fmt:param><fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/></fmt:param>
@@ -85,7 +85,7 @@
 				</c:if></c:when>
 			<c:otherwise>		
 				<c:if test="${room.upgradable}">
-					<customtag:roomAction icon_id="18" action="SetRoomInWorksState.do?action=UPGRADE&roomType=${room.roomType}"
+					<customtag:roomAction icon_id="18" action="lair/room/change_in_works_state.do?action=UPGRADE&roomType=${room.roomType}"
 						messageKey="Lair.room.actions.upgrade">
 						(<fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/>, 
 						<fmt:formatNumber value="${room.effortUpgrade}"/> <customtag:common_icon id="effort" img="true"/>)
@@ -103,7 +103,7 @@
 				<customtag:roomAction icon_id="9" action="EggsManagement" messageKey="Lair.room.EyeOfTheLife.EggsManagement"/>
 			</c:if>
 			<c:if test="${room.roomType == 'TradeOffice'}">
-				<customtag:roomAction icon_id="21" action="ChangeResourcesForm.do" messageKey="Lair.room.TradeOffice.changeResources"/>
+				<customtag:roomAction icon_id="21" action="/lair/change_resources.do" messageKey="Lair.room.TradeOffice.changeResources"/>
 			</c:if>
 			<c:if test="${room.roomType == 'Warehouse'}">
 				<customtag:roomAction icon_id="22" action="SeeWarehouseGarbage.do" messageKey="Lair.room.Warehouse.seeGarbage"/>

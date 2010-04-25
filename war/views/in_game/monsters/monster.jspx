@@ -6,14 +6,12 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
-              		
-<c:url var="monsterStylesURL" value="/css/monster_styles.css" />
-<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
 
+<!-- JavaScript -->
 <![CDATA[
- 	<script type="text/javascript" src="javascript/image_up.js"></script>
-	<script type="text/javascript" src="javascript/fix_attrs_descriptions.js"></script>
-	<script type="text/javascript" src="javascript/count_down.js"></script>
+ 	<script type="text/javascript" src="/javascript/image_up.js"></script>
+	<script type="text/javascript" src="/javascript/fix_attrs_descriptions.js"></script>
+	<script type="text/javascript" src="/javascript/count_down.js"></script>
 ]]> 
 
 <!-- Monster Actions -->
@@ -125,7 +123,7 @@
 			<![CDATA[<script type="text/javascript">
 			$(function() {
 				// Metemos datos en la imagen para que puedan ser leidos por el script
-				$('#image_up_image').data("race", '${monster.race}').data("ageState", '${monster.age}');
+				$('#image_up_image').data('race', '${monster.race}').data('ageState', '${monster.age}');
 			});
 			</script>]]>
 		</div>

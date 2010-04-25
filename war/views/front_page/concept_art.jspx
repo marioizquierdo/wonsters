@@ -9,7 +9,7 @@
 <link rel="StyleSheet" href="${pikachooseURL}" type="text/css" media="all" />
 
 <![CDATA[
-	<script type='text/javascript' src='javascript/lib/jquery.pikachoose.js'></script>
+	<script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
 		
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -23,16 +23,16 @@
 
 <div class="pikachoose">
 		<ul id="pikame">
-		<li><img src="images/conceptart/1.jpg"/><span><a href="images/conceptart/1.jpg" target="_blank">Tamanho grande</a></span></li>
-		<li><img src="images/conceptart/2.jpg"/><span>Or any html you want inside of captions!</span></li>
-		<li><img src="images/conceptart/3.jpg"/><span> Donec in ante. Donec pretium. </span></li>
-		<li><img src="images/conceptart/4.jpg"/><span> Aliquam erat volutpat. </span></li>
-		<li><img src="images/conceptart/5.jpg"/><span> In ornare, neque ut malesuada hendrerit.</span></li>
-		<li><img src="images/conceptart/6.jpg"/><span> Aliquam condimentum dolor sed elit. </span></li>
-		<li><img src="images/conceptart/7.jpg"/><span> Aliquam condimentum dolor sed elit.</span></li>
-		<li><img src="images/conceptart/8.jpg"/><span> Ut non magna at purus cursus facilisis.</span></li>
-		<li><img src="images/conceptart/9.jpg"/><span> Nunc semper dapibus erat. Nulla hendrerit.</span></li>
-		<li><img src="images/conceptart/10.jpg"/><span> Nunc semper dapibus erat. Nulla hendrerit.</span></li>
+		<li><img src="/images/conceptart/1.jpg"/><span><a href="/images/conceptart/1.jpg" target="_blank">Tamanho grande</a></span></li>
+		<li><img src="/images/conceptart/2.jpg"/><span>Or any html you want inside of captions!</span></li>
+		<li><img src="/images/conceptart/3.jpg"/><span> Donec in ante. Donec pretium. </span></li>
+		<li><img src="/images/conceptart/4.jpg"/><span> Aliquam erat volutpat. </span></li>
+		<li><img src="/images/conceptart/5.jpg"/><span> In ornare, neque ut malesuada hendrerit.</span></li>
+		<li><img src="/images/conceptart/6.jpg"/><span> Aliquam condimentum dolor sed elit. </span></li>
+		<li><img src="/images/conceptart/7.jpg"/><span> Aliquam condimentum dolor sed elit.</span></li>
+		<li><img src="/images/conceptart/8.jpg"/><span> Ut non magna at purus cursus facilisis.</span></li>
+		<li><img src="/images/conceptart/9.jpg"/><span> Nunc semper dapibus erat. Nulla hendrerit.</span></li>
+		<li><img src="/images/conceptart/10.jpg"/><span> Nunc semper dapibus erat. Nulla hendrerit.</span></li>
 	</ul>
 </div>
 

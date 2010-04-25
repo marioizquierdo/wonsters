@@ -5,9 +5,6 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
-    		
-<c:url var="stylesURL" value="/css/lair_styles.css" />
-<link rel="StyleSheet" href="${stylesURL}" type="text/css" media="all" />
 
 <customtag:window id="buildingWindow" 
 		title="Building.windowTitle"
@@ -18,14 +15,14 @@
 	<div id="buildingWindow_lairs_navigator">
 	
 		<div class="buildingPagers">
-		<form action="Lair.do" method="GET">
+		<form action="lair.do" method="GET">
 			
 			<div id="buildingPagerLeft" class="buildingPager">
 				<div class="pager_header">
 					<fmt:message key="Building.street"/>
 				</div>
 				<div class="pager_content">
-					<html:link action="Lair.do?street=${building.previousStreet}&amp;building=${param.building}">
+					<html:link action="lair.do?street=${building.previousStreet}&amp;building=${param.building}">
 						<span class="button_box previous_link">
 							<c:out value="&lt;&lt;" />
 						</span>
@@ -34,7 +31,7 @@
 					<input type="text" name="street" value="${param.street}"
 		       			size="2" maxlength="2" />
 		       		
-		       		<html:link action="Lair.do?street=${building.nextStreet}&amp;building=${param.building}">
+		       		<html:link action="lair.do?street=${building.nextStreet}&amp;building=${param.building}">
 						<span class="button_box next_link">
 							<c:out value="&gt;&gt;" />
 						</span>
@@ -47,7 +44,7 @@
 					<fmt:message key="Building.building"/>
 				</div>
 				<div class="pager_content">
-					<html:link action="Lair.do?street=${building.previousBuildingStreet}&amp;building=${building.previousBuilding}">
+					<html:link action="lair.do?street=${building.previousBuildingStreet}&amp;building=${building.previousBuilding}">
 						<span class="button_box previous_link">
 							<c:out value="&lt;&lt;" />
 						</span>
@@ -56,7 +53,7 @@
 					<input type="text" name="building" value="${param.building}"
 		       			size="2" maxlength="2" />
 		       		
-		       		<html:link action="Lair.do?street=${building.nextBuildingStreet}&amp;building=${building.nextBuilding}">
+		       		<html:link action="lair.do?street=${building.nextBuildingStreet}&amp;building=${building.nextBuilding}">
 						<span class="button_box next_link">
 							<c:out value="&gt;&gt;" />
 						</span>
@@ -66,7 +63,7 @@
 			
 			<div id="buildingPagerButton" class="buildingPager">
 				<c:set var="button_text"><fmt:message key="Buttons.search"/></c:set>
-				<div class="pager_header"><img src="images/theme/empty_pixel.png"/></div>
+				<div class="pager_header"><img src="/images/theme/empty_pixel.png"/></div>
 				<div class="pager_content">
 					<span class="button end_button">
 						<input type="submit" value="${button_text}" />
@@ -89,7 +86,7 @@
 			</tr>
 			
 			<c:forEach items="${building.lairs}" var="lair" varStatus="loop">
-				<c:url var="lairURL" value="Lair.do">
+				<c:url var="lairURL" value="lair.do">
 					<c:param name="login" value="${lair.user.login}"/>
 				</c:url>
 				

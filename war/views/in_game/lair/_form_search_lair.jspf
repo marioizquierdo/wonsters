@@ -3,7 +3,7 @@
 <c:set var="building"><fmt:message key="Building.building"/></c:set>
 <c:set var="floor"><fmt:message key="Building.floor"/></c:set>
 
-<form action="Lair.do" method="GET">
+<form action="lair.do" method="GET">
 	<div class="p_header">
 		<fmt:message key="Lair.search.byLogin"/>
 	</div>
@@ -20,7 +20,7 @@
     </div>
 </form>
 
-<form action="Lair.do" method="GET">
+<form action="lair.do" method="GET">
 	<div class="p_header">
 		<fmt:message key="Lair.search.byAddress"/>
     </div>

@@ -42,60 +42,71 @@
     <forward name="AdminAuthenticationPage" path="/admin.do" redirect="true"/>
     <forward name="InternalError" path="/InternalError.do"/>
     <forward name="Confirmation" path="/Confirmation.do"/>
-    <forward name="GameStart" path="/Lair.do" redirect="true"/>
+    <forward name="GameStart" path="/lair.do" redirect="true"/>
     <forward name="Monster" path="/Monster.do" redirect="true"/>
 </global-forwards>
 
 
 <!-- ============ Action Mapping Definitions ============================== -->
-<!-- Son las URLs disponibles en la aplicacion sin el .do -->
+<!-- 
+ Son las URLs disponibles en la aplicacion sin el .do.
+  
+ * Por convenio y claridad, todas las urls son underscored,                         
+   es decir, en minusculas y separadas por "_". Si se posible no orientadas a acciones
+   sino a recursos  (conceptos con subconceptos anidados). 
+   Por ejemplo: "/ShowNewRoomsToBuild" es CamelCased y orientada a accion,
+   en cambio "/lair/rooms/ready_to_build" es underscored y orientado a recursos.
+   Otro ejemplo: "/ShowRoomTasks", oriantado a recursos seria mejor "/lair/room/tasks".                                  
+ * Los nombres de las URLs deben ser comprensibles y desde el punto de vista        
+   del usuario, no debe hacer referencia a detalles de la implementacion.                                
+ * Las acciones que reciben el contenido de un formulario, por convenio, se van a poner con el sufijo "_action",  
+   y si es posible se llamaran igual que la accion que carga ese formulario.     
+-->
 
 <action-mappings type="es.engade.thearsmonsters.http.controller.frontcontroller.ThearsmonstersActionMapping">
         		 
+   
    <!-- ========== Lair Actions (/lair/_.do) ========== -->
-     
-    <action path="/ChangePassword"
-			type="es.engade.thearsmonsters.http.controller.actions.userprofile.ChangePasswordAction"
-            name="changePasswordForm" scope="request" validate="true"
-            input=".ChangePassword">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="EditUserProfile" 
-        		 path="/EditUserProfile.do" redirect="true"/></action>
-     
-    <action path="/ChangeResources"
-			type="es.engade.thearsmonsters.http.controller.actions.lair.ChangeResourcesAction"
-            name="changeResourcesForm" scope="request" validate="true"
-            input=".ChangeResources">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="ShowResults" path="/ChangeResourcesForm.do"/></action>
-        		 
-    <action path="/ChangeResourcesForm"
-			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
-			parameter=".ChangeResourcesForm">
-        <set-property property="authenticationRequired" value="true"/></action>
         
-	<action path="/Lair"
+    <!-- /Lair -->   
+	<action path="/lair"
 			type="es.engade.thearsmonsters.http.controller.actions.lair.LairAction"
             parameter=".Lair">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowLair" path=".Lair"/>
         <forward name="ShowBuilding" path=".Building"/></action>
-                                     
-    <action path="/NewRoomsAvaliable"
-            type="es.engade.thearsmonsters.http.controller.actions.lair.ThearsmonstersDefaultAction"
+        
+    <!-- /ChangeResourcesForm --> 		 
+    <action path="/lair/change_resources"
+			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
+			parameter=".ChangeResourcesForm">
+        <set-property property="authenticationRequired" value="true"/></action>
+             
+    <!--/ChangeResources -->
+    <action path="/lair/change_resources_action"
+			type="es.engade.thearsmonsters.http.controller.actions.lair.ChangeResourcesAction"
+            name="changeResourcesForm" scope="request" validate="true"
+            input=".ChangeResources">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="ShowResults" path="/lair/change_resources.do"/></action>
+
+    <!-- /NewRoomsAvaliable -->                                
+    <action path="/lair/rooms/ready_to_build"
+            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".NewRoomsAvaliable">
         <set-property property="authenticationRequired" value="true"/></action>
-        
-    <action path="/SetRoomInWorksState"
+         
+    <!-- /SetRoomInWorksState -->   
+    <action path="/lair/room/change_in_works_state"
 			type="es.engade.thearsmonsters.http.controller.actions.lair.SetRoomInWorksStateAction">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="ShowLair" path="/Lair.do" redirect="true"/></action>
-        
-   <action path="/ShowRoomTasks"
+        <forward name="ShowLair" path="/lair.do" redirect="true"/></action>
+         
+    <!-- /ShowRoomTasks -->
+   <action path="/lair/room/tasks"
              type="es.engade.thearsmonsters.http.controller.actions.lair.ShowRoomTasksAction">
          <set-property property="authenticationRequired" value="true"/>
          <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>
-     
     
     
         
@@ -162,9 +173,18 @@
         <set-property property="authenticationRequired" value="true"/>
         <forward name="Monsters" path=".Monsters"/></action>
         
+    
         
 	<!-- ========== UserProfile Actions (/userprofile/_.do) ========== -->
-	
+	     
+    <action path="/ChangePassword"
+			type="es.engade.thearsmonsters.http.controller.actions.userprofile.ChangePasswordAction"
+            name="changePasswordForm" scope="request" validate="true"
+            input=".ChangePassword">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="EditUserProfile" 
+        		 path="/EditUserProfile.do" redirect="true"/></action>
+        		 
     <action path="/EditUserProfile"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.EditUserProfileAction"
             name="userProfileForm" scope="request" validate="false">
@@ -189,9 +209,7 @@
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.RegisterUserAction"
             name="userProfileForm" scope="request" validate="true"
             input="/EditUserProfile.do"/>
-
-
-             
+            
     <action path="/ShowChangePassword"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".ChangePassword">
@@ -205,8 +223,9 @@
         <forward name="EditUserProfile" 
         		 path="/EditUserProfile.do"/></action>
     
+    
         		 
-   	<!-- ========== Other (/_.do) ========== -->
+   	<!-- ========== Other in-game Actions (/_.do) ========== -->
    	
 	<action path="/Guild"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
@@ -228,7 +247,7 @@
         <set-property property="authenticationRequired" value="true"/></action>
     
              
-    <!-- ========= Front Page Actions (/_.do) ========== -->
+    <!-- ========= FrontPage Actions (/_.do) ========== -->
 
     <action path="/ConceptArt"
             type="org.apache.struts.actions.ForwardAction"
@@ -256,7 +275,7 @@
 
             
              
-    <!-- ========= Admin (/admin/_.do) ========== -->
+    <!-- ========= Admin Actions (/admin/_.do) ========== -->
 
 	<action path="/admin"
             type="org.apache.struts.actions.ForwardAction"

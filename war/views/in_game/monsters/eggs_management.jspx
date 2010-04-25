@@ -6,12 +6,9 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
-              		
-<c:url var="monsterStylesURL" value="/css/monster_styles.css" />
-<link rel="StyleSheet" href="${monsterStylesURL}" type="text/css" media="all" />
 
 <![CDATA[
-	<script type='text/javascript' src='javascript/count_down.js'></script>
+	<script type='text/javascript' src='/javascript/count_down.js'></script>
 ]]> 
 
 <customtag:window id="eggsManagement" title="EggsManagement.title" selected_tag="viewEggs"

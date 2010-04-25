@@ -6,12 +6,9 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
-    		
-<c:url var="lairStylesURL" value="/css/lair_styles.css" />
-<link rel="StyleSheet" href="${lairStylesURL}" type="text/css" media="all" />
 
 <![CDATA[
-    <script type="text/javascript" src="javascript/show_rooms_tasks_ajax.js"></script>
+    <script type="text/javascript" src="/javascript/show_rooms_tasks_ajax.js"></script>
 ]]> 
 
 <c:choose>
@@ -38,9 +35,9 @@
 </c:choose>
 
 <customtag:window id="lairWindow" titleValue="${lair_titleValue}" selected_tag="lair" 
-	tags="new_rooms: Lair.newRoomsAvaliable => NewRoomsAvaliable.do, 
+	tags="new_rooms: Lair.newRoomsAvaliable => lair/rooms/ready_to_build.do, 
 		lair: Lair.lairView, 
-		lairs_navigator: Lair.buildingView => Lair.do${lair_neighbors}, 
+		lairs_navigator: Lair.buildingView => lair.do${lair_neighbors}, 
 		search_lairs: Lair.searchLairs">
 	
 	<div id="lairWindow_lair">
@@ -52,10 +49,10 @@
 			<!-- Imagenes de las salas -->
 			<div class="lairBox lairBackgrounds">
 			
-				<div class="endOfLair endOfLairLeft"><img src="images/theme/empty_pixel.png"/></div>
+				<div class="endOfLair endOfLairLeft"><img src="/images/theme/empty_pixel.png"/></div>
 				
 				<html:link action="Lair.do${lair_neighbors}">
-					<div class="lairRoom elevator"><img src="images/theme/empty_pixel.png"/></div>
+					<div class="lairRoom elevator"><img src="/images/theme/empty_pixel.png"/></div>
 			    </html:link>
 			    
 			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
@@ -75,11 +72,11 @@
 				    <div class="lairRoom ${room.roomType}" title="${roomTitle}" 
 				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 
 				    		${fn:length(lair.rooms)}, ${loop.index}, '${room.roomType}')">
-				    	<img src="images/theme/empty_pixel.png"/>
+				    	<img src="/images/theme/empty_pixel.png"/>
 				    </div>
 				</c:forEach>
 				
-				<div class="endOfLair endOfLairRight"><img src="images/theme/empty_pixel.png"/></div>
+				<div class="endOfLair endOfLairRight"><img src="/images/theme/empty_pixel.png"/></div>
 			</div>
 			
 		</c:when>
@@ -89,11 +86,11 @@
 			<div class="actionInfo_ERROR"><fmt:message key="${errorText}"/></div>
 			
 			<div class="lairBox lairBackgrounds">
-				<div class="endOfLair endOfLairLeft"><img src="images/theme/empty_pixel.png"/></div>
+				<div class="endOfLair endOfLairLeft"><img src="/images/theme/empty_pixel.png"/></div>
 			    <div class="lairRoom emptyLair">
-			    	<img src="images/theme/empty_pixel.png"/>
+			    	<img src="/images/theme/empty_pixel.png"/>
 			    </div>
-				<div class="endOfLair endOfLairRight"><img src="images/theme/empty_pixel.png"/></div>
+				<div class="endOfLair endOfLairRight"><img src="/images/theme/empty_pixel.png"/></div>
 			</div>
 		    
 		</c:otherwise>
