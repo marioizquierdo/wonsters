@@ -1,5 +1,7 @@
 package es.engade.thearsmonsters.model.entities.lair.dao;
 
+import java.util.List;
+
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDao;
@@ -21,4 +23,9 @@ public interface LairDao extends GenericDao<Lair, Key> {
      */
     public Lair findLairByUser(User user)
         throws InstanceNotFoundException;
+    
+    /**
+     * Find the lairs in a building
+     */
+    public List<Lair> findLairsByBuilding(int street, int building);
 }

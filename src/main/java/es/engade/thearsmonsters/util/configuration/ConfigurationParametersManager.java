@@ -10,7 +10,8 @@ import java.util.Properties;
 public final class ConfigurationParametersManager {
 
     private static final String CONFIGURATION_FILE =
-        "war" + File.separatorChar + "WEB-INF" +
+//        "war" + File.separatorChar + 
+        "WEB-INF" +
         		File.separatorChar + "ConfigurationParameters.properties";    
 
     private static Map parameters;
@@ -18,8 +19,10 @@ public final class ConfigurationParametersManager {
     static {
 
         try {
-            /* Read property file (if exists).*/    
-            InputStream inputStream = new FileInputStream(new File(CONFIGURATION_FILE));
+            /* Read property file (if exists).*/
+            File confFile = new File(CONFIGURATION_FILE);
+            System.out.println("FILE: " + confFile.getAbsolutePath());
+            InputStream inputStream = new FileInputStream(confFile);
             Properties properties = new Properties();
             properties.load(new FileInputStream(new File(CONFIGURATION_FILE)));
             inputStream.close();

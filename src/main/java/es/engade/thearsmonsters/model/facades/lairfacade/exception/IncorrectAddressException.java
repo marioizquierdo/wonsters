@@ -23,6 +23,22 @@ public class IncorrectAddressException extends IndexOutOfBoundsException impleme
         		GameConf.getMaxNumberOfBuildings()+"",
         		GameConf.getMaxNumberOfFloors()+""};
     }
+    
+    public IncorrectAddressException(int street, int building, int floor) {
+        
+        super("Address out of bounds ("+
+                street +","+ building +","+ floor +
+                "). Allowed values: " +
+                "street [0, "+   GameConf.getMaxNumberOfStreets()    +"], " +
+                "building [0, "+ GameConf.getMaxNumberOfBuildings() +"], " +
+                "floor [0, "+    GameConf.getMaxNumberOfFloors()   +"].");
+        
+        this.messageKey = "FlashMessages.IncorrectAddressException";
+        this.messageParams = new String[]{
+                GameConf.getMaxNumberOfStreets()+"", 
+                GameConf.getMaxNumberOfBuildings()+"",
+                GameConf.getMaxNumberOfFloors()+""};
+    }
 
 	public String getMessageKey() {
 		return messageKey;
