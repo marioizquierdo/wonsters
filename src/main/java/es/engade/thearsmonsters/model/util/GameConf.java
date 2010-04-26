@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.model.util;
 
-import java.util.Calendar;
+
+import java.util.Date;
 
 import es.engade.thearsmonsters.util.configuration.ConfigurationParametersManager;
 import es.engade.thearsmonsters.util.configuration.MissingConfigurationParameterException;
@@ -117,9 +118,9 @@ public final class GameConf {
 	/**
 	 * Fecha del momento en el que comenzó el primer turno de juego
 	 */
-	public static Calendar getFirstTurnDate() {
-    	Calendar date = Calendar.getInstance();
-    	date.setTimeInMillis(getFirstTurnEpoch());
+	public static Date getFirstTurnDate() {
+    	Date date = DateTools.now();
+    	date.setTime(getFirstTurnEpoch());
 		return date;
 	}
 	

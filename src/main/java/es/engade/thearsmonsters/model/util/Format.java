@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,32 +21,28 @@ public class Format {
 	 * Convierte un calendar a un String legible.
 	 * @return un Stirng en el formato "yyyy:MM:dd:HH:mm:ss", por ejemplo "2009:10:23:16:32:00"
 	 */
-	public static String calendar(Calendar date) {
+	public static String calendar(Date date) {
 		if(date == null) { return null; };
-		SimpleDateFormat f = new SimpleDateFormat(DATE_FORMAT);
-		String dateString = f.format(date.getTime());
-		return dateString;
+		return date.toString();
 	}
 	
 	/**
 	 * Convierte un String en formato "yyyy:MM:dd:HH:mm:ss" a un Calendar equivalente.
 	 * @throws IllegalArgumentException si el formato de dateStr es incorrecto.
 	 */
-	public static Calendar calendar(String dateStr) {
+	public static Date calendar(String dateStr) {
 		if(dateStr == null) { return null; }
 		try {
-			DateFormat formatter;
 			Date date;
-			formatter = new SimpleDateFormat(DATE_FORMAT);
+			DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 			date = formatter.parse(dateStr);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
+			return date;
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("dateStr is "+dateStr+
 					", and must fit in the format yyyy:MM:dd:HH:mm:ss.", e);
 		}
 
-		return null;
+		
 	}
 	
 	/**
@@ -56,6 +51,9 @@ public class Format {
 	 * se encarga de formatear correctamente cada tipo de atributo que recibe.<br>
 	 * Ejemplo: Format.p(new Object[]{"name", name, "hitsFrom", hitsFrom, "channelTags", channelTags})
 	 */
+	
+	
+	
 	public static String p(Object[] a) {
 		String result = "";
 		for(int i=0; i<a.length-1; i+=2) {
@@ -63,8 +61,8 @@ public class Format {
 			Object obj = a[i+1];
 			String pair;
 			try {
-				Calendar calendar = Calendar.class.cast(obj);
-				pair = p(key, calendar);
+				Date date = Date.class.cast(obj);
+				pair = p(key, date);
 			} catch (ClassCastException e) {
 				try {
 					Object[] array = (new Object[]{}).getClass().cast(obj);
@@ -76,7 +74,7 @@ public class Format {
 			result += pair;
 		}
 		return result.substring(0, result.length() - P_SEP.length());
-	}
+	} 
 	
 	public static String p(Class<?> ownerClass, Object[] attrs) {
 		return ownerClass.getSimpleName()+"{"+p(attrs)+"}";
@@ -106,7 +104,7 @@ public class Format {
 		return list;
 	}
 	
-	private static String p(String key, Calendar value) {
+	private static String p(String key, Date value) {
 		return p(key, Format.calendar(value));
 	}
 	

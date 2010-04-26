@@ -6,33 +6,60 @@ import java.util.Date;
 /**
  * Clase de ayuda para simplificar el manejo de Fechas
  */
-// TODO: Hay que cambiar todos los Calendar por Dates
 public class DateTools {
 
+	/**
+     * Devuelve un objeto Date que contiene como fecha el día actual.
+     */
 	public static Date now() {
 		return new Date();
 	}
 	
-	//TODO: Hacer que sea tomorrow
+	/**
+     * Devuelve un objeto Date que contiene como fecha un día despues al momento de la llamada.
+     */
 	public static Date tomorrow() {
-//		Calendar t = Calendar.getInstance();
-//		t.add(Calendar.DAY_OF_MONTH, 1);
-	    Date t = new Date();
-		return t;
+		long millisecondsAsDay = 24 * 60 * 60 * 1000;
+	    Date t = new Date(); // now
+	    //Obtengo los milisegundos que han pasado hasta el día de hoy
+	    long milisecondsActually = t.getTime();
+	    //establezco la fecha a mañana.
+	    t.setTime(milisecondsActually + millisecondsAsDay); 
+	    return t;
 	}
 	
-	//TODO: Hacer que sea yesterday
+	/**
+     * Devuelve un objeto Date que contiene como fecha un día anterior al momento de la llamada.
+     */
 	public static Date yesterday() {
-//		Calendar t = Calendar.getInstance();
-//		t.add(Calendar.DAY_OF_MONTH, -1);
+		//Obtengo los milisegundos que consituyen un día
+		long millisecondsAsDay = 24 * 60 * 60 * 1000;
+		//Creo una nueva date que se inicializa al momento actual
 	    Date t = new Date();
-		return t;
+	    //Obtengo los milisegundos que han pasado hasta el día de hoy
+	    long milisecondsActually = t.getTime();
+	    //establezco la fecha al dia anterior
+	    t.setTime(milisecondsActually  - millisecondsAsDay); 
+	    return t;
 	}
 	
+	/**
+     * Devuelve el número de milisegundos que existen entre dos fechas representadas con Calendar.
+     */
 	public static long distanceInMilliseconds(Calendar c1,Calendar c2){
 		return (c2.getTimeInMillis() - c1.getTimeInMillis());
 	}
+
+	/**
+     * Devuelve el número de milisegundos que existen entre dos fechas representadas con Date.
+     */
+	public static long distanceInMilliseconds(Date d1,Date d2){
+		return (d2.getTime() - d1.getTime());
+	}
 	
+	/**
+     * Devuelve el número de días que existen entre dos fechas representadas con Calendar.
+     */
 	public static Float  distanceInDays(Calendar c1,Calendar c2){
 		long millisecondsAsDay = 24 * 60 * 60 * 1000;
 		long milliseconds = DateTools.distanceInMilliseconds(c1, c2);
@@ -40,12 +67,17 @@ public class DateTools {
 		return days;
 	}
 	
+	/**
+     * Devuelve el número de días que existen entre dos fechas representadas con Date.
+     */
 	public static Float  distanceInDays(Date c1,Date c2){
         long millisecondsAsDay = 24 * 60 * 60 * 1000;
         long milliseconds = c2.getTime() - c1.getTime();
         float days = milliseconds / millisecondsAsDay;
         return days;
     }
+	
+	
 	
 	/**
 	 * Compara los Calendar teniendo en cuenta que cualquiera de ellos
@@ -73,7 +105,7 @@ public class DateTools {
             return false;
         } else {
             if(c2==null) return false;
-            return c1.getTime()/1000 == c2.getTime()/1000;
+            return c1.compareTo(c2)==0;
         }
     }
 	
@@ -87,5 +119,13 @@ public class DateTools {
 		int s = c.get(Calendar.SECOND);
 		int d = c.get(Calendar.DAY_OF_YEAR);
 		return "day "+d+","+h+":"+m+":"+s;
+	}
+	
+	/**
+	 * Representa el Date en un formato legible, teniendo en cuenta que puede ser Null.
+	 */
+	public static String toString(Date d) {
+		if(d==null) return "null";
+		return d.toString();
 	}
 }
