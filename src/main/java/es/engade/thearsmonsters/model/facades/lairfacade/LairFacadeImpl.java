@@ -4,7 +4,6 @@ package es.engade.thearsmonsters.model.facades.lairfacade;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.engade.thearsmonsters.model.entities.common.KeyUtils;
-import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
@@ -84,13 +83,10 @@ public class LairFacadeImpl implements LairFacade {
             throws InstanceNotFoundException, InternalErrorException,
             IncorrectAddressException {
 
-        Address address = new Address(street, building, floor);
         Lair lair = null;
         
         try {
-            lair = lairDao.findLairByAddress(address);
-            if (lair == null)
-                throw new InstanceNotFoundException(address, Lair.class.getName());
+            lair = lairDao.findLairByAddress(street, building, floor);
         } catch (InstanceNotFoundException e) {
             throw e;
         } catch (Exception e) {

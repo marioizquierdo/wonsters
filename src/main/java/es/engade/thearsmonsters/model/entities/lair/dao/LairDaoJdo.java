@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
-import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -19,25 +18,24 @@ import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 @Transactional
 public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
 
-    public Lair findLairByAddress(Address address)
+    public Lair findLairByAddress(int street, int building, int floor)
             throws InstanceNotFoundException {
 
         PersistenceManager pm = getPersistenceManager();
 
         Query query = pm.newQuery(Lair.class);
-        query.declareImports("import " + address.getClass().getName());
-        query.setFilter("address == addressParam");
-        query.declareParameters("Address addressParam");
+        query.setFilter("addressStreet = streetP && addressBuilding == buildingP && addressFloor == floorP");
+        query.declareParameters("int streetP, int buildingP, floorP");
         query.setUnique(true);
 
         Lair lair = null;
         try {
-            lair = (Lair) query.execute(address);
+            lair = (Lair) query.execute(street, building, floor);
         } finally {
             query.closeAll();
         }
         if (lair == null)
-            throw new InstanceNotFoundException(address, Lair.class.getName());
+            throw new InstanceNotFoundException(null, Lair.class.getName());
         return lair;
 
     }
@@ -69,19 +67,14 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
     public List<Lair> findLairsByBuilding(int street, int building) {
         PersistenceManager pm = getPersistenceManager();
 
-        Address minAddress = new Address(street, building, Address.MIN_FLOOR);
-        Address maxAddress = new Address(street, building, Address.MAX_FLOOR);
-
         Query query = pm.newQuery(Lair.class);
-        query.declareImports("import " + Address.class.getName());
-        query
-                .setFilter("address >= minAddressParam && address <= maxAddressParam");
-        query.declareParameters("Address minAddressParam, maxAddressParam");
-        query.setUnique(true);
+        query.setFilter("addressStreet == streetParam && addressBuilding == buildingParam");// && address <= maxAddressParam");
+        query.declareParameters("int streetParam, int buildingParam");//, maxAddressParam");
+        query.setUnique(false);
 
         List<Lair> lairs = null;
         try {
-            lairs = (List<Lair>) query.execute(minAddress, maxAddress);
+            lairs = (List<Lair>) query.execute(street, building);
          // Carga Lazy --> Accedemos al resultado dentro de la transacción
             lairs.size();
         } finally {
@@ -92,4 +85,5 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         
         return lairs;
     }
+    
 }

@@ -1,7 +1,6 @@
 package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +20,10 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.util.Format;
+import es.engade.thearsmonsters.model.util.GameConf;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Lair implements Serializable {
@@ -39,14 +40,20 @@ public class Lair implements Serializable {
     @Persistent
     private int garbage;
     
+    @Persistent
+    private int addressStreet;
+    
+    @Persistent
+    private int addressBuilding;
+    
+    @Persistent
+    private int addressFloor;
+    
     @Persistent(mappedBy = "lair")
     private User user;
     
     @Persistent(serialized="true",defaultFetchGroup="true")
     private RoomData roomData;
-    
-    @Persistent(serialized="true",defaultFetchGroup="true")
-    private Address address;
     
     @Persistent(mappedBy = "lair",defaultFetchGroup="true")
     @Element(dependent = "true")
@@ -67,13 +74,15 @@ public class Lair implements Serializable {
     }
     
 	public Lair(User user, int money, int garbage,
-    		RoomData roomData, Address address) {
+    		RoomData roomData, int street, int building, int floor) {
         this.user = user;
         this.money = money;
         this.garbage = garbage;
         this.roomData = roomData;
         this.roomData.setLair(this);
-        this.address = address;
+        this.setAddressStreet(street);
+        this.setAddressBuilding(building);
+        this.setAddressFloor(floor);
         this.rooms = new ArrayList<Room>();
         this.monsters = new ArrayList<Monster>();
         this.monsterEggs = new ArrayList<MonsterEgg>();
@@ -168,11 +177,25 @@ public class Lair implements Serializable {
 	public void setMoney(int money) { this.money = money; }
 	public int getGarbage() { return garbage; }
 	public void setGarbage(int garbage) { this.garbage = garbage; }
-	public Address getAddress() { return address; }
 	public User getUser() { return user; }
 	public void setUser(User user) { this.user = user; }
-	public void setAddress(Address address) { this.address = address; }
-
+	public int getAddressStreet() { return addressStreet; }
+	public void setAddressStreet(int street) { 
+	    if (street > GameConf.getMaxNumberOfStreets() || street < 0)
+            throw new IncorrectAddressException(street, addressBuilding, addressFloor);
+	    this.addressStreet = street; }
+	public int getAddressBuilding() { return addressBuilding; }
+	public void setAddressBuilding(int building) {
+	    if (building > GameConf.getMaxNumberOfBuildings() || building < 0)
+            throw new IncorrectAddressException(addressStreet, building, addressFloor);
+	    this.addressBuilding = building; 
+	}
+	public int getAddressFloor() { return addressFloor; }
+	public void setAddressFloor(int floor) { 
+	    if (floor > GameConf.getMaxNumberOfFloors() || floor < 0)
+            throw new IncorrectAddressException(addressStreet, addressBuilding, floor);
+	    this.addressFloor = floor; 
+	}
 	
 	//------ RoomData delegations (roomData is private, so its public methods are exposed in the lair interface) ------//
 	
@@ -224,11 +247,17 @@ public class Lair implements Serializable {
 	
 	@Override
     public String toString() {
+	    String strUser;
+	    if (user == null)
+	        strUser = "";
+	    else
+	        strUser = user.getLogin();
+	    
 		return Format.p(this.getClass(), new Object[]{
-		    "user", user.getLogin(),
+		    "user", strUser,
 			"money", money,
 			"garbage", garbage,
-			"address", address,
+			"address", "("+this.addressStreet+","+this.addressBuilding+","+this.addressFloor+")",
 		});
 	}
 	
@@ -236,7 +265,8 @@ public class Lair implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        //TODO: REHACER
+//        result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + garbage;
         result = prime * result + money;
         result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -252,15 +282,11 @@ public class Lair implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Lair other = (Lair) obj;
-        if (address == null) {
-            if (other.address != null)
-                return false;
-        } else if (!address.equals(other.address))
-            return false;
         if (garbage != other.garbage)
             return false;
         if (money != other.money)
             return false;
+        //TODO: Añadir direccion
         if (user == null) {
             if (other.user != null)
                 return false;

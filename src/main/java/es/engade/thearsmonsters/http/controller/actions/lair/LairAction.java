@@ -58,9 +58,9 @@ public class LairAction extends ThearsmonstersDefaultAction {
 
 	        		/* Buscar guarida por direccion */
 	        		// Si la dirección es la de myLair, entonces se devuelve esa
-		    		if(street == myLair.getAddress().getStreet() && 
-		    				building == myLair.getAddress().getBuilding() &&
-		    				floor == myLair.getAddress().getFloor()) {
+		    		if(street == myLair.getAddressStreet() && 
+		    				building == myLair.getAddressBuilding() &&
+		    				floor == myLair.getAddressFloor()) {
 		    			lair = myLair;
 		    			
 		    		} else { // Sino pues la recupera de la base de datos

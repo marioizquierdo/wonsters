@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
-import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.RoomData;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
@@ -223,7 +222,7 @@ public class FactoryData {
             0, // money 
             0, // garbage
             new RoomData(0, 0), // lastChangeResourcesTurn and occupied vital space
-            new Address(0, 0, 0)); // geographical position
+            0,0,0); // geographical position
     
         user.setLair(lair); // add to user
     
@@ -310,7 +309,7 @@ private static User generateUserScaffold(User user) {
             1000, // money 
             500, // garbage
             new RoomData(100, 10), // lastChangeResourcesTurn and occupied vital space
-            new Address(1, 1, 1)); // geographical position
+            1,1,1); // geographical position
     
         user.setLair(lair); // add to user
     
