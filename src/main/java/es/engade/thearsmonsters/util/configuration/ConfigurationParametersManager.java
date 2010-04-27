@@ -21,7 +21,6 @@ public final class ConfigurationParametersManager {
         try {
             /* Read property file (if exists).*/
             File confFile = new File(CONFIGURATION_FILE);
-            System.out.println("FILE: " + confFile.getAbsolutePath());
             InputStream inputStream = new FileInputStream(confFile);
             Properties properties = new Properties();
             properties.load(new FileInputStream(new File(CONFIGURATION_FILE)));

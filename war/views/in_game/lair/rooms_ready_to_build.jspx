@@ -10,7 +10,7 @@
 <customtag:window id="lairWindow" title="Lair.myLair"
 	tags="new_rooms: Lair.newRoomsAvaliable, 
 		lair: Lair.lairView => lair.do, 
-		lairs_navigator: Lair.buildingView => lair.do?street=${my.lair.address.street}&amp;building=${my.lair.address.building}, 
+		lairs_navigator: Lair.buildingView => lair.do?street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}, 
 		search_lairs: Lair.searchLairs => lair.do?lairWindow_selected_tag=search_lairs">
 	
 	<div id="lairWindow_new_rooms">

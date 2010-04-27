@@ -29,21 +29,21 @@
         	<fmt:message key="Building.street"/>
         </span>
         <span class="entry">
-       		<input type="text" name="street" value="${lair.address.street}"
+       		<input type="text" name="street" value="${lair.addressStreet}"
        			size="3" maxlength="3" />
         </span>
         <span class="label">
         	<fmt:message key="Building.building"/>
         </span>
         <span class="entry">
-       		<input type="text" name="building" value="${lair.address.building}"
+       		<input type="text" name="building" value="${lair.addressBuilding}"
        			size="3" maxlength="3" />
         </span>
         <span class="label">
         	<fmt:message key="Building.floor"/>
         </span>
         <span class="entry">
-       		<input type="text" name="floor" value="${lair.address.floor}"
+       		<input type="text" name="floor" value="${lair.addressFloor}"
        			size="3" maxlength="3" />
         </span>
         <span class="button">

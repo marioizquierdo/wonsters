@@ -86,7 +86,8 @@ public class UserFacadeImpl implements UserFacade {
             Lair newLair = FactoryData.LairWhatIs.Default.build(newUser);
            
             userDao.save(newUser);
-            
+            System.out.println("User " + newUser.getId());
+            System.out.println("Lair " + newUser.getLair().getId());
             return new LoginResult(newLair, login, userDetails.getFirstName(), 
                     newUser.getEncryptedPassword(), userDetails.getLanguage());
 

@@ -49,7 +49,7 @@ public class Lair implements Serializable {
     @Persistent
     private int addressFloor;
     
-    @Persistent(mappedBy = "lair")
+    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
     private User user;
     
     @Persistent(serialized="true",defaultFetchGroup="true")
@@ -247,14 +247,14 @@ public class Lair implements Serializable {
 	
 	@Override
     public String toString() {
-	    String strUser;
-	    if (user == null)
-	        strUser = "";
-	    else
-	        strUser = user.getLogin();
+//	    String strUser;
+//	    if (user == null)
+//	        strUser = "";
+//	    else
+//	        strUser = user.getLogin();
 	    
 		return Format.p(this.getClass(), new Object[]{
-		    "user", strUser,
+//		    "user", strUser,
 			"money", money,
 			"garbage", garbage,
 			"address", "("+this.addressStreet+","+this.addressBuilding+","+this.addressFloor+")",

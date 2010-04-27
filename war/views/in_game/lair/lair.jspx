@@ -15,22 +15,22 @@
 	<c:when test="${lair == my.lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${lair.address.street}&amp;building=${lair.address.building}" />
+			value="?street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
 	</c:when>
 	<c:when test="${empty lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.error"/></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${my.lair.address.street}&amp;building=${my.lair.address.building}" />
+			value="?street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}" />
 	</c:when>
 	<c:otherwise>
 		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
 			<fmt:param value="${lair.user.login}"/>
-			<fmt:param value="${lair.address.street}"/>
-			<fmt:param value="${lair.address.building}"/>
-			<fmt:param value="${lair.address.floor}"/>
+			<fmt:param value="${lair.addressStreet}"/>
+			<fmt:param value="${lair.addressBuilding}"/>
+			<fmt:param value="${lair.addressFloor}"/>
 		</fmt:message></c:set>
 		<c:set var="lair_neighbors" 
-			value="?street=${lair.address.street}&amp;building=${lair.address.building}" />
+			value="?street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
 	</c:otherwise>
 </c:choose>
 
