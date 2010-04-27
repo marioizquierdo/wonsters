@@ -27,12 +27,12 @@
 
 #monster_tasks {
 	float: left;
-	widht: 100%;	
+	width: 100%;	
 }
 
 #monster_tasks div.field {
 	float: left;
-	widht: 100%;
+	width: 100%;
 }
 
 #monster_tasks div.free_turns { text-align: left; padding-left: 10px; }
@@ -41,7 +41,7 @@
 
 #monster_tasks .monsterActionSuggestion_input {
 	float: left;
-	width: 40px;
+	width: 60px;
 	padding-left: 10px;
 }
 
@@ -53,7 +53,7 @@
 
 #monster_tasks .monsterActionSuggestion_description {
 	float: left;
-	width: 170px;
+	width: 150px;
 	padding-right: 10px;
 }
 
@@ -68,6 +68,12 @@
 	width: 100%;
 	color: #999;
 	text-align: left;
+}
+
+
+#monster_tasks .end_button .button {
+border:solid 1px;
+background-color:green;
 }
 
 

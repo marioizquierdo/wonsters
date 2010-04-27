@@ -74,7 +74,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
 		        	actionsToDo.put(action, turnsToUse);
 		        	
 	            } catch (NumberFormatException e) {
-	            	errors.add("suggestedActions." + entry.getKey(), new ActionMessage("ErrorMessages.incorrectValue"));
+	            	errors.add("suggestedActions("+ entry.getKey() +")", new ActionMessage("ErrorMessages.incorrectValue"));
 	            }
 	        }
         }

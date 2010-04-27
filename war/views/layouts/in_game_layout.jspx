@@ -40,6 +40,7 @@
   <c:url var="tablesCSS" value="/css/tables.css" />
   <c:url var="windowTagAndColorsCSS" value="/css/window_tag_and_colors.css" />
   <c:url var="tipTipCSS" value="/css/tipTip.css" />
+  <c:url var="jqueryUICSS" value="/css/smoothness/jquery-ui.css" />
   
   <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${commonStylesCSS}" type="text/css" media="all" />
@@ -51,6 +52,7 @@
   <link rel="StyleSheet" href="${tablesCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${windowTagAndColorsCSS}" type="text/css" media="all" />
   <link rel="StyleSheet" href="${tipTipCSS}" type="text/css" media="all" />
+  <link rel="StyleSheet" href="${jqueryUICSS}" type="text/css" media="all" />
   
   <!-- JavaScript (layout common) -->
   
@@ -63,6 +65,18 @@
 
 </head>
 
+<<<<<<< local
+<!-- Javascript -->
+<![CDATA[
+	<script type='text/javascript' src='javascript/lib/jquery.js'></script>
+	<script type='text/javascript' src='javascript/lib/jquery-ui.js'></script>
+	<script type='text/javascript' src='javascript/lib/jquery.tipTip.js'></script>
+	<script type='text/javascript' src='javascript/lib/thearsmonsters_lib.js'></script>
+	<script type='text/javascript' src='javascript/in_game_layout.js'></script>
+]]>
+
+=======
+>>>>>>> other
 <!-- HTML body. -->
 <body id="inGame">
 <div id="background_header">

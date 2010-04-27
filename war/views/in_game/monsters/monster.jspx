@@ -27,16 +27,24 @@
       <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" />
     
     </c:when><c:otherwise>
-    
-      <html:form action="monster/do_actions">
-        
+
+      <html:form action="monster/ExecuteMonsterActions" styleClass="execute_monster_actions">
+ 
         <html:hidden property="monsterId" value="${monster.id}"/>
         <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
         	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
         	<c:set var="suggestedAction" value="suggestedAction(${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType})" />
             <div class="field">
                 <div class="monsterActionSuggestion_input">
-                    <html:text property="${suggestedAction}" size="2" />                
+                    <![CDATA[<script type="text/javascript"> $(function() {
+                        $('form[name=monsterActionsToDoForm] button.add_turn_button').click(function() {
+                            var button_id = $(this).attr('id');
+                            alert(button_id);
+                            return false;
+                        });
+		             });</script>]]>
+                    <html:text property="${suggestedAction}" size="2" styleId="${suggestedAction}_target_input" />
+                    <button id="${suggestedAction}" class="add_turn_button">+</button>                
                 </div>
                 <div class="monsterActionSuggestion_description">
                 	<span class="monsterActionSuggestion_description_actionType">
@@ -50,7 +58,7 @@
             </div>
         </c:forEach>
         
-        <div class="button end_button">        
+        <div class="end_button">
         	<html:submit><fmt:message key="Buttons.ok"/></html:submit>
         </div>      
         
