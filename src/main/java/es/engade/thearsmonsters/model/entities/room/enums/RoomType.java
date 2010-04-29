@@ -26,16 +26,16 @@ public enum RoomType {
 	
 	/**
 	 * Esta sala es un poco especial. Es la primera que aparece en el juego, no es necesario construirla, 
-	 * no se puede ampliar y no se puede mejorar. El ojo de la vida es el encargado de incubar 
+	 * no se puede ampliar y no se puede mejorar. Papá Monstruo es el encargado de incubar 
 	 * los huevos de monstruo que se compran o producen, también es donde las crías realizan 
 	 * la metamorfosis para convertirse en adultos.
 	 * Aquí en principio no se realiza ninguna tarea.
 	 */
-	EyeOfTheLife 			(false, 0, 0, 1),
+	MainMonster 			(false, 0, 0, 1),
 							
 	/**
 	 * Es donde los monstruos descansan cada día.
-	 * Al igual que el Ojo de la Vida, no es necesario construirla porque ya aparece al 
+	 * Al igual que Papá Monstruo, no es necesario construirla porque ya aparece al 
 	 * comienzo del juego, en cambio sí que se puede mejorar su nivel. 
 	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
 	 * Aquí tampoco se realiza ninguna acción.
@@ -113,9 +113,9 @@ public enum RoomType {
 		RoomState state;
 		int initialLevel;
 		
-		// EyeOfTheLife y Dormitories starts in normal state,
+		// MainMonster y Dormitories starts in normal state,
 		// the other rooms starts in works state: monsters must to build them.
-		if(this.equals(EyeOfTheLife) || this.equals(Dormitories)) {
+		if(this.equals(MainMonster) || this.equals(Dormitories)) {
 			state = new RoomNormalState();
 			initialLevel = 1;
 		} else {
@@ -159,7 +159,7 @@ public enum RoomType {
  	/**
  	 * Convierte la representación de una lista en String a la lista real.
  	 * Se usa para simplificar la definición de listas de tipos de sala.
- 	 * @param stringList Literales de AgeState separados por comas, xej: "Warehouse, TruffleFarm, EyeOfTheLife",
+ 	 * @param stringList Literales de AgeState separados por comas, xej: "Warehouse, TruffleFarm, MainMonster",
   	 * 			o bien el string "all", que incluye a todas las edades,
   	 * 			o bien un string vacío "", que devuelve una lista vacía.
  	 * @return Lista de RoomTypes correspondientes con los elementos declarados en el String de entrada.

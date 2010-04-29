@@ -87,7 +87,7 @@ public class FactoryData {
 	/**
 	 * Genera una sala con todas sus relaciones establecidas (guarida, usuario, etc),
 	 * siguieno el criterio establecido, siguiendo alguno de los criterios de la enumeración.
-	 * Ejemplo: FactoryData.RoomWhatIs.EyeOfTheLife.build();
+	 * Ejemplo: FactoryData.RoomWhatIs.MainMonster.build();
 	 */
 	public enum RoomWhatIs {
 		/**
@@ -123,8 +123,8 @@ public class FactoryData {
 			}
 		},
 		
-		EyeOfTheLife {
-			public Room build() { return generateRoomByType(RoomType.EyeOfTheLife); }
+		MainMonster {
+			public Room build() { return generateRoomByType(RoomType.MainMonster); }
 		},
 		Dormitories {
 			public Room build() { return generateRoomByType(RoomType.Dormitories); }
@@ -136,7 +136,7 @@ public class FactoryData {
 			public Room build() { return generateRoomByType(RoomType.TradeOffice); }
 		};
 		
-		public Room build() { return generateRoomByType(RoomType.EyeOfTheLife); } // default
+		public Room build() { return generateRoomByType(RoomType.MainMonster); } // default
 		public Room build(RoomType roomType) { return generateRoomByType(roomType); } // default
 	}
 	
@@ -212,7 +212,7 @@ public class FactoryData {
     /**
      * Devuelve una nueva guarida con los valores iniciales.
      * Es decir la guarida estará el estado inicial en el que comienzas el juego, sin monstruos y
-     * solo con el ojo de la vida.
+     * solo con Papá Monstruo.
      */
     private static Lair generateInitialLair(User user) {
         
@@ -228,7 +228,7 @@ public class FactoryData {
     
         //*** ROOMS ***//
         
-        lair.buildRoom(RoomType.EyeOfTheLife);
+        lair.buildRoom(RoomType.MainMonster);
         lair.buildRoom(RoomType.Dormitories);
         
         return lair;
@@ -237,7 +237,7 @@ public class FactoryData {
 	/**
      * Devuelve una nueva guarida con los valores iniciales.
      * Es decir la guarida estará el estado inicial en el que comienzas el juego, sin monstruos y
-     * solo con el ojo de la vida.
+     * solo con Papá Monstruo.
      */
 	private static Lair generateInitialLair(String userLogin) {
 		
@@ -316,7 +316,7 @@ private static User generateUserScaffold(User user) {
     
         //*** ROOMS ***//
         
-        lair.buildRoom(RoomType.EyeOfTheLife);
+        lair.buildRoom(RoomType.MainMonster);
         Room dormitories = lair.buildRoom(RoomType.Dormitories);
         Room warehouse = lair.buildRoom(RoomType.Warehouse);
         Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);

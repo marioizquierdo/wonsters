@@ -4,7 +4,7 @@ package es.engade.thearsmonsters.model.entities.room.enums;
  * Subset of RoomType
  */
 public enum LeisureRoomType {
-	EyeOfTheLife		(RoomType.EyeOfTheLife) /*, MOCK IMPLEMENTATION mientras no haya leisures de verdad
+	MainMonster				(RoomType.MainMonster) /*, MOCK IMPLEMENTATION mientras no haya leisures de verdad
 	MetalLeisureRoom		(RoomType.MetalLeisureRoom),
 	ChillOutLeisureRoom		(RoomType.ChillOutLeisureRoom),
 	TechnoLeisureRoom		(RoomType.TechnoLeisureRoom),

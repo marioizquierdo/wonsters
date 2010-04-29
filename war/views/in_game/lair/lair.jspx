@@ -127,7 +127,7 @@
 	
 	// Si hay una sala definida como parametro se muestra simulando un click sobre ella
 	if("${param.showRoomType}") {
-		$("#lairRoom_EyeOfTheLife").trigger("click");
+		$("#lairRoom_MainMonster").trigger("click");
 		$("#lairRoom_${param.showRoomType}").trigger("click");
   	}
 	

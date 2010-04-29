@@ -99,8 +99,8 @@
 			</c:if>
 			
 			<!-- Concrete actions for each type of room -->
-			<c:if test="${room.roomType == 'EyeOfTheLife'}">
-				<customtag:roomAction icon_id="9" action="monster/eggs" messageKey="Lair.room.EyeOfTheLife.EggsManagement"/>
+			<c:if test="${room.roomType == 'MainMonster'}">
+				<customtag:roomAction icon_id="9" action="monster/eggs" messageKey="Lair.room.MainMonster.EggsManagement"/>
 			</c:if>
 			<c:if test="${room.roomType == 'TradeOffice'}">
 				<customtag:roomAction icon_id="21" action="/lair/change_resources.do" messageKey="Lair.room.TradeOffice.changeResources"/>
