@@ -35,7 +35,7 @@ public class LairFacadeMock implements LairFacade {
 	}
 
 	
-	public int changeResources(String moneyOrGarbage, int amount, Lair lair)
+	public int changeResources(Lair lair, String moneyOrGarbage, int amount)
 			throws WarehouseFullStorageException,
 			TradeOfficeFullStorageException, InsuficientGarbageException,
 			InsuficientMoneyException, OnlyOneChangePerGameDayException,
@@ -51,7 +51,7 @@ public class LairFacadeMock implements LairFacade {
 	
 	public BuildingChunk findBuilding(int street, int building)
 			throws InternalErrorException, IncorrectAddressException {
-		return new BuildingChunk(lairs, 2, 2, 2, 0, 0, 0);
+		return new BuildingChunk(lairs, 1, 1);
 	}
 	
 	

@@ -39,6 +39,10 @@ public class IncorrectAddressException extends IndexOutOfBoundsException impleme
                 GameConf.getMaxNumberOfBuildings()+"",
                 GameConf.getMaxNumberOfFloors()+""};
     }
+    
+    public IncorrectAddressException(int street, int building) {
+    	this(street, building, 0);
+    }
 
 	public String getMessageKey() {
 		return messageKey;

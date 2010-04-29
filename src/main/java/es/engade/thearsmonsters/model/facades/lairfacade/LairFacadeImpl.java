@@ -67,7 +67,7 @@ public class LairFacadeImpl implements LairFacade {
         }
     }
 
-    public int changeResources(String moneyOrGarbage, int amount, Lair lair)
+    public int changeResources(Lair lair, String moneyOrGarbage, int amount)
             throws WarehouseFullStorageException,
             TradeOfficeFullStorageException, InsuficientGarbageException,
             InsuficientMoneyException, OnlyOneChangePerGameDayException,
@@ -87,45 +87,20 @@ public class LairFacadeImpl implements LairFacade {
     public BuildingChunk findBuilding(int street, int building)
             throws InternalErrorException, IncorrectAddressException {
 
-        // TODO: DE 0 a N-1 o de 1 a N ¿?¿?¿?¿?¿?
-        // TODO: Si no hay más.... devuelve -1 o algo?
+        // Las coordenadas (street, building) van de 0 a N-1. Se chequea al crear el BuildingChunk.
+    	
+    	
         // Temporalmente se accede en varias consultas...
         List<Lair> lairs = lairDao.findLairsByBuilding(street, building);
         for (Lair lair : lairs) {
             try {
-                lair.setUser(userDao.get(lair.getUser().getId()));
+                lair.setUser(userDao.get(lair.getUser().getId())); // TODO: esto hay que optimizarlo
             } catch (InstanceNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        int nextStreet, nextBuilding, nextBuildingStreet, previousStreet, previousBuilding, previousBuildingStreet;
-        if (building == GameConf.getMaxNumberOfBuildings()) {
-            nextBuilding = 1;
-            nextStreet = street + 1;
-            nextBuildingStreet = street + 1;
-            previousBuilding = building - 1;
-            previousStreet = street;
-            previousBuildingStreet = street;
-        } else if (building == 1) {
-            nextBuilding = building + 1;
-            nextStreet = street;
-            nextBuildingStreet = street;
-            previousBuilding = GameConf.getMaxNumberOfBuildings();
-            previousStreet = street - 1;
-            previousBuildingStreet = street - 1;
-        } else {
-            nextBuilding = building + 1;
-            nextStreet = street;
-            nextBuildingStreet = street;
-            previousBuilding = building - 1;
-            previousStreet = street;
-            previousBuildingStreet = street;
-        }
-
-        BuildingChunk bc = new BuildingChunk(lairs, nextStreet, nextBuilding,
-                nextBuildingStreet, previousStreet, previousBuilding,
-                previousBuildingStreet);
-        return bc;
+        
+        return new BuildingChunk(lairs, street, building);
     }
 
     @Transactional(readOnly = true)
@@ -150,20 +125,22 @@ public class LairFacadeImpl implements LairFacade {
 
     @Transactional(readOnly = true)
     public Lair findLairByAddress(int street, int building, int floor)
-            throws InstanceNotFoundException, InternalErrorException,
-            IncorrectAddressException {
-
-        Lair lair = null;
+            throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
+    	
+    	// Check coordinates
+    	if(building <= 0 || building >= GameConf.getMaxNumberOfBuildings() ||
+    			street <= 0 || street >= GameConf.getMaxNumberOfStreets() ||
+    			floor <= 0 || floor >= GameConf.getMaxNumberOfFloors()) 
+    		throw new IncorrectAddressException(street, building, floor);
 
         try {
-            lair = lairDao.findLairByAddress(street, building, floor);
+        	return lairDao.findLairByAddress(street, building, floor);
         } catch (InstanceNotFoundException e) {
             throw e;
         } catch (Exception e) {
             throw new InternalErrorException(e);
         }
 
-        return lair;
 
     }
 

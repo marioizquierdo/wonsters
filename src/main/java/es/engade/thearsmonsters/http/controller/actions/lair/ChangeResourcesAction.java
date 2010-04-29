@@ -43,9 +43,9 @@ public class ChangeResourcesAction extends ThearsmonstersDefaultAction {
 		            
 		        /* Model action */
 		        if(garbage > 0) {
-		        	lairFacade.changeResources("garbage", garbage, lair);
+		        	lairFacade.changeResources(lair, "garbage", garbage);
 		        } else { // money > 0
-		        	lairFacade.changeResources("money", money, lair);
+		        	lairFacade.changeResources(lair, "money", money);
 		        }
 				
 				/* Done message */

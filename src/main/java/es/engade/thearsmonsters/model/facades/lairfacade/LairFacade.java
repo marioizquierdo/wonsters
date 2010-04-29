@@ -36,7 +36,7 @@ public interface LairFacade {
 		throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException;
     
     /**
-     * Get a building set of some lairs, without their rooms.
+     * Get a block of lairs, localized at (street, building) coordinates.
      */
     public BuildingChunk findBuilding(int street, int building) 
 		throws InternalErrorException, IncorrectAddressException;
@@ -55,21 +55,19 @@ public interface LairFacade {
     /**
      * Set the room's state to upgrading level and store the new state in the database.
      * Then the player will can put builders inside the room.
-     * @param lair may be the session myLair LairVO instance.
+     * @param lair may be the session myLair Lair instance.
      * 		Must contains the rooms and its state will be updated.
      * @param roomType reference the room included in lair.getRooms.
-     * @throws InWorksActionException if the room is in enlarging size state or
-     * 		if simply that room can not be upgraded.
+     * @throws InWorksActionException if the room can not be upgraded.
      * @throws InstanceNotFoundException if the lair do not contains the room of the specified RoomType.
-     * @throws NoRoomsLoadedException if the lair have not its rooms loaded
      */
     public void setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
-		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, InsuficientGarbageException;
+		throws InWorksActionException, InstanceNotFoundException, InsuficientGarbageException, InternalErrorException;
     
     /**
      * Similar to setRoomUpgradingInWorksState. The effort done will be lost, but the garbage
      * will be restored.
-     * @see setRoomUpgradingInWorksState(LairVO lair, RoomType roomType)
+     * @see setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
      */
     public void cancelWorks(Lair lair, RoomType roomType)
 		throws InWorksActionException, InternalErrorException, InstanceNotFoundException;
@@ -84,7 +82,7 @@ public interface LairFacade {
      * @throws InsuficientGarbageException if money_or_garbage=="garbage" and amount is greather than current garbage in the lair
      * @throws InsuficientMoneyException if money_or_garbage=="money" and amount is greather than current money in the lair
      */
-    public int changeResources(String money_or_garbage, int amount, Lair lair)
+    public int changeResources(Lair lair, String money_or_garbage, int amount)
     	throws WarehouseFullStorageException, TradeOfficeFullStorageException, InsuficientGarbageException, InsuficientMoneyException, OnlyOneChangePerGameDayException, InternalErrorException;
     
 
