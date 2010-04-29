@@ -25,7 +25,6 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class SetRoomInWorksStateAction extends ThearsmonstersDefaultAction {
 	
-	private static final String ENLARGE = "ENLARGE";
 	private static final String UPGRADE = "UPGRADE";
 	private static final String CANCEL_WORKS = "CANCEL_WORKS";
 	private static final String BUILD_NEW_ROOM = "BUILD_NEW_ROOM";
@@ -46,10 +45,7 @@ public class SetRoomInWorksStateAction extends ThearsmonstersDefaultAction {
         try {
 	        
 	        /* Model action */
-	        if(action.equals(ENLARGE)) {
-	        	lairFacade.setRoomEnlargingInWorksState(lair, roomType);
-	        	
-	        } else if(action.equals(UPGRADE)) {
+            if(action.equals(UPGRADE)) {
 	        	lairFacade.setRoomUpgradingInWorksState(lair, roomType);
 	        	
 	        } else if(action.equals(CANCEL_WORKS)) {
@@ -85,7 +81,7 @@ public class SetRoomInWorksStateAction extends ThearsmonstersDefaultAction {
     	String actionString = action==null ? action : "null";
     	return new InternalErrorException(new Exception(
     			"Incorrect request.getParameter('action'), expected " +
-    			ENLARGE + ", " + UPGRADE + " or " + CANCEL_WORKS +
+    			UPGRADE + " or " + CANCEL_WORKS +
     			", but found "+ actionString));
     }
     

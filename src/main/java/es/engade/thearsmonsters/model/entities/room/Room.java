@@ -152,14 +152,6 @@ public class Room implements Serializable {
 	public boolean isUpgradable() {
 		return this.getGarbageUpgrade() >= 0;
 	}
-	
-	/**
-	 * DEPRECATED
-	 * @return True if this room can be enlarged one more place. False otherwise.
-	 */
-//	public boolean isEnlargable() {
-//		return this.getGarbageEnlarge() >= 0;
-//	}
 
 	public boolean isPublished() {
 		return publicAccess.isPublished();
@@ -229,14 +221,6 @@ public class Room implements Serializable {
 	 * @return Effort needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
 	public int getEffortUpgrade() {return getEffortUpgradeWhenLevel(this.getLevel());}
-	/**
-	 * @return Garbage needed for Enlarging one more place (-1 if cannot be enlarged)
-	 */
-	//public int getGarbageEnlarge() {return getGarbageEnlarge(this.getSize());}
-	/**
-	 * @return Effort needed for Enlarging one more place (-1 if cannot be enlarged)
-	 */
-	//public int getEffortEnlarge() {return getEffortEnlarge(this.getSize());}
 
 	/**
 	 * Garbage needed for upgrading.

@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
+import es.engade.thearsmonsters.model.entities.room.Room;
+import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -26,6 +28,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 public class LairFacadeImpl implements LairFacade {
 
     private LairDao lairDao;
+    private RoomDao roomDao;
     private UserDao userDao;
 
     public void setLairDao(LairDao lairDao) {
@@ -36,11 +39,32 @@ public class LairFacadeImpl implements LairFacade {
         this.userDao = userDao;
     }
 
+    public void setRoomDao(RoomDao roomDao) {
+        this.roomDao = roomDao;
+    }
+
     public void cancelWorks(Lair lair, RoomType roomType)
             throws InWorksActionException, InternalErrorException,
             InstanceNotFoundException {
-        // TODO Auto-generated method stub
 
+        Room room = lair.getRoom(roomType);
+        if (!room.isInWorks())
+            throw new InWorksActionException(
+                    "The works for upgrade can not be cancelled", lair
+                            .getUser().getLogin(), roomType);
+
+        if (room.setStateCancelWorks()) { // Check and start works
+
+            lair.setGarbage(lair.getGarbage() + room.getGarbageUpgrade()); // spend
+                                                                           // garbage
+            // lairDao.update(lair); // save lair
+            // roomDao.update(room); // save room
+            userDao.update(lair.getUser());
+        } else {
+            throw new InWorksActionException(
+                    "The works for upgrade can not be cancelled", lair
+                            .getUser().getLogin(), roomType);
+        }
     }
 
     public int changeResources(String moneyOrGarbage, int amount, Lair lair)
@@ -48,7 +72,6 @@ public class LairFacadeImpl implements LairFacade {
             TradeOfficeFullStorageException, InsuficientGarbageException,
             InsuficientMoneyException, OnlyOneChangePerGameDayException,
             InternalErrorException {
-        // TODO implementar
         return 2000;
     }
 
@@ -58,7 +81,7 @@ public class LairFacadeImpl implements LairFacade {
 
         lair.buildRoom(roomType);
         lairDao.update(lair);
-        
+
     }
 
     public BuildingChunk findBuilding(int street, int building)
@@ -161,17 +184,33 @@ public class LairFacadeImpl implements LairFacade {
         return lair;
     }
 
-    public void setRoomEnlargingInWorksState(Lair lair, RoomType roomType)
-            throws InWorksActionException, InternalErrorException,
-            InstanceNotFoundException, InsuficientGarbageException {
-        // TODO Auto-generated method stub
-
-    }
-
+    @Transactional
     public void setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
             throws InWorksActionException, InternalErrorException,
             InstanceNotFoundException, InsuficientGarbageException {
-        // TODO Auto-generated method stub
+
+        Room room = lair.getRoom(roomType);
+
+        if (lair.getGarbage() >= room.getGarbageUpgrade()) { // Be sure there
+                                                             // are needed
+                                                             // garbage for
+                                                             // start Works
+            if (room.setStateStartUpgrading()) { // Check and start works
+
+                lair.setGarbage(lair.getGarbage() - room.getGarbageUpgrade()); // spend
+                                                                               // garbage
+                // roomDao.update(room); // save room
+                // lairDao.update(lair); // save lair
+                userDao.save(lair.getUser());
+            } else {
+                throw new InWorksActionException(
+                        "The works for upgrade can not be initialized", lair
+                                .getUser().getLogin(), roomType);
+            }
+        } else {
+            throw new InsuficientGarbageException(room.getGarbageUpgrade(),
+                    lair.getGarbage());
+        }
 
     }
 

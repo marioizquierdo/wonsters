@@ -156,28 +156,6 @@ public enum RoomType {
 		}
 	}
    
-   /**
-    * ENLARGE NOT SUPPORTED IN THIS VERSION
-    * Garbage needed to enlarge to that size.
-    */
-	public double getGarbageEnlarge(int size) {
- 	   switch (this) {
- 	   /* Por ahora, enlarge no soportado */
- 		default: return -1;	/* Por defecto indica que no se puede agrandar */
- 	   }
-    }
-    /**
-     * ENLARGE NOT SUPPORTED IN THIS VERSION
-     * Effort needed to enlarge to that size.
-     */
-     public double getEffortEnlarge(int size) {
-  	   switch (this) {
-  	   /* Por ahora, enlarge no soportado */
-  		default: return -1;	/* Por defecto indica que no se puede agrandar */
-  	   }
-     }
-     
-     
  	/**
  	 * Convierte la representación de una lista en String a la lista real.
  	 * Se usa para simplificar la definición de listas de tipos de sala.

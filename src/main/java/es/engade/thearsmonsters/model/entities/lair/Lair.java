@@ -196,10 +196,7 @@ public class Lair implements Serializable {
             throw new IncorrectAddressException(addressStreet, addressBuilding, floor);
 	    this.addressFloor = floor; 
 	}
-	
-	//------ RoomData delegations (roomData is private, so its public methods are exposed in the lair interface) ------//
-	
-	public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }
+    public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }
 	public int getVitalSpace() { return roomData.getVitalSpace(); }
 	public boolean setVitalSpaceOccupied() { return roomData.setVitalSpaceOccupied(); }
 	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(); }
@@ -211,7 +208,8 @@ public class Lair implements Serializable {
 	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(); }
 	public int getPercentageCommision() { return roomData.getPercentageCommision(); }
 	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(); }
-	
+	public RoomData getRoomData() { return roomData; }
+	public void setRoomData(RoomData roomData) { this.roomData = roomData; }
 	
 	//------ Monsters and eggs ------//
 	

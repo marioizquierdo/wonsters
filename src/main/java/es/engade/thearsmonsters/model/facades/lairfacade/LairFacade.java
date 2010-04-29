@@ -67,13 +67,6 @@ public interface LairFacade {
 		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, InsuficientGarbageException;
     
     /**
-     * Similar to setRoomUpgradingInWorksState.
-     * @see setRoomUpgradingInWorksState(LairVO lair, RoomType roomType)
-     */
-    public void setRoomEnlargingInWorksState(Lair lair, RoomType roomType)
-		throws InWorksActionException, InternalErrorException, InstanceNotFoundException, InsuficientGarbageException;
-    
-    /**
      * Similar to setRoomUpgradingInWorksState. The effort done will be lost, but the garbage
      * will be restored.
      * @see setRoomUpgradingInWorksState(LairVO lair, RoomType roomType)
