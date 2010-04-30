@@ -20,7 +20,8 @@
 
     <div class="field free_turns">
         <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
-        <span class="free_turns_value">${monster.freeTurns}</span>
+        <!-- <span class="free_turns_value"">${monster.freeTurns}</span>-->
+        <html:text property="free_turns_value" size="2" disabled="true" styleClass="free_turns_value" value="${monster.freeTurns}"/>
     </div>
     
     <c:choose><c:when test="${fn:length(suggestedMonsterActions) == 0}">
@@ -28,23 +29,28 @@
     
     </c:when><c:otherwise>
 
-      <html:form action="monster/ExecuteMonsterActions" styleClass="execute_monster_actions">
+      <html:form action="monster/do_actions" styleClass="execute_monster_actions">
  
         <html:hidden property="monsterId" value="${monster.id}"/>
         <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
         	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
         	<c:set var="suggestedAction" value="suggestedAction(${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType})" />
+        	<!-- Esta variable sirve para nombrar en la vista los botones y sus respectivos inputs quitandole el parentesis -->
+        	<c:set var="suggestedActionInput" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
             <div class="field">
                 <div class="monsterActionSuggestion_input">
-                    <![CDATA[<script type="text/javascript"> $(function() {
-                        $('form[name=monsterActionsToDoForm] button.add_turn_button').click(function() {
-                            var button_id = $(this).attr('id');
-                            alert(button_id);
+                    <![CDATA[<script type="text/javascript"> $(function() {                        
+                        $('form[name=monsterActionsToDoForm] button.${suggestedActionInput}_add_turn_button').click(function() {
+                            if (parseInt($('.free_turns_value').val())>0){
+	                            $('.${suggestedActionInput}_target_input').val(parseInt($('.${suggestedActionInput}_target_input').val())+1);
+	                            $('.free_turns_value').val(parseInt($('.free_turns_value').val())-1);
+                            }
+                            else alert('El mounstro no tiene mas turnos que gastar.');
                             return false;
                         });
 		             });</script>]]>
-                    <html:text property="${suggestedAction}" size="2" styleId="${suggestedAction}_target_input" />
-                    <button id="${suggestedAction}" class="add_turn_button">+</button>                
+                    <html:text property="${suggestedAction}" size="2" value="0" styleClass="${suggestedActionInput}_target_input" />
+                    <button id="${suggestedAction}" class="${suggestedActionInput}_add_turn_button">+</button>                
                 </div>
                 <div class="monsterActionSuggestion_description">
                 	<span class="monsterActionSuggestion_description_actionType">
