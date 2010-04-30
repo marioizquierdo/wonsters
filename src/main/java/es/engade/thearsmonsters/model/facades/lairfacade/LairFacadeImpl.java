@@ -87,7 +87,8 @@ public class LairFacadeImpl implements LairFacade {
     public BuildingChunk findBuilding(int street, int building)
             throws InternalErrorException, IncorrectAddressException {
 
-        // Las coordenadas (street, building) van de 0 a N-1. Se chequea al crear el BuildingChunk.
+        // Las coordenadas (street, building) van de 0 a N-1.
+    	// Se chequean al crear el BuildingChunk.
     	
     	
         // Temporalmente se accede en varias consultas...
@@ -127,10 +128,10 @@ public class LairFacadeImpl implements LairFacade {
     public Lair findLairByAddress(int street, int building, int floor)
             throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
     	
-    	// Check coordinates
-    	if(building <= 0 || building >= GameConf.getMaxNumberOfBuildings() ||
-    			street <= 0 || street >= GameConf.getMaxNumberOfStreets() ||
-    			floor <= 0 || floor >= GameConf.getMaxNumberOfFloors()) 
+    	// Check coordinates [0..N-1]
+    	if(		building < 0 || building >= GameConf.getMaxNumberOfBuildings() ||
+    			street < 0 || street >= GameConf.getMaxNumberOfStreets() ||
+    			floor < 0 || floor >= GameConf.getMaxNumberOfFloors()) 
     		throw new IncorrectAddressException(street, building, floor);
 
         try {

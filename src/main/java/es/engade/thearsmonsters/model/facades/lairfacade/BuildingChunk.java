@@ -39,9 +39,9 @@ public class BuildingChunk implements Serializable {
 
     public BuildingChunk(List<Lair> lairs, int street, int building) throws IncorrectAddressException {
         
-    	// Check coordinates
-    	if(building <= 0 || building >= GameConf.getMaxNumberOfBuildings() ||
-    			street <= 0 || street >= GameConf.getMaxNumberOfStreets()) 
+    	// Check coordinates [0..N-1]
+    	if(building < 0 || building >= GameConf.getMaxNumberOfBuildings() ||
+    			street < 0 || street >= GameConf.getMaxNumberOfStreets()) 
     		throw new IncorrectAddressException(street, building);
     	
     	// Fill attributes

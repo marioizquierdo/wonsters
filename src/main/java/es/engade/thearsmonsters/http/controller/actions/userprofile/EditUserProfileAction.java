@@ -58,13 +58,10 @@ public class EditUserProfileAction extends ThearsmonstersDefaultAction {
             if ("UPDATE".equals(action)) {
             
 //                UserFacade userFacade = (UserFacade) AppContext.getInstance().getAppContext().getBean("userFacade");
-                User userProfile = SessionManager.
-                        findUserProfile(request);
-                UserDetails userProfileDetails = 
-                    userProfile.getUserDetails();
+                User userProfile = SessionManager.findUserProfile(request);
+                UserDetails userProfileDetails = userProfile.getUserDetails();
 
-                userProfileForm.setFirstName(
-                    userProfileDetails.getFirstName());
+                userProfileForm.setFirstName(userProfileDetails.getFirstName());
                 userProfileForm.setSurname(userProfileDetails.getSurname());
                 userProfileForm.setEmail(userProfileDetails.getEmail());
                                                                    

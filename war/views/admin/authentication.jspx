@@ -6,7 +6,7 @@
           
 <html:xhtml/>
 
-<html:form action="AdminLogin.do" focus="login">
+<html:form action="admin/login.do" focus="login">
         
     <div class="field">        
         <span class="label">

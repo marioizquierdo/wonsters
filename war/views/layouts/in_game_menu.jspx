@@ -20,11 +20,11 @@
 	  	<div class="atMiddle" style="float:left; width:145px"><div class="ml"><div class="mr"><div class="m content_box">
 			<ul class="menu_items">
 				<li class="menu_item">
-					<html:link action="EditUserProfileForUpdating.do?action=UPDATE">
+					<html:link action="/userprofile/edit.do?action=UPDATE">
 		            	<fmt:message key="MainMenu.editUserProfile"/>
 		        	</html:link></li>
 		        <li class="menu_item">
-					<html:link action="Logout.do">
+					<html:link action="userprofile/logout.do">
 		            	<fmt:message key="MainMenu.logout"/>
 		            </html:link></li>
 			</ul>
@@ -74,15 +74,15 @@
           <div class="menu_link" id="monstruos"><div class="menu_text">
           	<fmt:message key="MainMenu.link.monsters"/></div></div></html:link>
           	
-      <html:link action="Missions.do">
+      <html:link action="missions.do">
           <div class="menu_link" id="templos"><div class="menu_text">
           	<fmt:message key="MainMenu.link.missions"/></div></div></html:link>
           	
-      <html:link action="Guild.do">
+      <html:link action="guild.do">
           <div class="menu_link" id="alianza"><div class="menu_text">
           	<fmt:message key="MainMenu.link.guild"/></div></div></html:link>
           	
-      <html:link action="Messages.do">
+      <html:link action="messages.do">
           <div class="menu_link" id="mensajes"><div class="menu_text">
           	<fmt:message key="MainMenu.link.messages"/></div></div></html:link>
     </div>

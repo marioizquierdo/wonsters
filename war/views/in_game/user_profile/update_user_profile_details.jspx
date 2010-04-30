@@ -11,11 +11,11 @@
 <customtag:window id="userProfileWindow" 
 	title="UpdateUserProfileDetails.headerSpecific" titleValue=" ${my.login}"
 	tags="editUserProfile: UpdateUserProfileDetailsContent.changeInfo, 
-		changePassword: UpdateUserProfileDetailsContent.changePassword => ShowChangePassword.do" >
+		changePassword: UpdateUserProfileDetailsContent.changePassword => userprofile/change_password.do" >
 
 	<div id="userProfileWindow_editUserProfile">
 	
-		<html:form action="UpdateUserProfileDetails.do" focus="firstName">
+		<html:form action="userprofile/update_action.do" focus="firstName">
 
 		    <html:hidden property="action" value="UPDATE"/>
 		    

@@ -36,7 +36,7 @@
     
     <div class="field">
     <c:set var="confirm_text"><fmt:message key="AdminShowUserProfile.confirmToBanUser"/></c:set>
-		<html:link action="AdminToBanUser.do?login=${userProfile.login}"
+		<html:link action="admin/delete_user.do?login=${userProfile.login}"
 			onclick="if(!confirm('${confirm_text}'))return false">
 			<fmt:message key="AdminShowUserProfile.toBanUser"/>
 		</html:link>

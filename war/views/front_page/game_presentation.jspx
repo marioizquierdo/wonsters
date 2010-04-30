@@ -15,7 +15,7 @@
 	<c:set var="title"><fmt:message key="FrontPage.playNowForFree" /></c:set>
   	<c:set var="desc"><fmt:message key="FrontPage.playNowForFree.description"/></c:set>
 	<div id="playNowForFree_button" class="button_box" title="${title} - ${desc}">
-		<html:link action="EditUserProfileForRegistration.do?action=REGISTER">${title}</html:link>
+		<html:link action="userprofile/register.do?action=REGISTER">${title}</html:link>
   	</div>
 	
 	<customtag:info_message titleKey="FrontPage.info.automaticTasks.title" icon_id="3">

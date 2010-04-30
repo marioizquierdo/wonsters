@@ -158,6 +158,8 @@
 		<put name="color" value="blue" />
 		<put name="frontPageWindow_selected_tag" value="screenshots" />
 	</definition>
+	
+	
 	<!-- ====== Admin section ====== -->
 
 	<definition name=".AdminBase" page="/views/layouts/admin_layout.jspx">

@@ -74,7 +74,7 @@
 			  	<div class="atMiddle">
 					
 					<!-- content -->
-					<html:form action="Login.do" focus="login">
+					<html:form action="userprofile/login.do" focus="login">
 						<c:set var="loginError"><html:errors property="login"/></c:set>
 						<c:set var="passwordError"><html:errors property="password"/></c:set>
 						<c:if test="${not empty loginError or not empty passwordError}">
@@ -122,12 +122,12 @@
 	
 		<!-- Info Panel (bottom). -->	
 		<customtag:window id="frontPageWindow" selected_tag="${frontPageWindow_selected_tag}" 
-				tags="start: FrontPage.startTag => FrontPage.do, 
-					register: FrontPage.registerTag => EditUserProfileForRegistration.do?action=REGISTER,
-					release_info: NotImplementedPage.frontPageTag => NotImplementedPageFrontPage.do,
-					screenshots: FrontPage.screenshots => Screenshots.do,
-					concept_art: FrontPage.conceptArt => ConceptArt.do,
-					credits: FrontPage.credits => Credits.do">
+				tags="start: FrontPage.startTag => wellcome.do, 
+					register: FrontPage.registerTag => userprofile/register.do?action=REGISTER,
+					release_info: NotImplementedPage.frontPageTag => not_implemented_page_front_page.do,
+					screenshots: FrontPage.screenshots => screenshots.do,
+					concept_art: FrontPage.conceptArt => concept_art.do,
+					credits: FrontPage.credits => credits.do">
 			<tiles:get name="content"/>
 		</customtag:window>
 		

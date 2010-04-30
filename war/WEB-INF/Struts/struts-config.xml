@@ -38,10 +38,10 @@
 <!-- Por ejemplo, se puede hacer return mapping.findForward("InternalError"); desde cualquier action -->
 
 <global-forwards>
-    <forward name="AuthenticationPage" path="/FrontPage.do" redirect="true"/>
+    <forward name="AuthenticationPage" path="/wellcome.do" redirect="true"/>
     <forward name="AdminAuthenticationPage" path="/admin.do" redirect="true"/>
-    <forward name="InternalError" path="/InternalError.do"/>
-    <forward name="Confirmation" path="/Confirmation.do"/>
+    <forward name="InternalError" path="/internal_error.do"/>
+    <forward name="Confirmation" path="/confirmation.do"/>
     <forward name="GameStart" path="/lair.do" redirect="true"/>
     <forward name="Monster" path="/monster.do" redirect="true"/>
     <forward name="MonsterEggs" path="/monster/eggs.do" redirect="true"/>
@@ -107,55 +107,46 @@
         
 	<!-- ========== Monster Actions (/monsters/_.do) ========== -->
 
-	<!-- /BornMonsterForm -->  		 
     <action path="/monster/born"
 			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
 			parameter=".BornMonsterForm">
         <set-property property="authenticationRequired" value="true"/></action>
         	
-	<!-- /BornMonster -->
     <action path="/monster/born_action"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.BornMonsterAction"
         	name="bornMonsterForm" scope="request" validate="true"
             input=".BornMonsterForm">
         <set-property property="authenticationRequired" value="true"/></action>
         
-	<!-- /BuyEgg -->	 
     <action path="/monster/egg/buy"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEggAction">
         <set-property property="authenticationRequired" value="true"/></action>
         
-	<!-- /EggsManagement -->
     <action path="/monster/eggs"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.EggsManagementAction"
             parameter=".EggsManagement">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="MonsterEggs" path=".EggsManagement"/></action>
          
-	<!-- /ExecuteMonsterActions -->        
     <action path="/monster/do_actions"
             type="es.engade.thearsmonsters.http.controller.actions.monsters.ExecuteMonsterActionsAction"
             name="monsterActionsToDoForm" scope="request" validate="true"
             input="/monster.do">
         <set-property property="authenticationRequired" value="true"/></action> 
 	
-	<!-- /IncubateEgg -->
     <action path="/monster/egg/incubate"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.IncubateEggAction">
         <set-property property="authenticationRequired" value="true"/></action>
          
-	<!--/ShellEgg  -->      
     <action path="/monster/egg/shell"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShellEggAction"
             validate="true">
         <set-property property="authenticationRequired" value="true"/></action>
          
-	<!-- /MetamorphosisToAdult -->               
     <action path="/monster/metamorphosis_to_adult"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MetamorphosisToAdultAction">
         <set-property property="authenticationRequired" value="true"/></action>
          
-	<!-- /Monster -->   
     <action path="/monster"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterAction"
             parameter=".Monster">
@@ -163,7 +154,6 @@
         <forward name="Monster" path=".Monster"/>
         <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/></action>
          
-	<!-- /Monsters -->                          
     <action path="/monsters/of_lair"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonstersAction"
             parameter=".Monsters">
@@ -173,134 +163,143 @@
     
         
 	<!-- ========== UserProfile Actions (/userprofile/_.do) ========== -->
-	     
-    <action path="/ChangePassword"
+   	    
+    <action path="/userprofile/change_password"
+            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
+            parameter=".ChangePassword">
+        <set-property property="authenticationRequired" value="true"/></action>
+	
+    <action path="/userprofile/change_password_action"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.ChangePasswordAction"
             name="changePasswordForm" scope="request" validate="true"
             input=".ChangePassword">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="EditUserProfile" 
-        		 path="/EditUserProfile.do" redirect="true"/></action>
-        		 
-    <action path="/EditUserProfile"
+        		 path="/userprofile/edit.do" redirect="true"/></action>
+	
+	<!-- Carga el formulario con los datos necesarios (lista de languages) -->
+	<!-- Si action="UPDATE" tambien inserta los datos del usuario en el form -->
+	<!-- NOTA: para llegar a esta action se filtra a traves de edit_for_update o register -->  		 
+    <action path="/userprofile/load_form"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.EditUserProfileAction"
             name="userProfileForm" scope="request" validate="false">
         <forward name="RegisterUserForm" path=".RegisterUser"/>
-        <forward name="UpdateUserProfileDetailsForm" 
-        		 path=".UpdateUserProfileDetails"/></action>
-            
-    <action path="/EditUserProfileForUpdating"
+        <forward name="UpdateUserProfileDetailsForm" path=".UpdateUserProfileDetails"/></action>
+    	
+	<!-- /userprofile/edit.do?action=UPDATE -->
+	<!-- Redirige a /userprofile/load_form, pero pasando el filtro authenticationRequired -->
+    <action path="/userprofile/edit"
             type="org.apache.struts.actions.ForwardAction"
-            parameter="/EditUserProfile.do">
+            parameter="/userprofile/load_form.do">
         <set-property property="authenticationRequired" value="true"/></action>
-
-    <action path="/Login"
+	
+    <action path="/userprofile/login"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.LoginAction"
             name="loginForm" scope="request" validate="true"
             input=".FrontPage"></action>
-
-    <action path="/Logout"
+	
+    <action path="/userprofile/logout"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.LogoutAction"/>
-
-    <action path="/RegisterUser"
+	
+	<!-- action path="/userprofile/register" esta en la seccion FrontPage -->
+	
+	<!-- Registra a un usuario en el sistema -->
+    <action path="/userprofile/register_action"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.RegisterUserAction"
             name="userProfileForm" scope="request" validate="true"
-            input="/EditUserProfile.do"/>
-            
-    <action path="/ShowChangePassword"
-            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
-            parameter=".ChangePassword">
-        <set-property property="authenticationRequired" value="true"/></action>
-                 
-    <action path="/UpdateUserProfileDetails"
+            input="/userprofile/load_form.do"></action>
+ 	
+	<!-- Realiza los cambios en el perfil de usuario --> 
+    <action path="/userprofile/update_action"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.UpdateUserProfileDetailsAction"
             name="userProfileForm" scope="request" validate="true"
-            input="/EditUserProfile.do">
+            input="/userprofile/load_form.do">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="EditUserProfile" 
-        		 path="/EditUserProfile.do"/></action>
+        <forward name="EditUserProfile" path="/userprofile/load_form.do"/></action>
     
     
         		 
    	<!-- ========== Other in-game Actions (/_.do) ========== -->
-   	
-	<action path="/Guild"
+   		
+	<action path="/guild"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Guild">
         <set-property property="authenticationRequired" value="true"/></action>
-	
-    <action path="/InternalError"
+		
+    <action path="/internal_error"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".InternalError"/>
-            
-    <action path="/Confirmation"
+       	
+    <action path="/confirmation"
 			type="es.engade.thearsmonsters.http.controller.actions.Confirmation">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowConfirmation" path=".Confirmation"/></action>
-                 			
-	<action path="/Missions"
+     	
+	<action path="/missions"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Missions">
         <set-property property="authenticationRequired" value="true"/></action>
     
              
     <!-- ========= FrontPage Actions (/_.do) ========== -->
-
-    <action path="/ConceptArt"
+	
+    <action path="/concept_art"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".ConceptArt"/>
-            
-    <action path="/Credits"
+      	
+    <action path="/credits"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".Credits"/>
-                
-    <action path="/EditUserProfileForRegistration"
+      	
+	<!-- userprofile/register.do?action=REGISTER -->
+	<!-- Aunque la ruta esta bajo userprofile, esta vista usa el layout de la portada -->    
+    <action path="/userprofile/register"
             type="org.apache.struts.actions.ForwardAction"
-            parameter="/EditUserProfile.do"/>
-
-	<action path="/FrontPage"
+            parameter="/userprofile/load_form.do"/>
+	
+	<action path="/wellcome"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".FrontPage"/>
-
-    <action path="/NotImplementedPageFrontPage"
+	
+    <action path="/not_implemented_page_front_page"
 			type="org.apache.struts.actions.ForwardAction"
             parameter=".NotImplementedPageFrontPage"/>
-            
-    <action path="/Screenshots"
+       	
+    <action path="/screenshots"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".Screenshots"/>
 
             
              
     <!-- ========= Admin Actions (/admin/_.do) ========== -->
-
+	
 	<action path="/admin"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".AdminAutentication"></action>
-                 
-	<action path="/AdminFindUserProfile"
+      	
+	<action path="/admin/find_user"
 			type="es.engade.thearsmonsters.http.controller.actions.admin.FindUserProfileAction"
             name="loginForm" scope="request" validate="false"
             input=".AdminMainPage">
         <set-property property="adminRequired" value="true"/>
         <forward name="AdminShowUserProfile" 
                  path=".AdminShowUserProfile"/></action>
-            
-    <action path="/AdminLogin"
+      	
+    <action path="/admin/login"
 			type="es.engade.thearsmonsters.http.controller.actions.admin.LoginAsAdminAction"
             name="loginForm" scope="request" validate="true"
             input=".AdminAutentication">
         <forward name="AdminMainPage" 
                  path=".AdminMainPage"/></action>
-                           
-	<action path="/AdminToBanUser"
+      	
+	<action path="/admin/delete_user"
 			type="es.engade.thearsmonsters.http.controller.actions.admin.ToBanUser"
             scope="request">
         <set-property property="adminRequired" value="true"/>
         <forward name="AdminShowActionResults" 
                  path=".AdminShowActionResults"/></action>
-                 
-    <action path="/InsertFixtures"
+     	       
+    <action path="/insert_fixtures"
 			type="es.engade.thearsmonsters.http.controller.actions.admin.InsertFixtures"
             scope="request"></action>   
       		 

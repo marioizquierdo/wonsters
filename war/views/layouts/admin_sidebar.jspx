@@ -8,7 +8,7 @@
     
 <li>
 
-  <html:form action="AdminFindUserProfile.do" method="GET" focus="login">
+  <html:form action="admin/find_user.do" method="GET" focus="login">
     
     <fmt:message key="UserProfile.login"/>
     <html:errors property="login"/>
@@ -22,13 +22,13 @@
 </li>
 
 <li>
-  <html:link action="EditUserProfileForUpdating.do?action=UPDATE">
+  <html:link action="/userprofile/edit.do?action=UPDATE">
     <fmt:message key="MainMenu.editUserProfile"/>
   </html:link>
 </li>
 
 <li>
-  <html:link action="Logout.do">
+  <html:link action="userprofile/logout.do">
     <fmt:message key="MainMenu.logout"/>
   </html:link>
 </li>
