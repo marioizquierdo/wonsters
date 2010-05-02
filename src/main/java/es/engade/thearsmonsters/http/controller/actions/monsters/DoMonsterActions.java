@@ -23,7 +23,7 @@ import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class ExecuteMonsterActionsAction extends ThearsmonstersDefaultAction {
+public class DoMonsterActions extends ThearsmonstersDefaultAction {
 	
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,

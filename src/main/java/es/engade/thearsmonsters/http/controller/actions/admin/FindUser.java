@@ -18,7 +18,7 @@ import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class FindUserProfileAction extends DefaultAdminAction {
+public class FindUser extends DefaultAdminAction {
 
     @Override
     public ActionForward doExecute(ActionMapping mapping,

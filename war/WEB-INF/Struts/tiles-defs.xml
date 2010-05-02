@@ -16,12 +16,6 @@
 		<put name="footer" value="/views/layouts/in_game_footer.jspx" />
 	</definition>
 
-	<definition name=".BornMonsterForm" extends=".InGameBase">
-		<put name="title" value="BornMonsterForm.title" />
-		<put name="color" value="green" />
-		<put name="content" value="/views/in_game/monsters/form_born_monster.jspx" />
-	</definition>
-
 	<definition name=".Building" extends=".InGameBase">
 		<put name="title" value="Building.title" />
 		<put name="color" value="blue" />
@@ -33,7 +27,7 @@
 		<put name="content" value="/views/in_game/user_profile/change_password.jspx" />
 	</definition>
 
-	<definition name=".ChangeResourcesForm" extends=".InGameBase">
+	<definition name=".ChangeResources" extends=".InGameBase">
 		<put name="title" value="ChangeResources.title" />
 		<put name="color" value="blue" />
 		<put name="content" value="/views/in_game/lair/form_change_resources.jspx" />
@@ -42,12 +36,6 @@
 	<definition name=".Confirmation" extends=".InGameBase">
 		<put name="title" value="Confirmation.title" />
 		<put name="content" value="/views/common/confirmation_message.jspx" />
-	</definition>
-
-	<definition name=".EggsManagement" extends=".InGameBase">
-		<put name="title" value="EggsManagement.title" />
-		<put name="color" value="green" />
-		<put name="content" value="/views/in_game/monsters/eggs_management.jspx" />
 	</definition>
 
 	<definition name=".Guild" extends=".InGameBase">
@@ -90,6 +78,18 @@
 		<put name="color" value="green" />
 		<put name="content" value="/views/in_game/monsters/monsters_list.jspx" />
 	</definition>
+	
+	<definition name=".MonsterBorn" extends=".InGameBase">
+		<put name="title" value="BornMonsterForm.title" />
+		<put name="color" value="green" />
+		<put name="content" value="/views/in_game/monsters/form_born_monster.jspx" />
+	</definition>
+
+	<definition name=".MonsterEggs" extends=".InGameBase">
+		<put name="title" value="EggsManagement.title" />
+		<put name="color" value="green" />
+		<put name="content" value="/views/in_game/monsters/eggs_management.jspx" />
+	</definition>
 
 	<definition name=".RoomsReadyToBuild" extends=".InGameBase">
 		<put name="title" value="Lair.newRoomsAvaliable" />
@@ -102,7 +102,7 @@
 		<put name="content" value="/views/in_game/lair/search_public_rooms.jspx" />
 	</definition>
 
-	<definition name=".UpdateUserProfileDetails" extends=".InGameBase">
+	<definition name=".UserProfileEdit" extends=".InGameBase">
 		<put name="title" value="UpdateUserProfileDetails.title" />
 		<put name="content"
 			value="/views/in_game/user_profile/update_user_profile_details.jspx" />
@@ -145,7 +145,7 @@
 		<put name="frontPageWindow_selected_tag" value="release_info" />
 	</definition>
 
-	<definition name=".RegisterUser" extends=".FrontPageBase">
+	<definition name=".UserProfileRegister" extends=".FrontPageBase">
 		<put name="title" value="RegisterUser.title" />
 		<put name="content" value="/views/front_page/register_user.jspx" />
 		<put name="color" value="blue" />

@@ -11,15 +11,16 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
+import es.engade.thearsmonsters.http.controller.actions.Confirmation;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
+import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class IncubateEggAction extends ThearsmonstersDefaultAction {
+public class ShellEgg extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
@@ -27,24 +28,26 @@ public class IncubateEggAction extends ThearsmonstersDefaultAction {
         HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
     	
+    	// Confirmación
+    	ActionForward confirm = Confirmation.confirm("EggsManagement.shellEggs.confirm", 
+    			"monster/eggs.do", request, mapping);
+    	if(confirm != null) return confirm;
+    	
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
-        
         try {
 	        /* Get data. */
 	        String eggId = request.getParameter("id");
-	    	Lair lair = SessionManager.getMyLair(request);
+	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
-			monsterFacade.incubateEgg(lair, eggId);
+			Integer moneyBack = monsterFacade.shellEgg(lair, eggId);
+			
+			/* Show results */
+			FlashMessage.show(request, "EggsManagement.shellEggs.doneMessage", moneyBack.toString());
+			
 			
 		} catch (InstanceNotFoundException e) {
-        	request.setAttribute("actionStatus", "ERROR");
-        	request.setAttribute("actionInfo", "ErrorMessages.raceNotExists");
-			
-		} catch (InsuficientVitalSpaceException e) {
-        	request.setAttribute("actionStatus", "ERROR");
-        	request.setAttribute("actionInfo", "ErrorMessages.insuficientVitalSpace");
-			
+        	throw new InternalErrorException(e);
 		}
 
         return mapping.findForward("MonsterEggs");

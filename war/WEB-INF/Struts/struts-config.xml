@@ -70,7 +70,7 @@
    <!-- ========== Lair Actions (/lair/_.do) ========== -->
     
    <action path="/lair"
-		   type="es.engade.thearsmonsters.http.controller.actions.lair.LairAction"
+		   type="es.engade.thearsmonsters.http.controller.actions.lair.ShowLair"
            parameter=".Lair">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowLair" path=".Lair"/>
@@ -78,7 +78,7 @@
         		 
     <action path="/lair/change_resources"
 			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
-			parameter=".ChangeResourcesForm">
+			parameter=".ChangeResources">
         <set-property property="authenticationRequired" value="true"/></action>
              
     <action path="/lair/change_resources_action"
@@ -94,14 +94,14 @@
         <set-property property="authenticationRequired" value="true"/></action>
           
     <action path="/lair/room/change_in_works_state"
-			type="es.engade.thearsmonsters.http.controller.actions.lair.SetRoomInWorksStateAction">
+			type="es.engade.thearsmonsters.http.controller.actions.lair.RoomChangeInWorksState">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowLair" path="/lair.do" redirect="true"/></action>
          
-   <action path="/lair/room/tasks"
+   <!-- <action path="/lair/room/tasks"
            type="es.engade.thearsmonsters.http.controller.actions.lair.ShowRoomTasksAction">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>
+        <forward name="ShowRoomTasks" path=".ShowRoomTasks"/></action>  -->
     
     
         
@@ -109,53 +109,53 @@
 
     <action path="/monster/born"
 			type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
-			parameter=".BornMonsterForm">
+			parameter=".MonsterBorn">
         <set-property property="authenticationRequired" value="true"/></action>
         	
     <action path="/monster/born_action"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.BornMonsterAction"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterBornAction"
         	name="bornMonsterForm" scope="request" validate="true"
-            input=".BornMonsterForm">
+            input=".MonsterBorn">
         <set-property property="authenticationRequired" value="true"/></action>
         
     <action path="/monster/egg/buy"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEggAction">
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEgg">
         <set-property property="authenticationRequired" value="true"/></action>
         
     <action path="/monster/eggs"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.EggsManagementAction"
-            parameter=".EggsManagement">
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterEggs"
+            parameter=".MonsterEggs">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="MonsterEggs" path=".EggsManagement"/></action>
+        <forward name="MonsterEggs" path=".MonsterEggs"/></action>
          
     <action path="/monster/do_actions"
-            type="es.engade.thearsmonsters.http.controller.actions.monsters.ExecuteMonsterActionsAction"
+            type="es.engade.thearsmonsters.http.controller.actions.monsters.DoMonsterActions"
             name="monsterActionsToDoForm" scope="request" validate="true"
             input="/monster.do">
         <set-property property="authenticationRequired" value="true"/></action> 
 	
     <action path="/monster/egg/incubate"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.IncubateEggAction">
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.IncubateEgg">
         <set-property property="authenticationRequired" value="true"/></action>
          
     <action path="/monster/egg/shell"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShellEggAction"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShellEgg"
             validate="true">
         <set-property property="authenticationRequired" value="true"/></action>
          
     <action path="/monster/metamorphosis_to_adult"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.MetamorphosisToAdultAction">
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.MetamorphosisToAdult">
         <set-property property="authenticationRequired" value="true"/></action>
          
     <action path="/monster"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterAction"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShowMonster"
             parameter=".Monster">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="Monster" path=".Monster"/>
         <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/></action>
          
     <action path="/monsters/of_lair"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonstersAction"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonstersOfLair"
             parameter=".Monsters">
         <set-property property="authenticationRequired" value="true"/>
         <forward name="Monsters" path=".Monsters"/></action>
@@ -181,37 +181,37 @@
 	<!-- Si action="UPDATE" tambien inserta los datos del usuario en el form -->
 	<!-- NOTA: para llegar a esta action se filtra a traves de edit_for_update o register -->  		 
     <action path="/userprofile/load_form"
-			type="es.engade.thearsmonsters.http.controller.actions.userprofile.EditUserProfileAction"
+			type="es.engade.thearsmonsters.http.controller.actions.userprofile.UserProfileLoadForm"
             name="userProfileForm" scope="request" validate="false">
-        <forward name="RegisterUserForm" path=".RegisterUser"/>
-        <forward name="UpdateUserProfileDetailsForm" path=".UpdateUserProfileDetails"/></action>
+        <forward name="UserProfileRegister" path=".UserProfileRegister"/>
+        <forward name="UserProfileEdit" path=".UserProfileEdit"/></action>
     	
 	<!-- /userprofile/edit.do?action=UPDATE -->
 	<!-- Redirige a /userprofile/load_form, pero pasando el filtro authenticationRequired -->
     <action path="/userprofile/edit"
-            type="org.apache.struts.actions.ForwardAction"
+            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter="/userprofile/load_form.do">
         <set-property property="authenticationRequired" value="true"/></action>
 	
     <action path="/userprofile/login"
-			type="es.engade.thearsmonsters.http.controller.actions.userprofile.LoginAction"
+			type="es.engade.thearsmonsters.http.controller.actions.userprofile.Login"
             name="loginForm" scope="request" validate="true"
             input=".FrontPage"></action>
 	
     <action path="/userprofile/logout"
-			type="es.engade.thearsmonsters.http.controller.actions.userprofile.LogoutAction"/>
+			type="es.engade.thearsmonsters.http.controller.actions.userprofile.Logout"/>
 	
 	<!-- action path="/userprofile/register" esta en la seccion FrontPage -->
 	
 	<!-- Registra a un usuario en el sistema -->
     <action path="/userprofile/register_action"
-			type="es.engade.thearsmonsters.http.controller.actions.userprofile.RegisterUserAction"
+			type="es.engade.thearsmonsters.http.controller.actions.userprofile.RegisterUserProfileAction"
             name="userProfileForm" scope="request" validate="true"
             input="/userprofile/load_form.do"></action>
  	
 	<!-- Realiza los cambios en el perfil de usuario --> 
     <action path="/userprofile/update_action"
-			type="es.engade.thearsmonsters.http.controller.actions.userprofile.UpdateUserProfileDetailsAction"
+			type="es.engade.thearsmonsters.http.controller.actions.userprofile.UpdateUserProfileAction"
             name="userProfileForm" scope="request" validate="true"
             input="/userprofile/load_form.do">
         <set-property property="authenticationRequired" value="true"/>
@@ -278,7 +278,7 @@
             parameter=".AdminAutentication"></action>
       	
 	<action path="/admin/find_user"
-			type="es.engade.thearsmonsters.http.controller.actions.admin.FindUserProfileAction"
+			type="es.engade.thearsmonsters.http.controller.actions.admin.FindUser"
             name="loginForm" scope="request" validate="false"
             input=".AdminMainPage">
         <set-property property="adminRequired" value="true"/>
@@ -286,7 +286,7 @@
                  path=".AdminShowUserProfile"/></action>
       	
     <action path="/admin/login"
-			type="es.engade.thearsmonsters.http.controller.actions.admin.LoginAsAdminAction"
+			type="es.engade.thearsmonsters.http.controller.actions.admin.LoginAsAdmin"
             name="loginForm" scope="request" validate="true"
             input=".AdminAutentication">
         <forward name="AdminMainPage" 

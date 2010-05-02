@@ -23,7 +23,7 @@ import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class SetRoomInWorksStateAction extends ThearsmonstersDefaultAction {
+public class RoomChangeInWorksState extends ThearsmonstersDefaultAction {
 	
 	private static final String UPGRADE = "UPGRADE";
 	private static final String CANCEL_WORKS = "CANCEL_WORKS";

@@ -17,7 +17,7 @@ import es.engade.thearsmonsters.http.view.actionforms.UserProfileForm;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
     
-public class UpdateUserProfileDetailsAction extends ThearsmonstersDefaultAction {
+public class UpdateUserProfileAction extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,

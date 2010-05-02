@@ -21,7 +21,7 @@ import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
     
-public class EditUserProfileAction extends ThearsmonstersDefaultAction {
+public class UserProfileLoadForm extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
@@ -71,9 +71,9 @@ public class EditUserProfileAction extends ThearsmonstersDefaultAction {
         
         /* Return ActionForward. */
         if ("UPDATE".equals(action)) {
-            return mapping.findForward("UpdateUserProfileDetailsForm");
+            return mapping.findForward("UserProfileEdit");
         } else {
-            return mapping.findForward("RegisterUserForm");
+            return mapping.findForward("UserProfileRegister");
         }
         
     }

@@ -14,7 +14,7 @@ import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAct
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class LogoutAction extends ThearsmonstersDefaultAction {
+public class Logout extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
