@@ -19,7 +19,7 @@ import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPas
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class LoginAction extends ThearsmonstersDefaultAction {
+public class Login extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecute(ActionMapping mapping,

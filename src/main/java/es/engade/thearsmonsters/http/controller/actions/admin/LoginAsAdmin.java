@@ -18,7 +18,7 @@ import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPas
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class LoginAsAdminAction extends DefaultAdminAction {
+public class LoginAsAdmin extends DefaultAdminAction {
 
     @Override
     public ActionForward doExecute(ActionMapping mapping,
