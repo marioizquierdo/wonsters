@@ -62,12 +62,7 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         return lair;
 
     }
-
-    //TODO:
-    // El "building" debe contener GameConf.maxNumberOfFloors() pisos,
-    // es decir, que debe devolver una lista de ese tamaño.
-    // En las casillas donde haya guarida, se mete esa guarida, y donde no
-    // haya guarida, se mete null.
+    
     @SuppressWarnings("unchecked")
     public List<Lair> findLairsByBuilding(int street, int building) {
         PersistenceManager pm = getPersistenceManager();
