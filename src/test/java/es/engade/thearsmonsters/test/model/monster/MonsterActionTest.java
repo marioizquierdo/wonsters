@@ -75,6 +75,7 @@ public class MonsterActionTest extends GaeTest{
     	int effortToUpgrade = 0;
     	int initialFreeTurns = 0;
     	int turnsToUpgrade = 0;
+    	int turnsContAux = 0;
     	
     	//Añado experiencia en la construccion
     	monsterAdult.addExp(AttrType.ConstructorSkill, 100);
@@ -95,7 +96,9 @@ public class MonsterActionTest extends GaeTest{
     	
     	/* Le pongo más turnos libres de los necesarios, para asegurarnos de que puede terminar la obra */
     	monsterAdult.setFreeTurns(turnsToUpgrade + 10);
+    	
     	initialFreeTurns = monsterAdult.getFreeTurns();
+    	
     	
     	/* Obtengo el nivel inicial de la sala */
     	initialLevel = tradeOffice.getLevel();
@@ -111,6 +114,19 @@ public class MonsterActionTest extends GaeTest{
     	
     	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
     	assertEquals(initialFreeTurns, turnsToUpgrade + monsterAdult.getFreeTurns());
+    	
+    	while (monsterAdult.getFreeTurns() > 0){
+    		action.execute();
+    		turnsContAux++;
+    	}
+    	
+    	/* Compruebo que el numero de turnos consumidos por el monstruo siguen siendo los adecuados */
+    	assertEquals(initialFreeTurns, turnsToUpgrade + turnsContAux);
+    	
+    	/* Compruebo que ahora ya no se puede ejecutar más la accion */
+    	assertFalse(action.isValid());
+    
+    
     }
     
     @Test
@@ -140,6 +156,13 @@ public class MonsterActionTest extends GaeTest{
     	 
     	// comprobamos que la guarida se ha llenado de basura
     	assertEquals(lair.getGarbage(), maxGarbage);
+    	
+    	// comprobamos que ya no se puede recolectar más basura
+    	assertFalse(action.isValid());
+    	
+    	
     }
+
+    
     
 }
