@@ -58,35 +58,7 @@ public class BuildingChunk implements Serializable {
         this.lairs = toBuildingList(lairsOfTheBuilding);
     }
     
-    /**
-     * Dada una lista de guaridas que pertenezcan a un mismo bloque
-     * (es decir, que tengan el mismo street y building), devuelve
-     * otra lista similar donde la posición de cada guarida dentro de la
-     * lista se corresponde con su coordenada floor (donde no haya guarida, pone null).
-     * Por ejemplo, dadas la lista con las siguientes coordenadas (street, building, floor):
-     * [(2,2,0), (2,2,1), (2,2,5), (2,2,4)] y suponiendo que GameConf.getMaxNumberOfFloors()==10, devolvería:
-     * [(2,2,0), (2,2,1), null, null, (2,2,4), (2,2,5), null, null, null, null].
-     * 
-     * @throws IncorrectAddressException si alguna guarida tiene su coordenada floor incorrecta.
-     */
-    private List<Lair> toBuildingList(List<Lair> list) {
-    	int floors = GameConf.getMaxNumberOfFloors();
-    	List<Lair> buildingList = new ArrayList<Lair>(floors);
-    	
-    	for(int i=0; i<floors; i++) { // first, fill with nulls
-    		buildingList.add(null);
-    	}
-    	
-    	for(Lair lair : list) { // then put lairs in its position depending on the floor coordinate
-    		try {
-    			buildingList.set(lair.getAddressFloor(), lair);
-    			
-    		} catch (IndexOutOfBoundsException e) { // prevent it from incorrect address
-    			throw new IncorrectAddressException(lair.getAddressStreet(), lair.getAddressBuilding(), lair.getAddressFloor());
-    		}
-    	}
-    	return buildingList;
-    }
+
 
 	public int getNextStreet() {
 		return nextStreet;
@@ -129,6 +101,36 @@ public class BuildingChunk implements Serializable {
     
     
     //--------- Private --------//
+    
+    /**
+     * Dada una lista de guaridas que pertenezcan a un mismo bloque
+     * (es decir, que tengan el mismo street y building), devuelve
+     * otra lista similar donde la posición de cada guarida dentro de la
+     * lista se corresponde con su coordenada floor (donde no haya guarida, pone null).
+     * Por ejemplo, dadas la lista con las siguientes coordenadas (street, building, floor):
+     * [(2,2,0), (2,2,1), (2,2,5), (2,2,4)] y suponiendo que GameConf.getMaxNumberOfFloors()==10, devolvería:
+     * [(2,2,0), (2,2,1), null, null, (2,2,4), (2,2,5), null, null, null, null].
+     * 
+     * @throws IncorrectAddressException si alguna guarida tiene su coordenada floor incorrecta.
+     */
+    private List<Lair> toBuildingList(List<Lair> list) {
+    	int floors = GameConf.getMaxNumberOfFloors();
+    	List<Lair> buildingList = new ArrayList<Lair>(floors);
+    	
+    	for(int i=0; i<floors; i++) { // first, fill with nulls
+    		buildingList.add(null);
+    	}
+    	
+    	for(Lair lair : list) { // then put lairs in its position depending on the floor coordinate
+    		try {
+    			buildingList.set(lair.getAddressFloor(), lair);
+    			
+    		} catch (IndexOutOfBoundsException e) { // prevent it from incorrect address
+    			throw new IncorrectAddressException(lair.getAddressStreet(), lair.getAddressBuilding(), lair.getAddressFloor());
+    		}
+    	}
+    	return buildingList;
+    }
     
     
     private int nextStreet(int street) {

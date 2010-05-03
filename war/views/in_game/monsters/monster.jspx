@@ -12,7 +12,7 @@
  	<script type="text/javascript" src="/javascript/image_up.js"></script>
 	<script type="text/javascript" src="/javascript/fix_attrs_descriptions.js"></script>
 	<script type="text/javascript" src="/javascript/count_down.js"></script>
-]]> 
+]]>
 
 <!-- Monster Actions -->
 <div id="monsterLeftBlock">
@@ -20,8 +20,7 @@
 
     <div class="field free_turns">
         <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
-        <!-- <span class="free_turns_value"">${monster.freeTurns}</span>-->
-        <html:text property="free_turns_value" size="2" disabled="true" styleClass="free_turns_value" value="${monster.freeTurns}"/>
+        <span class="free_turns_value">${monster.freeTurns}</span>
     </div>
     
     <c:choose><c:when test="${fn:length(suggestedMonsterActions) == 0}">
@@ -34,23 +33,67 @@
         <html:hidden property="monsterId" value="${monster.id}"/>
         <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
         	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
-        	<c:set var="suggestedAction" value="suggestedAction(${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType})" />
-        	<!-- Esta variable sirve para nombrar en la vista los botones y sus respectivos inputs quitandole el parentesis -->
-        	<c:set var="suggestedActionInput" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
+        	<c:set var="suggestedActionInstance" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
+        	<c:set var="suggestedAction" value="suggestedAction(${suggestedActionInstance})" />
+        	
             <div class="field">
                 <div class="monsterActionSuggestion_input">
-                    <![CDATA[<script type="text/javascript"> $(function() {                        
-                        $('form[name=monsterActionsToDoForm] button.${suggestedActionInput}_add_turn_button').click(function() {
-                            if (parseInt($('.free_turns_value').val())>0){
-	                            $('.${suggestedActionInput}_target_input').val(parseInt($('.${suggestedActionInput}_target_input').val())+1);
-	                            $('.free_turns_value').val(parseInt($('.free_turns_value').val())-1);
+                    <![CDATA[<script type="text/javascript"> $(function() {
+                        // Constante con los turnos libres (no se actualiza, se mantiene siempre en el valor inicial)
+                        var monster_free_turns = ${monster.freeTurns};
+                        
+                        // Turnos libres que hay actualmente en la pantalla (este es dinámico)
+                        var free_turns_value = function() {
+                            return parseInt($('span.free_turns_value').text()) || 0;
+                        };
+                    
+                        // Functión para actualizar los turnos libres en funciónd e lo que hay en los inputs
+                        var refreshFreeTurns = function() {
+                            var turns_to_use = 0;
+                            $('input.turns_input').each(function() {
+                                var turns_input = $(this);
+                                console.log('turns_input.val() : ', turns_input.val());
+                                turns_to_use += parseInt(turns_input.val()) || 0;
+                            });
+                            
+                            var turns_available = monster_free_turns - turns_to_use;
+                            console.log('turns_avaliable = ', turns_available);
+                           $('span.free_turns_value').text(turns_available);
+                           return false;
+                        };
+                    
+                        // Comportamiento del botón de añadir un turno más
+                        $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_add_turn_button').click(function() {
+                            if (free_turns_value() > 0) {
+                               var turns_input = $('#${suggestedActionInstance}_turns_input');
+                               var turns_input_value = parseInt(turns_input.val()) || 0;
+	                           turns_input.val(turns_input_value + 1);
+	                           refreshFreeTurns();
+	                           return false;
+                            } else {
+                               alert('El mounstro no tiene mas turnos que gastar (st).');
                             }
-                            else alert('El mounstro no tiene mas turnos que gastar.');
                             return false;
                         });
-		             });</script>]]>
-                    <html:text property="${suggestedAction}" size="2" value="0" styleClass="${suggestedActionInput}_target_input" />
-                    <button id="${suggestedAction}" class="${suggestedActionInput}_add_turn_button">+</button>                
+                                        
+                        // Comportamiento cuando se cambia el valor de un input a mano     
+                        $('#${suggestedActionInstance}_turns_input').bind('change keyup click paste', function(){
+                            refreshFreeTurns();
+                        });
+                        
+                        // Previene el formulario de ser enviado al pulsar enter sobre un input
+                        $('form[name=monsterActionsToDoForm]').keypress(function(e) {
+						    if (e.which == 13) {
+						      return false;
+						    }
+						 });
+						 
+						 // Al cargar la página debe recalcular los turnos libres
+						 refreshFreeTurns();
+                        
+                     });</script>]]>
+                    <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
+                    <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>                
                 </div>
                 <div class="monsterActionSuggestion_description">
                 	<span class="monsterActionSuggestion_description_actionType">
