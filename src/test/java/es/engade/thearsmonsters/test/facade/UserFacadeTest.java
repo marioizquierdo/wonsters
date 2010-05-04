@@ -110,7 +110,7 @@ public class UserFacadeTest extends GaeTest {
     @Test(expected=InstanceNotFoundException.class)
     public void testFindNonExistentUserByLogin() throws InstanceNotFoundException {
         
-        User recoveredUser = userDao.findUserByLogin(NON_EXISTENT_LOGIN);
+        userDao.findUserByLogin(NON_EXISTENT_LOGIN);
 
     }
     
@@ -150,24 +150,6 @@ public class UserFacadeTest extends GaeTest {
         
     }
     
-    // Este test falla por intentar acceder a un método dependiente del
-    // estado, que aún no se ha inicializado
-//    @Test(expected = InternalErrorException.class)
-//    public void testFindUserProfileNonState() throws InternalErrorException {
-//        User recoveredUser = userFacade.findUserProfile();
-//        System.out.println(recoveredUser);
-//    }
-    
-    // Se prueba que se inicialice bien el estado con "login"
-//    @Test
-//    public void testFindUserProfileAfterLogin() throws Throwable {
-//        
-//        userFacade.login(LOGIN, PASSWORD, false, false);
-//        User recoveredUser = userFacade.findUserProfile();
-//        
-//        assertEquals(persistentUser, recoveredUser);
-//    }
-    
     @Test
     public void testRemoveUserProfile() 
         throws InstanceNotFoundException, InternalErrorException {
@@ -199,15 +181,6 @@ public class UserFacadeTest extends GaeTest {
         userFacade.removeUserProfile(NON_EXISTENT_LOGIN);
         
     }
-    
-//    @Test(expected=InternalErrorException.class)
-//    public void testUpdateUserProfileNonState() throws InstanceNotFoundException, InternalErrorException {
-//        
-//        UserDetails details = new UserDetails("updatedName", "updateSurname",
-//                "updatedEmail", "sp");
-//        userFacade.updateUserProfileDetails(details);
-//
-//    }
 
     @Test
     public void testUpdateUserProfileAfterLogin() throws Throwable {
