@@ -179,7 +179,7 @@ public class LairFacadeImpl implements LairFacade {
                                                                                // garbage
                 // roomDao.update(room); // save room
                 // lairDao.update(lair); // save lair
-                userDao.save(lair.getUser());
+                userDao.update(lair.getUser());
             } else {
                 throw new InWorksActionException(
                         "The works for upgrade can not be initialized", lair
