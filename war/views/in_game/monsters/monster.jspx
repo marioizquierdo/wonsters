@@ -69,6 +69,14 @@
                             target_input.val(turns_avaliable);
                             $('span.free_turns_value').text(0);
                         };
+                        
+                        var removeAllTurns = function(target_input){
+                            var turns_avaliable = free_turns_value();
+                            turns_avaliable = parseInt(turns_avaliable) + validarInput(target_input.val());
+                            target_input.val(0);
+                            $('span.free_turns_value').text(turns_avaliable);
+                        };
+                        
                     
                         // Function para actualizar los turnos libres en funcion de lo que hay en los inputs. 
                         //El target_input es el input que se ha cambiado.
@@ -102,12 +110,23 @@
                         // Comportamiento del boton de anhadir un turno mas
                         $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_add_turn_button').click(function(){
                             return addCuantityInput(1);
-                            
                         });
                         
                         // Comportamiento del boton de anhadir un turno mas
                         $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_remove_turn_button').click(function(){
-                            return addCuantityInput(-1);
+                           return addCuantityInput(-1);
+                        });
+                        
+                        // Comportamiento del boton de anhadir todos los turnos
+                        $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_add_all_button').click(function(){
+                           addMaxTurns($('#${suggestedActionInstance}_turns_input'));
+                           return false;
+                        });
+                        
+                        //Comportamiento del boton de quitar todos los turnos
+                        $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_remove_all_button').click(function(){
+                            removeAllTurns($('#${suggestedActionInstance}_turns_input'));
+                            return false;
                         });
                                         
                         // Comportamiento cuando se cambia el valor de un input a mano     
@@ -126,9 +145,11 @@
 						 refreshFreeTurns();
                         
                      });</script>]]>
-                    <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
                     <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
-                    <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>                
+                    <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
+                    <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>
+                    <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>      
+                    <button id="${suggestedActionInstance}_add_all_button" class="add_all_button">++</button>          
                 </div>
                 <div class="monsterActionSuggestion_description">
                 	<span class="monsterActionSuggestion_description_actionType">
