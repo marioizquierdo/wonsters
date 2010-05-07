@@ -76,6 +76,8 @@
                             var turns_to_use = 0;
                             $('input.turns_input').each(function() {
                                 var turns_input = $(this);
+                                turns_input.val(validarInput(turns_input.val()));
+                                validarInput
                                 turns_to_use += parseInt(turns_input.val()) || 0;
                             });
                             
@@ -87,22 +89,29 @@
                            $('span.free_turns_value').text(turns_avaliable);
                            return false;
                         };
-                    
-                        // Comportamiento del boton de anhadir un turno mas
-                        $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_add_turn_button').click(function() {
-                            if (free_turns_value() > 0) {
+                        
+                        var addCuantityInput = function(cantidad) {
+                               cantidad = parseInt(cantidad) || 0;
                                var turns_input = $('#${suggestedActionInstance}_turns_input');
                                var turns_input_value = validarInput(turns_input.val());
-	                           turns_input.val(turns_input_value + 1);
-	                           refreshFreeTurns();
-	                           return false;
-                            }
-                            return false;
+                               turns_input.val(turns_input_value + cantidad);
+                               refreshFreeTurns(turns_input);
+                               return false;
+                        };
+                    
+                        // Comportamiento del boton de anhadir un turno mas
+                        $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_add_turn_button').click(function(){
+                            return addCuantityInput(1);
+                            
+                        });
+                        
+                        // Comportamiento del boton de anhadir un turno mas
+                        $('form[name=monsterActionsToDoForm] button#${suggestedActionInstance}_remove_turn_button').click(function(){
+                            return addCuantityInput(-1);
                         });
                                         
                         // Comportamiento cuando se cambia el valor de un input a mano     
                         $('#${suggestedActionInstance}_turns_input').bind('change keyup click paste', function(e){
-                            $(this).val(validarInput($(this).val()));
                             refreshFreeTurns($(this));
                         });
                         
@@ -117,6 +126,7 @@
 						 refreshFreeTurns();
                         
                      });</script>]]>
+                    <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
                     <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
                     <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>                
                 </div>
