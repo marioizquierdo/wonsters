@@ -37,6 +37,15 @@
         	<c:set var="suggestedAction" value="suggestedAction(${suggestedActionInstance})" />
         	
             <div class="field">
+                 <div class="monsterActionSuggestion_description">
+                    <span class="monsterActionSuggestion_description_actionType">
+                        <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" />
+                        <html:errors property="${suggestedAction}"/>
+                    </span>
+                    <span class="monsterActionSuggestion_description_roomType">
+                        <fmt:message key="Lair.room.${MASuggestion.roomType}" />
+                    </span>
+                </div>
                 <div class="monsterActionSuggestion_input">
                     <![CDATA[<script type="text/javascript"> $(function() {
                         // Constante con los turnos libres (no se actualiza, se mantiene siempre en el valor inicial)
@@ -145,21 +154,13 @@
 						 refreshFreeTurns();
                         
                      });</script>]]>
-                    <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
+                    <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>
                     <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
-                    <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>
-                    <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>      
+                    <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
+                    <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>      
                     <button id="${suggestedActionInstance}_add_all_button" class="add_all_button">++</button>          
                 </div>
-                <div class="monsterActionSuggestion_description">
-                	<span class="monsterActionSuggestion_description_actionType">
-                		<fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" />
-                		<html:errors property="${suggestedAction}"/>
-                	</span>
-                	<span class="monsterActionSuggestion_description_roomType">
-                		<fmt:message key="Lair.room.${MASuggestion.roomType}" />
-                	</span>
-                </div>
+               
             </div>
         </c:forEach>
         
