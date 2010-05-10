@@ -1,5 +1,7 @@
 package es.engade.thearsmonsters.test.facade;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
+import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -21,6 +25,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChange
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
 import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
+import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.test.AppContext;
 import es.engade.thearsmonsters.test.GaeTest;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -34,15 +39,20 @@ public class LairFacadeTest extends GaeTest {
     private static final String PASSWORD = "UserPass";
     
     private static UserDao userDao;
+    private static LairDao lairDao;
     private static LairFacade lairFacade;
     
     private User persistentUser;
     private Lair persistentLair;
     private List<User> allPersistentUsers = new ArrayList<User>(15);
 
+    // address
+    int street, building, floor;
+    
     static {
         ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
         userDao = appContext.getBean(UserDao.class);
+        lairDao = appContext.getBean(LairDao.class);
         lairFacade = (LairFacade) appContext.getBean("lairFacade");   
     }
     
@@ -70,37 +80,60 @@ public class LairFacadeTest extends GaeTest {
         }
         
         persistentLair = persistentUser.getLair();
+        
+        // address
+        street = persistentLair.getAddressStreet();
+        building = persistentLair.getAddressBuilding();
+        floor = persistentLair.getAddressFloor();
     }
     
     @After
     public void clearDB() {
-        for (User u : allPersistentUsers)
-            userDao.remove(u.getId());
+        for (User u : allPersistentUsers) {
+            try {
+                userDao.remove(u.getId());
+            } catch (InstanceNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
     
     @Test
     public void testFindLair() 
         throws InstanceNotFoundException, InternalErrorException {
         
+        Lair lair = lairFacade.findLair(KeyUtils.toString(persistentLair.getId()));
+        assertEquals(persistentLair, lair);
     }
     
-    @Test
+    @Test(expected=InstanceNotFoundException.class)
     public void testFindNonExistentLair() 
     throws InstanceNotFoundException, InternalErrorException {
     
+        User userToDelete = allPersistentUsers.get(NUMBER_OF_USERS - 1);
+        lairDao.remove(userToDelete.getLair().getId());
+        Lair lair = lairFacade.findLair(KeyUtils.toString(userToDelete.getLair().getId()));
+        System.out.println("GOT " + lair);
+        
     }
 
     @Test
     public void testFindLairByLogin() 
         throws InstanceNotFoundException, InternalErrorException {
         
+        String login = persistentUser.getLogin();
+        
+        Lair lair = lairFacade.findLairByLogin(login);
+        assertEquals(persistentLair, lair);
     }
 
     @Test(expected = InstanceNotFoundException.class)
     public void testFindNonExistentLairByLogin() 
     throws InstanceNotFoundException, InternalErrorException {
     
-        throw new InstanceNotFoundException(null, null);
+        String login = "NON_EXISTENT_LOGIN";
+        
+        lairFacade.findLairByLogin(login);
         
     }
     
@@ -108,13 +141,39 @@ public class LairFacadeTest extends GaeTest {
     public void testFindLairByAddress() 
         throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
         
+        Lair lair = lairFacade.findLairByAddress(street, building, floor);
+        assertEquals(persistentLair, lair);
     }
     
     @Test(expected = IncorrectAddressException.class)
-    public void testFindLairByInvalidAddress() 
+    public void testFindLairByInvalidAddressFloor() 
         throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
         
-        throw new IncorrectAddressException();
+        lairFacade.findLairByAddress(street, building, GameConf.getMaxNumberOfFloors() + 1);
+        
+    }
+    
+    @Test(expected = IncorrectAddressException.class)
+    public void testFindLairByInvalidAddressBuilding() 
+        throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
+        
+        lairFacade.findLairByAddress(street, GameConf.getMaxNumberOfBuildings() + 1, floor);
+        
+    }
+
+    @Test(expected = IncorrectAddressException.class)
+    public void testFindLairByInvalidAddressStreet() 
+        throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
+        
+        lairFacade.findLairByAddress(GameConf.getMaxNumberOfStreets() + 1, building, floor);
+        
+    }
+    
+    @Test(expected = IncorrectAddressException.class)
+    public void testFindLairByNegativeAddress() 
+        throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
+        
+        lairFacade.findLairByAddress(-1, building, floor);
         
     }
     
@@ -122,7 +181,10 @@ public class LairFacadeTest extends GaeTest {
     public void testFindNonExistentLairByAddress() 
         throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
         
-        throw new InstanceNotFoundException(null, null);
+        lairFacade.findLairByAddress(
+                GameConf.getMaxNumberOfStreets(),
+                GameConf.getMaxNumberOfBuildings(),
+                GameConf.getMaxNumberOfFloors());
         
     }
 

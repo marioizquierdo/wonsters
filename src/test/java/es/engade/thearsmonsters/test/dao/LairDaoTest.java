@@ -21,7 +21,6 @@ import es.engade.thearsmonsters.util.factory.FactoryData;
 public class LairDaoTest extends GaeTest {
 
     private static final int NUMBER_OF_USERS = 15;
-    private static final String NON_EXISTENT_LOGIN = "NonExistentUserLogin";
 
     private static UserDao userDao;
     private static LairDao lairDao;
@@ -69,8 +68,13 @@ public class LairDaoTest extends GaeTest {
     
     @After
     public void clearDB() {
-        for (User u : allPersistentUsers)
-            userDao.remove(u.getId());
+        for (User u : allPersistentUsers) {
+            try {
+                userDao.remove(u.getId());
+            } catch (InstanceNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
     
     @Test
@@ -88,11 +92,24 @@ public class LairDaoTest extends GaeTest {
     @Test
     public void testFindByBuilding() throws InstanceNotFoundException {
 
-        List<Lair> lairs = lairDao.findLairsByBuilding(1, 2);
+        int STREET = 1;
+        int BUILDING = 2;
         
-        System.out.println("numLairs = " + lairs.size());
+        List<Lair> lairs = lairDao.findLairsByBuilding(STREET, BUILDING);
+        
+//        System.out.println("numLairs = " + lairs.size());
         for (Lair lair : lairs) {
 //            System.out.println("LAIR : " + lair.getAddress());
+            assert(lair.getAddressStreet() == STREET);
+            assert(lair.getAddressBuilding() == BUILDING);
+        }
+        
+        for (User user : allPersistentUsers) {
+            if (user.getLair().getAddressStreet() == STREET
+                    && user.getLair().getAddressBuilding() == BUILDING) {
+            
+                assert(lairs.contains(user.getLair()));
+            }
         }
         
     }

@@ -67,11 +67,16 @@ public class GenericDaoJdo<T, PK extends Serializable> extends JdoDaoSupport
         return new ArrayList<T>(result);
     }
 
-    public void remove(PK id) {
+    public void remove(PK id) throws InstanceNotFoundException {
         PersistenceManager pm = this.getPersistenceManager();
-        T objToDelete = pm.getObjectById(this.persistentClass, id);
-        pm.deletePersistent(objToDelete);
-        // getJdoTemplate().deletePersistent(this.get(id));
+        try {
+            T objToDelete = pm.getObjectById(this.persistentClass, id);
+            pm.deletePersistent(objToDelete);
+            // getJdoTemplate().deletePersistent(this.get(id));
+        } catch (JDOObjectNotFoundException ex) {
+                throw new InstanceNotFoundException(id, this.persistentClass
+                        .getName());
+        }
     }
 
     public T save(T object) {

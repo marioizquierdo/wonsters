@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import es.engade.thearsmonsters.model.entities.common.dao.exception.EntityNotFoundException;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.test.AppContext;
@@ -57,8 +56,13 @@ public class UserDaoTest extends GaeTest {
     
     @After
     public void clearDB() {
-        for (User u : allPersistentUsers)
-            userDao.remove(u.getId());
+        for (User u : allPersistentUsers) {
+            try {
+                userDao.remove(u.getId());
+            } catch (InstanceNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
     
     @Test

@@ -285,10 +285,7 @@ public class Lair implements Serializable {
         if (money != other.money)
             return false;
         //TODO: Añadir direccion
-        if (user == null) {
-            if (other.user != null)
-                return false;
-        } else if (!user.equals(other.user))
+        if (user != null && other.user != null && !user.getId().equals(other.user.getId()))
             return false;
         if (!roomsEquals((Lair)obj))
             return false;

@@ -74,8 +74,13 @@ public class UserFacadeTest extends GaeTest {
     
     @After
     public void clearDB() {
-        for (User u : allPersistentUsers)
-            userDao.remove(u.getId());
+        for (User u : allPersistentUsers) {
+            try {
+                userDao.remove(u.getId());
+            } catch (InstanceNotFoundException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
     
     @Test

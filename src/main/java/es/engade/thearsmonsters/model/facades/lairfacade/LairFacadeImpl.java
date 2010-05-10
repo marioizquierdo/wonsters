@@ -67,12 +67,61 @@ public class LairFacadeImpl implements LairFacade {
         }
     }
 
+    @Transactional
     public int changeResources(Lair lair, String moneyOrGarbage, int amount)
             throws WarehouseFullStorageException,
             TradeOfficeFullStorageException, InsuficientGarbageException,
             InsuficientMoneyException, OnlyOneChangePerGameDayException,
             InternalErrorException {
-        return 2000;
+        
+        int garbage = lair.getGarbage();
+        int money = lair.getMoney();
+        int garbageStorageCapacity = lair.getGarbageStorageCapacity();
+        int moneyStorageCapacity = lair.getMoneyStorageCapacity();
+//        int amountObtained = amount * (100 - tradeOffice.getPercentageCommision()) / 100;
+        // temporalmente se recibe todo lo que se cambia
+        int amountObtained = amount; 
+        long lastChangeResourcesTurn = lair.getRoomData().getLastChangeResourcesTurn();
+        
+        // Check that the change is made only once per day
+        if(!lair.getRoomData().isReadyToChangeResources()) {
+            throw new OnlyOneChangePerGameDayException(lastChangeResourcesTurn, lair.getUser().getLogin());
+        }
+        
+        if (moneyOrGarbage.equals("money")) {
+            if(amount > garbage) {
+                throw new InsuficientGarbageException(amount, garbage);
+            }
+            if(amount > lair.getChangeResourcesMaxGarbageAmountEnabled()) {
+                throw new WarehouseFullStorageException(garbage, amount, 
+                        garbageStorageCapacity, lair.getUser().getLogin());
+            }
+            lair.setGarbage(garbage - amount);
+            lair.setMoney(money + amountObtained);
+        } else if (moneyOrGarbage.equals("garbage")) {
+            if(amount > money) {
+                throw new InsuficientMoneyException(amount, money);
+            }
+            if(amount > lair.getChangeResourcesMaxMoneyAmountEnabled()) {
+                throw new TradeOfficeFullStorageException(money, amount, 
+                        moneyStorageCapacity, lair.getUser().getLogin());
+            }
+            lair.setMoney(money - amount);
+            lair.setGarbage(garbage + amountObtained);
+        } else {
+            throw new InternalErrorException(
+                    new Exception("Expected \"money\" or \"garbage\" resource," +
+                            " but got \"" + moneyOrGarbage + "\"")
+            );
+        }
+        
+        // Mark diary change done
+        lair.getRoomData().setLastChangeResourcesTurnToNow();
+        
+        // Save changes and return
+        userDao.update(lair.getUser());
+        
+        return amountObtained;
     }
 
     public void createNewRoom(Lair lair, RoomType roomType)
@@ -124,14 +173,14 @@ public class LairFacadeImpl implements LairFacade {
         return lair;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Lair findLairByAddress(int street, int building, int floor)
             throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
     	
     	// Check coordinates [0..N-1]
-    	if(		building < 0 || building >= GameConf.getMaxNumberOfBuildings() ||
-    			street < 0 || street >= GameConf.getMaxNumberOfStreets() ||
-    			floor < 0 || floor >= GameConf.getMaxNumberOfFloors()) 
+    	if(		building < 1 || building > GameConf.getMaxNumberOfBuildings() ||
+    			street < 1 || street > GameConf.getMaxNumberOfStreets() ||
+    			floor < 1 || floor > GameConf.getMaxNumberOfFloors()) 
     		throw new IncorrectAddressException(street, building, floor);
 
         try {
