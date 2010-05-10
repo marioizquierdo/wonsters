@@ -11,7 +11,7 @@
 <c:set var="notReadyToChangeYet" value="${my.lair.roomData.onlyOneChangePerGameDayException}"/>
 <c:set var="maxGarbageAmountEnabled" value="${my.lair.changeResourcesMaxGarbageAmountEnabled}"/>
 <c:set var="maxMoneyAmountEnabled" value="${my.lair.changeResourcesMaxMoneyAmountEnabled}"/>
-<c:set var="tradeOfficePercentageCommission" value="${my.lair.roomsMap.TradeOffice.percentageCommision}"/>
+<c:set var="tradeOfficePercentageCommission" value="${my.lair.roomData.percentageCommision}"/>
 
 <!-- Include javascript only if the change is ready to made -->
 <c:if test="${empty notReadyToChangeYet}">
@@ -57,7 +57,7 @@
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
 			<div class="info_slot_content">
 				<fmt:message key="ChangeResources.CommissionCharged">
-					<fmt:param value="${my.lair.roomsMap.TradeOffice.level}"/>
+					<fmt:param value="${my.lair.room('TradeOffice').level}"/>
 					<fmt:param value="${tradeOfficePercentageCommission}"/>
 				</fmt:message>
 			</div>
@@ -132,7 +132,7 @@
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
 			<div class="info_slot_content">
 				<fmt:message key="ChangeResources.CommissionCharged">
-					<fmt:param value="${my.lair.roomsMap.TradeOffice.level}"/>
+					<fmt:param value="${my.lair.room('TradeOffice').level}"/>
 					<fmt:param value="${tradeOfficePercentageCommission}"/>
 				</fmt:message>
 			</div>

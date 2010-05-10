@@ -18,19 +18,17 @@ public class Format {
 	private final static String P_SEP = ", ";
 	
 	/**
-	 * Convierte un calendar a un String legible.
-	 * @return un Stirng en el formato "yyyy:MM:dd:HH:mm:ss", por ejemplo "2009:10:23:16:32:00"
+	 * Convierte un date a un String legible.
 	 */
-	public static String calendar(Date date) {
-		if(date == null) { return null; };
-		return date.toString();
+	public static String date(Date date) {
+		return DateTools.toString(date);
 	}
 	
 	/**
 	 * Convierte un String en formato "yyyy:MM:dd:HH:mm:ss" a un Calendar equivalente.
 	 * @throws IllegalArgumentException si el formato de dateStr es incorrecto.
 	 */
-	public static Date calendar(String dateStr) {
+	public static Date date(String dateStr) {
 		if(dateStr == null) { return null; }
 		try {
 			Date date;
@@ -105,7 +103,7 @@ public class Format {
 	}
 	
 	private static String p(String key, Date value) {
-		return p(key, Format.calendar(value));
+		return p(key, Format.date(value));
 	}
 	
 	private static String p(String key, Object value) {
