@@ -72,10 +72,25 @@ public class LairFacadeTest extends GaeTest {
         allPersistentUsers.add(persistentUser);
         numberOfUsers++;
         
+        int newStreet = 1, newBuilding = 1, newFloor = 2;
+        
         while (numberOfUsers < NUMBER_OF_USERS) {
             allPersistentUsers.add(FactoryData.UserWhoIs.Random.build());
             allPersistentUsers.get(numberOfUsers).getLair().setRooms(new ArrayList<Room>());
-            userDao.save(allPersistentUsers.get(numberOfUsers));
+            User newUser = allPersistentUsers.get(numberOfUsers);
+            newUser.getLair().setAddressStreet(newStreet);
+            newUser.getLair().setAddressBuilding(newBuilding);
+            newUser.getLair().setAddressFloor(newFloor);
+            newFloor++;
+            if (newFloor > GameConf.getMaxNumberOfFloors()) {
+            	newFloor = 1;
+            	newBuilding++;
+            	if (newBuilding > GameConf.getMaxNumberOfBuildings()) {
+            		newBuilding = 1;
+            		newStreet++;
+            	}
+            }
+            userDao.save(newUser);
             numberOfUsers++;
         }
         

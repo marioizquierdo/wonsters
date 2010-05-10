@@ -173,7 +173,6 @@ public class LairFacadeImpl implements LairFacade {
         return lair;
     }
 
-    @Transactional
     public Lair findLairByAddress(int street, int building, int floor)
             throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
     	

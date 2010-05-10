@@ -17,7 +17,7 @@ public final class ConfigurationParametersManager {
     private static Map parameters;
 
     static {
-
+   
         try {
             /* Read property file (if exists).*/
             File confFile = new File(CONFIGURATION_FILE);

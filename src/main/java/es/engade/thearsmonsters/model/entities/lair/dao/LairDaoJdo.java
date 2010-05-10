@@ -24,8 +24,8 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         PersistenceManager pm = getPersistenceManager();
 
         Query query = pm.newQuery(Lair.class);
-        query.setFilter("addressStreet = streetP && addressBuilding == buildingP && addressFloor == floorP");
-        query.declareParameters("int streetP, int buildingP, floorP");
+        query.setFilter("addressStreet == streetP && addressBuilding == buildingP && addressFloor == floorP");
+        query.declareParameters("int streetP, int buildingP, int floorP");
         query.setUnique(true);
 
         Lair lair = null;
