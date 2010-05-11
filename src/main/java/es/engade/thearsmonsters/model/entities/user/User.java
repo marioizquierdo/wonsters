@@ -10,11 +10,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class User implements Serializable {
+public class User extends ThearsmonstersEntity implements Serializable {
 
     private static final long serialVersionUID = 20100305L;
     

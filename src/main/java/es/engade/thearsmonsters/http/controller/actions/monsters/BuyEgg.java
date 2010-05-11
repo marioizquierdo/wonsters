@@ -20,7 +20,6 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
 import es.engade.thearsmonsters.util.configuration.AppContext;
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class BuyEgg extends ThearsmonstersDefaultAction {
@@ -41,8 +40,7 @@ public class BuyEgg extends ThearsmonstersDefaultAction {
         try {
         	
             /* Get data. */
-            byte eggRaceCode = Byte.parseByte(request.getParameter("eggRaceCode"));
-	        MonsterRace eggRace = MonsterRace.getFromCode(eggRaceCode);
+        	MonsterRace eggRace = MonsterRace.valueOf(request.getParameter("eggRace")); // TODO; antes estaba eggRaceCode, pero el code se ha eliminado de MonsterRace
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
@@ -53,8 +51,6 @@ public class BuyEgg extends ThearsmonstersDefaultAction {
 			FlashMessage.showError(request, e, null);
 		} catch (MaxEggsException e) {
 			FlashMessage.showError(request, e, null);
-		} catch (InstanceNotFoundException e) {
-			throw new InternalErrorException(e);
 		}
 
         return mapping.findForward("MonsterEggs");

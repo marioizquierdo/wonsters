@@ -21,6 +21,7 @@ import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.model.facades.common.ThearsmonstersFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
@@ -33,7 +34,7 @@ import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
 
-public class MonsterFacadeImpl implements MonsterFacade {
+public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFacade {
 
     private MonsterDao monsterDao;
     private MonsterEggDao monsterEggDao;
@@ -62,16 +63,15 @@ public class MonsterFacadeImpl implements MonsterFacade {
     }
 
     @Transactional
-    public Monster bornMonster(Lair lair, String eggId, String monsterName)
+    public Monster bornMonster(Lair lair, String eggIdAsString, String monsterName)
             throws InternalErrorException, InstanceNotFoundException,
             MonsterGrowException, InsuficientVitalSpaceException {
 
-        // Comprueba que se puede parsear la clave
-        if (!KeyUtils.isParseable(eggId))
-            throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+        // Comprueba que se puede parsear la clave y la obtiene
+    	Key eggId = getKeyFromString(eggIdAsString, MonsterEgg.class);
         
-        // Buscar el huevo referenciado
-        MonsterEgg egg = monsterEggDao.get(KeyUtils.fromString(eggId));
+        // Obtiene el huevo referenciado, que debe estar en la guarida
+        MonsterEgg egg = lair.getMonsterEgg(eggId);
         if(!egg.isReadyToBorn()) {
             throw new MonsterGrowException(null);
         }
@@ -80,23 +80,19 @@ public class MonsterFacadeImpl implements MonsterFacade {
         if(lair.getVitalSpaceFree() < egg.getRace().getVitalSpace()) {
             throw new InsuficientVitalSpaceException(egg.getRace().getVitalSpace(), lair.getVitalSpaceFree());
         }
-        
-        // Comprueba que coincide la guarida
-        if (! lair.getMonsterEggs().contains(egg))
-            throw new InstanceNotFoundException(KeyUtils.fromString(eggId), MonsterEgg.class.getName());
             
-        // Se crea el monstruo recién nacido
-        Monster littleMonster = FactoryData.MonsterWhoIs.Child.build(); // TODO: hay que hacer nacer al monstruo adecuado
-        
-        // Y se aumenta el espacio vital ocupado en la guarida
+        // Traer la nueva criatura al mundo
+        Monster baby = new Monster(lair, egg.getRace(), monsterName);
+        lair.addMonster(baby);
         lair.removeMonsterEgg(egg);
-        lair.addMonster(littleMonster);
+        lair.refreshVitalSpaceOccupied();
         
         // Hace los cambios persistentes en la BBDD
         // Guarda el monstruo, predefine sus nuevas tareas y elimina el huevo.
         userDao.update(lair.getUser());
+        monsterEggDao.remove(eggId);
         
-        return littleMonster;
+        return baby;
     }
 
     @Transactional

@@ -272,7 +272,7 @@ public class MonsterFacadeTest extends GaeTest {
             lair.addMonster(FactoryData.MonsterWhoIs.Child.build());
         }
         userDao.update(persistentUser);
-        lair.setVitalSpaceOccupied();
+        lair.refreshVitalSpaceOccupied();
         
         monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
         
@@ -336,7 +336,7 @@ public class MonsterFacadeTest extends GaeTest {
             lair.addMonster(FactoryData.MonsterWhoIs.Child.build());
         }
         userDao.update(persistentUser);
-        lair.setVitalSpaceOccupied();
+        lair.refreshVitalSpaceOccupied();
     
         monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
 

@@ -10,6 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.exceptions.InWorksException;
@@ -21,7 +22,7 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
 import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Room implements Serializable {
+public class Room extends ThearsmonstersEntity implements Serializable {
     
     private static final long serialVersionUID = 20100305L;
 

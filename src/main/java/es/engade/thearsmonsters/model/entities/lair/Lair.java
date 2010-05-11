@@ -17,6 +17,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
@@ -26,9 +27,10 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddr
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.util.Format;
 import es.engade.thearsmonsters.model.util.GameConf;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Lair implements Serializable {
+public class Lair extends ThearsmonstersEntity implements Serializable {
 
     private static final long serialVersionUID = 20100305L;
     
@@ -207,7 +209,7 @@ public class Lair implements Serializable {
 	// getters and setters delegated to roomData
     public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }
 	public int getVitalSpace() { return roomData.getVitalSpace(); }
-	public boolean setVitalSpaceOccupied() { return roomData.setVitalSpaceOccupied(); }
+	public boolean refreshVitalSpaceOccupied() { return roomData.refreshVitalSpaceOccupied(); }
 	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(); }
 	public void setLastChangeResourcesTurnToNow() { roomData.setLastChangeResourcesTurnToNow(); }
 	public boolean isReadyToChangeResources() { return roomData.isReadyToChangeResources(); }
@@ -220,35 +222,54 @@ public class Lair implements Serializable {
 	public RoomData getRoomData() { return roomData; }
 	public void setRoomData(RoomData roomData) { this.roomData = roomData; }
 	
+	
 	//------ Monsters and eggs ------//
 	
 	public List<Monster> getMonsters() { return monsters; }
 	public void setMonsters(List<Monster> monsters) { this.monsters = monsters; }
 	public List<MonsterEgg> getMonsterEggs() { return monsterEggs; }
 	public void setMonsterEggs(List<MonsterEgg> monsterEggs) { this.monsterEggs = monsterEggs; }
+	
 	public Lair addMonsterEgg(MonsterEgg monsterEgg) {
 	    monsterEgg.setLair(this);
 		this.monsterEggs.add(monsterEgg);
 		return this;
 	}
+	
 	public Lair removeMonsterEgg(MonsterEgg monsterEgg) {
 	    if (this.monsterEggs.remove(monsterEgg)) {
 	        monsterEgg.setLair(null);
 	    }
 	    return this;
 	}
+	
+	public MonsterEgg getMonsterEgg(Key eggId) throws InstanceNotFoundException {
+		for(MonsterEgg egg: this.monsterEggs) {
+			if(egg.getId().equals(eggId)) return egg;
+		}
+		throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+	}
+	
 	public Lair addMonster(Monster monster) {
 	    monster.setLair(this);
 		this.monsters.add(monster);
-		this.setVitalSpaceOccupied();
+		this.refreshVitalSpaceOccupied();
 		return this;
 	}
+	
 	public Lair removeMonster(Monster monster) {
 	    if (this.monsters.remove(monster)) {
     	    monster.setLair(null);
-    	    this.setVitalSpaceOccupied();
+    	    this.refreshVitalSpaceOccupied();
 	    }
 	    return this;
+	}
+	
+	public Monster getMonster(Key monsterId) throws InstanceNotFoundException {
+		for(Monster monster: this.monsters) {
+			if(monster.getId().equals(monsterId)) return monster;
+		}
+		throw new InstanceNotFoundException(monsterId, Monster.class.getName());
 	}
 
 	

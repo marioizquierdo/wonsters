@@ -15,6 +15,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
@@ -27,7 +28,7 @@ import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Monster implements Serializable {
+public class Monster extends ThearsmonstersEntity implements Serializable {
 
     private static final long serialVersionUID = 20100305L;
 	
@@ -72,8 +73,10 @@ public class Monster implements Serializable {
 	    activities = new ArrayList<MonsterActivity>();
 	}
 	
-	public Monster(Lair lair, MonsterRace race, String name, Date borningDate, Date cocoonCloseUpDate,
-			MonsterAge ageState) {
+	/**
+	 * Constructor del monstruo con todos los datos necesarios.
+	 */
+	public Monster(Lair lair, MonsterRace race, String name, Date borningDate, Date cocoonCloseUpDate, MonsterAge ageState) {
 		this.setLair(lair);
 		this.setRace(race);
 		this.setName(name);
@@ -82,14 +85,34 @@ public class Monster implements Serializable {
 		this.setAge(ageState);
 
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
+		// Por defecto los crea e inicializa todos a cero.
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
-		this.freeTurns = 11;
-
-		/* Esto de aqui abajo no se si esta bien */
-		this.freeTurnsTimestamp = new Date();
-		this.activities = new ArrayList<MonsterActivity>();
 		
+		this.freeTurnsTimestamp = DateTools.now();
+		this.freeTurns = 0;
+		
+		// No implementado por ahora
+		this.activities = new ArrayList<MonsterActivity>();
+	}
+	
+	/**
+	 * Crear un nuevo monstruo recién nacido con todos sus datos iniciales.
+	 * Nota: no lo añade a la guarida, después de crearlo hay que añadirlo 
+	 * usando lair.addMonster(monster);
+	 */
+	public Monster(Lair lair, MonsterRace race, String name) {
+		this(lair, race, name, DateTools.now(), null, MonsterAge.Child);
+		
+		// Set initial attribute levels (100 exp = 1 level)
+		addExp(AttrType.Strenght, race.getStrenghtLevel() * 100);
+		addExp(AttrType.Agility, race.getAgilityLevel() * 100);
+		addExp(AttrType.Vitality, race.getVitalityLevel() * 100);
+		addExp(AttrType.Intelligence, race.getIntelligenceLevel() * 100);
+		addExp(AttrType.Charisma, race.getCharismaLevel() * 100);
+		
+		// Set initial free turns
+		setFreeTurns(15);
 	}
 
 	//-- GETTERS --//
@@ -112,7 +135,7 @@ public class Monster implements Serializable {
 	
 	public int getAgePercentageLived(){
 	    
-	    return Math.round((getAgeDays() / race.getLiveLenght()) * 100);
+	    return Math.round((getAgeDays() / race.getLifeExpectancyDays()) * 100);
 	    
 	}
 	

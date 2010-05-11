@@ -11,13 +11,14 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
 
+import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.util.Format;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class MonsterEgg implements Serializable {
+public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
 	
 	private static final long serialVersionUID = 20100305L;
 	

@@ -215,7 +215,7 @@ public class RoomData implements Serializable {
 	 * Given all the monsters of this lair, recalculate the vital Space.
 	 * @return true if the occupied vital space was changed, false if still be the same.
 	 */
-	public boolean setVitalSpaceOccupied() {
+	public boolean refreshVitalSpaceOccupied() {
 		int newOccupiedVitalSpace = 0;
 		for(Monster m : lair.getMonsters()) {
 			newOccupiedVitalSpace += m.getRace().getVitalSpace();
