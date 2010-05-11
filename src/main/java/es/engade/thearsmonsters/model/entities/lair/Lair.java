@@ -2,8 +2,10 @@ package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.jdo.annotations.Element;
@@ -113,11 +115,16 @@ public class Lair implements Serializable {
 	}
     
     /**
-     * Get room by String (representing a RoomType).
-     * Useful for JSTL access to Rooms.
+     * Get all rooms as a Map.
+     * Useful for JSTL access to Rooms, for example:
+     * ${my.lair.room["TradeOffice"].level}
      */
-    public Room getRoom(String roomType) {
-    	return getRoom(RoomType.valueOf(roomType));
+    public Map<String, Room> getRoom() {
+    	Map<String, Room> roomsMap = new HashMap<String, Room>(rooms.size());
+    	for(Room room: rooms) {
+    		roomsMap.put(room.getRoomType().name(), room);
+    	}
+    	return roomsMap;
     }
 
     /**
@@ -196,6 +203,8 @@ public class Lair implements Serializable {
             throw new IncorrectAddressException(addressStreet, addressBuilding, floor);
 	    this.addressFloor = floor; 
 	}
+	
+	// getters and setters delegated to roomData
     public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }
 	public int getVitalSpace() { return roomData.getVitalSpace(); }
 	public boolean setVitalSpaceOccupied() { return roomData.setVitalSpaceOccupied(); }
