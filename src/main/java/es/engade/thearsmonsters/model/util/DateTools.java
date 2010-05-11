@@ -70,10 +70,10 @@ public class DateTools {
 	/**
      * Devuelve el número de días que existen entre dos fechas representadas con Date.
      */
-	public static Float  distanceInDays(Date c1,Date c2){
-        long millisecondsAsDay = 24 * 60 * 60 * 1000;
+	public static Float distanceInDays(Date c1, Date c2){
+        long millisecondsPerDay = 24 * 60 * 60 * 1000;
         long milliseconds = c2.getTime() - c1.getTime();
-        float days = milliseconds / millisecondsAsDay;
+        float days = milliseconds / millisecondsPerDay;
         return days;
     }
 	
@@ -108,18 +108,6 @@ public class DateTools {
             return c1.compareTo(c2)==0;
         }
     }
-	
-	/**
-	 * Representa el Calendar en un formato legible, teniendo en cuenta que puede ser Null.
-	 */
-	public static String toString(Calendar c) {
-		if(c==null) return "null";
-		int h = c.get(Calendar.HOUR_OF_DAY);
-		int m = c.get(Calendar.MINUTE);
-		int s = c.get(Calendar.SECOND);
-		int d = c.get(Calendar.DAY_OF_YEAR);
-		return "day "+d+","+h+":"+m+":"+s;
-	}
 	
 	/**
 	 * Representa el Date en un formato legible, teniendo en cuenta que puede ser Null.

@@ -242,9 +242,9 @@ public class Monster implements Serializable {
 		int turnsPerDay = 15 - this.taskHours(); // turnos acumulados cada día
 		float daysFromTimestamp = DateTools.distanceInDays(this.freeTurnsTimestamp, timestamp);
 		
-		// En el momento actual, los freeTurns son los que había en el instante freeTurnsTimestamp
+		// En el momento timestamp, los freeTurns son los que había en el instante freeTurnsTimestamp
 		// mas el número de turnos acumulados (según los dias que han pasado desde el último timpestamp)
-		return  this.freeTurns + turnsPerDay * ((int)daysFromTimestamp);
+		return  this.freeTurns + turnsPerDay * ((int) Math.floor(daysFromTimestamp));
 	}
 	
 	/**
@@ -291,6 +291,7 @@ public class Monster implements Serializable {
 	
 	@Override
     public String toString() {
+		refreshFreeTurns();
 		return Format.p(this.getClass(), new Object[]{
 			"race", race,
 			"ageState", age,
@@ -299,6 +300,7 @@ public class Monster implements Serializable {
 //			"lair-user", lair.getUser().getLogin(),
 			"borningDate", borningDate,
 			"cocoonCloseUpDate", cocoonCloseUpDate,
+			"freeTurns", freeTurns
 		});
 	}
 	

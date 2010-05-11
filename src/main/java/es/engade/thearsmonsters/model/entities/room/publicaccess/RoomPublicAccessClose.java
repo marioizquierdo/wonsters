@@ -18,5 +18,10 @@ public class RoomPublicAccessClose  extends RoomPublicAccess {
 			return false;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "RoomPublicAccessClose";
+	}
 
 }

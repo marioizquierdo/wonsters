@@ -33,6 +33,7 @@
 #monster_tasks div.field {
 	float: left;
 	width: 100%;
+	padding: 6px;
 }
 
 #monster_tasks div.free_turns { text-align: left; padding-left: 10px; }
@@ -41,14 +42,14 @@
 
 #monster_tasks .monsterActionSuggestion_input {
 	float: left;
-	width: 60px;
+	width: 160px;
 	padding-left: 10px;
 }
 
 #monster_tasks .monsterActionSuggestion_input input {
-	float: left;
 	width: 20px;
 	padding: 2px;
+	margin: 3px;
 }
 
 #monster_tasks .monsterActionSuggestion_description {
@@ -61,19 +62,43 @@
 	float: left;
 	width: 100%;
 	text-align: left;
+	font-size: 12px;
+	font-weight: bold;
 }
 
 #monster_tasks .monsterActionSuggestion_description_roomType {
 	float: left;
 	width: 100%;
-	color: #999;
+	color: #666;
 	text-align: left;
+	font-size: 12px;
 }
 
 
-#monster_tasks .end_button .button {
+#monster_tasks .end_button .button{
 border:solid 1px;
 background-color:green;
+}
+
+/* ÑAPA */
+#monster_tasks .add_all_button{
+margin: 2px;
+width:17%;
+}
+
+#monster_tasks .remove_all_button{
+margin: 2px;
+width:17%;
+}
+
+#monster_tasks .add_turn_button{
+margin: 2px;
+width:10%;
+}
+
+#monster_tasks .remove_turn_button{
+margin: 2px;
+width:10%;
 }
 
 

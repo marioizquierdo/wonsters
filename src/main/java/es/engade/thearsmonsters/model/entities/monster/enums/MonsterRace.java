@@ -10,8 +10,8 @@ import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 public enum MonsterRace {
 	// NombreRaza		((byte)code, 
 	//						fuerza, agilidad, vitalidad, inteligencia, carisma,
-	//						espacioVital, esperanzaVida, tipoRaza, esVolador, 
-	//						fertilidad%, tIncubacion', tMetamorfosis', precioCompraHuevo)
+	//						espacioVital, esperanzaVida (días), tipoRaza, esVolador, 
+	//						fertilidad (%), tIncubacion', tMetamorfosis', precioCompraHuevo)
 	
 	Bu 				((byte)1, // Abrelatax Pignos Boo
 						5, 1, 1, 1, 0,

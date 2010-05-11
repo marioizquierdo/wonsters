@@ -37,8 +37,9 @@ public enum MonsterActionType {
 			int maxGarbage = lair.getGarbageStorageCapacity();
 			int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest).getLevel();
 	    	int garbageInLairAfterHarvest = currentGarbage + monsterHarvestAttr;
-	    	
-			return garbageInLairAfterHarvest <= maxGarbage;
+	    	boolean valid = garbageInLairAfterHarvest <= maxGarbage;
+	    	if(!valid) System.out.println("Not valid because there is no enough space in the Warehouse for more garbage."); // TODO: esto se debería guardar en una lista de errores en el objeto
+			return valid;
 		}
 	    
 	    // Añade la basura en la guarida y añade experiencia al monstruo en la habilidad de recolección de basura
@@ -59,7 +60,9 @@ public enum MonsterActionType {
 		
 		// Se comprueba si la sala está en obras.
 	    boolean validate(Monster monster, Room room, Lair lair) {
-	    	return room.isInWorks();
+	    	boolean valid = room.isInWorks();
+	    	if(!valid) System.out.println("Not valid because room is not in works state yet."); // TODO: esto se debería guardar en una lista de errores en el objeto
+	    	return valid;
 		}
 	    
 	    // Avanza en el esfuerzo realizado (effortDone) de las obras de la sala.
@@ -70,7 +73,7 @@ public enum MonsterActionType {
 			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionAttr);
 			
 			int totalEffort = room.isInInitialState() ? room.getEffortBuild() : room.getEffortUpgrade();
-			if (room.getEffortDone() > totalEffort) {
+			if (room.getEffortDone() >= totalEffort) {
 				room.setLevel(room.getLevel() + 1);
 				room.setState(new RoomNormalState());
 			}
@@ -133,7 +136,9 @@ public enum MonsterActionType {
 	 * Validación básica de que la sala es una de las salas permitidas.
 	 */
 	boolean validateBasicRoomConditions(Room room) {
-		return this.allowedRoomTypes.contains(room.getRoomType());
+		boolean valid = this.allowedRoomTypes.contains(room.getRoomType());
+		if(!valid) System.out.println("Not valid in validateBasicRoomConditions"); // TODO: esto se debería guardar en una lista de errores en el objeto
+		return valid;
 	}
 	
 	/**
@@ -141,8 +146,10 @@ public enum MonsterActionType {
 	 * que tiene al menos un turno libre para ejecutar la acción.
 	 */
 	boolean validateBasicMonsterConditions(Monster monster) {
-		return this.allowedMonsterAges.contains(monster.getAge()) &&
+		boolean valid = this.allowedMonsterAges.contains(monster.getAge()) &&
 			monster.isFreeTurnsAvailable();
+		if(!valid) System.out.println("Not valid in validateBasicMonsterConditions"); // TODO: esto se debería guardar en una lista de errores en el objeto
+		return valid;
 	}
 	
 	/**

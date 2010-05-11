@@ -7,6 +7,7 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.util.Format;
 
 public class MonsterAction {
 	
@@ -69,6 +70,17 @@ public class MonsterAction {
 	public MonsterActionSuggestion getSuggestion() {
 		String monsterId = monster.getId() == null ? "" : monster.getId().toString();
 		return new MonsterActionSuggestion(type, monsterId, room.getType());
+	}
+	
+	
+	
+	@Override
+    public String toString() {
+		return Format.p(this.getClass(), new Object[]{
+			"type", type,
+			"monster", monster,
+			"room", room
+		});
 	}
 	
 }

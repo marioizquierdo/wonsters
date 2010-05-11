@@ -6,8 +6,9 @@ syntax: glob
 *.settings
 *.class
 *.hgrc
+*.out.xml
 *~
-WEB-INF/*
+appengine-generated
 war/WEB-INF/classes/*
 .DS_Store
 **/.DS_Store

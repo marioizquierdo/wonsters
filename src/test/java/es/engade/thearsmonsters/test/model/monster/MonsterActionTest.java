@@ -70,21 +70,18 @@ public class MonsterActionTest extends GaeTest{
     
     @Test 
     public void testBuildRoom() {
-    	int contador = 0;
     	int initialLevel = 0;
     	int effortToUpgrade = 0;
     	int initialFreeTurns = 0;
     	int turnsToUpgrade = 0;
-    	int turnsContAux = 0;
+    	int extraTurnsAvailable = 10;
     	
-    	//Añado experiencia en la construccion
+    	// Añadir un nivel en construccion y en fuerza
     	monsterAdult.addExp(AttrType.ConstructorSkill, 100);
     	monsterAdult.addExp(AttrType.Strenght, 100);
+    	assertEquals(monsterAdult.getAttr(AttrType.Construction).getLevel(), 2); // Se supone que Construction == ConstructionSkill + Strenght
     	
-    	/* Creo una room de tipo TradeOffice */
-    	Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
-    	
-    	/* Creo la accion */
+    	Room tradeOffice = lair.getRoom(RoomType.TradeOffice);
     	MonsterAction action = MonsterActionType.WorkInTheWorks.build(monsterAdult, tradeOffice);
 
     	/* Obtengo el esfuerzo que hay que hacer para subir de nivel la sala */
@@ -95,37 +92,32 @@ public class MonsterActionTest extends GaeTest{
     	turnsToUpgrade = effortToUpgrade / monsterAdult.getComposeAttr(AttrType.Construction).getLevel();
     	
     	/* Le pongo más turnos libres de los necesarios, para asegurarnos de que puede terminar la obra */
-    	monsterAdult.setFreeTurns(turnsToUpgrade + 10);
+    	monsterAdult.setFreeTurns(turnsToUpgrade + extraTurnsAvailable);
     	
     	initialFreeTurns = monsterAdult.getFreeTurns();
-    	
     	
     	/* Obtengo el nivel inicial de la sala */
     	initialLevel = tradeOffice.getLevel();
     	
+    	
     	/* Ejecuto el numero de turnos necesarios para subir de nivel la sala */
-    	while (contador < turnsToUpgrade){
+    	assertTrue(action.isValid());
+    	for(int i=0; i < turnsToUpgrade; i++) {
     		action.execute();
-    		contador ++;
     	}
     	
     	/* Compruebo que la sala subio de nivel */
-    	assertEquals(tradeOffice.getLevel(), initialLevel + 1);
+    	assertEquals(initialLevel + 1, tradeOffice.getLevel());
     	
     	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
     	assertEquals(initialFreeTurns, turnsToUpgrade + monsterAdult.getFreeTurns());
     	
-    	while (monsterAdult.getFreeTurns() > 0){
-    		action.execute();
-    		turnsContAux++;
-    	}
-    	
-    	/* Compruebo que el numero de turnos consumidos por el monstruo siguen siendo los adecuados */
-    	assertEquals(initialFreeTurns, turnsToUpgrade + turnsContAux);
-    	
-    	/* Compruebo que ahora ya no se puede ejecutar más la accion */
+    	// Comprobar que una vez consumidos los turnos libres no se puede seguir realizando la acción
+    	// porque ahora la sala ya no está en obras
     	assertFalse(action.isValid());
-    
+    	
+    	// TODO: cuando se implemente el sistema de errores en las actions hay que comprobar que el error es el adecuado
+    	//       por ahora, se muestra un println por pantalla, que debe ser: Not valid because room is not in works state yet.
     
     }
     
