@@ -86,7 +86,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throw new InstanceNotFoundException(KeyUtils.fromString(eggId), MonsterEgg.class.getName());
             
         // Se crea el monstruo recién nacido
-        Monster littleMonster = FactoryData.MonsterWhoIs.Child.build();
+        Monster littleMonster = FactoryData.MonsterWhoIs.Child.build(); // TODO: hay que hacer nacer al monstruo adecuado
         
         // Y se aumenta el espacio vital ocupado en la guarida
         lair.removeMonsterEgg(egg);

@@ -22,6 +22,7 @@ import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
+import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
 
@@ -128,8 +129,20 @@ public class Monster implements Serializable {
 	// setFreeTurns está en la sección de las monster actions.
 
 	
-	public void metamorphosisToAdult(){
-		this.age = MonsterAge.Adult;
+	
+	/**
+	 * Fija la fecha para que salga del capuyo (cocoonCloseUpDate) y cambia la edad
+	 * a AgeState.Adult o a AgeState.Cocoon (depende si el tiempo de metamorfosis es diferente de cero o no).
+	 * @throws MonsterGrowException si la edad del monstruo no es AgeState.Child
+	 */
+	public void metamorphosisToAdult() throws MonsterGrowException {
+		if(getAge().equals(MonsterAge.Child)) {
+			Date metamorphosisTime = DateTools.new_byMinutesFromNow(race.getMetamorphosisMinutes());
+			setCocoonCloseUpDate(metamorphosisTime);
+			this.setAge(MonsterAge.Adult);
+		} else {
+			throw new MonsterGrowException(this.getId());
+		}
 	}
 	
 	

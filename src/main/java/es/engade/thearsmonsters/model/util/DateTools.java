@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.model.util;
 
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -9,90 +10,125 @@ import java.util.Date;
 public class DateTools {
 
 	/**
-     * Devuelve un objeto Date que contiene como fecha el día actual.
+     * Devuelve un objeto Date que representa el momento de la llamada.
      */
 	public static Date now() {
 		return new Date();
 	}
 	
-	/**
-     * Devuelve un objeto Date que contiene como fecha un día despues al momento de la llamada.
-     */
 	public static Date tomorrow() {
-		long millisecondsAsDay = 24 * 60 * 60 * 1000;
-	    Date t = new Date(); // now
-	    //Obtengo los milisegundos que han pasado hasta el día de hoy
-	    long milisecondsActually = t.getTime();
-	    //establezco la fecha a mañana.
-	    t.setTime(milisecondsActually + millisecondsAsDay); 
-	    return t;
+		return DateTools.new_byDaysFromNow(1);
 	}
 	
-	/**
-     * Devuelve un objeto Date que contiene como fecha un día anterior al momento de la llamada.
-     */
 	public static Date yesterday() {
-		//Obtengo los milisegundos que consituyen un día
-		long millisecondsAsDay = 24 * 60 * 60 * 1000;
-		//Creo una nueva date que se inicializa al momento actual
-	    Date t = new Date();
-	    //Obtengo los milisegundos que han pasado hasta el día de hoy
-	    long milisecondsActually = t.getTime();
-	    //establezco la fecha al dia anterior
-	    t.setTime(milisecondsActually  - millisecondsAsDay); 
-	    return t;
+		return DateTools.new_byDaysFromNow(-1);
+	}
+	
+	public static Date nextWeek() {
+		return DateTools.new_byDaysFromNow(7);
+	}
+	
+	public static Date nextMonth() {
+		return DateTools.new_byDaysFromNow(30); // Puede no ser exacto para los meses de 31 dias
 	}
 	
 	/**
-     * Devuelve el número de milisegundos que existen entre dos fechas representadas con Calendar.
-     */
-	public static long distanceInMilliseconds(Calendar c1,Calendar c2){
-		return (c2.getTimeInMillis() - c1.getTimeInMillis());
-	}
-
-	/**
-     * Devuelve el número de milisegundos que existen entre dos fechas representadas con Date.
-     */
-	public static long distanceInMilliseconds(Date d1,Date d2){
-		return (d2.getTime() - d1.getTime());
-	}
-	
-	/**
-     * Devuelve el número de días que existen entre dos fechas representadas con Calendar.
-     */
-	public static Float  distanceInDays(Calendar c1,Calendar c2){
-		long millisecondsAsDay = 24 * 60 * 60 * 1000;
-		long milliseconds = DateTools.distanceInMilliseconds(c1, c2);
-		float days = milliseconds / millisecondsAsDay;
-		return days;
-	}
-	
-	/**
-     * Devuelve el número de días que existen entre dos fechas representadas con Date.
-     */
-	public static Float distanceInDays(Date c1, Date c2){
-        long millisecondsPerDay = 24 * 60 * 60 * 1000;
-        long milliseconds = c2.getTime() - c1.getTime();
-        float days = milliseconds / millisecondsPerDay;
-        return days;
-    }
-	
-	
-	
-	/**
-	 * Compara los Calendar teniendo en cuenta que cualquiera de ellos
-	 * puede ser nulo. (Si ambos son nulos, se consideran iguales).
-	 * No tiene en cuenta los milisegundos, ya que en la base de datos, se almacenan con una precisión de segundos.
+	 * Fecha obtenida a sumando días a partir de ahora
 	 */
-	public static boolean equals(Calendar c1, Calendar c2) {
-		if(c1==null) {
-			if(c2==null) return true;
-			return false;
-		} else {
-			if(c2==null) return false;
-			return c1.getTimeInMillis()/1000 == c2.getTimeInMillis()/1000;
-		}
+	public static Date new_byMillisecondsFromNow(long milliseconds) {
+		Date d = DateTools.now();
+		d.setTime(d.getTime() + milliseconds);
+		return d;
 	}
+	
+	/**
+	 * Fecha obtenida a sumando días a partir de ahora
+	 */
+	public static Date new_bySecondsFromNow(long seconds) {
+		long millisecondsPerSecond = 60 * 1000;
+		return new_byMillisecondsFromNow(seconds * millisecondsPerSecond);
+	}
+	
+	/**
+	 * Fecha obtenida a sumando días a partir de ahora
+	 */
+	public static Date new_byMinutesFromNow(long minutes) {
+		long millisecondsPerMinute = 60 * 1000;
+		return new_byMillisecondsFromNow(minutes * millisecondsPerMinute);
+	}
+	
+	/**
+	 * Fecha obtenida a sumando días a partir de ahora
+	 */
+	public static Date new_byHoursFromNow(long hours) {
+		long millisecondsPerHour = 60 * 60 * 1000;
+		return new_byMillisecondsFromNow(hours * millisecondsPerHour);
+	}
+	
+	/**
+	 * Fecha obtenida a sumando días a partir de ahora
+	 */
+	public static Date new_byDaysFromNow(long days) {
+		long millisecondsPerDay = 24 * 60 * 60 * 1000;
+		return new_byMillisecondsFromNow(days * millisecondsPerDay);
+	}
+	
+	/**
+     * Milisegundos entre la primera y la segunda fecha.
+     */
+	public static long distanceInMilliseconds(Date from, Date to){
+		return (to.getTime() - from.getTime());
+	}
+	public static long distanceInMillisecondsFromNow(Date to) {
+		return distanceInMilliseconds(DateTools.now(), to);
+	}
+	
+	/**
+	 * Segundos entre la primera y la segunda fecha
+	 */
+	public static Float distanceInSeconds(Date from, Date to) {
+		long millisecondsPerSecond = 1000;
+		return (float) (distanceInMilliseconds(from, to) / millisecondsPerSecond);
+	}
+	public static Float distanceInSecondsFromNow(Date to) {
+		return distanceInSeconds(DateTools.now(), to);
+	}
+	
+	/**
+	 * Minutos entre la primera y la segunda fecha
+	 */
+	public static Float distanceInMinutes(Date from, Date to) {
+		long millisecondsPerMinute = 60 * 1000;
+		return (float) (distanceInMilliseconds(from, to) / millisecondsPerMinute);
+	}
+	public static Float distanceInMinutesFromNow(Date to) {
+		return distanceInMinutes(DateTools.now(), to);
+	}
+	
+	/**
+	 * Minutos entre la primera y la segunda fecha
+	 */
+	public static Float distanceInHours(Date from, Date to) {
+		long millisecondsPerHour = 60 * 60 * 1000;
+		return (float) (distanceInMilliseconds(from, to) / millisecondsPerHour);
+	}
+	public static Float distanceInHoursFromNow(Date to) {
+		return distanceInHours(DateTools.now(), to);
+	}
+	
+	
+	/**
+     * Días entre la primera y la segunda fecha
+     */
+	public static Float distanceInDays(Date from, Date to) {
+        long millisecondsPerDay = 24 * 60 * 60 * 1000;
+		return (float) (distanceInMilliseconds(from, to) / millisecondsPerDay);
+    }
+	public static Float distanceInDaysFromNow(Date to) {
+		return distanceInDays(DateTools.now(), to);
+	}
+	
+	
 	
 	/**
      * Compara dos Date teniendo en cuenta que cualquiera de ellos
@@ -114,6 +150,7 @@ public class DateTools {
 	 */
 	public static String toString(Date d) {
 		if(d==null) return "null";
-		return d.toString();
+		DateFormat formatter = new SimpleDateFormat("dd:MM:yyyy");
+		return formatter.format(d);
 	}
 }
