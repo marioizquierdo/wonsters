@@ -34,7 +34,7 @@ public class MonsterEgg implements Serializable {
 	@Persistent
 	private Lair lair;
 	
-	@Persistent
+	@Persistent(defaultFetchGroup="true")
 	private Date borningDate;
 	
 	public MonsterEgg () {}
@@ -108,6 +108,9 @@ public class MonsterEgg implements Serializable {
 	}
 	
 	public boolean isReadyToBorn() {
+	    System.out.println("THIS " + this);
+	    System.out.println("BORNING DATE " + borningDate);
+        System.out.println("NOW " + new Date());
 		boolean readyToBorn;
 		try {
 			readyToBorn = borningDate.compareTo(new Date()) <= 0;

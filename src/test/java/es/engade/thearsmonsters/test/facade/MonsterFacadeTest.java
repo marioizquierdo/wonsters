@@ -3,6 +3,7 @@ package es.engade.thearsmonsters.test.facade;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -11,9 +12,13 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.entities.common.KeyUtils;
+import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
+import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
+import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
@@ -21,6 +26,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
+import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.test.AppContext;
 import es.engade.thearsmonsters.test.GaeTest;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -35,6 +41,7 @@ public class MonsterFacadeTest extends GaeTest {
 
     private static UserDao userDao;
     private static MonsterDao monsterDao;
+    private static MonsterEggDao monsterEggDao;
     private static MonsterFacade monsterFacade;
     
     private User persistentUser;
@@ -47,6 +54,7 @@ public class MonsterFacadeTest extends GaeTest {
         ClassPathXmlApplicationContext appContext = AppContext.getInstance().getAppContext();
         userDao = appContext.getBean(UserDao.class);
         monsterDao = appContext.getBean(MonsterDao.class);
+        monsterEggDao = appContext.getBean(MonsterEggDao.class);
         monsterFacade = (MonsterFacade) appContext.getBean("monsterFacade");
     }
     
@@ -56,8 +64,6 @@ public class MonsterFacadeTest extends GaeTest {
         int numberOfUsers = 0;
         User user = FactoryData.UserWhoIs.Random.build();
         user.setLogin(LOGIN);
-        //TODO: Hasta que se elimine la herencia en Room
-        user.getLair().setRooms(null);
         
         // PERSIST
 
@@ -108,13 +114,63 @@ public class MonsterFacadeTest extends GaeTest {
     
     @Test
     public void testBuyEgg()
-    throws InternalErrorException, InsuficientMoneyException, MaxEggsException {
+    throws InternalErrorException, 
+        InsuficientMoneyException, MaxEggsException {
         
+        Lair lair = persistentUser.getLair();
+        MonsterRace race = MonsterRace.Lipendula;
+        
+        int initialMoney = lair.getMoney();
+        int initialNumberOfEggs = lair.getMonsterEggs().size();
+        
+        MonsterEgg egg = monsterFacade.buyEgg(lair, race);
+        
+        assertEquals(initialMoney - race.getBuyEggPrice(), lair.getMoney());
+        assertEquals(initialNumberOfEggs + 1, lair.getMonsterEggs().size());
+        assertEquals(race, lair.getMonsterEggs().get(
+                lair.getMonsterEggs().size() -1).getRace()
+                );
+        assert(lair.getMonsterEggs().contains(egg));
+    }
+    
+    @Test(expected=InsuficientMoneyException.class)
+    public void testBuyEggWithoutMoney()
+    throws InternalErrorException, 
+        InsuficientMoneyException, MaxEggsException {
+        
+        Lair lair = persistentUser.getLair();
+        MonsterRace race = MonsterRace.Electroserpe;
+        
+        monsterFacade.buyEgg(lair, race);
+        
+    }
+    
+    @Test(expected=MaxEggsException.class)
+    public void testBuyEggOverflow()
+    throws InternalErrorException, 
+        InsuficientMoneyException, MaxEggsException {
+        
+        Lair lair = persistentUser.getLair();
+        MonsterRace race = MonsterRace.Bu;
+        
+        for (int i = 0; i < GameConf.getMaxEggs(); i++) {
+            monsterFacade.buyEgg(lair, race);
+        }
     }
 
     @Test
     public void testFindEggs()
     throws InternalErrorException {
+        
+        Lair lair = persistentUser.getLair();
+        int numberOfEggs = lair.getMonsterEggs().size();
+        
+        List<MonsterEgg> eggs = monsterFacade.findEggs(lair);
+        
+        assertEquals(numberOfEggs, eggs.size());
+        for (MonsterEgg egg : eggs) {
+            assert(lair.getMonsterEggs().contains(egg));
+        }
         
     }
 
@@ -122,21 +178,170 @@ public class MonsterFacadeTest extends GaeTest {
     public void testShellEgg() 
     throws InternalErrorException, InstanceNotFoundException {
     
+        Lair lair = persistentUser.getLair();
+        
+        int initialNumberOfEggs = lair.getMonsterEggs().size();
+        int initialMoney = lair.getMoney();
+        
+        String eggId = KeyUtils.toString(lair.getMonsterEggs().get(0).getId());
+        
+        int sellPrice = monsterFacade.shellEgg(lair, eggId);
+        
+        assertEquals(initialNumberOfEggs - 1, lair.getMonsterEggs().size());
+        assertEquals(initialMoney + sellPrice, lair.getMoney());
+        
+    }
+    
+    @Test
+    public void testShellEggWithMoreChicha() 
+    throws InternalErrorException, InstanceNotFoundException, 
+        InsuficientMoneyException, MaxEggsException {
+    
+        Lair lair = persistentUser.getLair();
+        MonsterRace race = MonsterRace.Lipendula;
+
+        MonsterEgg egg = monsterFacade.buyEgg(lair, race);
+        
+        int initialNumberOfEggs = lair.getMonsterEggs().size();
+        int initialMoney = lair.getMoney();
+        
+        String eggId = KeyUtils.toString(egg.getId());
+        
+        int sellPrice = monsterFacade.shellEgg(lair, eggId);
+        
+        assertEquals(initialNumberOfEggs - 1, lair.getMonsterEggs().size());
+        assertEquals(initialMoney + sellPrice, lair.getMoney());
+        
+    }
+    
+    @Test(expected=InstanceNotFoundException.class)
+    public void testShellEggFromOtherUser() 
+    throws InternalErrorException, InstanceNotFoundException {
+    
+        Lair lair = persistentUser.getLair();
+        Lair otherLair = allPersistentUsers.get(NUMBER_OF_USERS-1).getLair();
+        assert(!lair.equals(otherLair));
+        
+        String eggId = KeyUtils.toString(otherLair.getMonsterEggs().get(0).getId());
+        
+        monsterFacade.shellEgg(lair, eggId);
+        
     }
 
     @Test
     public void testIncubateEgg()
-    throws InternalErrorException, InstanceNotFoundException, InsuficientVitalSpaceException {
+    throws InternalErrorException, 
+        InstanceNotFoundException, InsuficientVitalSpaceException {
         
+        Lair lair = persistentUser.getLair();
+        MonsterEgg egg = lair.getMonsterEggs().get(0);
+        
+        assert (!egg.isIncubated());
+        assert (egg.getBorningDate() == null);
+        
+        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
+        
+        assert (!egg.isIncubated());
+        assert(egg.getBorningDate() != null);
+        assert(monsterFacade.findEggs(lair).contains(egg));
     }
 
+    @Test(expected=InstanceNotFoundException.class)
+    public void testIncubateEggFromOtherLair()
+    throws InternalErrorException, 
+        InstanceNotFoundException, InsuficientVitalSpaceException {
+        
+        Lair lair = persistentUser.getLair();
+        Lair otherLair = allPersistentUsers.get(NUMBER_OF_USERS-1).getLair();
+        assert(!lair.equals(otherLair));
+        MonsterEgg egg = otherLair.getMonsterEggs().get(0);
+        
+        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
+        
+    }
+    
+    @Test(expected=InsuficientVitalSpaceException.class)
+    public void testIncubateEggOverflow()
+    throws InternalErrorException, 
+        InstanceNotFoundException, InsuficientVitalSpaceException {
+        
+        Lair lair = persistentUser.getLair();
+        MonsterEgg egg = lair.getMonsterEggs().get(0);
+        
+        while(lair.getVitalSpaceFree() > egg.getRace().getVitalSpace()) {
+            lair.addMonster(FactoryData.MonsterWhoIs.Child.build());
+        }
+        userDao.update(persistentUser);
+        lair.setVitalSpaceOccupied();
+        
+        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
+        
+    }
+    
     @Test
     public void testBornMonster()
     throws InternalErrorException, InstanceNotFoundException, 
     MonsterGrowException, InsuficientVitalSpaceException {
         
+        Lair lair = persistentUser.getLair();
+        MonsterEgg egg = lair.getMonsterEggs().get(0);
+        
+        Date date = new Date();
+        date.setTime(date.getTime() - (1000*60));
+        egg.setBorningDate(date);
+        userDao.update(persistentUser);
+
+        int initialNumberOfEggs = lair.getMonsterEggs().size();
+        int initialNumberOfMonsters = lair.getMonsters().size();
+        int initialVitalSpaceOccupied = lair.getVitalSpaceOccupied();
+        
+        Monster monster = monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
+        
+        assert(lair.getMonsters().contains(monster));
+        assertEquals(initialNumberOfEggs - 1, lair.getMonsterEggs().size());
+        assertEquals(initialNumberOfMonsters + 1, lair.getMonsters().size());
+        assertEquals(
+                initialVitalSpaceOccupied + monster.getRace().getVitalSpace(), 
+                lair.getVitalSpaceOccupied()
+                );
+        
     }
 
+    @Test(expected=MonsterGrowException.class)
+    public void testBornMonsterPrematurely()
+    throws InternalErrorException, InstanceNotFoundException, 
+    MonsterGrowException, InsuficientVitalSpaceException {
+        
+        Lair lair = persistentUser.getLair();
+        MonsterEgg egg = lair.getMonsterEggs().get(0);
+    
+        monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
+
+    }
+    
+    @Test(expected=InsuficientVitalSpaceException.class)
+    public void testBornMonsterOverflow()
+    throws InternalErrorException, InstanceNotFoundException, 
+    MonsterGrowException, InsuficientVitalSpaceException {
+        
+        Lair lair = persistentUser.getLair();
+        MonsterEgg egg = lair.getMonsterEggs().get(0);
+        
+        Date date = new Date();
+        date.setTime(date.getTime() - (1000*60));
+        egg.setBorningDate(date);
+        userDao.update(persistentUser);
+        
+        while(lair.getVitalSpaceFree() > egg.getRace().getVitalSpace()) {
+            lair.addMonster(FactoryData.MonsterWhoIs.Child.build());
+        }
+        userDao.update(persistentUser);
+        lair.setVitalSpaceOccupied();
+    
+        monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
+
+    }
+    
     @Test
     public void testMetamorphosisToAdult()
     throws InternalErrorException, InstanceNotFoundException, 

@@ -20,6 +20,7 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
@@ -27,8 +28,10 @@ import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGr
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
+import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
+import es.engade.thearsmonsters.util.factory.FactoryData;
 
 public class MonsterFacadeImpl implements MonsterFacade {
 
@@ -36,6 +39,11 @@ public class MonsterFacadeImpl implements MonsterFacade {
     private MonsterEggDao monsterEggDao;
     private RoomDao roomDao;
     private LairDao lairDao;
+    private UserDao userDao;
+    
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
     
     public void setMonsterDao(MonsterDao monsterDao) {
         this.monsterDao = monsterDao;
@@ -64,7 +72,9 @@ public class MonsterFacadeImpl implements MonsterFacade {
         
         // Buscar el huevo referenciado
         MonsterEgg egg = monsterEggDao.get(KeyUtils.fromString(eggId));
-        if(!egg.isReadyToBorn()) throw new MonsterGrowException(null);
+        if(!egg.isReadyToBorn()) {
+            throw new MonsterGrowException(null);
+        }
         
         // Comprueba que haya suficiente espacio vital en la guarida para la nueva criatura
         if(lair.getVitalSpaceFree() < egg.getRace().getVitalSpace()) {
@@ -76,9 +86,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throw new InstanceNotFoundException(KeyUtils.fromString(eggId), MonsterEgg.class.getName());
             
         // Se crea el monstruo recién nacido
-        //TODO: Como se crea esto??
-        Monster littleMonster = new Monster(lair, egg.getRace(),
-                monsterName, new Date(), new Date(), MonsterAge.Child);
+        Monster littleMonster = FactoryData.MonsterWhoIs.Child.build();
         
         // Y se aumenta el espacio vital ocupado en la guarida
         lair.removeMonsterEgg(egg);
@@ -86,7 +94,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
         
         // Hace los cambios persistentes en la BBDD
         // Guarda el monstruo, predefine sus nuevas tareas y elimina el huevo.
-        lairDao.update(lair);
+        userDao.update(lair.getUser());
         
         return littleMonster;
     }
@@ -97,7 +105,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
             MaxEggsException {
 
         // Comprueba que se sitio para guardar más huevos
-        int MaxEggs = 10; // TODO: Tomar de config.
+        int MaxEggs = GameConf.getMaxEggs();
         int eggsCount = monsterEggDao.getNumberOfEggsByLair(lair);
         if(eggsCount >= MaxEggs) {
             throw new MaxEggsException();
@@ -115,9 +123,8 @@ public class MonsterFacadeImpl implements MonsterFacade {
         MonsterEgg egg = new MonsterEgg(
                 lair, race, new Date());
         lair.addMonsterEgg(egg);
-        
-        // TODO Creación del huevo en cascada al actualizar???
-        lairDao.update(lair);
+
+        userDao.update(lair.getUser());
         
         return egg;  
     }
@@ -163,7 +170,7 @@ public class MonsterFacadeImpl implements MonsterFacade {
         
         // Comprueba que hay suficiente espacio vital
         int spaceNeeded = egg.getRace().getVitalSpace();
-        int spaceAvaliable = 100; // HACK. Hay que calcularlo a partir de los monstruos
+        int spaceAvaliable = lair.getVitalSpaceFree(); // TODO: Esto es asi??
         if(spaceNeeded > spaceAvaliable) {
             throw new InsuficientVitalSpaceException(spaceNeeded, spaceAvaliable);
         }
@@ -193,8 +200,8 @@ public class MonsterFacadeImpl implements MonsterFacade {
             throw new InstanceNotFoundException(KeyUtils.fromString(monsterId), Monster.class.getName());
             
         // Se cambia la edad del monstruo y se fija una fecha para cuando salga del capuyo
-        // TODO:
-//        m.metamorphosisToAdult();
+        // TODO: Cómo poner la fecha del capullo?
+        m.metamorphosisToAdult();
         
         // Hace los cambios persistentes en la BBDD
         monsterDao.update(m);
@@ -222,10 +229,10 @@ public class MonsterFacadeImpl implements MonsterFacade {
         lair.setMoney(lair.getMoney() + eggSalePrice);
         lair.removeMonsterEgg(egg);
         
-        lairDao.update(lair);
+        userDao.update(lair.getUser());
         
-        // Y se elimina el huevo del usuario
-        monsterEggDao.remove(egg.getId());
+//        // Y se elimina el huevo del usuario
+//        monsterEggDao.remove(egg.getId());
         
         return eggSalePrice;
     }

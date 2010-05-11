@@ -101,10 +101,20 @@ public class Monster implements Serializable {
 	public MonsterRace getRace() { return race; }
 	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
 	
-	//Ñapa: Hay que calcular los días a partir del nacimiento del mounstro
-	//TODO: Estas funciones
-	public int getAgeDays(){ return 3;}
-	public int getAgePercentageLived(){ return 25;}
+	public int getAgeDays(){ 
+	    
+	    int days = Math.round(DateTools.distanceInDays(getBorningDate(), DateTools.now()));
+
+	    return days;
+	    
+	}
+	
+	public int getAgePercentageLived(){
+	    
+	    return Math.round((getAgeDays() / race.getLiveLenght()) * 100);
+	    
+	}
+	
 	public Attr getBestWorkSkill(){return this.workSkills.get(1);}
 	
 	//-- SETTERS --//
@@ -118,7 +128,7 @@ public class Monster implements Serializable {
 	// setFreeTurns está en la sección de las monster actions.
 
 	
-	public void metamorphosisToAdul(){
+	public void metamorphosisToAdult(){
 		this.age = MonsterAge.Adult;
 	}
 	

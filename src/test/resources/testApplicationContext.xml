@@ -75,5 +75,6 @@
 			<property name="monsterDao" ref="monsterDao" />
 			<property name="monsterEggDao" ref="monsterEggDao" />
 			<property name="lairDao" ref="lairDao" />
+			<property name="userDao" ref="userDao" />
 	</bean>
 </beans>

@@ -223,8 +223,9 @@ public class Lair implements Serializable {
 		return this;
 	}
 	public Lair removeMonsterEgg(MonsterEgg monsterEgg) {
-	    monsterEgg.setLair(null);
-	    this.monsterEggs.remove(monsterEgg);
+	    if (this.monsterEggs.remove(monsterEgg)) {
+	        monsterEgg.setLair(null);
+	    }
 	    return this;
 	}
 	public Lair addMonster(Monster monster) {
@@ -234,9 +235,10 @@ public class Lair implements Serializable {
 		return this;
 	}
 	public Lair removeMonster(Monster monster) {
-	    monster.setLair(null);
-	    this.monsters.remove(monster);
-	    this.setVitalSpaceOccupied();
+	    if (this.monsters.remove(monster)) {
+    	    monster.setLair(null);
+    	    this.setVitalSpaceOccupied();
+	    }
 	    return this;
 	}
 
