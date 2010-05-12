@@ -9,6 +9,7 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.model.facades.common.ThearsmonstersFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
 import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
@@ -19,7 +20,7 @@ import es.engade.thearsmonsters.util.factory.FactoryData;
 
 @Service("userFacade")
 @Transactional
-public class UserFacadeImpl implements UserFacade {
+public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
     @Autowired
     private UserDao userDao;

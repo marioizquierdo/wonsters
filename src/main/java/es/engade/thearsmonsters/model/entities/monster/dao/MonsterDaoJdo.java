@@ -7,11 +7,9 @@ import javax.jdo.Query;
 
 import com.google.appengine.api.datastore.Key;
 
-import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 public class MonsterDaoJdo extends GenericDaoJdo<Monster, Key> implements MonsterDao {
 
@@ -37,10 +35,6 @@ public class MonsterDaoJdo extends GenericDaoJdo<Monster, Key> implements Monste
         }
 
         return results;
-    }
-
-    public Monster get(String id) throws InstanceNotFoundException {
-        return get(KeyUtils.fromString(id));
     }
 
 }

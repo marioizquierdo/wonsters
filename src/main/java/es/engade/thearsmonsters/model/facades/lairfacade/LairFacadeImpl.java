@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.Room;
@@ -13,6 +12,7 @@ import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.model.facades.common.ThearsmonstersFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksActionException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
@@ -25,7 +25,7 @@ import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 @Service("lairFacade")
-public class LairFacadeImpl implements LairFacade {
+public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
     private LairDao lairDao;
     private RoomDao roomDao;
@@ -160,7 +160,7 @@ public class LairFacadeImpl implements LairFacade {
         Lair lair = null;
 
         try {
-            lair = lairDao.get(KeyUtils.fromString(lairId));
+            lair = lairDao.get(getKeyFromString(lairId, Lair.class));
             if (lair == null)
                 throw new InstanceNotFoundException(lairId, Lair.class
                         .getName());

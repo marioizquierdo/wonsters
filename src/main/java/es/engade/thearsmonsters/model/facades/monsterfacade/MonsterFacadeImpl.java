@@ -1,21 +1,18 @@
 package es.engade.thearsmonsters.model.facades.monsterfacade;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 
-import es.engade.thearsmonsters.model.entities.common.KeyUtils;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
-import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
@@ -33,7 +30,6 @@ import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
-import es.engade.thearsmonsters.util.factory.FactoryData;
 
 public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFacade {
 
@@ -201,7 +197,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         // 2. Si se encuentra, ese es el monstruo (y nos ahorramos la consulta a BBDD)
         // 3. Si no se encuentra, devuelve un InstanceNotFoundException, excepto casos raros en los que puede
         //    acceder usando el DAO.
-        Monster monster = monsterDao.get(monsterId);
+        Monster monster = monsterDao.get(getKeyFromString(monsterId, Monster.class));
         List<MonsterActionSuggestion> suggestedActions = new ArrayList<MonsterActionSuggestion>();
         
         
