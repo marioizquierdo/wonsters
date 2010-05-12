@@ -1,11 +1,13 @@
 package es.engade.thearsmonsters.model.monsteraction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
+import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.room.state.RoomInWorksState;
@@ -22,6 +24,7 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
  *  Cuando se añada una nueva MonsterAction, prácticamente toda su información se añade en esta enum.
  */
 public enum MonsterActionType {
+	
 	// MonsterAction (allowedRoomTypes, allowedMonsterAges) { validate and execute hooks }
 	
 	/**
@@ -32,13 +35,12 @@ public enum MonsterActionType {
 	GarbageHarvest ("Adult", "Warehouse") {
 		
 		// Se comprueba si hay suficiente espacio en el almacén para añadir más basura
-	    boolean validate(Monster monster, Room room, Lair lair) {
+	    boolean validate(Monster monster, Room room, Lair lair,List<String> errors) {
 			int currentGarbage = lair.getGarbage();
 			int maxGarbage = lair.getGarbageStorageCapacity();
-			int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest).getLevel();
-	    	int garbageInLairAfterHarvest = currentGarbage + monsterHarvestAttr;
-	    	boolean valid = garbageInLairAfterHarvest <= maxGarbage;
-	    	if(!valid) System.out.println("Not valid because there is no enough space in the Warehouse for more garbage."); // TODO: esto se debería guardar en una lista de errores en el objeto
+
+	    	boolean valid = currentGarbage < maxGarbage;
+	    	if(!valid) errors.add("validateGarbageHarvest");
 			return valid;
 		}
 	    
@@ -47,7 +49,8 @@ public enum MonsterActionType {
 			int currentGarbage = lair.getGarbage();
 			int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest).getLevel();
 			
-			lair.setGarbage(currentGarbage + monsterHarvestAttr);
+			if (currentGarbage+ monsterHarvestAttr > lair.getGarbageStorageCapacity()) lair.setGarbage(lair.getGarbageStorageCapacity());
+			else lair.setGarbage(currentGarbage + monsterHarvestAttr);
 			monster.addExp(AttrType.HarvesterSkill, 20);
 		}
 	},
@@ -59,9 +62,11 @@ public enum MonsterActionType {
 	WorkInTheWorks ("Adult", "all") {
 		
 		// Se comprueba si la sala está en obras.
-	    boolean validate(Monster monster, Room room, Lair lair) {
+	    boolean validate(Monster monster, Room room, Lair lair,List<String> errors) {
 	    	boolean valid = room.isInWorks();
-	    	if(!valid) System.out.println("Not valid because room is not in works state yet."); // TODO: esto se debería guardar en una lista de errores en el objeto
+	    	
+	    	if(!valid) errors.add("validateWorkInTheWorks");
+	    	
 	    	return valid;
 		}
 	    
@@ -86,6 +91,7 @@ public enum MonsterActionType {
 	
 	private final List<MonsterAge> allowedMonsterAges;
 	private final List<RoomType> allowedRoomTypes;
+	private List<String> errors =new ArrayList<String>();
 	
 	MonsterActionType(String allowedMonsterAgesStringList, String allowedRoomTypesStringList) {
 		allowedMonsterAges = MonsterAge.list(allowedMonsterAgesStringList);
@@ -108,6 +114,8 @@ public enum MonsterActionType {
 	
 	public List<MonsterAge> getAllowedMonsterAges() { return allowedMonsterAges; }
 	public List<RoomType> getAllowedRoomTypes() { return allowedRoomTypes; }
+	public List<String> getErrors() { return errors; }
+	
 	
 	
 	//**** VALIDATION ****//
@@ -119,9 +127,10 @@ public enum MonsterActionType {
 	 * (por lo tanto validate() tampoco puede), el único que modifica el estado es execute. 
 	 */
 	public boolean isValid(Monster monster, Room room) {
+		errors.removeAll(errors);
 		return validateBasicMonsterConditions(monster) &&
 			validateBasicRoomConditions(room) &&
-			validate(monster, room, room.getLair()); // hook para implementar en cada MonsterAction particular
+			validate(monster, room, room.getLair(),errors); // hook para implementar en cada MonsterAction particular
 	}
 	
 	/**
@@ -129,6 +138,7 @@ public enum MonsterActionType {
 	 * que el monstruo (no vale para validar tareas en otra guarida).
 	 */
 	public boolean isValid(Monster monster, RoomType roomType) {
+		errors.removeAll(errors);
 		return isValid(monster, monster.getLair().getRoom(roomType));
 	}
 
@@ -137,7 +147,7 @@ public enum MonsterActionType {
 	 */
 	boolean validateBasicRoomConditions(Room room) {
 		boolean valid = this.allowedRoomTypes.contains(room.getRoomType());
-		if(!valid) System.out.println("Not valid in validateBasicRoomConditions"); // TODO: esto se debería guardar en una lista de errores en el objeto
+		if(!valid) errors.add("validateBasicRoomConditions"); 
 		return valid;
 	}
 	
@@ -148,14 +158,14 @@ public enum MonsterActionType {
 	boolean validateBasicMonsterConditions(Monster monster) {
 		boolean valid = this.allowedMonsterAges.contains(monster.getAge()) &&
 			monster.isFreeTurnsAvailable();
-		if(!valid) System.out.println("Not valid in validateBasicMonsterConditions"); // TODO: esto se debería guardar en una lista de errores en el objeto
+		if(!valid) errors.add("validateBasicMonsterConditions"); // TODO: esto se debería guardar en una lista de errores en el objeto
 		return valid;
 	}
 	
 	/**
 	 * Condiciones extra que tiene cada MonsterAction en particular.
 	 */
-	boolean validate(Monster monster, Room room, Lair lair) {
+	boolean validate(Monster monster, Room room, Lair lair,List<String> errors) {
 		return true; // comportamiento por defecto.
 	}
 	
@@ -179,6 +189,7 @@ public enum MonsterActionType {
 		}
 	}
 	
+	
 	/**
 	 * Igual que execute(monster, room), pero la room se obtiene de la misma guarida
 	 * que el monstruo (no vale para ejecutar tareas en otra guarida).
@@ -196,4 +207,6 @@ public enum MonsterActionType {
 	 */
 	abstract void doExecute(Monster monster, Room room, Lair lair);
 		
+	
+	
 }

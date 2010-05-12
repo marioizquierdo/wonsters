@@ -28,8 +28,11 @@ public class MonsterActionTest extends GaeTest{
     public void setUp() throws Exception {
 		lair = FactoryData.LairWhatIs.Default.build();
 		monsterChild = FactoryData.MonsterWhoIs.Child.build();
+		monsterChild.setFreeTurns(10);
 		monsterAdult = FactoryData.MonsterWhoIs.Adult.build();
+		monsterAdult.setFreeTurns(10);
 		monsterOld = FactoryData.MonsterWhoIs.Old.build();
+		monsterOld.setFreeTurns(10);
 		lair.addMonster(monsterChild);
 		lair.addMonster(monsterAdult);
 		lair.addMonster(monsterOld);
@@ -42,11 +45,28 @@ public class MonsterActionTest extends GaeTest{
     	Room tradeOffice = FactoryData.RoomWhatIs.TradeOffice.build();    	
 
     	assertTrue( garbageHarvest.isValid(monsterAdult, wareHouse)); // Solo los adultos pueden trabajar en el Almacén
+    	assertTrue(garbageHarvest.getErrors().isEmpty());
+    	
     	assertFalse(garbageHarvest.isValid(monsterChild, wareHouse));
+    	assertTrue(garbageHarvest.getErrors().contains("validateBasicMonsterConditions"));
+  
     	assertFalse(garbageHarvest.isValid(monsterOld,   wareHouse));
+    	assertTrue(garbageHarvest.getErrors().contains("validateBasicMonsterConditions"));
+
+    	assertTrue( garbageHarvest.isValid(monsterAdult, wareHouse)); // Solo los adultos pueden trabajar en el Almacén
+    	assertTrue(garbageHarvest.getErrors().isEmpty());
+    	
     	assertFalse(garbageHarvest.isValid(monsterChild, tradeOffice));
+    	assertTrue(garbageHarvest.getErrors().contains("validateBasicMonsterConditions"));
     	assertFalse(garbageHarvest.isValid(monsterAdult, tradeOffice));
-    	assertFalse(garbageHarvest.isValid(monsterOld,   tradeOffice));
+    	assertTrue(garbageHarvest.getErrors().contains("validateBasicRoomConditions"));
+    	assertFalse(garbageHarvest.isValid(monsterOld,tradeOffice));
+    	assertTrue(garbageHarvest.getErrors().contains("validateBasicMonsterConditions"));
+
+    	// Se comprueba que los errores no se mantienen almacenados
+    	assertTrue( garbageHarvest.isValid(monsterAdult, wareHouse)); // Solo los adultos pueden trabajar en el Almacén
+    	assertTrue(garbageHarvest.getErrors().isEmpty());
+    
     }
     
     @Test 
@@ -58,13 +78,28 @@ public class MonsterActionTest extends GaeTest{
     	assertTrue(roomInWorks.isInWorks());
     	assertFalse(room.isInWorks());
     	
-
+    	
     	assertTrue( workInTheWorks.isValid(monsterAdult, roomInWorks)); // Solo los adultos pueden trabajar en las obras
+    	assertTrue(workInTheWorks.getErrors().isEmpty());
+
     	assertFalse(workInTheWorks.isValid(monsterChild, roomInWorks));
+    	assertTrue(workInTheWorks.getErrors().contains("validateBasicMonsterConditions"));
+
     	assertFalse(workInTheWorks.isValid(monsterOld,   roomInWorks));
+    	assertTrue(workInTheWorks.getErrors().contains("validateBasicMonsterConditions"));
+
     	assertFalse(workInTheWorks.isValid(monsterAdult, room));
+    	assertTrue(workInTheWorks.getErrors().contains("validateWorkInTheWorks"));
+
     	assertFalse(workInTheWorks.isValid(monsterChild, room));
+    	assertTrue(workInTheWorks.getErrors().contains("validateBasicMonsterConditions"));
+
     	assertFalse(workInTheWorks.isValid(monsterOld,   room));
+    	assertTrue(workInTheWorks.getErrors().contains("validateBasicMonsterConditions"));
+    	
+    	// Se comprueba que los errores no se mantienen almacenados
+    	assertTrue( workInTheWorks.isValid(monsterAdult, roomInWorks)); // Solo los adultos pueden trabajar en las obras
+    	assertTrue(workInTheWorks.getErrors().isEmpty());
     }
 
     
@@ -106,18 +141,22 @@ public class MonsterActionTest extends GaeTest{
     		action.execute();
     	}
     	
+    	/* Compruebo que no ha habido fallos */
+    	assertTrue(MonsterActionType.WorkInTheWorks.getErrors().isEmpty());
+
+    	
     	/* Compruebo que la sala subio de nivel */
     	assertEquals(initialLevel + 1, tradeOffice.getLevel());
     	
     	/* Compruebo que el numero de turnos consumidos por el monstruo son los adecuados */
     	assertEquals(initialFreeTurns, turnsToUpgrade + monsterAdult.getFreeTurns());
     	
-    	// Comprobar que una vez consumidos los turnos libres no se puede seguir realizando la acción
-    	// porque ahora la sala ya no está en obras
+    	// Comprobar que no se puede seguir realizando la acción porque la sala ya no está en obras
     	assertFalse(action.isValid());
-    	
-    	// TODO: cuando se implemente el sistema de errores en las actions hay que comprobar que el error es el adecuado
-    	//       por ahora, se muestra un println por pantalla, que debe ser: Not valid because room is not in works state yet.
+
+    	// y por ultimo que el error es el adecuado
+    	assertTrue(MonsterActionType.WorkInTheWorks.getErrors().contains("validateWorkInTheWorks"));
+
     
     }
     
@@ -136,14 +175,24 @@ public class MonsterActionTest extends GaeTest{
     	
     	monsterAdult.setFreeTurns(maxTurns);
     	
+    	assertTrue(action.isValid());
+    	
+    	
+    	
     	while (lair.getGarbage() < maxGarbage && contador < maxTurns){
     		action.execute();
     		contador++;
     	}
-    	// Si llega hasta aquí es que el bucle se quedó pillado (por ejemplo porque no añade basura)
+    	
+    	
+      	/* Compruebo que no ha habido fallos */
+    	assertTrue(MonsterActionType.GarbageHarvest.getErrors().isEmpty());
+
+    	// Si llega hasta aquí es que el bucle se queda pillado (por ejemplo porque no a�ade basura)
     	assertTrue(contador < maxTurns);
     	
     	// comprobamos que el monstruo gasta los turnos que debe gastar
+    
     	assertEquals(1000 - contador, monsterAdult.getFreeTurns());
     	 
     	// comprobamos que la guarida se ha llenado de basura
@@ -151,6 +200,11 @@ public class MonsterActionTest extends GaeTest{
     	
     	// comprobamos que ya no se puede recolectar más basura
     	assertFalse(action.isValid());
+    	
+    	// y por ultimo que el error es el adecuado
+    	assertTrue(MonsterActionType.GarbageHarvest.getErrors().contains("validateGarbageHarvest"));
+
+    	
     	
     	
     }
