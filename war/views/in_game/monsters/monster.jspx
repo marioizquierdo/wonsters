@@ -12,118 +12,12 @@
  	<script type="text/javascript" src="/javascript/image_up.js"></script>
 	<script type="text/javascript" src="/javascript/fix_attrs_descriptions.js"></script>
 	<script type="text/javascript" src="/javascript/count_down.js"></script>
-	
-	 <script type="text/javascript">$(function(){
-	 
-	                    // Constante con los turnos libres (no se actualiza, se mantiene siempre en el valor inicial)
-                        var monster_free_turns = ${monster.freeTurns};  
-                        
-                        // Turnos libres que hay actualmente en la pantalla (este es dinamico)
-                        var free_turns_value = function() {
-                            return parseInt($('span.free_turns_value').text()) || 0;
-                        };
-                        
-                        //Esta funcion devuelve el valor validado de valorInput. Si es una cadena  o menor que cero devuelve 0.
-                        var validarInput = function(valor_input){
-                                if (valor_input <= 0) {
-                                    return 0;
-                                }
-                                return (parseInt(valor_input) || 0);
-                        };
-                        
-                        //Asigna al target_input todos los turnos libres en pantalla
-                        var addMaxTurns= function (target_input){
-                            var turns_to_use = 0;
-                            //sumamos todos los inputs menos el que nos pasan
-                            $('input.turns_input').each(function() {
-                                var turns_input = $(this);
-                                if (turns_input.attr('id') != target_input.attr('id')){
-                                    turns_to_use += parseInt(turns_input.val()) || 0;
-                                }
-                            });
-                            var turns_avaliable = monster_free_turns - turns_to_use;
-                            target_input.val(turns_avaliable);
-                            $('span.free_turns_value').text(0);
-                        };
-                        
-                        var removeAllTurns = function(target_input){
-                            var turns_avaliable = free_turns_value();
-                            turns_avaliable = parseInt(turns_avaliable) + validarInput(target_input.val());
-                            target_input.val(0);
-                            $('span.free_turns_value').text(turns_avaliable);
-                        };
-                        
-                    
-                        // Function para actualizar los turnos libres en funcion de lo que hay en los inputs. 
-                        //El target_input es el input que se ha cambiado.
-                        var refreshFreeTurns = function(target_input) {
-                            var turns_to_use = 0;
-                            $('input.turns_input').each(function() {
-                                var turns_input = $(this);
-                                turns_input.val(validarInput(turns_input.val()));
-                                turns_to_use += parseInt(turns_input.val()) || 0;
-                            });
-                            
-                            var turns_avaliable = monster_free_turns - turns_to_use;
-                            if (turns_avaliable<0 && (target_input != undefined)){
-                                addMaxTurns(target_input);
-                                turns_avaliable = 0;
-                            }
-                           $('span.free_turns_value').text(turns_avaliable);
-                           return false;
-                        };
-	 
-	                     var addCuantityInput = function(target_input,cantidad) {
-                               cantidad = parseInt(cantidad) || 0;
-                               var target_input_value = validarInput(target_input.val());
-                               target_input.val(target_input_value + cantidad);
-                               refreshFreeTurns(target_input);
-                        };
-                    
-                        // Comportamiento del boton de anhadir un turno mas
-                        $('form[name=monsterActionsToDoForm] button.add_turn_button').click(function(){
-                            var target_input = '#' + $(this).attr('id').replace('_add_turn_button','_turns_input');
-                            addCuantityInput($(target_input),1);
-                            return false;
-                        });
-                        
-                        // Comportamiento del boton de quitar un turno
-                        $('form[name=monsterActionsToDoForm] button.remove_turn_button').click(function(){
-                           var target_input = '#' + $(this).attr('id').replace('_remove_turn_button','_turns_input');
-                            addCuantityInput($(target_input),-1);
-                            return false;
-                        });
-                        
-                        // Comportamiento del boton de anhadir todos los turnos
-                        $('form[name=monsterActionsToDoForm] button.add_all_button').click(function(){
-                           var target_input = '#' + $(this).attr('id').replace('_add_all_button','_turns_input');
-                           addMaxTurns($(target_input));
-                           return false;
-                        });
-                        
-                        //Comportamiento del boton de quitar todos los turnos
-                        $('form[name=monsterActionsToDoForm] button.remove_all_button').click(function(){
-                            var target_input = '#' + $(this).attr('id').replace('_remove_all_button','_turns_input');
-                            removeAllTurns($(target_input));
-                            return false;
-                        });
-                                        
-                        // Comportamiento cuando se cambia el valor de un input a mano     
-                        $('input.turns_input').bind('change keyup click paste', function(e){
-                            refreshFreeTurns($(this));
-                        });
-                        
-                        // Previene el formulario de ser enviado al pulsar enter sobre un input
-                        $('form[name=monsterActionsToDoForm]').keydown(function(e) {
-                            if (e.which == 13) {
-                              return false;
-                            }
-                         });
-                         
-                         // Al cargar la pagina debe recalcular los turnos libres
-                         refreshFreeTurns();
-                        
-        })</script>
+	<script type="text/javascript">$(function(){
+	    // Constante con los turnos libres (no se actualiza, se mantiene siempre en el valor inicial)
+	    // Tiene que ser global para que las funciones de monster_actions puedan acceder a ella.
+        monster_free_turns = ${monster.freeTurns};
+    })</script>
+    <script type='text/javascript' src='/javascript/monster_actions.js'></script>
 ]]>
 
 <!-- Monster Actions -->
@@ -136,7 +30,7 @@
     </div>
     
     <c:choose><c:when test="${fn:length(suggestedMonsterActions) == 0}">
-      <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" />
+      <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" /> 
     
     </c:when><c:otherwise>
 
