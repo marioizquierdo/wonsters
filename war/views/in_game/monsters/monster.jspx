@@ -12,11 +12,6 @@
  	<script type="text/javascript" src="/javascript/image_up.js"></script>
 	<script type="text/javascript" src="/javascript/fix_attrs_descriptions.js"></script>
 	<script type="text/javascript" src="/javascript/count_down.js"></script>
-	<script type="text/javascript">$(function(){
-	    // Constante con los turnos libres (no se actualiza, se mantiene siempre en el valor inicial)
-	    // Tiene que ser global para que las funciones de monster_actions puedan acceder a ella.
-        monster_free_turns = ${monster.freeTurns};
-    })</script>
     <script type='text/javascript' src='/javascript/monster_actions.js'></script>
 ]]>
 

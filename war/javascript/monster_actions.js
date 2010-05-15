@@ -1,15 +1,24 @@
 /*
- * Estas funciones se ocupan de la consistencia y funcionamiento del gesto de acciones del mounstro.
- * 
+ * Comportamiento de los botones para asignar turnos del monstruo. 
+ * Este script se incluye en la vista in_game/monsters/monster.jspx. En particular cumple los siguientes características:
+ * 	
+ * 	-Hay botones para restar/sumar un turno, y para añadir/quitar todos los turnos posibles en esa tarea.
+ * 	-Avisa cuando no se pueden asignar más turnos con un efecto sobre los turnos libres disponibles.
+ * 	-No dejar meter números negativos (si el value es menor que cero, se cambia a cero).
+ * 	-Previene en la inerción de letras (solo acepta números)
+ * 	-También funciona introduciendo números directamente en los inputs (y además es no intrusivo, por lo que si se quita el script se puede seguir utilizando el formulario)
  * */
 
 
 $(function(){
 	
 	// Turnos libres que hay actualmente en la pantalla (este es dinamico)
-	var free_turns_value = function() {
+	var freeTurnsValue = function() {
 	    return parseInt($('span.free_turns_value').text()) || 0;
 	};
+	
+	//Turnos libres del mounstro en total. (Este es estatico y no cambia)
+	var monster_free_turns = freeTurnsValue();
 	
 	//Esta funcion devuelve el valor validado de valor_input. Si es una cadena  o menor que cero devuelve 0.
 	var validarInput = function(valor_input){
@@ -35,7 +44,7 @@ $(function(){
 	};
 	
 	var removeAllTurns = function(target_input){
-	    var turns_avaliable = free_turns_value();
+	    var turns_avaliable = freeTurnsValue();
 	    turns_avaliable = parseInt(turns_avaliable) + validarInput(target_input.val());
 	    target_input.val(0);
 	    refreshFreeTurns();
@@ -73,7 +82,7 @@ $(function(){
     	return false;
     };
 	                
-	                    // Comportamiento del boton de anhadir un turno mas
+	// Comportamiento del boton de anhadir un turno mas
 	$('form[name=monsterActionsToDoForm] button.add_turn_button').click(function(){
 	    var target_input = '#' + $(this).attr('id').replace('_add_turn_button','_turns_input');
 	    addCuantityInput($(target_input),1);
