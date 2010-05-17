@@ -172,8 +172,7 @@ public final class SessionManager {
         throws DuplicateInstanceException, InternalErrorException, FullPlacesException {
         
         // Register user
-            
-       LoginResult loginResult = userFacade.registerUser(login, clearPassword, userDetails);
+    	LoginResult loginResult = userFacade.registerUser(login, clearPassword, userDetails);
             
         // Save login result into session
         setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
@@ -287,34 +286,22 @@ public final class SessionManager {
     private final static void updateSessionFromCookies(
         HttpServletRequest request) throws InternalErrorException {
         
-        /* Are there cookies in the request ? */
+        // Are there cookies in the request ?
         Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            return;
-        }
+        if(cookies == null) return;
 
-        /* 
-         * Check if the login name and the encrypted password come as 
-         * cookies. 
-         */
+        // Check if the login name and the encrypted password come as cookies. 
         String login = null;
         String encryptedPassword = null;
-        int foundCookies = 0;
-
-        for (int i=0; (i<cookies.length) && (foundCookies < 2); i++) {
-            if (cookies[i].getName().equals(LOGIN_NAME_COOKIE)) {
-                login = cookies[i].getValue();
-                foundCookies++;
+        for(Cookie cookie: cookies) {
+            if (cookie.getName().equals(LOGIN_NAME_COOKIE)) {
+                login = cookie.getValue();
             }
-            if (cookies[i].getName().equals(ENCRYPTED_PASSWORD_COOKIE)) {
-                encryptedPassword = cookies[i].getValue();
-                foundCookies++;
+            if (cookie.getName().equals(ENCRYPTED_PASSWORD_COOKIE)) {
+                encryptedPassword = cookie.getValue();
             }
         }
-
-        if (foundCookies != 2) {
-            return;
-        }
+        if(login == null || encryptedPassword == null) return;
         
         /* Try to login, and if successful, update session with the necessary 
          * objects for an authenticated user.
@@ -333,12 +320,21 @@ public final class SessionManager {
      * Deja las cookies necesarias en la sesión (login y encryptedPassword).
      * Si se pone leaveCookes(request, null) lo que hace es borrarlas.
      * @param loginResult contiene la información necesaria para crear las cookies.
-     * 		Si es null, entonces elimina las elimina.
+     * 		Si es null, entonces las elimina.
      */
     private final static void leaveCookies(HttpServletResponse response, LoginResult loginResult) {
-    	int timeToLive = COOKIES_TIME_TO_LIVE_REMEMBER_MY_PASSWORD;
-    	String login = loginResult == null ? "" : loginResult.getLogin();
-    	String encryptedPassword = loginResult == null ? "" : loginResult.getEncryptedPassword();
+    	int timeToLive;
+    	String login;
+    	String encryptedPassword;
+    	if(loginResult != null) {
+    		timeToLive = COOKIES_TIME_TO_LIVE_REMEMBER_MY_PASSWORD;
+    		login = loginResult.getLogin();
+    		encryptedPassword = loginResult.getEncryptedPassword();
+    	} else {
+    		timeToLive = COOKIES_TIME_TO_LIVE_REMOVE;
+    		login = "";
+    		encryptedPassword = ""; 
+    	}
         
          /* Create cookies. */
         Cookie loginCookie = new Cookie(LOGIN_NAME_COOKIE, login);

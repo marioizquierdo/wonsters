@@ -32,7 +32,7 @@
   		description="Estilos opcionales que se pueden aplicar al icono (en el div) a mayores del background-position.
   			Lo normal es utilizarlo para aplicar algo de margin-left o margin-right."/>
   			
-	<div class="${size}_ico" style="background-position: 0 ${-pixels*id}px; ${style}" title="${title}" >
+	<div class="icon ${size}_ico" style="background-position: 0 ${-pixels*id}px; ${style}" title="${title}">
 		<img src="/images/theme/empty_pixel.png"/></div>
 	
 </jsp:root>

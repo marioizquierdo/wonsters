@@ -28,6 +28,9 @@ body {
 }
 
 /****** Icons ******/
+img.icon {
+	display: inline;
+}
 .s_ico {
 	/* La imagen es un trozo de un "sprite" vertical donde cada icono está debajo del otro */
 	float: left;

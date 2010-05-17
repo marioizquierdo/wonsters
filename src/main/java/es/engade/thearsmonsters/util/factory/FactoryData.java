@@ -325,7 +325,7 @@ private static User generateUserScaffold(User user) {
         dormitories.setLevel(10); 
         warehouse.setLevel(15); 
         warehouse.setStateCancelWorks();
-        tradeOffice.setLevel(2);
+        tradeOffice.setLevel(5);
 
 
     

@@ -32,12 +32,8 @@ public class AuthenticationPreProcessingFilter extends PreProcessingFilter {
             ActionMapping mapping) throws IOException, ServletException,
                 InternalErrorException {
 
-//**************************************************************************
-//**********        ANTIGUO CODIGO DEL PREPROCESSING FILTER      ***********
-//**************************************************************************
     	ThearsmonstersActionMapping thearsmonstersActionMapping =
 	        (ThearsmonstersActionMapping) mapping;
-
 	
 	    if (thearsmonstersActionMapping.getAuthenticationRequired()) {
 	    	
