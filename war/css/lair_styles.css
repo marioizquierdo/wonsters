@@ -187,6 +187,14 @@
 	width: 700px;
 }
 
+.roomAttributes_description .roomAttributes_brief {
+    float: left;
+    padding-left:20px;
+    background-position: top left;
+    background-image: url(../images/theme/icons/godmonster.png);
+    background-repeat: no-repeat;
+}
+
 .roomAttributes_info,.roomAttributes_actions {
 	margin-top: 0.6em;
 	margin-left: 10px;

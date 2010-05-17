@@ -10,16 +10,25 @@
 	<!-- Reserved space for show flashMessages after Room actions (like CancelWorks). Please do not change the id -->
 	<div id="roomFlashMessage_${room.roomType}"></div>
 	
-	<!-- Room description (short text, 2-3 lines max) -->
+	<!-- Room description. If room level is less than 2 show the long description given by god monster.
+	     Else, show only a short brief x1-->
 	<div class="roomAttributes_description">
-		<fmt:message key="Lair.room.${room.roomType}.description" />
+	   <c:choose> 
+	       <c:when test="${room.level < 2}">
+		      <div class="roomAttributes_brief">
+		          <fmt:message key="Lair.room.${room.roomType}.description" />
+		      </div>
+		   </c:when>
+		   <c:otherwise>
+		      <fmt:message key="Lair.room.${room.roomType}.brief" />
+           </c:otherwise>
+	   </c:choose>
 	</div>
 	
 	<!-- Room Info -->
 	<div class="roomAttributes_info">
 		<ul>
-			<!-- Level and Size -->
-			<li><span class="attr"><fmt:message key="Lair.room.size" /></span>: ${room.size}</li>
+			<!-- Level -->
 			<li><span class="attr"><fmt:message key="Lair.room.level" /></span>: ${room.level}</li>
 			
 			<!-- Concrete info for each type of room -->
