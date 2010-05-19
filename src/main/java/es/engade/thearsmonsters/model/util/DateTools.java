@@ -8,6 +8,11 @@ import java.util.Date;
  * Clase de ayuda para simplificar el manejo de Fechas
  */
 public class DateTools {
+	
+	public static long MILLISECONDS_PER_SECOND = 1000;
+	public static long MILLISECONDS_PER_MINUTE = 60 * 1000;
+	public static long MILLISECONDS_PER_HOUR = 60 * 60 * 1000;
+	public static long MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
 	/**
      * Devuelve un objeto Date que representa el momento de la llamada.
@@ -32,100 +37,151 @@ public class DateTools {
 		return DateTools.new_byDaysFromNow(30); // Puede no ser exacto para los meses de 31 dias
 	}
 	
+
 	/**
-	 * Fecha obtenida a sumando días a partir de ahora
+	 * Añadir milisegundos a la fecha (la modifica)
 	 */
-	public static Date new_byMillisecondsFromNow(long milliseconds) {
-		Date d = DateTools.now();
-		d.setTime(d.getTime() + milliseconds);
+	public static Date addMillisecondsTo(Date date, long milliseconds) {
+		date.setTime(date.getTime() + milliseconds);
+		return date;
+	}
+
+	/**
+	 * Añadir segundos a la fecha (la modifica)
+	 */
+	public static Date addSecondsTo(Date date, long seconds) {
+		date.setTime(date.getTime() + seconds);
+		return addMillisecondsTo(date, seconds * MILLISECONDS_PER_SECOND);
+	}
+
+	/**
+	 * Añadir minutos a la fecha (la modifica)
+	 */
+	public static Date addMinutesTo(Date date, long minutes) {
+		date.setTime(date.getTime() + minutes * MILLISECONDS_PER_MINUTE);
+		return date;
+	}
+
+	/**
+	 * Añadir horas a la fecha (la modifica)
+	 */
+	public static Date addHoursTo(Date date, long hours) {
+		date.setTime(date.getTime() + hours * MILLISECONDS_PER_HOUR);
+		return date;
+	}
+
+	/**
+	 * Añadir días a la fecha (la modifica)
+	 */
+	public static Date addDaysTo(Date date, long days) {
+		date.setTime(date.getTime() + days * MILLISECONDS_PER_DAY);
+		return date;
+	}
+	
+	/**
+	 * Crea un Date sumando milisegundos a partir de from
+	 */
+	public static Date new_byMillisecondsFrom(Date from, long milliseconds) {
+		Date d = new Date();
+		d.setTime(from.getTime() + milliseconds);
 		return d;
 	}
+	public static Date new_byMillisecondsFromNow(long milliseconds) {
+		return new_byMillisecondsFrom(now(), milliseconds);
+	}
 	
 	/**
-	 * Fecha obtenida a sumando días a partir de ahora
+	 * Crea un Date sumando segundos a partir de from
 	 */
+	public static Date new_bySecondsFrom(Date from, long seconds) {
+		
+		return new_byMillisecondsFrom(from, seconds * MILLISECONDS_PER_SECOND);
+	}
 	public static Date new_bySecondsFromNow(long seconds) {
-		long millisecondsPerSecond = 60 * 1000;
-		return new_byMillisecondsFromNow(seconds * millisecondsPerSecond);
+		return new_bySecondsFrom(now(), seconds);
 	}
 	
 	/**
-	 * Fecha obtenida a sumando días a partir de ahora
+	 * Crea un Date sumando minutos a partir de from
 	 */
+	public static Date new_byMinutesFrom(Date from, long minutes) {
+		return new_byMillisecondsFrom(from, minutes * MILLISECONDS_PER_MINUTE);
+	}
 	public static Date new_byMinutesFromNow(long minutes) {
-		long millisecondsPerMinute = 60 * 1000;
-		return new_byMillisecondsFromNow(minutes * millisecondsPerMinute);
+		return new_byMinutesFrom(now(), minutes);
 	}
 	
 	/**
-	 * Fecha obtenida a sumando días a partir de ahora
+	 * Crea un Date sumando horas a partir de from
 	 */
+	public static Date new_byHoursFrom(Date from, long hours) {
+		return new_byMillisecondsFrom(from, hours * MILLISECONDS_PER_HOUR);
+	}
 	public static Date new_byHoursFromNow(long hours) {
-		long millisecondsPerHour = 60 * 60 * 1000;
-		return new_byMillisecondsFromNow(hours * millisecondsPerHour);
+		return new_byHoursFrom(now(), hours);
 	}
 	
 	/**
-	 * Fecha obtenida a sumando días a partir de ahora
+	 * Fecha obtenida a sumando días a partir de from
 	 */
-	public static Date new_byDaysFromNow(long days) {
-		long millisecondsPerDay = 24 * 60 * 60 * 1000;
-		return new_byMillisecondsFromNow(days * millisecondsPerDay);
+	public static Date new_byDaysFrom(Date from, long days) {
+		return new_byMillisecondsFrom(from, days * MILLISECONDS_PER_DAY);
 	}
+	public static Date new_byDaysFromNow(long days) {
+		return new_byDaysFrom(now(), days);
+	}
+	
+	
 	
 	/**
      * Milisegundos entre la primera y la segunda fecha.
      */
-	public static long distanceInMilliseconds(Date from, Date to){
+	public static long millisecondsBetween(Date from, Date to){
 		return (to.getTime() - from.getTime());
 	}
-	public static long distanceInMillisecondsFromNow(Date to) {
-		return distanceInMilliseconds(DateTools.now(), to);
+	public static long millisecondsFromNowTo(Date to) {
+		return millisecondsBetween(now(), to);
 	}
 	
 	/**
 	 * Segundos entre la primera y la segunda fecha
 	 */
-	public static Float distanceInSeconds(Date from, Date to) {
-		long millisecondsPerSecond = 1000;
-		return (float) (distanceInMilliseconds(from, to) / millisecondsPerSecond);
+	public static double secondsBetween(Date from, Date to) {
+		return ((double) millisecondsBetween(from, to)) / MILLISECONDS_PER_SECOND;
 	}
-	public static Float distanceInSecondsFromNow(Date to) {
-		return distanceInSeconds(DateTools.now(), to);
-	}
-	
-	/**
-	 * Minutos entre la primera y la segunda fecha
-	 */
-	public static Float distanceInMinutes(Date from, Date to) {
-		long millisecondsPerMinute = 60 * 1000;
-		return (float) (distanceInMilliseconds(from, to) / millisecondsPerMinute);
-	}
-	public static Float distanceInMinutesFromNow(Date to) {
-		return distanceInMinutes(DateTools.now(), to);
+	public static double secondsFromNowTo(Date to) {
+		return secondsBetween(now(), to);
 	}
 	
 	/**
 	 * Minutos entre la primera y la segunda fecha
 	 */
-	public static Float distanceInHours(Date from, Date to) {
-		long millisecondsPerHour = 60 * 60 * 1000;
-		return (float) (distanceInMilliseconds(from, to) / millisecondsPerHour);
+	public static double minutesBetween(Date from, Date to) {
+		return ((double) millisecondsBetween(from, to)) / MILLISECONDS_PER_MINUTE;
 	}
-	public static Float distanceInHoursFromNow(Date to) {
-		return distanceInHours(DateTools.now(), to);
+	public static double minutesFromNowTo(Date to) {
+		return minutesBetween(now(), to);
+	}
+	
+	/**
+	 * Minutos entre la primera y la segunda fecha
+	 */
+	public static double hoursBetween(Date from, Date to) {
+		return ((double) millisecondsBetween(from, to)) / MILLISECONDS_PER_HOUR;
+	}
+	public static double hoursFromNowTo(Date to) {
+		return hoursBetween(now(), to);
 	}
 	
 	
 	/**
      * Días entre la primera y la segunda fecha
      */
-	public static Float distanceInDays(Date from, Date to) {
-        long millisecondsPerDay = 24 * 60 * 60 * 1000;
-		return (float) (distanceInMilliseconds(from, to) / millisecondsPerDay);
+	public static double daysBetween(Date from, Date to) {
+		return ((double) millisecondsBetween(from, to)) / MILLISECONDS_PER_DAY;
     }
-	public static Float distanceInDaysFromNow(Date to) {
-		return distanceInDays(DateTools.now(), to);
+	public static double daysFromNowTo(Date to) {
+		return daysBetween(now(), to);
 	}
 	
 	

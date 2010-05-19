@@ -1,13 +1,14 @@
 package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
+import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
-import es.engade.thearsmonsters.model.util.GameConf;
 
 /**
  * Encapsulate specific rooms data.
@@ -22,13 +23,13 @@ public class RoomData implements Serializable {
 
 	private static final long serialVersionUID = 200911261651L;
 
-	private long lastChangeResourcesTurn;
+	private Date lastChangeResourcesDate;
     private int vitalSpaceOccupied;
 	private Lair lair;
     
-    public RoomData(long lastChangeResourcesTurn, int vitalSpaceOccupied) {
+    public RoomData(Date lastChangeResourcesDate, int vitalSpaceOccupied) {
     	this.lair = null; // hay que fijarlo con setLair();
-        this.lastChangeResourcesTurn = lastChangeResourcesTurn;
+        this.lastChangeResourcesDate = lastChangeResourcesDate;
         this.vitalSpaceOccupied = vitalSpaceOccupied;
     }
     
@@ -36,7 +37,7 @@ public class RoomData implements Serializable {
      * Constructor with default values (when the lair is first time created for a new user).
      */
     public RoomData() {
-    	this(0, 0);
+    	this(DateTools.yesterday(), 0);
     }
     
     
@@ -53,20 +54,22 @@ public class RoomData implements Serializable {
 		return lair.getRoom(RoomType.TradeOffice);
 	}
     
-	public long getLastChangeResourcesTurn() {
-		return lastChangeResourcesTurn;
+	public Date getLastChangeResourcesDate() {
+		return lastChangeResourcesDate;
 	}
 
-	private void setLastChangeResourcesTurn(long newTurn) {
-		this.lastChangeResourcesTurn = newTurn;
+	private void setLastChangeResourcesDate(Date newDate) {
+		lastChangeResourcesDate = newDate;
 	}
 
-	public void setLastChangeResourcesTurnToNow() {
-		this.setLastChangeResourcesTurn(GameConf.getCurrentTurn());
+	public void setLastChangeResourcesDateToNow() {
+		setLastChangeResourcesDate(DateTools.now());
 	}
 	
 	public boolean isReadyToChangeResources() {
-		return this.lastChangeResourcesTurn <= GameConf.getCurrentTurn() - GameConf.getTurnsPerDay();
+		// Esta preparado para hacer otro cambio de recursos si
+		// el último cambio se hizo ayer o antes.
+		return lastChangeResourcesDate.before(DateTools.yesterday());
 	}
 	
 	/**
@@ -113,7 +116,7 @@ public class RoomData implements Serializable {
 	 */
 	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() {
 		if(!isReadyToChangeResources()) {
-			return new OnlyOneChangePerGameDayException(this.lastChangeResourcesTurn, lair.getUser().getLogin());
+			return new OnlyOneChangePerGameDayException(lastChangeResourcesDate, lair.getUser().getLogin());
 		} else {
 			return null;
 		}
@@ -243,7 +246,7 @@ public class RoomData implements Serializable {
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
-		    "lastChangeResourcesTurn", lastChangeResourcesTurn,
+		    "lastChangeResourcesDate", lastChangeResourcesDate,
 			"vitalSpaceOccupied", vitalSpaceOccupied
 		});
 	}
@@ -252,9 +255,11 @@ public class RoomData implements Serializable {
     public int hashCode() {
 	    final int prime = 31;
 	    int result = 1;
+	    result = prime * result + ((lair == null) ? 0 : lair.hashCode());
 	    result = prime
 	            * result
-	            + (int) (lastChangeResourcesTurn ^ (lastChangeResourcesTurn >>> 32));
+	            + ((lastChangeResourcesDate == null) ? 0
+	                    : lastChangeResourcesDate.hashCode());
 	    result = prime * result + vitalSpaceOccupied;
 	    return result;
     }
@@ -268,7 +273,16 @@ public class RoomData implements Serializable {
 	    if (getClass() != obj.getClass())
 		    return false;
 	    RoomData other = (RoomData) obj;
-	    if (lastChangeResourcesTurn != other.lastChangeResourcesTurn)
+	    if (lair == null) {
+		    if (other.lair != null)
+			    return false;
+	    } else if (!lair.equals(other.lair))
+		    return false;
+	    if (lastChangeResourcesDate == null) {
+		    if (other.lastChangeResourcesDate != null)
+			    return false;
+	    } else if (!lastChangeResourcesDate
+	            .equals(other.lastChangeResourcesDate))
 		    return false;
 	    if (vitalSpaceOccupied != other.vitalSpaceOccupied)
 		    return false;

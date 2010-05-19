@@ -2,6 +2,7 @@ package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -211,7 +212,8 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public int getVitalSpace() { return roomData.getVitalSpace(); }
 	public boolean refreshVitalSpaceOccupied() { return roomData.refreshVitalSpaceOccupied(); }
 	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(); }
-	public void setLastChangeResourcesTurnToNow() { roomData.setLastChangeResourcesTurnToNow(); }
+	public Date getLastChangeResourcesDate() { return roomData.getLastChangeResourcesDate(); }
+	public void setLastChangeResourcesDateToNow() { roomData.setLastChangeResourcesDateToNow(); }
 	public boolean isReadyToChangeResources() { return roomData.isReadyToChangeResources(); }
 	public int getChangeResourcesMaxGarbageAmountEnabled() { return roomData.getChangeResourcesMaxGarbageAmountEnabled(); }
 	public int getChangeResourcesMaxMoneyAmountEnabled() { return roomData.getChangeResourcesMaxMoneyAmountEnabled(); }

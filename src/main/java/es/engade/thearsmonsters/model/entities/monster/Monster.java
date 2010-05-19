@@ -1,10 +1,8 @@
 package es.engade.thearsmonsters.model.entities.monster;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -22,7 +20,6 @@ import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
-import es.engade.thearsmonsters.model.entities.monsteractivity.MonsterActivity;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
@@ -60,8 +57,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     @Persistent
 	private int freeTurns;
     
-    @Persistent(serialized="true", defaultFetchGroup="true")
-	private List<MonsterActivity> activities;
+//    @Persistent(serialized="true", defaultFetchGroup="true")
+//	private List<MonsterActivity> activities;
     
     @Persistent
 	private String name;
@@ -70,7 +67,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	private MonsterRace race;
 	
 	public Monster(){
-	    activities = new ArrayList<MonsterActivity>();
+//	    activities = new ArrayList<MonsterActivity>();
 	}
 	
 	/**
@@ -93,7 +90,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.freeTurns = 0;
 		
 		// No implementado por ahora
-		this.activities = new ArrayList<MonsterActivity>();
+//		this.activities = new ArrayList<MonsterActivity>();
 	}
 	
 	/**
@@ -125,18 +122,12 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public MonsterRace getRace() { return race; }
 	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
 	
-	public int getAgeDays(){ 
-	    
-	    int days = Math.round(DateTools.distanceInDays(getBorningDate(), DateTools.now()));
-
-	    return days;
-	    
+	public int getAgeDays(){
+	    return (int) DateTools.daysBetween(getBorningDate(), DateTools.now());
 	}
 	
 	public int getAgePercentageLived(){
-	    
 	    return Math.round((getAgeDays() / race.getLifeExpectancyDays()) * 100);
-	    
 	}
 	
 	public Attr getBestWorkSkill(){return this.workSkills.get(1);}
@@ -276,7 +267,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		}
 		
 		int turnsPerDay = 15 - this.taskHours(); // turnos acumulados cada día
-		float daysFromTimestamp = DateTools.distanceInDays(this.freeTurnsTimestamp, timestamp);
+		double daysFromTimestamp = DateTools.daysBetween(this.freeTurnsTimestamp, timestamp);
 		
 		// En el momento timestamp, los freeTurns son los que había en el instante freeTurnsTimestamp
 		// mas el número de turnos acumulados (según los dias que han pasado desde el último timpestamp)

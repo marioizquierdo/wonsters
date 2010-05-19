@@ -221,7 +221,7 @@ public class FactoryData {
         Lair lair = new Lair(user,
             0, // money 
             0, // garbage
-            new RoomData(0, 0), // lastChangeResourcesTurn and occupied vital space
+            new RoomData(DateTools.yesterday(), 0), // lastChangeResourcesDate and occupied vital space
             0,0,0); // geographical position
     
         user.setLair(lair); // add to user
@@ -308,7 +308,7 @@ private static User generateUserScaffold(User user) {
         Lair lair = new Lair(user,
             1000, // money 
             500, // garbage
-            new RoomData(100, 10), // lastChangeResourcesTurn and occupied vital space
+            new RoomData(DateTools.yesterday(), 10), // lastChangeResourcesTurn and occupied vital space
             1,1,1); // geographical position
     
         user.setLair(lair); // add to user

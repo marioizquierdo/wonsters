@@ -1,5 +1,6 @@
 package es.engade.thearsmonsters.model.facades.lairfacade;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -74,40 +75,40 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
             InsuficientMoneyException, OnlyOneChangePerGameDayException,
             InternalErrorException {
         
-        int garbage = lair.getGarbage();
-        int money = lair.getMoney();
-        int garbageStorageCapacity = lair.getGarbageStorageCapacity();
-        int moneyStorageCapacity = lair.getMoneyStorageCapacity();
-//        int amountObtained = amount * (100 - tradeOffice.getPercentageCommision()) / 100;
-        // temporalmente se recibe todo lo que se cambia
-        int amountObtained = amount; 
-        long lastChangeResourcesTurn = lair.getRoomData().getLastChangeResourcesTurn();
+        int currentGarbage = lair.getGarbage();
+        int currentMoney = lair.getMoney();
+        int maxGarbage = lair.getGarbageStorageCapacity();
+        int maxMoney = lair.getMoneyStorageCapacity();
+        int amountObtained = amount * (100 - lair.getPercentageCommision()) / 100; // aplica el porcentaje de comision por el cambio
+        Date lastChangeResourcesDate = lair.getLastChangeResourcesDate();
+        String login = lair.getUser().getLogin();
+        
         
         // Check that the change is made only once per day
-        if(!lair.getRoomData().isReadyToChangeResources()) {
-            throw new OnlyOneChangePerGameDayException(lastChangeResourcesTurn, lair.getUser().getLogin());
+        if(!lair.isReadyToChangeResources()) {
+            throw new OnlyOneChangePerGameDayException(lastChangeResourcesDate, login);
         }
         
         if (moneyOrGarbage.equals("money")) {
-            if(amount > garbage) {
-                throw new InsuficientGarbageException(amount, garbage);
+            if(amount > currentGarbage) {
+                throw new InsuficientGarbageException(amount, currentGarbage);
             }
             if(amount > lair.getChangeResourcesMaxGarbageAmountEnabled()) {
-                throw new WarehouseFullStorageException(garbage, amount, 
-                        garbageStorageCapacity, lair.getUser().getLogin());
+                throw new WarehouseFullStorageException(currentGarbage, amount, 
+                        maxGarbage, login);
             }
-            lair.setGarbage(garbage - amount);
-            lair.setMoney(money + amountObtained);
+            lair.setGarbage(currentGarbage - amount);
+            lair.setMoney(currentMoney + amountObtained);
         } else if (moneyOrGarbage.equals("garbage")) {
-            if(amount > money) {
-                throw new InsuficientMoneyException(amount, money);
+            if(amount > currentMoney) {
+                throw new InsuficientMoneyException(amount, currentMoney);
             }
             if(amount > lair.getChangeResourcesMaxMoneyAmountEnabled()) {
-                throw new TradeOfficeFullStorageException(money, amount, 
-                        moneyStorageCapacity, lair.getUser().getLogin());
+                throw new TradeOfficeFullStorageException(currentMoney, amount, 
+                        maxMoney, login);
             }
-            lair.setMoney(money - amount);
-            lair.setGarbage(garbage + amountObtained);
+            lair.setMoney(currentMoney - amount);
+            lair.setGarbage(currentGarbage + amountObtained);
         } else {
             throw new InternalErrorException(
                     new Exception("Expected \"money\" or \"garbage\" resource," +
@@ -116,7 +117,7 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
         }
         
         // Mark diary change done
-        lair.getRoomData().setLastChangeResourcesTurnToNow();
+        lair.getRoomData().setLastChangeResourcesDateToNow();
         
         // Save changes and return
         userDao.update(lair.getUser());

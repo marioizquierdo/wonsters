@@ -342,7 +342,9 @@ public final class SessionManager {
 
         /* Set maximum age to cookies. */
         loginCookie.setMaxAge(timeToLive);
+        loginCookie.setPath("/"); // Añadido para que no le ponga la ruta "/userprofile/"
         encryptedPasswordCookie.setMaxAge(timeToLive);
+        encryptedPasswordCookie.setPath("/"); // Añadido para que no le ponga la ruta "/userprofile/"
 
         /* Add cookies to response. */
         response.addCookie(loginCookie);

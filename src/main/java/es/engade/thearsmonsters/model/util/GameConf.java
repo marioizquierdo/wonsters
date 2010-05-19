@@ -91,23 +91,6 @@ public final class GameConf {
 	}
 	
 	/**
-	 * En que dia de juego estamos, teniendo en cuenta el turno
-	 * y el numero de turnos por dia.
-	 */
-	public static long getGameDay(long turn) {
-		return turn / getTurnsPerDay();
-	}
-	
-	/**
-	 * Dado un turno cualquiera, saber a que turno del dia
-	 * (de 0 a getTurnsPerDay()) se corresponde.
-	 * @return
-	 */
-	public static byte getDayTurn(long turn) {
-		return (byte) (turn % getTurnsPerDay());
-	}
-	
-	/**
 	 * Unix epoch (milisegundos desde 1970) del primer turno de juego
 	 */
 	public static long getFirstTurnEpoch() {
@@ -119,22 +102,9 @@ public final class GameConf {
 	 * Fecha del momento en el que comenzó el primer turno de juego
 	 */
 	public static Date getFirstTurnDate() {
-    	Date date = DateTools.now();
+    	Date date = new Date();
     	date.setTime(getFirstTurnEpoch());
 		return date;
-	}
-	
-	//DIEGO: Este método afecta a RoomData.isReadyToChangeResource(),
-	// RoomData.setLastChangeResourcesTurnToNos()
-	// y a OnlyOneChangePerDayException
-	//
-	// Lo dejo así de momento...
-
-	/**
-	 * Devuelve el turno actual de juego
-	 */
-	public static long getCurrentTurn() {
-		return 0; //toTurn(Calendar.getInstance());
 	}
 	
     /**
@@ -144,16 +114,8 @@ public final class GameConf {
     	checkError();
 		return MaxEggs;
 	}
-	
-	/**
-	 * Compruena que un turno del día de juego es correcto.
-	 * Los turnos se cuentan desde cero hasta el total (getTurnsPerDay()) menos uno.
-	 * @throws Exception si el turno es incorrecto o si hay errores en la configuración. 
-	 */
-	public static void checkDayTurn(byte dayTurn) {
-		if(dayTurn < 0 || dayTurn >= getTurnsPerDay()) 
-			throw new IndexOutOfBoundsException("Expected turn in [0 .. "+(getTurnsPerDay()-1)+"], but turn is "+ dayTurn);
-	}
+    
+    
 	
 
 	/**
