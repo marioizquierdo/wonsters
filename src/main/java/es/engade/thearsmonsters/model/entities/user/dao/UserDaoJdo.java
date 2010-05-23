@@ -101,12 +101,12 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
 
     public User update(User user) {
         try {
-            User persistedUser = this.get(user.getId());
+            User persistedUser = this.get(user.getIdKey());
             if (!persistedUser.getLogin().equals(user.getLogin()))
                 throw new JDOUnmodificableConstraintException(
                         user.getClass(), "login");
         } catch (InstanceNotFoundException e) {
-            throw new EntityNotFoundException(user.getClass(), user.getId());
+            throw new EntityNotFoundException(user.getClass(), user.getIdKey());
         }
         return (User) getJdoTemplate().makePersistent(user);
     }

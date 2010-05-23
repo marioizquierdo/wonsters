@@ -181,8 +181,8 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 
 	//------ Common getters and setters ------//
 
-	public Key getId() { return id; }
-	public void setId(Key lairId) { this.id = lairId; }
+	public Key getIdKey() { return id; }
+	public void setIdKey(Key lairId) { this.id = lairId; }
 	public int getMoney() { return money; }
 	public void setMoney(int money) { this.money = money; }
 	public int getGarbage() { return garbage; }
@@ -245,11 +245,11 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	    return this;
 	}
 	
-	public MonsterEgg getMonsterEgg(Key eggId) throws InstanceNotFoundException {
+	public MonsterEgg getMonsterEgg(Key eggIdKey) throws InstanceNotFoundException {
 		for(MonsterEgg egg: this.monsterEggs) {
-			if(egg.getId().equals(eggId)) return egg;
+			if(egg.getIdKey().equals(eggIdKey)) return egg;
 		}
-		throw new InstanceNotFoundException(eggId, MonsterEgg.class.getName());
+		throw new InstanceNotFoundException(eggIdKey, MonsterEgg.class.getName());
 	}
 	
 	public Lair addMonster(Monster monster) {
@@ -267,11 +267,11 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	    return this;
 	}
 	
-	public Monster getMonster(Key monsterId) throws InstanceNotFoundException {
+	public Monster getMonster(Key monsterIdKey) throws InstanceNotFoundException {
 		for(Monster monster: this.monsters) {
-			if(monster.getId().equals(monsterId)) return monster;
+			if(monster.getIdKey().equals(monsterIdKey)) return monster;
 		}
-		throw new InstanceNotFoundException(monsterId, Monster.class.getName());
+		throw new InstanceNotFoundException(monsterIdKey, Monster.class.getName());
 	}
 
 	
@@ -319,7 +319,7 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
         if (money != other.money)
             return false;
         //TODO: Añadir direccion
-        if (user != null && other.user != null && !user.getId().equals(other.user.getId()))
+        if (user != null && other.user != null && !user.getIdKey().equals(other.user.getIdKey()))
             return false;
         if (!roomsEquals((Lair)obj))
             return false;

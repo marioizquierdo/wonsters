@@ -113,7 +113,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	}
 
 	//-- GETTERS --//
-	public Key getId() { return id; }
+	public Key getIdKey() { return id; }
 	public Lair getLair() { return lair; }	
 	public MonsterAge getAge() { return age; }	
 	public Date getBorningDate() { return borningDate; }
@@ -130,10 +130,12 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	    return Math.round((getAgeDays() / race.getLifeExpectancyDays()) * 100);
 	}
 	
-	public Attr getBestWorkSkill(){return this.workSkills.get(1);}
+	//TODO: implementar esta operacion
+	// devolviendo el atributo que tenga mayor nivel
+	public Attr getBestWorkSkill(){return this.workSkills.get(0);}
 	
 	//-- SETTERS --//
-	public void setId(Key id) { this.id = id; }
+	public void setIdKey(Key id) { this.id = id; }
 	public void setLair(Lair lair) { this.lair = lair; }
 	public void setRace(MonsterRace race) { this.race = race; }
 	public void setName(String name) { this.name = name; }
@@ -155,7 +157,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 			setCocoonCloseUpDate(metamorphosisTime);
 			this.setAge(MonsterAge.Adult);
 		} else {
-			throw new MonsterGrowException(this.getId());
+			throw new MonsterGrowException(this.getIdKey());
 		}
 	}
 	
@@ -201,7 +203,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public Map<AttrType, Attr> getComposeAttrs() {
 		Map<AttrType,Attr> attrs = new HashMap<AttrType,Attr>();
 		for(AttrType e : AttrType.values()) {
-			if (e.getAttrClass()== AttrTypeClass.ComposeAttr){
+			if (e.getAttrClass() == AttrTypeClass.ComposeAttr){
 				attrs.put(e, this.getComposeAttr(e));
 			}
 		}

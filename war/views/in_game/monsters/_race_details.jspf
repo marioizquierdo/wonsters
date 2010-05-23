@@ -15,8 +15,8 @@
 		${race.vitalSpace}
 	</customtag:monsterBrief_data_row>
 	
-	<customtag:monsterBrief_data_row property="race.liveLenght" icon_id="13" title_extra_key="Common.gameDays">
-		${race.liveLenght}
+	<customtag:monsterBrief_data_row property="race.lifeExpectancyDays" icon_id="13" title_extra_key="Common.gameDays">
+		${race.lifeExpectancyDays}
 	</customtag:monsterBrief_data_row>
 	
 	<customtag:monsterBrief_data_row property="race.raceType" icon_id="14">

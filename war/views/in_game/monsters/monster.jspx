@@ -97,13 +97,13 @@
 			  	</c:set>
 			  	<li class="data_row">	
 				  	<span id="grow_to_adult_button" class="button_box" title="${title} ${desc}">
-						<html:link action="monster/metamorphosis_to_adult.do?monsterId=${monster.id}">${title}</html:link>
+						<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}">${title}</html:link>
 				  	</span>
 			  	</li>
 			</c:if>
 		
 			<!-- Monster Age -->
-			<c:set var="ageDesc"><fmt:message key="Monster.age.desc"><fmt:param value="${monster.race.liveLenght * 0.8}"/><fmt:param value="${monster.race.liveLenght}"/></fmt:message></c:set>
+			<c:set var="ageDesc"><fmt:message key="Monster.age.desc"><fmt:param value="${monster.race.lifeExpectancyDays * 0.8}"/><fmt:param value="${monster.race.lifeExpectancyDays}"/></fmt:message></c:set>
 			<customtag:monsterBrief_data_row property="age" desc="${ageDesc}">
 				<fmt:message key="Monster.age.ageDays"><fmt:param value="${monster.ageDays}"/></fmt:message> 
 				(<fmt:message key="Monster.age.agePercentageLived"><fmt:param value="${monster.agePercentageLived}"/></fmt:message>)

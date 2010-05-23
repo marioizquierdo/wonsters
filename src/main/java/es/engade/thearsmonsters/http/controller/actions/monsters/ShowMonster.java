@@ -32,7 +32,7 @@ public class ShowMonster extends ThearsmonstersDefaultAction {
         throws IOException, ServletException, InternalErrorException {
         
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
-    	String monsterId = request.getParameter("id");
+    	String monsterId = request.getParameter("monsterId");
     	Lair lair = SessionManager.getMyLair(request);
     	Monster monster;
     	List<MonsterActionSuggestion> suggestedMonsterActions;
@@ -42,7 +42,8 @@ public class ShowMonster extends ThearsmonstersDefaultAction {
 			monster = monsterFacade.findMonster(lair, monsterId);
 			suggestedMonsterActions = monsterFacade.suggestMonsterActions(lair, monsterId);
 		} catch (InstanceNotFoundException e) {
-	        return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
+	        //return mapping.findForward("Monsters"); // si está mal el id, vamos a la lista de monstruos
+			throw new InternalErrorException(e);
 		}
 		
 		request.setAttribute("suggestedMonsterActions", suggestedMonsterActions);

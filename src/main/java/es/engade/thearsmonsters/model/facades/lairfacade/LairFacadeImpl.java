@@ -144,7 +144,7 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
         List<Lair> lairs = lairDao.findLairsByBuilding(street, building);
         for (Lair lair : lairs) {
             try {
-                lair.setUser(userDao.get(lair.getUser().getId())); // TODO: esto hay que optimizarlo
+                lair.setUser(userDao.get(lair.getUser().getIdKey())); // TODO: esto hay que optimizarlo
             } catch (InstanceNotFoundException e) {
                 e.printStackTrace();
             }

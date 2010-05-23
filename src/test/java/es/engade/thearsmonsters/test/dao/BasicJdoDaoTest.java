@@ -62,7 +62,7 @@ public class BasicJdoDaoTest extends GaeTest{
         // PERSIST
 
         User persistentUser = userDao.save(user);
-        Key userKey = persistentUser.getId();
+        Key userKey = persistentUser.getIdKey();
         
         // RECOVER
 
@@ -92,7 +92,7 @@ public class BasicJdoDaoTest extends GaeTest{
         UserDetails newUD = new UserDetails("Antonio", "Testuser", "c@b.a", "turkish");
         User user = new User("user", "qeoqwdw", 
                 oldUD);//TODO: Hasta que se elimine la herencia en Room
-        Key userKey = userDao.save(user).getId();
+        Key userKey = userDao.save(user).getIdKey();
 
         User userRecovered = userDao.get(userKey);
         assertEquals(user, userRecovered);
@@ -100,9 +100,9 @@ public class BasicJdoDaoTest extends GaeTest{
         userRecovered.setUserDetails(newUD);
         User updatedUser = userDao.update(userRecovered);
         
-        assertEquals(userKey, updatedUser.getId());
+        assertEquals(userKey, updatedUser.getIdKey());
         
-        User updatedUserRecovered = userDao.get(updatedUser.getId());
+        User updatedUserRecovered = userDao.get(updatedUser.getIdKey());
         
         assertEquals(newUD, updatedUserRecovered.getUserDetails());
 
@@ -115,7 +115,7 @@ public class BasicJdoDaoTest extends GaeTest{
         
         User user = new User("user", "qeoqwdw", 
                 new UserDetails("nome", "apldo", "a@b.c", "spanish"));
-        Key userKey = userDao.save(user).getId();
+        Key userKey = userDao.save(user).getIdKey();
 
         User userRecovered = userDao.get(userKey);
         assertEquals(user, userRecovered);
@@ -131,7 +131,7 @@ public class BasicJdoDaoTest extends GaeTest{
             assert(true);
         }
 
-        System.out.println(userRecovered.getId());
+        System.out.println(userRecovered.getIdKey());
         
     }
     
@@ -143,11 +143,11 @@ public class BasicJdoDaoTest extends GaeTest{
         user.getLair().setRooms(null);
         
         userDao.save(user);
-        Key userKey = user.getId();
+        Key userKey = user.getIdKey();
         
         // Testing structure persistency
         Monster monster = user.getLair().getMonsters().get(0);
-        Key monsterKey = monster.getId();
+        Key monsterKey = monster.getIdKey();
         Monster retMonster = monsterDao.get(monsterKey);
         assertEquals(monster, retMonster);
         

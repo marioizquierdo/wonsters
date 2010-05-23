@@ -105,7 +105,7 @@ public class MonsterFacadeTest extends GaeTest {
     public void clearDB() {
         for (User u : allPersistentUsers) {
             try {
-                userDao.remove(u.getId());
+                userDao.remove(u.getIdKey());
             } catch (InstanceNotFoundException e) {
                 System.err.println(e.getMessage());
             }
@@ -185,7 +185,7 @@ public class MonsterFacadeTest extends GaeTest {
         int initialNumberOfEggs = lair.getMonsterEggs().size();
         int initialMoney = lair.getMoney();
         
-        String eggId = KeyUtils.toString(lair.getMonsterEggs().get(0).getId());
+        String eggId = KeyUtils.toString(lair.getMonsterEggs().get(0).getIdKey());
         
         int sellPrice = monsterFacade.sellEgg(lair, eggId);
         
@@ -207,7 +207,7 @@ public class MonsterFacadeTest extends GaeTest {
         int initialNumberOfEggs = lair.getMonsterEggs().size();
         int initialMoney = lair.getMoney();
         
-        String eggId = KeyUtils.toString(egg.getId());
+        String eggId = KeyUtils.toString(egg.getIdKey());
         
         int sellPrice = monsterFacade.sellEgg(lair, eggId);
         
@@ -224,7 +224,7 @@ public class MonsterFacadeTest extends GaeTest {
         Lair otherLair = allPersistentUsers.get(NUMBER_OF_USERS-1).getLair();
         assert(!lair.equals(otherLair));
         
-        String eggId = KeyUtils.toString(otherLair.getMonsterEggs().get(0).getId());
+        String eggId = KeyUtils.toString(otherLair.getMonsterEggs().get(0).getIdKey());
         
         monsterFacade.sellEgg(lair, eggId);
         
@@ -241,7 +241,7 @@ public class MonsterFacadeTest extends GaeTest {
         assert (!egg.isIncubated());
         assert (egg.getBorningDate() == null);
         
-        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
+        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getIdKey()));
         
         assert (!egg.isIncubated());
         assert(egg.getBorningDate() != null);
@@ -258,7 +258,7 @@ public class MonsterFacadeTest extends GaeTest {
         assert(!lair.equals(otherLair));
         MonsterEgg egg = otherLair.getMonsterEggs().get(0);
         
-        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
+        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getIdKey()));
         
     }
     
@@ -276,7 +276,7 @@ public class MonsterFacadeTest extends GaeTest {
         userDao.update(persistentUser);
         lair.refreshVitalSpaceOccupied();
         
-        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getId()));
+        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getIdKey()));
         
     }
     
@@ -297,7 +297,7 @@ public class MonsterFacadeTest extends GaeTest {
         int initialNumberOfMonsters = lair.getMonsters().size();
         int initialVitalSpaceOccupied = lair.getVitalSpaceOccupied();
         
-        Monster monster = monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
+        Monster monster = monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getIdKey()), "TestName");
         
         assert(lair.getMonsters().contains(monster));
         assertEquals(initialNumberOfEggs - 1, lair.getMonsterEggs().size());
@@ -317,7 +317,7 @@ public class MonsterFacadeTest extends GaeTest {
         Lair lair = persistentUser.getLair();
         MonsterEgg egg = lair.getMonsterEggs().get(0);
     
-        monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
+        monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getIdKey()), "TestName");
 
     }
     
@@ -340,7 +340,7 @@ public class MonsterFacadeTest extends GaeTest {
         userDao.update(persistentUser);
         lair.refreshVitalSpaceOccupied();
     
-        monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getId()), "TestName");
+        monsterFacade.bornMonster(lair, KeyUtils.toString(egg.getIdKey()), "TestName");
 
     }
     
@@ -351,7 +351,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         assertEquals(persistentChildMonster.getAge(), MonsterAge.Child);
         
-        String monsterId = KeyUtils.toString(persistentChildMonster.getId());
+        String monsterId = KeyUtils.toString(persistentChildMonster.getIdKey());
         Monster recoveredMonster = monsterFacade.metamorphosisToAdult(persistentUser.getLair(), monsterId);
         
         //TODO de momento falla pq no está implementado metamorphosisToAdult
@@ -366,7 +366,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         assert(!persistentAdultMonster.getAge().equals(MonsterAge.Child));
         
-        String monsterId = KeyUtils.toString(persistentAdultMonster.getId());
+        String monsterId = KeyUtils.toString(persistentAdultMonster.getIdKey());
         monsterFacade.metamorphosisToAdult(persistentUser.getLair(), monsterId);
         
     }
@@ -378,7 +378,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         assert(persistentChildMonster.getAge().equals(MonsterAge.Child));
         
-        String monsterId = KeyUtils.toString(persistentChildMonster.getId());
+        String monsterId = KeyUtils.toString(persistentChildMonster.getIdKey());
         
         monsterFacade.metamorphosisToAdult(anotherPersistentUser.getLair(), monsterId);
         
@@ -398,7 +398,7 @@ public class MonsterFacadeTest extends GaeTest {
     public void testFindMonster()
     throws InternalErrorException, InstanceNotFoundException {
         
-        Monster monster = monsterFacade.findMonster(null, KeyUtils.toString(persistentChildMonster.getId()));
+        Monster monster = monsterFacade.findMonster(null, KeyUtils.toString(persistentChildMonster.getIdKey()));
         
         assertEquals(persistentChildMonster, monster);
         

@@ -78,7 +78,7 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
         try {
             User user = userDao.findUserByLogin(login);
             if (user != null)
-                throw new DuplicateInstanceException(user.getId(), User.class.getName());
+                throw new DuplicateInstanceException(user.getIdKey(), User.class.getName());
             else
                 throw new InternalErrorException(new Exception("Expected InstanceNotFoundException, but null value was found"));
         } catch (InstanceNotFoundException e) {
@@ -87,8 +87,8 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
             Lair newLair = FactoryData.LairWhatIs.Default.build(newUser); // TODO: aqui habrá que cambiarlo por una LairWhatIs.inInitialState
            
             userDao.save(newUser);
-            System.out.println("User " + newUser.getId());
-            System.out.println("Lair " + newUser.getLair().getId());
+            System.out.println("User " + newUser.getIdKey());
+            System.out.println("Lair " + newUser.getLair().getIdKey());
             return new LoginResult(newLair, login, userDetails.getFirstName(), 
                     newUser.getEncryptedPassword(), userDetails.getLanguage());
 
@@ -101,7 +101,7 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
         User user = userDao.findUserByLogin(login);
         
-        userDao.remove(user.getId());
+        userDao.remove(user.getIdKey());
 
     }
 

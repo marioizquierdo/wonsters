@@ -106,7 +106,7 @@ public class LairFacadeTest extends GaeTest {
     public void clearDB() {
         for (User u : allPersistentUsers) {
             try {
-                userDao.remove(u.getId());
+                userDao.remove(u.getIdKey());
             } catch (InstanceNotFoundException e) {
                 System.err.println(e.getMessage());
             }
@@ -117,7 +117,7 @@ public class LairFacadeTest extends GaeTest {
     public void testFindLair() 
         throws InstanceNotFoundException, InternalErrorException {
         
-        Lair lair = lairFacade.findLair(KeyUtils.toString(persistentLair.getId()));
+        Lair lair = lairFacade.findLair(KeyUtils.toString(persistentLair.getIdKey()));
         assertEquals(persistentLair, lair);
     }
     
@@ -126,8 +126,8 @@ public class LairFacadeTest extends GaeTest {
     throws InstanceNotFoundException, InternalErrorException {
     
         User userToDelete = allPersistentUsers.get(NUMBER_OF_USERS - 1);
-        lairDao.remove(userToDelete.getLair().getId());
-        Lair lair = lairFacade.findLair(KeyUtils.toString(userToDelete.getLair().getId()));
+        lairDao.remove(userToDelete.getLair().getIdKey());
+        Lair lair = lairFacade.findLair(KeyUtils.toString(userToDelete.getLair().getIdKey()));
         System.out.println("GOT " + lair);
         
     }

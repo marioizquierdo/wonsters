@@ -146,7 +146,17 @@ public class FactoryData {
 	public enum EggWhatIs {
 		Random {
 			public MonsterEgg build() {
-				return new MonsterEgg(generateDefaultLair(), MonsterRace.Bu, new Date());
+				return new MonsterEgg(generateDefaultLair(), MonsterRace.Bu, DateTools.new_byMinutesFromNow((long) (Math.random() * 10) - 5));
+			}
+		},
+		Incubated {
+			public MonsterEgg build() {
+				return new MonsterEgg(generateDefaultLair(), MonsterRace.Bu, DateTools.yesterday());
+			}
+		},
+		NotIncubated {
+			public MonsterEgg build() {
+				return new MonsterEgg(generateDefaultLair(), MonsterRace.Bu, null);
 			}
 		};
 		// ...
@@ -327,7 +337,6 @@ private static User generateUserScaffold(User user) {
         warehouse.setStateCancelWorks();
         tradeOffice.setLevel(5);
 
-
     
         //*** MONSTER EGGS ***//
     
@@ -343,13 +352,7 @@ private static User generateUserScaffold(User user) {
         //*** MONSTERS ***//
         Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de " + lair.getUser().getLogin(), now, now, MonsterAge.Child);
         Monster adult = new Monster(lair, MonsterRace.Polbo,   "Héctor de " + lair.getUser().getLogin(), now, now, MonsterAge.Adult);
-        Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLogin(), now, now, MonsterAge.Old);
-        
-        // Poner un id cualquiera, hay que poner un id válido
-        //child.setId(KeyFactory.stringToKey("0"));
-        //adult.setId(KeyFactory.stringToKey("0"));
-        //old.setId(KeyFactory.stringToKey("0"));
-        
+        Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de " + lair.getUser().getLogin(), now, now, MonsterAge.Old);        
         
         lair.addMonster(child).addMonster(adult).addMonster(old);
         

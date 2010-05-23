@@ -45,7 +45,7 @@ public class MetamorphosisToAdult extends ThearsmonstersDefaultAction {
 				throw new InternalErrorException(e);
 			}
 			
-			return new ForwardParameters().add("monsterId", monsterId+"").forward(mapping.findForward("Monster"));
+			return new ForwardParameters().add("monsterId", monsterId).forward(mapping.findForward("Monster"));
     }
     
 }

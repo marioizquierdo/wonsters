@@ -108,7 +108,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         lair.setMoney(money - eggPrice);
         
         // Almacena el huevo adquirido en la BBDD
-        MonsterEgg egg = new MonsterEgg(lair, race, DateTools.now());
+        MonsterEgg egg = new MonsterEgg(lair, race);
         lair.addMonsterEgg(egg);
 
 //        monsterEggDao.save(egg);
@@ -186,7 +186,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         userDao.update(lair.getUser());
         
         // Y se elimina el huevo del usuario
-        monsterEggDao.remove(egg.getId());
+        monsterEggDao.remove(egg.getIdKey());
         
         return eggSalePrice;
     }

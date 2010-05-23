@@ -35,11 +35,11 @@ public class User extends ThearsmonstersEntity implements Serializable {
     @Persistent(serialized = "true", defaultFetchGroup="true")
     private UserDetails userDetails;
     
-    public Key getId() {
+    public Key getIdKey() {
 		return id;
 	}
 
-	public void setId(Key userId) {
+	public void setIdKey(Key userId) {
 		this.id = userId;
 	}
 

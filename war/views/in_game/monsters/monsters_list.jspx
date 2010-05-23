@@ -10,8 +10,8 @@
 
 <customtag:window id="monstersList" title="Monsters.title"
 	tags="monsters: MainMenu.link.monsters, 
-		viewEggs: EggsManagement.viewEggs => monster/eggs.do?eggsManagement_selected_tag=viewEggs,
-		buyEggs: EggsManagement.buyEggs => monster/eggs.do?eggsManagement_selected_tag=buyEggs">
+		viewEggs: EggsManagement.viewEggs => /monster/eggs.do?eggsManagement_selected_tag=viewEggs,
+		buyEggs: EggsManagement.buyEggs => /monster/eggs.do?eggsManagement_selected_tag=buyEggs">
 	
 	<div id="monstersList_monsters"><c:choose>
 	
@@ -34,7 +34,7 @@
 			</tr>
 		    <c:forEach items="${monsters}" var="monster" varStatus="loop" >
 		    
-			    <c:url var="monsterURL" value="monster.do">
+			    <c:url var="monsterURL" value="/monster.do">
 					<c:param name="monsterId" value="${monster.id}"/>
 				</c:url>
 			    

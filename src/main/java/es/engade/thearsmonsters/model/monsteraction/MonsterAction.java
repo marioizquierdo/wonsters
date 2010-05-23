@@ -68,7 +68,7 @@ public class MonsterAction {
 	 * Esto es una instancia de MonsterActionSuggestion con los datos de esta action.
 	 */
 	public MonsterActionSuggestion getSuggestion() {
-		String monsterId = monster.getId() == null ? "" : monster.getId().toString();
+		String monsterId = monster.getIdKey() == null ? "" : monster.getIdKey().toString();
 		return new MonsterActionSuggestion(type, monsterId, room.getType());
 	}
 	

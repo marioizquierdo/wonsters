@@ -24,7 +24,7 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
 	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key id;
+	protected Key idKey;
 	
 //	@NotPersistent
 //	private Monster parent;
@@ -40,19 +40,22 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
 	
 	public MonsterEgg () {}
 	
-	public MonsterEgg (Lair lair, MonsterRace race, 
-			Date borningDate) {
+	public MonsterEgg (Lair lair, MonsterRace race) {
+		this(lair, race, null);
+	}
+	
+	public MonsterEgg (Lair lair, MonsterRace race, Date borningDate) {
 		this.lair = lair;
 		this.race = race;
 		this.borningDate = borningDate;
 	}
 	
-	public Key getId() {
-		return id;
+	public Key getIdKey() {
+		return idKey;
 	}
 
-	public void setId(Key id) {
-		this.id = id;
+	public void setIdKey(Key id) {
+		this.idKey = id;
 	}
 
 //	public Monster getParent() {
@@ -132,7 +135,7 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
         int result = 1;
         result = prime * result
                 + ((borningDate == null) ? 0 : borningDate.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((idKey == null) ? 0 : idKey.hashCode());
         result = prime * result + ((race == null) ? 0 : race.hashCode());
         return result;
     }
@@ -155,10 +158,10 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
                 return false;
         } else if (!borningDate.equals(other.borningDate))
             return false;
-        if (id == null) {
-            if (other.id != null)
+        if (idKey == null) {
+            if (other.idKey != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!idKey.equals(other.idKey))
             return false;
         if (lair == null) {
             if (other.lair != null)
@@ -171,7 +174,7 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
     @Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
-		    "key", id,
+		    "key", idKey,
 			"race", race,
 //			"parent-name", parent.getName(),
 //			"lair-user", lair.getUser().getLogin(),

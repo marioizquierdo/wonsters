@@ -20,7 +20,6 @@ import es.engade.thearsmonsters.http.view.actionforms.MonsterActionsToDoForm;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.util.configuration.AppContext;
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class DoMonsterActions extends ThearsmonstersDefaultAction {

@@ -66,11 +66,11 @@ public class Room extends ThearsmonstersEntity implements Serializable {
         this.state = state;
     }
     
-	public Key getId() {
+	public Key getIdKey() {
 		return id;
 	}
     
-    public void setId(Key roomId) {
+    public void setIdKey(Key roomId) {
         this.id = roomId;
     }
 

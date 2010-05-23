@@ -58,7 +58,7 @@ public class MonsterBornAction extends ThearsmonstersDefaultAction {
 				return mapping.findForward("MonsterEggs");
 			}
 
-			return (new ForwardParameters()).add("monsterId", monster.getId().toString()).forward(mapping.findForward("Monster"));
+			return (new ForwardParameters()).add("monsterId", monster.getId()).forward(mapping.findForward("Monster"));
     }
     
 }

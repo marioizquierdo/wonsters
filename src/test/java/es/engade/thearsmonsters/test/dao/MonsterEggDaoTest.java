@@ -47,7 +47,7 @@ public class MonsterEggDaoTest extends GaeTest {
     @After
     public void clearDB() {
         try {
-            userDao.remove(persistentUser.getId());
+            userDao.remove(persistentUser.getIdKey());
         } catch (InstanceNotFoundException e) {
             System.err.println(e.getMessage());
         }
