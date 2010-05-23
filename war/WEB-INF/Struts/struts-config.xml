@@ -138,8 +138,8 @@
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.IncubateEgg">
         <set-property property="authenticationRequired" value="true"/></action>
          
-    <action path="/monster/egg/shell"
-			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShellEgg"
+    <action path="/monster/egg/sell"
+			type="es.engade.thearsmonsters.http.controller.actions.monsters.SellEgg"
             validate="true">
         <set-property property="authenticationRequired" value="true"/></action>
          

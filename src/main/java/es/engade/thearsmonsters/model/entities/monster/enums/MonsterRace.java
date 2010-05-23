@@ -123,7 +123,7 @@ public enum MonsterRace {
 	/**
 	 * Precio de venta de un huevo de esta raza
 	 */
-	public int getShellEggPrice() { return buyEggPrice / 2;}
+	public int getSellEggPrice() { return buyEggPrice / 2;}
 	
 	public int  getFertility() { return fertility; }
 	public MonsterRaceClass getRaceType() { return raceType; }

@@ -115,7 +115,7 @@ public class MonsterFacadeTest extends GaeTest {
     @Test
     public void testBuyEgg()
     throws InternalErrorException, 
-        InsuficientMoneyException, MaxEggsException {
+        InsuficientMoneyException, MaxEggsException, InstanceNotFoundException {
         
         Lair lair = persistentUser.getLair();
         MonsterRace race = MonsterRace.Lipendula;
@@ -125,6 +125,8 @@ public class MonsterFacadeTest extends GaeTest {
         
         MonsterEgg egg = monsterFacade.buyEgg(lair, race);
         
+        User u = userDao.findUserByLogin(LOGIN);
+        lair = u.getLair();
         assertEquals(initialMoney - race.getBuyEggPrice(), lair.getMoney());
         assertEquals(initialNumberOfEggs + 1, lair.getMonsterEggs().size());
         assertEquals(race, lair.getMonsterEggs().get(
@@ -175,7 +177,7 @@ public class MonsterFacadeTest extends GaeTest {
     }
 
     @Test
-    public void testShellEgg() 
+    public void testSellEgg() 
     throws InternalErrorException, InstanceNotFoundException {
     
         Lair lair = persistentUser.getLair();
@@ -185,7 +187,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         String eggId = KeyUtils.toString(lair.getMonsterEggs().get(0).getId());
         
-        int sellPrice = monsterFacade.shellEgg(lair, eggId);
+        int sellPrice = monsterFacade.sellEgg(lair, eggId);
         
         assertEquals(initialNumberOfEggs - 1, lair.getMonsterEggs().size());
         assertEquals(initialMoney + sellPrice, lair.getMoney());
@@ -193,7 +195,7 @@ public class MonsterFacadeTest extends GaeTest {
     }
     
     @Test
-    public void testShellEggWithMoreChicha() 
+    public void testSellEggWithMoreChicha() 
     throws InternalErrorException, InstanceNotFoundException, 
         InsuficientMoneyException, MaxEggsException {
     
@@ -207,7 +209,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         String eggId = KeyUtils.toString(egg.getId());
         
-        int sellPrice = monsterFacade.shellEgg(lair, eggId);
+        int sellPrice = monsterFacade.sellEgg(lair, eggId);
         
         assertEquals(initialNumberOfEggs - 1, lair.getMonsterEggs().size());
         assertEquals(initialMoney + sellPrice, lair.getMoney());
@@ -215,7 +217,7 @@ public class MonsterFacadeTest extends GaeTest {
     }
     
     @Test(expected=InstanceNotFoundException.class)
-    public void testShellEggFromOtherUser() 
+    public void testSellEggFromOtherUser() 
     throws InternalErrorException, InstanceNotFoundException {
     
         Lair lair = persistentUser.getLair();
@@ -224,7 +226,7 @@ public class MonsterFacadeTest extends GaeTest {
         
         String eggId = KeyUtils.toString(otherLair.getMonsterEggs().get(0).getId());
         
-        monsterFacade.shellEgg(lair, eggId);
+        monsterFacade.sellEgg(lair, eggId);
         
     }
 

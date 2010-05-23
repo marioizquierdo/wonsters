@@ -12,7 +12,7 @@ public class MaxEggsException  extends ModelException implements LocalizableMess
 	private String[] messageParams;
     
     public MaxEggsException() {
-        super("You can't store more eggs. Please, shell another egg before or" +
+        super("You can't store more eggs. Please, sell another egg before or" +
         		"enlarge the GameOpt/maxEggs parameter in the game configuration (web.xml)");
         this.messageKey = "FlashMessage.MaxEggsException";
         

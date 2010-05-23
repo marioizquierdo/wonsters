@@ -89,23 +89,22 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
             throw new OnlyOneChangePerGameDayException(lastChangeResourcesDate, login);
         }
         
-        if (moneyOrGarbage.equals("money")) {
+        if (moneyOrGarbage.equals("garbage")) {
             if(amount > currentGarbage) {
                 throw new InsuficientGarbageException(amount, currentGarbage);
             }
             if(amount > lair.getChangeResourcesMaxGarbageAmountEnabled()) {
-                throw new WarehouseFullStorageException(currentGarbage, amount, 
-                        maxGarbage, login);
+                throw new TradeOfficeFullStorageException(currentMoney, amountObtained, maxMoney, login);
             }
             lair.setGarbage(currentGarbage - amount);
             lair.setMoney(currentMoney + amountObtained);
-        } else if (moneyOrGarbage.equals("garbage")) {
+            
+        } else if (moneyOrGarbage.equals("money")) {
             if(amount > currentMoney) {
                 throw new InsuficientMoneyException(amount, currentMoney);
             }
             if(amount > lair.getChangeResourcesMaxMoneyAmountEnabled()) {
-                throw new TradeOfficeFullStorageException(currentMoney, amount, 
-                        maxMoney, login);
+                throw new WarehouseFullStorageException(currentGarbage, amountObtained, maxGarbage, login);
             }
             lair.setMoney(currentMoney - amount);
             lair.setGarbage(currentGarbage + amountObtained);
@@ -117,7 +116,7 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
         }
         
         // Mark diary change done
-        lair.getRoomData().setLastChangeResourcesDateToNow();
+        lair.setLastChangeResourcesDateToNow();
         
         // Save changes and return
         userDao.update(lair.getUser());

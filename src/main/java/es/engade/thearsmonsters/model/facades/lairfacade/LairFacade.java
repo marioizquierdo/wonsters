@@ -73,9 +73,9 @@ public interface LairFacade {
 		throws InWorksActionException, InternalErrorException, InstanceNotFoundException;
     
     /**
-     * changeResources("money", amount, lair) spent the specified amount of money and charge
-     * the corresponding garbage in the lair (less the commission, depending on TradeOffice level).<br/>
-     * With "garbage" do the same but changing garbage for money.
+     * Change resources: garbage for money or viceversa.
+     * @param money_or_garbage type of change, can be "money" (spent money and change it for garbage)
+     * 		or "garbage" (the reverse)
      * @return the amount of the other resource gained (is the arg amount less the commission).
      * @throws WarehouseFullStorageException if the garbage obtained on the change is greather than the Warehouse storage capacity
      * @throws TradeOfficeFullStorageException if the money obtained on the change is greather than the TradeOffice storage capacity

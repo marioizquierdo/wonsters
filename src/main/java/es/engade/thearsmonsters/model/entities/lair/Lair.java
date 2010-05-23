@@ -64,11 +64,11 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
     @Element(dependent = "true")
     private List<Room> rooms;
     
-    @Persistent(mappedBy = "lair")
+    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
     @Element(dependent = "true")
     private List<Monster> monsters;
     
-    @Persistent(mappedBy = "lair")
+    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
     @Element(dependent = "true")
     private List<MonsterEgg> monsterEggs;
 

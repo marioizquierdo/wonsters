@@ -20,7 +20,7 @@ import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
-public class ShellEgg extends ThearsmonstersDefaultAction {
+public class SellEgg extends ThearsmonstersDefaultAction {
 
     @Override
     public ActionForward doExecuteGameAction(ActionMapping mapping,
@@ -29,21 +29,21 @@ public class ShellEgg extends ThearsmonstersDefaultAction {
         throws IOException, ServletException, InternalErrorException {
     	
     	// Confirmación
-    	ActionForward confirm = Confirmation.confirm("EggsManagement.shellEggs.confirm", 
+    	ActionForward confirm = Confirmation.confirm("EggsManagement.sellEggs.confirm", 
     			"monster/eggs.do", request, mapping);
     	if(confirm != null) return confirm;
     	
         MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
         try {
 	        /* Get data. */
-	        String eggId = request.getParameter("id");
+	        String eggId = request.getParameter("eggId");
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */
-			Integer moneyBack = monsterFacade.shellEgg(lair, eggId);
+			Integer moneyBack = monsterFacade.sellEgg(lair, eggId);
 			
 			/* Show results */
-			FlashMessage.show(request, "EggsManagement.shellEggs.doneMessage", moneyBack.toString());
+			FlashMessage.show(request, "EggsManagement.sellEggs.doneMessage", moneyBack.toString());
 			
 			
 		} catch (InstanceNotFoundException e) {

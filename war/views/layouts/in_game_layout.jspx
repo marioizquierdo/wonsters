@@ -20,13 +20,12 @@
 <tiles:useAttribute name="color" />
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-   
+  <link rel="icon" href="/favicon.ico"/>
+  
   <title>
     <fmt:message key="Thearsmonsters"/><c:out value=" - "/>
     <fmt:message key="${title}"/>
   </title>
-  
-  <link rel="icon" href="favicon.ico"/>
   
   <!-- CSS Stylesheets -->
   

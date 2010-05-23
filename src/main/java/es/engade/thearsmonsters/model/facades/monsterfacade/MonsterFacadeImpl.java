@@ -111,6 +111,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         MonsterEgg egg = new MonsterEgg(lair, race, DateTools.now());
         lair.addMonsterEgg(egg);
 
+//        monsterEggDao.save(egg);
         // Guarda los cambios en el datastore
         userDao.update(lair.getUser());
         return egg;  
@@ -171,12 +172,12 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     }
 
     @Transactional
-    public Integer shellEgg(Lair lair, String eggIdAsString)
+    public Integer sellEgg(Lair lair, String eggIdAsString)
             throws InternalErrorException, InstanceNotFoundException {
         
         Key eggId = getKeyFromString(eggIdAsString, MonsterEgg.class);
         MonsterEgg egg = lair.getMonsterEgg(eggId); // Se supone que la lair está actualizada
-        int eggSalePrice = egg.getRace().getShellEggPrice();
+        int eggSalePrice = egg.getRace().getSellEggPrice();
         
         // Se elimina el huevo de la guarida y se suma el precio de venta
         lair.removeMonsterEgg(egg);

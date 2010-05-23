@@ -74,11 +74,11 @@
 							</c:choose>
 						</li>
 						<li>
-							<html:link action="monster/egg/shell.do?eggId=${egg.id}">
-						    	<fmt:message key="Buttons.shell"/>
+							<html:link action="monster/egg/sell.do?eggId=${egg.id}">
+						    	<fmt:message key="Buttons.sell"/>
 							</html:link>
 							(<fmt:message key="Common.getBack">
-								<fmt:param>${egg.race.shellEggPrice}<customtag:common_icon id="money" img="true"/></fmt:param>
+								<fmt:param>${egg.race.sellEggPrice}<customtag:common_icon id="money" img="true"/></fmt:param>
 							</fmt:message>)
 						</li>
 						</ul>
@@ -109,7 +109,7 @@
 		    	<td>${race.buyEggPrice}</td>
 		    	<td>${race.vitalSpace}</td>
 		    	
-		    	<td><html:link action="monster/egg/buy.do?eggRaceCode=${race.code}">
+		    	<td><html:link action="monster/egg/buy.do?eggRace=${race}">
 			    	<fmt:message key="Buttons.buy"/>
 				</html:link></td>
 		    </tr>

@@ -40,7 +40,7 @@ public class BuyEgg extends ThearsmonstersDefaultAction {
         try {
         	
             /* Get data. */
-        	MonsterRace eggRace = MonsterRace.valueOf(request.getParameter("eggRace")); // TODO; antes estaba eggRaceCode, pero el code se ha eliminado de MonsterRace
+        	MonsterRace eggRace = MonsterRace.valueOf(request.getParameter("eggRace"));
 	        Lair lair = SessionManager.getMyLair(request);
 	            
 	        /* Model action */

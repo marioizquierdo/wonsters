@@ -41,12 +41,10 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
 	public MonsterEgg () {}
 	
 	public MonsterEgg (Lair lair, MonsterRace race, 
-			Date borningDate) { //, Monster parent) {
-//		this.id = id;
+			Date borningDate) {
 		this.lair = lair;
 		this.race = race;
 		this.borningDate = borningDate;
-//		this.parent = parent;
 	}
 	
 	public Key getId() {

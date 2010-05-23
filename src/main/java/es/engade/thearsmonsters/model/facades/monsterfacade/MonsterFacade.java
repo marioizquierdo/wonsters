@@ -28,10 +28,10 @@ public interface MonsterFacade {
         throws InternalErrorException;
         
     /**
-     * Shell an existing egg from the given lair.
-     * @return the money gained in the shell.
+     * Sell an existing egg from the given lair.
+     * @return the money gained in the sell.
      */
-    public Integer shellEgg(Lair lair, String eggId) 
+    public Integer sellEgg(Lair lair, String eggId) 
     	throws InternalErrorException, InstanceNotFoundException;
     
     public void incubateEgg(Lair lair, String eggId)
