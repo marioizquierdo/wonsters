@@ -1,0 +1,12 @@
+<jsp:root 	xmlns="http://www.w3.org/1999/xhtml"
+          	xmlns:jsp="http://java.sun.com/JSP/Page"
+          	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          	version="2.0">
+
+<customtag:window id="MissionsNotImplemented" title="Missions.title">
+	<customtag:info_message titleKey="Missions.not_implemented.title" 
+		key="Missions.not_implemented.desc" status="INFO" style="margin: 20px;"/>
+</customtag:window>
+
+</jsp:root>

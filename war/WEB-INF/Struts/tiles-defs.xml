@@ -64,7 +64,7 @@
 	<definition name=".Missions" extends=".InGameBase">
 		<put name="title" value="Missions.title" />
 		<put name="color" value="purple" />
-		<put name="content" value="/views/common/not_implemented_page.jspx" />
+	    <put name="content" value="/views/in_game/missions/missions_not_implemented.jspx" />
 	</definition>
 
 	<definition name=".Monster" extends=".InGameBase">
