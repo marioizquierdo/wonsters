@@ -56,5 +56,5 @@ public class MonsterEggDaoJdo extends GenericDaoJdo<MonsterEgg, Key> implements 
         int numberOfEggs = Integer.parseInt(numberOfEggsStr);
         return numberOfEggs;
     }
-
+    
 }

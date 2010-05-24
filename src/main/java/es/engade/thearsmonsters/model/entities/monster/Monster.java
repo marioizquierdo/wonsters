@@ -36,10 +36,10 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     @Persistent
 	private Lair lair;
     
-    @Persistent(serialized="true") 
+    @Persistent(serialized="true", defaultFetchGroup="true") 
 	private Map<AttrType, Attr> workSkills;
     
-    @Persistent(serialized="true") 
+    @Persistent(serialized="true", defaultFetchGroup="true") 
 	private Map<AttrType, Attr> simpleAttrs;
     
     @Persistent
@@ -132,7 +132,9 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	
 	//TODO: implementar esta operacion
 	// devolviendo el atributo que tenga mayor nivel
-	public Attr getBestWorkSkill(){return this.workSkills.get(0);}
+	public Attr getBestWorkSkill(){
+	    return this.getWorkSkills().get(0);
+	    }
 	
 	//-- SETTERS --//
 	public void setIdKey(Key id) { this.id = id; }
@@ -210,10 +212,30 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		return attrs;
 	}
 	
-	public Attr getSimpleAttr(AttrType type) { return simpleAttrs.get(type); }
-	public Map<AttrType, Attr> getSimpleAttrs() { return this.simpleAttrs; }
-	public Attr getWorkSkill(AttrType type) { return workSkills.get(type); }
-	public Map<AttrType, Attr> getWorkSkills() { return this.workSkills; }
+	public Attr getSimpleAttr(AttrType type) { 
+	    return getSimpleAttrs().get(type); 
+	}
+	public Map<AttrType, Attr> getSimpleAttrs() {
+	    if (this.simpleAttrs == null) {
+	        this.simpleAttrs = AttrType.initializeSimpleAttrs();
+	    }
+	    return this.simpleAttrs; 
+	}
+	public void setSimpleAttrs(Map<AttrType, Attr> simpleAttrs) { 
+	    this.simpleAttrs = simpleAttrs; 
+	}
+	public Attr getWorkSkill(AttrType type) {
+	    return getWorkSkills().get(type); 
+	}
+	public Map<AttrType, Attr> getWorkSkills() {
+	    if (this.workSkills == null) {
+            this.workSkills = AttrType.initializeWorkSkills();
+        }
+	    return this.workSkills; 
+	}
+	public void setWorkSkills(Map<AttrType, Attr> workSkills) { 
+	    this.workSkills = workSkills; 
+	}
 	
 	
 	
