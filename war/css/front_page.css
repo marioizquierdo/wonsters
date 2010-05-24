@@ -99,3 +99,73 @@
 .loginBlock {
 	margin-right: 10px;
 }
+
+/* CREDITS STYLES */
+
+#credits ul.dev_team_list{
+
+}
+
+#credits ul.dev_team_list li {
+    margin: 0 0 15px 0;
+    padding: 0 0 0 10px;
+    font-weight:bold;
+}
+
+#credits ul.dev_team_list li .function{
+    color: #999;
+    text-align: left;
+    font-weight: none;
+    font-size:12px;
+    margin: 0 0 0 15px;
+}
+
+#credits ul.tech_info_list {
+    
+}
+
+#credits ul.tech_info_list li {
+    margin: 0 0 15px 0;
+    padding: 0 0 0 70px;
+    background: transparent none no-repeat top left;
+}
+
+#credits ul.tech_info_list li h3 {
+    font-weight: bold;
+}
+
+#credits ul.tech_info_list li#tech_info_gae {
+	background-image: url('../images/logos/gae.gif');
+}
+
+#credits ul.tech_info_list li#tech_info_jdo {
+    background-image: url('../images/logos/jdo.gif');
+}
+
+#credits ul.tech_info_list li#tech_info_spring {
+    background-image: url('../images/logos/spring.png');
+}
+
+#credits ul.tech_info_list li#tech_info_struts {
+    background-image: url('../images/logos/struts.gif');
+}
+
+#credits ul.tech_info_list li#tech_info_jquery {
+    background-image: url('../images/logos/jquery.png');
+}
+
+#credits ul.tech_info_list li#tech_info_junit {
+    background-image: url('../images/logos/junit.gif');
+}
+
+#credits ul.tech_info_list li#tech_info_bitbucket {
+    background-image: url('../images/logos/bitbucket.png');
+}
+
+#credits ul.tech_info_list li#tech_info_eclipse {
+    background-image: url('../images/logos/eclipse.jpg');
+}
+
+#credits ul.tech_info_list li#tech_info_others {
+    background-image: url('../images/logos/others.png');
+}

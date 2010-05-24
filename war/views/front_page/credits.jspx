@@ -4,7 +4,71 @@
 		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           version="2.0">
 
-	<customtag:info_message titleKey="Credits.frontPageTitle" 
-		key="Credits.description" status="INFO" style="margin: 20px;"/>
+<div id="credits">
+
+	<p class="info">
+	   <fmt:message key="Credits.description"></fmt:message>
+	</p>		
 		
+	<customtag:info_message titleKey="Credits.developersTitle" >
+	   <ul class="dev_team_list">
+	        <li><fmt:message key="Name.MarioIzquierdo"/>  
+	        <br/><span class="function"><fmt:message key="Credits.chief"/></span></li>
+	        <li><fmt:message key="Name.AngelRomo" />
+	        <br/><span class="function"><fmt:message key="Credits.conceptArt"/></span></li>
+	        <li><fmt:message key="Name.FcoJavierGarcia" />   
+	        <br/><span class="function"><fmt:message key="Credits.programmingAndText"/></span></li>
+	        <li><fmt:message key="Name.DiegoDarriba" />
+	        <br/><span class="function"><fmt:message key="Credits.leadProgrammer"/></span></li>  
+	        <li><fmt:message key="Name.GuilleGefaell" /> 
+	        <br/><span class="function"><fmt:message key="Credits.programmingAndUI"/></span></li>    
+        </ul> 
+    </customtag:info_message>
+    
+    <customtag:info_message titleKey="Credits.technologiesTitle">
+	    <p class="info">
+	       <fmt:message key="Credits.technologiesDesc"></fmt:message>
+	    </p>
+	    
+	    <ul class="tech_info_list">
+	       <li id="tech_info_gae">
+	           <h3><a href="http://code.google.com/appengine/" target="_blank">GAE</a></h3>
+	           <fmt:message key="Credits.gaeDesc"/>
+	       </li>
+	       <li id="tech_info_jdo">
+               <h3><a href="http://db.apache.org/jdo/" target="_blank">JDO</a></h3>
+               <fmt:message key="Credits.jdoDesc"/>
+           </li>
+           <li id="tech_info_spring">
+               <h3><a href="http://www.springsource.org/">Spring</a></h3>
+               <fmt:message key="Credits.springDesc"/>
+           </li>
+           <li id="tech_info_struts">
+               <h3><a href="http://struts.apache.org/" target="_blank">Struts</a></h3>
+               <fmt:message key="Credits.strutsDesc"/>
+           </li>
+           <li id="tech_info_jquery">
+               <h3><a href="http://jquery.com/" target="_blank">jQuery</a></h3>
+               <fmt:message key="Credits.jQueryDesc"/>
+           </li>
+           <li id="tech_info_junit">
+               <h3><a href="http://www.junit.org" target="_blank">jUnit</a></h3>
+               <fmt:message key="Credits.junitDesc"/>
+           </li>
+           <li id="tech_info_bitbucket">
+               <h3><a href="http://bitbucket.org/" target="_blank">Bitbucket</a></h3>
+               <fmt:message key="Credits.bitbucketDesc"/>
+           </li>
+           <li id="tech_info_eclipse">
+               <h3><a href="http://www.eclipse.org/" target="_blank">Eclipse</a></h3>
+               <fmt:message key="Credits.eclipseDesc"/>
+           </li>
+           <li id="tech_info_others">
+               <h3><a hreF="http://www.inkscape.org" target="_blank">Inkscape</a> y <a href="http://www.gimp.org/" target="_blank">GIMP</a></h3>
+               <fmt:message key="Credits.othersDesc"/>
+           </li>
+	    </ul>
+    </customtag:info_message>
+    
+</div>
 </jsp:root>
