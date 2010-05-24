@@ -10,7 +10,7 @@
 	   <fmt:message key="Credits.description"></fmt:message>
 	</p>		
 		
-	<customtag:info_message titleKey="Credits.developersTitle" >
+	<customtag:info_message titleKey="Credits.developersTitle" icon_id="15">
 	   <ul class="dev_team_list">
 	        <li><fmt:message key="Name.MarioIzquierdo"/>  
 	        <br/><span class="function"><fmt:message key="Credits.chief"/></span></li>
@@ -25,7 +25,7 @@
         </ul> 
     </customtag:info_message>
     
-    <customtag:info_message titleKey="Credits.technologiesTitle">
+    <customtag:info_message titleKey="Credits.technologiesTitle" icon_id="3">
 	    <p class="info">
 	       <fmt:message key="Credits.technologiesDesc"></fmt:message>
 	    </p>
