@@ -120,13 +120,25 @@
     margin: 0 0 0 15px;
 }
 
+#credits ul.dev_team_list button{
+    margin: 0 0 0 10px;
+}
+
+#credits ul.dev_team_list div.personal_info{
+	color: #666;
+    text-align: left;
+    font-weight: none;
+    font-size:14px;
+    margin: 0 5px 0 10px;
+}
+
 #credits ul.tech_info_list {
     
 }
 
 #credits ul.tech_info_list li {
-    margin: 0 0 15px 0;
-    padding: 0 0 0 70px;
+    margin: 0 0 20px 0;
+    padding: 0 0 0 75px;
     background: transparent none no-repeat top left;
 }
 

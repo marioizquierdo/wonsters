@@ -4,6 +4,18 @@
 		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           version="2.0">
 
+<![CDATA[<script type="text/javascript">$(function (){
+    $('.personal_info').hide();
+    
+    //Muestra la informacion en el div asociado a cada boton.
+    $('button.more_info').click(function(){
+        var target_div = '#' + $(this).attr('id').replace('_button','_div');
+        $(target_div).show('blind');
+        return false;
+    });
+    
+})</script>]]>
+
 <div id="credits">
 
 	<p class="info">
@@ -12,16 +24,41 @@
 		
 	<customtag:info_message titleKey="Credits.developersTitle" icon_id="15">
 	   <ul class="dev_team_list">
-	        <li><fmt:message key="Name.MarioIzquierdo"/>  
-	        <br/><span class="function"><fmt:message key="Credits.chief"/></span></li>
+	        <li><fmt:message key="Name.MarioIzquierdo"/>
+	           <button id="mario_button" class="more_info">+</button>
+	           <br/><span class="function"><fmt:message key="Credits.chief"/></span>
+	           <div id="mario_div" class="personal_info">
+	               <fmt:message key="Name.MarioData"/>
+	           </div>
+	        </li>
 	        <li><fmt:message key="Name.AngelRomo" />
-	        <br/><span class="function"><fmt:message key="Credits.conceptArt"/></span></li>
+	            <button id="angel_button" class="more_info">+</button>
+		        <br/><span class="function"><fmt:message key="Credits.conceptArt"/></span>
+		        <div id="angel_div" class="personal_info">
+	               <fmt:message key="Name.AngelData"/>
+	            </div>
+	        </li>
 	        <li><fmt:message key="Name.FcoJavierGarcia" />   
-	        <br/><span class="function"><fmt:message key="Credits.programmingAndText"/></span></li>
+	           <button id="trono_button" class="more_info">+</button>
+	           <br/><span class="function"><fmt:message key="Credits.programmingAndText"/></span>
+	           <div id="trono_div" class="personal_info">
+                    <fmt:message key="Name.FcoData"/>
+               </div>
+	        </li>
 	        <li><fmt:message key="Name.DiegoDarriba" />
-	        <br/><span class="function"><fmt:message key="Credits.leadProgrammer"/></span></li>  
-	        <li><fmt:message key="Name.GuilleGefaell" /> 
-	        <br/><span class="function"><fmt:message key="Credits.programmingAndUI"/></span></li>    
+	            <button id="diego_button" class="more_info">+</button>
+	            <br/><span class="function"><fmt:message key="Credits.leadProgrammer"/></span>
+	            <div id="diego_div" class="personal_info">
+                    <fmt:message key="Name.DiegoData"/>
+                </div>
+	        </li>  
+	        <li><fmt:message key="Name.GuilleGefaell" />
+	           <button id="guille_button" class="more_info">+</button>
+	           <br/><span class="function"><fmt:message key="Credits.programmingAndUI"/></span>
+	           <div id="guille_div" class="personal_info">
+                    <fmt:message key="Name.GuilleData"/>
+                </div>
+	        </li>    
         </ul> 
     </customtag:info_message>
     
@@ -70,5 +107,8 @@
 	    </ul>
     </customtag:info_message>
     
+    <customtag:info_message titleKey="Credits.thanks" icon_id="6">
+        <p class="info"><fmt:message key="Credits.thanksDesc" /></p>
+    </customtag:info_message>
 </div>
 </jsp:root>
