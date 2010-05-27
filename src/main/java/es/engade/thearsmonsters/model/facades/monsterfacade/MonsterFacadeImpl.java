@@ -199,7 +199,12 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         // 2. Si se encuentra, ese es el monstruo (y nos ahorramos la consulta a BBDD)
         // 3. Si no se encuentra, devuelve un InstanceNotFoundException, excepto casos raros en los que puede
         //    acceder usando el DAO.
-        Monster monster = monsterDao.get(getKeyFromString(monsterId, Monster.class));
+        Monster monster;
+        try {
+            monster = lair.getMonster(getKeyFromString(monsterId, Monster.class));
+        } catch (InstanceNotFoundException ex) {
+            monster = monsterDao.get(getKeyFromString(monsterId, Monster.class));
+        }
         List<MonsterActionSuggestion> suggestedActions = new ArrayList<MonsterActionSuggestion>();
         
         
