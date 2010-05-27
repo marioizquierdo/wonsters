@@ -149,7 +149,8 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         
         // Pone el huevo a incubar fijando su fecha de nacimiento (date)
         egg.setBorningDate();
-        monsterEggDao.update(egg);
+        userDao.update(lair.getUser());
+//        monsterEggDao.update(egg);
         
         // A partir de ahora el huevo esperará en estado de "incubación"
 

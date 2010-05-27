@@ -87,8 +87,6 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
             Lair newLair = FactoryData.LairWhatIs.Default.build(newUser); // TODO: aqui habrá que cambiarlo por una LairWhatIs.inInitialState
            
             userDao.save(newUser);
-            System.out.println("User " + newUser.getIdKey());
-            System.out.println("Lair " + newUser.getLair().getIdKey());
             return new LoginResult(newLair, login, userDetails.getFirstName(), 
                     newUser.getEncryptedPassword(), userDetails.getLanguage());
 
