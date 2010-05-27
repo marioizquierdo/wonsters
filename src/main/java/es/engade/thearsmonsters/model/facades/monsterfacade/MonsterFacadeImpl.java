@@ -166,7 +166,8 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         m.metamorphosisToAdult();
         
         // Hace los cambios persistentes en la BBDD
-        monsterDao.update(m);
+        userDao.update(lair.getUser());
+//        monsterDao.update(m);
         return m;
         
     }
