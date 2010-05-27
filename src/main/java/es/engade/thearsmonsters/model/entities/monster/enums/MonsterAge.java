@@ -3,39 +3,32 @@ package es.engade.thearsmonsters.model.entities.monster.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
-
 public enum MonsterAge {
-	Child		((byte) 1),
-	Cocoon		((byte) 2),
-	Adult		((byte) 2),
-	Old			((byte) 3),
-	Dead		((byte) 4);
+	Child, 
+	Cocoon, 
+	Adult,
+	Old, 
+	Dead;
 	
-	/**
-	 * If you know the type code then you can get the corresponding AgeState instance
-	 * @param ageState DB code of the AgeState instance
-	 * @return AttrType
-	 */
-	static public MonsterAge getFromCode(byte code) 
-		throws InstanceNotFoundException {
-		
-		switch(code) {
-			case 1: return Child;
-			case 2: return Adult; // Desambiguation for Cocoon and Adult
-			case 3: return Old;
-			case 4: return Dead;
-			
-			default: throw new InstanceNotFoundException(
-                    "AgeState not exists! (code="+ code +")", 
-                    MonsterAge.class.getName());
-		}
+    
+    /**
+     * Valida que una sucesión de edades es correcta.
+     * Solo se puede asignar otra edad a un monstruo siguiendo el siguiente diagrama:
+     *  Child -> Cocoon -> Adult -> Old
+     *                        \-------\----> Death
+     */
+	public static boolean validateAgeFlow(MonsterAge from, MonsterAge to) {
+		if(to == null) return false;
+		return 
+			from == null ||
+			from.equals(Child) && to.equals(Cocoon) ||
+			from.equals(Cocoon) && to.equals(Adult) ||
+			from.equals(Adult) && to.equals(Old) ||
+			from.equals(Adult) && to.equals(Dead) ||
+			from.equals(Old) && to.equals(Dead);
 	}
+	
 
-	private final byte code; // Codigo en la BBDD
-	MonsterAge(byte code) {this.code = code;}
-	public byte code()   { return code; }
-	public boolean equals(MonsterAge a) {return this.code() == a.code();}
 	
 	/**
 	 * Convierte la representación de una lista en String a la lista real.

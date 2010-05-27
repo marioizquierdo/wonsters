@@ -79,7 +79,12 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.setName(name);
 		this.setBorningDate(borningDate);
 		this.setCocoonCloseUpDate(cocoonCloseUpDate);
-		this.setAge(ageState);
+		try {
+	        this.setAge(ageState);
+        } catch (MonsterGrowException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+        }
 
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
 		// Por defecto los crea e inicializa todos a cero.
@@ -112,10 +117,9 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		setFreeTurns(15);
 	}
 
-	//-- GETTERS --//
+	//-- simple GETTERS --//
 	public Key getIdKey() { return id; }
-	public Lair getLair() { return lair; }	
-	public MonsterAge getAge() { return age; }	
+	public Lair getLair() { return lair; }
 	public Date getBorningDate() { return borningDate; }
 	public Date getCocoonCloseUpDate() { return cocoonCloseUpDate; }
 	public String getName() { return name; }
@@ -130,41 +134,46 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	    return Math.round((getAgeDays() / race.getLifeExpectancyDays()) * 100);
 	}
 	
-	//TODO: implementar esta operacion
-	// devolviendo el atributo que tenga mayor nivel
-	public Attr getBestWorkSkill(){
-	    return this.getWorkSkills().get(0);
-	    }
-	
-	//-- SETTERS --//
+	//-- simple SETTERS --//
 	public void setIdKey(Key id) { this.id = id; }
 	public void setLair(Lair lair) { this.lair = lair; }
 	public void setRace(MonsterRace race) { this.race = race; }
 	public void setName(String name) { this.name = name; }
 	public void setBorningDate(Date borningDate) { this.borningDate = borningDate; }
 	public void setCocoonCloseUpDate(Date cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
-	public void setAge(MonsterAge ageState) { this.age = ageState; }
 	// setFreeTurns está en la sección de las monster actions.
 
 	
+	
+	//-- Monster Age --//
+
+	public MonsterAge getAge() { 
+		correctCocoonOrAdultAges();
+		return this.age;
+	}
+
+	/**
+	 * @throws MonsterGrowException si se intenta hacer un cambio de edad incorrecto
+	 */
+	public void setAge(MonsterAge age) throws MonsterGrowException {
+		if(!MonsterAge.validateAgeFlow(this.age, age)) throw new MonsterGrowException(this.getIdKey(), age);
+		this.age = age;
+		correctCocoonOrAdultAges();
+	}
 	
 	/**
 	 * Fija la fecha para que salga del capuyo (cocoonCloseUpDate) y cambia la edad
 	 * a AgeState.Adult o a AgeState.Cocoon (depende si el tiempo de metamorfosis es diferente de cero o no).
 	 * @throws MonsterGrowException si la edad del monstruo no es AgeState.Child
 	 */
-	public void metamorphosisToAdult() throws MonsterGrowException {
-		if(getAge().equals(MonsterAge.Child)) {
-			Date metamorphosisTime = DateTools.new_byMinutesFromNow(race.getMetamorphosisMinutes());
-			setCocoonCloseUpDate(metamorphosisTime);
-			this.setAge(MonsterAge.Adult);
-		} else {
-			throw new MonsterGrowException(this.getIdKey());
-		}
+	public void metamorphosisToAdult() throws MonsterGrowException {	
+		Date metamorphosisTime = DateTools.new_byMinutesFromNow(race.getMetamorphosisMinutes());
+		setCocoonCloseUpDate(metamorphosisTime);
+		setAge(MonsterAge.Cocoon);
 	}
 	
 	
-	//-- Methods for monster attributes --//
+	//-- Monster Attributes and Skills --//
 	
 	/**
 	 * Añade experiencia al atributo del tipo indicado.
@@ -189,6 +198,15 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	}
 	
 	/**
+	 * Igual que getAttrs pero las claves del hash son Strings.
+	 * Necesario para acceder a los atributos desde JSTL, por ejemplo:
+	 *   ${monster.attr["WorkSkill"].level}
+	 */
+	public Map<String, Attr> getAttr() {
+		return stringfyKeys(getAttrs());
+	}
+	
+	/**
 	 * @return Map<AttrType, Attr> All attributes of the monster: simple, compose and workskills.
 	 */
 	public Map<AttrType, Attr> getAttrs() {
@@ -200,6 +218,15 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	
 	public Attr getComposeAttr(AttrType type) { 
 		return AttrType.newAttrCompose(type, this.getSimpleAttrs(), this.getWorkSkills());
+	}
+	
+	/**
+	 * Igual que getComposeAttrs pero las claves del hash son Strings.
+	 * Necesario para acceder a los atributos desde JSTL, por ejemplo:
+	 *   ${monster.composeAttr.WorkSkill.level}
+	 */
+	public Map<String, Attr> getComposeAttr() {
+		return stringfyKeys(getComposeAttrs());
 	}
 	
 	public Map<AttrType, Attr> getComposeAttrs() {
@@ -215,24 +242,64 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public Attr getSimpleAttr(AttrType type) { 
 	    return getSimpleAttrs().get(type); 
 	}
+	
+	/**
+	 * Igual que getSimpleAttrs pero las claves del hash son Strings.
+	 * Necesario para acceder a los atributos desde JSTL, por ejemplo:
+	 *   ${monster.simpleAttr["Agility"].level}
+	 */
+	public Map<String, Attr> getSimpleAttr() {
+		return stringfyKeys(getSimpleAttrs());
+	}
+	
 	public Map<AttrType, Attr> getSimpleAttrs() {
 	    if (this.simpleAttrs == null) {
 	        this.simpleAttrs = AttrType.initializeSimpleAttrs();
 	    }
 	    return this.simpleAttrs; 
 	}
+	
 	public void setSimpleAttrs(Map<AttrType, Attr> simpleAttrs) { 
 	    this.simpleAttrs = simpleAttrs; 
 	}
+	
 	public Attr getWorkSkill(AttrType type) {
 	    return getWorkSkills().get(type); 
 	}
+	
+	/**
+	 * Igual que getWorkSkills pero las claves del hash son Strings.
+	 * Necesario para acceder a los atributos desde JSTL, por ejemplo:
+	 *   ${monster.workSkills["HarvesterSkill"].level}
+	 */
+	public Map<String, Attr> getWorkSkill() {
+		return stringfyKeys(getWorkSkills());
+	}
+	
+	/**
+	 * Devuelve el atributo de trabajo que tenga mayor nivel
+	 */
+	public Attr getBestWorkSkill(){
+		Attr best = getWorkSkills().get(AttrType.HarvesterSkill); // por poner uno, se comienza con HarvesterSkill
+	    for(Attr skill: getWorkSkills().values()) {
+	    	if(skill.getLevel() > best.getLevel()) {
+	    		best = skill;
+	    	} else if(skill.getLevel() == best.getLevel()) { // en caso de empate, gana el que tenga más experiencia
+	    		if(skill.getExp() > best.getExp()) {
+	    			best = skill;
+	    		}
+	    	}
+	    }
+	    return best;
+	}
+	
 	public Map<AttrType, Attr> getWorkSkills() {
 	    if (this.workSkills == null) {
             this.workSkills = AttrType.initializeWorkSkills();
         }
 	    return this.workSkills; 
 	}
+	
 	public void setWorkSkills(Map<AttrType, Attr> workSkills) { 
 	    this.workSkills = workSkills; 
 	}
@@ -338,7 +405,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	}
 	
 	
-	
+	//-- Object overrides --//
 	
 	@Override
     public String toString() {
@@ -419,7 +486,46 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
         return true;
     }
 
-//-- Private methods --//
+    
+    //-- Private methods --//
+ 
+    
+    /**
+	 * getAge no devuelve simplemente this.age por el siguiente motivo:
+	 * No hay ningún evento que transforme al monstruo de Cocoon a Adult,
+	 * solamente el simple paso del tiempo (cuando getCocoonCloseUpDate() quede en el pasado).
+	 * Entoces para que esto se gestione de forma automática (sin tener que forzar un
+	 * reload en la base de datos), lo que se hace es un workaround:
+	 * sea cual sea el valor de this.age, los métodos getAge() y setAge()
+	 * devolverán siempre el valor adecuado utilizando este método.
+	 */
+	private void correctCocoonOrAdultAges() {
+    	if(getCocoonCloseUpDate() != null) {
+	    	// Adulto que aun no ha salido del capuyo debe ser Cocoon
+	    	if(age.equals(MonsterAge.Adult) &&
+				getCocoonCloseUpDate().after(DateTools.now())) {
+				age = MonsterAge.Cocoon;
+			}
+	    	
+	    	// Capullo que ya ha salido del capuyo debe ser Adult
+	    	if(age.equals(MonsterAge.Cocoon) &&
+				getCocoonCloseUpDate().before(DateTools.now())) {
+				age = MonsterAge.Adult;
+			}
+    	}
+    }
+	
+	/**
+	 * Dado un Hash de Atributos con claves AttrType, devuelve
+	 * otro igual pero las claves son Strings equivalentes.
+	 */
+	private Map<String, Attr> stringfyKeys(Map<AttrType, Attr> attrsMap) {
+		Map<String, Attr> result = new HashMap<String, Attr>();
+		for(Attr attr: attrsMap.values()) {
+			result.put(attr.getType().name(), attr);
+		}
+		return result;
+	}
 
 
 }

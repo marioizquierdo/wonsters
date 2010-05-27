@@ -42,16 +42,13 @@
 						onclick="document.location.href='${monsterURL}';">
 			    	<td><customtag:monster_image race="${monster.race}"/></td>
 			    	<td>${monster.name}</td>
-<!--			    	bestWorkSkill not present in current Monster entitiy. Empty <td></td> for 
-                        design sake.-->
-<!--			    	<td><fmt:message key="Monster.attr.${monster.bestWorkSkill}"/></td>-->
-                    <td></td>
-			    	<td>${monster.simpleAttrs.Strenght.level}</td>
-			    	<td>${monster.simpleAttrs.Agility.level}</td>
-			    	<td>${monster.simpleAttrs.Intelligence.level}</td>
-			    	<td>${monster.simpleAttrs.Vitality.level}</td>
-			    	<td>${monster.simpleAttrs.Charisma.level}</td>
-			    	<td>${monster.simpleAttrs.Happiness.level}</td>
+			    	<td><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</td>
+			    	<td>${monster.simpleAttr.Strenght.level}</td>
+			    	<td>${monster.simpleAttr.Agility.level}</td>
+			    	<td>${monster.simpleAttr.Intelligence.level}</td>
+			    	<td>${monster.simpleAttr.Vitality.level}</td>
+			    	<td>${monster.simpleAttr.Charisma.level}</td>
+			    	<td>${monster.simpleAttr.Happiness.level}</td>
 			    </tr>
 		    </c:forEach>
 			</table>

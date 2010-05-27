@@ -13,6 +13,7 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
@@ -26,7 +27,6 @@ import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGr
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
-import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -70,7 +70,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         // Obtiene el huevo referenciado, que debe estar en la guarida
         MonsterEgg egg = lair.getMonsterEgg(eggId);
         if(!egg.isReadyToBorn()) {
-            throw new MonsterGrowException(null);
+            throw new MonsterGrowException(eggId, MonsterAge.Child);
         }
         
         // Comprueba que haya suficiente espacio vital en la guarida para la nueva criatura

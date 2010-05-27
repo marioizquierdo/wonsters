@@ -83,7 +83,7 @@
 			<c:if test="${monster.age == 'Cocoon'}">
 			<customtag:monsterBrief_data_row property="metamorphosisCountDown">
 				<span class="countdown">
-	   				<span class="c_in" style="display:none">${monster.cocoonCloseUpDateEpoch}</span>
+	   				<span class="c_in" style="display:none">${monster.cocoonCloseUpDate.time}</span>
 	   				<span class="c_out">...</span>
 	   			</span>
 			</customtag:monsterBrief_data_row>
@@ -96,7 +96,7 @@
 			  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
 			  	</c:set>
 			  	<li class="data_row">	
-				  	<span id="grow_to_adult_button" class="button_box" title="${title} ${desc}">
+				  	<span id="grow_to_adult_button" class="button_box" title="${title}: ${desc}">
 						<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}">${title}</html:link>
 				  	</span>
 			  	</li>
@@ -112,7 +112,7 @@
 			<!-- Job (best work skill) -->
 			<c:if test="${monster.age != 'Child' and monster.age != 'Cocoon'}">
 				<customtag:monsterBrief_data_row property="bestWorkSkill">
-					<fmt:message key="Monster.attr.${monster.bestWorkSkill}"/>
+					<fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})
 				</customtag:monsterBrief_data_row>
 			</c:if>
 			
