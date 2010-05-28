@@ -11,7 +11,6 @@ import org.apache.struts.action.ActionMessage;
 
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
-import es.engade.thearsmonsters.util.struts.action.PropertyValidator;
 
 public class MonsterActionsToDoForm extends DefaultActionForm {
     private static final long serialVersionUID = 4419231359798052338L;
@@ -28,7 +27,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
         return monsterId;
     }
     
-    public void setMmonsterId(String monsterId) {
+    public void setMonsterId(String monsterId) {
         this.monsterId = monsterId;
     }
     

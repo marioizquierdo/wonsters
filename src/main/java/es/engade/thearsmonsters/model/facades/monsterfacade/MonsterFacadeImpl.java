@@ -225,13 +225,15 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         
     }
     
-    @Transactional
     public boolean executeMonsterAction(Lair lair, MonsterActionType actionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
     	
     	/* Al estilo de findMonster, a lo mejor se puede quitar el argumento
     	 * Key del metodo y enviar directamente el monster en ese caso borrar la linea siguiente
     	 */
-    	Monster monster = monsterDao.get(monsterId);
+    	Monster monster = lair.getMonster(monsterId);
+//    	if (monster == null) {
+//    	    monster = monsterDao.get(monsterId);
+//    	}
     	Room room = lair.getRoom(roomType);
     	
     	
@@ -239,9 +241,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     	boolean success = actionType.execute(monster, room);
     	
     	if(success) { // guarda los resultados
-    		monsterDao.save(monster);
-    		lairDao.save(lair);
-    		roomDao.save(room);
+    		userDao.update(lair.getUser());
     		return true;
     	} else {
     		return false;
