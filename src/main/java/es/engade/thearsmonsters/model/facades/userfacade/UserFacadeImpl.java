@@ -84,7 +84,7 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
         } catch (InstanceNotFoundException e) {
 
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
-            Lair newLair = FactoryData.LairWhatIs.Default.build(newUser); // TODO: aqui habrá que cambiarlo por una LairWhatIs.inInitialState
+            Lair newLair = FactoryData.LairWhatIs.InInitialState.build(newUser);
            
             userDao.save(newUser);
             return new LoginResult(newLair, login, userDetails.getFirstName(), 

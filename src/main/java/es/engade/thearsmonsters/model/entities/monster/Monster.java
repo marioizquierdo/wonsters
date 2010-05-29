@@ -79,12 +79,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.setName(name);
 		this.setBorningDate(borningDate);
 		this.setCocoonCloseUpDate(cocoonCloseUpDate);
-		try {
-	        this.setAge(ageState);
-        } catch (MonsterGrowException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
+	    this.setAge(ageState);
 
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
 		// Por defecto los crea e inicializa todos a cero.

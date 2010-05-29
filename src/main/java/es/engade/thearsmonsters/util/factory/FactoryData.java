@@ -351,13 +351,8 @@ private static User generateUserScaffold(User user) {
         
         //*** MONSTERS ***//
         Monster child = new Monster(lair, MonsterRace.Bu,      "Josito de ");
-        Monster adult = new Monster(lair, MonsterRace.Polbo,   "Héctor de ");
-        adult.setAge(MonsterAge.Adult);
-        adult.setCocoonCloseUpDate(now);
-        Monster old   = new Monster(lair, MonsterRace.Ocodomo, "Matías de ");
-        old.setAge(MonsterAge.Old);
-        old.setCocoonCloseUpDate(now);
-        
+        Monster adult = new Monster(lair, MonsterRace.Polbo, "Héctor de ", now, now, MonsterAge.Adult);
+        Monster old = new Monster(lair, MonsterRace.Ocodomo, "Matías de ", now, DateTools.yesterday(), MonsterAge.Old);
         lair.addMonster(child).addMonster(adult).addMonster(old);
         
         
