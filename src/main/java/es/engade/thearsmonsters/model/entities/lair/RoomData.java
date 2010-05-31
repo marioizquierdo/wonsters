@@ -25,10 +25,8 @@ public class RoomData implements Serializable {
 
 	private Date lastChangeResourcesDate;
     private int vitalSpaceOccupied;
-	private Lair lair;
     
     public RoomData(Date lastChangeResourcesDate, int vitalSpaceOccupied) {
-    	this.lair = null; // hay que fijarlo con setLair();
         this.lastChangeResourcesDate = lastChangeResourcesDate;
         this.vitalSpaceOccupied = vitalSpaceOccupied;
     }
@@ -39,18 +37,13 @@ public class RoomData implements Serializable {
     public RoomData() {
     	this(DateTools.yesterday(), 0);
     }
-    
-    
-	public void setLair(Lair lair) {
-    	this.lair = lair;
-    }
 	
 
 	
 	
 	/* ---- TradeOffice dependent methods ---- */
     
-	private Room getTradeOffice() {
+	private Room getTradeOffice(Lair lair) {
 		return lair.getRoom(RoomType.TradeOffice);
 	}
     
@@ -76,11 +69,11 @@ public class RoomData implements Serializable {
 	 * When change garbage for money, the max quantity allowed.
 	 * @throws NullPointerException if the TradeOffice is not in the lair (take care).
 	 */
-	public int getChangeResourcesMaxGarbageAmountEnabled() {
-		Room tradeOffice = getTradeOffice();
+	public int getChangeResourcesMaxGarbageAmountEnabled(Lair lair) {
+		Room tradeOffice = getTradeOffice(lair);
 		if(tradeOffice != null) {
-			int freeMoneyStorageCapacity = getMoneyStorageCapacity() - lair.getMoney();
-			int garbageNeededToFillTheTradeOffice = (freeMoneyStorageCapacity * 100 / (100 - getPercentageCommision())) + 1;
+			int freeMoneyStorageCapacity = getMoneyStorageCapacity(lair) - lair.getMoney();
+			int garbageNeededToFillTheTradeOffice = (freeMoneyStorageCapacity * 100 / (100 - getPercentageCommision(lair))) + 1;
 			return Math.min(lair.getGarbage(), garbageNeededToFillTheTradeOffice);
 			
 		} else {
@@ -93,11 +86,11 @@ public class RoomData implements Serializable {
 	 * When change money for garbage, the max quantity allowed.
 	 * @throws NullPointerException if the TradeOffice is not in the lair (take care).
 	 */
-    public int getChangeResourcesMaxMoneyAmountEnabled() {
-		Room tradeOffice = getTradeOffice();
+    public int getChangeResourcesMaxMoneyAmountEnabled(Lair lair) {
+		Room tradeOffice = getTradeOffice(lair);
 		if(tradeOffice != null) {
-			int freeGarbageStorageCapacity = getGarbageStorageCapacity() - lair.getGarbage();
-			int moneyNeededToFillTheWarehouse = (freeGarbageStorageCapacity * 100 / (100 - getPercentageCommision())) + 1;
+			int freeGarbageStorageCapacity = getGarbageStorageCapacity(lair) - lair.getGarbage();
+			int moneyNeededToFillTheWarehouse = (freeGarbageStorageCapacity * 100 / (100 - getPercentageCommision(lair))) + 1;
 			return Math.min(lair.getMoney(), moneyNeededToFillTheWarehouse);
 			
 		} else {
@@ -114,7 +107,7 @@ public class RoomData implements Serializable {
 	 * print the error message, than simply look at isReadyToChangeResources().
 	 * @return the exception if the change can not be made or null otherwise
 	 */
-	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() {
+	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException(Lair lair) {
 		if(!isReadyToChangeResources()) {
 			return new OnlyOneChangePerGameDayException(lastChangeResourcesDate, lair.getUser().getLogin());
 		} else {
@@ -125,8 +118,8 @@ public class RoomData implements Serializable {
 	/**
 	 * Max amount of money that this lair can store.
 	 */
-	public int getMoneyStorageCapacity() {
-		return getMoneyStorageCapacityByLevel(getTradeOffice());
+	public int getMoneyStorageCapacity(Lair lair) {
+		return getMoneyStorageCapacityByLevel(getTradeOffice(lair));
 	}
 	
 	private int getMoneyStorageCapacityByLevel(Room tradeOffice) {
@@ -141,8 +134,8 @@ public class RoomData implements Serializable {
 	 * Percentage commission (a number between 0 and 100)
 	 * depends on the level of the trade Office.
 	 */
-	public int getPercentageCommision() {
-		return getPercentageCommisionByLevel(getTradeOffice()); 
+	public int getPercentageCommision(Lair lair) {
+		return getPercentageCommisionByLevel(getTradeOffice(lair)); 
 	}
 	
 	/**
@@ -167,7 +160,7 @@ public class RoomData implements Serializable {
 	
 	/* ---- Warehouse dependent methods ---- */
 	
-	private Room getWarehouse() {
+	private Room getWarehouse(Lair lair) {
 		return lair.getRoom(RoomType.Warehouse);
 	}
 	
@@ -175,8 +168,8 @@ public class RoomData implements Serializable {
 	 * Amount of garbage that can be stored in this lair.
 	 * Depends on the Warehouse level.
 	 */
-	public int getGarbageStorageCapacity() {
-		return getGarbageStorageCapacityByLevel(getWarehouse());
+	public int getGarbageStorageCapacity(Lair lair) {
+		return getGarbageStorageCapacityByLevel(getWarehouse(lair));
 	}
 	
 	private int getGarbageStorageCapacityByLevel(Room warehouse) {
@@ -190,7 +183,7 @@ public class RoomData implements Serializable {
 	
 	/* ---- Dormitories dependent methods -----*/
 	
-	private Room getDormitories() {
+	private Room getDormitories(Lair lair) {
 		return lair.getRoom(RoomType.Dormitories);
 	}
 	
@@ -205,8 +198,8 @@ public class RoomData implements Serializable {
 	/**
 	 * Total amount of vital space: Dormitories.level * 10
 	 */
-	public int getVitalSpace() {
-		Room dormitories = getDormitories(); 
+	public int getVitalSpace(Lair lair) {
+		Room dormitories = getDormitories(lair); 
 		if(dormitories != null) {
 			return dormitories.getLevel() * 10;
 		} else {
@@ -218,7 +211,7 @@ public class RoomData implements Serializable {
 	 * Given all the monsters of this lair, recalculate the vital Space.
 	 * @return true if the occupied vital space was changed, false if still be the same.
 	 */
-	public boolean refreshVitalSpaceOccupied() {
+	public boolean refreshVitalSpaceOccupied(Lair lair) {
 		int newOccupiedVitalSpace = 0;
 		for(Monster m : lair.getMonsters()) {
 			newOccupiedVitalSpace += m.getRace().getVitalSpace();
@@ -234,8 +227,8 @@ public class RoomData implements Serializable {
 	/**
 	 * The rest of vital space available (vitalSpace - vitalSpaceOcuppied)
 	 */
-	public int getVitalSpaceFree() {
-		return getVitalSpace() - getVitalSpaceOccupied();
+	public int getVitalSpaceFree(Lair lair) {
+		return getVitalSpace(lair) - getVitalSpaceOccupied();
 	}
 
 	
@@ -255,7 +248,7 @@ public class RoomData implements Serializable {
     public int hashCode() {
 	    final int prime = 31;
 	    int result = 1;
-	    result = prime * result + ((lair == null) ? 0 : lair.hashCode());
+//	    result = prime * result + ((lair == null) ? 0 : lair.hashCode());
 	    result = prime
 	            * result
 	            + ((lastChangeResourcesDate == null) ? 0
@@ -273,11 +266,11 @@ public class RoomData implements Serializable {
 	    if (getClass() != obj.getClass())
 		    return false;
 	    RoomData other = (RoomData) obj;
-	    if (lair == null) {
-		    if (other.lair != null)
-			    return false;
-	    } else if (!lair.equals(other.lair))
-		    return false;
+//	    if (lair == null) {
+//		    if (other.lair != null)
+//			    return false;
+//	    } else if (!lair.equals(other.lair))
+//		    return false;
 	    if (lastChangeResourcesDate == null) {
 		    if (other.lastChangeResourcesDate != null)
 			    return false;

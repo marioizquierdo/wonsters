@@ -82,8 +82,7 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
         this.user = user;
         this.money = money;
         this.garbage = garbage;
-        this.roomData = roomData;
-        this.roomData.setLair(this);
+        this.setRoomData(roomData);
         this.setAddressStreet(street);
         this.setAddressBuilding(building);
         this.setAddressFloor(floor);
@@ -208,23 +207,20 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	
 	// getters and setters delegated to roomData
     public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }
-	public int getVitalSpace() { return roomData.getVitalSpace(); }
-	public boolean refreshVitalSpaceOccupied() { return roomData.refreshVitalSpaceOccupied(); }
-	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(); }
+	public int getVitalSpace() { return roomData.getVitalSpace(this); }
+	public boolean refreshVitalSpaceOccupied() { return roomData.refreshVitalSpaceOccupied(this); }
+	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(this); }
 	public Date getLastChangeResourcesDate() { return roomData.getLastChangeResourcesDate(); }
 	public void setLastChangeResourcesDateToNow() { roomData.setLastChangeResourcesDateToNow(); }
 	public boolean isReadyToChangeResources() { return roomData.isReadyToChangeResources(); }
-	public int getChangeResourcesMaxGarbageAmountEnabled() { return roomData.getChangeResourcesMaxGarbageAmountEnabled(); }
-	public int getChangeResourcesMaxMoneyAmountEnabled() { return roomData.getChangeResourcesMaxMoneyAmountEnabled(); }
-	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() { return roomData.getOnlyOneChangePerGameDayException(); }
-	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(); }
-	public int getPercentageCommision() { return roomData.getPercentageCommision(); }
-	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(); }
+	public int getChangeResourcesMaxGarbageAmountEnabled() { return roomData.getChangeResourcesMaxGarbageAmountEnabled(this); }
+	public int getChangeResourcesMaxMoneyAmountEnabled() { return roomData.getChangeResourcesMaxMoneyAmountEnabled(this); }
+	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() { return roomData.getOnlyOneChangePerGameDayException(this); }
+	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(this); }
+	public int getPercentageCommision() { return roomData.getPercentageCommision(this); }
+	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(this); }
 	public RoomData getRoomData() { return roomData; }
-	public void setRoomData(RoomData roomData) { 
-	    this.roomData = roomData; 
-	    roomData.setLair(this);
-	}
+	public void setRoomData(RoomData roomData) { this.roomData = roomData; }
 	
 	
 	//------ Monsters and eggs ------//

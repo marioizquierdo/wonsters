@@ -22,7 +22,7 @@ public enum MonsterRace {
 						5, 1, 1, 1, 0,
 						4, 0,
 						0, MonsterRaceClass.Verme, false,
-						4, 1, 1),
+						4, 0, 0),
 						
 	Polbo			(// Balleno Heptocto
 						5, 5, 5, 5, 5, 
