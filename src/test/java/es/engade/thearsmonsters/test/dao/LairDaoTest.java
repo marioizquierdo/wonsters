@@ -61,7 +61,7 @@ public class LairDaoTest extends GaeTest {
             userDao.save(allPersistentUsers.get(numberOfUsers));
             numberOfUsers++;
             floor++;
-            if (floor > GameConf.getMaxNumberOfFloors()) {
+            if (floor >= GameConf.getMaxNumberOfFloors()) {
                 floor = 1;
                 building++;
             }

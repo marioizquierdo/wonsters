@@ -82,10 +82,10 @@ public class LairFacadeTest extends GaeTest {
             newUser.getLair().setAddressBuilding(newBuilding);
             newUser.getLair().setAddressFloor(newFloor);
             newFloor++;
-            if (newFloor > GameConf.getMaxNumberOfFloors()) {
+            if (newFloor >= GameConf.getMaxNumberOfFloors()) {
             	newFloor = 1;
             	newBuilding++;
-            	if (newBuilding > GameConf.getMaxNumberOfBuildings()) {
+            	if (newBuilding >= GameConf.getMaxNumberOfBuildings()) {
             		newBuilding = 1;
             		newStreet++;
             	}
@@ -197,9 +197,9 @@ public class LairFacadeTest extends GaeTest {
         throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
         
         lairFacade.findLairByAddress(
-                GameConf.getMaxNumberOfStreets(),
-                GameConf.getMaxNumberOfBuildings(),
-                GameConf.getMaxNumberOfFloors());
+                GameConf.getMaxNumberOfStreets()-1,
+                GameConf.getMaxNumberOfBuildings()-1,
+                GameConf.getMaxNumberOfFloors()-1);
         
     }
 

@@ -221,7 +221,10 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public int getPercentageCommision() { return roomData.getPercentageCommision(); }
 	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(); }
 	public RoomData getRoomData() { return roomData; }
-	public void setRoomData(RoomData roomData) { this.roomData = roomData; }
+	public void setRoomData(RoomData roomData) { 
+	    this.roomData = roomData; 
+	    roomData.setLair(this);
+	}
 	
 	
 	//------ Monsters and eggs ------//

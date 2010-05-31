@@ -129,7 +129,7 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
             InsuficientGarbageException {
 
         lair.buildRoom(roomType);
-        lairDao.update(lair);
+        userDao.update(lair.getUser());
 
     }
 
