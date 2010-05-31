@@ -43,6 +43,7 @@
         </span>
     </div>
 
+	<!--
 	<div class="field">
 		<span class="label">
 			<fmt:message key="UserProfile.language"/>
@@ -55,6 +56,10 @@
 			<html:errors property="language"/>
 		</span>
 	</div>
+	  -->
+	 <html:hidden property="language" value="es-ES"/> <!-- Por ahora solo se puede en castellano -->
+	 
+	 
     
     <div class="button end_button">
         <html:submit>
