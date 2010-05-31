@@ -13,6 +13,7 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.test.AppContext;
 import es.engade.thearsmonsters.test.GaeTest;
@@ -80,7 +81,7 @@ public class LairDaoTest extends GaeTest {
     }
     
     @Test
-    public void testFindByLogin() throws InstanceNotFoundException {
+    public void testFindByLogin() throws InstanceNotFoundException, FullPlacesException {
 //
 //        for (User u:allPersistentUsers) {
 //            System.out.println("LAIR from " + u.getLogin() + " : " + u.getLair().getBuilding());

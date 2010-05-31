@@ -1,5 +1,6 @@
 package es.engade.thearsmonsters.model.entities.lair;
 
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.util.GameConf;
 
 public class Address {
@@ -33,7 +34,7 @@ public class Address {
         this.floor = floor;
     }
     
-    public static Address nextAddress(int street, int building, int floor) {
+    public static Address nextAddress(int street, int building, int floor) throws FullPlacesException {
 
         int nFloor = floor;
         int nBuilding = 0;
@@ -51,7 +52,10 @@ public class Address {
         }
         //TODO: En esta implementación temporal, esto puede desbordar!
         nStreet += street;
-        
+        if (nStreet > LAST_STREET) {
+            throw new FullPlacesException();
+        }
+            
         return new Address(nStreet, nBuilding, nFloor);
         
     }

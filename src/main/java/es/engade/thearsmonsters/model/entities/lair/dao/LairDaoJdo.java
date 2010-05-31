@@ -14,6 +14,7 @@ import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 @Transactional
@@ -87,7 +88,7 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         return lairs;
     }
     
-    public Address findNextAddress() throws InstanceNotFoundException {
+    public Address findNextAddress() throws FullPlacesException {
         PersistenceManager pm = getPersistenceManager();
         
         Query query = pm.newQuery(Lair.class);
@@ -103,8 +104,7 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         }
         
         if (lair == null)
-            throw new InstanceNotFoundException("", Lair.class
-                    .getName());
+            return Address.initialAddress();
         
         return Address.nextAddress(lair.getAddressStreet(), 
                 lair.getAddressBuilding(), lair.getAddressFloor());

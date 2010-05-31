@@ -8,6 +8,7 @@ import es.engade.thearsmonsters.model.entities.common.dao.GenericDao;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 public interface LairDao extends GenericDao<Lair, Key> {
@@ -29,5 +30,5 @@ public interface LairDao extends GenericDao<Lair, Key> {
      */
     public List<Lair> findLairsByBuilding(int street, int building);
     
-    public Address findNextAddress() throws InstanceNotFoundException;
+    public Address findNextAddress() throws FullPlacesException;
 }

@@ -94,11 +94,8 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
             Lair newLair = FactoryData.LairWhatIs.InInitialState.build(newUser);
             Address nextAddress;
-            try {
-                nextAddress = lairDao.findNextAddress();
-            } catch (InstanceNotFoundException e1) {
-                nextAddress = Address.initialAddress();
-            }
+            nextAddress = lairDao.findNextAddress();
+
             newLair.setAddressStreet(nextAddress.getStreet());
             newLair.setAddressBuilding(nextAddress.getBuilding());
             newLair.setAddressFloor(nextAddress.getFloor());
