@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
+import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -24,11 +26,17 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private LairDao lairDao;
     
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 
+    public void setLairDao(LairDao lairDao) {
+        this.lairDao = lairDao;
+    }
+    
     public void changePassword(String login, String oldClearPassword, String newClearPassword)
             throws IncorrectPasswordException, InternalErrorException {
         
@@ -85,6 +93,15 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
             Lair newLair = FactoryData.LairWhatIs.InInitialState.build(newUser);
+            Address nextAddress;
+            try {
+                nextAddress = lairDao.findNextAddress();
+            } catch (InstanceNotFoundException e1) {
+                nextAddress = Address.initialAddress();
+            }
+            newLair.setAddressStreet(nextAddress.getStreet());
+            newLair.setAddressBuilding(nextAddress.getBuilding());
+            newLair.setAddressFloor(nextAddress.getFloor());
            
             userDao.save(newUser);
             return new LoginResult(newLair, login, userDetails.getFirstName(), 

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.appengine.api.datastore.Key;
 
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
+import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -84,6 +85,29 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
             lairs = new ArrayList<Lair>();
         
         return lairs;
+    }
+    
+    public Address findNextAddress() throws InstanceNotFoundException {
+        PersistenceManager pm = getPersistenceManager();
+        
+        Query query = pm.newQuery(Lair.class);
+        query.setOrdering("id desc");
+        query.setRange(0, 1);
+        query.setUnique(true);
+        
+        Lair lair = null;
+        try {
+            lair = (Lair) query.execute();
+        } finally {
+            query.closeAll();
+        }
+        
+        if (lair == null)
+            throw new InstanceNotFoundException("", Lair.class
+                    .getName());
+        
+        return Address.nextAddress(lair.getAddressStreet(), 
+                lair.getAddressBuilding(), lair.getAddressFloor());
     }
     
 }

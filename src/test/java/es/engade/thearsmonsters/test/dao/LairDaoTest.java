@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.user.User;
@@ -63,6 +64,7 @@ public class LairDaoTest extends GaeTest {
                 floor = 1;
                 building++;
             }
+            System.out.println("ADDRESS PERSISTENT _ 1, "+ building + ", "+ floor);
         }
     }
     
@@ -87,6 +89,8 @@ public class LairDaoTest extends GaeTest {
         Lair l = lairDao.findLairByUser(persistentUser);//.findLairByAddress(new Address(1,2,1));
         System.out.println("lairRR " + l);
         
+        Address a = lairDao.findNextAddress();
+        System.out.println("ADDRESS _ " + a.getStreet() + ", "+ a.getBuilding() + ", "+ a.getFloor());
     }
     
     @Test

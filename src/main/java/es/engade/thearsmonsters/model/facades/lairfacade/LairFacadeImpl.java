@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.Room;
@@ -21,7 +22,6 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMo
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
-import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -177,12 +177,11 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
             throws InstanceNotFoundException, InternalErrorException, IncorrectAddressException {
     	
     	// Check coordinates [0..N-1]
-    	if(		building < 1 || building > GameConf.getMaxNumberOfBuildings() ||
-    			street < 1 || street > GameConf.getMaxNumberOfStreets() ||
-    			floor < 1 || floor > GameConf.getMaxNumberOfFloors()) 
+    	if(!Address.checkAddress(street, building, floor)) { 
     		throw new IncorrectAddressException(street, building, floor);
+    	}
 
-        try {
+    	try {
         	return lairDao.findLairByAddress(street, building, floor);
         } catch (InstanceNotFoundException e) {
             throw e;

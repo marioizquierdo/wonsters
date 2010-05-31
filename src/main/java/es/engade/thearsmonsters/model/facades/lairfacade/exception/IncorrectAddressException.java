@@ -1,6 +1,7 @@
 package es.engade.thearsmonsters.model.facades.lairfacade.exception;
 
 import es.engade.thearsmonsters.http.view.applicationobjects.LocalizableMessage;
+import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.util.GameConf;
 
 public class IncorrectAddressException extends IndexOutOfBoundsException implements LocalizableMessage {
@@ -13,9 +14,9 @@ public class IncorrectAddressException extends IndexOutOfBoundsException impleme
     public IncorrectAddressException() {
     	
         super("Address out of bounds. Allowed values: " +
-        		"street [0, "+   GameConf.getMaxNumberOfStreets()    +"], " +
-        		"building [0, "+ GameConf.getMaxNumberOfBuildings() +"], " +
-        		"floor [0, "+    GameConf.getMaxNumberOfFloors()   +"].");
+        		"street ["+ Address.FIRST_STREET+", "+ Address.LAST_STREET +"], " +
+        		"building ["+ Address.FIRST_BUILDING+", "+ Address.LAST_BUILDING +"], " +
+        		"floor ["+ Address.FIRST_FLOOR+", "+ Address.LAST_FLOOR +"].");
         
         this.messageKey = "FlashMessages.IncorrectAddressException";
         this.messageParams = new String[]{
@@ -29,9 +30,9 @@ public class IncorrectAddressException extends IndexOutOfBoundsException impleme
         super("Address out of bounds ("+
                 street +","+ building +","+ floor +
                 "). Allowed values: " +
-                "street [0, "+   GameConf.getMaxNumberOfStreets()    +"], " +
-                "building [0, "+ GameConf.getMaxNumberOfBuildings() +"], " +
-                "floor [0, "+    GameConf.getMaxNumberOfFloors()   +"].");
+                "street ["+ Address.FIRST_STREET+", "+ Address.LAST_STREET +"], " +
+                "building ["+ Address.FIRST_BUILDING+", "+ Address.LAST_BUILDING +"], " +
+                "floor ["+ Address.FIRST_FLOOR+", "+ Address.LAST_FLOOR +"].");
         
         this.messageKey = "FlashMessages.IncorrectAddressException";
         this.messageParams = new String[]{

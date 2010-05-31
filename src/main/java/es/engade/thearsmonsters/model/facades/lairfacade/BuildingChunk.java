@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.util.GameConf;
@@ -41,8 +42,7 @@ public class BuildingChunk implements Serializable {
     public BuildingChunk(List<Lair> lairsOfTheBuilding, int street, int building) throws IncorrectAddressException {
         
     	// Check coordinates [0..N-1]
-    	if(building < 0 || building >= GameConf.getMaxNumberOfBuildings() ||
-    			street < 0 || street >= GameConf.getMaxNumberOfStreets()) 
+    	if(!(Address.checkBuilding(building) && Address.checkStreet(street)))
     		throw new IncorrectAddressException(street, building);
     	
     	// Set attributes
@@ -134,19 +134,11 @@ public class BuildingChunk implements Serializable {
     
     
     private int nextStreet(int street) {
-    	int nextStreet = street+1;
-    	if(nextStreet >= GameConf.getMaxNumberOfStreets()) {
-    		nextStreet = 0;
-    	}
-    	return nextStreet;
+    	return Address.nextStreet(street);
     }
     
     private int nextBuilding(int building) {
-    	int nextBuilding = building+1;
-    	if(nextBuilding >= GameConf.getMaxNumberOfBuildings()) {
-    		nextBuilding = 0;
-    	}
-    	return nextBuilding;
+    	return Address.nextBuilding(building);
     }
     
     /**
@@ -154,27 +146,15 @@ public class BuildingChunk implements Serializable {
      * when advance to next, the street must be advanced too (avoid loops).
      */
     private int nextBuildingStreet(int building, int street) {
-    	if(building >= (GameConf.getMaxNumberOfBuildings()-1)) {
-    		return nextStreet(street);
-    	} else {
-    		return street;
-    	}
+    	return Address.nextBuildingStreet(building, street);
     }
     
     private int previousStreet(int street) {
-    	int previousStreet = street-1;
-    	if(previousStreet < 0) {
-    		previousStreet = GameConf.getMaxNumberOfStreets()-1;
-    	}
-    	return previousStreet;
+    	return Address.previousStreet(street);
     }
     
     private int previousBuilding(int building) {
-    	int previousBuilding = building-1;
-    	if(previousBuilding < 0) {
-    		previousBuilding = GameConf.getMaxNumberOfBuildings()-1;
-    	}
-    	return previousBuilding;
+    	return Address.previousBuilding(building);
     }
     
     /**
@@ -182,11 +162,7 @@ public class BuildingChunk implements Serializable {
      * when back to previous, the street must get back too (avoid loops).
      */
     private int previousBuildingStreet(int building, int street) {
-    	if(building == 0) {
-    		return previousStreet(street);
-    	} else {
-    		return street;
-    	}
+    	return Address.previousBuildingStreet(building, street);
     }
 
 }

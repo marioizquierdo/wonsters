@@ -74,6 +74,7 @@
 	
 	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeImpl">
 		<property name="userDao" ref="userDao" />
+		<property name="lairDao" ref="lairDao" />
 	</bean>
 <!--	<bean id="userFacade" class="es.engade.thearsmonsters.model.facades.userfacade.UserFacadeMock"/>-->
 	<bean id="lairFacade" class="es.engade.thearsmonsters.model.facades.lairfacade.LairFacadeImpl">

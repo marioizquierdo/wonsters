@@ -27,7 +27,6 @@ import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.util.Format;
-import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -191,18 +190,18 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public void setUser(User user) { this.user = user; }
 	public int getAddressStreet() { return addressStreet; }
 	public void setAddressStreet(int street) { 
-	    if (street > GameConf.getMaxNumberOfStreets() || street < 0)
+	    if (!Address.checkStreet(street))
             throw new IncorrectAddressException(street, addressBuilding, addressFloor);
 	    this.addressStreet = street; }
 	public int getAddressBuilding() { return addressBuilding; }
 	public void setAddressBuilding(int building) {
-	    if (building > GameConf.getMaxNumberOfBuildings() || building < 0)
+	    if (!Address.checkBuilding(building))
             throw new IncorrectAddressException(addressStreet, building, addressFloor);
 	    this.addressBuilding = building; 
 	}
 	public int getAddressFloor() { return addressFloor; }
 	public void setAddressFloor(int floor) { 
-	    if (floor > GameConf.getMaxNumberOfFloors() || floor < 0)
+	    if (!Address.checkFloor(floor))
             throw new IncorrectAddressException(addressStreet, addressBuilding, floor);
 	    this.addressFloor = floor; 
 	}
