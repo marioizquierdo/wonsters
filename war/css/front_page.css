@@ -124,18 +124,25 @@
 #credits ul.dev_team_list li {
     margin: 0 0 15px 0;
     padding: 0 0 0 10px;
-    font-weight:bold;
+    background: transparent none no-repeat top left;
+}
+
+#credits ul.dev_team_list li h3{
+	font-weight: bold;
 }
 
 #credits ul.dev_team_list li .function{
     color: #999;
     text-align: left;
-    font-weight: none;
+    font-weight: bold;
     font-size:12px;
     margin: 0 0 0 15px;
 }
 
-#credits ul.dev_team_list button{
+#credits ul.dev_team_list li .more_info{
+    color: #444;
+    text-align: left;
+    font-size:12px;
     margin: 0 0 0 10px;
 }
 
@@ -144,7 +151,30 @@
     text-align: left;
     font-weight: none;
     font-size:14px;
-    margin: 0 5px 0 10px;
+    height:90px;
+    margin: 5px 0 0 15px;
+    padding: 0 0 0 90px;
+    background: transparent none no-repeat top left;
+}
+
+#credits ul.dev_team_list div.personal_info#mario_div{
+    background-image: url('../images/photos/guille.jpg');
+}
+
+#credits ul.dev_team_list div.personal_info#angel_div{
+    background-image: url('../images/photos/guille.jpg');
+}
+
+#credits ul.dev_team_list div.personal_info#trono_div{
+    background-image: url('../images/photos/guille.jpg');
+}
+
+#credits ul.dev_team_list div.personal_info#diego_div{
+    background-image: url('../images/photos/guille.jpg');
+}
+
+#credits ul.dev_team_list div.personal_info#guille_div{
+    background-image: url('../images/photos/guille.jpg');
 }
 
 #credits ul.tech_info_list {
