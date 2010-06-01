@@ -113,7 +113,14 @@
 	margin-right: 10px;
 }
 
+#loginWelcome{
+    width: 770px;
+    padding: 0;
+}
 
+#loginWelcome .message{
+    margin: 0 5px 0 0;
+}
 
 /**** Credits ****/
 
