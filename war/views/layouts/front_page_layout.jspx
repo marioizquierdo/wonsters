@@ -51,6 +51,9 @@
   	<script type='text/javascript' src='/javascript/lib/jquery.tipTip.js'></script>
   	<script type='text/javascript' src='/javascript/lib/thearsmonsters_lib.js'></script>
   	<script type='text/javascript' src='/javascript/front_page_layout.js'></script>
+  	<script type='text/javascript'>$(function(){ 
+  	$('#login').focus(); });
+  	</script>
   ]]> 
 
   <![CDATA[
@@ -96,16 +99,16 @@
                                 </c:if>
                                 
                                 <span class="loginBlock">
-                                    <fmt:message key="AuthenticationContent.user"/>&#160;
-                                    <html:text property="login" size="12" maxlength="30"/>
+                                    <label for="login"><fmt:message key="AuthenticationContent.user"/></label>
+                                    <html:text property="login" size="12" maxlength="30" styleId="login"/>
                                 </span>
                                 <span class="loginBlock">
-                                    <fmt:message key="AuthenticationContent.pass"/>&#160;
-                                    <html:password property="password" size="12" maxlength="8"/>
+                                    <label for="password"><fmt:message key="AuthenticationContent.pass"/></label>
+                                    <html:password property="password" size="12" maxlength="8" styleId="password"/>
                                 </span>
                                 <span class="loginBlock">
-                                    <html:checkbox property="rememberMyPassword" styleId="checkbox"/>
-                                    <label for="checkbox"><fmt:message key="AuthenticationContent.rememberMyPassword"/></label>
+                                    <html:checkbox property="rememberMyPassword" styleId="remember"/>
+                                    <label for="remember"><fmt:message key="AuthenticationContent.rememberMyPassword"/></label>
                                 </span>
                                 <span class="button">
                                     <html:submit><fmt:message key="Buttons.login"/></html:submit>
