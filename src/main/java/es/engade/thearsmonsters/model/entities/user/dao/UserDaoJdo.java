@@ -36,8 +36,7 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         }
         if (user == null)
             throw new InstanceNotFoundException(login, User.class.getName());
-        // throw new EntityNotFoundException(User.class, "Unexistent login " +
-        // login);
+        // throw new EntityNotFoundException(User.class, "Unexistent login " + login);
         return user;
     }
 

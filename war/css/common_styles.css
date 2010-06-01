@@ -1,5 +1,10 @@
-/*******************************/ /******** COMMON STYLES ********/
-	/*******************************/ /****** Layout ******/
+/*******************************/
+/******** COMMON STYLES ********/
+/*******************************/
+
+
+/****** Layout ******/
+
 body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -27,7 +32,9 @@ body {
 	clear: both;
 }
 
+
 /****** Icons ******/
+
 img.icon {
 	display: inline;
 }
@@ -60,7 +67,9 @@ div.m_middle {
 	width: 16px;
 }
 
+
 /*** Tooltip ***/
+
 #tooltip {
 	position: absolute;
 	z-index: 3000;
@@ -79,7 +88,9 @@ div.m_middle {
 	color: #333;
 }
 
-/****** Content. ******/
+
+/****** Content (common) ******/
+
 div.p_header {
 	font-weight: bold;
 	font-size: 14px;
@@ -104,6 +115,7 @@ p.info {
 	margin: 10px 10px 20px 10px;
 	color: #444;
 	text-align: left;
+	color: #444;
 }
 
 p.info_mini {
@@ -111,8 +123,7 @@ p.info_mini {
 	font-size: 90%;
 }
 
-.data_row {
-	/* Por ejemplo los datos a la derecha de la imagen del monstruo */
+.data_row { /* Por ejemplo los datos a la derecha de la imagen del monstruo */
 	float: left;
 	padding: 2px;
 	text-align: left;
@@ -128,29 +139,28 @@ p.info_mini {
 	margin-left: 5px;
 }
 
-.cursor_help {
-	cursor: help;
-}
-
-.bold {
-	font-weight: bold;
-}
-
-/***** Info with icon ******/
-div.info_slot {
+p.info_slot { /* Info slot without icon */
 	float: left;
-	margin: 5px 10px 5px 10px;
+	margin: 10px 30px;
+	width: 700px;
+	text-align: left;
+	color: #444;
+}
+
+div.info_slot { /* Info slot with icon: used by info_message customtag */
+	float: left;
+	margin: 10px 10px 10px 10px;
 	width: 740px;
 	text-align: left;
 	color: #444;
 }
 
-div.info_slot_content {
+div.info_slot .info_slot_content {
 	float: left;
-	width: 715px; /* info_slot.width - 25 */
+	width: 700px; /* info_slot.width - 40 */
 }
 
-h3.info_slot_header {
+div.info_slot .info_slot_content h3.info_slot_header {
 	padding: 0 0 5px 0;
 	margin: 0;
 	font-size: 14px;
@@ -158,7 +168,34 @@ h3.info_slot_header {
 	font-weight: bold;
 }
 
+div.more_actions_links { /* Enlaces que suelen ir en la parte inferior de una ventana */
+	float: left;
+	width: 100%;
+	text-align: center;
+	margin: 25px 0 15px 0;
+}
+
+
+div.more_actions_links a {
+	margin: 0 5px;
+	font-size: 14px;	
+}
+
+/**** Simple styles ****/
+
+.bold { font-weight: bold; }
+.float_left { float: left; }
+.text_align_left { text-align: left; }
+.text_align_rigth { text-align: rigth; }
+.text_align_center { text-align: center; }
+.full_block { float: left; display: inline; width: 100%; }
+.cursor_wait { cursor: wait; }
+.cursor_help { cursor: help; }
+.cursor_pointer { cursor: pointer; }
+
+
 /***** FlashMessages *******/
+
 #flashMessages {
 	float: left;
 	width: 770px;
@@ -184,7 +221,9 @@ h3.info_slot_header {
 	border-color: #600;
 }
 
-/****** Error messages. ******/
+
+/****** Error messages ******/
+
 .errorMessage {
 	font-weight: bold;
 	color: red;

@@ -8,13 +8,13 @@
 
 <div id="game_presentation_info">
 
-	<p class="info">
+	<p class="info_slot">
 		<fmt:message key="FrontPage.info.presentationText"/>
 	</p>
 	
 	<c:set var="title"><fmt:message key="FrontPage.playNowForFree" /></c:set>
   	<c:set var="desc"><fmt:message key="FrontPage.playNowForFree.description"/></c:set>
-	<div id="playNowForFree_button" class="button_box" title="${title} - ${desc}">
+	<div id="playNowForFree_button" class="button_box ui-corner-all" title="${title} - ${desc}">
 		<html:link action="userprofile/register.do?action=REGISTER">${title}</html:link>
   	</div>
 	
@@ -38,11 +38,11 @@
 		<fmt:message key="FrontPage.info.mosntersOffspring"/>
 	</customtag:info_message>
 	
-	<p class="info">
+	<div class="more_actions_links">
 		<html:link action="screenshots.do"><fmt:message key="FrontPage.screenshots" /></html:link> |
 		<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
 		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
-	</p>
+	</div>
 
 </div>
 </jsp:root>

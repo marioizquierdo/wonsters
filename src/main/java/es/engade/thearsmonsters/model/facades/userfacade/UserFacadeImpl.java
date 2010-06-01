@@ -85,20 +85,17 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
         
         try {
             User user = userDao.findUserByLogin(login);
-            if (user != null)
-                throw new DuplicateInstanceException(user.getIdKey(), User.class.getName());
-            else
-                throw new InternalErrorException(new Exception("Expected InstanceNotFoundException, but null value was found"));
+            if (user != null) {
+                throw new DuplicateInstanceException(user.getLogin(), User.class.getName());
+            } else {
+                throw new InternalErrorException("Expected InstanceNotFoundException, but null value was found, in UserFacadeImpl.registerUser('"+login+"', clearPassword, details)");
+            }
         } catch (InstanceNotFoundException e) {
 
             User newUser = new User(login, PasswordEncrypter.crypt(clearPassword), userDetails);
             Lair newLair = FactoryData.LairWhatIs.InInitialState.build(newUser);
-            Address nextAddress;
-            nextAddress = lairDao.findNextAddress();
-
-            newLair.setAddressStreet(nextAddress.getStreet());
-            newLair.setAddressBuilding(nextAddress.getBuilding());
-            newLair.setAddressFloor(nextAddress.getFloor());
+            Address nextAddress = lairDao.findNextFreeAddress();
+            newLair.setAddress(nextAddress);
            
             userDao.save(newUser);
             return new LoginResult(newLair, login, userDetails.getFirstName(), 

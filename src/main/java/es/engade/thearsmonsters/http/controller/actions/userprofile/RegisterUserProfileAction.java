@@ -48,8 +48,7 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
                 userProfileDetails);
 
         } catch (DuplicateInstanceException e) {
-            errors.add("login",
-                new ActionMessage("ErrorMessages.login.alreadyExists"));
+            errors.add("login", new ActionMessage("ErrorMessages.login.alreadyExists"));
         } catch (FullPlacesException e) {
         	FlashMessage.showError(request, e);
 		}            
