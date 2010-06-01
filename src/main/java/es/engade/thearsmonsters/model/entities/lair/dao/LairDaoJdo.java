@@ -88,7 +88,13 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         return lairs;
     }
     
-    public Address findNextAddress() throws FullPlacesException {
+    /**
+     * Por ahora, la implementación es bastante simple:
+     * ordena las guaridas por id, se queda con la de id mayor, que se supone
+     * es la última creada, y recupera la siguiente address.
+     * Además no hace control, siempre devuelve la siguiente
+     */
+    public Address findNextFreeAddress() throws FullPlacesException {
         PersistenceManager pm = getPersistenceManager();
         
         Query query = pm.newQuery(Lair.class);
@@ -103,8 +109,7 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
             query.closeAll();
         }
         
-        if (lair == null)
-            return Address.initialAddress();
+        if(lair == null) return Address.initialAddress();
         
         return Address.nextAddress(lair.getAddressStreet(), 
                 lair.getAddressBuilding(), lair.getAddressFloor());

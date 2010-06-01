@@ -17,6 +17,9 @@
 	
 		<c:when test="${fn:length(monsters) == 0}">
 			<customtag:info_message key="Monsters.thereIsNoMonsters" icon_id="0" style="margin: 15px;"/>
+			<div class="more_actions_links">
+				<html:link action="/monster/eggs.do?eggsManagement_selected_tag=buyEggs"><fmt:message key="EggsManagement.buyEggs"/></html:link>
+			</div>
 		</c:when>
 		
 		<c:otherwise>

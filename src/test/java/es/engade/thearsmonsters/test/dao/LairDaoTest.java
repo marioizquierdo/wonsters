@@ -90,7 +90,7 @@ public class LairDaoTest extends GaeTest {
         Lair l = lairDao.findLairByUser(persistentUser);//.findLairByAddress(new Address(1,2,1));
         System.out.println("lairRR " + l);
         
-        Address a = lairDao.findNextAddress();
+        Address a = lairDao.findNextFreeAddress();
         System.out.println("ADDRESS _ " + a.getStreet() + ", "+ a.getBuilding() + ", "+ a.getFloor());
     }
     

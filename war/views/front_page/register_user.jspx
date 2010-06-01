@@ -15,7 +15,7 @@
 
     <div class="field">        
         <span class="label">
-            <fmt:message key="UserProfile.login"/>
+            <fmt:message key="UserProfile.login_name"/>
         </span>
         <span class="entry">
             <html:text property="login" size="16" maxlength="30"/>

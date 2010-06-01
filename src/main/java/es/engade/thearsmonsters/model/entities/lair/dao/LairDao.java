@@ -30,5 +30,8 @@ public interface LairDao extends GenericDao<Lair, Key> {
      */
     public List<Lair> findLairsByBuilding(int street, int building);
     
-    public Address findNextAddress() throws FullPlacesException;
+    /**
+     * Find the next available address in the world.
+     */
+    public Address findNextFreeAddress() throws FullPlacesException;
 }

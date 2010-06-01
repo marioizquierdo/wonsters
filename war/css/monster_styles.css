@@ -1,4 +1,13 @@
-/********** Monster ***************/
+
+
+/***** Monster of Lair (table) *****/
+table tr td img.monster_icon {
+	display: inline;
+	margin: 3px;
+}
+
+/******** Monster ********/
+
 #monsterRightBlock {
 	float: left;
 	margin-left: 10px;
@@ -18,7 +27,8 @@
 	overflow: hidden;
 }
 
-/******** Tareas del monsturo (ventana izquierda) *********/
+
+/******** Monster Tasks (left window) *********/
 
 #monsterLeftBlock {
 	float: left;

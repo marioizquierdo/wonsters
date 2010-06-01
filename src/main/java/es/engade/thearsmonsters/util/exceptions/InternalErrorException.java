@@ -5,10 +5,15 @@ import java.io.PrintWriter;
 
 public class InternalErrorException extends Exception {
 
-    private Exception encapsulatedException;
+    private static final long serialVersionUID = 6419142514334183227L;
+	private Exception encapsulatedException;
 
     public InternalErrorException(Exception exception) {
         encapsulatedException = exception;
+    }
+    
+    public InternalErrorException(String message) {
+    	this(new Exception(message));
     }
 
     @Override
@@ -38,17 +43,5 @@ public class InternalErrorException extends Exception {
         printWriter.println("***Information about encapsulated exception***");
         encapsulatedException.printStackTrace(printWriter);
     }
-
-    /* Test code. Uncomment for testing. */    
-//    public final static void main(String[] args) {
-//    
-//        try {
-//            throw new InternalErrorException(
-//                new NumberFormatException("Bad number format"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    
-//    }
     
 }

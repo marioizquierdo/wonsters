@@ -188,6 +188,10 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public void setGarbage(int garbage) { this.garbage = garbage; }
 	public User getUser() { return user; }
 	public void setUser(User user) { this.user = user; }
+	
+	//------- Address getters and setters -------//
+	public Address getAddress() { return new Address(this.addressStreet, this.addressBuilding, this.addressFloor); }
+	public void setAddress(Address address) { this.addressStreet = address.getStreet(); this.addressBuilding = address.getBuilding(); this.addressFloor = address.getFloor(); }
 	public int getAddressStreet() { return addressStreet; }
 	public void setAddressStreet(int street) { 
 	    if (!Address.checkStreet(street))
