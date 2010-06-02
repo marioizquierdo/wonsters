@@ -8,9 +8,14 @@
     $('.personal_info').hide();
     
     //Muestra la informacion en el div asociado a cada boton.
-    $('a.more_info').click(function(){
+    $('.more_info, .h3more_info').click(function(){
         $('.personal_info').hide('slideup');
-        var target_div = '#' + $(this).attr('id').replace('_link','_div');
+        console.log("class: ",$(this).attr('class'));
+        if ($(this).attr('class') == 'more_info'){
+            var target_div = '#' + $(this).attr('id').replace('_link','_div');
+        }else {
+            var target_div = '#' + $(this).attr('id').replace('_h3link','_div');
+        }
         $(target_div).show('blind');
         return false;
     });
@@ -26,7 +31,7 @@
 	<customtag:info_message titleKey="Credits.developersTitle" icon_id="15">
 	   <ul class="dev_team_list">
 	        <li>
-	        <h3><fmt:message key="Name.MarioIzquierdo"/></h3>
+	        <h3><a id="mario_h3link" class="h3more_info"><fmt:message key="Name.MarioIzquierdo"/></a></h3>
 	           <span class="function"><fmt:message key="Credits.chief"/></span>
 	           <a id="mario_link" class="more_info"><fmt:message key="Credits.moreInfo"/></a>
 	           <div id="mario_div" class="personal_info">
@@ -34,7 +39,7 @@
 	           </div>
 	        </li>
 	        <li id="dev_team_angel">
-	            <h3><fmt:message key="Name.AngelRomo" /></h3>
+	            <h3><a id="angel_h3link" class="h3more_info"><fmt:message key="Name.AngelRomo" /></a></h3>
 		        <span class="function"><fmt:message key="Credits.conceptArt"/></span>
 		        <a id="angel_link" class="more_info"><fmt:message key="Credits.moreInfo"/></a>
 		        <div id="angel_div" class="personal_info">
@@ -42,7 +47,7 @@
 	            </div>
 	        </li>
 	        <li id="dev_team_fco">
-	           <h3><fmt:message key="Name.FcoJavierGarcia" /></h3>
+	           <h3><a id="trono_h3link" class="h3more_info"><fmt:message key="Name.FcoJavierGarcia" /></a></h3>
 	           <span class="function"><fmt:message key="Credits.programmingAndText"/></span>
 	           <a id="trono_link" class="more_info"><fmt:message key="Credits.moreInfo"/></a>
 	           <div id="trono_div" class="personal_info">
@@ -50,7 +55,7 @@
                </div>
 	        </li>
 	        <li id="dev_team_diego">
-	            <h3><fmt:message key="Name.DiegoDarriba" /></h3>
+	            <h3><a id="diego_h3link" class="h3more_info"><fmt:message key="Name.DiegoDarriba" /></a></h3>
 	            <span class="function"><fmt:message key="Credits.leadProgrammer"/></span>
 	            <a id="diego_link" class="more_info"><fmt:message key="Credits.moreInfo"/></a>
 	            <div id="diego_div" class="personal_info">
@@ -58,7 +63,7 @@
                 </div>
 	        </li>  
 	        <li id="dev_team_guille">
-	           <h3><fmt:message key="Name.GuilleGefaell" /></h3>
+	           <h3><a id="guille_h3link" class="h3more_info"><fmt:message key="Name.GuilleGefaell" /></a></h3>
 	           <span class="function"><fmt:message key="Credits.programmingAndUI"/></span>
 	           <a id="guille_link" class="more_info"><fmt:message key="Credits.moreInfo"/></a>
 	           <div id="guille_div" class="personal_info">
