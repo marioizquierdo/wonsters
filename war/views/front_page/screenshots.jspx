@@ -1,10 +1,20 @@
-<jsp:root xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
-          version="2.0">
-
+    <jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+			
 	<customtag:info_message titleKey="Screenshots.frontPageTitle" 
 		key="Screenshots.description" status="INFO" style="margin: 20px;"/>
-		
+
+
+	<div class="more_actions_links">
+		<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
+		<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
+		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
+	</div>
+
+	
 </jsp:root>

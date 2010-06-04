@@ -1,6 +1,7 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
      xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:html="http://struts.apache.org/tags-html"
 		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           version="2.0">
 
@@ -121,5 +122,9 @@
     <customtag:info_message titleKey="Credits.thanks" icon_id="6">
         <p class="info"><fmt:message key="Credits.thanksDesc" /></p>
     </customtag:info_message>
+    
+    <div class="more_actions_links">
+		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
+	</div>
 </div>
 </jsp:root>

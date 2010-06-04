@@ -18,16 +18,20 @@
 		<html:link action="userprofile/register.do?action=REGISTER">${title}</html:link>
   	</div>
 	
-	<customtag:info_message titleKey="FrontPage.info.automaticTasks.title" icon_id="3">
-		<fmt:message key="FrontPage.info.automaticTasks"/>
+	<customtag:info_message titleKey="FrontPage.info.totallyFree.title" icon_id="11">
+		<fmt:message key="FrontPage.info.totallyFree"/>
 	</customtag:info_message>
 	
-	<customtag:info_message titleKey="FrontPage.info.publicRooms.title" icon_id="7">
-		<fmt:message key="FrontPage.info.publicRooms"/>
+	<customtag:info_message titleKey="FrontPage.info.byYourWay.title" icon_id="5">
+		<fmt:message key="FrontPage.info.byYourWay"/>
 	</customtag:info_message>
 	
-	<customtag:info_message titleKey="FrontPage.info.classroomTeach.title" icon_id="1">
-		<fmt:message key="FrontPage.info.classroomTeach"/>
+	<customtag:info_message titleKey="FrontPage.info.easyButComplex.title" icon_id="12">
+		<fmt:message key="FrontPage.info.easyButComplex"/>
+	</customtag:info_message>
+	
+	<customtag:info_message titleKey="FrontPage.info.evolutionWorld.title" icon_id="14">
+		<fmt:message key="FrontPage.info.evolutionWorld"/>
 	</customtag:info_message>
 	
 	<customtag:info_message titleKey="FrontPage.info.monstersLifeCicle.title" icon_id="6">
@@ -41,8 +45,15 @@
 	<div class="more_actions_links">
 		<html:link action="screenshots.do"><fmt:message key="FrontPage.screenshots" /></html:link> |
 		<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
+		<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
 		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
 	</div>
+	
+
+
+
+
+	
 
 </div>
 </jsp:root>
