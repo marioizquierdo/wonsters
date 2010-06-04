@@ -22,8 +22,7 @@
 }
 
 #monsters_logo {
-	background: url(../images/theme/frontPage/logo_frontPage.png) no-repeat
-		top left;
+	background: url(../images/theme/frontPage/logo_frontPage.png) no-repeat top left;
 	width: 1252px;
 	height: 250px;
 	position: relative;
@@ -36,8 +35,7 @@
 
 #frontPageWindow_content {
 	padding-bottom: 10px;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
-		bottom left;
+	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
 }
 
 #playNowForFree_button {
@@ -96,8 +94,7 @@
 
 #loginPanel .br {
 	background: transparent
-		url(../images/theme/frontPage/login_panel_background_bottom_right.png)
-		;
+		url(../images/theme/frontPage/login_panel_background_bottom_right.png);
 }
 
 #loginPanel input#login{
@@ -137,112 +134,108 @@
 
 /**** Credits ****/
 
-#credits ul.dev_team_list{
+#credits ul#dev_team_list{
 
 }
 
-#credits ul.dev_team_list li {
-    margin: 0 0 15px 0;
+#credits ul#dev_team_list li {
+    margin: 10px 0 20px 0;
     padding: 0 0 0 10px;
     background: transparent none no-repeat top left;
 }
 
-#credits ul.dev_team_list li h3{
-	font-weight: bold;
-}
+#credits ul#dev_team_list li h3 { font-weight: bold; }
+#credits ul#dev_team_list li h3:hover { text-decoration: underline; cursor: pointer; }
 
-#credits ul.dev_team_list li .function{
-    color: #999;
+#credits ul#dev_team_list li p {
+    color: #666;
     text-align: left;
-    font-weight: bold;
-    font-size:12px;
-    margin: 0 0 0 15px;
+    font-size: 14px;
+    margin: 0 0 14px 15px;
 }
 
-#credits ul.dev_team_list li .more_info{
+#credits ul#dev_team_list li a {
     color: #444;
-    text-align: left;
-    font-size:12px;
-    margin: 0 0 0 10px;
+    font-size: 14px;
+    text-decoration: underline;
 }
 
-#credits ul.dev_team_list div.personal_info{
+#credits ul#dev_team_list li div.developer_details {
 	color: #666;
     text-align: left;
     font-weight: none;
-    font-size:14px;
-    height:90px;
+    font-size: 14px;
     margin: 5px 0 0 15px;
-    padding: 0 0 0 90px;
-    background: transparent none no-repeat top left;
+    padding: 0 0 0 86px;
+    background: transparent none no-repeat 0 5px;
 }
 
-#credits ul.dev_team_list div.personal_info#mario_div{
-    background-image: url('../images/photos/guille.jpg');
+#credits ul#dev_team_list li div.developer_details .quoteAboutTheProject .quotes {
+	font-size: 24px;
+	font-weight: bold;
 }
 
-#credits ul.dev_team_list div.personal_info#angel_div{
-    background-image: url('../images/photos/guille.jpg');
+#credits ul#dev_team_list li#MarioIzquierdo .developer_details { 
+	background-image: url('../images/photos/MarioIzquierdo.png');
+}
+#credits ul#dev_team_list li#AngelRomo .developer_details {
+    background-image: url('../images/photos/AngelRomo.png');
+}
+#credits ul#dev_team_list li#FcoJavierGarcia .developer_details {
+    background-image: url('../images/photos/FcoJavierGarcia.png');
+}
+#credits ul#dev_team_list li#DiegoDarriba .developer_details {
+    background-image: url('../images/photos/DiegoDarriba.png');
+}
+#credits ul#dev_team_list li#GuilleGefaell .developer_details {
+    background-image: url('../images/photos/GuilleGefaell.png');
 }
 
-#credits ul.dev_team_list div.personal_info#trono_div{
-    background-image: url('../images/photos/guille.jpg');
-}
 
-#credits ul.dev_team_list div.personal_info#diego_div{
-    background-image: url('../images/photos/guille.jpg');
-}
+#credits ul#tech_info_list {}
 
-#credits ul.dev_team_list div.personal_info#guille_div{
-    background-image: url('../images/photos/guille.jpg');
-}
-
-#credits ul.tech_info_list {
-    
-}
-
-#credits ul.tech_info_list li {
-    margin: 0 0 20px 0;
+#credits ul#tech_info_list li {
+    margin: 10px 0 20px 0;
     padding: 0 0 0 75px;
     background: transparent none no-repeat top left;
 }
 
-#credits ul.tech_info_list li h3 {
+#credits ul#tech_info_list li h3 {
     font-weight: bold;
 }
 
-#credits ul.tech_info_list li#tech_info_gae {
+#credits ul#tech_info_list li#tech_info_gae {
 	background-image: url('../images/logos/gae.gif');
 }
 
-#credits ul.tech_info_list li#tech_info_jdo {
+#credits ul#tech_info_list li#tech_info_jdo {
     background-image: url('../images/logos/jdo.gif');
 }
 
-#credits ul.tech_info_list li#tech_info_spring {
+#credits ul#tech_info_list li#tech_info_spring {
     background-image: url('../images/logos/spring.png');
 }
 
-#credits ul.tech_info_list li#tech_info_struts {
+#credits ul#tech_info_list li#tech_info_struts {
     background-image: url('../images/logos/struts.gif');
 }
 
-#credits ul.tech_info_list li#tech_info_jquery {
+#credits ul#tech_info_list li#tech_info_jquery {
     background-image: url('../images/logos/jquery.png');
 }
 
-#credits ul.tech_info_list li#tech_info_junit {
+#credits ul#tech_info_list li#tech_info_junit {
     background-image: url('../images/logos/junit.gif');
 }
 
-#credits ul.tech_info_list li#tech_info_bitbucket {
+#credits ul#tech_info_list li#tech_info_bitbucket {
     background-image: url('../images/logos/bitbucket.png');
 }
 
-#credits ul.tech_info_list li#tech_info_eclipse {
+#credits ul#tech_info_list li#tech_info_eclipse {
     background-image: url('../images/logos/eclipse.jpg');
 }
 
-#credits ul.tech_info_list li#tech_info_others {
+#credits ul#tech_info_list li#tech_info_others {
     background-image: url('../images/logos/others.png');
 }

@@ -70,7 +70,7 @@
 	-->
 
 	<welcome-file-list>
-		<welcome-file>wellcome.do</welcome-file>
+		<welcome-file>welcome.do</welcome-file>
 	</welcome-file-list>
 
 	<!--

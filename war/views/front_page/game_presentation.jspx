@@ -19,27 +19,27 @@
   	</div>
 	
 	<customtag:info_message titleKey="FrontPage.info.totallyFree.title" icon_id="11">
-		<fmt:message key="FrontPage.info.totallyFree"/>
+		<p><fmt:message key="FrontPage.info.totallyFree"/></p>
 	</customtag:info_message>
 	
 	<customtag:info_message titleKey="FrontPage.info.byYourWay.title" icon_id="5">
-		<fmt:message key="FrontPage.info.byYourWay"/>
+		<p><fmt:message key="FrontPage.info.byYourWay"/></p>
 	</customtag:info_message>
 	
 	<customtag:info_message titleKey="FrontPage.info.easyButComplex.title" icon_id="12">
-		<fmt:message key="FrontPage.info.easyButComplex"/>
+		<p><fmt:message key="FrontPage.info.easyButComplex"/></p>
 	</customtag:info_message>
 	
 	<customtag:info_message titleKey="FrontPage.info.evolutionWorld.title" icon_id="14">
-		<fmt:message key="FrontPage.info.evolutionWorld"/>
+		<p><fmt:message key="FrontPage.info.evolutionWorld"/></p>
 	</customtag:info_message>
 	
 	<customtag:info_message titleKey="FrontPage.info.monstersLifeCicle.title" icon_id="6">
-		<fmt:message key="FrontPage.info.monstersLifeCicle"/>
+		<p><fmt:message key="FrontPage.info.monstersLifeCicle"/></p>
 	</customtag:info_message>
 	
 	<customtag:info_message titleKey="FrontPage.info.mosntersOffspring.title" icon_id="4">
-		<fmt:message key="FrontPage.info.mosntersOffspring"/>
+		<p><fmt:message key="FrontPage.info.mosntersOffspring"/></p>
 	</customtag:info_message>
 	
 	<div class="more_actions_links">

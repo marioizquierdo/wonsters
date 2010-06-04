@@ -1,1 +1,1 @@
-<jsp:forward xmlns:jsp="http://java.sun.com/JSP/Page" page="wellcome.do"/>
+<jsp:forward xmlns:jsp="http://java.sun.com/JSP/Page" page="welcome.do"/>

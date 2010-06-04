@@ -1,4 +1,4 @@
-	<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
      xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:html="http://struts.apache.org/tags-html"
@@ -6,34 +6,35 @@
 		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           version="2.0">
           
-<c:url var="pikachooseURL" value="/css/styles_pikachoose.css" />
-<link rel="StyleSheet" href="${pikachooseURL}" type="text/css" media="all" />
-
-<![CDATA[
-	<script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
+	<c:url var="pikachooseURL" value="/css/styles_pikachoose.css" />
+	<link rel="StyleSheet" href="${pikachooseURL}" type="text/css" media="all" />
+	
+	<![CDATA[
+		<script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
+		<script type="text/javascript">$(document).ready(function() {
+				$("#pikame").PikaChoose({show_prev_next:false});
+		});</script>
+	]]>
+	
+	<div>
+	    <customtag:info_message titleKey="ConceptArt.frontPageTitle" 
+			key="ConceptArt.description" status="INFO" style="margin: 20px;"/>
+	</div>
+	
+	<div class="pikachoose">
+			<ul id="pikame">
+			<li><img src="/images/conceptart/1.jpg"/><span> <fmt:message key="ConceptArt.ubuntuDesc" /></span></li>
+			<li><img src="/images/conceptart/2.jpg"/><span> <fmt:message key="ConceptArt.quadDesc" /></span></li>
+			<li><img src="/images/conceptart/3.jpg"/><span>  <fmt:message key="ConceptArt.buDesc" /></span></li>
+			<li><img src="/images/conceptart/4.jpg"/><span> <a href="/images/conceptart/4_big.jpg" target="_blank"><fmt:message key="ConceptArt.drawningsDesc" /></a></span></li>
+			<li><img src="/images/conceptart/5.png"/><span> <fmt:message key="ConceptArt.electroDesc" /></span></li>
+			<li><img src="/images/conceptart/6.jpg"/><span> <fmt:message key="ConceptArt.lairDesc" /></span></li>
+		</ul>
+	</div>
 		
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#pikame").PikaChoose({show_prev_next:false});
-		});
-	</script>
-]]>
-<div>
-    <customtag:info_message titleKey="ConceptArt.frontPageTitle" 
-		key="ConceptArt.description" status="INFO" style="margin: 20px;"/>
-</div>
-<div class="pikachoose">
-		<ul id="pikame">
-		<li><img src="/images/conceptart/1.jpg"/><span> <fmt:message key="ConceptArt.ubuntuDesc" /></span></li>
-		<li><img src="/images/conceptart/2.jpg"/><span> <fmt:message key="ConceptArt.quadDesc" /></span></li>
-		<li><img src="/images/conceptart/3.jpg"/><span>  <fmt:message key="ConceptArt.buDesc" /></span></li>
-		<li><img src="/images/conceptart/4.jpg"/><span> <a href="/images/conceptart/4_big.jpg" target="_blank"><fmt:message key="ConceptArt.drawningsDesc" /></a></span></li>
-		<li><img src="/images/conceptart/5.png"/><span> <fmt:message key="ConceptArt.electroDesc" /></span></li>
-		<li><img src="/images/conceptart/6.jpg"/><span> <fmt:message key="ConceptArt.lairDesc" /></span></li>
-	</ul>
-</div>
-
 	<div class="more_actions_links">
+		<html:link action="welcome.do"><fmt:message key="FrontPage.startTag" /></html:link> |
+		<html:link action="screenshots.do"><fmt:message key="FrontPage.screenshots" /></html:link> |
 		<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
 		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
 	</div>

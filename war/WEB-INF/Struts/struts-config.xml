@@ -38,7 +38,7 @@
 <!-- Por ejemplo, se puede hacer return mapping.findForward("InternalError"); desde cualquier action -->
 
 <global-forwards>
-    <forward name="AuthenticationPage" path="/wellcome.do" redirect="true"/>
+    <forward name="AuthenticationPage" path="/welcome.do" redirect="true"/>
     <forward name="AdminAuthenticationPage" path="/admin.do" redirect="true"/>
     <forward name="InternalError" path="/internal_error.do"/>
     <forward name="Confirmation" path="/confirmation.do"/>
@@ -257,7 +257,7 @@
             type="org.apache.struts.actions.ForwardAction"
             parameter="/userprofile/load_form.do"/>
 	
-	<action path="/wellcome"
+	<action path="/welcome"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".FrontPage"/>
 	

@@ -1,5 +1,6 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:html="http://struts.apache.org/tags-html"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
 		  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           version="2.0">
@@ -9,10 +10,17 @@
 		
 	<customtag:info_message titleKey="NotImplementedPage.browserSupport.title" 
 		status="ERROR" style="margin: 20px;">
-		<fmt:message key="NotImplementedPage.browserSupport">rt">
-			<fmt:param><a href="http://www.firefox.com">firefox</a></fmt:param>rt">
+		<fmt:message key="NotImplementedPage.browserSupport">
+			<fmt:param><a href="http://www.firefox.com">firefox</a></fmt:param>
 			<fmt:param><a href="http://www.opera.com">opera</a></fmt:param>
 		</fmt:message>	
 	</customtag:info_message>
+			
+	<div class="more_actions_links">
+		<html:link action="welcome.do"><fmt:message key="FrontPage.startTag" /></html:link> |
+		<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
+		<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
+		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
+	</div>
 		
 </jsp:root>
