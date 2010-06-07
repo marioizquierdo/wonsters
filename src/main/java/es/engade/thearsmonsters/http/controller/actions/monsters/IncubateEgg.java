@@ -12,6 +12,8 @@ import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
+import es.engade.thearsmonsters.http.controller.util.FlashMessage;
+import es.engade.thearsmonsters.http.controller.util.FlashMessage.Status;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
@@ -38,12 +40,7 @@ public class IncubateEgg extends ThearsmonstersDefaultAction {
 			monsterFacade.incubateEgg(lair, eggId);
 			
 		} catch (InstanceNotFoundException e) {
-        	request.setAttribute("actionStatus", "ERROR");
-        	request.setAttribute("actionInfo", "ErrorMessages.raceNotExists");
-			
-		} catch (InsuficientVitalSpaceException e) {
-        	request.setAttribute("actionStatus", "ERROR");
-        	request.setAttribute("actionInfo", "ErrorMessages.insuficientVitalSpace");
+		    FlashMessage.show(request, "ErrorMessages.raceNotExists", new String[]{}, Status.ERROR, null);
 			
 		}
 

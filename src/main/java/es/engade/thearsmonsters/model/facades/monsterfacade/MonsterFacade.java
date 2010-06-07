@@ -35,7 +35,7 @@ public interface MonsterFacade {
     	throws InternalErrorException, InstanceNotFoundException;
     
     public void incubateEgg(Lair lair, String eggId)
-		throws InternalErrorException, InstanceNotFoundException, InsuficientVitalSpaceException;
+		throws InternalErrorException, InstanceNotFoundException;
     
     public Monster bornMonster(Lair lair, String eggId, String monsterName)
     	throws InternalErrorException, InstanceNotFoundException, MonsterGrowException, InsuficientVitalSpaceException;

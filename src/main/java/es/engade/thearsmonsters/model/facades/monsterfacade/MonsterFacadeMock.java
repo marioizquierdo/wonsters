@@ -36,8 +36,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 	}
 
 	public void incubateEgg(Lair lair, String eggId)
-			throws InternalErrorException, InstanceNotFoundException,
-			InsuficientVitalSpaceException {
+			throws InternalErrorException, InstanceNotFoundException {
 	}
 
 	public Integer sellEgg(Lair lair, String eggId)

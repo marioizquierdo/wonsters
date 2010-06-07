@@ -20,8 +20,8 @@
 	  	<div class="atMiddle" style="float:left; width:145px"><div class="ml"><div class="mr"><div class="m content_box">
 			<ul class="menu_items">
 				<li class="menu_item">
-					<html:link action="/userprofile/edit.do?action=UPDATE">
-		            	<fmt:message key="MainMenu.editUserProfile"/>
+					<html:link action="/userprofile/change_password">
+		            	<fmt:message key="UpdateUserProfileDetailsContent.changePassword"/>
 		        	</html:link></li>
 		        <li class="menu_item">
 					<html:link action="userprofile/logout.do">
