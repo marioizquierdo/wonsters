@@ -28,20 +28,21 @@ var ThearsmonstersLib = function() {
 		 * Muestra en una ventana los detalles de una sala. Se utiliza desde
 		 * views/in_game/lair/lair.jspx (en eventos onClick y al final del archivo).
 		 */
-		showRoom: function(wrapperId, numRooms, roomNumber, roomType) {
-			var r = '#'+wrapperId;
+		showRoom: function(roomType) {
+			var wrapper_id = '#roomAttributes';
 
 			// Debe asegurarse de que se muestra la ventana oculta (porque esta ocultado al cargar la pagina)
-			$(r+'_hide').show();
+			$(wrapper_id+'_hide').show();
 			
 			// Oculta todas las ventanas
-		    for (var i=0; i<numRooms; i++){
-		    	$(r+i).hide();
-		    }
+			$('.roomAttributes_room').hide();
+			
 		    // Ydepues muestra solo roomNumber
-		    $(r+roomNumber).show();
-		    $(r+roomNumber).attr('class', 'lairRoomBackground '+roomType+'_BIG');
-		    $(r+'_title').text($(r+roomNumber+'_defineTitle').text());
+			var room = $('#roomAttributes_'+roomType);
+		    room.show();
+		    room.attr('class', 'roomAttributes_room lairRoomBackground '+roomType+'_BIG');
+		    
+		    $('#roomAttributes_title').text($('#roomAttributes_'+roomType+'_defineTitle').text());
 		    
 		    return false;
 		},

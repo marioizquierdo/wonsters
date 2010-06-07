@@ -12,7 +12,7 @@
 	<![CDATA[
 		<script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
 		<script type="text/javascript">$(document).ready(function() {
-				$("#pikame").PikaChoose({show_prev_next:false});
+				$("#pikame").PikaChoose({show_prev_next:false, transition:[0]});
 		});</script>
 	]]>
 	
@@ -23,12 +23,21 @@
 	
 	<div class="pikachoose">
 			<ul id="pikame">
-			<li><img src="/images/conceptart/1.jpg"/><span> <fmt:message key="ConceptArt.ubuntuDesc" /></span></li>
-			<li><img src="/images/conceptart/2.jpg"/><span> <fmt:message key="ConceptArt.quadDesc" /></span></li>
-			<li><img src="/images/conceptart/3.jpg"/><span>  <fmt:message key="ConceptArt.buDesc" /></span></li>
-			<li><img src="/images/conceptart/4.jpg"/><span> <a href="/images/conceptart/4_big.jpg" target="_blank"><fmt:message key="ConceptArt.drawningsDesc" /></a></span></li>
-			<li><img src="/images/conceptart/5.png"/><span> <fmt:message key="ConceptArt.electroDesc" /></span></li>
-			<li><img src="/images/conceptart/6.jpg"/><span> <fmt:message key="ConceptArt.lairDesc" /></span></li>
+			<li><img src="/images/conceptart/artwork_medium_1.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_1.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_2.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_2.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_3.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_3.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_4.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_4.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_5.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_5.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_6.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_6.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_7.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_7.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_8.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_8.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_9.jpg"/><span><a href="/images/conceptart/thearsmonsters_artwork_9.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_10.jpg"/><span> <fmt:message key="ConceptArt.ubuntuDesc" /></span></li>
+			<li><img src="/images/conceptart/artwork_medium_11.jpg"/><span> <fmt:message key="ConceptArt.quadDesc" /></span></li>
+			<li><img src="/images/conceptart/artwork_medium_12.jpg"/><span>  <fmt:message key="ConceptArt.buDesc" /></span></li>
+			<li><img src="/images/conceptart/artwork_medium_13.jpg"/><span> <a href="/images/conceptart/thearsmonsters_artwork_13.jpg" target="_blank"><fmt:message key="ConceptArt.drawningsDesc" /></a></span></li>
+			<li><img src="/images/conceptart/artwork_medium_14.jpg"/><span> <fmt:message key="ConceptArt.electroDesc" /></span></li>
+			<li><img src="/images/conceptart/artwork_medium_15.jpg"/><span> <fmt:message key="ConceptArt.lairDesc" /></span></li>
 		</ul>
 	</div>
 		

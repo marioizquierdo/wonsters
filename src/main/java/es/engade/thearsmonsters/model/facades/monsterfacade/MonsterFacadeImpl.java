@@ -134,18 +134,10 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
 
     @Transactional
     public void incubateEgg(Lair lair, String eggIdAsString)
-            throws InternalErrorException, InstanceNotFoundException,
-            InsuficientVitalSpaceException {
+            throws InternalErrorException, InstanceNotFoundException {
         
         Key eggId = getKeyFromString(eggIdAsString, MonsterEgg.class);
         MonsterEgg egg = lair.getMonsterEgg(eggId); // Se supone que la lair está actualizada
-        
-        // Comprueba que hay suficiente espacio vital
-        int spaceNeeded = egg.getRace().getVitalSpace();
-        int spaceAvaliable = lair.getVitalSpaceFree();
-        if(spaceNeeded > spaceAvaliable) {
-            throw new InsuficientVitalSpaceException(spaceNeeded, spaceAvaliable);
-        }
         
         // Pone el huevo a incubar fijando su fecha de nacimiento (date)
         egg.setBorningDate();

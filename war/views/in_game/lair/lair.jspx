@@ -7,9 +7,6 @@
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
 
-<![CDATA[
-    <script type="text/javascript" src="/javascript/show_rooms_tasks_ajax.js"></script>
-]]> 
 
 <c:choose>
 	<c:when test="${lair == my.lair}">
@@ -69,14 +66,14 @@
 				    		</div>
 				    	</c:if>
 			    	</c:set>
+
+			    	<c:set var="roomInWorksCssClass" value=""/>
+			    	<c:if test="${room.inWorks}" >
+			    	    <c:set var="roomInWorksCssClass" value="roomInWorks"/>
+			    	</c:if>
 			    	
-			    	<c:set var="roomInWorks" value=""/>
-			    	<c: if test="${room.inWorks}">
-			    		<c:set var="roomInWorks" value="roomInWorks"/>
-			    	</c:>
-				    	onClick="ThearsmonstersLib.showRoom('roomAttributes', 
-				    <div class="lairRoom ${room.roomType} ${roomInWorks}" title="${roomTitle}" 
-				    		${fn:length(lair.rooms)}, ${loop.index}, '${room.roomType}')">
+				    <div class="lairRoom ${room.roomType} ${roomInWorksCssClass}" title="${roomTitle}" 
+				    	onClick="ThearsmonstersLib.showRoom('${room.roomType}');">
 				    	<img src="/images/theme/empty_pixel.png"/>
 				    </div>
 				</c:forEach>
@@ -127,15 +124,13 @@
 	<div id="load_room_tasks_container"></div>
 </div>
 
-
 <![CDATA[<script type='text/javascript'>$(function(){
 	
 	// Si hay una sala definida como parametro se muestra simulando un click sobre ella
 	if("${param.showRoomType}") {
-		$("#lairRoom_MainMonster").trigger("click");
-		$("#lairRoom_${param.showRoomType}").trigger("click");
+		ThearsmonstersLib.showRoom('${param.showRoomType}');
   	}
-	
+  	
 });</script>]]>
 
 
