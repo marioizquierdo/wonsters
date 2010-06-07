@@ -49,7 +49,7 @@ public class UserProfileLoadForm extends ThearsmonstersDefaultAction {
             /* 
              * Set "language" to his/her current selection. 
              */
-            userProfileForm.setLanguage(getLocale(request).getLanguage());
+//            userProfileForm.setLanguage(getLocale(request).getLanguage());
 
             /*
              * If the user is updating his/her profile, set the rest of
@@ -61,9 +61,9 @@ public class UserProfileLoadForm extends ThearsmonstersDefaultAction {
                 User userProfile = SessionManager.findUserProfile(request);
                 UserDetails userProfileDetails = userProfile.getUserDetails();
 
-                userProfileForm.setFirstName(userProfileDetails.getFirstName());
-                userProfileForm.setSurname(userProfileDetails.getSurname());
-                userProfileForm.setEmail(userProfileDetails.getEmail());
+//                userProfileForm.setFirstName(userProfileDetails.getFirstName());
+//                userProfileForm.setSurname(userProfileDetails.getSurname());
+//                userProfileForm.setEmail(userProfileDetails.getEmail());
                                                                    
             }
             

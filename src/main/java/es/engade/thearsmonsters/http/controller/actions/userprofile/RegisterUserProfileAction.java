@@ -35,9 +35,10 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
         UserProfileForm userProfileForm = (UserProfileForm) form;
         String login = userProfileForm.getLogin();
         String clearPassword = userProfileForm.getPassword();
-        UserDetails userProfileDetails = new UserDetails(
-            userProfileForm.getFirstName(), userProfileForm.getSurname(),
-            userProfileForm.getEmail(), userProfileForm.getLanguage());
+        //TODO: Habrá que actualizar el userProfileDetails con información que sea relevante
+        UserDetails userProfileDetails = new UserDetails("","","","");
+//            userProfileForm.getFirstName(), userProfileForm.getSurname(),
+//            userProfileForm.getEmail(), userProfileForm.getLanguage());
                                                                     
         
         /* Register user. */            

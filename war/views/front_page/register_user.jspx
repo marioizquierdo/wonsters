@@ -7,7 +7,7 @@
 
 <html:xhtml/>
 
-<html:form action="userprofile/register_action.do" focus="login">
+<html:form action="/userprofile/register_action.do" focus="login">
 	
 	<customtag:info_message key="RegisterUser.info"/>
 

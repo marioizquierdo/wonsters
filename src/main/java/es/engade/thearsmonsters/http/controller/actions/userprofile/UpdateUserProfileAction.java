@@ -27,9 +27,10 @@ public class UpdateUserProfileAction extends ThearsmonstersDefaultAction {
         
         /* Get data. */
         UserProfileForm userProfileForm = (UserProfileForm) form;
-        UserDetails userDetails = new UserDetails(
-            userProfileForm.getFirstName(), userProfileForm.getSurname(),
-            userProfileForm.getEmail(), userProfileForm.getLanguage());
+        //TODO
+        UserDetails userDetails = new UserDetails("","","","");
+//            userProfileForm.getFirstName(), userProfileForm.getSurname(),
+//            userProfileForm.getEmail(), userProfileForm.getLanguage());
             
         /* Update user profile details. */                    
         SessionManager.updateUserProfileDetails(request, userDetails);
