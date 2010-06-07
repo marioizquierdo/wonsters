@@ -5,6 +5,7 @@
 .MainMonster_BIG 			{ background-image: url(../images/buildings/eyeOfTheLife_BIG.jpg); }
 .Warehouse					{ background-image: url(../images/buildings/warehouse.jpg); }
 .Warehouse_BIG 				{ background-image: url(../images/buildings/warehouse_BIG.jpg); }
+.Warehouse.roomInWorks      { background-image: url(../images/buildings/eyeOfTheLife.jpg); }
 .TradeOffice 				{ background-image: url(../images/buildings/tradeOffice.jpg); }
 .TradeOffice_BIG 			{ background-image: url(../images/buildings/tradeOffice_BIG.jpg); }
 .TruffleFarm 				{ background-image: url(../images/buildings/truffleFarm.jpg); }
