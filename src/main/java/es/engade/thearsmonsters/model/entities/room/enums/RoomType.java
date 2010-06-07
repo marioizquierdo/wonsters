@@ -40,7 +40,7 @@ public enum RoomType {
 	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
 	 * Aquí tampoco se realiza ninguna acción.
 	 */
-	Dormitories				(false, 0, 0, 1),
+	Dormitories				(false, 0, 0, -1),
 	
 	/**
 	 * Es donde se almacena la basura de la guarida. 

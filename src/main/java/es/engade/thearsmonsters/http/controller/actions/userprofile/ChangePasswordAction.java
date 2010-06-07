@@ -47,7 +47,7 @@ public class ChangePasswordAction extends ThearsmonstersDefaultAction {
         /* Return ActionForward. */
         if (errors.isEmpty()) {
         	FlashMessage.show(request, null);
-        	return (new ForwardParameters()).add("action", "UPDATE").forward(mapping.findForward("EditUserProfile"));
+        	return mapping.findForward("GameStart");
         } else {
             saveErrors(request, errors);            
             return new ActionForward(mapping.getInput());
