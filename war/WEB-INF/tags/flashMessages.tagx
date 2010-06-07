@@ -32,7 +32,7 @@
 						<c:when test="${message.status eq 'GOOD_NEW'}">
 							<c:set var="icon_id" value="6"/></c:when>
 						<c:otherwise> <!-- INFO by default -->
-							<c:set var="icon_id" value="9"/></c:otherwise>
+							<c:set var="icon_id" value="12"/></c:otherwise>
 						</c:choose>
 						
 						<customtag:icon id="${icon_id}" size="m" 

@@ -1,0 +1,36 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:html="http://struts.apache.org/tags-html"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+
+	<customtag:window id="MissionsNotImplemented" title="Guild.title">
+	
+		<customtag:info_message titleKey="Guild.info.socialWorld.title" icon_id="11">
+			<p><fmt:message key="Guild.info.socialWorld"/></p>
+		</customtag:info_message>
+		
+		<customtag:info_message titleKey="Guild.info.missions.title" icon_id="5">
+			<p><fmt:message key="Guild.info.missions"/></p>
+		</customtag:info_message>
+		
+		<customtag:info_message titleKey="Guild.info.ranges.title" icon_id="12">
+			<p><fmt:message key="Guild.info.ranges"/></p>
+		</customtag:info_message>
+		
+		<customtag:info_message titleKey="Guild.info.liderate.title" icon_id="14">
+			<p><fmt:message key="Guild.info.liderate"/></p>
+		</customtag:info_message>
+		
+		
+		<div class="more_actions_links">
+			<html:link action="screenshots.do"><fmt:message key="FrontPage.screenshots" /></html:link> |
+			<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
+			<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
+			<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
+		</div>
+		
+	</customtag:window>
+</jsp:root>
