@@ -6,8 +6,24 @@
 			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
 			version="2.0">
 			
+	<![CDATA[
+        <script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
+        <script type="text/javascript">$(document).ready(function() {
+                $("#pikame").PikaChoose({show_prev_next:false, transition:[0]});
+        });</script>
+    ]]>		
+			
 	<customtag:info_message titleKey="Screenshots.frontPageTitle" 
 		key="Screenshots.description" status="INFO" style="margin: 20px;"/>
+		
+	<div class="pikachoose">
+            <ul id="pikame">
+            <li><img src="/images/screenshots/lair.jpg"/><span><fmt:message key="Screenshots.lairDesc" /></span></li>
+            <li><img src="/images/screenshots/monster_eggs.jpg"/><span><fmt:message key="Screenshots.eggsDesc" /></span></li>
+            <li><img src="/images/screenshots/born.jpg"/><span><fmt:message key="Screenshots.bornDesc" /></span></li>
+            <li><img src="/images/screenshots/monster_view.jpg"/><span><fmt:message key="Screenshots.monsterDesc" /></span></li>
+            </ul>
+    </div>	
 
 	<div class="more_actions_links">
 		<html:link action="welcome.do"><fmt:message key="FrontPage.startTag" /></html:link> |

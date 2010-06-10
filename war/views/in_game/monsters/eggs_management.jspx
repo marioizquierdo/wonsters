@@ -36,9 +36,9 @@
 					<div id="egg_${egg.id}_text" class="egg_slot_text">
 						<ul>
 						<li class="li-actions-title">
-							<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}">
+							<!--<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}"> -->
 								<fmt:message key="Monster.race.${egg.race}"/>
-							</html:link>
+							<!--</html:link>-->
 						</li>
 						<li>
 							<c:choose><c:when test="${egg.incubated}">

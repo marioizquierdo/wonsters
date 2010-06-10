@@ -64,7 +64,7 @@
 	<definition name=".Missions" extends=".InGameBase">
 		<put name="title" value="Missions.title" />
 		<put name="color" value="purple" />
-	    <put name="content" value="/views/in_game/missions/missions_not_implemented.jspx" />
+		<put name="content" value="/views/in_game/missions/missions_not_implemented.jspx" />
 	</definition>
 
 	<definition name=".Monster" extends=".InGameBase">
@@ -78,7 +78,7 @@
 		<put name="color" value="green" />
 		<put name="content" value="/views/in_game/monsters/monsters_list.jspx" />
 	</definition>
-	
+
 	<definition name=".MonsterBorn" extends=".InGameBase">
 		<put name="title" value="BornMonsterForm.title" />
 		<put name="color" value="green" />
@@ -107,9 +107,9 @@
 		<put name="content"
 			value="/views/in_game/user_profile/update_user_profile_details.jspx" />
 	</definition>
-    
-    
-    <!-- ====== Front Page ====== -->
+
+
+	<!-- ====== Front Page ====== -->
 
 	<definition name=".FrontPageBase" page="/views/layouts/front_page_layout.jspx">
 		<put name="title" value="FrontPage.title" />
@@ -153,13 +153,13 @@
 	</definition>
 
 	<definition name=".Screenshots" extends=".FrontPageBase">
-		<put name="title" value="Screenshot.frontPageTitle" />
+		<put name="title" value="Screenshots.frontPageTitle" />
 		<put name="content" value="/views/front_page/screenshots.jspx" />
 		<put name="color" value="blue" />
 		<put name="frontPageWindow_selected_tag" value="screenshots" />
 	</definition>
-	
-	
+
+
 	<!-- ====== Admin section ====== -->
 
 	<definition name=".AdminBase" page="/views/layouts/admin_layout.jspx">
