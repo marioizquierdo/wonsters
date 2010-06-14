@@ -5,7 +5,6 @@
           	version="2.0">
 
 
-
 <customtag:window id="MissionsNotImplemented" title="Missions.title">
 	<customtag:info_message titleKey="Missions.not_implemented.header.title" 
 		key="Missions.not_implemented.header.desc" status="INFO" icon_id="13" style="margin: 20px;"/>
@@ -15,5 +14,6 @@
 	
 	<customtag:info_message titleKey="Missions.not_implemented.multiPlayer.title" 
 		key="Missions.not_implemented.multiPlayer.desc" status="INFO" icon_id="14" style="margin: 20px;"/>
+		
 </customtag:window>
 </jsp:root>

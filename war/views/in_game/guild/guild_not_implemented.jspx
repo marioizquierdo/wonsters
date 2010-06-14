@@ -24,13 +24,5 @@
 			<p><fmt:message key="Guild.info.liderate"/></p>
 		</customtag:info_message>
 		
-		
-		<div class="more_actions_links">
-			<html:link action="screenshots.do"><fmt:message key="FrontPage.screenshots" /></html:link> |
-			<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
-			<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
-			<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
-		</div>
-		
 	</customtag:window>
 </jsp:root>
