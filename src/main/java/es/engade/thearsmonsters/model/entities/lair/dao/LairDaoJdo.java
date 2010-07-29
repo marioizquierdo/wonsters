@@ -15,6 +15,7 @@ import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
+import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 @Transactional
@@ -115,4 +116,29 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
                 lair.getAddressBuilding(), lair.getAddressFloor());
     }
     
+    //TODO: Por el momento se cargan todas las lairs a cholón.
+    // Luego se decidirá si usar un chunk, sólo ciertos datos,
+    // page-by-page iterator, ....
+    @SuppressWarnings("unchecked")
+    public List<Lair> getLairsRanking() {
+        PersistenceManager pm = getPersistenceManager();
+
+        Query query = pm.newQuery(Lair.class);
+        query.setOrdering("score descending");
+        query.setRange(0, GameConf.getLairsRankingDepth());
+        query.setUnique(false);
+
+        List<Lair> lairs = null;
+        try {
+            lairs = (List<Lair>) query.execute();
+         // Carga Lazy --> Accedemos al resultado dentro de la transacción
+            lairs.size();
+        } finally {
+            query.closeAll();
+        }
+        if (lairs == null)
+            lairs = new ArrayList<Lair>();
+        
+        return lairs;
+    }
 }

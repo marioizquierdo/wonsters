@@ -53,6 +53,9 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
     @Persistent
     private int addressFloor;
     
+    @Persistent
+    private int score;
+    
     @Persistent(mappedBy = "lair",defaultFetchGroup="true")
     private User user;
     
@@ -174,7 +177,11 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		return newRoomsAvaliable;
 	}
 	
-
+	public int updateScore() {
+		// TODO: whatever...
+		this.score = money + garbage;
+		return score;
+	}
 	
 
 	//------ Common getters and setters ------//
@@ -182,11 +189,20 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public Key getIdKey() { return id; }
 	public void setIdKey(Key lairId) { this.id = lairId; }
 	public int getMoney() { return money; }
-	public void setMoney(int money) { this.money = money; }
+	public void setMoney(int money) {
+		this.money = money;
+		updateScore();
+		}
 	public int getGarbage() { return garbage; }
-	public void setGarbage(int garbage) { this.garbage = garbage; }
+	public void setGarbage(int garbage) {
+		this.garbage = garbage;
+		updateScore();
+		}
 	public User getUser() { return user; }
 	public void setUser(User user) { this.user = user; }
+	public int getScore() { return score; }
+	// this method should be called by the IoC container
+	public void setScore(int score) { updateScore(); }
 	
 	//------- Address getters and setters -------//
 	public Address getAddress() { return new Address(this.addressStreet, this.addressBuilding, this.addressFloor); }

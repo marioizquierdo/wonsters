@@ -129,4 +129,11 @@ public class Address {
             return street;
         }
     }
+
+	@Override
+	public String toString() {
+		return "(" + street + ", " + building
+				+ ", " + floor + ")";
+	}
+    
 }

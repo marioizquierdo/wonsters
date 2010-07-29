@@ -26,12 +26,16 @@ public final class GameConf {
     public final static String
     MAX_EGGS_PARAMETER = "GameConf.maxEggs";
     
+    public final static String
+    LAIRS_RANKING_DEPTH_PARAMETER = "GameConf.lairsRankingDepth";
+    
     private static int MaxNumberOfFloors;
     private static int MaxNumberOfBuildings;
     private static int MaxNumberOfStreets;
     private static byte TurnsPerDay;
     private static long FirstTurnEpoch;
     private static int MaxEggs;
+    private static int LairsRankingDepth;
     private static RuntimeException error = null;
     
     static { // Initialize configuration
@@ -48,6 +52,8 @@ public final class GameConf {
 					FIRST_TURN_EPOCH_PARAMETER));
 			MaxEggs =  Integer.parseInt(ConfigurationParametersManager.getParameter(
 					MAX_EGGS_PARAMETER));
+			LairsRankingDepth = Integer.parseInt(ConfigurationParametersManager.getParameter(
+					LAIRS_RANKING_DEPTH_PARAMETER));
 		} catch (NumberFormatException e) {
 			error = e;
 		} catch (MissingConfigurationParameterException e) {
@@ -115,6 +121,13 @@ public final class GameConf {
 		return MaxEggs;
 	}
     
+    /**
+     * Profundidad del ranking de Lairs
+     */
+    public static int getLairsRankingDepth() {
+    	checkError();
+    	return LairsRankingDepth;
+    }
     
 	
 

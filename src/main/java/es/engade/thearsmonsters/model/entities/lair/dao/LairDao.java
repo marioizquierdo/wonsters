@@ -34,4 +34,9 @@ public interface LairDao extends GenericDao<Lair, Key> {
      * Find the next available address in the world.
      */
     public Address findNextFreeAddress() throws FullPlacesException;
+    
+    /**
+     * Get the sorted ranking of Lairs 
+     */
+    public List<Lair> getLairsRanking();
 }

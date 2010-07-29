@@ -51,6 +51,8 @@ public class LairDaoTest extends GaeTest {
         numberOfUsers++;
         int building = 1;
         int floor = 2;
+        int garbage = 100;
+        int money = 100;
         while (numberOfUsers < NUMBER_OF_USERS) {
             allPersistentUsers.add(FactoryData.UserWhoIs.Random.build());
             allPersistentUsers.get(numberOfUsers).getLair().setRooms(null);
@@ -58,9 +60,16 @@ public class LairDaoTest extends GaeTest {
             allPersistentUsers.get(numberOfUsers).getLair().setAddressFloor(floor);//getAddress().setFloor(floor);
 //            allPersistentUsers.get(numberOfUsers).getLair().getAddress().setBuilding(building);
 //            allPersistentUsers.get(numberOfUsers).getLair().getAddress().setFloor(floor);
+            
+            // add score
+            allPersistentUsers.get(numberOfUsers).getLair().setGarbage(garbage);
+            allPersistentUsers.get(numberOfUsers).getLair().setMoney(money);
+            
             userDao.save(allPersistentUsers.get(numberOfUsers));
             numberOfUsers++;
             floor++;
+            garbage += 100;
+            money += 100;
             if (floor >= GameConf.getMaxNumberOfFloors()) {
                 floor = 1;
                 building++;
@@ -119,6 +128,18 @@ public class LairDaoTest extends GaeTest {
         
     }
     
+    @Test
+    public void testLairsRanking() {
+    	List<Lair> sortedLairs = lairDao.getLairsRanking();
+    	
+    	System.out.println(sortedLairs.size() + " lairs in rank");
+    	int lastScore = Integer.MAX_VALUE;
+    	for (Lair lair : sortedLairs) {
+    		System.out.println("Lair " + lair.getAddress() + " - " + lair.getScore() + " pts.");
+    		assert(lair.getScore() <= lastScore);
+    		lastScore = lair.getScore();
+    	}
+    }
 //    @Test
 //    public void testFindByAddress() throws InstanceNotFoundException {
 //
