@@ -28,6 +28,8 @@ import es.engade.thearsmonsters.model.util.Format;
 public class Monster extends ThearsmonstersEntity implements Serializable {
 
     private static final long serialVersionUID = 20100305L;
+    private static final long PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD = 80;
+    private static final long PERCENT_OF_LIFE_EXPECTANCY_VARIATION = 5;
 	
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -50,6 +52,12 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     
     @Persistent
 	private Date cocoonCloseUpDate;
+    
+    @Persistent
+    private Date growOldDate;
+    
+    @Persistent
+    private Date deceaseDate;
     
     @Persistent
 	private Date freeTurnsTimestamp;
@@ -89,6 +97,19 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.freeTurnsTimestamp = DateTools.now();
 		this.freeTurns = 0;
 		
+		// Como el mínimo de esperanza de vida es 1, debemos fraccionar ese tiempo
+		// para poder envejecer.
+		long minutesToGrowOld = Math.round(
+				Double.valueOf(race.getLifeExpectancyDays() * 24 * 60
+				* PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD) / 100
+			);
+		this.growOldDate = DateTools.new_byMinutesFrom(borningDate, minutesToGrowOld);
+		long minutesToDecease = Math.round(race.getLifeExpectancyDays() * 24 * 60 +
+				(Math.random() - 0.5) * 2
+				* Double.valueOf((race.getLifeExpectancyDays() * 24 * 60) 
+				* PERCENT_OF_LIFE_EXPECTANCY_VARIATION) / 100
+			);
+		this.deceaseDate = DateTools.new_byMinutesFrom(borningDate, minutesToDecease);
 		// No implementado por ahora
 //		this.activities = new ArrayList<MonsterActivity>();
 	}
@@ -117,6 +138,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public Lair getLair() { return lair; }
 	public Date getBorningDate() { return borningDate; }
 	public Date getCocoonCloseUpDate() { return cocoonCloseUpDate; }
+	public Date getGrowOldDate() { return growOldDate; }
+	public Date getDeceaseDate() { return deceaseDate; }
 	public String getName() { return name; }
 	public MonsterRace getRace() { return race; }
 	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
@@ -136,6 +159,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public void setName(String name) { this.name = name; }
 	public void setBorningDate(Date borningDate) { this.borningDate = borningDate; }
 	public void setCocoonCloseUpDate(Date cocoonCloseUpDate) { this.cocoonCloseUpDate = cocoonCloseUpDate; }
+	public void setGrowOldDate(Date growOldDate) { this.growOldDate = growOldDate; }
+	public void setDeceaseDate(Date deceaseDate) { this.deceaseDate = deceaseDate; }
 	// setFreeTurns está en la sección de las monster actions.
 
 	

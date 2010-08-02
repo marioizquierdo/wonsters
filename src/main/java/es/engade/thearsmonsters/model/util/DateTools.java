@@ -184,8 +184,6 @@ public class DateTools {
 		return daysBetween(now(), to);
 	}
 	
-	
-	
 	/**
      * Compara dos Date teniendo en cuenta que cualquiera de ellos
      * puede ser nulo. (Si ambos son nulos, se consideran iguales).

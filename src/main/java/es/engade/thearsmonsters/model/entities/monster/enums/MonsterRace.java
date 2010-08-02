@@ -1,10 +1,7 @@
 package es.engade.thearsmonsters.model.entities.monster.enums;
 
-import java.util.Date;
-
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
-import es.engade.thearsmonsters.model.util.DateTools;
 
 /**
  * This enumeration makes easier to return a concrete class of a Monster
