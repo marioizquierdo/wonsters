@@ -1,5 +1,6 @@
 package es.engade.thearsmonsters.model.facades.lairfacade;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -237,6 +238,24 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
                     lair.getGarbage());
         }
 
+    }
+    
+    public LairBlock getLairsRanking(int startIndex, int count) {
+    	
+    	List<Lair> lairs = lairDao.getLairsRanking(startIndex, count + 1);
+    	List<LairInfo> lairInfos = new ArrayList<LairInfo>();
+    	for (Lair lair : lairs) {
+            try {
+            	LairInfo lairInfo = new LairInfo(null, lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
+                lairInfo.setUserName(userDao.get(lair.getUser().getIdKey()).getLogin()); // TODO: esto hay que optimizarlo
+                lairInfos.add(lairInfo);
+            } catch (InstanceNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    	boolean hasMoreElements = lairs.size() > count;
+
+    	return new LairBlock(lairInfos, hasMoreElements);
     }
 
 }

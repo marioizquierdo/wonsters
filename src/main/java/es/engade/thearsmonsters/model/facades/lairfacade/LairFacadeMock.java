@@ -85,4 +85,10 @@ public class LairFacadeMock implements LairFacade {
 			InstanceNotFoundException, InsuficientGarbageException {
 	}
 
+	@Override
+	public LairBlock getLairsRanking(int startIndex, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

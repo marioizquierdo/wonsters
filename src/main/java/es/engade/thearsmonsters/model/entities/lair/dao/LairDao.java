@@ -38,5 +38,5 @@ public interface LairDao extends GenericDao<Lair, Key> {
     /**
      * Get the sorted ranking of Lairs 
      */
-    public List<Lair> getLairsRanking();
+    public List<Lair> getLairsRanking(int startIndex, int count);
 }

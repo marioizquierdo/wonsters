@@ -16,7 +16,9 @@ import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairBlock;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairInfo;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksActionException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
@@ -73,14 +75,22 @@ public class LairFacadeTest extends GaeTest {
         numberOfUsers++;
         
         int newStreet = 1, newBuilding = 1, newFloor = 2;
-        
+        int garbage, money;
         while (numberOfUsers < NUMBER_OF_USERS) {
+        	garbage = Integer.parseInt(
+        			Math.round(
+        					Math.random() * 4000) + "");
+        	money = Integer.parseInt(
+        			Math.round(
+        					Math.random() * 4000) + "");
             allPersistentUsers.add(FactoryData.UserWhoIs.Random.build());
             allPersistentUsers.get(numberOfUsers).getLair().setRooms(new ArrayList<Room>());
             User newUser = allPersistentUsers.get(numberOfUsers);
             newUser.getLair().setAddressStreet(newStreet);
             newUser.getLair().setAddressBuilding(newBuilding);
             newUser.getLair().setAddressFloor(newFloor);
+            newUser.getLair().setGarbage(garbage);
+            newUser.getLair().setMoney(money);
             newFloor++;
             if (newFloor >= GameConf.getMaxNumberOfFloors()) {
             	newFloor = 1;
@@ -270,6 +280,54 @@ public class LairFacadeTest extends GaeTest {
         InsuficientGarbageException, InsuficientMoneyException, 
         OnlyOneChangePerGameDayException, InternalErrorException {
         
+    }
+    
+    @Test
+    public void testLairsRanking() {
+    	LairBlock lairBlock = lairFacade.getLairsRanking(0, NUMBER_OF_USERS);
+    	assertEquals(NUMBER_OF_USERS, lairBlock.getLairs().size());
+    	int lastScore = Integer.MAX_VALUE;
+    	for (LairInfo lairInfo : lairBlock.getLairs()) {
+    		assert(lairInfo.getScore() <= lastScore);
+    		lastScore = lairInfo.getScore();
+    	}
+    }
+
+    @Test
+    public void testLairsPaginated() {
+    	int pageSize = 5;
+    	int numberOfPages = Integer.parseInt(
+    			String.valueOf(Math.round(
+    			Math.ceil(Double.valueOf(NUMBER_OF_USERS) / pageSize)
+    			)));
+    	int lastPage = numberOfPages - 1;
+    	int startIndex = 0;
+    	int lastScore = Integer.MAX_VALUE;
+    	int position = 1;
+    	
+    	for (int i = 0; i < numberOfPages; i++) {
+    		System.out.println("Page #"+i);
+    		LairBlock lairBlock = lairFacade.getLairsRanking(startIndex, pageSize);
+    		for (LairInfo lair : lairBlock.getLairs()) {
+    			System.out.println("#" + position + "  " +
+    					lair.getUserName() + " - " + lair.getAddress() 
+    					+ " - " + lair.getScore() + " pts.");
+    			position++;
+    		}
+    		if (i < lastPage) {
+    			assert(lairBlock.getLairs().size() == pageSize);
+    		} else {
+    			assert(lairBlock.getLairs().size() == NUMBER_OF_USERS % numberOfPages);
+    		}
+    		assert(lairBlock.getLairs().get(
+    				lairBlock.getLairs().size() - 1).getScore() <= lastScore);
+    		lastScore = lairBlock.getLairs().get(
+    				lairBlock.getLairs().size() - 1).getScore();
+    		startIndex += pageSize;
+    	}
+    	List<Lair> sortedLairs = lairDao.getLairsRanking(startIndex, pageSize);
+    	// check there is no more lairs
+    	assert(sortedLairs.size() == 0);
     }
 
 }

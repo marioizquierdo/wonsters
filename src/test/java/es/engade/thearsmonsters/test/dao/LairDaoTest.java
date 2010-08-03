@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import es.engade.thearsmonsters.model.entities.lair.Address;
@@ -56,11 +57,9 @@ public class LairDaoTest extends GaeTest {
         while (numberOfUsers < NUMBER_OF_USERS) {
             allPersistentUsers.add(FactoryData.UserWhoIs.Random.build());
             allPersistentUsers.get(numberOfUsers).getLair().setRooms(null);
-            allPersistentUsers.get(numberOfUsers).getLair().setAddressBuilding(building);//.getAddress().setBuilding(building);
-            allPersistentUsers.get(numberOfUsers).getLair().setAddressFloor(floor);//getAddress().setFloor(floor);
-//            allPersistentUsers.get(numberOfUsers).getLair().getAddress().setBuilding(building);
-//            allPersistentUsers.get(numberOfUsers).getLair().getAddress().setFloor(floor);
-            
+            allPersistentUsers.get(numberOfUsers).getLair().setAddressBuilding(building);
+            allPersistentUsers.get(numberOfUsers).getLair().setAddressFloor(floor);
+                        
             // add score
             allPersistentUsers.get(numberOfUsers).getLair().setGarbage(garbage);
             allPersistentUsers.get(numberOfUsers).getLair().setMoney(money);
@@ -130,7 +129,7 @@ public class LairDaoTest extends GaeTest {
     
     @Test
     public void testLairsRanking() {
-    	List<Lair> sortedLairs = lairDao.getLairsRanking();
+    	List<Lair> sortedLairs = lairDao.getLairsRanking(0, GameConf.getLairsRankingDepth());
     	
     	System.out.println(sortedLairs.size() + " lairs in rank");
     	int lastScore = Integer.MAX_VALUE;
@@ -140,19 +139,46 @@ public class LairDaoTest extends GaeTest {
     		lastScore = lair.getScore();
     	}
     }
-//    @Test
-//    public void testFindByAddress() throws InstanceNotFoundException {
-//
-//        Address address = persistentUser.getLair().getAddress();
-//        
-//        List<Lair> lairs = lairDao.findLairsByAddress(address);
-//
-//        
-//        System.out.println("numLairs = " + lairs.size());
-//        for (Lair lair : lairs) {
-//            System.out.println("LAIR : " + lair.getAddress());
-//        }
-//        
-//    }
+    
+    @Test
+    public void testLairsRankingPaginated() {
+    	int pageSize = 5;
+    	int numberOfPages = Integer.parseInt(
+    			String.valueOf(Math.round(
+    			Math.ceil(Double.valueOf(NUMBER_OF_USERS) / pageSize)
+    			)));
+    	int lastPage = numberOfPages - 1;
+    	int startIndex = 0;
+    	int lastScore = Integer.MAX_VALUE;
+
+    	for (int i = 0; i < numberOfPages; i++) {
+    		List<Lair> sortedLairs = lairDao.getLairsRanking(startIndex, pageSize);
+    		if (i < lastPage) {
+    			assert(sortedLairs.size() == pageSize);
+    		} else {
+    			assert(sortedLairs.size() == NUMBER_OF_USERS % numberOfPages);
+    		}
+    		assert(sortedLairs.get(sortedLairs.size() - 1).getScore() <= lastScore);
+    		lastScore = sortedLairs.get(sortedLairs.size() - 1).getScore();
+    		startIndex += pageSize;
+    	}
+    	List<Lair> sortedLairs = lairDao.getLairsRanking(startIndex, pageSize);
+    	// check there is no more lairs
+    	assert(sortedLairs.size() == 0);
+    }
+    
+    @Test
+    public void testFindByAddress() throws InstanceNotFoundException {
+
+        Address address = persistentUser.getLair().getAddress();
+        
+        Lair lair = lairDao.findLairByAddress(
+        		address.getStreet(),
+        		address.getBuilding(),
+        		address.getFloor());
+      
+        assertEquals(persistentUser.getLair(), lair);
+        
+    }
 
 }

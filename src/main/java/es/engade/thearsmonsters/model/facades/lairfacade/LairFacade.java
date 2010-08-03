@@ -85,5 +85,13 @@ public interface LairFacade {
     public int changeResources(Lair lair, String money_or_garbage, int amount)
     	throws WarehouseFullStorageException, TradeOfficeFullStorageException, InsuficientGarbageException, InsuficientMoneyException, OnlyOneChangePerGameDayException, InternalErrorException;
     
+    /**
+     * Gets a sorted block of Lair info objects
+     * 
+     * @param startIndex the first element to retrieve
+     * @param count the number of elements
+     * @return
+     */
+    public LairBlock getLairsRanking(int startIndex, int count);
 
 }
