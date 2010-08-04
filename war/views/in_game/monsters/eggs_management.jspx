@@ -22,10 +22,13 @@
 	<div id="eggsManagement_viewEggs" class="incubatedEggs incubatedEggs${eggs_number lt 10 ? eggs_number : 10}">
 		<c:choose>
 		<c:when test="${eggs_number == 0}">
-			<customtag:info_message key="EggsManagement.thereIsNoEggs" icon_id="0" style="margin-top:10px;"/>
-			<fmt:message key="EggsManagement.buyOne">
-				<fmt:param><a href="egg/buy.do"><fmt:message key="EggsManagement.buyEggs"/></a></fmt:param>
-			</fmt:message>	
+			<customtag:info_message icon_id="0" style="margin-top:10px;">
+				<fmt:message key="EggsManagement.thereIsNoEggs">
+					<fmt:param><html:link action="/monster/eggs.do?eggsManagement_selected_tag=buyEggs">
+						<fmt:message key="EggsManagement.thereIsNoEggs.buyOneEggAction"/>
+					</html:link></fmt:param>
+				</fmt:message>
+			</customtag:info_message>
 		</c:when>
 
 		<c:otherwise>
@@ -33,9 +36,9 @@
 				<div id="egg_${egg.id}" class="egg_slot">
 					<div id="egg_${egg.id}_img" class="egg_slot_img">
 						<c:set var="seeRaceDetails"><fmt:message key="Monster.race.clickToSeeDetails"/></c:set>
-						<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}">
+						<!--<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}">-->
 							<customtag:monster_image race="${egg.race}"/>
-						</html:link>
+						<!--</html:link>-->
 					</div>
 					<div id="egg_${egg.id}_text" class="egg_slot_text">
 						<ul>
