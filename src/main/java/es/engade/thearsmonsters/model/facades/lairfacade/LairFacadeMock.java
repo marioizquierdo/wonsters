@@ -86,7 +86,7 @@ public class LairFacadeMock implements LairFacade {
 	}
 
 	@Override
-	public LairBlock getLairsRanking(int startIndex, int count) {
+	public LairRankingInfoChunk getLairsRanking(int startIndex, int count) {
 		// TODO Auto-generated method stub
 		return null;
 	}

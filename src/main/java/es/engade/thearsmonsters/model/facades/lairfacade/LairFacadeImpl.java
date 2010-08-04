@@ -243,13 +243,13 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
     }
     
-    public LairBlock getLairsRanking(int startIndex, int count) {
-    	
+    public LairRankingInfoChunk getLairsRanking(int startIndex, int count) {
+    	/*// TODO: ESTO PETA (NullPointerException), lo cambio por una implementacion dummy
     	List<Lair> lairs = lairDao.getLairsRanking(startIndex, count + 1);
-    	List<LairInfo> lairInfos = new ArrayList<LairInfo>();
+    	List<LairRankingInfo> lairInfos = new ArrayList<LairRankingInfo>();
     	for (Lair lair : lairs) {
             try {
-            	LairInfo lairInfo = new LairInfo(null, lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
+            	LairRankingInfo lairInfo = new LairRankingInfo(null, lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
                 lairInfo.setUserName(userDao.get(lair.getUser().getIdKey()).getLogin()); // TODO: esto hay que optimizarlo
                 lairInfos.add(lairInfo);
             } catch (InstanceNotFoundException e) {
@@ -257,8 +257,19 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
             }
         }
     	boolean hasMoreElements = lairs.size() > count;
-
-    	return new LairBlock(lairInfos, hasMoreElements);
+    	
+    	return new LairRankingInfoChunk(lairInfos, hasMoreElements);
+    	*/
+    	
+    	// Se pillan las guaridas del bloque, igual que en findBuilding(int street, int building) para ir tirando...
+    	// También peta cuando se intenta cargar el user. findBuilding también peta, da un  NullPointerException
+    	List<Lair> lairs = lairDao.findLairsByBuilding(0, 0); // de la coordenada (0,0) que ahi fijo que hay guaridas
+    	List<LairRankingInfo> lairInfos = new ArrayList<LairRankingInfo>();
+        for (Lair lair : lairs) {
+                LairRankingInfo lairInfo = new LairRankingInfo("yo que se", lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
+                lairInfos.add(lairInfo);
+        }
+    	return new LairRankingInfoChunk(lairInfos, false);
     }
 
 }

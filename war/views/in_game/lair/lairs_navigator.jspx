@@ -9,7 +9,11 @@
 <customtag:window id="buildingWindow" 
 		title="Building.windowTitle"
 		titleValue="  (${param.street}:${param.building})"
-		tags="lairs_navigator: Lair.buildingView, search_lairs: Lair.searchLairs" >
+		selected_tag="lairs_navigator"
+		tags="
+			ranking: Ranking.tagName => /ranking.do,
+			lairs_navigator: Lair.buildingView,
+			search_lairs: Lair.searchLairs" >
 
 	<!-- Lairs Navigator for view and search neighbors -->
 	<div id="buildingWindow_lairs_navigator">
@@ -86,7 +90,7 @@
 			</tr>
 			
 			<c:forEach items="${building.lairs}" var="lair" varStatus="loop">
-				<c:url var="lairURL" value="lair.do">
+				<c:url var="lairURL" value="/lair.do">
 					<c:param name="login" value="${lair.user.login}"/>
 				</c:url>
 				

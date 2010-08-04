@@ -3,7 +3,7 @@ package es.engade.thearsmonsters.model.facades.lairfacade;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 
-public class LairInfo {
+public class LairRankingInfo {
 
 	private String userName;
 	private Address address;
@@ -30,7 +30,7 @@ public class LairInfo {
 		return score;
 	}
 	
-	public LairInfo(String userName, Address address, int garbage, int money,
+	public LairRankingInfo(String userName, Address address, int garbage, int money,
 			int score) {
 		this.userName = userName;
 		this.address = address;
@@ -39,7 +39,7 @@ public class LairInfo {
 		this.score = score;
 	}
 
-	public LairInfo(Lair lair) {
+	public LairRankingInfo(Lair lair) {
 		this.userName = lair.getUser().getLogin();
 		this.address = lair.getAddress();
 		this.garbage = lair.getGarbage();

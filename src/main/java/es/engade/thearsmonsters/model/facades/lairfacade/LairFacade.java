@@ -92,6 +92,6 @@ public interface LairFacade {
      * @param count the number of elements
      * @return
      */
-    public LairBlock getLairsRanking(int startIndex, int count);
+    public LairRankingInfoChunk getLairsRanking(int startIndex, int count);
 
 }

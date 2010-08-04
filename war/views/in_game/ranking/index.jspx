@@ -1,0 +1,60 @@
+<jsp:root	xmlns="http://www.w3.org/1999/xhtml"
+    		xmlns:jsp="http://java.sun.com/JSP/Page"
+    		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+          	xmlns:html="http://struts.apache.org/tags-html"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    		version="2.0">
+    		
+<c:set var="lair_neighbors_params" 
+			value="street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}" />
+    		
+<customtag:window id="lairWindow" titleValue="${lair_titleValue}" selected_tag="ranking" 
+	tags="
+		ranking: Ranking.tagName,
+		new_rooms: Lair.newRoomsAvaliable => /lair/rooms/ready_to_build.do, 
+		lair: Lair.lairView => /lair.do, 
+		lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
+		search_lairs: Lair.searchLairs => /lair.do?lairWindow_selected_tag=search_lairs">
+	
+	<div id="lairWindow_ranking">
+		<customtag:info_message titleKey="Ranking.index.info.title" 
+			key="Ranking.index.info.desc" status="INFO" icon_id="13" style="margin: 20px;"/>
+			
+		<table class="table1 rankingTable">
+	
+			<tr>
+			    <th><fmt:message key="Ranking.lairInfo.userName"/></th>
+			    <th><fmt:message key="Ranking.lairInfo.address"/></th>
+			    <th><fmt:message key="Ranking.lairInfo.garbage"/></th>
+			    <th><fmt:message key="Ranking.lairInfo.money"/></th>
+			    <th><fmt:message key="Ranking.lairInfo.score"/></th>
+			</tr>
+			
+			<c:forEach items="${ranking.elements}" var="lair" varStatus="loop">
+				<c:url var="lairURL" value="/lair.do">
+					<c:param name="login" value="${lair.userName}"/>
+				</c:url>
+				
+				<tr class="trContent 
+							${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
+							${(lair == my.lair) ? ' myLair' : ''}"
+						onclick="document.location.href='${lairURL}';">
+					<td> <a href="${lairURL}"><c:out value="${lair.userName}"/></a> </td>
+					<td> <a href="${lairURL}"><c:out value="${lair.address}"/></a> </td>
+				    <td> <fmt:formatNumber value="${lair.garbage}"/> </td>
+				    <td> <fmt:formatNumber value="${lair.money}"/> </td>
+				    <td> <fmt:formatNumber value="${lair.score}"/> </td>
+				</tr>
+			</c:forEach>
+			
+		</table>
+			
+		<customtag:info_message
+			key="Ranking.index.not_implemented.message" status="INFO" style="margin: 20px;"/>
+	</div>
+
+</customtag:window>
+    		
+</jsp:root>

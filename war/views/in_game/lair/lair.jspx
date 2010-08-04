@@ -11,13 +11,13 @@
 <c:choose>
 	<c:when test="${lair == my.lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
-		<c:set var="lair_neighbors" 
-			value="?street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
+		<c:set var="lair_neighbors_params" 
+			value="street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
 	</c:when>
 	<c:when test="${empty lair}">
 		<c:set var="lair_titleValue"><fmt:message key="Lair.error"/></c:set>
-		<c:set var="lair_neighbors" 
-			value="?street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}" />
+		<c:set var="lair_neighbors_params" 
+			value="street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}" />
 	</c:when>
 	<c:otherwise>
 		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
@@ -26,15 +26,17 @@
 			<fmt:param value="${lair.addressBuilding}"/>
 			<fmt:param value="${lair.addressFloor}"/>
 		</fmt:message></c:set>
-		<c:set var="lair_neighbors" 
-			value="?street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
+		<c:set var="lair_neighbors_params" 
+			value="street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
 	</c:otherwise>
 </c:choose>
 
 <customtag:window id="lairWindow" titleValue="${lair_titleValue}" selected_tag="lair" 
-	tags="new_rooms: Lair.newRoomsAvaliable => lair/rooms/ready_to_build.do, 
+	tags="
+		ranking: Ranking.tagName => /ranking.do,
+		new_rooms: Lair.newRoomsAvaliable => /lair/rooms/ready_to_build.do, 
 		lair: Lair.lairView, 
-		lairs_navigator: Lair.buildingView => lair.do${lair_neighbors}, 
+		lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
 		search_lairs: Lair.searchLairs">
 	
 	<div id="lairWindow_lair">
@@ -48,7 +50,7 @@
 			
 				<div class="endOfLair endOfLairLeft"><img src="/images/theme/empty_pixel.png"/></div>
 				
-				<html:link action="lair.do${lair_neighbors}">
+				<html:link action="lair.do?${lair_neighbors_params}">
 					<div class="lairRoom elevator"><img src="/images/theme/empty_pixel.png"/></div>
 			    </html:link>
 			    

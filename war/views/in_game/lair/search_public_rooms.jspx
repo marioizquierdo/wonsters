@@ -5,8 +5,8 @@
     		version="2.0">
     		
 <customtag:window id="NotImplementedPage" title="NotImplementedPage">
-	<h1>Search Public Rooms</h1> 
-	<h2> coming soon...</h2>
+	<h2>Search Public Rooms</h2> 
+	<p> coming soon...</p>
 </customtag:window>
 
 </jsp:root>

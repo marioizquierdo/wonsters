@@ -16,9 +16,9 @@ import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
-import es.engade.thearsmonsters.model.facades.lairfacade.LairBlock;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairRankingInfoChunk;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
-import es.engade.thearsmonsters.model.facades.lairfacade.LairInfo;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairRankingInfo;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksActionException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
@@ -284,10 +284,10 @@ public class LairFacadeTest extends GaeTest {
     
     @Test
     public void testLairsRanking() {
-    	LairBlock lairBlock = lairFacade.getLairsRanking(0, NUMBER_OF_USERS);
-    	assertEquals(NUMBER_OF_USERS, lairBlock.getLairs().size());
+    	LairRankingInfoChunk lairBlock = lairFacade.getLairsRanking(0, NUMBER_OF_USERS);
+    	assertEquals(NUMBER_OF_USERS, lairBlock.getElements().size());
     	int lastScore = Integer.MAX_VALUE;
-    	for (LairInfo lairInfo : lairBlock.getLairs()) {
+    	for (LairRankingInfo lairInfo : lairBlock.getElements()) {
     		assert(lairInfo.getScore() <= lastScore);
     		lastScore = lairInfo.getScore();
     	}
@@ -307,22 +307,22 @@ public class LairFacadeTest extends GaeTest {
     	
     	for (int i = 0; i < numberOfPages; i++) {
     		System.out.println("Page #"+i);
-    		LairBlock lairBlock = lairFacade.getLairsRanking(startIndex, pageSize);
-    		for (LairInfo lair : lairBlock.getLairs()) {
+    		LairRankingInfoChunk lairBlock = lairFacade.getLairsRanking(startIndex, pageSize);
+    		for (LairRankingInfo lair : lairBlock.getElements()) {
     			System.out.println("#" + position + "  " +
     					lair.getUserName() + " - " + lair.getAddress() 
     					+ " - " + lair.getScore() + " pts.");
     			position++;
     		}
     		if (i < lastPage) {
-    			assert(lairBlock.getLairs().size() == pageSize);
+    			assert(lairBlock.getElements().size() == pageSize);
     		} else {
-    			assert(lairBlock.getLairs().size() == NUMBER_OF_USERS % numberOfPages);
+    			assert(lairBlock.getElements().size() == NUMBER_OF_USERS % numberOfPages);
     		}
-    		assert(lairBlock.getLairs().get(
-    				lairBlock.getLairs().size() - 1).getScore() <= lastScore);
-    		lastScore = lairBlock.getLairs().get(
-    				lairBlock.getLairs().size() - 1).getScore();
+    		assert(lairBlock.getElements().get(
+    				lairBlock.getElements().size() - 1).getScore() <= lastScore);
+    		lastScore = lairBlock.getElements().get(
+    				lairBlock.getElements().size() - 1).getScore();
     		startIndex += pageSize;
     	}
     	List<Lair> sortedLairs = lairDao.getLairsRanking(startIndex, pageSize);

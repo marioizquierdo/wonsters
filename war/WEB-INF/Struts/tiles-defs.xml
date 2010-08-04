@@ -91,6 +91,12 @@
 		<put name="content" value="/views/in_game/monsters/eggs_management.jspx" />
 	</definition>
 
+	<definition name=".Ranking" extends=".InGameBase">
+		<put name="title" value="Ranking.title" />
+		<put name="color" value="blue" />
+		<put name="content" value="/views/in_game/ranking/index.jspx" />
+	</definition>
+
 	<definition name=".RoomsReadyToBuild" extends=".InGameBase">
 		<put name="title" value="Lair.newRoomsAvaliable" />
 		<put name="color" value="blue" />

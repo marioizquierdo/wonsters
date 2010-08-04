@@ -239,6 +239,12 @@
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Missions">
         <set-property property="authenticationRequired" value="true"/></action>
+     	
+	<action path="/ranking"
+            type="es.engade.thearsmonsters.http.controller.actions.lair.ShowLairsRanking"
+            parameter=".Ranking">
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Ranking" path=".Ranking"/></action>
     
              
     <!-- ========= FrontPage Actions (/_.do) ========== -->

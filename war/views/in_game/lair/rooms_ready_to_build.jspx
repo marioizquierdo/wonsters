@@ -7,8 +7,10 @@
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
 
-<customtag:window id="lairWindow" title="Lair.myLair"
-	tags="new_rooms: Lair.newRoomsAvaliable, 
+<customtag:window id="lairWindow" title="Lair.myLair" selected_tag="new_rooms"
+	tags="
+		ranking: Ranking.tagName => /ranking.do,
+		new_rooms: Lair.newRoomsAvaliable, 
 		lair: Lair.lairView => lair.do, 
 		lairs_navigator: Lair.buildingView => lair.do?street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}, 
 		search_lairs: Lair.searchLairs => lair.do?lairWindow_selected_tag=search_lairs">
