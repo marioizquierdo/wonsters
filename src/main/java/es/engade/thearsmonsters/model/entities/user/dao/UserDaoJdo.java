@@ -74,6 +74,9 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         }
 
         Lair lair = user.getLair();
+
+        lair.touch();
+        
         String firstName = user.getUserDetails().getFirstName();
         String language = user.getUserDetails().getLanguage();
 

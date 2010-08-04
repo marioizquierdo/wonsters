@@ -23,4 +23,8 @@ public abstract class ThearsmonstersEntity {
 		return KeyUtils.toString(getIdKey());
 	}
 	
+	public void touch() {
+		
+	}
+	
 }
