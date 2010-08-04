@@ -56,21 +56,21 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
     @Persistent
     private int score;
     
-    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
+    @Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
     private User user;
     
     @Persistent(serialized="true",defaultFetchGroup="true")
     private RoomData roomData;
     
-    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
+    @Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
     @Element(dependent = "true")
     private List<Room> rooms;
     
-    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
+    @Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
     @Element(dependent = "true")
     private List<Monster> monsters;
     
-    @Persistent(mappedBy = "lair",defaultFetchGroup="true")
+    @Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
     @Element(dependent = "true")
     private List<MonsterEgg> monsterEggs;
 
@@ -358,4 +358,16 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		}
 	}
     
+	public void touch() {
+		user.touch();
+		for (Room room : rooms) {
+			room.touch();
+		}
+		for (Monster monster : monsters) {
+			monster.touch();
+		}
+		for (MonsterEgg monsterEgg : monsterEggs) {
+			monsterEgg.touch();
+		}
+	}
 }

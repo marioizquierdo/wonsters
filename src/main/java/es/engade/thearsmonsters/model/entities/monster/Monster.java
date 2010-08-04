@@ -29,6 +29,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 
     private static final long serialVersionUID = 20100305L;
     private static final long PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD = 80;
+    private static final long PERCENT_OF_VARIATION_TO_GROW_OLD = 10;
     private static final long PERCENT_OF_LIFE_EXPECTANCY_VARIATION = 5;
 	
     @PrimaryKey
@@ -103,6 +104,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 				Double.valueOf(race.getLifeExpectancyDays() * 24 * 60
 				* PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD) / 100
 			);
+		minutesToGrowOld += (Math.random() - 0.5) * 2 
+			* (minutesToGrowOld * PERCENT_OF_VARIATION_TO_GROW_OLD);
 		this.growOldDate = DateTools.new_byMinutesFrom(borningDate, minutesToGrowOld);
 		long minutesToDecease = Math.round(race.getLifeExpectancyDays() * 24 * 60 +
 				(Math.random() - 0.5) * 2
@@ -532,6 +535,17 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 				getCocoonCloseUpDate().before(DateTools.now())) {
 				age = MonsterAge.Adult;
 			}
+    	}
+    	//TODO: Dado que no hay un demonio que compruebe periodicamente
+    	// los cambios de edad, es posible que estos no se hagan secuencialmente
+    	// y por tanto un bicho pase directamente de adulto a muerto, o de
+    	// joven a viejo o muerto.
+    	if (age.equals(MonsterAge.Adult) && 
+    			getGrowOldDate().before(DateTools.now())) {
+    		age = MonsterAge.Old;
+    	} else if (age.equals(MonsterAge.Old) &&
+    			getDeceaseDate().before(DateTools.now())) {
+    		age = MonsterAge.Dead;
     	}
     }
 	

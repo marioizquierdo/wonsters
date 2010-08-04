@@ -30,7 +30,7 @@ public class Room extends ThearsmonstersEntity implements Serializable {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     protected Key id;
     
-    @Persistent(defaultFetchGroup="true")
+    @Persistent//(defaultFetchGroup="true")
     protected Lair lair;
     
     @Persistent
