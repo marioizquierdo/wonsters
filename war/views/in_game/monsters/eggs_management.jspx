@@ -23,7 +23,11 @@
 		<c:choose>
 		<c:when test="${eggs_number == 0}">
 			<customtag:info_message key="EggsManagement.thereIsNoEggs" icon_id="0" style="margin-top:10px;"/>
+			<fmt:message key="EggsManagement.buyOne">
+				<fmt:param><a href="egg/buy.do"><fmt:message key="EggsManagement.buyEggs"/></a></fmt:param>
+			</fmt:message>	
 		</c:when>
+
 		<c:otherwise>
 			<c:forEach items="${eggs}" var="egg" varStatus="loop" >
 				<div id="egg_${egg.id}" class="egg_slot">
