@@ -9,9 +9,6 @@ public class LairRankingInfoChunk {
 	private List<LairRankingInfo> lairs;
 	private boolean hasMoreElements;
 	
-	public LairRankingInfoChunk() {
-		lairsHash = new Hashtable<String, LairRankingInfo>();
-	}
 	public List<LairRankingInfo> getElements() {
 		return lairs;
 	}
@@ -20,6 +17,7 @@ public class LairRankingInfoChunk {
 	}
 	
 	public LairRankingInfoChunk(List<LairRankingInfo> lairs, boolean hasMoreElements) {
+		lairsHash = new Hashtable<String, LairRankingInfo>();
 		for (LairRankingInfo lair : lairs) {
 			lairsHash.put(lair.getLogin(), lair);
 		}
