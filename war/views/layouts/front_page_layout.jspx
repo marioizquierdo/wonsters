@@ -28,38 +28,25 @@
   </title>
   
   <!-- Stylesheets -->
-  <c:url var="resetDefaultsCSS" value="/css/reset_defaults.css" />
-  <c:url var="commonStylesCSS" value="/css/common_styles.css" />
-  <c:url var="formsCSS" value="/css/forms.css" />
-  <c:url var="windowTagAndColorsCSS" value="/css/window_tag_and_colors.css" />
-  <c:url var="frontPageCSS" value="/css/front_page.css" />
-  <c:url var="pikachooseCSS" value="/css/pikachoose.css" />
-  <c:url var="tipTipCSS" value="/css/tipTip.css" />
+  <customtag:include_stylesheets root="/css" files="
+  		reset_defaults, common_styles, forms, window_tag_and_colors, 
+  		front_page, pikachoose, tipTip "/>
   
-  
-  <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${commonStylesCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${formsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${windowTagAndColorsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${frontPageCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${pikachooseCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${tipTipCSS}" type="text/css" media="all" />
-
-  <!-- Javascript. -->   
+  <!-- JavaScripts -->
+  <customtag:include_javascripts root="/javascript" files="
+  		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib,
+  		front_page_layout "/>
+  		
   <![CDATA[
-  	<script type='text/javascript' src='/javascript/lib/jquery.js'></script>
-  	<script type='text/javascript' src='/javascript/lib/jquery.tipTip.js'></script>
-  	<script type='text/javascript' src='/javascript/lib/thearsmonsters_lib.js'></script>
-  	<script type='text/javascript' src='/javascript/front_page_layout.js'></script>
   	<script type='text/javascript'>$(function(){ 
-  	$('#login').focus(); });
-  	</script>
+  		$('#login').focus(); // give focus in the login form
+  	});</script>
   ]]> 
 
   <![CDATA[
   <!--[if lt IE 7]>
     <script type="text/javascript">
-	       alert("Estas usando un navegador antiguo. Por favor, utiliza Firefox, Safari, Google Chrome, o al menos la ultima version del Internet Explorer");
+	       alert("Estas usando un navegador antiguo. Por favor, utiliza Firefox, Safari, Google Chrome, o al menos una version nueva del Internet Explorer");
     </script>
   <![endif]-->
   ]]>

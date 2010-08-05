@@ -139,47 +139,19 @@ p.info_mini {
 	margin-left: 5px;
 }
 
-p.info_slot { /* Info slot without icon */
-	float: left;
-	margin: 10px 30px;
-	width: 700px;
-	text-align: left;
-	color: #444;
-}
+/* Info slot without icon */
+p.info_slot { float: left; margin: 10px 30px; width: 700px; text-align: left; color: #444; }
 
-div.info_slot { /* Info slot with icon: used by info_message customtag */
-	float: left;
-	margin: 10px 10px 10px 10px;
-	width: 740px;
-	text-align: left;
-	color: #444;
-}
+/* Info slot with icon: used by info_message customtag */
+div.info_slot { float: left; margin: 10px; width: 740px; text-align: left; color: #444; }
+div.info_slot .info_slot_content { float: left; width: 700px; /* info_slot.width - 40 */ font-size: 12px; }
+div.info_slot .info_slot_content h3.info_slot_header { padding: 0 0 5px 0; margin: 0; font-size: 14px; font-weight: bold; }
+div.info_slot .info_slot_content ul { margin: 1em 0 1em 18px; list-style: disc outside; }
+div.info_slot .info_slot_content ul li { list-style: disc outside; font-size: 12px; }
 
-div.info_slot .info_slot_content {
-	float: left;
-	width: 700px; /* info_slot.width - 40 */
-}
-
-div.info_slot .info_slot_content h3.info_slot_header {
-	padding: 0 0 5px 0;
-	margin: 0;
-	font-size: 14px;
-	font-family: Arial, Verdana, Helvetica, sans-serif;
-	font-weight: bold;
-}
-
-div.more_actions_links { /* Enlaces que suelen ir en la parte inferior de una ventana */
-	float: left;
-	width: 100%;
-	text-align: center;
-	margin: 25px 0 15px 0;
-}
-
-
-div.more_actions_links a {
-	margin: 0 5px;
-	font-size: 14px;	
-}
+/* Enlaces que suelen ir en la parte inferior de una ventana */
+div.more_actions_links { float: left; width: 100%; text-align: center; margin: 25px 0 15px 0; }
+div.more_actions_links a { margin: 0 5px; font-size: 14px;	}
 
 /**** Simple styles ****/
 

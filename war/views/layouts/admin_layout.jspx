@@ -35,31 +35,22 @@ fmt:setLocale tag will not be necessary.
 
 <tiles:useAttribute name="title" />
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+  
   <title>
   	<fmt:message key="Thearsmonsters"/><c:out value=" - "/>
     <fmt:message key="${title}"/>    
   </title>
   
   <!-- Stylesheets -->
-  <c:url var="resetDefaultsCSS" value="/css/reset_defaults.css" />
-  <c:url var="commonStylesCSS" value="/css/common_styles.css" />
-  <c:url var="formsCSS" value="/css/forms.css" />
-  <c:url var="tablesCSS" value="/css/tables.css" />
-  <c:url var="adminCSS" value="/css/admin.css" />
+  <customtag:include_stylesheets root="/css" files="
+  		reset_defaults, common_styles, forms, tables, admin "/>
   
-  <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${commonStylesCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${formsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${tablesCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${adminCSS}" type="text/css" media="all" />
-  
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+  <!-- JavaScripts -->
+  <customtag:include_javascripts root="/javascript" files="
+  		lib/jquery "/>
 </head>
 
-<!-- Javascript initializer (Load initial js data). -->
-<![CDATA[
-	<script type='text/javascript' src='/javascript/lib/jquery.js'></script>
-]]>
 
 <!-- Start of HTML body. -->
 

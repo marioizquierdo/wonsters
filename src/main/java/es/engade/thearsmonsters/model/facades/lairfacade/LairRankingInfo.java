@@ -5,17 +5,17 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 
 public class LairRankingInfo {
 
-	private String userName;
+	private String login;
 	private Address address;
 	private int garbage;
 	private int money;
 	private int score;
 	
-	public String getUserName() {
-		return userName;
+	public String getLogin() {
+		return login;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	public Address getAddress() {
 		return address;
@@ -32,7 +32,7 @@ public class LairRankingInfo {
 	
 	public LairRankingInfo(String userName, Address address, int garbage, int money,
 			int score) {
-		this.userName = userName;
+		this.login = userName;
 		this.address = address;
 		this.garbage = garbage;
 		this.money = money;
@@ -40,7 +40,7 @@ public class LairRankingInfo {
 	}
 
 	public LairRankingInfo(Lair lair) {
-		this.userName = lair.getUser().getLogin();
+		this.login = lair.getUser().getLogin();
 		this.address = lair.getAddress();
 		this.garbage = lair.getGarbage();
 		this.money = lair.getMoney();

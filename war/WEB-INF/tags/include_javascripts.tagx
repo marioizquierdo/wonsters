@@ -1,0 +1,30 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			version="2.0">
+<!--	
+	Incluye archivos javascript.
+	Ejemplo: <customtag:include_javascripts root="/js" files="jquery, calendar/green"/>
+	Esto incluye los javascripts que haya en '/js/jquery.js' y '/js/calendar/green.js'.
+--> 		
+			
+  <jsp:directive.attribute name="root" required="false"
+  		description="Ruta (directoreo) donde estan todos los javascripts. Por defecto es '/javascripts' "/>
+  		<c:if test="${empty root}"><c:set var="root" value="/javascripts" /></c:if> <!-- valor por defecto -->
+  		<c:if test="${fn:substring(root, fn:length(root)-1, fn:length(root)) == '/'}"><c:set var="root" value="${fn:substring(root, 0, fn:length(root)-1)}"/></c:if> <!-- si root termina en '/' se lo quita -->
+  				
+  <jsp:directive.attribute name="files" required="true"
+  		description="Lista de archivos (sin la extension .js) para incluir, separados por comas. El orden es relevante."/> 
+  	
+  	
+  	<c:forEach items="${fn:split(files, ',')}" var="file" varStatus="loop">
+		
+		<c:url var="included_javascript_file" value="${root}/${fn:trim(file)}.js" />
+		<![CDATA[
+			<script type='text/javascript' src='${included_javascript_file}'></script>
+		]]>
+		
+	</c:forEach>
+	
+</jsp:root>

@@ -102,12 +102,12 @@
 					<!-- cada tag es "tagId: tagTitleKey" o bien "tagId: tagTitleKey => tagStrutsAction" -->
 					<c:set var="tagId" value="${fn:trim(fn:substringBefore(tag, ':'))}"/>
 					<c:set var="tagStrutsAction" value="${fn:trim(fn:substringAfter(tag, '=>'))}"/>
-					<c:choose><c:when test="${empty tagStrutsAction}"> <!-- tag sin enlace? -->
+					<c:choose><c:when test="${empty tagStrutsAction}"> <!-- tag sin enlace -->
 						<c:set var="tagTitleKey" value="${fn:trim(fn:substringAfter(tag, ':'))}"/>
 		                <div class="window_tag" onClick="ThearsmonstersLib.showWindowSection('${id}', '${tagId}');">
 		                  <div id="${id}_${tagId}_tag"><fmt:message key="${tagTitleKey}"/></div>
 		                </div>
-		        	</c:when><c:otherwise>
+		        	</c:when><c:otherwise> <!-- tag con enlace -->
 						<c:set var="tagTitleKey" value="${fn:trim(fn:substringAfter(fn:substringBefore(tag, '=>'), ':'))}"/>
 		        		<html:link action="${tagStrutsAction}">
 		        			<div class="window_tag">
@@ -137,10 +137,8 @@
   <c:if test="${!empty id}">
 	  <!-- Script para mostrar solamente el contenido de un tag (en un principio es el primero, pero puede recibirse por parametro) -->
 	  <![CDATA[<script languaje='JavaScript' type='text/javascript'>
-	  		$(function() {
-	    		ThearsmonstersLib.showWindowSection('${id}', '${selected_tag}');
-	    		$('#${id}_content').show();
-	  		});
+    		ThearsmonstersLib.showWindowSection('${id}', '${selected_tag}');
+    		$('#${id}_content').show();
 	  </script>]]>
   </c:if>
   

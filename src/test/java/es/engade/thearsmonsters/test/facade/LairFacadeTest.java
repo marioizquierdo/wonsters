@@ -310,7 +310,7 @@ public class LairFacadeTest extends GaeTest {
     		LairRankingInfoChunk lairBlock = lairFacade.getLairsRanking(startIndex, pageSize);
     		for (LairRankingInfo lair : lairBlock.getElements()) {
     			System.out.println("#" + position + "  " +
-    					lair.getUserName() + " - " + lair.getAddress() 
+    					lair.getLogin() + " - " + lair.getAddress() 
     					+ " - " + lair.getScore() + " pts.");
     			position++;
     		}

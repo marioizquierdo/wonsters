@@ -27,41 +27,16 @@
     <fmt:message key="${title}"/>
   </title>
   
-  <!-- CSS Stylesheets -->
+  <!-- Stylesheets -->
+  <customtag:include_stylesheets root="/css" files="
+  		reset_defaults, common_styles, tables, forms, in_game, menu,
+  		lair_styles, monster_styles, window_tag_and_colors, 
+  		tipTip, smoothness/jquery-ui "/>
   
-  <c:url var="resetDefaultsCSS" value="/css/reset_defaults.css" />
-  <c:url var="commonStylesCSS" value="/css/common_styles.css" />
-  <c:url var="inGameCSS" value="/css/in_game.css" />
-  <c:url var="menuCSS" value="/css/menu.css" />
-  <c:url var="lairCSS" value="/css/lair_styles.css" />
-  <c:url var="monsterCSS" value="/css/monster_styles.css" />
-  <c:url var="formsCSS" value="/css/forms.css" />
-  <c:url var="tablesCSS" value="/css/tables.css" />
-  <c:url var="windowTagAndColorsCSS" value="/css/window_tag_and_colors.css" />
-  <c:url var="tipTipCSS" value="/css/tipTip.css" />
-  <c:url var="jqueryUICSS" value="/css/smoothness/jquery-ui.css" />
-  
-  <link rel="StyleSheet" href="${resetDefaultsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${commonStylesCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${inGameCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${menuCSS}" type="text/css" media="all" />  
-  <link rel="StyleSheet" href="${lairCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${monsterCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${formsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${tablesCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${windowTagAndColorsCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${tipTipCSS}" type="text/css" media="all" />
-  <link rel="StyleSheet" href="${jqueryUICSS}" type="text/css" media="all" />
-  
-  <!-- JavaScript (layout common) -->
-  
-  <![CDATA[
-	<script type='text/javascript' src='/javascript/lib/jquery.js'></script>
-	<script type='text/javascript' src='/javascript/lib/jquery-ui.js'></script>
-	<script type='text/javascript' src='/javascript/lib/jquery.tipTip.js'></script>
-	<script type='text/javascript' src='/javascript/lib/thearsmonsters_lib.js'></script>
-	<script type='text/javascript' src='/javascript/in_game_layout.js'></script>
-  ]]>
+  <!-- JavaScripts -->
+  <customtag:include_javascripts root="/javascript" files="
+  		lib/jquery, lib/jquery-ui, lib/jquery.tipTip, lib/thearsmonsters_lib,
+  		in_game_layout "/>
 
 </head>
 

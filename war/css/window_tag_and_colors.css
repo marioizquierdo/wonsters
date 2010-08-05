@@ -11,14 +11,8 @@
 	float: left;
 }
 
-.window_tags {
-	padding: 0;
-	margin: 0;
-	float: right;
-	height: 100%;
-}
-
-.window_tag {
+.window_tags { padding: 0; margin: 0; float: right; height: 100%; }
+.window_tags .window_tag {
 	font-size: 14px;
 	font-family: Arial, Verdana, Helvetica, sans-serif;
 	font-weight: bold;
@@ -30,19 +24,11 @@
 	padding-left: 10px;
 	line-height: 28px;
 }
-
-.window_tag div {
-	height: 100%;
-}
-
-.window_active_tag:hover {
-	cursor: default;
-}
-
-.window_inactive_tag:hover {
-	cursor: pointer;
-	color: #ff9;
-}
+.window_tags .window_tag div { height: 100%; }
+.window_tags .window_tag:hover { text-decoration: none; }
+.window_tags .window_active_tag:hover { cursor: default; }
+.window_tags a:hover,
+.window_tags .window_inactive_tag:hover { cursor: pointer; color: #ff9; text-decoration: none; }
 
 .rounded_window {
 	float: left;

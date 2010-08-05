@@ -22,10 +22,11 @@
 		<customtag:info_message titleKey="Ranking.index.info.title" 
 			key="Ranking.index.info.desc" status="INFO" icon_id="13" style="margin: 20px;"/>
 			
-		<table class="table1 rankingTable">
+		<table class="table2 rankingTable">
 	
 			<tr>
-			    <th><fmt:message key="Ranking.lairInfo.userName"/></th>
+				<th><fmt:message key="Ranking.lairInfo.position"/></th>
+			    <th><fmt:message key="Ranking.lairInfo.login"/></th>
 			    <th><fmt:message key="Ranking.lairInfo.address"/></th>
 			    <th><fmt:message key="Ranking.lairInfo.garbage"/></th>
 			    <th><fmt:message key="Ranking.lairInfo.money"/></th>
@@ -34,14 +35,15 @@
 			
 			<c:forEach items="${ranking.elements}" var="lair" varStatus="loop">
 				<c:url var="lairURL" value="/lair.do">
-					<c:param name="login" value="${lair.userName}"/>
+					<c:param name="login" value="${lair.login}"/>
 				</c:url>
 				
-				<tr class="trContent 
-							${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
-							${(lair == my.lair) ? ' myLair' : ''}"
+				<c:set var="parity_class" value="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar myLair'}"/>
+				<c:set var="is_my_lair" value="${lair.login == my.login}" />
+				<tr class="trContent ${parity_class} ${is_my_lair ? ' myLair' : ''}"
 						onclick="document.location.href='${lairURL}';">
-					<td> <a href="${lairURL}"><c:out value="${lair.userName}"/></a> </td>
+					<td> <c:out value="${loop.index + 1}"/> </td>
+					<td> <a href="${lairURL}"><c:out value="${lair.login}"/></a> </td>
 					<td> <a href="${lairURL}"><c:out value="${lair.address}"/></a> </td>
 				    <td> <fmt:formatNumber value="${lair.garbage}"/> </td>
 				    <td> <fmt:formatNumber value="${lair.money}"/> </td>

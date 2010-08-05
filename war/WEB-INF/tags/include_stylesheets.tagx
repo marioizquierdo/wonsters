@@ -1,0 +1,28 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+			version="2.0">
+<!--	
+	Incluye las hojas de estilo CSS.
+	Ejemplo: <customtag:include_stylesheets root="/css" files="reset_defaults, common_styles, theme2/tables"/>
+	Esto incluye los css que haya en '/css/reset_defaults.css', '/css/common_styles.css' y '/css/theme2/tables.css'
+--> 		
+			
+  <jsp:directive.attribute name="root" required="false"
+  		description="Ruta (directoreo) donde estan todos los CSS. Por defecto es '/stylesheets' "/>
+  		<c:if test="${empty root}"><c:set var="root" value="/stylesheets" /></c:if> <!-- valor por defecto -->
+  		<c:if test="${fn:substring(root, fn:length(root)-1, fn:length(root)) == '/'}"><c:set var="root" value="${fn:substring(root, 0, fn:length(root)-1)}"/></c:if> <!-- si root termina en '/' se lo quita -->
+  				
+  <jsp:directive.attribute name="files" required="true"
+  		description="Lista de archivos (sin la extension .css) para incluir, separados por comas. El orden es relevante."/> 
+  	
+  	
+  	<c:forEach items="${fn:split(files, ',')}" var="file">
+		
+		<c:url var="included_stylesheet_file" value="${root}/${fn:trim(file)}.css" />
+		<link rel="StyleSheet" href="${included_stylesheet_file}" type="text/css" media="all" />
+		
+	</c:forEach>
+	
+</jsp:root>
