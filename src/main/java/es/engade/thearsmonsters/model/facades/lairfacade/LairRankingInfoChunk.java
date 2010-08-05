@@ -9,6 +9,9 @@ public class LairRankingInfoChunk {
 	private List<LairRankingInfo> lairs;
 	private boolean hasMoreElements;
 	
+	public LairRankingInfoChunk() {
+		lairsHash = new Hashtable<String, LairRankingInfo>();
+	}
 	public List<LairRankingInfo> getElements() {
 		return lairs;
 	}
