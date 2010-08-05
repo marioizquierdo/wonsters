@@ -86,17 +86,17 @@ public class MonsterFacadeTest extends GaeTest {
         
         persistentChildMonster = persistentUserMonsters.get(0);
         if (persistentChildMonster.getAge() != MonsterAge.Child) {
-            persistentChildMonster.setAge(MonsterAge.Child);
+            persistentChildMonster.setAgeForced(MonsterAge.Child);
             monsterDao.update(persistentChildMonster);
         }
         persistentAdultMonster = persistentUserMonsters.get(1);
         if (persistentAdultMonster.getAge() != MonsterAge.Adult) {
-            persistentAdultMonster.setAge(MonsterAge.Adult);
+            persistentAdultMonster.setAgeForced(MonsterAge.Adult);
             monsterDao.update(persistentAdultMonster);
         }
         persistentOldMonster = persistentUserMonsters.get(2);
         if (persistentOldMonster.getAge() != MonsterAge.Old) {
-            persistentOldMonster.setAge(MonsterAge.Old);
+            persistentOldMonster.setAgeForced(MonsterAge.Old);
             monsterDao.update(persistentOldMonster);
         }
     }
@@ -257,24 +257,6 @@ public class MonsterFacadeTest extends GaeTest {
         Lair otherLair = allPersistentUsers.get(NUMBER_OF_USERS-1).getLair();
         assert(!lair.equals(otherLair));
         MonsterEgg egg = otherLair.getMonsterEggs().get(0);
-        
-        monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getIdKey()));
-        
-    }
-    
-    @Test(expected=InsuficientVitalSpaceException.class)
-    public void testIncubateEggOverflow()
-    throws InternalErrorException, 
-        InstanceNotFoundException, InsuficientVitalSpaceException {
-        
-        Lair lair = persistentUser.getLair();
-        MonsterEgg egg = lair.getMonsterEggs().get(0);
-        
-        while(lair.getVitalSpaceFree() > egg.getRace().getVitalSpace()) {
-            lair.addMonster(FactoryData.MonsterWhoIs.Child.build());
-        }
-        userDao.update(persistentUser);
-        lair.refreshVitalSpaceOccupied();
         
         monsterFacade.incubateEgg(lair, KeyUtils.toString(egg.getIdKey()));
         

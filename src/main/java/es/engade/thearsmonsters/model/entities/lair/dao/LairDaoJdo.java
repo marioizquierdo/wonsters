@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.Key;
 import es.engade.thearsmonsters.model.entities.common.dao.GenericDaoJdo;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
+import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -54,6 +55,7 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         Lair lair = null;
         try {
             lair = (Lair) query.execute(user);
+            lair.touch();
         } finally {
             query.closeAll();
         }
@@ -126,8 +128,12 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
         List<Lair> lairs = null;
         try {
             lairs = (List<Lair>) query.execute();
-         // Carga Lazy --> Accedemos al resultado dentro de la transacción
-            lairs.size();
+            // Carga Lazy --> Accedemos al resultado dentro de la transacción
+            for (Lair lair : lairs) {
+            	lair.getUser().touch();
+            	for (Room room : lair.getRooms())
+            		room.touch();
+            }
         } finally {
             query.closeAll();
         }

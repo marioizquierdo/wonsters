@@ -1,24 +1,24 @@
 package es.engade.thearsmonsters.model.entities.common.dao.exception;
 
-public class JDOConstraintException extends RuntimeException {
+public class JDOConstraintException extends ConstraintException {
 
-    private static final long serialVersionUID = 20100430L;
+	private static final long serialVersionUID = 20100805L;
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public JDOConstraintException(Class classValue, String constraint) {
-        super("Violated " + constraint + " constraint in class " + classValue.getName());
+        super(classValue, constraint);
     }
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public JDOConstraintException(Class classValue, String constraint, String field) {
-        super("Violated " + constraint + " (field "+ field + " constraint in class " + classValue.getName());
+        super(classValue, constraint, field);
     }
 
     public static class JDOUniqueConstraintException extends JDOConstraintException {
 
         private static final long serialVersionUID = 20100430L;
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("rawtypes")
         public JDOUniqueConstraintException(Class classValue, String field) {
             super(classValue, "UNIQUE", field);
         }
@@ -29,7 +29,7 @@ public class JDOConstraintException extends RuntimeException {
 
         private static final long serialVersionUID = 20100430L;
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("rawtypes")
         public JDOUnmodificableConstraintException(Class classValue, String field) {
             super(classValue, "UNMODIFICABLE", field);
         }

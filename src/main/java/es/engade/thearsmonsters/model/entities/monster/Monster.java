@@ -88,7 +88,6 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.setName(name);
 		this.setBorningDate(borningDate);
 		this.setCocoonCloseUpDate(cocoonCloseUpDate);
-	    this.setAge(ageState);
 
 		// Se supone que los attrs son 'completos', es decir, que hay un atributo por cada AttrType.
 		// Por defecto los crea e inicializa todos a cero.
@@ -105,7 +104,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 				* PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD) / 100
 			);
 		minutesToGrowOld += (Math.random() - 0.5) * 2 
-			* (minutesToGrowOld * PERCENT_OF_VARIATION_TO_GROW_OLD);
+			* Double.valueOf(minutesToGrowOld * PERCENT_OF_VARIATION_TO_GROW_OLD)/100;
 		this.growOldDate = DateTools.new_byMinutesFrom(borningDate, minutesToGrowOld);
 		long minutesToDecease = Math.round(race.getLifeExpectancyDays() * 24 * 60 +
 				(Math.random() - 0.5) * 2
@@ -115,6 +114,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.deceaseDate = DateTools.new_byMinutesFrom(borningDate, minutesToDecease);
 		// No implementado por ahora
 //		this.activities = new ArrayList<MonsterActivity>();
+		this.setAge(ageState);
 	}
 	
 	/**
@@ -182,6 +182,10 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		if(!MonsterAge.validateAgeFlow(this.age, age)) throw new MonsterGrowException(this.getIdKey(), age);
 		this.age = age;
 		correctCocoonOrAdultAges();
+	}
+	
+	public void setAgeForced(MonsterAge age) {
+		this.age = age;
 	}
 	
 	/**
