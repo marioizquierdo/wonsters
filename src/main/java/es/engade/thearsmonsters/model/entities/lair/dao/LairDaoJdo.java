@@ -130,9 +130,9 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
             lairs = (List<Lair>) query.execute();
             // Carga Lazy --> Accedemos al resultado dentro de la transacción
             for (Lair lair : lairs) {
-            	lair.getUser().touch();
+            	lair.getUser().touchInstance();
             	for (Room room : lair.getRooms())
-            		room.touch();
+            		room.touchInstance();
             }
         } finally {
             query.closeAll();

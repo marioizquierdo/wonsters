@@ -565,5 +565,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		return result;
 	}
 
-
+	public void touch() {
+		lair.touchInstance();
+	}
+	
 }

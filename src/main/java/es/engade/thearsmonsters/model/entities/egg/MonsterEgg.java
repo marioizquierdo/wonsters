@@ -179,4 +179,8 @@ public class MonsterEgg extends ThearsmonstersEntity implements Serializable {
 		});
 	}
 
+    public void touch() {
+    	lair.touchInstance();
+    }
+    
 }

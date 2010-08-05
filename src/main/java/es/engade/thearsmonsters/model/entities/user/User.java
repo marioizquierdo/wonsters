@@ -125,4 +125,7 @@ public class User extends ThearsmonstersEntity implements Serializable {
         return true;
     }
     
+    public void touch() {
+    	lair.touchInstance();
+    }
 }

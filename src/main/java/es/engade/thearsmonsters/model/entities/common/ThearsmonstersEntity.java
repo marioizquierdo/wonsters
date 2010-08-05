@@ -24,7 +24,10 @@ public abstract class ThearsmonstersEntity {
 	}
 	
 	public void touch() {
-		
+		// touch para recursión
 	}
 	
+	public final void touchInstance() {
+
+	}
 }
