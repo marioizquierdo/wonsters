@@ -101,6 +101,9 @@
 
 	<!-- BUY EGGS -->
 	<div id="eggsManagement_buyEggs">
+		<customtag:info_message icon_id="0" style="margin-top:10px;">
+			<fmt:message key="EggsManagement.infoMoney"></fmt:message>
+		</customtag:info_message>
 		<table  class="table2">
 			<tr>
 			    <th><fmt:message key="Monster.race"/></th>
@@ -109,11 +112,31 @@
 			    <th><fmt:message key="Monster.race.vitalSpace"/></th>
 			    <th><fmt:message key="Buttons.buy"/></th>
 			</tr>
-		    <c:forEach items="${races}" var="race" varStatus="loop" >
-		    <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
-		    	<td><customtag:monster_image race="${race}"/></td>
+			
+			
+		  
+		    
+		   <c:forEach items="${races}" var="race" varStatus="loop" >
+		   <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
+			   	<c:choose>
+					<c:when test="${race.buyEggPrice > my.lair.money}">
+						<td><customtag:monster_image race="Mongo"/></td>			   			
+			   		</c:when>
+			   		<c:otherwise>
+			   			<td><customtag:monster_image race="${race}"/></td>
+			   		</c:otherwise>
+			   	</c:choose>
 		    	<td><fmt:message key="Monster.race.${race}.desc"/></td>
-		    	<td>${race.buyEggPrice}</td>
+		    	<c:choose>
+		    		<c:when test="${race.buyEggPrice > my.lair.money}">
+				  		<div class="not_money_available"> 
+				  				<td>${race.buyEggPrice}</td> 
+				  		</div>
+				  	</c:when>
+		    		<c:otherwise>	
+		    			<td>${race.buyEggPrice}</td> 
+		    		</c:otherwise>
+	    		</c:choose>
 		    	<td>${race.vitalSpace}</td>
 		    	
 		    	<td><html:link action="monster/egg/buy.do?eggRace=${race}">
