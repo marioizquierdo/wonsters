@@ -39,7 +39,8 @@
 		lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
 		search_lairs: Lair.searchLairs">
 	
-	<div id="lairWindow_lair">
+	<customtag:window_content for_tag="lair">
+	
 	<c:choose>
 	
 		<!-- Vista de la Guarida -->
@@ -99,12 +100,12 @@
 		    
 		</c:otherwise>
 	</c:choose>
-	</div>
+	</customtag:window_content>
 	
 	<!-- Formulario para buscar guaridas -->
-	<div id="lairWindow_search_lairs">
+	<customtag:window_content for_tag="search_lairs">
 		<jsp:directive.include file="_form_search_lair.jspf"/>
-	</div>
+	</customtag:window_content>
 
 </customtag:window>
 

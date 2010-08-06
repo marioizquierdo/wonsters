@@ -48,6 +48,7 @@
   
   <jsp:directive.attribute name="id" required="true"
   		description="Identificador unico de la ventana (necesario para identificarla con javascript)"/>
+  		<c:set var="customtag_window_id" value="${id}" scope="session" /> <!-- Crea la variable en la sesion para poder ser accedida por el customtag:window_content -->
   		
   <jsp:directive.attribute name="window_width" required="false"
   		description="Ancho de la ventana en pixeles (por defecto 770). Incluye los bordes."/>
@@ -81,6 +82,7 @@
 		<c:set var="param_name" value="${id}_selected_tag"/>
 		<c:if test="${!empty param[param_name]}"><c:set var="selected_tag" value="${param[param_name]}" /></c:if>
 		<c:if test="${empty selected_tag}"><c:set var="selected_tag" value="${fn:trim(fn:substringBefore(tags, ':'))}" /></c:if>
+		<c:set var="customtag_window_selected_tag" value="${selected_tag}" scope="session" /> <!-- Crea la variable en la sesion para poder ser accedida por el customtag:window_content -->
 		
   
   <!-- Draw the window -->
@@ -122,7 +124,7 @@
         </div>
 		<div class="tr" style="float:left"><img src="/images/theme/empty_pixel.png"/></div></div>
 		<div class="atMiddle" style="float:left; width:${window_width}px"><div class="ml"><div class="mr"><div class="mlt"><div class="mrt">
-			<div class="m content_box" id="${id}_content" style="display:none">
+			<div class="m content_box" id="${id}_content">
 				
 				<jsp:doBody/>
 				
@@ -132,14 +134,7 @@
 		<div class="bl" style="float:left"><img src="/images/theme/empty_pixel.png"/></div>
 		<div class="bm" style="float:left; width:${window_width - 2*frame_widht}px"><img src="/images/theme/empty_pixel.png"/></div>
 		<div class="br" style="float:left"><img src="/images/theme/empty_pixel.png"/></div></div>
+		
   </div>
-
-  <c:if test="${!empty id}">
-	  <!-- Script para mostrar solamente el contenido de un tag (en un principio es el primero, pero puede recibirse por parametro) -->
-	  <![CDATA[<script languaje='JavaScript' type='text/javascript'>
-    		ThearsmonstersLib.showWindowSection('${id}', '${selected_tag}');
-    		$('#${id}_content').show();
-	  </script>]]>
-  </c:if>
   
 </jsp:root>
