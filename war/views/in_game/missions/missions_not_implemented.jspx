@@ -4,8 +4,14 @@
 			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           	version="2.0">
 
-
+	
 <customtag:window id="MissionsNotImplemented" title="Missions.title">
+	
+	<p class="info_slot">
+		<fmt:message key="NotImplementedPage.apologize"/>
+	</p>
+	
+	
 	<customtag:info_message titleKey="Missions.not_implemented.header.title" 
 		key="Missions.not_implemented.header.desc" status="INFO" icon_id="13" style="margin: 20px;"/>
 		

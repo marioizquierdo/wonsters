@@ -8,6 +8,10 @@
 
 	<customtag:window id="MissionsNotImplemented" title="Guild.title">
 	
+		<p class="info_slot">
+			<fmt:message key="NotImplementedPage.apologize"/>
+		</p>
+		
 		<customtag:info_message titleKey="Guild.info.socialWorld.title" icon_id="11">
 			<p><fmt:message key="Guild.info.socialWorld"/></p>
 		</customtag:info_message>
