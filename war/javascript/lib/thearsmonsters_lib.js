@@ -17,11 +17,11 @@ var ThearsmonstersLib = function() {
 
 		    // Primero oculta dodos los divs y hace los tags inactivos
 			$(w+"_content div[id^='"+windowId+"_']").hide(); // ocultar todos los divs dentro de '#windowId' cuyo id comience por 'windowId_'
-			$(w+" div.window_tag div[id^='"+windowId+"_']").addClass('window_inactive_tag').removeClass('window_active_tag'); // tags
+			$(w+" .window_tag[id^='"+windowId+"_']").addClass('inactive_tag').removeClass('active_tag'); // tags
 			    
 		    // Y despues muestra solo el div del tag seleccionado
 		    $(w+"_"+selectedTag).show().css({'float': 'left', 'width': '100%', 'height': '100%'});
-		    $(w+"_"+selectedTag+"_tag").addClass('window_active_tag').removeClass('window_inactive_tag');
+		    $(w+"_"+selectedTag+"_tag").addClass('active_tag').removeClass('inactive_tag');
 		},
 		
 		/**

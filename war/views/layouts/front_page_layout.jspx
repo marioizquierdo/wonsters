@@ -64,7 +64,7 @@
 		  	<div class="rounded_window">
 			  	<div class="atMiddle">
 					<c:choose>
-					    <c:when test="${not empty my.lair}">
+					    <c:when test="${not empty my.lair}"> <!-- Cuando el usuario esta logeado pero entra igual en la portada -->
 					       <div id="loginWelcome">
 					           <span class="message"><fmt:message key="FrontPage.welcomeUser"><fmt:param value="${my.login}"/></fmt:message></span>
 					           <a href="/lair.do"><fmt:message key="FrontPage.goToLair"/></a> | <a href="/userprofile/logout.do"><fmt:message key="FrontPage.logout"/></a>
