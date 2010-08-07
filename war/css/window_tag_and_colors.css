@@ -15,24 +15,22 @@
 
 .window_tags { float: right; height: 100%; padding: 0; margin: 0; }
 .window_tags .window_tag {
+	float: left;
+	height: 100%;
 	font-size: 14px;
 	font-family: Arial, Verdana, Helvetica, sans-serif;
 	font-weight: bold;
 	color: white;
 	text-align: middle;
-	height: 100%;
-	float: left;
 	padding-right: 5px;
 	padding-left: 10px;
 	line-height: 28px;
 	background: url(/images/theme/windows/green/tag_separation.png) no-repeat top left;
 }
-.window_tags .window_tag div 			{ height: 100%; }
-.window_tags .window_tag:hover 			{ text-decoration: none; }
-.window_tags .window_active_tag 		{ background: url(/images/theme/windows/green/tag_selected.png) no-repeat 50% 100%; }
-.window_tags .window_active_tag:hover 	{ cursor: default; }
-.window_tags .window_inactive_tag:hover,
-.window_tags a:hover 					{ cursor: pointer; color: #ff9; text-decoration: none; }
+.window_tags .window_tag { float: left; height: 100%; color: white; }
+.window_tags .window_tag:hover { color: #ffd; cursor: pointer; text-decoration: none; }
+.window_tags .window_tag.active_tag spam { background: url(/images/theme/windows/green/tag_selected.png) no-repeat 50% 100%; float: left; width: 100%; height: 100%; }
+.window_tags .window_tag.active_tag:hover { cursor: default; color: white; }
 
 /* Common styles. Using green images by default. */
 .rounded_window 				{ float: left; margin-bottom: 10px; }
@@ -63,131 +61,131 @@
 #menu_info_right 				{ background: url(/images/theme/windows/green/menu_bar_right.png) no-repeat; }
 
 
-/* Green window images (most ) */
-.green_window { 					color: #030; }
-.green_window .content_box { 		background: white; }
-.green_window div.p_header { 		color: #474; }
-.green_window .table1 th {	 		background-image: url(/images/theme/windows/green/button.png);  border-left: 1px solid #030; border-right: 1px solid #696; }
+/* Green window images (most of them are in the default styles) */
+.green_window 	 					{ color: #030; }
+.green_window .content_box  		{ background: white; }
+.green_window div.p_header  		{ color: #474; }
+.green_window .table1 th 	 		{ background-image: url(/images/theme/windows/green/button.png);  border-left: 1px solid #030; border-right: 1px solid #696; }
 .green_window .button input,
-.green_window .button_box { 		background-image: url(/images/theme/windows/green/button.png); }
+.green_window .button_box  			{ background-image: url(/images/theme/windows/green/button.png); }
 
 
 /* Blue window images */
-.blue_window { 						color: #003; }
-.blue_window .menu_window { 		background-image: url(/images/theme/windows/blue/menu_frame.png); }
-.blue_window #menu_info_left { 		background-image: url(/images/theme/windows/blue/menu_bar_left.png); }
-.blue_window #menu_info_content { 	background-image: url(/images/theme/windows/blue/menu_bar_middle_repeat-x.png); }
-.blue_window #menu_info_right { 	background-image: url(/images/theme/windows/blue/menu_bar_right.png); }
-.blue_window .window_tag { 			background-image: url(/images/theme/windows/blue/tag_separation.png); }
-.blue_window .window_active_tag { 	background-image: url(/images/theme/windows/blue/tag_selected.png); }
-.blue_window .tl { 					background-image: url(/images/theme/windows/blue/corner_tl.png); }
-.blue_window .tm { 					background-image: url(/images/theme/windows/blue/header_repeat-x.png); }
-.blue_window .tr { 					background-image: url(/images/theme/windows/blue/corner_tr.png); }
-.blue_window .mlt { 				background-image: url(/images/theme/windows/blue/border_left_top.png); }
-.blue_window .mrt { 				background-image: url(/images/theme/windows/blue/border_right_top.png); }
-.blue_window .ml { 					background-image: url(/images/theme/windows/blue/border_left_repeat-y.png); }
-.blue_window .mr { 					background-image: url(/images/theme/windows/blue/border_right_repeat-y.png); }
-.blue_window .bl { 					background-image: url(/images/theme/windows/blue/corner_bl.png); }
-.blue_window .bm { 					background-image: url(/images/theme/windows/blue/border_bottom_repeat-x.png); }
-.blue_window .br { 					background-image: url(/images/theme/windows/blue/corner_br.png); }
-.blue_window .content_box { 		background: white; }
-.blue_window div.p_header { 		color: #447; }
-.blue_window .table1 th { 			background-image: url(/images/theme/windows/blue/button.png); border-left: 1px solid #003; border-right: 1px solid #669;}
+.blue_window  						{ color: #003; }
+.blue_window .menu_window  			{ background-image: url(/images/theme/windows/blue/menu_frame.png); }
+.blue_window #menu_info_left  		{ background-image: url(/images/theme/windows/blue/menu_bar_left.png); }
+.blue_window #menu_info_content  	{ background-image: url(/images/theme/windows/blue/menu_bar_middle_repeat-x.png); }
+.blue_window #menu_info_right 		{ background-image: url(/images/theme/windows/blue/menu_bar_right.png); }
+.blue_window .window_tag  			{ background-image: url(/images/theme/windows/blue/tag_separation.png); }
+.blue_window .window_tag.active_tag spam { background-image: url(/images/theme/windows/blue/tag_selected.png); }
+.blue_window .tl 					{ background-image: url(/images/theme/windows/blue/corner_tl.png); }
+.blue_window .tm  					{ background-image: url(/images/theme/windows/blue/header_repeat-x.png); }
+.blue_window .tr  					{ background-image: url(/images/theme/windows/blue/corner_tr.png); }
+.blue_window .mlt  					{ background-image: url(/images/theme/windows/blue/border_left_top.png); }
+.blue_window .mrt  					{ background-image: url(/images/theme/windows/blue/border_right_top.png); }
+.blue_window .ml  					{ background-image: url(/images/theme/windows/blue/border_left_repeat-y.png); }
+.blue_window .mr  					{ background-image: url(/images/theme/windows/blue/border_right_repeat-y.png); }
+.blue_window .bl  					{ background-image: url(/images/theme/windows/blue/corner_bl.png); }
+.blue_window .bm  					{ background-image: url(/images/theme/windows/blue/border_bottom_repeat-x.png); }
+.blue_window .br  					{ background-image: url(/images/theme/windows/blue/corner_br.png); }
+.blue_window .content_box  			{ background: white; }
+.blue_window div.p_header  			{ color: #447; }
+.blue_window .table1 th  			{ background-image: url(/images/theme/windows/blue/button.png); border-left: 1px solid #003; border-right: 1px solid #669;}
 .blue_window .button input,
-.blue_window .button_box { 			background-image: url(/images/theme/windows/blue/button.png); }
+.blue_window .button_box  			{ background-image: url(/images/theme/windows/blue/button.png); }
 
 /* Purple window images */
-.purple_window { 					color: #303; }
-.purple_window .menu_window { 		background-image: url(/images/theme/windows/purple/menu_frame.png); }
-.purple_window #menu_info_left { 	background-image: url(/images/theme/windows/purple/menu_bar_left.png); }
-.purple_window #menu_info_content { background-image: url(/images/theme/windows/purple/menu_bar_middle_repeat-x.png); }
-.purple_window #menu_info_right { 	background-image: url(/images/theme/windows/purple/menu_bar_right.png); }
-.purple_window .window_tag { 		background-image: url(/images/theme/windows/purple/tag_separation.png); }
-.purple_window .window_active_tag { background-image: url(/images/theme/windows/purple/tag_selected.png); }
-.purple_window .tl { 				background-image: url(/images/theme/windows/purple/corner_tl.png); }
-.purple_window .tm { 				background-image: url(/images/theme/windows/purple/header_repeat-x.png); }
-.purple_window .tr { 				background-image: url(/images/theme/windows/purple/corner_tr.png); }
-.purple_window .mlt { 				background-image: url(/images/theme/windows/purple/border_left_top.png); }
-.purple_window .mrt { 				background-image: url(/images/theme/windows/purple/border_right_top.png); }
-.purple_window .ml { 				background-image: url(/images/theme/windows/purple/border_left_repeat-y.png); }
-.purple_window .mr { 				background-image: url(/images/theme/windows/purple/border_right_repeat-y.png); }
-.purple_window .bl { 				background-image: url(/images/theme/windows/purple/corner_bl.png); }
-.purple_window .bm { 				background-image: url(/images/theme/windows/purple/border_bottom_repeat-x.png); }
-.purple_window .br { 				background-image: url(/images/theme/windows/purple/corner_br.png); }
-.purple_window .content_box { 		background: white; }
-.purple_window div.p_header { 		color: #747; }
-.purple_window .table1 th { 		background-image: url(/images/theme/windows/purple/button.png); border-left: 1px solid #303; border-right: 1px solid #969; }
+.purple_window 						{ color: #303; }
+.purple_window .menu_window  		{ background-image: url(/images/theme/windows/purple/menu_frame.png); }
+.purple_window #menu_info_left  	{ background-image: url(/images/theme/windows/purple/menu_bar_left.png); }
+.purple_window #menu_info_content 	{ background-image: url(/images/theme/windows/purple/menu_bar_middle_repeat-x.png); }
+.purple_window #menu_info_right  	{ background-image: url(/images/theme/windows/purple/menu_bar_right.png); }
+.purple_window .window_tag  		{ background-image: url(/images/theme/windows/purple/tag_separation.png); }
+.purple_window .window_tag.active_tag spam { background-image: url(/images/theme/windows/purple/tag_selected.png); }
+.purple_window .tl  				{ background-image: url(/images/theme/windows/purple/corner_tl.png); }
+.purple_window .tm  				{ background-image: url(/images/theme/windows/purple/header_repeat-x.png); }
+.purple_window .tr  				{ background-image: url(/images/theme/windows/purple/corner_tr.png); }
+.purple_window .mlt 				{ background-image: url(/images/theme/windows/purple/border_left_top.png); }
+.purple_window .mrt  				{ background-image: url(/images/theme/windows/purple/border_right_top.png); }
+.purple_window .ml  				{ background-image: url(/images/theme/windows/purple/border_left_repeat-y.png); }
+.purple_window .mr  				{ background-image: url(/images/theme/windows/purple/border_right_repeat-y.png); }
+.purple_window .bl  				{ background-image: url(/images/theme/windows/purple/corner_bl.png); }
+.purple_window .bm  				{ background-image: url(/images/theme/windows/purple/border_bottom_repeat-x.png); }
+.purple_window .br  				{ background-image: url(/images/theme/windows/purple/corner_br.png); }
+.purple_window .content_box  		{ background: white; }
+.purple_window div.p_header  		{ color: #747; }
+.purple_window .table1 th 			{ background-image: url(/images/theme/windows/purple/button.png); border-left: 1px solid #303; border-right: 1px solid #969; }
 .purple_window .button input,
-.purple_window .button_box { 		background-image: url(/images/theme/windows/purple/button.png); }
+.purple_window .button_box  		{ background-image: url(/images/theme/windows/purple/button.png); }
 
 /* Red window images */
-.red_window { 						color: #300; }
-.red_window .menu_window { 			background-image: url(/images/theme/windows/red/menu_frame.png); }
-.red_window #menu_info_left { 		background-image: url(/images/theme/windows/red/menu_bar_left.png); }
-.red_window #menu_info_content { 	background-image: url(/images/theme/windows/red/menu_bar_middle_repeat-x.png); }
-.red_window #menu_info_right { 		background-image: url(/images/theme/windows/red/menu_bar_right.png); }
-.red_window .window_tag { 			background-image: url(/images/theme/windows/red/tag_separation.png); }
-.red_window .window_active_tag { 	background-image: url(/images/theme/windows/red/tag_selected.png); }
-.red_window .tl { 					background-image: url(/images/theme/windows/red/corner_tl.png); }
-.red_window .tm {					background-image: url(/images/theme/windows/red/header_repeat-x.png); }
-.red_window .tr { 					background-image: url(/images/theme/windows/red/corner_tr.png); }
-.red_window .mlt { 					background-image: url(/images/theme/windows/red/border_left_top.png); }
-.red_window .mrt { 					background-image: url(/images/theme/windows/red/border_right_top.png); }
-.red_window .ml { 					background-image: url(/images/theme/windows/red/border_left_repeat-y.png); }
-.red_window .mr { 					background-image: url(/images/theme/windows/red/border_right_repeat-y.png); }
-.red_window .bl { 					background-image: url(/images/theme/windows/red/corner_bl.png); }
-.red_window .bm { 					background-image: url(/images/theme/windows/red/border_bottom_repeat-x.png); }
-.red_window .br { 					background-image: url(/images/theme/windows/red/corner_br.png); }
-.red_window .content_box { 			background: white; }
-.red_window div.p_header { 			color: #744; }
-.red_window .table1 th { 			background-image: url(/images/theme/windows/red/button.png); border-left: 1px solid #300; border-right: 1px solid #966; }
+.red_window  						{ color: #300; }
+.red_window .menu_window  			{ background-image: url(/images/theme/windows/red/menu_frame.png); }
+.red_window #menu_info_left  		{ background-image: url(/images/theme/windows/red/menu_bar_left.png); }
+.red_window #menu_info_content  	{ background-image: url(/images/theme/windows/red/menu_bar_middle_repeat-x.png); }
+.red_window #menu_info_right  		{ background-image: url(/images/theme/windows/red/menu_bar_right.png); }
+.red_window .window_tag  			{ background-image: url(/images/theme/windows/red/tag_separation.png); }
+.red_window .window_tag.active_tag spam { background-image: url(/images/theme/windows/red/tag_selected.png); }
+.red_window .tl 					{ background-image: url(/images/theme/windows/red/corner_tl.png); }
+.red_window .tm						{ background-image: url(/images/theme/windows/red/header_repeat-x.png); }
+.red_window .tr 					{ background-image: url(/images/theme/windows/red/corner_tr.png); }
+.red_window .mlt  					{ background-image: url(/images/theme/windows/red/border_left_top.png); }
+.red_window .mrt  					{ background-image: url(/images/theme/windows/red/border_right_top.png); }
+.red_window .ml 					{ background-image: url(/images/theme/windows/red/border_left_repeat-y.png); }
+.red_window .mr 					{ background-image: url(/images/theme/windows/red/border_right_repeat-y.png); }
+.red_window .bl  					{ background-image: url(/images/theme/windows/red/corner_bl.png); }
+.red_window .bm  					{ background-image: url(/images/theme/windows/red/border_bottom_repeat-x.png); }
+.red_window .br  					{ background-image: url(/images/theme/windows/red/corner_br.png); }
+.red_window .content_box  			{ background: white; }
+.red_window div.p_header  			{ color: #744; }
+.red_window .table1 th 				{ background-image: url(/images/theme/windows/red/button.png); border-left: 1px solid #300; border-right: 1px solid #966; }
 .red_window .button input,
-.red_window .button_box { 			background-image: url(/images/theme/windows/red/button.png); }
+.red_window .button_box  			{ background-image: url(/images/theme/windows/red/button.png); }
 
 /* Yellow window images */
-.yellow_window { 					color: #330; }
-.yellow_window .menu_window { 		background-image: url(/images/theme/windows/yellow/menu_frame.png); }
-.yellow_window #menu_info_left { 	background-image: url(/images/theme/windows/yellow/menu_bar_left.png); }
-.yellow_window #menu_info_content { background-image: url(/images/theme/windows/yellow/menu_bar_middle_repeat-x.png); }
-.yellow_window #menu_info_right { 	background-image: url(/images/theme/windows/yellow/menu_bar_right.png); }
-.yellow_window .window_tag {		background-image: url(/images/theme/windows/yellow/tag_separation.png); }
-.yellow_window .window_active_tag { background-image: url(/images/theme/windows/yellow/tag_selected.png); }
-.yellow_window .tl { 				background-image: url(/images/theme/windows/yellow/corner_tl.png);}
-.yellow_window .tm { 				background-image: url(/images/theme/windows/yellow/header_repeat-x.png); }
-.yellow_window .tr { 				background-image: url(/images/theme/windows/yellow/corner_tr.png); }
-.yellow_window .mlt { 				background-image: url(/images/theme/windows/yellow/border_left_top.png); }
-.yellow_window .mrt { 				background-image: url(/images/theme/windows/yellow/border_right_top.png); }
-.yellow_window .ml { 				background-image: url(/images/theme/windows/yellow/border_left_repeat-y.png); }
-.yellow_window .mr { 				background-image: url(/images/theme/windows/yellow/border_right_repeat-y.png); }
-.yellow_window .bl { 				background-image: url(/images/theme/windows/yellow/corner_bl.png); }
-.yellow_window .bm { 				background-image: url(/images/theme/windows/yellow/border_bottom_repeat-x.png); }
-.yellow_window .br { 				background-image: url(/images/theme/windows/yellow/corner_br.png); }
-.yellow_window .content_box { 		background: white; }
-.yellow_window div.p_header { 		color: #774; background: white; }
-.yellow_window .table1 th { 		background-image: url(/images/theme/windows/yellow/button.png); border-left: 1px solid #330; border-right: 1px solid #996; }
+.yellow_window  					{ color: #330; }
+.yellow_window .menu_window  		{ background-image: url(/images/theme/windows/yellow/menu_frame.png); }
+.yellow_window #menu_info_left  	{ background-image: url(/images/theme/windows/yellow/menu_bar_left.png); }
+.yellow_window #menu_info_content 	{ background-image: url(/images/theme/windows/yellow/menu_bar_middle_repeat-x.png); }
+.yellow_window #menu_info_right  	{ background-image: url(/images/theme/windows/yellow/menu_bar_right.png); }
+.yellow_window .window_tag 			{ background-image: url(/images/theme/windows/yellow/tag_separation.png); }
+.yellow_window .window_tag.active_tag spam { background-image: url(/images/theme/windows/yellow/tag_selected.png); }
+.yellow_window .tl  				{ background-image: url(/images/theme/windows/yellow/corner_tl.png);}
+.yellow_window .tm 					{ background-image: url(/images/theme/windows/yellow/header_repeat-x.png); }
+.yellow_window .tr  				{ background-image: url(/images/theme/windows/yellow/corner_tr.png); }
+.yellow_window .mlt  				{ background-image: url(/images/theme/windows/yellow/border_left_top.png); }
+.yellow_window .mrt  				{ background-image: url(/images/theme/windows/yellow/border_right_top.png); }
+.yellow_window .ml  				{ background-image: url(/images/theme/windows/yellow/border_left_repeat-y.png); }
+.yellow_window .mr  				{ background-image: url(/images/theme/windows/yellow/border_right_repeat-y.png); }
+.yellow_window .bl  				{ background-image: url(/images/theme/windows/yellow/corner_bl.png); }
+.yellow_window .bm  				{ background-image: url(/images/theme/windows/yellow/border_bottom_repeat-x.png); }
+.yellow_window .br  				{ background-image: url(/images/theme/windows/yellow/corner_br.png); }
+.yellow_window .content_box  		{ background: white; }
+.yellow_window div.p_header  		{ background: white; color: #774; }
+.yellow_window .table1 th  			{ background-image: url(/images/theme/windows/yellow/button.png); border-left: 1px solid #330; border-right: 1px solid #996; }
 .yellow_window .button input,
-.yellow_window .button_box { 		background-image: url(/images/theme/windows/yellow/button.png); }
+.yellow_window .button_box  		{ background-image: url(/images/theme/windows/yellow/button.png); }
 
 /* Grey window images */
-.grey_window { 						color: #111; }
-.grey_window .menu_window { 		background-image: url(/images/theme/windows/grey/menu_frame.png); }
-.grey_window #menu_info_left { 		background-image: url(/images/theme/windows/grey/menu_bar_left.png) no-repeat; }
-.grey_window #menu_info_content {	background-image: url(/images/theme/windows/grey/menu_bar_middle_repeat-x.png); color: black; }
-.grey_window #menu_info_right { 	background-image: url(/images/theme/windows/grey/menu_bar_right.png); }
-.grey_window .window_tag { 			background-image: url(/images/theme/windows/grey/tag_separation.png); }
-.grey_window .window_active_tag { 	background-image: url(/images/theme/windows/grey/tag_selected.png); }
-.grey_window .tl { 					background-image: url(/images/theme/windows/grey/corner_tl.png); }
-.grey_window .tm { 					background-image: url(/images/theme/windows/grey/header_repeat-x.png); }
-.grey_window .tr { 					background-image: url(/images/theme/windows/grey/corner_tr.png); }
-.grey_window .mlt { 				background-image: url(/images/theme/windows/grey/border_left_top.png); }
-.grey_window .mrt { 				background-image: url(/images/theme/windows/grey/border_right_top.png); }
-.grey_window .ml { 					background-image: url(/images/theme/windows/grey/border_left_repeat-y.png); }
-.grey_window .mr { 					background-image: url(/images/theme/windows/grey/border_right_repeat-y.png); }
-.grey_window .bl { 					background-image: url(/images/theme/windows/grey/corner_bl.png); }
-.grey_window .bm { 					background-image: url(/images/theme/windows/grey/border_bottom_repeat-x.png); }
-.grey_window .br { 					background-image: url(/images/theme/windows/grey/corner_br.png); }
-.grey_window .content_box { 		background: white; }
-.grey_window div.p_header { 		color: #444; }
-.grey_window .table1 th { 			background-image: url(/images/theme/windows/grey/button.png); border-left: 1px solid #333; border-right: 1px solid #999; }
+.grey_window  						{ color: #111; }
+.grey_window .menu_window  			{ background-image: url(/images/theme/windows/grey/menu_frame.png); }
+.grey_window #menu_info_left  		{ background-image: url(/images/theme/windows/grey/menu_bar_left.png) no-repeat; }
+.grey_window #menu_info_content 	{ background-image: url(/images/theme/windows/grey/menu_bar_middle_repeat-x.png); color: black; }
+.grey_window #menu_info_right  		{ background-image: url(/images/theme/windows/grey/menu_bar_right.png); }
+.grey_window .window_tag  			{ background-image: url(/images/theme/windows/grey/tag_separation.png); }
+.grey_window .window_tag.active_tag spam { background-image: url(/images/theme/windows/grey/tag_selected.png); }
+.grey_window .tl  					{ background-image: url(/images/theme/windows/grey/corner_tl.png); }
+.grey_window .tm  					{ background-image: url(/images/theme/windows/grey/header_repeat-x.png); }
+.grey_window .tr  					{ background-image: url(/images/theme/windows/grey/corner_tr.png); }
+.grey_window .mlt  					{ background-image: url(/images/theme/windows/grey/border_left_top.png); }
+.grey_window .mrt  					{ background-image: url(/images/theme/windows/grey/border_right_top.png); }
+.grey_window .ml  					{ background-image: url(/images/theme/windows/grey/border_left_repeat-y.png); }
+.grey_window .mr  					{ background-image: url(/images/theme/windows/grey/border_right_repeat-y.png); }
+.grey_window .bl  					{ background-image: url(/images/theme/windows/grey/corner_bl.png); }
+.grey_window .bm  					{ background-image: url(/images/theme/windows/grey/border_bottom_repeat-x.png); }
+.grey_window .br  					{ background-image: url(/images/theme/windows/grey/corner_br.png); }
+.grey_window .content_box  			{ background: white; }
+.grey_window div.p_header  			{ color: #444; }
+.grey_window .table1 th  			{ background-image: url(/images/theme/windows/grey/button.png); border-left: 1px solid #333; border-right: 1px solid #999; }
 .grey_window .button input,
-.grey_window .button_box { 			background-image: url(/images/theme/windows/grey/button.png); }
+.grey_window .button_box  			{ background-image: url(/images/theme/windows/grey/button.png); }

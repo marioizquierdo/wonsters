@@ -101,21 +101,26 @@
 			<c:if test="${!empty tags}">
 				<div class="window_tags">
 				<c:forEach items="${fn:split(tags, ',')}" var="tag" varStatus="loop">
+				
 					<!-- cada tag es "tagId: tagTitleKey" o bien "tagId: tagTitleKey => tagStrutsAction" -->
 					<c:set var="tagId" value="${fn:trim(fn:substringBefore(tag, ':'))}"/>
 					<c:set var="tagStrutsAction" value="${fn:trim(fn:substringAfter(tag, '=>'))}"/>
-					<c:choose><c:when test="${empty tagStrutsAction}"> <!-- tag sin enlace -->
+					<c:set var="active_or_inactive" value="${(tagId == selected_tag) ? 'active_tag' : 'inactive_tag'}"/>
+					
+					<!-- tag sin enlace -->
+					<c:choose><c:when test="${empty tagStrutsAction}">
 						<c:set var="tagTitleKey" value="${fn:trim(fn:substringAfter(tag, ':'))}"/>
-		                <div class="window_tag" onClick="ThearsmonstersLib.showWindowSection('${id}', '${tagId}');">
-		                  <div id="${id}_${tagId}_tag"><fmt:message key="${tagTitleKey}"/></div>
+		                <div id="${id}_${tagId}_tag" class="window_tag ${active_or_inactive}" onClick="ThearsmonstersLib.showWindowSection('${id}', '${tagId}');">
+		                  <spam><fmt:message key="${tagTitleKey}"/></spam>
 		                </div>
-		        	</c:when><c:otherwise> <!-- tag con enlace -->
+		               
+		            <!-- tag con enlace -->
+		        	</c:when><c:otherwise> 
 						<c:set var="tagTitleKey" value="${fn:trim(fn:substringAfter(fn:substringBefore(tag, '=>'), ':'))}"/>
-		        		<html:link action="${tagStrutsAction}">
-		        			<div class="window_tag">
-		        				<div id="${id}_${tagId}_tag"><fmt:message key="${tagTitleKey}"/></div>
-		                	</div>
+		        		<html:link  styleId="${id}_${tagId}_tag" styleClass="window_tag ${active_or_inactive}" action="${tagStrutsAction}">
+		        			<spam><fmt:message key="${tagTitleKey}"/></spam>
 		                </html:link>
+		                
 		        	</c:otherwise></c:choose>
 	            </c:forEach>
 	            </div>

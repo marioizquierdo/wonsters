@@ -1,0 +1,29 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Contenido dentro de una ventana generada con el customtag:window.
+	Simplemente crea un div y le pone el id adecuado para ser identificado por el css y javascript correspondiente.
+	Tambien pone la clase "selected" a la ventana que se corresponda con el selected_tag indicado en los atributos de la ventana.
+	Con esto conseguimos que se muestre el contenido del tag seleccionado instantaneamente (mientras se carga el html),
+	sin tener que esperar a que se carguen el resto de contenidos ni a que se carge todo el javascript, ademas esto hace
+	que no sea necesario javascript para que se vea en contenido correspondiente.
+	
+	NOTA:
+	Este customtag debe estar dentro del customtag:window. Espera recibir las variables (en el scope session):
+	customtag_window_id y customtag_window_selected_tag, que genera el customtag:window.
+--> 		
+  
+  <jsp:directive.attribute name="for_tag" required="true"
+  		description="Identificador del tag asociado a este contenido. 
+  			El identificador del tag esta en en el atributo tags del customtag:window" />
+  
+  <c:set var="is_selected_content" value="" />
+  
+  <div id="${customtag_window_id}_${for_tag}" 
+  	class="${(customtag_window_selected_tag == for_tag) ? 'selected_' : 'hidden_'}content_box_slide" >
+		<jsp:doBody/>
+  </div>
+	
+</jsp:root>

@@ -37,10 +37,9 @@
 		new_rooms: Lair.newRoomsAvaliable => /lair/rooms/ready_to_build.do, 
 		lair: Lair.lairView, 
 		lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
-		search_lairs: Lair.searchLairs">
+		search_lairs: Lair.searchLairs" >
 	
 	<customtag:window_content for_tag="lair">
-	
 	<c:choose>
 	
 		<!-- Vista de la Guarida -->

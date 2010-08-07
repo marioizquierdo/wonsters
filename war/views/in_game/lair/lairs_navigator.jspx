@@ -16,7 +16,7 @@
 			search_lairs: Lair.searchLairs" >
 
 	<!-- Lairs Navigator for view and search neighbors -->
-	<div id="buildingWindow_lairs_navigator">
+	<customtag:window_content for_tag="lairs_navigator">
 	
 		<div class="buildingPagers">
 		<form action="lair.do" method="GET">
@@ -119,12 +119,12 @@
 			</table>
 		
 		</div>
-	</div>
+	</customtag:window_content>
 	
 	<!-- Lair Search -->
-	<div id="buildingWindow_search_lairs">
+	<customtag:window_content for_tag="search_lairs">
 		<jsp:directive.include file="_form_search_lair.jspf"/>
-	</div>
+	</customtag:window_content>
 
 </customtag:window>
 
