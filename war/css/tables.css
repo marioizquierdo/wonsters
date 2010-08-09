@@ -58,6 +58,11 @@
 	margin: 10px auto 10px auto;
 }
 
+.table2.float_left {
+	float: left;
+	margin: 10px;	
+}
+
 .table2 th {
 	background: url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
 	height: 25px;

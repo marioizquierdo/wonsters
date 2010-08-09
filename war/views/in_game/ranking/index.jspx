@@ -18,7 +18,7 @@
 		lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
 		search_lairs: Lair.searchLairs => /lair.do?lairWindow_selected_tag=search_lairs">
 	
-	<div id="lairWindow_ranking">
+	<customtag:window_content for_tag="ranking">
 		<customtag:info_message titleKey="Ranking.index.info.title" 
 			key="Ranking.index.info.desc" status="INFO" icon_id="13" style="margin: 20px;"/>
 			
@@ -55,7 +55,7 @@
 			
 		<customtag:info_message
 			key="Ranking.index.not_implemented.message" status="INFO" style="margin: 20px;"/>
-	</div>
+	</customtag:window_content>
 
 </customtag:window>
     		

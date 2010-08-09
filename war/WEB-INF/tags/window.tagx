@@ -15,30 +15,23 @@
 		Los tags se definen en el atributo tags como una lista separada por comas, cuyos identificadores se deben
 		corresponder con los identificadores de los divs internos.
 		
-		Ejemplo: Una ventana de ancho 200px donde hay dos tags, para ver y para comprar huevos de monstruo:
-		<custom_tags:window id="eggsWin" title="key.title" window_width="200" 
-		    tags="showEggs: key.message.show, buyEggs: key.message.buy">
-			<div id="eggsWin_showEggs"> contenido que se muestra si se pulsa en el tag: key.message.show </div>
-			<div id="eggsWin_buyEggs"> contenido de la vista para "buy eggs" </div>
+		Ejemplo: Una ventana de ancho 200px donde hay tres tags, las dos primeras tienen ventana interna (que se carga con javascript)
+		y el tercero es un enlace a otra pagina (este no necesita window_content, porque su contenido esta en otra pagina):
+		
+		<customtag:window id="eggsWin" title="key.title" window_width="200" tags="
+				showEggs: key.message.show, 
+				buyEggs: key.message.buy,
+				otherAction: key.message.other => /other/action.do?param=value">
+			<customtag:window_content for_tag="showEggs"> contenido que se muestra si se pulsa en el tag: key.message.show </customtag:window_content>
+			<customtag:window_content for_tag="buyEggs"> contenido de la vista para "buy eggs" </customtag:window_content>
 		</custom_tags:window>
 		
-		Ejemplo: Una ventana con tres tags para ver los atributos de un monstruo, de 300px de ancho. El tercer tag, en lugar
-		de mostrar un contenido distinto, redirige a otra accion distinta (donde se supone que hay una ventana similar),
-		y por defecto se muestra el tag composeAttrs seleccionado.
-		<custom_tags:window id="monsterDetails" window_width="300" selected_tag="composeAttrs" 
-		    tags="simpleAttrs: Monster.simpleAttrs, 
-		        composeAttrs: Monster.composeAttrs, 
-		        skills: Monster.skills => MonsterSkills.do">
-			<div id="monsterDetails_simpleAttrs"> Atributos simples del monstruo </div>
-			<div id="monsterDetails_composeAttrs"> Atributos compuestos </div>
-			<div id="monsterDetails_skills"> este contenido nunca se visualiza porque se redirige a MonsterSkills.do 
-			      por lo tanto este div no es necesario ponerlo </div>
-		</custom_tags:window>
+		Lo importante es que los identificadores de los tags sean diferentes para cada ventana,
+		y asi ser identificados por el customtag:window_content interno (a su vez sirven para que funcione el css y javascript asociado).
 		
-		Puede verse que lo importante es que los identificadores sean diferentes para cada ventana.
+		Cada tag se define segun: "idTag: Messages.properties.key [=> struts_action ]"
 		Las claves que se incluyen son los textos identificativos que generan un mensaje diferente segun el locale 
-		(ya que son los keys de mensaje en los ficheros Messages.properties)
-		
+		(ya que son los keys de mensaje en los ficheros Messages.properties).
 		Los tags que enlazan a otras paginas se indican sumando a la derecha " => AccionStruts.do".
 		La accion struts especificada se utiliza internamente con <html:link action="AccionStruts.do"/>, por lo que
 		mantiene la session y todo lo necesario.

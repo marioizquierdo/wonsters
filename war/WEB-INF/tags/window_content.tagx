@@ -18,11 +18,16 @@
   <jsp:directive.attribute name="for_tag" required="true"
   		description="Identificador del tag asociado a este contenido. 
   			El identificador del tag esta en en el atributo tags del customtag:window" />
+    
+  <jsp:directive.attribute name="styleClass" required="false"
+  		description="Aunque se le ponga la clase CSS 'selected_content_box_slide' o 'hidden_contet_box_slide' automaticamente,
+  		    se le pueden poner mas clases CSS al div en este atributo. (Se suman a las clases autogeneradas)." />
+  		
   
   <c:set var="is_selected_content" value="" />
   
   <div id="${customtag_window_id}_${for_tag}" 
-  	class="${(customtag_window_selected_tag == for_tag) ? 'selected_' : 'hidden_'}content_box_slide" >
+  	class="${(customtag_window_selected_tag == for_tag) ? 'selected' : 'hidden'}_content_box_slide ${styleClass}" >
 		<jsp:doBody/>
   </div>
 	

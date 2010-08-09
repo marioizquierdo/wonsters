@@ -9,11 +9,13 @@
               		
 
 <customtag:window id="monstersList" title="Monsters.title"
-	tags="monsters: MainMenu.link.monsters, 
+	tags="
+		monsters: MainMenu.link.monsters, 
 		viewEggs: EggsManagement.viewEggs => /monster/eggs.do?eggsManagement_selected_tag=viewEggs,
 		buyEggs: EggsManagement.buyEggs => /monster/eggs.do?eggsManagement_selected_tag=buyEggs">
 	
-	<div id="monstersList_monsters"><c:choose>
+	<customtag:window_content for_tag="monsters">
+	<c:choose>
 	
 		<c:when test="${fn:length(monsters) == 0}">
 			<customtag:info_message key="Monsters.thereIsNoMonsters" icon_id="0" style="margin: 15px;"/>
@@ -57,7 +59,9 @@
 		    </c:forEach>
 			</table>
 		</c:otherwise>
-	</c:choose></div>
+	</c:choose>
+	</customtag:window_content>
+	
 </customtag:window>
 
 </jsp:root>

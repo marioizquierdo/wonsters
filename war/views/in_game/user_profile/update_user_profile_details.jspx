@@ -13,7 +13,7 @@
 	tags="editUserProfile: UpdateUserProfileDetailsContent.changeInfo, 
 		changePassword: UpdateUserProfileDetailsContent.changePassword => userprofile/change_password.do" >
 
-	<div id="userProfileWindow_editUserProfile">
+	<customtag:window_content for_tag="editUserProfile">
 	
 		<html:form action="userprofile/update_action.do" focus="firstName">
 
@@ -29,9 +29,7 @@
 		     
 		</html:form>
 		
-	</div>
-
-	<div id="userProfileWindow2" />
+	</customtag:window_content>
 
 </customtag:window>
 

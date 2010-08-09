@@ -11,15 +11,16 @@
 	<script type='text/javascript' src='/javascript/count_down.js'></script>
 ]]> 
 
-<customtag:window id="eggsManagement" title="EggsManagement.title" selected_tag="viewEggs"
-	tags="monsters: MainMenu.link.monsters => monsters/of_lair.do, 
+<customtag:window id="eggsManagement" title="EggsManagement.title" selected_tag="viewEggs" tags="
+		monsters: MainMenu.link.monsters => monsters/of_lair.do, 
 		viewEggs: EggsManagement.viewEggs, 
 		buyEggs: EggsManagement.buyEggs" >
 	
 	<!-- VIEW EGGS -->
 	<!-- In this div, class="incubatedEggs${min(10, eggs.size)}" because there are only 10 different images with eggs to show -->
 	<c:set var="eggs_number" value="${fn:length(eggs)}"/>
-	<div id="eggsManagement_viewEggs" class="incubatedEggs incubatedEggs${eggs_number lt 10 ? eggs_number : 10}">
+	
+	<customtag:window_content for_tag="viewEggs" styleClass="incubatedEggs incubatedEggs${eggs_number lt 10 ? eggs_number : 10}">
 		<c:choose>
 		<c:when test="${eggs_number == 0}">
 			<customtag:info_message icon_id="0" style="margin-top:10px;">
@@ -97,14 +98,14 @@
 
 		</c:otherwise>
 		</c:choose>
-	</div>
+	</customtag:window_content>
 
 	<!-- BUY EGGS -->
-	<div id="eggsManagement_buyEggs">
+	<customtag:window_content for_tag="buyEggs">
 		<customtag:info_message icon_id="0" style="margin-top:10px;">
-			<fmt:message key="EggsManagement.infoMoney"></fmt:message>
+			<fmt:message key="EggsManagement.infoMoney" />
 		</customtag:info_message>
-		<table  class="table2">
+		<table  class="table2 float_left">
 			<tr>
 			    <th><fmt:message key="Monster.race"/></th>
 			    <th id="monsterRaceDesc"><fmt:message key="Monster.race.desc"/></th>
@@ -145,7 +146,7 @@
 		    </tr>
 		    </c:forEach>
 		</table>
-	</div>
+	</customtag:window_content>
 	
 </customtag:window>
 

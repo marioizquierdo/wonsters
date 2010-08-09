@@ -15,7 +15,7 @@
 		lairs_navigator: Lair.buildingView => lair.do?street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}, 
 		search_lairs: Lair.searchLairs => lair.do?lairWindow_selected_tag=search_lairs">
 	
-	<div id="lairWindow_new_rooms">
+	<customtag:window_content for_tag="new_rooms">
 		<customtag:info_message key="Lair.newRoomsAvaliable.description"/>
 		
 		<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
@@ -41,7 +41,7 @@
 				</div>
 			</customtag:info_message>
 		</c:forEach>
-	</div>
+	</customtag:window_content>
 </customtag:window>
 
 </jsp:root>

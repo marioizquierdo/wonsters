@@ -121,8 +121,8 @@
 		</div>
 	
 		<!-- Info Panel (bottom). -->	
-		<customtag:window id="frontPageWindow" selected_tag="${frontPageWindow_selected_tag}" 
-				tags="start: FrontPage.startTag => welcome.do,
+		<customtag:window id="frontPageWindow" selected_tag="${frontPageWindow_selected_tag}" tags="
+					start: FrontPage.startTag => welcome.do,
 					screenshots: FrontPage.screenshots => screenshots.do,
 					concept_art: FrontPage.conceptArt => concept_art.do,
 					release_info: NotImplementedPage.frontPageTag => not_implemented_page_front_page.do,
