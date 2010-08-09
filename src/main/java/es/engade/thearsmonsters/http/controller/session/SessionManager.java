@@ -229,6 +229,9 @@ public final class SessionManager {
     public final static void logout(HttpServletRequest request,
         HttpServletResponse response) throws InternalErrorException {
     
+    	//TODO: Guardar sesión al hacer logout
+    	userFacade.logout(getMyLair(request));
+    	
         /* Remove cookies. */
         leaveCookies(response, null);
 

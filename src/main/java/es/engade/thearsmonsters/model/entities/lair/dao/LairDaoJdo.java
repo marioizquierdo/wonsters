@@ -20,123 +20,124 @@ import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 @Transactional
 public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
 
-    public Lair findLairByAddress(int street, int building, int floor)
-            throws InstanceNotFoundException {
+	public Lair findLairByAddress(int street, int building, int floor)
+			throws InstanceNotFoundException {
 
-        PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = getPersistenceManager();
 
-        Query query = pm.newQuery(Lair.class);
-        query.setFilter("addressStreet == streetP && addressBuilding == buildingP && addressFloor == floorP");
-        query.declareParameters("int streetP, int buildingP, int floorP");
-        query.setUnique(true);
+		Query query = pm.newQuery(Lair.class);
+		query.setFilter("addressStreet == streetP && addressBuilding == buildingP && addressFloor == floorP");
+		query.declareParameters("int streetP, int buildingP, int floorP");
+		query.setUnique(true);
 
-        Lair lair = null;
-        try {
-            lair = (Lair) query.execute(street, building, floor);
-        } finally {
-            query.closeAll();
-        }
-        if (lair == null)
-            throw new InstanceNotFoundException(null, Lair.class.getName());
-        return lair;
+		Lair lair = null;
+		try {
+			lair = (Lair) query.execute(street, building, floor);
+		} finally {
+			query.closeAll();
+		}
+		if (lair == null)
+			throw new InstanceNotFoundException(null, Lair.class.getName());
+		return lair;
 
-    }
+	}
 
-    public Lair findLairByUser(User user) throws InstanceNotFoundException {
+	public Lair findLairByUser(User user) throws InstanceNotFoundException {
 
-        PersistenceManager pm = getPersistenceManager();
+		PersistenceManager pm = getPersistenceManager();
 
-        Query query = pm.newQuery(Lair.class);
-        query.declareImports("import " + user.getClass().getName());
-        query.setFilter("user == userParam");
-        query.declareParameters("User userParam");
-        query.setUnique(true);
+		Query query = pm.newQuery(Lair.class);
+		query.declareImports("import " + user.getClass().getName());
+		query.setFilter("user == userParam");
+		query.declareParameters("User userParam");
+		query.setUnique(true);
 
-        Lair lair = null;
-        try {
-            lair = (Lair) query.execute(user);
-            lair.touch();
-        } finally {
-            query.closeAll();
-        }
-        if (lair == null)
-            throw new InstanceNotFoundException(user.getLogin(), Lair.class
-                    .getName());
-        return lair;
+		Lair lair = null;
+		try {
+			lair = (Lair) query.execute(user);
+			lair.touch();
+		} finally {
+			query.closeAll();
+		}
+		return lair;
 
-    }
-    
-    @SuppressWarnings("unchecked")
-    public List<Lair> findLairsByBuilding(int street, int building) {
-        PersistenceManager pm = getPersistenceManager();
+	}
 
-        Query query = pm.newQuery(Lair.class);
-        query.setFilter("addressStreet == streetParam && addressBuilding == buildingParam");// && address <= maxAddressParam");
-        query.declareParameters("int streetParam, int buildingParam");//, maxAddressParam");
-        query.setUnique(false);
+	@SuppressWarnings("unchecked")
+	public List<Lair> findLairsByBuilding(int street, int building) {
+		PersistenceManager pm = getPersistenceManager();
 
-        List<Lair> lairs = null;
-        try {
-            lairs = (List<Lair>) query.execute(street, building);
-         // Carga Lazy --> Accedemos al resultado dentro de la transacción
-            lairs.size();
-        } finally {
-            query.closeAll();
-        }
-        return lairs;
-    }
-    
-    /**
-     * Por ahora, la implementación es bastante simple:
-     * ordena las guaridas por id, se queda con la de id mayor, que se supone
-     * es la última creada, y recupera la siguiente address.
-     * Además no hace control, siempre devuelve la siguiente
-     */
-    public Address findNextFreeAddress() throws FullPlacesException {
-        PersistenceManager pm = getPersistenceManager();
-        
-        Query query = pm.newQuery(Lair.class);
-        query.setOrdering("id desc");
-        query.setRange(0, 1);
-        query.setUnique(true);
-        
-        Lair lair = null;
-        try {
-            lair = (Lair) query.execute();
-        } finally {
-            query.closeAll();
-        }
-        
-        if(lair == null) return Address.initialAddress();
-        
-        return Address.nextAddress(lair.getAddressStreet(), 
-                lair.getAddressBuilding(), lair.getAddressFloor());
-    }
-    
-    //TODO: Por el momento se cargan todas las lairs a cholón.
-    // Luego se decidirá si usar un chunk, sólo ciertos datos,
-    // page-by-page iterator, ....
-    @SuppressWarnings("unchecked")
-    public List<Lair> getLairsRanking(int startIndex, int count) {
-        PersistenceManager pm = getPersistenceManager();
+		Query query = pm.newQuery(Lair.class);
+		query.setFilter("addressStreet == streetParam && addressBuilding == buildingParam");// &&
+																							// address
+																							// <=
+																							// maxAddressParam");
+		query.declareParameters("int streetParam, int buildingParam");// ,
+																		// maxAddressParam");
+		query.setUnique(false);
 
-        Query query = pm.newQuery(Lair.class);
-        query.setOrdering("score descending");
-        query.setRange(startIndex, startIndex + count);
-        query.setUnique(false);
+		List<Lair> lairs = null;
+		try {
+			lairs = (List<Lair>) query.execute(street, building);
+			// Carga Lazy --> Accedemos al resultado dentro de la transacción
+			for (Lair lair : lairs) {
+				lair.getUser().touchInstance();
+			}
+		} finally {
+			query.closeAll();
+		}
+		return lairs;
+	}
 
-        List<Lair> lairs = null;
-        try {
-            lairs = (List<Lair>) query.execute();
-            // Carga Lazy --> Accedemos al resultado dentro de la transacción
-            for (Lair lair : lairs) {
-            	lair.getUser().touchInstance();
-            	for (Room room : lair.getRooms())
-            		room.touchInstance();
-            }
-        } finally {
-            query.closeAll();
-        }
-        return lairs;
-    }
+	/**
+	 * Por ahora, la implementación es bastante simple: ordena las guaridas por
+	 * id, se queda con la de id mayor, que se supone es la última creada, y
+	 * recupera la siguiente address. Además no hace control, siempre devuelve
+	 * la siguiente
+	 */
+	public Address findNextFreeAddress() throws FullPlacesException {
+		PersistenceManager pm = getPersistenceManager();
+
+		Query query = pm.newQuery(Lair.class);
+		query.setOrdering("id desc");
+		query.setRange(0, 1);
+		query.setUnique(true);
+
+		Lair lair = null;
+		try {
+			lair = (Lair) query.execute();
+		} finally {
+			query.closeAll();
+		}
+
+		if (lair == null)
+			return Address.initialAddress();
+
+		return Address.nextAddress(lair.getAddressStreet(),
+				lair.getAddressBuilding(), lair.getAddressFloor());
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Lair> getLairsRanking(int startIndex, int count) {
+		PersistenceManager pm = getPersistenceManager();
+
+		Query query = pm.newQuery(Lair.class);
+		query.setOrdering("score descending");
+		query.setRange(startIndex, startIndex + count);
+		query.setUnique(false);
+
+		List<Lair> lairs = null;
+		try {
+			lairs = (List<Lair>) query.execute();
+			// Carga Lazy --> Accedemos al resultado dentro de la transacción
+			for (Lair lair : lairs) {
+				lair.getUser().touchInstance();
+				for (Room room : lair.getRooms())
+					room.touchInstance();
+			}
+		} finally {
+			query.closeAll();
+		}
+		return lairs;
+	}
 }

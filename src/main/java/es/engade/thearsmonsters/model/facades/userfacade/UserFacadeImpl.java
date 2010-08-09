@@ -82,6 +82,10 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 		return loginResult;
 	}
 
+	public void logout(Lair lair) {
+		userDao.update(lair.getUser());
+	}
+	
 	public LoginResult registerUser(String login, String clearPassword,
 			UserDetails userDetails) throws FullPlacesException,
 			DuplicateInstanceException, InternalErrorException {

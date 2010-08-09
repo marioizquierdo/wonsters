@@ -1,5 +1,6 @@
 package es.engade.thearsmonsters.model.facades.userfacade;
 
+import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
@@ -31,6 +32,7 @@ public interface UserFacade {
     public User findUserProfile(String login) 
     	throws InstanceNotFoundException, InternalErrorException;
 
+    public void logout(Lair lair);
     /**
      * Modifica los datos del usuario. No hace falta pasarle el password
      * porque en el caso de uso no se solicita clave. 

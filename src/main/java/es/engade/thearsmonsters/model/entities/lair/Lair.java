@@ -246,7 +246,10 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	//------ Monsters and eggs ------//
 	
 	public List<Monster> getMonsters() { return monsters; }
-	public void setMonsters(List<Monster> monsters) { this.monsters = monsters; }
+	public void setMonsters(List<Monster> monsters) { 
+		this.monsters = monsters; 
+		this.refreshVitalSpaceOccupied();
+	}
 	public List<MonsterEgg> getMonsterEggs() { return monsterEggs; }
 	public void setMonsterEggs(List<MonsterEgg> monsterEggs) { this.monsterEggs = monsterEggs; }
 	

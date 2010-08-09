@@ -43,6 +43,8 @@ public class UserFacadeMock implements UserFacade {
 		return new LoginResult(lair, user.getLogin(), "testName", "encryptedPass", "es");
 	}
 
+	public void logout(Lair lair) {}
+	
 	public LoginResult registerUser(String login, String clearPassword,
 			UserDetails userDetails) throws FullPlacesException,
 			DuplicateInstanceException, InternalErrorException {

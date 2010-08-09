@@ -13,10 +13,12 @@ import javax.jdo.PersistenceManager;
 import org.springframework.orm.jdo.JdoObjectRetrievalFailureException;
 import org.springframework.orm.jdo.support.JdoDaoSupport;
 
+import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
+import es.engade.thearsmonsters.model.entities.common.dao.exception.JDOConstraintException;
 import es.engade.thearsmonsters.model.entities.common.dao.pmfprovider.PMFProvider;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
-public class GenericDaoJdo<T, PK extends Serializable> extends JdoDaoSupport
+public class GenericDaoJdo<T extends ThearsmonstersEntity, PK extends Serializable> extends JdoDaoSupport
         implements GenericDao<T, PK> {
 
     private Class<T> persistentClass;
@@ -84,6 +86,9 @@ public class GenericDaoJdo<T, PK extends Serializable> extends JdoDaoSupport
     }
 
     public T update(T object) {
+    	if (object.getIdKey() == null) {
+    		throw new JDOConstraintException(object.getClass(), "NOT_PERSISTENT", object.getId());
+    	}
         return (T) getJdoTemplate().makePersistent(object);
     }
 

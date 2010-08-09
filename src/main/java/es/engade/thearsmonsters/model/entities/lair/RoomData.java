@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
@@ -214,7 +215,9 @@ public class RoomData implements Serializable {
 	public boolean refreshVitalSpaceOccupied(Lair lair) {
 		int newOccupiedVitalSpace = 0;
 		for(Monster m : lair.getMonsters()) {
-			newOccupiedVitalSpace += m.getRace().getVitalSpace();
+			if (!m.getAge().equals(MonsterAge.Dead)) {
+				newOccupiedVitalSpace += m.getRace().getVitalSpace();
+			}
 		}
 		if(newOccupiedVitalSpace == this.vitalSpaceOccupied) {
 			return false;
