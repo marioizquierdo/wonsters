@@ -246,10 +246,10 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
     public LairRankingInfoChunk getLairsRanking(int startIndex, int count) {
     	
     	List<Lair> lairs = lairDao.getLairsRanking(startIndex, count + 1);
-    	List<LairRankingInfo> lairInfos = new ArrayList<LairRankingInfo>();
+    	List<LairInfo> lairInfos = new ArrayList<LairInfo>();
     	for (Lair lair : lairs) {
             try {
-            	LairRankingInfo lairInfo = new LairRankingInfo(null, lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
+            	LairInfo lairInfo = new LairInfo(null, lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
                 lairInfo.setLogin(userDao.get(
                 		lair.getUser().getIdKey()).getLogin()
                 		); // TODO: esto hay que optimizarlo

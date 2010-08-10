@@ -41,7 +41,7 @@
   
   <jsp:directive.attribute name="id" required="true"
   		description="Identificador unico de la ventana (necesario para identificarla con javascript)"/>
-  		<c:set var="customtag_window_id" value="${id}" scope="session" /> <!-- Crea la variable en la sesion para poder ser accedida por el customtag:window_content -->
+  		<c:set var="customtag_window_id" value="${id}" scope="request" /> <!-- Crea la variable en la request para poder ser accedida por el customtag:window_content -->
   		
   <jsp:directive.attribute name="window_width" required="false"
   		description="Ancho de la ventana en pixeles (por defecto 770). Incluye los bordes."/>
@@ -75,7 +75,7 @@
 		<c:set var="param_name" value="${id}_selected_tag"/>
 		<c:if test="${!empty param[param_name]}"><c:set var="selected_tag" value="${param[param_name]}" /></c:if>
 		<c:if test="${empty selected_tag}"><c:set var="selected_tag" value="${fn:trim(fn:substringBefore(tags, ':'))}" /></c:if>
-		<c:set var="customtag_window_selected_tag" value="${selected_tag}" scope="session" /> <!-- Crea la variable en la sesion para poder ser accedida por el customtag:window_content -->
+		<c:set var="customtag_window_selected_tag" value="${selected_tag}" scope="request" /> <!-- Crea la variable en la request para poder ser accedida por el customtag:window_content -->
 		
   
   <!-- Draw the window -->

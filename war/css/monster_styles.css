@@ -90,7 +90,7 @@ border:solid 1px;
 background-color:green;
 }
 
-/* Ã‘APA */
+/* „APA temporal del guille */
 #monster_tasks .add_all_button{
 margin: 2px;
 width:17%;
@@ -148,25 +148,17 @@ width:10%;
 
 .egg_slot {
 	border: 1px solid #ccc;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x
-		bottom;
+	background: white url(/images/theme/table2_th_fade.jpg) repeat-x bottom;
 	text-align: left;
 	float: left;
 	margin-top: 10px;
 	margin-left: 10px;
 	padding: 10px;
 }
-
-.egg_slot .egg_slot_img {
-	float: left;
-}
-
-.egg_slot .egg_slot_text {
-	float: left;
-	margin-left: 10px;
-}
-
-.li-actions-title a,.li-actions-title a:hover {
+.egg_slot .egg_slot_img { float: left; }
+.egg_slot .egg_slot_text { float: left; margin-left: 10px; }
+.li-actions-title a,
+.li-actions-title a:hover {
 	text-decoration: none;
 	font-size: 16px;
 	font-weight: bold;
@@ -176,32 +168,31 @@ width:10%;
 
 /* Propiedades generales, pero depende del numero de huevos se pone una imagen diferente */
 .incubatedEggs {
+	float: left; display: block;
+	width: 760px; height: 100%;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: bottom left;
 	padding-bottom: 150px;
-	width: 760px;
 }
-.incubatedEggs0 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs0.png); }
-.incubatedEggs1 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs1.png); }
-.incubatedEggs2 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs2.png); }
-.incubatedEggs3 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs3.png); }
-.incubatedEggs4 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs4.png); }
-.incubatedEggs5 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs5.png); }
-.incubatedEggs6 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs6.png); }
-.incubatedEggs7 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs7.png); }
-.incubatedEggs8 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs8.png); }
-.incubatedEggs9 { background-image: url(../images/illustrations/incubatedEggs/incubatedEggs9.png); }
-.incubatedEggs10 {background-image: url(../images/illustrations/incubatedEggs/incubatedEggs10plus.png); } /* la imagen para cuando hay 10 o mas huevos es la misma */
+.incubatedEggs0 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs0.png); }
+.incubatedEggs1 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs1.png); }
+.incubatedEggs2 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs2.png); }
+.incubatedEggs3 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs3.png); }
+.incubatedEggs4 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs4.png); }
+.incubatedEggs5 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs5.png); }
+.incubatedEggs6 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs6.png); }
+.incubatedEggs7 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs7.png); }
+.incubatedEggs8 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs8.png); }
+.incubatedEggs9 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs9.png); }
+.incubatedEggs10 {background-image: url(/images/illustrations/incubatedEggs/incubatedEggs10plus.png); } /* la imagen para cuando hay 10 o mas huevos es la misma */
 
 
 /***** Eggs Management: buy eggs *****/
 
-#monsterRaceDesc {
-	width: 350px;
-}
-
+#monsterRaceDesc { width: 350px; }
 .race_not_available_icon { font-size: 200%; font-weight: bold; color: #999; }
+td.not_money_available { color: #933; }
 
 
 /***** Form Born Monster *****/

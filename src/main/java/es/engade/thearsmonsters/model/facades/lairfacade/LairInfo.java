@@ -3,7 +3,11 @@ package es.engade.thearsmonsters.model.facades.lairfacade;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 
-public class LairRankingInfo {
+/**
+ * Informacion de una guarida de forma sencilla y encapsulada.
+ * Incluye datos como login de usuario, dirección, basura, dinero, puntos de ranking, etc.
+ */
+public class LairInfo {
 
 	private String login;
 	private Address address;
@@ -30,7 +34,7 @@ public class LairRankingInfo {
 		return score;
 	}
 	
-	public LairRankingInfo(String userName, Address address, int garbage, int money,
+	public LairInfo(String userName, Address address, int garbage, int money,
 			int score) {
 		this.login = userName;
 		this.address = address;
@@ -39,7 +43,7 @@ public class LairRankingInfo {
 		this.score = score;
 	}
 
-	public LairRankingInfo(Lair lair) {
+	public LairInfo(Lair lair) {
 		this.login = lair.getUser().getLogin();
 		this.address = lair.getAddress();
 		this.garbage = lair.getGarbage();

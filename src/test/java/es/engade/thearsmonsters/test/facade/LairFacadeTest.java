@@ -18,7 +18,7 @@ import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairRankingInfoChunk;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
-import es.engade.thearsmonsters.model.facades.lairfacade.LairRankingInfo;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairInfo;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksActionException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
@@ -287,7 +287,7 @@ public class LairFacadeTest extends GaeTest {
     	LairRankingInfoChunk lairBlock = lairFacade.getLairsRanking(0, NUMBER_OF_USERS);
     	assertEquals(NUMBER_OF_USERS, lairBlock.getElements().size());
     	int lastScore = Integer.MAX_VALUE;
-    	for (LairRankingInfo lairInfo : lairBlock.getElements()) {
+    	for (LairInfo lairInfo : lairBlock.getElements()) {
     		assert(lairInfo.getScore() <= lastScore);
     		lastScore = lairInfo.getScore();
     	}
@@ -308,7 +308,7 @@ public class LairFacadeTest extends GaeTest {
     	for (int i = 0; i < numberOfPages; i++) {
     		System.out.println("Page #"+i);
     		LairRankingInfoChunk lairBlock = lairFacade.getLairsRanking(startIndex, pageSize);
-    		for (LairRankingInfo lair : lairBlock.getElements()) {
+    		for (LairInfo lair : lairBlock.getElements()) {
     			System.out.println("#" + position + "  " +
     					lair.getLogin() + " - " + lair.getAddress() 
     					+ " - " + lair.getScore() + " pts.");

@@ -1,24 +1,26 @@
 package es.engade.thearsmonsters.model.facades.lairfacade;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 public class LairRankingInfoChunk {
 
-	private Hashtable<String, LairRankingInfo> lairsHash;
-	private List<LairRankingInfo> lairs;
+	private Hashtable<String, LairInfo> lairsHash;
+	private List<LairInfo> lairs;
 	private boolean hasMoreElements;
 	
-	public List<LairRankingInfo> getElements() {
+	public List<LairInfo> getElements() {
 		return lairs;
 	}
 	public boolean hasMoreElements() {
 		return hasMoreElements;
 	}
 	
-	public LairRankingInfoChunk(List<LairRankingInfo> lairs, boolean hasMoreElements) {
-		lairsHash = new Hashtable<String, LairRankingInfo>();
-		for (LairRankingInfo lair : lairs) {
+	public LairRankingInfoChunk(List<LairInfo> lairs, boolean hasMoreElements) {
+		lairsHash = new Hashtable<String, LairInfo>();
+		for (LairInfo lair : lairs) {
 			lairsHash.put(lair.getLogin(), lair);
 		}
 		this.lairs = lairs;
@@ -26,18 +28,43 @@ public class LairRankingInfoChunk {
 	}
 	
 	// Devuelve true si el usuario con ese login está incluido en el ranking
-	public boolean isLoginIncluded(String login) {
+	public boolean isUserIncluded(String login) {
 		return lairsHash.contains(login);
+	}	
+	
+	// isLoginIncluded(String login) JSTL wrapper 
+	// para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
+	// Devuelve un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
+	@SuppressWarnings("serial")
+    public Map<String, Boolean> getLoginIncluded() {
+		return new HashMap<String, Boolean>() {
+			public Boolean get(Object key) {
+            	return isUserIncluded((String) key);
+            }
+		};
 	}
 	
-	// Devueve la posicion del usuario ranking.positionOfUser
-	public int getPositionOfUser(String login) {
-		LairRankingInfo lair = lairsHash.get(login);
+	// Devueve la posicion del usuario ranking.positionOfUser, o -1 si no esta incluido en la lista.
+	public int positionOfUser(String login) {
+		LairInfo lair = lairsHash.get(login);
 		if (lair == null) {
 			return -1;
 		} else {
 			return lairs.indexOf(lair);
 		}
 	}
+	
+	// positionOfUser(String login) JSTL wrapper
+	// para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
+	// Devuelve un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
+	@SuppressWarnings("serial")
+    public Map<String, Integer> getPositionOfUser() {
+		return new HashMap<String, Integer>() {
+			public Integer get(Object key) {
+            	return positionOfUser((String) key);
+            }
+		};
+	}
+	
 
 }

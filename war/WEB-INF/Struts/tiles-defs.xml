@@ -94,7 +94,7 @@
 	<definition name=".Ranking" extends=".InGameBase">
 		<put name="title" value="Ranking.title" />
 		<put name="color" value="blue" />
-		<put name="content" value="/views/in_game/ranking/index.jspx" />
+		<put name="content" value="/views/in_game/ranking/ranking.jspx" />
 	</definition>
 
 	<definition name=".RoomsReadyToBuild" extends=".InGameBase">
