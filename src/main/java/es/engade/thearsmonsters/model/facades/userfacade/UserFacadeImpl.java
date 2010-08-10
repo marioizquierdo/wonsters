@@ -83,6 +83,7 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 	}
 
 	public void logout(Lair lair) {
+		lair.refreshVitalSpaceOccupied();
 		userDao.update(lair.getUser());
 	}
 	
