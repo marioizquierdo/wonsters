@@ -142,7 +142,9 @@
 		   <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
 		   		<td>
 			   		<c:choose><c:when test="${suficient_money and suficient_vitalSpace}">
-			   			<customtag:monster_image race="${race}"/></c:when>
+			   			<span title="${race_desc_message}">
+			   			<customtag:monster_image race="${race}"/></span>
+				   		</c:when>
 				   	<c:otherwise> 
 				   		<span class="race_not_available_icon" title="${race_desc_message}">?</span>
 				   	</c:otherwise></c:choose>
