@@ -32,11 +32,11 @@ public class LairRankingInfoChunk {
 		return lairsHash.contains(login);
 	}	
 	
-	// isLoginIncluded(String login) JSTL wrapper 
+	// isUserIncluded(String login) JSTL wrapper 
 	// para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
 	// Devuelve un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
 	@SuppressWarnings("serial")
-    public Map<String, Boolean> getLoginIncluded() {
+    public Map<String, Boolean> getUserIncluded() {
 		return new HashMap<String, Boolean>() {
 			public Boolean get(Object key) {
             	return isUserIncluded((String) key);

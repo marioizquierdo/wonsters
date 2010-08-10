@@ -1,7 +1,7 @@
 
 
 /***** Monster of Lair (table) *****/
-table tr td img.monster_icon {
+table.monstersOfLair tr td img.monster_icon {
 	display: inline;
 	margin: 3px;
 }
@@ -190,9 +190,13 @@ width:10%;
 
 /***** Eggs Management: buy eggs *****/
 
-#monsterRaceDesc { width: 350px; }
-.race_not_available_icon { font-size: 200%; font-weight: bold; color: #999; }
-td.not_money_available { color: #933; }
+table.buyEggsList td { padding: 8px; }
+table.buyEggsList td img.monster_icon { vertical-align: middle; display: inline; margin-right: 10px; }
+table.buyEggsList td span.race_not_available_icon { font-size: 200%; font-weight: bold; color: #999; margin-right: 10px; }
+table.buyEggsList td.vitalSpace.suficient,
+table.buyEggsList td.buyEggPrice.suficient { color: #393; }
+table.buyEggsList td.vitalSpace.insuficient,
+table.buyEggsList td.buyEggPrice.insuficient { color: #933; }
 
 
 /***** Form Born Monster *****/

@@ -105,9 +105,8 @@
 		<customtag:info_message key="EggsManagement.infoMoney" style="margin-top:15px;" />
 		<customtag:info_message icon_id="9" key="EggsManagement.infoMissions" style="margin-top:15px;" />
 		
-		<table  class="table2 float_left">
+		<table  class="table2 float_left buyEggsList">
 			<tr>
-			    <th></th>
 			    <th><fmt:message key="Monster.race"/></th>
 			    <th><fmt:message key="Monster.race.buyEggPrice"/></th>
 			    <th><fmt:message key="Monster.race.vitalSpace"/></th>
@@ -135,32 +134,35 @@
 					<fmt:param value="${my.lair.vitalSpaceFree}"/>
 				</fmt:message>
 			</c:set></c:if>
+			
+			<!-- Texto descriptivo de la raza de un monstruo (para usar en un title) -->
 		   <c:set var="race_desc_message">
 		  	 <fmt:message key="Monster.race.${race}.desc"/>
 		   </c:set>
 		   
 		   <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
-		   		<td>
+		   		<td class="race" title="${race_desc_message}">
 			   		<c:choose><c:when test="${suficient_money and suficient_vitalSpace}">
-			   			<span title="${race_desc_message}">
-			   			<customtag:monster_image race="${race}"/></span>
+			   			<span title="${race_desc_message}"><customtag:monster_image race="${race}"/></span>
 				   		</c:when>
 				   	<c:otherwise> 
-				   		<span class="race_not_available_icon" title="${race_desc_message}">?</span>
+				   		<span class="race_not_available_icon">?</span>
 				   	</c:otherwise></c:choose>
+					<fmt:message key="Monster.race.${race}"/>
 				</td>
-		    	<td>${race}</td>
-		    	<td class="${suficient_money ? 'suficient_money' : 'not_money_available' }">
+		    	<td class="buyEggPrice ${suficient_money ? 'suficient' : 'insuficient' }">
 		    		<fmt:formatNumber value="${race.buyEggPrice}"/>
 		    	</td>	    		
-		    	<td>${race.vitalSpace}</td>
-		    	<td>
+		    	<td class="vitalSpace ${suficient_vitalSpace ? 'suficient' : 'insuficient' }">
+		    		<fmt:formatNumber value="${race.vitalSpace}"/>
+		    	</td>
+		    	<td class="buy_egg_action">
 			    	<c:choose><c:when test="${suficient_money and suficient_vitalSpace}">
 			    		<html:link action="monster/egg/buy.do?eggRace=${race}">
 				    		<fmt:message key="Buttons.buy"/>
 						</html:link></c:when> 
 					<c:otherwise>
-						<span title="${insuficient_resources_message}"><fmt:message key="Buttons.buy"/></span>
+						<span title="${insuficient_resources_message}"><fmt:message key="EggsManagement.buyEggs.canNotBuy"/></span>
 					</c:otherwise></c:choose>
 				</td>
 		    </tr>
