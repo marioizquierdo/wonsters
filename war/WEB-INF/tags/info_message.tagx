@@ -16,7 +16,7 @@
 		# => Muestra literalmente "Algo estatico", sin internacionalizar.
 		
 		<customtag:info_message>
-			codigo JSP
+			codigo JSP (html, etc)
 		</customtag:info_message>
 		# => Dentro se puede poner lo que se quiere mostrar
 		
@@ -74,7 +74,7 @@
 		<c:when test="${status eq 'GOOD_NEW'}">
 			<c:set var="icon_id" value="6"/></c:when>
 		<c:otherwise> <!-- INFO by default -->
-			<c:set var="icon_id" value="9"/></c:otherwise>
+			<c:set var="icon_id" value="12"/></c:otherwise>
 		</c:choose>
 	</c:if>
   	

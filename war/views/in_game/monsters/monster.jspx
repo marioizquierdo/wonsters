@@ -140,25 +140,25 @@
 </customtag:window>
 
 <!-- Monster Attributes, Skills and Race details -->
-<customtag:window id="MonsterDetails" title="Monster.details.title" window_width="520"
-		tags="attributes: Monster.attr.attributes, 
+<customtag:window id="MonsterDetails" title="Monster.details.title" window_width="520" tags="
+			attributes: Monster.attr.attributes, 
 			skills: Monster.attr.skills, 
 			race: Monster.race">
 
 	<div id="MonsterDetailsWrapper">
-		<div id="MonsterDetails_attributes">
+		<customtag:window_content for_tag="attributes">
 			<customtag:attributesList property="simpleAttrs"/>
 			<customtag:attributesList property="composeAttrs"/>
-		</div>
+		</customtag:window_content>
 		
-		<div id="MonsterDetails_skills">
+		<customtag:window_content for_tag="skills">
 			<customtag:attributesList property="workSkills"/>
-		</div>
+		</customtag:window_content>
 		
-		<div id="MonsterDetails_race">
+		<customtag:window_content for_tag="race">
 			<c:set var="race" value="${monster.race}"/>
 			<jsp:directive.include file="_race_details.jspf"/>
-		</div>
+		</customtag:window_content>
 	</div>
 </customtag:window>
 </div>

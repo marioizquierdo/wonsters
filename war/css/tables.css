@@ -82,6 +82,7 @@
 	border-right: 1px solid #fff;
 	border-left: 1px solid #ddd;
 	border-bottom: none;
+	padding: 5px;
 }
 
 .table2 .trImpar { background-color: #eee; }

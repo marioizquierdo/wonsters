@@ -25,11 +25,13 @@ public class LairRankingInfoChunk {
 		this.hasMoreElements = hasMoreElements;
 	}
 	
-	public boolean isLogin(String login) {
+	// Devuelve true si el usuario con ese login está incluido en el ranking
+	public boolean isLoginIncluded(String login) {
 		return lairsHash.contains(login);
 	}
 	
-	public int getPosition(String login) {
+	// Devueve la posicion del usuario ranking.positionOfUser
+	public int getPositionOfUser(String login) {
 		LairRankingInfo lair = lairsHash.get(login);
 		if (lair == null) {
 			return -1;
