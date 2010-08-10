@@ -107,10 +107,14 @@
 		
 		<table  class="table2 float_left buyEggsList">
 			<tr>
-			    <th><fmt:message key="Monster.race"/></th>
-			    <th><fmt:message key="Monster.race.buyEggPrice"/></th>
-			    <th><fmt:message key="Monster.race.vitalSpace"/></th>
-			    <th><fmt:message key="Buttons.buy"/></th>
+				<c:set var="race_help"><fmt:message key="Monster.race.desc"/></c:set>
+				<c:set var="buyEggPrice_help"><fmt:message key="Monster.race.buyEggPrice.desc"/></c:set>
+				<c:set var="vitalSpace_help"><fmt:message key="Monster.race.vitalSpace.desc"/></c:set>
+				
+			    <th class="race" title="${race_help}"><fmt:message key="Monster.race"/></th>
+			    <th class="buyEggPrice" title="${buyEggPrice_help}"><fmt:message key="Monster.race.buyEggPrice"/></th>
+			    <th class="vitalSpace" title="${vitalSpace_help}"><fmt:message key="Monster.race.vitalSpace"/></th>
+			    <th class="buyEggAction"><fmt:message key="Buttons.buy"/></th>
 			</tr>
 		    
 			<c:forEach items="${races}" var="race" varStatus="loop" >
@@ -156,7 +160,7 @@
 		    	<td class="vitalSpace ${suficient_vitalSpace ? 'suficient' : 'insuficient' }">
 		    		<fmt:formatNumber value="${race.vitalSpace}"/>
 		    	</td>
-		    	<td class="buy_egg_action">
+		    	<td class="buyEggAction">
 			    	<c:choose><c:when test="${suficient_money and suficient_vitalSpace}">
 			    		<html:link action="monster/egg/buy.do?eggRace=${race}">
 				    		<fmt:message key="Buttons.buy"/>

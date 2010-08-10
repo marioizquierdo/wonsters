@@ -190,6 +190,9 @@ width:10%;
 
 /***** Eggs Management: buy eggs *****/
 
+table.buyEggsList th.buyEggPrice,
+table.buyEggsList th.vitalSpace,
+table.buyEggsList th.race { cursor: help; }
 table.buyEggsList td { padding: 8px; }
 table.buyEggsList td img.monster_icon { vertical-align: middle; display: inline; margin-right: 10px; }
 table.buyEggsList td span.race_not_available_icon { font-size: 200%; font-weight: bold; color: #999; margin-right: 10px; }
