@@ -46,9 +46,14 @@ public interface MonsterFacade {
     public List<Monster> findLairMonsters(Lair lair)
     	throws InternalErrorException;
     
+    public List<Monster> findLairMonstersOrderedByAge(Lair lair) 
+    	throws InternalErrorException;
+    
     public Monster findMonster(Lair lair, String monsterId)
     	throws InternalErrorException, InstanceNotFoundException;
     
+
+
     /**
      * Sugerir acciones que puede hacer el monstruo en su propia guarida
      * @param lair TODO

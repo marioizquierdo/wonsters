@@ -32,7 +32,7 @@ public class MonstersOfLair extends ThearsmonstersDefaultAction {
 		Lair myLair = SessionManager.getMyLair(request);
     	
         /* Find User Monsters. */
-		monsters = monsterFacade.findLairMonsters(myLair);
+		monsters = monsterFacade.findLairMonstersOrderedByAge(myLair);
 		
 		/* Set request attributes */
 		request.setAttribute("monsters", monsters);

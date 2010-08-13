@@ -123,10 +123,34 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     }
 
     public List<Monster> findLairMonsters(Lair lair) throws InternalErrorException {
-        // return monsterDao.findMonstersByLair(lair); // No hace falta buscar en el datastore porque se supone que lair está siempre actualizado
     	return lair.getMonsters();
     }
 
+    public List<Monster> findLairMonstersOrderedByAge(Lair lair) throws InternalErrorException {
+    	List<Monster> orderedMonsters = new ArrayList<Monster>();
+    	List<Monster> lairMonsters = lair.getMonsters();
+    	Monster monsterYounger = null,monsterToCompare;
+
+    	// Se obtiene la lista de monstruos de la lair y se ordenan en una lista nueva por fecha de nacimiento (de menor a mayor)
+    	while (lairMonsters.size()>orderedMonsters.size()){
+    		
+    		for (int j= 0;j<lairMonsters.size();j++) {
+	    		monsterYounger = lairMonsters.get(j);
+		    	if (!orderedMonsters.contains(monsterYounger)) break;
+    		}
+    		
+    		for(int i = 0; i<lairMonsters.size(); i++){
+    			monsterToCompare = lairMonsters.get(i);
+    			/* Si has nacido despues eres mas joven */
+    			if (monsterToCompare.getBorningDate().after(monsterYounger.getBorningDate())  
+    					&& !orderedMonsters.contains(monsterToCompare))
+    				monsterYounger = monsterToCompare;
+    		}
+    		orderedMonsters.add(monsterYounger);
+    	}
+    	return orderedMonsters;
+    }
+    
     public Monster findMonster(Lair lair, String monsterIdAsString) throws InternalErrorException, InstanceNotFoundException {
         Key monsterId = getKeyFromString(monsterIdAsString, Monster.class);
         return monsterDao.get(monsterId);
@@ -217,6 +241,8 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         
     }
     
+
+
     public boolean executeMonsterAction(Lair lair, MonsterActionType actionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
     	
     	/* Al estilo de findMonster, a lo mejor se puede quitar el argumento

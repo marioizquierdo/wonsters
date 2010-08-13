@@ -34,28 +34,29 @@
 			    <th><fmt:message key="Monster.freeTurns"/></th>
 			</tr>
 		    <c:forEach items="${monsters}" var="monster" varStatus="loop" >
-		    
-			    <c:url var="monsterURL" value="/monster.do">
-					<c:param name="monsterId" value="${monster.id}"/>
-				</c:url>
-			    
-			    <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}"
-						onclick="document.location.href='${monsterURL}';">
-			    	<td><customtag:monster_image race="${monster.race}"/></td>
-			    	<td>${monster.name}</td>
-			    	<td>${monster.age}</td>
-			    	<td><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</td>
-			    	<c:choose>
-						<c:when test="${monster.freeTurns == 5}">
-				  			<div class="zero_free_turns"> 
-				  				<td>${monster.freeTurns}</td> 
-				  			</div>
-				  		</c:when>	
-				  		<c:otherwise>
-				  			<td>${monster.freeTurns}</td>
-				  		</c:otherwise> 
-			  		</c:choose>
-			    </tr>
+		    	
+				    <c:url var="monsterURL" value="/monster.do">
+						<c:param name="monsterId" value="${monster.id}"/>
+					</c:url>
+				    
+				    <tr class="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}"
+							onclick="document.location.href='${monsterURL}';">
+				    	<td><customtag:monster_image race="${monster.race}"/></td>
+				    	<td>${monster.name}</td>
+				    	<td>${monster.age}</td>
+				    	<td><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</td>
+				    	<c:choose>
+							<c:when test="${monster.freeTurns == 0}">
+					  			<div class="zero_free_turns"> 
+					  				<td>${monster.freeTurns}</td> 
+					  			</div>
+					  		</c:when>	
+					  		<c:otherwise>
+					  			<td>${monster.freeTurns}</td>
+					  		</c:otherwise> 
+				  		</c:choose>
+				    </tr>
+				
 		    </c:forEach>
 			</table>
 		</c:otherwise>
