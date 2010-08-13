@@ -14,9 +14,9 @@
 		viewEggs: EggsManagement.viewEggs => /monster/eggs.do?eggsManagement_selected_tag=viewEggs,
 		buyEggs: EggsManagement.buyEggs => /monster/eggs.do?eggsManagement_selected_tag=buyEggs">
 	
-	<customtag:window_content for_tag="monsters">
-	<c:choose>
 	
+	<customtag:window_content for_tag="monsters">	
+	<c:choose>
 		<c:when test="${fn:length(monsters) == 0}">
 			<customtag:info_message key="Monsters.thereIsNoMonsters" icon_id="0" style="margin: 15px;"/>
 			<div class="more_actions_links">
@@ -62,6 +62,8 @@
 		</c:otherwise>
 	</c:choose>
 	</customtag:window_content>
+	
+	<customtag:info_message key="Monsters.list.info" style="margin-top:15px;" />
 	
 </customtag:window>
 
