@@ -122,19 +122,16 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     	return lair.getMonsterEggs();
     }
 
+    // Por defecto se ordenan por edad (de joven a viejo)
     public List<Monster> findLairMonsters(Lair lair) throws InternalErrorException {
-    	return lair.getMonsters();
-    }
-
-    public List<Monster> findLairMonstersOrderedByAge(Lair lair) throws InternalErrorException {
     	List<Monster> orderedMonsters = new ArrayList<Monster>();
-    	List<Monster> lairMonsters = lair.getMonsters();
-    	Monster monsterYounger = null,monsterToCompare;
+    	List<Monster> lairMonsters = lair.getMonsters(); // estos son los monstruos de esta guarida, que hay que ordenar por edad.
+    	Monster monsterYounger = null, monsterToCompare;
 
     	// Se obtiene la lista de monstruos de la lair y se ordenan en una lista nueva por fecha de nacimiento (de menor a mayor)
-    	while (lairMonsters.size()>orderedMonsters.size()){
+    	while(lairMonsters.size() > orderedMonsters.size()) {
     		
-    		for (int j= 0;j<lairMonsters.size();j++) {
+    		for(int j=0; j<lairMonsters.size(); j++) {
 	    		monsterYounger = lairMonsters.get(j);
 		    	if (!orderedMonsters.contains(monsterYounger)) break;
     		}

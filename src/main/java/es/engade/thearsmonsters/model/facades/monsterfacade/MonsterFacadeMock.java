@@ -90,10 +90,4 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return true;
 	}
 
-	@Override
-    public List<Monster> findLairMonstersOrderedByAge(Lair lair)
-            throws InternalErrorException {
-	    return lair.getMonsters();
-    }
-
 }

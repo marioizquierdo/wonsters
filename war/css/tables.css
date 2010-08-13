@@ -88,7 +88,7 @@
 .table2 .trImpar { background-color: #eee; }
 .table2 .trPar { background-color: #fff; }
 
-.linkRows tbody tr:hover {
+table.rows_are_links tr:hover td {
 	color: #dd4411;
 	cursor: pointer;
 }

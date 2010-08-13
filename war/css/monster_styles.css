@@ -1,6 +1,6 @@
 
 
-/***** Monster of Lair (table) *****/
+/***** Lista de monstruos (Monsters of Lair) *****/
 table.monstersOfLair tr td img.monster_icon {
 	display: inline;
 	margin: 3px;
@@ -90,7 +90,7 @@ border:solid 1px;
 background-color:green;
 }
 
-/* „APA temporal del guille */
+/* arreglo temporal del guille */
 #monster_tasks .add_all_button{
 margin: 2px;
 width:17%;
@@ -112,7 +112,7 @@ width:10%;
 }
 
 
-/******** Detalles del mosntruo (ventana abajo) *********/
+/******** Detalles del mosntruo (ventana debajo del dibujo del monstruo) *********/
 
 #MonsterDetailsWrapper {
 	text-align: left;
