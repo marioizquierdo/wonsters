@@ -82,7 +82,7 @@
 	<div class="info_slot" style="${style}">
 		<customtag:icon id="${icon_id}" size="m" 
 				title="${icon_title}" 
-				style="margin: -1px 5px 0 0;"/>
+				style="margin: -1px 10px 0 0;"/>
 		
 		<div class="info_slot_content" style="${content_style}">
 			<c:if test="${!empty title}"><h3 class="info_slot_header">${title}</h3></c:if>

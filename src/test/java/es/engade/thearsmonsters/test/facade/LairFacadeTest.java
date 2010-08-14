@@ -284,13 +284,25 @@ public class LairFacadeTest extends GaeTest {
     
     @Test
     public void testLairsRanking() {
-    	LairRankingInfoChunk lairBlock = lairFacade.getLairsRanking(0, NUMBER_OF_USERS);
-    	assertEquals(NUMBER_OF_USERS, lairBlock.getElements().size());
+    	LairRankingInfoChunk ranking = lairFacade.getLairsRanking(0, NUMBER_OF_USERS);
+    	assertEquals(NUMBER_OF_USERS, ranking.getElements().size());
+    	assertEquals(NUMBER_OF_USERS, ranking.getSize());
+    	
+    	// verificar que están en orden ascendente
     	int lastScore = Integer.MAX_VALUE;
-    	for (LairInfo lairInfo : lairBlock.getElements()) {
+    	for (LairInfo lairInfo : ranking.getElements()) {
     		assert(lairInfo.getScore() <= lastScore);
     		lastScore = lairInfo.getScore();
     	}
+    	
+    	// verificar métodos auxiliares
+    	assertEquals(ranking.getFirst().getLogin(), ranking.getElements().get(0).getLogin());
+    	assertEquals(ranking.getLast().getLogin(), ranking.getElements().get(ranking.getSize() - 1).getLogin());
+    	assert(ranking.isUserIncluded(ranking.getFirst().getLogin()));
+    	assert(ranking.isUserIncluded(ranking.getLast().getLogin()));
+    	assert(!ranking.isUserIncluded("RandomNameThatDoesNotExists-d54qsa"));
+    	assertEquals(ranking.positionOfUser(ranking.getFirst().getLogin()), 1);
+    	assertEquals(ranking.positionOfUser(ranking.getLast().getLogin()), ranking.getSize());
     }
 
     @Test

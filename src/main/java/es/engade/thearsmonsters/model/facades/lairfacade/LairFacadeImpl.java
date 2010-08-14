@@ -244,7 +244,6 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
     }
     
     public LairRankingInfoChunk getLairsRanking(int startIndex, int count) {
-    	
     	List<Lair> lairs = lairDao.getLairsRanking(startIndex, count + 1);
     	List<LairInfo> lairInfos = new ArrayList<LairInfo>();
     	for (Lair lair : lairs) {
@@ -266,10 +265,10 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 //    	// Se pillan las guaridas del bloque, igual que en findBuilding(int street, int building) para ir tirando...
 //    	// También peta cuando se intenta cargar el user. findBuilding también peta, da un  NullPointerException
 //    	List<Lair> lairs = lairDao.findLairsByBuilding(0, 0); // de la coordenada (0,0) que ahi fijo que hay guaridas
-//    	List<LairRankingInfo> lairInfos = new ArrayList<LairRankingInfo>();
+//    	List<LairInfo> lairInfos = new ArrayList<LairInfo>();
 //        for (Lair lair : lairs) {
-//                LairRankingInfo lairInfo = new LairRankingInfo("yo que se", lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
-//                lairInfos.add(lairInfo);
+//        	LairInfo lairInfo = new LairInfo("yo que se", lair.getAddress(), lair.getGarbage(), lair.getMoney(), lair.getScore());
+//            lairInfos.add(lairInfo);
 //        }
 //    	return new LairRankingInfoChunk(lairInfos, false);
     }

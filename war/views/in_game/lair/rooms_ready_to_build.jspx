@@ -20,23 +20,20 @@
 		
 		<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
 			<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
-				<div>
+				<div class="room_price_and_buy_action">
 					<c:choose><c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
-						<ul>
-							<customtag:roomAction icon_id="25" action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}"
-								messageKey="Lair.room.actions.buildNewRoom">
-								(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
-									<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
-							</customtag:roomAction>
-						</ul>
+						<customtag:icon id="25" size="s" style="margin-right: 5px"/>
+						<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
+							<fmt:message key="Lair.room.actions.buildNewRoom"/>
+						</html:link>
+						(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
+							<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
 					</c:when><c:otherwise>
-						<div class="bold">
-							<customtag:icon id="19" size="s" style="margin-right: 5px"/>
-							<fmt:message key="FlashMessage.InsuficientGarbageException">
-								<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
-								<fmt:param><fmt:formatNumber value="${my.lair.garbage}"/></fmt:param>
-							</fmt:message>
-						</div>
+						<customtag:icon id="19" size="s" style="margin-right: 5px"/>
+						<fmt:message key="FlashMessage.InsuficientGarbageException">
+							<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
+							<fmt:param><fmt:formatNumber value="${my.lair.garbage}"/></fmt:param>
+						</fmt:message>
 					</c:otherwise></c:choose>
 				</div>
 			</customtag:info_message>

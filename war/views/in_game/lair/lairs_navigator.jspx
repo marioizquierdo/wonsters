@@ -79,7 +79,7 @@
 	
 		<div class="buildingView">
 		
-			<table class="table1 buildingTable">
+			<table class="table1 rows_are_links buildingTable">
 	
 			<tr>
 			    <th><fmt:message key="Building.floor"/></th>
@@ -90,17 +90,16 @@
 			</tr>
 			
 			<c:forEach items="${building.lairs}" var="lair" varStatus="loop">
+				<c:set var="parity_class" value="${((loop.index % 2) == 0) ? 'even' : 'odd'}"/>
+				<c:set var="is_my_lair_class" value="${(lair.login == my.login) ? 'myLair' : ''}" />
 				<c:url var="lairURL" value="/lair.do">
 					<c:param name="login" value="${lair.user.login}"/>
 				</c:url>
 				
 				<c:choose>
 				<c:when test="${!empty lair}">
-					<tr class="trContent 
-								${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}
-								${(lair == my.lair) ? ' myLair' : ''}"
-							onclick="document.location.href='${lairURL}';">
-						<td> <a href="${lairURL}"><c:out value="${loop.index}"/></a> </td>
+					<tr class="trContent ${parity_class} ${is_my_lair_class}" onclick="document.location.href='${lairURL}';">
+						<td> <c:out value="${loop.index}"/> </td>
 						<td> <a href="${lairURL}"><c:out value=" ${lair.user.login}"/></a> </td>
 					    <td> <fmt:formatNumber value="${lair.vitalSpaceOccupied}"/> </td>
 					    <td> <fmt:formatNumber value="${lair.money}"/> </td>
@@ -108,7 +107,7 @@
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<tr class="trEmpty ${((loop.index % 2) == 0) ? 'trPar' : 'trImpar'}">
+					<tr class="trEmpty ${parity_class}">
 		            	<td> <c:out value="${loop.index}"/> </td>
 						<td/><td/><td/><td/>
 		            </tr>

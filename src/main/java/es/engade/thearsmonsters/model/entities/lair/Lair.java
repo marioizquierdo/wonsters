@@ -199,6 +199,7 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		updateScore();
 		}
 	public User getUser() { return user; }
+	public String getLogin() { if(user == null) {return "null";} else {return user.getLogin();} }
 	public void setUser(User user) { this.user = user; }
 	public int getScore() { return score; }
 	// this method should be called by the IoC container

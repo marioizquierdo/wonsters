@@ -36,12 +36,6 @@
   <customtag:include_javascripts root="/javascript" files="
   		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib,
   		front_page_layout "/>
-  		
-  <![CDATA[
-  	<script type='text/javascript'>$(function(){ 
-  		$('#login').focus(); // give focus in the login form
-  	});</script>
-  ]]> 
 
   <![CDATA[
   <!--[if lt IE 7]>
@@ -66,8 +60,10 @@
 					<c:choose>
 					    <c:when test="${not empty my.lair}"> <!-- Cuando el usuario esta logeado pero entra igual en la portada -->
 					       <div id="loginWelcome">
-					           <span class="message"><fmt:message key="FrontPage.welcomeUser"><fmt:param value="${my.login}"/></fmt:message></span>
-					           <a href="/lair.do"><fmt:message key="FrontPage.goToLair"/></a> | <a href="/userprofile/logout.do"><fmt:message key="FrontPage.logout"/></a>
+					           <span class="message"><fmt:message key="FrontPage.loginWelcome.welcomeUser"><fmt:param value="${my.login}"/></fmt:message></span>
+					           <a href="/lair.do"><fmt:message key="FrontPage.loginWelcome.goToLair"/></a><c:out value=" - "/>  
+					           <c:set var="frontPageLogoutDesc"><fmt:message key="FrontPage.loginWelcome.logout.desc"/></c:set>
+					           <a href="/userprofile/logout.do" title="${frontPageLogoutDesc}"><fmt:message key="FrontPage.loginWelcome.logout"/></a>
 					       </div>
 				        </c:when>
 				        <c:otherwise>
@@ -81,7 +77,8 @@
                                         <html:errors property="password"/>
                                     </div>
                                     <![CDATA[<script type='text/javascript'>$(function(){
-                                        $('.loginErrors').slideDown('slow'); // jQuery effect for the login Errors
+                                    	$('#login').focus(); // give focus in the login form
+                                        $('.loginErrors').slideDown('slow'); // effect to show login errors if any
                                     });</script>]]> 
                                 </c:if>
                                 

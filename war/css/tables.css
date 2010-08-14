@@ -9,11 +9,7 @@
 	border-collapse: separate;
 	border-spacing: 0px;
 	background-color: white;
-	margin: 10px auto 10px auto;
-	color: black;
-}
-
-.table1 a {
+	margin: 10px auto;
 	color: black;
 }
 
@@ -35,14 +31,8 @@
 	border-left: 1px solid #ddd;
 	border-bottom: none;
 }
-
-.table1 .trImpar {
-	background-color: #ddd;
-}
-
-.table1 .trPar {
-	background-color: #fff;
-}
+.table1 tr.even { background-color: #fff; }
+.table1 tr.odd  { background-color: #ddd; }
 
 
 /*** Table2: con filas grises ***/
@@ -84,11 +74,10 @@
 	border-bottom: none;
 	padding: 5px;
 }
+.table2 tr.even { background-color: #fff; }
+.table2 tr.odd  { background-color: #eee; }
 
-.table2 .trImpar { background-color: #eee; }
-.table2 .trPar { background-color: #fff; }
-
-table.rows_are_links tr:hover td {
+table.table2.rows_are_links tr:hover td {
 	color: #dd4411;
 	cursor: pointer;
 }

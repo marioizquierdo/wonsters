@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionMapping;
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairRankingInfoChunk;
+import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -29,7 +30,7 @@ public class ShowLairsRanking extends ThearsmonstersDefaultAction {
     	
         
         /* Get raking. */
-        LairRankingInfoChunk ranking = lairFacade.getLairsRanking(0, 100); // top 100
+        LairRankingInfoChunk ranking = lairFacade.getLairsRanking(0, GameConf.getLairsRankingDepth()); // get top 100 players 
 		
 		/* Set request attributes */
 		request.setAttribute("ranking", ranking);

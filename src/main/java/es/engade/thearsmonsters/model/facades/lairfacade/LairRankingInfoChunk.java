@@ -4,19 +4,14 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class LairRankingInfoChunk {
 
 	private Hashtable<String, LairInfo> lairsHash;
 	private List<LairInfo> lairs;
 	private boolean hasMoreElements;
-	
-	public List<LairInfo> getElements() {
-		return lairs;
-	}
-	public boolean hasMoreElements() {
-		return hasMoreElements;
-	}
+
 	
 	public LairRankingInfoChunk(List<LairInfo> lairs, boolean hasMoreElements) {
 		lairsHash = new Hashtable<String, LairInfo>();
@@ -27,14 +22,37 @@ public class LairRankingInfoChunk {
 		this.hasMoreElements = hasMoreElements;
 	}
 	
-	// Devuelve true si el usuario con ese login está incluido en el ranking
-	public boolean isUserIncluded(String login) {
-		return lairsHash.contains(login);
-	}	
+	public List<LairInfo> getElements() {
+		return lairs;
+	}
+	public boolean hasMoreElements() {
+		return hasMoreElements;
+	}
 	
-	// isUserIncluded(String login) JSTL wrapper 
-	// para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
-	// Devuelve un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
+	public int getSize() {
+		return lairs.size();
+	}
+	
+	public LairInfo getFirst() {
+		return lairs.get(0);
+	}
+	
+	public LairInfo getLast() {
+		return lairs.get(lairs.size() - 1);
+	}
+	
+	/** 
+	 * Devuelve true si el usuario con ese login está incluido en el ranking
+	 * @param login nombre del usuario
+	 */
+	public boolean isUserIncluded(String login) {
+		return lairsHash.containsKey(login);
+	}
+	
+	/** isUserIncluded(String login) JSTL wrapper.
+	 * para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
+	 * @return un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
+	 */
 	@SuppressWarnings("serial")
     public Map<String, Boolean> getUserIncluded() {
 		return new HashMap<String, Boolean>() {
@@ -44,19 +62,24 @@ public class LairRankingInfoChunk {
 		};
 	}
 	
-	// Devueve la posicion del usuario ranking.positionOfUser, o -1 si no esta incluido en la lista.
+	/**
+	 *  Devueve la posicion del usuario ranking.positionOfUser empezando desde 1 (el primero es 1, no 0),
+	 *  o -1 si no esta incluido en la lista.
+	 */
 	public int positionOfUser(String login) {
 		LairInfo lair = lairsHash.get(login);
 		if (lair == null) {
 			return -1;
 		} else {
-			return lairs.indexOf(lair);
+			return lairs.indexOf(lair) + 1; // hay que sumarle 1 porque el ranking no es zero-based-index.
 		}
 	}
 	
-	// positionOfUser(String login) JSTL wrapper
-	// para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
-	// Devuelve un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
+	/**
+	 * positionOfUser(String login) JSTL wrapper.
+	 * para poder invocarlo desde JSTL (ya que no permite getters con parámetros)
+	 * @return un Hash con el método get modificado, de esta forma usamos el key del get para pasarlo como parámetro al método.
+	 */
 	@SuppressWarnings("serial")
     public Map<String, Integer> getPositionOfUser() {
 		return new HashMap<String, Integer>() {

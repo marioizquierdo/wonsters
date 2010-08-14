@@ -19,10 +19,39 @@
 		search_lairs: Lair.searchLairs => /lair.do?lairWindow_selected_tag=search_lairs">
 	
 	<customtag:window_content for_tag="ranking">
-		<customtag:info_message titleKey="Ranking.index.info.title" 
-			key="Ranking.index.info.desc" status="INFO" icon_id="13" style="margin: 20px;"/>
+		
+		<!-- Info sobre el ranking -->
+		<c:set var="ranking_info_title"><fmt:message key="Ranking.index.info.title"><fmt:param value="${ranking.size}"/></fmt:message></c:set>
+		<customtag:info_message title="${ranking_info_title}" icon_id="13" style="margin-bottom: 0">
+			<fmt:message key="Ranking.index.info.desc"><fmt:param value="${ranking.size}"/></fmt:message>
+		</customtag:info_message>
+		
+		<!-- Info sobre la posicion del usuario en el ranking -->
+		<c:choose><c:when test="${ranking.userIncluded[my.login]}">
+			<c:set var="my_position" value="${ranking.positionOfUser[my.login]}"/>
+			<c:choose><c:when test="${my_position == 1}"><!-- Si eres el numero 1 -->
+				<customtag:info_message icon_id="5">
+					<fmt:message key="Ranking.index.userInfo.inRankingNumberOne"/>
+				</customtag:info_message>
+			</c:when><c:otherwise> <!-- Si estas entre los mejore ranking.size jugadores -->
+				<customtag:info_message icon_id="6">
+					<fmt:message key="Ranking.index.userInfo.inRanking">
+						<fmt:param value="${my_position}"/>
+						<fmt:param value="${my.lair.score}"/>
+					</fmt:message>
+				</customtag:info_message>
+			</c:otherwise></c:choose>
+		</c:when><c:otherwise> <!-- Si estas fuerisima del ranking -->
+			<customtag:info_message icon_id="11">
+				<fmt:message key="Ranking.index.userInfo.outOfRanking">
+					<fmt:param value="${my.lair.score}"/>
+					<fmt:param value="${ranking.last.score}"/>
+					<fmt:param value="${ranking.size}"/>
+					<fmt:param value=""/>
+				</fmt:message></customtag:info_message>
+		</c:otherwise></c:choose>
 			
-		<table class="table2 rankingTable">
+		<table class="table2 float_left rankingTable">
 	
 			<tr>
 				<th><fmt:message key="Ranking.lairInfo.position"/></th>
@@ -34,15 +63,14 @@
 			</tr>
 			
 			<c:forEach items="${ranking.elements}" var="lair" varStatus="loop">
+				<c:set var="parity_class" value="${((loop.index % 2) == 0) ? 'even' : 'odd'}"/>
+				<c:set var="is_myLair_class" value="${(lair.login == my.login) ? 'myLair' : ''}" />
 				<c:url var="lairURL" value="/lair.do">
 					<c:param name="login" value="${lair.login}"/>
 				</c:url>
 				
-				<c:set var="parity_class" value="${((loop.index % 2) == 0) ? 'trPar' : 'trImpar myLair'}"/>
-				<c:set var="is_my_lair" value="${lair.login == my.login}" />
-				<tr class="trContent ${parity_class} ${is_my_lair ? ' myLair' : ''}"
-						onclick="document.location.href='${lairURL}';">
-					<td> <c:out value="${loop.index + 1}"/> </td>
+				<tr class="${parity_class} ${is_myLair_class}" onclick="document.location.href='${lairURL}';">
+					<td> <c:out value="#${loop.index + 1}"/> </td>
 					<td> <a href="${lairURL}"><c:out value="${lair.login}"/></a> </td>
 					<td> <a href="${lairURL}"><c:out value="${lair.address}"/></a> </td>
 				    <td> <fmt:formatNumber value="${lair.garbage}"/> </td>
