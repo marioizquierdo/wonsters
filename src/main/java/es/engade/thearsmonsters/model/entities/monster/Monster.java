@@ -384,6 +384,9 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 			throw new IllegalArgumentException("the value of the param timestamp can not be before freeTurnsTimestamp."); 
 		}
 		
+		// Los monstruos muertos no tienen turnos libres.
+		if(getAge() == MonsterAge.Dead) return 0;
+		
 		int turnsPerDay = 15 - this.taskHours(); // turnos acumulados cada día
 		double daysFromTimestamp = DateTools.daysBetween(this.freeTurnsTimestamp, timestamp);
 		

@@ -69,7 +69,7 @@
 					<c:param name="login" value="${lair.login}"/>
 				</c:url>
 				
-				<tr class="${parity_class} ${is_myLair_class}" onclick="document.location.href='${lairURL}';">
+				<tr class="${parity_class} ${is_myLair_class}">
 					<td> <c:out value="#${loop.index + 1}"/> </td>
 					<td> <a href="${lairURL}"><c:out value="${lair.login}"/></a> </td>
 					<td> <a href="${lairURL}"><c:out value="${lair.address}"/></a> </td>

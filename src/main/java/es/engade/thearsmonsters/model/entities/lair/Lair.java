@@ -2,6 +2,7 @@ package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import com.google.appengine.api.datastore.Key;
 import es.engade.thearsmonsters.model.entities.common.ThearsmonstersEntity;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
@@ -56,10 +58,13 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
     @Persistent
     private int score;
     
-    @Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
+    //@Persistent // TODO: Diego, añade persistencia, y coméntame como se hace bien.
+    private List<MonsterRace> unlockedMonsterRaces; // Para cada raza, true = desbloqueada, false = bloqueada.
+
+	@Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
     private User user;
     
-    @Persistent(serialized="true",defaultFetchGroup="true")
+    @Persistent(serialized="true", defaultFetchGroup="true")
     private RoomData roomData;
     
     @Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
@@ -78,10 +83,14 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
         this.rooms = new ArrayList<Room>();
         this.monsters = new ArrayList<Monster>();
         this.monsterEggs = new ArrayList<MonsterEgg>();
+        
+        this.unlockedMonsterRaces = new ArrayList<MonsterRace>();
+        this.score = 0;
     }
     
 	public Lair(User user, int money, int garbage,
     		RoomData roomData, int street, int building, int floor) {
+		this();
         this.user = user;
         this.money = money;
         this.garbage = garbage;
@@ -89,9 +98,6 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
         this.setAddressStreet(street);
         this.setAddressBuilding(building);
         this.setAddressFloor(floor);
-        this.rooms = new ArrayList<Room>();
-        this.monsters = new ArrayList<Monster>();
-        this.monsterEggs = new ArrayList<MonsterEgg>();
     }
 	
 	
@@ -177,9 +183,32 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		return newRoomsAvaliable;
 	}
 	
+	/**
+	 * Algortmo que calcula la puntuación de un jugador.
+	 * Se debe invocar cada vez que se modifique algo en la guarida que tenga impacto en la puntuación
+	 * (subir de nivel una guarida o desbloquear otra raza de monstruo).
+	 */
 	public int updateScore() {
-		// TODO: whatever...
-		this.score = money + garbage;
+		int score = 0;
+		int roomScore;
+		
+		// Salas: por cada sala, se suma el precio en basura que costó su última ampliación.
+		for(Room room: rooms) {
+			roomScore = room.getGarbageUpgradeWhenLevel(room.getLevel() - 1);
+			//System.out.println("roomScore = "+ roomScore + ", "+ room.getRoomType() + " de nivel " + room.getLevel());
+			score += (roomScore < 0) ? 0 : roomScore; // asegurarse que nunca resta
+		}
+		
+		// Monstruos: lo suyo sería poner puntos según cuantos monstruos haya en la guarida (y su raza, o lo que sea)
+		// sin embargo, como la base de datos es inconsistente cuando los bichos palman, no se puede tener en cuenta esto.
+		// Lo que se hace es sumar el dinero que cuesta una raza, por cada raza nueva desbloqueada.
+		for(MonsterRace unlockedRace: getUnlockedMonsterRaces()) {
+			score += unlockedRace.getBuyEggPrice();
+			//System.out.println("monsterScore = "+ unlockedRace.getBuyEggPrice() + ", "+ unlockedRace);
+		}
+		
+		this.score = score;
+		System.out.println("score TOTAL: "+ this.score);
 		return score;
 	}
 	
@@ -189,42 +218,47 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public Key getIdKey() { return id; }
 	public void setIdKey(Key lairId) { this.id = lairId; }
 	public int getMoney() { return money; }
-	public void setMoney(int money) {
-		this.money = money;
-		updateScore();
-		}
+	public void setMoney(int money) { this.money = money; }
 	public int getGarbage() { return garbage; }
-	public void setGarbage(int garbage) {
-		this.garbage = garbage;
-		updateScore();
-		}
+	public void setGarbage(int garbage) { this.garbage = garbage; }
 	public User getUser() { return user; }
 	public String getLogin() { if(user == null) {return "null";} else {return user.getLogin();} }
 	public void setUser(User user) { this.user = user; }
 	public int getScore() { return score; }
-	// this method should be called by the IoC container
-	public void setScore(int score) { updateScore(); }
+	public void setScore(int score) { this.score = score; } // this method should be called by the IoC container. You must use updateScore() instead.
+	/**
+	 * List of monster races which is yet unlocked (the user can buy eggs of this type).
+	 * This list is read-only. To add one more race to the list, please, use the method lair.unlockMonsterRace(MonsterRace race);
+	 * @return
+	 */
+    public List<MonsterRace> getUnlockedMonsterRaces() { // TODO: (pa Diego) se devuelven siempre desbloqueadas las razas Bu y Polbo. Hay que darle comportamiento real (persistencia).
+    	// La implementación de este método debería ser algo así
+    	// return Collections.unmodifiableList(unlockedMonsterRaces); // Devuelve una lista de solo lectura. Probar si esto es aceptable para JDO.
+    	// El código de abajo es temporal para ir trabajando en la vista mientras la lista unlockedMonsterRaces no sea persistente.
+    	
+    	List<MonsterRace> umRaces = new ArrayList<MonsterRace>();
+    	umRaces.add(MonsterRace.Bu);
+    	umRaces.add(MonsterRace.Polbo);
+    	return Collections.unmodifiableList(umRaces); 
+    }
+	public void setUnlockedMonsterRaces(List<MonsterRace> unlockedMonsterRaces) { this.unlockedMonsterRaces = unlockedMonsterRaces; }
+	public void unlockMonsterRace(MonsterRace race) { unlockedMonsterRaces.add(race); updateScore(); }
 	
 	//------- Address getters and setters -------//
 	public Address getAddress() { return new Address(this.addressStreet, this.addressBuilding, this.addressFloor); }
 	public void setAddress(Address address) { this.addressStreet = address.getStreet(); this.addressBuilding = address.getBuilding(); this.addressFloor = address.getFloor(); }
 	public int getAddressStreet() { return addressStreet; }
 	public void setAddressStreet(int street) { 
-	    if (!Address.checkStreet(street))
-            throw new IncorrectAddressException(street, addressBuilding, addressFloor);
+	    if (!Address.checkStreet(street)) throw new IncorrectAddressException(street, addressBuilding, addressFloor);
 	    this.addressStreet = street; }
 	public int getAddressBuilding() { return addressBuilding; }
 	public void setAddressBuilding(int building) {
-	    if (!Address.checkBuilding(building))
-            throw new IncorrectAddressException(addressStreet, building, addressFloor);
-	    this.addressBuilding = building; 
-	}
+	    if (!Address.checkBuilding(building)) throw new IncorrectAddressException(addressStreet, building, addressFloor);
+	    this.addressBuilding = building; }
 	public int getAddressFloor() { return addressFloor; }
 	public void setAddressFloor(int floor) { 
-	    if (!Address.checkFloor(floor))
-            throw new IncorrectAddressException(addressStreet, addressBuilding, floor);
-	    this.addressFloor = floor; 
-	}
+	    if (!Address.checkFloor(floor)) throw new IncorrectAddressException(addressStreet, addressBuilding, floor);
+	    this.addressFloor = floor; }
 	
 	// getters and setters delegated to roomData
     public int getVitalSpaceOccupied() { return roomData.getVitalSpaceOccupied(); }

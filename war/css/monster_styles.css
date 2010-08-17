@@ -1,12 +1,11 @@
 
 
 /***** Lista de monstruos (Monsters of Lair) *****/
-table.monstersOfLair tr td img.monster_icon {
+table#monstersOfLair tr td img.monster_icon {
 	display: inline;
 	margin: 3px;
 }
-
-table.monstersOfLair tr td.without.freeTurns { color: #933;}
+table#monstersOfLair tr td.without.freeTurns { color: #933; }
 
 /******** Monster ********/
 

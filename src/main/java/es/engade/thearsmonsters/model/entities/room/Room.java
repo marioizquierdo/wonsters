@@ -36,9 +36,6 @@ public class Room extends ThearsmonstersEntity implements Serializable {
     @Persistent
     protected int level;
     
-    @Persistent
-    protected int size;
-    
     @Persistent(serialized="true",defaultFetchGroup="true")
     protected RoomPublicAccess publicAccess;
     
@@ -60,7 +57,6 @@ public class Room extends ThearsmonstersEntity implements Serializable {
         this.lair = lair;
         this.type = type;
         this.level = level;
-        this.size = 1; // Size not used in this version
         
         this.publicAccess = publicAccess;
         this.state = state;
@@ -80,14 +76,7 @@ public class Room extends ThearsmonstersEntity implements Serializable {
 
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
+		this.getLair().updateScore(); // al modificar el nivel de una sala, cambia la puntuación del usuario.
 	}
 
 	public RoomPublicAccess getPublicAccess() {
@@ -283,7 +272,6 @@ public class Room extends ThearsmonstersEntity implements Serializable {
         result = prime * result + level;
         result = prime * result
                 + ((publicAccess == null) ? 0 : publicAccess.hashCode());
-        result = prime * result + size;
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         return result;
     }
@@ -308,8 +296,6 @@ public class Room extends ThearsmonstersEntity implements Serializable {
             if (other.publicAccess != null)
                 return false;
         } else if (!publicAccess.equals(other.publicAccess))
-            return false;
-        if (size != other.size)
             return false;
         if (state == null) {
             if (other.state != null)

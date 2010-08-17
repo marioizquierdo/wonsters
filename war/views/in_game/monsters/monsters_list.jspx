@@ -23,7 +23,7 @@
 		</div>
 	
 	</c:when><c:otherwise><!-- cuando hay monstruos -->
-		<table class="table2 rows_are_links monstersOfLair">
+		<table id="monstersOfLair" class="table2 rows_are_links">
 			<tr>
 			    <th><fmt:message key="Monster.race"/></th>
 			    <th><fmt:message key="Monster.name"/></th>
@@ -40,7 +40,7 @@
 			    <tr class="${parity_class}" onclick="document.location.href='${monsterURL}';">
 			    	<td class="race"><customtag:monster_image race="${monster.race}"/></td>
 			    	<td class="name">${monster.name}</td>
-			    	<td class="age">${monster.age}</td>
+			    	<td class="age"><fmt:message key="Monster.age.${monster.age}"/></td>
 			    	<td class="bestWorkSkill"><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</td>
 			    	<td class="freeTurns ${(monster.freeTurns == 0) ? 'without' : '' }">${monster.freeTurns}</td>
 			    </tr>

@@ -161,12 +161,18 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         MonsterEgg egg = lair.getMonsterEgg(eggId); // Se supone que la lair está actualizada
         
         // Pone el huevo a incubar fijando su fecha de nacimiento (date)
-        egg.setBorningDate();
+        egg.setBorningDate(); // A partir de ahora el huevo esperará en estado de "incubación"
+        
+        // En esta versión alfa, las razas no se desbloquean en las misiones, simplemente se desbloquean cuando el usuario
+        // incuba el primer huevo de esa raza. Y por ahora las razas desbloqueadas se usan solo para el ranking.
+        lair.unlockMonsterRace(egg.getRace());
+        
+        // guardar cambios
         userDao.update(lair.getUser());
 //        monsterEggDao.update(egg);
         
-        // A partir de ahora el huevo esperará en estado de "incubación"
-
+        
+        
     }
 
     public Monster metamorphosisToAdult(Lair lair, String monsterIdAsString)
