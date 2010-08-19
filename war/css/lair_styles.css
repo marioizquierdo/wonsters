@@ -1,70 +1,84 @@
 
-/*** Room images ***/
+/*** Rooms of the lair ***/
 
-.MainMonster 						{ background-image: url(../images/buildings/eyeOfTheLife.jpg); }
-.MainMonster_BIG 					{ background-image: url(../images/buildings/eyeOfTheLife_BIG.jpg); }
-.Warehouse							{ background-image: url(../images/buildings/warehouse.jpg); }
-.Warehouse_BIG 						{ background-image: url(../images/buildings/warehouse_BIG.jpg); }
-.Warehouse.roomInWorks      		{ background-image: url(../images/buildings/warehouse_inWorks.jpg); }
-.TradeOffice 						{ background-image: url(../images/buildings/tradeOffice.jpg); }
-.TradeOffice_BIG 					{ background-image: url(../images/buildings/tradeOffice_BIG.jpg); }
-.TradeOffice.roomInWorks    		{ background-image: url(../images/buildings/tradeOffice_inWorks.jpg); }
-.TruffleFarm 						{ background-image: url(../images/buildings/truffleFarm.jpg); }
-.TruffleFarm_BIG 					{ background-image: url(../images/buildings/truffleFarm_BIG.jpg); }
-.TruffleFarm.roomInWorks    		{ background-image: url(../images/buildings/truffleFarm_inWorks.jpg); }
-.Dormitories 						{ background-image: url(../images/buildings/dormitories.jpg); }
-.Dormitories_BIG 					{ background-image: url(../images/buildings/dormitories_BIG.jpg); }
-.Dormitories.roomInWorks    		{ background-image: url(../images/buildings/dormitories_inWorks.jpg); }
-.MetalLeisureRoom 					{ background-image: url(../images/buildings/metalLeisureRoom.jpg); }
-.MetalLeisureRoom_BIG 				{ background-image: url(../images/buildings/metalLeisureRoom_BIG.jpg); }
-.MetalLeisure.roomInWorks   		{ background-image: url(../images/buildings/metalLeisureRoom_inWorks.jpg); }
-.ChillOutLeisureRoom 				{ background-image: url(../images/buildings/chillOutLeisureRoom.jpg); }
-.ChillOutLeisureRoom_BIG 			{ background-image: url(../images/buildings/chillOutLeisureRoom_BIG.jpg); }
-.ChillOutLeisureRoom.roomInWorks 	{ background-image: url(../images/buildings/chillOutLeisureRoom_inWorks.jpg); }
-.TechnoLeisureRoom 					{ background-image: url(../images/buildings/technoLeisureRoom.jpg); }
-.TechnoLeisureRoom_BIG 				{ background-image: url(../images/buildings/technoLeisureRoom_BIG.jpg); }
-.TechnoLeisure.roomInWorks      	{ background-image: url(../images/buildings/technoLeisureRoom_inWorks.jpg); }
-.ReggaetonLeisureRoom 				{ background-image: url(../images/buildings/reggaetonLeisureRoom.jpg); }
-.ReggaetonLeisureRoom_BIG 			{ background-image: url(../images/buildings/reggaetonLeisureRoom_BIG.jpg); }
-.ReggaetonLeisureRoom.roomInWorks 	{ background-image: url(../images/buildings/reggaetonLeisureRoom_inWorks.jpg); }
-.IndieRockLeisureRoom 				{ background-image: url(../images/buildings/indieRockLeisureRoom.jpg); }
-.IndieRockLeisureRoom_BIG 			{ background-image: url(../images/buildings/indieRockLeisureRoom_BIG.jpg); }
-.IndieRockLeisureRoom.roomInWorks   { background-image: url(../images/buildings/indieRockLeisureRoom_inWorks.jpg); }
-.Gym 								{ background-image: url(../images/buildings/gym.jpg); }
-.Gym_BIG 							{ background-image: url(../images/buildings/gym_BIG.jpg); }
-.Gym.roomInWorks      				{ background-image: url(../images/buildings/gym_inWorks.jpg); }
-.Classroom 							{ background-image: url(../images/buildings/classroom.jpg); }
-.Classroom_BIG 						{ background-image: url(../images/buildings/classroom_BIG.jpg); }
-.Classroom.roomInWorks      		{ background-image: url(../images/buildings/classroom_inWorks.jpg); }
-.TrainingRoom 						{ background-image: url(../images/buildings/trainingRoom.jpg); }
-.TrainingRoom_BIG 					{ background-image: url(../images/buildings/trainingRoom_BIG.jpg); }
-.TrainingRoom.roomInWorks 			{ background-image: url(../images/buildings/trainingRoom_inWorks.jpg); }
-.Nursery 							{ background-image: url(../images/buildings/nursery.jpg); } 
-.Nursery_BIG 						{ background-image: url(../images/buildings/nursery_BIG.jpg);}
-.Nursery.roomInWorks     			{ background-image: url(../images/buildings/nursery_inWorks.jpg); }
-.emptyLair 							{ background-image: url(../images/buildings/emptyLair.jpg); }
-.elevator 							{ background-image: url(../images/buildings/elevator.jpg); }
+ul#rooms { float: left; clear: both; margin: 15px 0  20px 42px; padding: 0; list-style: none; }
+ul#rooms li { float: left; cursor: pointer; background: no-repeat 0 0; }
+ul#rooms li.room { width: 75px; padding: 100px 0 0 0; margin: 0; }
+ul#rooms li.room:hover { background-position: -75px 0; }
+ul#rooms li.end_of_lair  { width: 20px; height: 100px; cursor: default; }
+ul#rooms li.end_of_lair.left  { background-image: url('/images/buildings/endOfLairLeft.jpg'); }
+ul#rooms li.end_of_lair.right { background-image: url('/images/buildings/endOfLairRight.jpg'); }
+ul#rooms li.room div.inWorks_effortDone_progressBar { float: left; width: 65px; height: 2px; margin: 2px 5px 0 5px; background-color: #ccf; }
+ul#rooms li.room div.inWorks_effortDone_progressBar .progress { float: left; height: 2px; background-color: #669; } /* widht is inline style, depending on % completed */
+ul#rooms li.room p { float: left; width: 100%; text-algin: center; font-size: 10px; color: #339; }
 
+ul#rooms li.room.elevator 						{ background-image: url(/images/buildings/elevator.jpg); }
+ul#rooms li.room.elevator:hover					{ background-position: 0 0; }
+ul#rooms li.room.for_empty_lair 				{ background-image: url(/images/buildings/emptyLair.jpg); }
 
-/*** Lair layout ***/
+ul#rooms li.room.MainMonster 					{ background-image: url(/images/buildings/eyeOfTheLife.jpg); }
+.MainMonster_BIG 								{ background-image: url(/images/buildings/eyeOfTheLife_BIG.jpg); }
 
-.lairBox { float: left; clear: both; margin-bottom: 10px; margin-left: 42px; }
-.lairBox a { color: #003; text-decoration: none; }
-.lairBackgrounds { margin-top: 15px; margin-bottom: 20px; }
-.lairRoom { width: 75px; float: left; font-size: 10px; cursor: pointer; background-position: 0 0; }
-.lairRoom:hover { background-position: 75px 0; }
-.lairBackgrounds .lairRoom { height: 100px; }
-.endOfLair { width: 20px; float: left; }
-.lairBackgrounds .endOfLairLeft { background: url(../images/buildings/endOfLairLeft.jpg) no-repeat; height: 100px; }
-.lairBackgrounds .endOfLairRight { background: url(../images/buildings/endOfLairRight.jpg) no-repeat; height: 100px; }
+ul#rooms li.room.Warehouse						{ background-image: url(/images/buildings/warehouse.jpg); }
+ul#rooms li.room.Warehouse.inWorks      		{ background-image: url(/images/buildings/warehouse_inWorks.jpg); }
+.Warehouse_BIG 									{ background-image: url(/images/buildings/warehouse_BIG.jpg); }
+
+ul#rooms li.room.TradeOffice 					{ background-image: url(/images/buildings/tradeOffice.jpg); }
+ul#rooms li.room.TradeOffice.inWorks    		{ background-image: url(/images/buildings/tradeOffice_inWorks.jpg); }
+.TradeOffice_BIG 								{ background-image: url(/images/buildings/tradeOffice_BIG.jpg); }
+
+ul#rooms li.room.TruffleFarm 					{ background-image: url(/images/buildings/truffleFarm.jpg); }
+ul#rooms li.room.TruffleFarm.inWorks    		{ background-image: url(/images/buildings/truffleFarm_inWorks.jpg); }
+.TruffleFarm_BIG 								{ background-image: url(/images/buildings/truffleFarm_BIG.jpg); }
+
+ul#rooms li.room.Dormitories 					{ background-image: url(/images/buildings/dormitories.jpg); }
+ul#rooms li.room.Dormitories.inWorks    		{ background-image: url(/images/buildings/dormitories_inWorks.jpg); }
+.Dormitories_BIG 								{ background-image: url(/images/buildings/dormitories_BIG.jpg); }
+
+ul#rooms li.room.MetalLeisureRoom 				{ background-image: url(/images/buildings/metalLeisureRoom.jpg); }
+ul#rooms li.room.MetalLeisure.inWorks   		{ background-image: url(/images/buildings/metalLeisureRoom_inWorks.jpg); }
+.MetalLeisureRoom_BIG 							{ background-image: url(/images/buildings/metalLeisureRoom_BIG.jpg); }
+
+ul#rooms li.room.ChillOutLeisureRoom 			{ background-image: url(/images/buildings/chillOutLeisureRoom.jpg); }
+ul#rooms li.room.ChillOutLeisureRoom.inWorks 	{ background-image: url(/images/buildings/chillOutLeisureRoom_inWorks.jpg); }
+.ChillOutLeisureRoom_BIG 						{ background-image: url(/images/buildings/chillOutLeisureRoom_BIG.jpg); }
+
+ul#rooms li.room.TechnoLeisureRoom 				{ background-image: url(/images/buildings/technoLeisureRoom.jpg); }
+ul#rooms li.room.TechnoLeisure.inWorks      	{ background-image: url(/images/buildings/technoLeisureRoom_inWorks.jpg); }
+.TechnoLeisureRoom_BIG 							{ background-image: url(/images/buildings/technoLeisureRoom_BIG.jpg); }
+
+ul#rooms li.room.ReggaetonLeisureRoom 			{ background-image: url(/images/buildings/reggaetonLeisureRoom.jpg); }
+ul#rooms li.room.ReggaetonLeisureRoom.inWorks 	{ background-image: url(/images/buildings/reggaetonLeisureRoom_inWorks.jpg); }
+.ReggaetonLeisureRoom_BIG 						{ background-image: url(/images/buildings/reggaetonLeisureRoom_BIG.jpg); }
+
+ul#rooms li.room.IndieRockLeisureRoom 			{ background-image: url(/images/buildings/indieRockLeisureRoom.jpg); }
+ul#rooms li.room.IndieRockLeisureRoom.inWorks 	{ background-image: url(/images/buildings/indieRockLeisureRoom_inWorks.jpg); }
+.IndieRockLeisureRoom_BIG 						{ background-image: url(/images/buildings/indieRockLeisureRoom_BIG.jpg); }
+
+ul#rooms li.room.Gym 							{ background-image: url(/images/buildings/gym.jpg); }
+ul#rooms li.room.Gym.inWorks      				{ background-image: url(/images/buildings/gym_inWorks.jpg); }
+.Gym_BIG 										{ background-image: url(/images/buildings/gym_BIG.jpg); }
+
+ul#rooms li.room.Classroom 						{ background-image: url(/images/buildings/classroom.jpg); }
+ul#rooms li.room.Classroom.inWorks      		{ background-image: url(/images/buildings/classroom_inWorks.jpg); }
+.Classroom_BIG 									{ background-image: url(/images/buildings/classroom_BIG.jpg); }
+
+ul#rooms li.room.TrainingRoom 					{ background-image: url(/images/buildings/trainingRoom.jpg); }
+ul#rooms li.room.TrainingRoom.inWorks 			{ background-image: url(/images/buildings/trainingRoom_inWorks.jpg); }
+.TrainingRoom_BIG 								{ background-image: url(/images/buildings/trainingRoom_BIG.jpg); }
+
+ul#rooms li.room.Nursery 						{ background-image: url(/images/buildings/nursery.jpg); } 
+ul#rooms li.room.Nursery.inWorks     			{ background-image: url(/images/buildings/nursery_inWorks.jpg); }
+.Nursery_BIG 									{ background-image: url(/images/buildings/nursery_BIG.jpg);}
+
 
 
 /*** Room details (roomAttributes) ***/
 
 #roomAttributes { margin-top: 10px; text-align: left; }
 .lairRoomBackground { background-color: white; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; }
-.roomAttributes_description { float: left; margin: 5px 50px 5px 10px; width: 700px; }
-.roomAttributes_description .roomAttributes_brief { float: left; padding-left:20px; background-position: top left; background-image: url(../images/theme/icons/godmonster.png); background-repeat: no-repeat; }
+.roomAttributes_description { float: left; width: 600px; margin: 5px 50px 5px 10px; color: #667; }
+.roomAttributes_description .roomAttributes_brief { float: left; padding-left:20px; background: url(../images/theme/icons/godmonster.png) no-repeat 0 3px; }
 .roomAttributes_info,
 .roomAttributes_actions { margin-top: 0.6em; margin-left: 10px; float: left; }
 .roomAttributes_info { width: 200px; }

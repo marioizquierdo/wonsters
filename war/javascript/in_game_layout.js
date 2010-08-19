@@ -16,7 +16,7 @@ $( function() {
 		defaultPosition: 'left',
 		fadeIn: 50
 	});
-	$('.lairRoom').tipTip({
+	$('.room').tipTip({
 		delay: 1000,
 		defaultPosition: 'bottom',
 		fadeIn: 200

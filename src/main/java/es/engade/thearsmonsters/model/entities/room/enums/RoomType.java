@@ -105,7 +105,8 @@ public enum RoomType {
 	
 	
 	/**
-	 * Factroy method.
+	 * Factroy method. Creates new Room in its initial state, but do not add it to the lair.
+	 * If you want to create a new room in a lair, use lair.buildRoom(RoomType).
 	 * @return a new instance of a Room at its initial state, depending on this RoomType.
 	 */
 	public Room build(Lair lair) {
@@ -114,7 +115,7 @@ public enum RoomType {
 		int initialLevel;
 		
 		// MainMonster y Dormitories starts in normal state,
-		// the other rooms starts in works state: monsters must to build them.
+		// the other rooms starts in works state: monsters must build them.
 		if(this.equals(MainMonster) || this.equals(Dormitories)) {
 			state = new RoomNormalState();
 			initialLevel = 1;

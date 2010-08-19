@@ -40,65 +40,35 @@
 		search_lairs: Lair.searchLairs" >
 	
 	<customtag:window_content for_tag="lair">
-	<c:choose>
-	
-		<!-- Vista de la Guarida -->
-		<c:when test="${!empty lair}">
 		
-			<!-- Imagenes de las salas -->
-			<div class="lairBox lairBackgrounds">
+		<!-- Lista de salas -->
+		<ul id="rooms">
+		
+			<li class="end_of_lair left"><img src="/images/theme/empty_pixel.png"/></li>
 			
-				<div class="endOfLair endOfLairLeft"><img src="/images/theme/empty_pixel.png"/></div>
-				
-				<html:link action="lair.do?${lair_neighbors_params}">
-					<div class="lairRoom elevator"><img src="/images/theme/empty_pixel.png"/></div>
-			    </html:link>
+			<li class="room elevator">
+				<html:link action="lair.do?${lair_neighbors_params}"><img src="/images/theme/empty_pixel.png"/></html:link>
+			</li>
+			
+			<c:choose><c:when test="${!empty lair}">
 			    
 			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
-			    	<c:set var="roomTitle">
-			    		<div><fmt:message key="Lair.room.${room.roomType}"/></div>
-				    	<div><fmt:message key="Lair.room.level"/>: ${room.level}</div>
+			    	<c:set var="roomTitle"><fmt:message key="Lair.room.${room.roomType}"/></c:set>
+				    <li class="room ${room.roomType} ${room.inWorks ? 'inWorks' : ''}" title="${roomTitle}"
+				    		onClick="ThearsmonstersLib.showRoom('${room.roomType}');">
+				    	<p><fmt:message key="Lair.room.level"/> ${room.level}</p>
 				    	<c:if test="${room.inWorks}">
-				    		<div>
-					    		<c:choose><c:when test="${room.inInitialState}">
-					    			<fmt:message key="Lair.room.newRoom"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%</c:when>
-								<c:otherwise> <!-- Upgrading -->
-									<fmt:message key="Lair.room.inWorks"/>: <fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%</c:otherwise>
-								</c:choose>
-				    		</div>
+				    		<div class="inWorks_effortDone_progressBar"><span class="progress" style="width: ${room.effortDonePercentage}%;"><img src="/images/theme/empty_pixel.png"/></span></div>
 				    	</c:if>
-			    	</c:set>
-
-			    	<c:set var="roomInWorksCssClass" value=""/>
-			    	<c:if test="${room.inWorks}" >
-			    	    <c:set var="roomInWorksCssClass" value="roomInWorks"/>
-			    	</c:if>
-			    	
-				    <div class="lairRoom ${room.roomType} ${roomInWorksCssClass}" title="${roomTitle}" 
-				    	onClick="ThearsmonstersLib.showRoom('${room.roomType}');">
-				    	<img src="/images/theme/empty_pixel.png"/>
-				    </div>
+				    </li>
 				</c:forEach>
-				
-				<div class="endOfLair endOfLairRight"><img src="/images/theme/empty_pixel.png"/></div>
-			</div>
 			
-		</c:when>
-		
-		<!-- Vista de una Guarida vacia -->
-		<c:otherwise>
-			<div class="actionInfo_ERROR"><fmt:message key="${errorText}"/></div>
+			</c:when><c:otherwise> <!-- Room to show when there is no lair -->
+			    <li class="room for_empty_lair"><img src="/images/theme/empty_pixel.png"/></li>
+			</c:otherwise></c:choose>
 			
-			<div class="lairBox lairBackgrounds">
-				<div class="endOfLair endOfLairLeft"><img src="/images/theme/empty_pixel.png"/></div>
-			    <div class="lairRoom emptyLair">
-			    	<img src="/images/theme/empty_pixel.png"/>
-			    </div>
-				<div class="endOfLair endOfLairRight"><img src="/images/theme/empty_pixel.png"/></div>
-			</div>
-		    
-		</c:otherwise>
-	</c:choose>
+			<li class="end_of_lair right"><img src="/images/theme/empty_pixel.png"/></li>
+		</ul>
 	</customtag:window_content>
 	
 	<!-- Formulario para buscar guaridas -->

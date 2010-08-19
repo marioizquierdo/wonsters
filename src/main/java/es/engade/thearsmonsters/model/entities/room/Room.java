@@ -163,13 +163,18 @@ public class Room extends ThearsmonstersEntity implements Serializable {
 		return state.isInWorks();
 	}
 	
-	public int getEffortDone() throws InWorksException {
+	public int getEffortDone() {
 		return state.getEffortDone();
 	}
 	
-//	public WorksType getWorksType() throws InWorksException {
-//		return state.getWorksType();
-//	}
+	/**
+	 * @return integer between 0 and 100. Is the percentage of works done to reach room's next level. 
+	 */
+	public int getEffortDonePercentage() {
+		if(!isInWorks()) return 0;
+		int effortToNextLevel = isInInitialState() ? getEffortBuild() : getEffortUpgrade();
+		return 100 * getEffortDone() / effortToNextLevel;
+	}
 	
 	
 	/* ---------------- Room Type Methods ---------------- */
