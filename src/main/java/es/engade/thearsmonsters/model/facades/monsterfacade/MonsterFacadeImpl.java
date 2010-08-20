@@ -124,29 +124,69 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
 
     // Por defecto se ordenan por edad (de joven a viejo)
     public List<Monster> findLairMonsters(Lair lair) throws InternalErrorException {
+    	
+    	List<Monster> orderedChildMonsters = new ArrayList<Monster>();
+    	List<Monster> orderedAdultMonsters = new ArrayList<Monster>();
+    	List<Monster> orderedOldMonsters = new ArrayList<Monster>();
     	List<Monster> orderedMonsters = new ArrayList<Monster>();
-    	List<Monster> lairMonsters = lair.getMonsters(); // estos son los monstruos de esta guarida, que hay que ordenar por edad.
-    	Monster monsterYounger = null, monsterToCompare;
+    	List<Monster> orderedDeadMonsters = new ArrayList<Monster>();
+    	
+    	List<Monster> lairMonsters = lair.getMonsters(); // estos son los monstruos de esta guarida, que hay que ordenar por edad y MonsterAge.
+    	
+    	orderedChildMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Child);
+    	orderedAdultMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Adult);
+    	orderedOldMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Old);
+    	orderedDeadMonsters =  findLairOrderedMonstersByAge(lair,MonsterAge.Dead);
+    	
+    	orderedMonsters.addAll(orderedChildMonsters);
+    	orderedMonsters.addAll(orderedAdultMonsters);
+    	orderedMonsters.addAll(orderedOldMonsters);
+    	orderedMonsters.addAll(orderedDeadMonsters);
+    	
+    	return orderedMonsters;
+    }
+    
+    
+    public List<Monster> findLairOrderedMonstersByAge(Lair lair,MonsterAge age){
+    	
+    	List<Monster> lairMonsters = lair.getMonsters();
+    	List<Monster> lairMonstersByAge = new ArrayList<Monster>();
+    	List<Monster> lairOrderedMonstersByAge = new ArrayList<Monster>();
+    	Monster monster = null;
+    	for(int i=0;i<lairMonsters.size();i++) {
+    		monster = lairMonsters.get(i);
+    		if(age.toString() == monster.getAge().toString())
+    			lairMonstersByAge.add(monster);
+    	}
+    	
+    	lairOrderedMonstersByAge = orderMonsters(lairMonstersByAge);
+    	return lairOrderedMonstersByAge;
+    }
+    
+    public List<Monster> orderMonsters(List<Monster> monsters){
+    	Monster monsterYounger = null,monsterToCompare = null;
+    	List<Monster> orderedMonsters = new ArrayList<Monster>();
 
-    	// Se obtiene la lista de monstruos de la lair y se ordenan en una lista nueva por fecha de nacimiento (de menor a mayor)
-    	while(lairMonsters.size() > orderedMonsters.size()) {
-    		
-    		for(int j=0; j<lairMonsters.size(); j++) {
-	    		monsterYounger = lairMonsters.get(j);
+    	while(monsters.size() > orderedMonsters.size()) {
+ 
+    		for(int j=0; j<monsters.size(); j++) {
+	    		monsterYounger = monsters.get(j);
 		    	if (!orderedMonsters.contains(monsterYounger)) break;
     		}
     		
-    		for(int i = 0; i<lairMonsters.size(); i++){
-    			monsterToCompare = lairMonsters.get(i);
+    		for(int i = 0; i<monsters.size(); i++){
+    			monsterToCompare = monsters.get(i);
     			/* Si has nacido despues eres mas joven */
     			if (monsterToCompare.getBorningDate().after(monsterYounger.getBorningDate())  
     					&& !orderedMonsters.contains(monsterToCompare))
     				monsterYounger = monsterToCompare;
     		}
     		orderedMonsters.add(monsterYounger);
+    		
     	}
     	return orderedMonsters;
     }
+    
     
     public Monster findMonster(Lair lair, String monsterIdAsString) throws InternalErrorException, InstanceNotFoundException {
         Key monsterId = getKeyFromString(monsterIdAsString, Monster.class);
