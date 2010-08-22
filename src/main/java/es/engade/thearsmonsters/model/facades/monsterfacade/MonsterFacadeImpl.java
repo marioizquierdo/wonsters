@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
+import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -17,7 +19,6 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
-import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.model.facades.common.ThearsmonstersFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
@@ -252,24 +253,14 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         return eggSalePrice;
     }
     
-    public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, String monsterId) throws InstanceNotFoundException{
-        
-        //TODO: En TODOS los casos de uso de las fachadas, al igual que aquí, hay que hacer lo siguiente:
-        // 1. Mirar en lair si se encuentra un monstruo con ese monsterId
-        // 2. Si se encuentra, ese es el monstruo (y nos ahorramos la consulta a BBDD)
-        // 3. Si no se encuentra, devuelve un InstanceNotFoundException, excepto casos raros en los que puede
-        //    acceder usando el DAO.
-        Monster monster;
-        try {
-            monster = lair.getMonster(getKeyFromString(monsterId, Monster.class));
-        } catch (InstanceNotFoundException ex) {
-            monster = monsterDao.get(getKeyFromString(monsterId, Monster.class));
-        }
+    public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, String monsterId) throws InstanceNotFoundException {
+    	
+        Monster monster = lair.getMonster(getKeyFromString(monsterId, Monster.class));
         List<MonsterActionSuggestion> suggestedActions = new ArrayList<MonsterActionSuggestion>();
         
         
         // Para cada sala se comprueba si se puede ejecutar alguna acción en ella,
-        // para ello hay que comprobar todas las combinaciones posibles room - monsterAction.
+        // para ello hay que comprobar todas las combinaciones posibles entre rooms y monsterActions.
         for (Room room : lair.getRooms()) {
             for (MonsterActionType actionType : MonsterActionType.values()) {
                 MonsterAction action = actionType.build(monster, room);
@@ -286,27 +277,29 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     
 
 
-    public boolean executeMonsterAction(Lair lair, MonsterActionType actionType, Key monsterId, RoomType roomType) throws InstanceNotFoundException {
+    public boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) throws InstanceNotFoundException {
     	
-    	/* Al estilo de findMonster, a lo mejor se puede quitar el argumento
-    	 * Key del metodo y enviar directamente el monster en ese caso borrar la linea siguiente
-    	 */
-    	Monster monster = lair.getMonster(monsterId);
-//    	if (monster == null) {
-//    	    monster = monsterDao.get(monsterId);
-//    	}
-    	Room room = lair.getRoom(roomType);
+    	// Pillar el monstruo de la guarida
+    	Monster monster = lair.getMonster(KeyFactory.stringToKey(actionToDo.getMonsterId()));
     	
+    	Room room = lair.getRoom(actionToDo.getRoomType());
     	
-    	// Ejecuta la acción
-    	boolean success = actionType.execute(monster, room);
-    	
-    	if(success) { // guarda los resultados
-    		userDao.update(lair.getUser());
-    		return true;
-    	} else {
-    		return false;
+    	// Ejecuta la acción tantas veces como actionToDo.getTurnsToUse()
+    	boolean success = true;
+    	int turn = 0;
+    	while(success && turn < actionToDo.getTurnsToUse()) {
+    		success = actionToDo.getActionType().execute(monster, room);
+    		if(!success) {
+    			// Aqui habría que añadir los errores que se producen
+    			break;
+    		}
+    		turn ++;
     	}
+    	
+    	if(turn > 0) { // guarda los resultados
+    		userDao.update(lair.getUser());
+    	}
+		return success;
     }
 
 }

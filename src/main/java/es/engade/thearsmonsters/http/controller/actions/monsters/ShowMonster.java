@@ -11,8 +11,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.model.entities.lair.Lair;

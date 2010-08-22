@@ -69,9 +69,8 @@ public class MonsterAction {
 	 */
 	public MonsterActionSuggestion getSuggestion() {
 		String monsterId = monster.getIdKey() == null ? "" : monster.getIdKey().toString();
-		return new MonsterActionSuggestion(type, monsterId, room.getType());
+		return type.getSuggestion(monsterId, room.getType());
 	}
-	
 	
 	
 	@Override

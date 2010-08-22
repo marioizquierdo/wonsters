@@ -2,19 +2,16 @@ package es.engade.thearsmonsters.model.facades.monsterfacade;
 
 import java.util.List;
 
-import com.google.appengine.api.datastore.Key;
-
+import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
-import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVitalSpaceException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
-import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -51,7 +48,6 @@ public interface MonsterFacade {
 
     /**
      * Sugerir acciones que puede hacer el monstruo en su propia guarida
-     * @param lair TODO
      */
     public List<MonsterActionSuggestion> suggestMonsterActions(Lair lair, String monsterId) 
     	throws InstanceNotFoundException;
@@ -63,7 +59,7 @@ public interface MonsterFacade {
      * de datos tan solo una vez.
      * @param lair TODO
      */
-    public boolean executeMonsterAction(Lair lair, MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
+    public boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) 
     	throws InstanceNotFoundException;
 
 }

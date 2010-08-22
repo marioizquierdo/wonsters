@@ -3,8 +3,7 @@ package es.engade.thearsmonsters.model.facades.monsterfacade;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.appengine.api.datastore.Key;
-
+import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
@@ -85,7 +84,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return suggestMonsterActions(null, FactoryData.MonsterWhoIs.Adult.build());
 	}
 	
-	public boolean executeMonsterAction(Lair lair, MonsterActionType monsterActionType, Key monsterId, RoomType roomType) 
+	public boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) 
 		throws InstanceNotFoundException {
 		return true;
 	}

@@ -1,6 +1,8 @@
 package es.engade.thearsmonsters.http.view.actionforms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +11,8 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
-import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
+import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
 
 public class MonsterActionsToDoForm extends DefaultActionForm {
@@ -17,7 +20,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
     
 	private String monsterId;
     private Map<String, String> suggestedActions;
-    private Map<MonsterActionSuggestion, Integer> actionsToDo;
+    private List<MonsterActionToDo> actionsToDo;
     
     public MonsterActionsToDoForm() {
         reset();
@@ -39,7 +42,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
     	suggestedActions.put(key, value);
     }
     
-    public Map<MonsterActionSuggestion, Integer> getActionsToDo() {
+    public List<MonsterActionToDo> getActionsToDo() {
     	return actionsToDo;
     }
     
@@ -68,9 +71,10 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
 	        	try {
 		        	Integer turnsToUse = Integer.valueOf(entry.getValue());
 		        	if(turnsToUse < 0) throw new NumberFormatException();
+		        	actionsToDo.add(
+		        		new MonsterActionToDo(MonsterActionType.valueOf(monsterActionType),
+		                    monsterId, RoomType.valueOf(roomType), turnsToUse));
 		        	
-		        	MonsterActionSuggestion action = new MonsterActionSuggestion(monsterActionType, monsterId, roomType);
-		        	actionsToDo.put(action, turnsToUse);
 		        	
 	            } catch (NumberFormatException e) {
 	            	errors.add("suggestedActions("+ entry.getKey() +")", new ActionMessage("ErrorMessages.incorrectValue"));
@@ -84,7 +88,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
     private void reset() {
         monsterId = null;
         suggestedActions = new HashMap<String, String>();
-        actionsToDo = new HashMap<MonsterActionSuggestion, Integer>();
+        actionsToDo = new ArrayList<MonsterActionToDo>();
     }
 
 }

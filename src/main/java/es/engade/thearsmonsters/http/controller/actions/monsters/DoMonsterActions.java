@@ -17,6 +17,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameters;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
+import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.http.view.actionforms.MonsterActionsToDoForm;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
@@ -37,17 +38,12 @@ public class DoMonsterActions extends ThearsmonstersDefaultAction {
         /* Get data. */
     	MonsterActionsToDoForm monsterActionsToDo = (MonsterActionsToDoForm) form;
         String monsterIdString = monsterActionsToDo.getMonsterId();
-        Map<MonsterActionSuggestion, Integer> actionsToDo = monsterActionsToDo.getActionsToDo();
         
 		try {
 	        Key monsterId = KeyFactory.stringToKey(monsterIdString);
 	        Lair lair = SessionManager.getMyLair(request);
-	        for(Map.Entry<MonsterActionSuggestion, Integer> entry : actionsToDo.entrySet()) {
-	    		MonsterActionSuggestion action = entry.getKey();
-	    		Integer times = entry.getValue();
-	        	for(int i = 0; i < times; i++) {
-		                monsterFacade.executeMonsterAction(lair, action.getMonsterActionType(), monsterId, action.getRoomType());
-	        	}
+	        for(MonsterActionToDo actionToDo : monsterActionsToDo.getActionsToDo()) {
+	        	monsterFacade.executeMonsterAction(lair, actionToDo);
 	        }
         } catch (Exception e) {
             return mapping.findForward("InternalError");

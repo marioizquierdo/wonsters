@@ -26,8 +26,9 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomNormalState;
  */
 public enum MonsterActionType {
 
-	// MonsterAction (allowedRoomTypes, allowedMonsterAges) { validate and
-	// execute hooks }
+	// MonsterAction (allowedRoomTypes, allowedMonsterAges) { 
+	// 		validate and execute hooks 
+	// }
 
 	/**
 	 * Recolectar basura. Un monstruo adulto consigue en cada turno tanta basura
@@ -35,33 +36,37 @@ public enum MonsterActionType {
 	 */
 	GarbageHarvest("Adult", "Warehouse") {
 
-		// Se comprueba si hay suficiente espacio en el almacén para añadir más
-		// basura
-		boolean validate(Monster monster, Room room, Lair lair,
-				List<String> errors) {
+		// Se comprueba si hay suficiente espacio en el almacén para añadir más basura
+		boolean validate(Monster monster, Room room, Lair lair, List<String> errors) {
 			int currentGarbage = lair.getGarbage();
 			int maxGarbage = lair.getGarbageStorageCapacity();
 
 			boolean valid = currentGarbage < maxGarbage;
-			if (!valid)
-				errors.add("validateGarbageHarvest");
+			if (!valid) errors.add("validateGarbageHarvest");
 			return valid;
 		}
 
 		// Añade la basura en la guarida y añade experiencia al monstruo en la
-		// habilidad de recolección de basura
+		// habilidad de recolección de basura.
 		void doExecute(Monster monster, Room room, Lair lair) {
 			int currentGarbage = lair.getGarbage();
-			int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest)
-					.getLevel();
+			int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest).getLevel();
 
-			if (currentGarbage + monsterHarvestAttr > lair
-					.getGarbageStorageCapacity())
+			if (currentGarbage + monsterHarvestAttr > lair.getGarbageStorageCapacity()) {
 				lair.setGarbage(lair.getGarbageStorageCapacity());
-			else
+			} else {
 				lair.setGarbage(currentGarbage + monsterHarvestAttr);
+			}
 			monster.addExp(AttrType.HarvesterSkill, 20);
 		}
+
+        public int suggTargetValue() {
+	        return 0; // TODO Auto-generated method stub
+        }
+
+        public int suggTargetValueIncreasePerTurn() {
+	        return 0; // TODO Auto-generated method stub
+        }
 	},
 
 	/**
@@ -71,13 +76,9 @@ public enum MonsterActionType {
 	WorkInTheWorks("Adult", "all") {
 
 		// Se comprueba si la sala está en obras.
-		boolean validate(Monster monster, Room room, Lair lair,
-				List<String> errors) {
+		boolean validate(Monster monster, Room room, Lair lair, List<String> errors) {
 			boolean valid = room.isInWorks();
-
-			if (!valid)
-				errors.add("validateWorkInTheWorks");
-
+			if(!valid) errors.add("validateWorkInTheWorks");
 			return valid;
 		}
 
@@ -85,28 +86,32 @@ public enum MonsterActionType {
 		// Si se terminan las obras se aumenta de nivel.
 		void doExecute(Monster monster, Room room, Lair lair) {
 			RoomInWorksState roomWorks = (RoomInWorksState) room.getState();
-			int monsterConstructionAttr = monster
-					.getAttr(AttrType.Construction).getLevel();
-			roomWorks.setEffortDone(room.getEffortDone()
-					+ monsterConstructionAttr);
+			int monsterConstructionAttr = monster.getAttr(AttrType.Construction).getLevel();
+			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionAttr);
 
-			int totalEffort = room.isInInitialState() ? room.getEffortBuild()
-					: room.getEffortUpgrade();
+			int totalEffort = room.isInInitialState() ? room.getEffortBuild() : room.getEffortUpgrade();
 			if (room.getEffortDone() >= totalEffort) {
 				room.setLevel(room.getLevel() + 1);
 				room.setState(new RoomNormalState());
 			}
 		}
+
+        public int suggTargetValue() {
+	        return 0; // TODO Auto-generated method stub
+        }
+
+        public int suggTargetValueIncreasePerTurn() {
+	        return 0; // TODO Auto-generated method stub
+        }
 	};
 
-	// **** Constructor, Attributes and common Getters ****//
+	// **** Attributes, Constructor and common Getters ****//
 
 	private final List<MonsterAge> allowedMonsterAges;
 	private final List<RoomType> allowedRoomTypes;
 	private List<String> errors = new ArrayList<String>();
 
-	MonsterActionType(String allowedMonsterAgesStringList,
-			String allowedRoomTypesStringList) {
+	MonsterActionType(String allowedMonsterAgesStringList, String allowedRoomTypesStringList) {
 		allowedMonsterAges = MonsterAge.list(allowedMonsterAgesStringList);
 		allowedRoomTypes = RoomType.list(allowedRoomTypesStringList);
 	}
@@ -137,8 +142,91 @@ public enum MonsterActionType {
 	public List<String> getErrors() {
 		return errors;
 	}
+	
+	
+	// **** VIEW INFO (ACTION SUGGESTION) **** //
+	
+	/**
+	 * Obtiene una "action suggestion", que contiene toda la información necesaria
+	 * para ofrecer una sugerencia de realización de tarea al jugador.
+	 * Aunque este método se puede sobreescibir en cada MonsterActionType, lo normal es
+	 * sobreescribir los métodos plantilla que dan valor a cada uno de los datos necesarios.
+	 */
+	public MonsterActionSuggestion getSuggestion(String monsterId, RoomType roomType) {
+		return new MonsterActionSuggestion(
+				this, monsterId, roomType, 
+				suggMaxTurnsToAssign(),
+				suggInfoMessageKey(), 
+				suggInfoMessageParams(), 
+				suggTargetValue(),
+				suggTargetValueIncreasePerTurn(), 
+				suggTargetValueMessageKey(),
+				suggTargetValueMessageParams()
+		);
+	}
+	
+	/**
+	 * Clave del mensaje de info de la tarea. Por defecto es "Monster.actions.type.{actionType}.info"
+	 */
+	protected String suggInfoMessageKey() {
+		return "Monster.actions.type."+ this +".info";
+	}
+	
+	/**
+	 * Parámetros numéricos en el mensaje de info de la tarea. 
+	 * Tienen que ir en el mismo orden de aparición {0}, {1}, {2}...
+	 */
+	protected int[] suggInfoMessageParams() {
+		return new int[]{};
+	}
+	
+	/**
+	 * Valor actual del objetivo de la tarea. 
+	 * Cada una tiene el suyo propio, por ejemplo para el Gimnasio es la fuerza actual del monstruo.
+	 */
+	protected abstract int suggTargetValue();
+	
+	/**
+	 * Cantidad que se incrementa en el valor actual del objetivo de la tarea. 
+	 * Por ejemplo para el Gimnasio es la cantidad de fuerza que se mejora por cada turno invertido.
+	 */
+	protected abstract int suggTargetValueIncreasePerTurn();
+	
+	/**
+	 * Clave del mensaje de información sobre el objetivo de la tarea que se muestra debajo del título de la tarea en la vista.
+	 * Por defecto es "Monster.actions.type.{actionType}.targetValue"
+	 */
+	protected String suggTargetValueMessageKey() {
+		return "Monster.actions.type."+ this +".targetValue";
+	}
+	
+	/**
+	 * Parámetros numéricos en el mensaje de info sobre el objetivo de la tarea. Tienen que ir en el mismo orden de aparición {0}, {1}, {2}...
+	 * El parámetro que representa al "target value" debe ir envuelto con el método suggTargetValueMark(targetValue) para que la vista
+	 * sepa cual es y pueda modificar su valor dinámicamente (javascript).
+	 * Por defecto se devuelve un único parámetro que es el "target value".
+	 */ 
+	protected int[] suggTargetValueMessageParams() {
+		return new int[]{suggTargetValue()};
+	}
+	
+	
+	protected String suggTargetValueMark(String targetValue) { // OHH!! no deja poner Strings!! a ver como metemos la marca...
+		return "<span class=\"targetValue\">"+ targetValue +"</span>";
+	}
+	
+	/**
+	 * Máxima cantidad de turnos que se pueden asignar a esta tarea (null = indefinido, sin límite).
+	 * Previene a la vista para que no permita asignar valores incorrectos.
+	 */
+	protected Integer suggMaxTurnsToAssign() {
+		return null;
+	}
+	
+	
+	
 
-	// **** VALIDATION ****//
+	// **** VALIDATION **** //
 
 	/**
 	 * Teniendo en cuenta los datos incluidos (monster y room), valida si esta
@@ -149,13 +237,9 @@ public enum MonsterActionType {
 	 */
 	public boolean isValid(Monster monster, Room room) {
 		errors.removeAll(errors);
-		return validateBasicMonsterConditions(monster)
-				&& validateBasicRoomConditions(room)
-				&& validate(monster, room, room.getLair(), errors); // hook para
-																	// implementar
-																	// en cada
-																	// MonsterAction
-																	// particular
+		return validateBasicMonsterConditions(monster) && 
+				validateBasicRoomConditions(room) && 
+				validate(monster, room, room.getLair(), errors); // hook para implementar en cada MonsterAction particular
 	}
 
 	/**
@@ -172,8 +256,7 @@ public enum MonsterActionType {
 	 */
 	boolean validateBasicRoomConditions(Room room) {
 		boolean valid = this.allowedRoomTypes.contains(room.getRoomType());
-		if (!valid)
-			errors.add("validateBasicRoomConditions");
+		if(!valid) errors.add("validateBasicRoomConditions");
 		return valid;
 	}
 
@@ -184,12 +267,7 @@ public enum MonsterActionType {
 	boolean validateBasicMonsterConditions(Monster monster) {
 		boolean valid = this.allowedMonsterAges.contains(monster.getAge())
 				&& monster.isFreeTurnsAvailable();
-		if (!valid)
-			errors.add("validateBasicMonsterConditions"); // TODO: esto se
-															// debería guardar
-															// en una lista de
-															// errores en el
-															// objeto
+		if(!valid) errors.add("validateBasicMonsterConditions"); 
 		return valid;
 	}
 
@@ -211,9 +289,7 @@ public enum MonsterActionType {
 	 * @return true si se ha podido guardar. False si la tarea no es válida.
 	 */
 	public boolean execute(Monster monster, Room room) {
-		if (isValid(monster, room)) { // aqui tambien se comprueba que el
-										// monstruo tiene al menos un turno
-										// libre.
+		if (isValid(monster, room)) { // tambien se comprueba qu el  monstruo tiene al menos un turno libre.
 			monster.useFreeTurn();
 			doExecute(monster, room, room.getLair());
 			return true;
