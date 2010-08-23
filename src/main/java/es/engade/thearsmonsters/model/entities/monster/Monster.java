@@ -151,8 +151,11 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	    return (int) DateTools.daysBetween(getBorningDate(), DateTools.now());
 	}
 	
+	/**
+	 * Number from 0 to 100 that represents the percentage of the monster life lived yet (100% when dies)
+	 */
 	public int getAgePercentageLived(){
-	    return Math.round((getAgeDays() / race.getLifeExpectancyDays()) * 100);
+	    return ((int) (DateTools.daysBetween(getBorningDate(), DateTools.now())  * 100 / race.getLifeExpectancyDays()));
 	}
 	
 	//-- simple SETTERS --//
@@ -392,7 +395,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		
 		// En el momento timestamp, los freeTurns son los que había en el instante freeTurnsTimestamp
 		// mas el número de turnos acumulados (según los dias que han pasado desde el último timpestamp)
-		return  this.freeTurns + turnsPerDay * ((int) Math.floor(daysFromTimestamp));
+		return  this.freeTurns + ((int) (turnsPerDay * daysFromTimestamp));
 	}
 	
 	/**
