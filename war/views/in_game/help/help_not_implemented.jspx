@@ -1,0 +1,33 @@
+<jsp:root 	xmlns="http://www.w3.org/1999/xhtml"
+          	xmlns:jsp="http://java.sun.com/JSP/Page"
+          	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          	version="2.0">
+
+	
+<customtag:window id="HelpNotImplemented" title="Help.title">
+	
+	<p class="info_slot">
+		<fmt:message key="NotImplementedHelp.apologize"/>
+	</p>
+	
+	
+	<customtag:info_message titleKey="Help.not_implemented.firstStep.title" 
+		key="Help.not_implemented.firstStep.desc" status="INFO" icon_id="12" style="margin: 20px;"/>
+		
+	<customtag:info_message titleKey="Help.not_implemented.secondStep.title" 
+		key="Help.not_implemented.secondStep.desc" status="INFO" icon_id="12" style="margin: 20px;"/>
+		
+	<customtag:info_message titleKey="Help.not_implemented.thirdStep.title" 
+		key="Help.not_implemented.thirdStep.desc" status="INFO" icon_id="12" style="margin: 20px;"/>
+	
+	<customtag:info_message titleKey="Help.not_implemented.fourthStep.title" 
+		key="Help.not_implemented.fourthStep.desc" status="INFO" icon_id="12" style="margin: 20px;"/>
+	
+	<customtag:info_message titleKey="Help.not_implemented.fifthStep.title" 
+		key="Help.not_implemented.fifthStep.desc" status="INFO" icon_id="12" style="margin: 20px;"/>
+	
+	<customtag:info_message titleKey="Help.not_implemented.sixthStep.title" 
+		key="Help.not_implemented.sixthStep.desc" status="INFO" icon_id="12" style="margin: 20px;"/>
+	</customtag:window>
+</jsp:root>

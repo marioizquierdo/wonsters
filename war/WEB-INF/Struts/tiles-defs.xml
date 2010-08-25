@@ -44,6 +44,12 @@
 		<put name="content" value="/views/in_game/guild/guild_not_implemented.jspx" />
 	</definition>
 
+	<definition name=".Help" extends=".InGameBase">
+		<put name="title" value="Help.title" />
+		<put name="color" value="yellow" />
+		<put name="content" value="/views/in_game/help/help_not_implemented.jspx" />
+	</definition>
+	
 	<definition name=".InternalError" extends=".InGameBase">
 		<put name="title" value="ErrorMessages.internalError.title" />
 		<put name="content" value="/views/common/internal_error_message.jspx" />

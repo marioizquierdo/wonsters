@@ -82,9 +82,15 @@
           <div class="menu_link" id="alianza"><div class="menu_text">
           	<fmt:message key="MainMenu.link.guild"/></div></div></html:link>
           	
-      <html:link action="messages.do">
+      <!-- <html:link action="messages.do">
           <div class="menu_link" id="mensajes"><div class="menu_text">
           	<fmt:message key="MainMenu.link.messages"/></div></div></html:link>
+          	-->
+       
+       <html:link action="help.do">
+          <div class="menu_link" id="mensajes"><div class="menu_text">
+          	<fmt:message key="MainMenu.link.help"/></div></div></html:link>
+         
     </div>
   </div>
   

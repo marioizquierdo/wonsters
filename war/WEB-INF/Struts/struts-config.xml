@@ -235,10 +235,22 @@
         <set-property property="authenticationRequired" value="true"/>
         <forward name="ShowConfirmation" path=".Confirmation"/></action>
      	
+	<action path="/help"
+            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
+            parameter=".Help">
+        <set-property property="authenticationRequired" value="true"/></action>
+
+
 	<action path="/missions"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Missions">
         <set-property property="authenticationRequired" value="true"/></action>
+
+	<action path="/messages"
+            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
+            parameter=".Messages">
+        <set-property property="authenticationRequired" value="true"/></action>
+        
      	
 	<action path="/ranking"
             type="es.engade.thearsmonsters.http.controller.actions.lair.ShowLairsRanking"
@@ -344,7 +356,7 @@ processorClass="es.engade.thearsmonsters.http.controller.frontcontroller.Thearsm
 <!-- ============ Message Resources Definitions =========================== -->
 
 <message-resources
-   parameter="es.engade.thearsmonsters.http.view.messages.Messages"/>
+   parameter="es.engade.thearsmonsters.http.view.messages.	"/>
 
 <!-- ============================ Tiles Plugin ============================ -->
 
