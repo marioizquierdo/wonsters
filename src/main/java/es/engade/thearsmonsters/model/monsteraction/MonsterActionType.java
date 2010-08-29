@@ -31,8 +31,8 @@ public enum MonsterActionType {
 	// }
 
 	/**
-	 * Recolectar basura. Un monstruo adulto consigue en cada turno tanta basura
-	 * como su atributo Harvest, y la guarda en el almacén.
+	 * Recolectar basura. 
+	 * Un monstruo adulto consigue en cada turno tanta basura como su atributo Harvest, y la guarda en el almacén.
 	 */
 	GarbageHarvest("Adult", "Warehouse") {
 
@@ -49,29 +49,58 @@ public enum MonsterActionType {
 		// Añade la basura en la guarida y añade experiencia al monstruo en la
 		// habilidad de recolección de basura.
 		void doExecute(Monster monster, Room room, Lair lair) {
-			int currentGarbage = lair.getGarbage();
-			int monsterHarvestAttr = monster.getComposeAttr(AttrType.Harvest).getLevel();
+			int current = lair.getGarbage();
+			int increment = this.targetValueIncreasePerTurn(monster, room, lair);
+			int max = lair.getGarbageStorageCapacity();
 
-			if (currentGarbage + monsterHarvestAttr > lair.getGarbageStorageCapacity()) {
-				lair.setGarbage(lair.getGarbageStorageCapacity());
+			if (current + increment > max) {
+				lair.setGarbage(max);
 			} else {
-				lair.setGarbage(currentGarbage + monsterHarvestAttr);
+				lair.setGarbage(current + increment);
 			}
 			monster.addExp(AttrType.HarvesterSkill, 20);
 		}
 
-        public int suggTargetValue() {
-	        return 0; // TODO Auto-generated method stub
+		// targetValue = Cantidad de basura que hay en la guarida.
+        public Integer targetValue(Monster monster, Room room, Lair lair) {
+	        return lair.getGarbage();
         }
 
-        public int suggTargetValueIncreasePerTurn() {
-	        return 0; // TODO Auto-generated method stub
+        // targetValueIncreasePerTurn = Atributo compuesto "recolección" del monstruo
+        public Integer targetValueIncreasePerTurn(Monster monster, Room room, Lair lair) {
+	        return monster.getComposeAttr(AttrType.Harvest).getLevel();
         }
+
+        // targetValueMax = Capacidad del almacén
+        public Integer targetValueMax(Monster monster, Room room, Lair lair) {
+        	return lair.getGarbageStorageCapacity();
+        }
+        
+        // Parámetros para Monster.actions.type.GarbageHarvest.info
+        // {0} Nivel recolección del monstruo
+        // {1} Cantidad de basura que se recolecta por turno (es decir, targetValueIncreasePerTurn)
+        protected Object[] infoMessageParams(Monster monster, Room room, Lair lair) {
+    		return new Object[]{
+    				targetValueIncreasePerTurn(monster, room, lair), // {0}
+    				targetValueIncreasePerTurn(monster, room, lair)  // {1}
+    		};
+    	}
+        
+        // Parámetros para Monster.actions.type.GarbageHarvest.targetValue
+        // {0} targetValue con marca para ser identificado por JavaScript
+        // {1} capacidad máxima del almacén.
+        protected Object[] targetValueMessageParams(Monster monster, Room room, Lair lair) {
+    		return new Object[]{
+    				targetValueWithMark(monster, room, lair),
+    				lair.getGarbageStorageCapacity()
+    		};
+    	}
+        
 	},
 
 	/**
-	 * Trabajar en las obras de una sala. Un monstruo adulto avanza en el
-	 * effortDone de las obras tanto como su atributo Build en cada turno.
+	 * Trabajar en las obras de una sala.
+	 * Un monstruo adulto avanza en el effortDone de las obras tanto como su atributo Build en cada turno.
 	 */
 	WorkInTheWorks("Adult", "all") {
 
@@ -96,13 +125,50 @@ public enum MonsterActionType {
 			}
 		}
 
-        public int suggTargetValue() {
-	        return 0; // TODO Auto-generated method stub
+		// targetValue = Trabajo realizado en las obras de la sala.
+        public Integer targetValue(Monster monster, Room room, Lair lair) {
+	        return room.getEffortDone();
         }
 
-        public int suggTargetValueIncreasePerTurn() {
-	        return 0; // TODO Auto-generated method stub
+        // targetValueIncreasePerTurn = Atributo compuesto "construcción" del monstruo
+        public Integer targetValueIncreasePerTurn(Monster monster, Room room, Lair lair) {
+	        return monster.getComposeAttr(AttrType.Construction).getLevel();
         }
+
+        // targetValueMax = Esfuerzo necesario para realizar toda la obra.
+        public Integer targetValueMax(Monster monster, Room room, Lair lair) {
+        	return room.getEffortUpgrade();
+        }
+        
+        // Parámetros para Monster.actions.type.WorkInTheWorks.info
+        // {0} Nivel de la sala al que se va a mejorar.
+        // {1} Attr Construcción del monstruo
+        // {2} Cantidad de esfuerzo realizado por turno (es decir, targetValueIncreasePerTurn)
+        // {3} Cantidad de esfuerzo que hace falta para subir de nivel la sala
+        // {4} Cantidad de esfuerzo que lleva completado
+        // {5} % de obra completada
+        protected Object[] infoMessageParams(Monster monster, Room room, Lair lair) {
+    		return new Object[]{
+    				room.getLevel() + 1, // {0}
+    				targetValueIncreasePerTurn(monster, room, lair),  // {1}
+    				targetValueIncreasePerTurn(monster, room, lair),  // {2}
+    				room.getEffortUpgrade(), // {3}
+    				room.getEffortDone(), // {4}
+    				room.getEffortDonePercentage() // {5}
+    		};
+    	}
+        
+        // Parámetros para Monster.actions.type.WorkInTheWorks.targetValue
+        // {0} targetValue con marca para ser identificado por JavaScript
+        // {1} esfuerzo total requerido
+        // {2} siguiente nivel de la sala
+        protected Object[] targetValueMessageParams(Monster monster, Room room, Lair lair) {
+    		return new Object[]{
+    				targetValueWithMark(monster, room, lair), // {0}
+    				room.getEffortUpgrade(), // {1}
+    				room.getLevel() + 1 // {2}
+    		};
+    	}
 	};
 
 	// **** Attributes, Constructor and common Getters ****//
@@ -144,31 +210,33 @@ public enum MonsterActionType {
 	}
 	
 	
-	// **** VIEW INFO (ACTION SUGGESTION) **** //
+	// **** getSuggestion (info para la vista) **** //
 	
 	/**
 	 * Obtiene una "action suggestion", que contiene toda la información necesaria
 	 * para ofrecer una sugerencia de realización de tarea al jugador.
-	 * Aunque este método se puede sobreescibir en cada MonsterActionType, lo normal es
-	 * sobreescribir los métodos plantilla que dan valor a cada uno de los datos necesarios.
+	 * Aunque este método se puede sobreescibir en cada MonsterActionType, se ha dividido
+	 * cada valor del objeto MonsterActionSuggestion en un método plantilla único, así
+	 * se pueden sobreescribir solo los datos necesarios, simplificando el resultado.
+	 * Todos los métodos plantilla reciben el monstruo, sala y guarida como parámetro por si lo necesitan.
 	 */
-	public MonsterActionSuggestion getSuggestion(String monsterId, RoomType roomType) {
+	public MonsterActionSuggestion getSuggestion(Monster monster, Room room, Lair lair) {
 		return new MonsterActionSuggestion(
-				this, monsterId, roomType, 
-				suggMaxTurnsToAssign(),
-				suggInfoMessageKey(), 
-				suggInfoMessageParams(), 
-				suggTargetValue(),
-				suggTargetValueIncreasePerTurn(), 
-				suggTargetValueMessageKey(),
-				suggTargetValueMessageParams()
+				this, monster.getId(), room.getRoomType(), 
+				maxTurnsToAssign(monster, room, lair),
+				infoMessageKey(monster, room, lair), 
+				infoMessageParams(monster, room, lair), 
+				targetValue(monster, room, lair),
+				targetValueIncreasePerTurn(monster, room, lair), 
+				targetValueMessageKey(monster, room, lair),
+				targetValueMessageParams(monster, room, lair)
 		);
 	}
 	
 	/**
 	 * Clave del mensaje de info de la tarea. Por defecto es "Monster.actions.type.{actionType}.info"
 	 */
-	protected String suggInfoMessageKey() {
+	protected String infoMessageKey(Monster monster, Room room, Lair lair) {
 		return "Monster.actions.type."+ this +".info";
 	}
 	
@@ -176,51 +244,64 @@ public enum MonsterActionType {
 	 * Parámetros numéricos en el mensaje de info de la tarea. 
 	 * Tienen que ir en el mismo orden de aparición {0}, {1}, {2}...
 	 */
-	protected int[] suggInfoMessageParams() {
-		return new int[]{};
+	protected Object[] infoMessageParams(Monster monster, Room room, Lair lair) {
+		return new Object[]{};
 	}
 	
 	/**
 	 * Valor actual del objetivo de la tarea. 
-	 * Cada una tiene el suyo propio, por ejemplo para el Gimnasio es la fuerza actual del monstruo.
+	 * Cada una tiene el suyo propio, por ejemplo para el Gimnasio es el valor de la fuerza actual del monstruo.
 	 */
-	protected abstract int suggTargetValue();
+	protected abstract Integer targetValue(Monster monster, Room room, Lair lair);
 	
 	/**
 	 * Cantidad que se incrementa en el valor actual del objetivo de la tarea. 
 	 * Por ejemplo para el Gimnasio es la cantidad de fuerza que se mejora por cada turno invertido.
 	 */
-	protected abstract int suggTargetValueIncreasePerTurn();
+	protected abstract Integer targetValueIncreasePerTurn(Monster monster, Room room, Lair lair);
+	
+	/**
+	 * Valor máximo que puede alcanzar el "targetValue".
+	 * Por ejemplo, para la recolección de basura es la capacidad del almacén.
+	 */
+	protected abstract Integer targetValueMax(Monster monster, Room room, Lair lair);
 	
 	/**
 	 * Clave del mensaje de información sobre el objetivo de la tarea que se muestra debajo del título de la tarea en la vista.
 	 * Por defecto es "Monster.actions.type.{actionType}.targetValue"
 	 */
-	protected String suggTargetValueMessageKey() {
+	protected String targetValueMessageKey(Monster monster, Room room, Lair lair) {
 		return "Monster.actions.type."+ this +".targetValue";
 	}
 	
 	/**
-	 * Parámetros numéricos en el mensaje de info sobre el objetivo de la tarea. Tienen que ir en el mismo orden de aparición {0}, {1}, {2}...
-	 * El parámetro que representa al "target value" debe ir envuelto con el método suggTargetValueMark(targetValue) para que la vista
+	 * Parámetros en el mensaje de info sobre el objetivo de la tarea. Tienen que ir en el mismo orden de aparición {0}, {1}, {2}...
+	 * El parámetro que representa al "target value" debe ir envuelto con el método targetValueMark(targetValue) para que la vista
 	 * sepa cual es y pueda modificar su valor dinámicamente (javascript).
 	 * Por defecto se devuelve un único parámetro que es el "target value".
 	 */ 
-	protected int[] suggTargetValueMessageParams() {
-		return new int[]{suggTargetValue()};
+	protected Object[] targetValueMessageParams(Monster monster, Room room, Lair lair) {
+		return new Object[]{targetValueWithMark(monster, room, lair)};
 	}
 	
 	
-	protected String suggTargetValueMark(String targetValue) { // OHH!! no deja poner Strings!! a ver como metemos la marca...
-		return "<span class=\"targetValue\">"+ targetValue +"</span>";
+	protected String targetValueWithMark(Monster monster, Room room, Lair lair) {
+		return "<span class=\"targetValue\">"+ targetValue(monster, room, lair) +"</span>";
 	}
 	
 	/**
 	 * Máxima cantidad de turnos que se pueden asignar a esta tarea (null = indefinido, sin límite).
 	 * Previene a la vista para que no permita asignar valores incorrectos.
 	 */
-	protected Integer suggMaxTurnsToAssign() {
-		return null;
+	protected Integer maxTurnsToAssign(Monster monster, Room room, Lair lair) {
+    	Integer current = targetValue(monster, room, lair);
+    	Integer increment = targetValueIncreasePerTurn(monster, room, lair);
+    	Integer max = targetValueMax(monster, room, lair);
+    	if(current != null && increment != null && max != null) {
+    		return (max - current) / increment;
+    	} else {
+    		return null;
+    	}
 	}
 	
 	
@@ -278,6 +359,7 @@ public enum MonsterActionType {
 		return true; // comportamiento por defecto.
 	}
 
+	
 	// **** EXECUTION ****//
 
 	/**

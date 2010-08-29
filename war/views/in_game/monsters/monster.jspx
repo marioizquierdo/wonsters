@@ -18,56 +18,8 @@
 <!-- Monster Actions -->
 <div id="monsterLeftBlock">
 <customtag:window id="monster_tasks" title="Monster.actions.title" window_width="240">
-       
-    <div class="field free_turns">
-        <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
-        <span class="free_turns_value">${monster.freeTurns}</span>
-    </div>
-    
-    <c:choose><c:when test="${fn:length(suggestedMonsterActions) == 0}">
-      <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" icon_id="9" /> 
-    
-    </c:when><c:otherwise>
-
-      <html:form action="monster/do_actions" styleClass="execute_monster_actions">
- 
-        <html:hidden property="monsterId" value="${monster.id}"/>
-        <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
-        	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
-        	<c:set var="suggestedActionInstance" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
-        	<c:set var="suggestedAction" value="suggestedAction(${suggestedActionInstance})" />
-        	
-            <div class="field">
-                 <div class="monsterActionSuggestion_description">
-                    <span class="monsterActionSuggestion_description_actionType">
-                        <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" />
-                        <html:errors property="${suggestedAction}"/>
-                    </span>
-                    <span class="monsterActionSuggestion_description_roomType">
-                        <fmt:message key="Lair.room.${MASuggestion.roomType}" />
-                    </span>
-                </div>
-                <div class="monsterActionSuggestion_input">
-                    <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>
-                    <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
-                    <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
-                    <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>      
-                    <button id="${suggestedActionInstance}_add_all_button" class="add_all_button">++</button>          
-                </div>
-               
-            </div>
-        </c:forEach>
-        
-        <div class="end_button">
-        	<html:submit><fmt:message key="Buttons.ok"/></html:submit>
-        </div>      
-        
-      </html:form>  
-      
-    </c:otherwise>
-    
-    </c:choose>
-    
+	<c:set var="thereIsNoActionsToDo" value="${fn:length(suggestedMonsterActions) == 0}"/>
+	<jsp:directive.include file="_monster_actions.jspf"/>
 </customtag:window>
 </div>
 

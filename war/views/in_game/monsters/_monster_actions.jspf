@@ -1,0 +1,56 @@
+<!-- 
+	Included vars for EL:
+	  * monster: Monster
+	  * suggestedMonsterActions: List<MonsterActionSuggestion>
+	  * thereIsNoActionsToDo: boolean (suggestedMonsterActions.size() == 0)
+ -->
+
+<!-- Cabecera: Turnos libres -->
+<div class="field free_turns">
+    <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
+    <span class="free_turns_value">${monster.freeTurns}</span>
+</div>
+
+<!-- Mensaje cuando no hay tareas disponibles -->
+<c:choose><c:when test="${thereIsNoActionsToDo}">
+  <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" icon_id="9" /> 
+
+<!-- Tareas disponibles -->
+</c:when><c:otherwise>
+  <html:form action="monster/do_actions" styleClass="execute_monster_actions">
+
+    <html:hidden property="monsterId" value="${monster.id}"/>
+    
+    <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
+    	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
+    	<c:set var="suggestedActionInstance" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
+    	<c:set var="suggestedAction" value="suggestedAction(${suggestedActionInstance})" />
+    	
+        <div id="${suggestedActionInstance}" class="field monsterActionSuggestion">
+            <h4>
+                <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
+                	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
+                </fmt:message>
+                <html:errors property="${suggestedAction}"/>
+            </h4>
+            <p class="targetValue">
+            	0/15 para nivel 7
+            </p>
+            <p class="input_buttons">
+                <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>
+                <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
+                <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
+                <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>      
+                <button id="${suggestedActionInstance}_add_all_button" class="add_all_button">++</button>          
+            </p>
+           
+        </div>
+    </c:forEach>
+    
+    <div class="end_button">
+    	<html:submit><fmt:message key="Buttons.ok"/></html:submit>
+    </div>      
+    
+  </html:form>  
+  
+</c:otherwise></c:choose>
