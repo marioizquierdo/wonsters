@@ -25,17 +25,30 @@
     	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
     	<c:set var="suggestedActionInstance" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
     	<c:set var="suggestedAction" value="suggestedAction(${suggestedActionInstance})" />
+	    <c:set var="actionInfo">
+        	<fmt:message key="${MASuggestion.infoMessageKey}">
+        		<c:forEach items="${MASuggestion.infoMessageParams}" var="infoMessageParam">
+        			<fmt:param value="${infoMessageParam}"/>
+        		</c:forEach>
+        	</fmt:message>
+        </c:set>
     	
         <div id="${suggestedActionInstance}" class="field monsterActionSuggestion">
-            <h4>
+            <h4 title="${actionInfo}">
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
                 </fmt:message>
                 <html:errors property="${suggestedAction}"/>
             </h4>
-            <p class="targetValue">
-            	0/15 para nivel 7
+            
+            <p class="targetValue" title="${actionInfo}">
+            	<fmt:message key="${MASuggestion.targetValueMessageKey}">
+            		<c:forEach items="${MASuggestion.targetValueMessageParams}" var="targetValueMessageParam">
+            			<fmt:param value="${targetValueMessageParam}"/>
+            		</c:forEach>
+            	</fmt:message>
             </p>
+            
             <p class="input_buttons">
                 <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>
                 <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>

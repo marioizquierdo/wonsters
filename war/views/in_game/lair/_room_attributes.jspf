@@ -53,20 +53,21 @@
 			
 			<!-- Works info -->
 			<c:if test="${room.inWorks}">
-				<li><span class="attr"><fmt:message key="Lair.room.inWorks"/></span>:
+				<li><span class="attr">
 					<c:choose><c:when test="${room.inInitialState}">
 						<fmt:message key="Lair.room.inWorks.buildNewRoom"/></c:when>
 					<c:otherwise> <!-- Upgrading -->
 						<fmt:message key="Lair.room.inWorks.upgrading"/></c:otherwise>
 					</c:choose>
+					</span>
 				</li>
 				<li><span class="attr"><fmt:message key="Lair.room.inWorks.effortDone" /></span>:
 					<c:choose><c:when test="${room.inInitialState}">
 						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortBuild}"/> 
-						(<fmt:formatNumber value="${100*(room.effortDone/room.effortBuild)}"/>%)</c:when>
+						(<fmt:formatNumber value="${room.effortDonePercentage}"/>%)</c:when>
 					<c:otherwise> <!-- Upgrading -->
 						<fmt:formatNumber value="${room.effortDone}"/>/<fmt:formatNumber value="${room.effortUpgrade}"/> 
-						(<fmt:formatNumber value="${100*(room.effortDone/room.effortUpgrade)}"/>%)</c:otherwise>
+						(<fmt:formatNumber value="${room.effortDonePercentage}"/>%)</c:otherwise>
 					</c:choose>
 				</li>
 			</c:if>

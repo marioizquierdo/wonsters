@@ -261,7 +261,7 @@ public enum MonsterActionType {
 	protected abstract Integer targetValueIncreasePerTurn(Monster monster, Room room, Lair lair);
 	
 	/**
-	 * Valor máximo que puede alcanzar el "targetValue".
+	 * Valor máximo que puede alcanzar el "targetValue". (null = sin máximo)
 	 * Por ejemplo, para la recolección de basura es la capacidad del almacén.
 	 */
 	protected abstract Integer targetValueMax(Monster monster, Room room, Lair lair);
