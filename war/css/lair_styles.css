@@ -16,8 +16,8 @@ ul#rooms li.room.elevator 						{ background-image: url(/images/buildings/elevat
 ul#rooms li.room.elevator:hover					{ background-position: 0 0; }
 ul#rooms li.room.for_empty_lair 				{ background-image: url(/images/buildings/emptyLair.jpg); }
 
-ul#rooms li.room.MainMonster 					{ background-image: url(/images/buildings/eyeOfTheLife.jpg); }
-.MainMonster_BIG 								{ background-image: url(/images/buildings/eyeOfTheLife_BIG.jpg); }
+ul#rooms li.room.MainMonster 					{ background-image: url(/images/buildings/mainMonster.jpg); }
+.MainMonster_BIG 								{ background-image: url(/images/buildings/mainMonster_BIG.jpg); }
 
 ul#rooms li.room.Warehouse						{ background-image: url(/images/buildings/warehouse.jpg); }
 ul#rooms li.room.Warehouse.inWorks      		{ background-image: url(/images/buildings/warehouse_inWorks.jpg); }

@@ -152,8 +152,7 @@ width:10%;
 	background: white url(/images/theme/table2_th_fade.jpg) repeat-x bottom;
 	text-align: left;
 	float: left;
-	margin-top: 10px;
-	margin-left: 10px;
+	margin: 20px 0 0 30px;
 	padding: 10px;
 }
 .egg_slot .egg_slot_img { float: left; }
@@ -174,7 +173,7 @@ width:10%;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: bottom left;
-	padding-bottom: 150px;
+	padding-bottom: 293px;
 }
 .incubatedEggs0 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs0.png); }
 .incubatedEggs1 { background-image: url(/images/illustrations/incubatedEggs/incubatedEggs1.png); }

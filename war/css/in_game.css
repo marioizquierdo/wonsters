@@ -31,7 +31,7 @@ body {
 	clear: both;
 }
 
-/**Content**/
+/** Content **/
 #content {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -39,4 +39,10 @@ body {
 	width: 100%;
 	float: left;
 	clear: both;
+}
+
+
+/** Mensaje de Ayuda: help.do **/
+#HelpNotImplemented_content {
+	padding-top: 12px;	
 }
