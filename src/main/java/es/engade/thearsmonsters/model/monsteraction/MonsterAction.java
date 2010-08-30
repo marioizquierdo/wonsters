@@ -1,5 +1,6 @@
 package es.engade.thearsmonsters.model.monsteraction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -14,6 +15,7 @@ public class MonsterAction {
 	private MonsterActionType type;
 	private Monster monster;
 	private Room room;
+	private List<String> errors;
 	
 	/**
 	 * Constructor genérico, la room puede ser de la guarida del monstruo o de fuera.
@@ -22,6 +24,7 @@ public class MonsterAction {
 	    this.type = type;
 	    this.monster = monster;
 	    this.room = room;
+	    this.errors = new ArrayList<String>();
     }
 	
 	/**
@@ -37,6 +40,7 @@ public class MonsterAction {
 	public MonsterActionType getType() { return type; }
 	public Monster getMonster() { return monster;  }
 	public Room getRoom() { return room; }
+	public RoomType getRoomType() { return room.getRoomType(); }
 	public Lair getLair() { return room.getLair(); }
 	public List<MonsterAge> getAllowedMonsterAges() { return type.getAllowedMonsterAges(); }
 	public List<RoomType> getAllowedRoomTypes() { return type.getAllowedRoomTypes(); }
@@ -49,7 +53,7 @@ public class MonsterAction {
 	 * Se puede usar desde aquí o bien directamente desde el MonsterActionType.isValid
 	 */
 	public boolean isValid() {
-		return type.isValid(monster, room);
+		return type.isValid(this);
 	}
 	
 	/**
@@ -57,7 +61,26 @@ public class MonsterAction {
 	 * @return true si la tarea es válida y se ha ejecutado, false en caso contrario (si devuelve false, ningún cambio ha sido realizado).
 	 */
 	public boolean execute() {
-		return type.execute(monster, room);
+		return type.execute(this);
+	}
+	
+
+	/**
+	 * Lista de errores que pueden aparecer después de validar la acción.
+	 * Si al ejecutar isValid() se devuelve true, getErrors devolverá una lista vacía,
+	 * si en cambio isValid() devuelve false, getErrors debe contener los errores derivados de la validación.
+	 */
+	public List<String> getErrors() {
+		return this.errors;
+	}
+	
+	
+	/**
+	 * Añade un error a la lista de errores.
+	 * Este método debe llamarse solamente desde type.isValid() (MonsterActionType al validar)
+	 */
+	public void addError(String errorKey) {
+		this.errors.add(errorKey);
 	}
 	
 
@@ -68,7 +91,7 @@ public class MonsterAction {
 	 * Esto es una instancia de MonsterActionSuggestion con los datos de esta action.
 	 */
 	public MonsterActionSuggestion getSuggestion() {
-		return type.getSuggestion(monster, room, room.getLair());
+		return type.getSuggestion(this);
 	}
 	
 	

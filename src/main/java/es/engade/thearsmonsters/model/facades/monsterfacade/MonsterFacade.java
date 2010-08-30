@@ -53,14 +53,10 @@ public interface MonsterFacade {
     	throws InstanceNotFoundException;
     
     /**
-     * Ejecutar una acción de un monstruo en una sala de su propia guarida
-     * TODO: Hay que implementar un caso de uso más eficiente, que permita ejecutar varias
-     * acciones y que cada una de ellas pueda consumir varios turnos, y que al final guarde los cambios en la base
-     * de datos tan solo una vez.
-     * @param lair TODO
+     * Ejecutar acciones de un monstruo en su guarida.
+     * Cada actionToDo ya indica cuantos turnos debe gastar el monstruo en realizar esa acción.
      */
-    public boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) 
-    	throws InstanceNotFoundException;
+    public boolean executeMonsterActions(Lair lair, List<MonsterActionToDo> actionsToDo);
 
 }
 

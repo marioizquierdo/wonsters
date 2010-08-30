@@ -1,7 +1,6 @@
 package es.engade.thearsmonsters.http.controller.actions.monsters;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameters;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
@@ -21,7 +17,6 @@ import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.http.view.actionforms.MonsterActionsToDoForm;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacade;
-import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -36,15 +31,12 @@ public class DoMonsterActions extends ThearsmonstersDefaultAction {
     	MonsterFacade monsterFacade = (MonsterFacade) AppContext.getInstance().getAppContext().getBean("monsterFacade");
     	
         /* Get data. */
-    	MonsterActionsToDoForm monsterActionsToDo = (MonsterActionsToDoForm) form;
-        String monsterIdString = monsterActionsToDo.getMonsterId();
+    	MonsterActionsToDoForm monsterActionsToDoForm = (MonsterActionsToDoForm) form;
+        String monsterIdString = monsterActionsToDoForm.getMonsterId();
         
 		try {
-	        Key monsterId = KeyFactory.stringToKey(monsterIdString);
 	        Lair lair = SessionManager.getMyLair(request);
-	        for(MonsterActionToDo actionToDo : monsterActionsToDo.getActionsToDo()) {
-	        	monsterFacade.executeMonsterAction(lair, actionToDo);
-	        }
+	        monsterFacade.executeMonsterActions(lair, monsterActionsToDoForm.getActionsToDo());
         } catch (Exception e) {
             return mapping.findForward("InternalError");
         }

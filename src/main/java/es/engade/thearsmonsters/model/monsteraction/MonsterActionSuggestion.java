@@ -39,6 +39,8 @@ public class MonsterActionSuggestion {
 	    this.targetValueMessageParams = targetValueMessageParams;
     }
 	
+	// **** Getters **** //
+	
 	public MonsterActionType getMonsterActionType() { return monsterActionType; }
 	public String getMonsterId() { return monsterId; }
 	public RoomType getRoomType() { return roomType; }

@@ -208,7 +208,6 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		}
 		
 		this.score = score;
-		System.out.println("score TOTAL: "+ this.score);
 		return score;
 	}
 	

@@ -275,29 +275,33 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         
     }
     
-
-
-    public boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) throws InstanceNotFoundException {
+    public boolean executeMonsterActions(Lair lair, List<MonsterActionToDo> actionsToDo) {
+    	boolean successAll = true;
+    	boolean success;
+    	for(MonsterActionToDo actionToDo : actionsToDo) {
+    		success = executeMonsterAction(lair, actionToDo);
+    		if(!success) successAll = false;
+    	}
     	
-    	// Pillar el monstruo de la guarida
-    	Monster monster = lair.getMonster(KeyFactory.stringToKey(actionToDo.getMonsterId()));
-    	
-    	Room room = lair.getRoom(actionToDo.getRoomType());
+    	// Guardar cambios
+    	userDao.update(lair.getUser());
+    	return successAll;
+    }
+
+    private boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) {
+    	// Acción del monstruo que hay que ejecutar.
+    	MonsterAction action = actionToDo.getMonsterAction(lair);
     	
     	// Ejecuta la acción tantas veces como actionToDo.getTurnsToUse()
     	boolean success = true;
     	int turn = 0;
     	while(success && turn < actionToDo.getTurnsToUse()) {
-    		success = actionToDo.getActionType().execute(monster, room);
+    		success = action.execute();
     		if(!success) {
-    			// Aqui habría que añadir los errores que se producen
+    			System.out.println(action.getErrors()); // TODO: Aqui habría que manejar los errores que se producen
     			break;
     		}
     		turn ++;
-    	}
-    	
-    	if(turn > 0) { // guarda los resultados
-    		userDao.update(lair.getUser());
     	}
 		return success;
     }

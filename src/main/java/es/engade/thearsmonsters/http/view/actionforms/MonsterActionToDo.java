@@ -2,8 +2,15 @@ package es.engade.thearsmonsters.http.view.actionforms;
 
 import java.io.Serializable;
 
+import com.google.appengine.api.datastore.KeyFactory;
+
+import es.engade.thearsmonsters.model.entities.lair.Lair;
+import es.engade.thearsmonsters.model.entities.monster.Monster;
+import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
+import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 /**
  * Value Object que Encapsula lainformación necesaria para ejecutar una acción.
@@ -23,6 +30,22 @@ public class MonsterActionToDo implements Serializable {
 	    this.roomType = roomType;
 	    this.turnsToUse = turnsToUse;
     }
+	
+	/**
+	 * Construye una MonsterAction para ejecutar.
+	 * @param lair Guarida donde se ejecuta la acción. Debe ser la misma donde se encuentra el monsterId.
+	 */
+	public MonsterAction getMonsterAction(Lair lair) {
+    	Monster monster;
+        try {
+	        monster = lair.getMonster(KeyFactory.stringToKey(this.getMonsterId()));
+        } catch (InstanceNotFoundException e) {
+	        throw new IllegalArgumentException("The monster (monsterId: "+ monsterId +") should be in the lair (of "+ lair.getLogin() +"), and it isn't.", e);
+        }
+    	Room room = lair.getRoom(this.getRoomType());
+    	MonsterActionType actionType = this.getActionType();
+		return new MonsterAction(actionType, monster, room);
+	}
 	
 	public void setTurnsToUse(Integer turnsToUse) {
     	this.turnsToUse = turnsToUse;

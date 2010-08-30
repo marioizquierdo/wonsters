@@ -84,8 +84,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return suggestMonsterActions(null, FactoryData.MonsterWhoIs.Adult.build());
 	}
 	
-	public boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) 
-		throws InstanceNotFoundException {
+	public boolean executeMonsterActions(Lair lair, List<MonsterActionToDo> actionsToDo) {
 		return true;
 	}
 
