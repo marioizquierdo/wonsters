@@ -204,35 +204,15 @@ table.buyEggsList td.buyEggPrice.insuficient { color: #933; }
 
 /***** Form Born Monster *****/
 
-#bornMonster_image {
+#bornMonsterImageWrapper {
 	float: left;
-	background-image: url(../images/illustrations/monster_borning.png);
-	width: 302px;
-	height: 300px;
-	margin: 0;
-	padding: 0;
+	width: 450px; /* 100% - 310px padding */
+	height: 285px;
+	background: url('/images/illustrations/monster_borning.png') no-repeat 0 100%;
+	padding: 20px 0 0 310px;
 }
 
-#bornMonster_form {
-	float: left;
-	margin: 20px 0 10px 0;
-}
-
-#bornMonsterWindow div.field span.label {
-	float: left;
-	text-align: left;
-	font-weight: bold;
-	line-height: 1.6em;
-	width: 100%;
-}
-
-#bornMonsterWindow div.field span.entry {
-	float: left;
-	text-align: left;
-	margin-top: 10px;
-}
-
-#bornMonsterWindow  div.button {
-	float: right;
-	margin-top: 10px;
-}
+#bornMonster_form { float: left; margin: 20px 0 10px 0; }
+#bornMonsterWindow div.field span.label { float: left; text-align: left; font-weight: bold; line-height: 1.6em; width: 100%; margin-left: 0; }
+#bornMonsterWindow div.field span.entry { float: left; text-align: left; margin-top: 10px; }
+#bornMonsterWindow  div.button { float: right; margin-top: 10px; }
