@@ -122,7 +122,6 @@
 					start: FrontPage.startTag => welcome.do,
 					screenshots: FrontPage.screenshots => screenshots.do,
 					concept_art: FrontPage.conceptArt => concept_art.do,
-					release_info: NotImplementedPage.frontPageTag => not_implemented_page_front_page.do,
 					credits: FrontPage.credits => credits.do, 
 					register: FrontPage.registerTag => userprofile/register.do?action=REGISTER">
 			<tiles:get name="content"/>

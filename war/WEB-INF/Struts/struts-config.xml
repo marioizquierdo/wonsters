@@ -278,10 +278,6 @@
 	<action path="/welcome"
             type="org.apache.struts.actions.ForwardAction"
             parameter=".FrontPage"/>
-	
-    <action path="/not_implemented_page_front_page"
-			type="org.apache.struts.actions.ForwardAction"
-            parameter=".NotImplementedPageFrontPage"/>
        	
     <action path="/screenshots"
             type="org.apache.struts.actions.ForwardAction"
