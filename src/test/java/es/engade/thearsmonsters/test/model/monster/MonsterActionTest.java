@@ -161,7 +161,6 @@ public class MonsterActionTest extends GaeTest{
     	// y por ultimo que el error es el adecuado
     	assertTrue(action.getErrors().contains("validateWorkInTheWorks"));
 
-    
     }
     
     @Test
@@ -176,41 +175,19 @@ public class MonsterActionTest extends GaeTest{
     	monsterAdult.addExp(AttrType.Strenght, 100);
     	
     	MonsterAction action = MonsterActionType.GarbageHarvest.build(monsterAdult, RoomType.Warehouse);
-    	
     	monsterAdult.setFreeTurns(maxTurns);
-    	
     	assertTrue(action.isValid());
-    	
-    	
-    	
+
     	while (lair.getGarbage() < maxGarbage && contador < maxTurns){
     		action.execute();
     		contador++;
     	}
-    	
-    	
-      	/* Compruebo que no ha habido fallos */
     	assertTrue(action.getErrors().isEmpty());
-
-    	// Si llega hasta aquí es que el bucle se queda pillado (por ejemplo porque no a�ade basura)
-    	assertTrue(contador < maxTurns);
-    	
-    	// comprobamos que el monstruo gasta los turnos que debe gastar
-    
-    	assertEquals(1000 - contador, monsterAdult.getFreeTurns());
-    	 
-    	// comprobamos que la guarida se ha llenado de basura
-    	assertEquals(lair.getGarbage(), maxGarbage);
-    	
-    	// comprobamos que ya no se puede recolectar más basura
-    	assertFalse(action.isValid());
-    	
-    	// y por ultimo que el error es el adecuado
-    	assertTrue(action.getErrors().contains("validateGarbageHarvest"));
-
-    	
-    	
-    	
+    	assertTrue(contador < maxTurns); // Si llega hasta aquí es que el bucle se queda pillado (por ejemplo porque no añade basura)
+    	assertEquals(1000 - contador, monsterAdult.getFreeTurns()); // comprobamos que el monstruo gasta los turnos que debe gastar
+    	assertEquals(lair.getGarbage(), maxGarbage); // comprobamos que la guarida se ha llenado de basura
+    	assertFalse(action.isValid()); // comprobamos que ya no se puede recolectar más basura
+    	assertTrue(action.getErrors().contains("validateGarbageHarvest")); // y por ultimo que el error es el adecuado
     }
 
     
