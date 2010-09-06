@@ -41,21 +41,28 @@
                 <html:errors property="${suggestedAction}"/>
             </h4>
             
-            <p class="targetValue" title="${actionInfo}">
+            <div class="targetValueInfo" title="${actionInfo}">
             	<fmt:message key="${MASuggestion.targetValueMessageKey}">
             		<c:forEach items="${MASuggestion.targetValueMessageParams}" var="targetValueMessageParam">
             			<fmt:param value="${targetValueMessageParam}"/>
             		</c:forEach>
             	</fmt:message>
-            </p>
+            </div>
             
-            <p class="input_buttons">
+            <div class="input_buttons">
                 <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>
                 <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
                 <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
                 <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>      
                 <button id="${suggestedActionInstance}_add_all_button" class="add_all_button">++</button>          
-            </p>
+            </div>
+            
+            <!-- Data (hidden by CSS) needed from JavaScript monster_actions.js -->
+            <div class="suggested_action_extra_data">
+            	maxTurnsToAssign: <span class="MASuggestion_maxTurnsToAssign">${MASuggestion.maxTurnsToAssign}</span><br/>
+            	targetValue: <span class="MASuggestion_targetValue">${MASuggestion.targetValue}</span>
+            	targetValueIncreasePerTurn: <span class="MASuggestion_targetValueIncreasePerTurn">${MASuggestion.targetValueIncreasePerTurn}</span>
+            </div>
            
         </div>
     </c:forEach>
