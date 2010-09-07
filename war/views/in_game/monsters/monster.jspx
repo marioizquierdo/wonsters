@@ -12,7 +12,7 @@
 	        <customtag:window id="MonsterDead" title="Monster.isDead.title" window_width="770">
 	            <img src="" ></img>
 	            Imagen aqui indicando  mounstro muerto (st)
-	            <a href="">Enterrar y olvidar</a>
+	            <html:link action="/monster/bury.do?monsterId=${monster.id}">Enterrar y olvidar</html:link>
 	        </customtag:window>
         </div>
         <div id="monsterLeftBlock">
