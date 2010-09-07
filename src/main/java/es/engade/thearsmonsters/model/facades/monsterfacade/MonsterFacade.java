@@ -39,6 +39,9 @@ public interface MonsterFacade {
     public Monster metamorphosisToAdult(Lair lair, String monsterId)
 		throws InternalErrorException, InstanceNotFoundException, MonsterGrowException;
     
+    public void buryMonster(Lair lair, String monsterId)
+	throws InternalErrorException, InstanceNotFoundException, MonsterGrowException;
+    
     public List<Monster> findLairMonsters(Lair lair)
     	throws InternalErrorException;
     

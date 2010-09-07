@@ -48,6 +48,11 @@ public class MonsterFacadeMock implements MonsterFacade {
 			InsuficientVitalSpaceException {
 		return FactoryData.MonsterWhoIs.Child.build();
 	}
+	
+	public void buryMonster(Lair lair, String monsterId){
+		System.out.println("Mounstro "+ monsterId +"enterrado");
+		return;
+	}
 
 	public MonsterEgg buyEgg(Lair lair, MonsterRace race)
 			throws InternalErrorException, InsuficientMoneyException,

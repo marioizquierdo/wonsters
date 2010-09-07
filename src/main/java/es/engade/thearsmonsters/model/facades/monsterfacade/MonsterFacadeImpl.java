@@ -92,6 +92,11 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         
         return baby;
     }
+    
+    //Version de prueba. Por implementar
+    public void buryMonster(Lair lair, String monsterId){
+    	System.out.println("Mounstro "+monsterId	+" enterrado");
+    }
 
     @Transactional
     public MonsterEgg buyEgg(Lair lair, MonsterRace race)
