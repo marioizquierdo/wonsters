@@ -1,12 +1,20 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+		  xmlns:html="http://struts.apache.org/tags-html"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+    	  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
           version="2.0">
 
 <customtag:window id="internalErrorWindow" title="ErrorMessages.internalError.title">
 	<customtag:info_message titleKey="ErrorMessages.internalError.title" 
 		key="ErrorMessages.retry" status="ERROR" style="margin: 20px;"/>
+		
+	<customtag:info_message status="ERROR" icon_id="2" style="margin: 20px;">
+		<html:link action="/welcome.do">
+			<fmt:message key="ErrorMessages.internalError.backToHomePage"/>
+		</html:link>
+	</customtag:info_message>
+	
 </customtag:window>
 
 </jsp:root>

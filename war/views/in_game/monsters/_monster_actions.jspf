@@ -50,11 +50,11 @@
             </div>
             
             <div class="input_buttons">
-                <button id="${suggestedActionInstance}_remove_all_button" class="remove_all_button">--</button>
-                <button id="${suggestedActionInstance}_remove_turn_button" class="remove_turn_button">-</button>
+                <button id="${suggestedActionInstance}_remove_all_button" type="button" class="remove_all_button">--</button>
+                <button id="${suggestedActionInstance}_remove_turn_button" type="button" class="remove_turn_button">-</button>
                 <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
-                <button id="${suggestedActionInstance}_add_turn_button" class="add_turn_button">+</button>      
-                <button id="${suggestedActionInstance}_add_all_button" class="add_all_button">++</button>          
+                <button id="${suggestedActionInstance}_add_turn_button" type="button" class="add_turn_button">+</button>      
+                <button id="${suggestedActionInstance}_add_all_button" type="button" class="add_all_button">++</button>          
             </div>
             
             <!-- Data (hidden by CSS) needed from JavaScript monster_actions.js -->

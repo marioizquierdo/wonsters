@@ -37,7 +37,7 @@ public class MetamorphosisToAdult extends ThearsmonstersDefaultAction {
 	        
 	        try {   
 		        /* Model action */
-				monsterFacade.buryMonster(lair, monsterId);
+				monsterFacade.metamorphosisToAdult(lair, monsterId);
 				
 			} catch (InstanceNotFoundException e) {
 				throw new InternalErrorException(e);

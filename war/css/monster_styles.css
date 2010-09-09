@@ -36,10 +36,11 @@ table#monstersOfLair tr td.without.freeTurns { color: #933; }
 
 #monster_tasks .free_turns { text-align: left; padding-left: 10px; }
 #monster_tasks .free_turns_label { }
-#monster_tasks .free_turns_value { padding-left: 5px; font-weight: bold; }
+#monster_tasks .free_turns_value { padding-left: 0 5px; font-weight: bold; }
+#monster_tasks .free_turns_value.no_free_turns { color: #c44; }
 
 #monster_tasks .monsterActionSuggestion h4 { float: left; width: 100%; text-align: left; font-size: 12px; font-weight: bold; }
-#monster_tasks .monsterActionSuggestion .suggested_action_extra_data { /* display: none;*/ }
+#monster_tasks .monsterActionSuggestion .suggested_action_extra_data { display: none; }
 
 
 #monster_tasks .add_all_button 		{ margin: 2px; width:17%; }

@@ -124,7 +124,8 @@
         
     <action path="/monster/egg/buy"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEgg">
-        <set-property property="authenticationRequired" value="true"/></action>
+        <set-property property="authenticationRequired" value="true"/>
+        <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/></action>
         
     <action path="/monster/eggs"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterEggs"
