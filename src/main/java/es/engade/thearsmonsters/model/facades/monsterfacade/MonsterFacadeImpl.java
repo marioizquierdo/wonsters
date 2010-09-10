@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 
 import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
@@ -303,7 +302,9 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     	while(success && turn < actionToDo.getTurnsToUse()) {
     		success = action.execute();
     		if(!success) {
-    			System.out.println(action.getErrors()); // TODO: Aqui habría que manejar los errores que se producen
+    			// TODO: Aqui habría que manejar los errores que se producen
+    			System.out.println("monsterFacadeImpl.executeMonsterAction(): Error al validar tarea.");
+    			System.out.println("  action.getErrors():" + action.getErrors());
     			break;
     		}
     		turn ++;
