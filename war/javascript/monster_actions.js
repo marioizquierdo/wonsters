@@ -1,15 +1,13 @@
 /*
  * Comportamiento de los botones para asignar turnos del monstruo. 
  * Este script se incluye en la vista in_game/monsters/monster.jspx. En particular cumple los siguientes características:
- * 	
- * 	-Hay botones para restar/sumar un turno, y para añadir/quitar todos los turnos posibles en esa tarea.
- * 	-Avisa cuando no se pueden asignar más turnos con un efecto sobre los turnos libres disponibles.
- * 	-No dejar meter números negativos (si el value es menor que cero, se cambia a cero).
- * 	-Previene en la inerción de letras (solo acepta números)
- * 	-También funciona introduciendo números directamente en los inputs (y además es no intrusivo, por lo que si se quita el script se puede seguir utilizando el formulario)
- * */
-
-
+ * 
+ *  -Hay botones para restar/sumar un turno, y para añadir/quitar todos los turnos posibles en esa tarea.
+ *  -Avisa cuando no se pueden asignar más turnos con un efecto sobre los turnos libres disponibles.
+ *  -No dejar meter números negativos (si el value es menor que cero, se cambia a cero).
+ *  -Previene en la inerción de letras (solo acepta números)
+ *  -También funciona introduciendo números directamente en los inputs (y además es no intrusivo, por lo que si se quita el script se puede seguir utilizando el formulario)
+ */
 $(function(){
 	
 	// Elemento cuyo .text() es el número de turnos libres actual (valor que se va modificando)
@@ -17,14 +15,21 @@ $(function(){
 	
 	// Turnos libres del mounstro en total, constante que no se cambia.
 	// Se lee del valor que aparece inicialmente en la vista, que es válido solo al cargar la página (luego se va a modificar).
-	var MONSTER_FREE_TURNS = parseInt(monster_free_turns_element.text()) || 0;
+	var MONSTER_FREE_TURNS = parseInt(monster_free_turns_element.text(), 10) || 0;
+	
+	// Bucle for para cada input. La función callback recibe como argumento el objeto jquery que representa a cada input.
+	var forEachInput = function(callback) {
+		$('#monster_tasks input.turns_input').each(function() {
+	        var input = $(this);
+	        callback(input);
+	    });
+	};
 	
 	// Número de turnos asignados en total, es decir, la suma de todos los inputs del formulario.
 	var totalAssignedTurns = function() {
 	    var assigned_turns = 0;
-	    $('#monster_tasks input.turns_input').each(function() {
-	        var input = $(this);
-	        assigned_turns += parseInt(input.val()) || 0;
+	    forEachInput(function(input) {
+	        assigned_turns += getVal(input);
 	    });
 	    return assigned_turns;
 	};
@@ -34,16 +39,6 @@ $(function(){
 		return MONSTER_FREE_TURNS - totalAssignedTurns();
 	};
 	
-	// Devuelve el objeto jQuery del taskInput.
-	// El parámetro input puede ser el mismo objeto jQuery o bien un String en cuyo caso se interpreta como el id del elemento.
-	var getActionInput = function(input) {
-		if(typeof input == 'string') {
-			return input = $('#'+input); // si es un string, supone que es su id 
-		} else {
-			return input; // sino supone que es el objeto jQuery.
-		}
-	};
-	
 	// Dado un input devuelve el elemento action que lo contiene.
 	var actionElementOf = function(input) {
 		return input.parents('.monsterActionSuggestion');
@@ -51,9 +46,8 @@ $(function(){
 	
 	// Devuelve el targetValue asociado a ese input como un elemento jQuery al cual se puede leer y escribir con .text()
 	var targetValueElementOf = function(input) {
-		var input = getActionInput(input);
 		return actionElementOf(input).find('.targetValueInfo span.targetValue');
-	}
+	};
 	
     // Hay información guardada como elementos ocultos en el html
     // de el mismo elemento '.monsterActionSuggestion' donde está el input.
@@ -64,9 +58,19 @@ $(function(){
     //   * actionInfo(input, "targetValueIncreasePerTurn")  // Incremento por cada turno gastado.
     //   * actionInfo(input, "maxTurnsToAssign")            // Número máximo de turnos que se pueden asignar a una tarea.
     var actionInfo = function(input, action_attr) {
-    	var action = actionElementOf(getActionInput(input)); // obtiene el elemento action de ese input
-    	return parseInt(action.find('.suggested_action_extra_data .MASuggestion_'+ action_attr).text()) || 0;
+    	var action = actionElementOf(input); // obtiene el elemento action de ese input
+    	return parseInt(action.find('.suggested_action_extra_data .MASuggestion_'+ action_attr).text(), 10) || 0;
     };
+	
+	// Hace un highlight del elemento en rojo.
+	var red_highlight = function(jquery_element) {
+		jquery_element.effect('highlight', {color: '#cc4444'});
+	};
+	
+	// Hace un highlight del elemento en verde.
+	var green_highlight = function(jquery_element) {
+		jquery_element.effect('highlight', {color: '#44cc55'});
+	};
     
 	// Comprueba que el valor escrito en el input es correcto.
 	// El valor es incorrecto si se trata de:
@@ -74,35 +78,31 @@ $(function(){
 	//   * un número menor que cero
 	//   * un número mayor que la cantidad de turnos libres disponible
 	//   * un número mayor que la cantidad de turnos que se pueden aplicar a esa tarea
-	// Si el valor es incorrecto, lo convierte a uno que lo sea (cero o 
+	// Si el valor es incorrecto, lo convierte a uno que lo sea (cero o el maximo permitido).
 	// Si no lo es lo sobreescribe con un valor correcto:
 	var validateActionInputValue = function(input) {
-		var input = getActionInput(input);
+		var input_val = parseInt(input.val(), 10);
 		
-		// asegurar que es un numero entero mayor o igual a cero
-		var input_val = parseInt(input.val()); 
-		if (!input_val || input_val < 0) {
-			input.val(0); input_val = 0;
-			return;
+		// Cualquier otra cosa que no sea un entero se convierte a cadena vacía, , que se interpreta como 0. 
+		if (!input_val && input_val !== 0) {
+			input.val(''); return;
+		}
+		
+		// Menor que cero no vale, se convierte a cero.
+		if (input_val < 0) { 
+			input.val(0); return;
 		}
 		
 		// asegura que el total no exceda a MONSTER_FREE_TURNS
 		var turns_over = totalAssignedTurns() - MONSTER_FREE_TURNS;
 		if (turns_over > 0) {
 			input.val(input_val - turns_over); input_val = input.val();
-			monster_free_turns_element.effect('highlight', {color: '#cc4444'}, 1000).addClass('no_free_turns');
-		} else {
-			monster_free_turns_element.removeClass('no_free_turns');
 		}
 		
 		// asegurar que no sea mayor de lo permitido para esa tarea
-		var max_turns_allowed_to_this_task = actionInfo(input, "maxTurnsToAssign");
-		if (input_val > max_turns_allowed_to_this_task) {
-			actionElementOf(input).find()
-			input.val(max_turns_allowed_to_this_task);
-			targetValueElementOf(input).effect('highlight', {color: '#cc4444'});
-		} else {
-			targetValueElementOf(input).effect('highlight');
+		var max_turns_allowed = actionInfo(input, "maxTurnsToAssign");
+		if (input_val > max_turns_allowed) {
+			input.val(max_turns_allowed);
 		}
 	};
 	
@@ -110,40 +110,67 @@ $(function(){
 	// Despues de asignar un valor válido a un input hay que actualizar la información que se muetra al usuario:
 	//  * turnos libres del monstruo: "#monster_tasks span.MONSTER_FREE_TURNS_value"
 	//  * targetValue que tendrá esa tarea si se asignan los turnos indicados: ".targetValue"
-	// El input es una referencia al que se acaba de modificar.
-	var refreshViewInfo = function(input) {  
+	// El input es una referencia al que se acaba de modificar. Si se indica, los demás inputs no tienen por que ser actualizados.
+	var refreshViewInfo = function(input) {
 	    // Actualizar turnos libres
-		var free_turns = freeTurns();
+		var old_free_turns = parseInt(monster_free_turns_element.text(), 10) || 0;
+		var new_free_turns = freeTurns();
 		var ft_element = monster_free_turns_element;
-		ft_element.text(free_turns);
+		
+		ft_element.text(new_free_turns);
+		if (new_free_turns === 0) { ft_element.addClass('no_free_turns'); } else { ft_element.removeClass('no_free_turns'); } // marcar en rojo si es 0
+		if(old_free_turns === 0 && new_free_turns === 0) { red_highlight(monster_free_turns_element); } // efecto resaltar si se pasa a cero de repente.
+		if(new_free_turns > old_free_turns) { green_highlight(ft_element); }
 	    
-	    // Actualizar el targetValue del input que se ha modificado
-	    if(input) {
-		    var originalTargetValue = actionInfo(input, "targetValue"); // Valor del targetVaue original (sin modificar)
-		    var targetValueIncreasePerTurn = actionInfo(input, "targetValueIncreasePerTurn"); // Incremento por cada turno gastado
-		    var turnsToUse = input.val();
-		    var newTargetValue = originalTargetValue + turnsToUse * targetValueIncreasePerTurn;
-		    targetValueElementOf(input).text(newTargetValue);
+	    // Actualizar el targetValue del cada input
+		var refreshTargetValue = function(input) {
+		    var original_target_value = actionInfo(input, "targetValue"); // Valor del targetVaue original (sin modificar)
+		    var target_value_increase_per_turn = actionInfo(input, "targetValueIncreasePerTurn"); // Incremento por cada turno gastado
+		    var turns_to_use = getVal(input);
+		    var target_value_element = targetValueElementOf(input);
+		    var old_target_value = target_value_element.text();
+		    var new_target_value = original_target_value + turns_to_use * target_value_increase_per_turn;
+		    var max_turns_allowed = actionInfo(input, "maxTurnsToAssign");
+		    
+		    target_value_element.text(new_target_value);
+		    if(turns_to_use == max_turns_allowed) { red_highlight(target_value_element); } // se resalta en rojo si no se ha podido mejorar
+		    if(turns_to_use < max_turns_allowed && new_target_value > old_target_value) { green_highlight(target_value_element); } // se resalta en verde cuando se mejora
+		};
+		if(input) { // Si se ha especificado un input como parámetro, solo se actualiza el targetValue de ese input.
+			refreshTargetValue(input);
+		} else { // Sino, se actualiza el targetValue de cada uno de los inputs del formulario.
+			forEachInput(function(input) {
+				refreshTargetValue(input);
+			});
 		}
+
 	};
 	
-
+	// Similar a input.val(), solo que acepta la cadena vacía (o cualquier otra cosa que no sea un entero) y
+	// lo interpreta como 0. Además input puede ser un String que es el identificador del input, o un objeto jQuery. 
+	var getVal = function(input) {
+		return parseInt(input.val(), 10) || 0;
+	};
 	
-	// Fija un valor en un input de una tarea y después valida el resultado, cambiándolo por uno válido si es necesario.
-	var setTurnsToActionInput = function(input, turns) {
-		var input = getActionInput(input); 	// input puede ser bien un objeto jQuery o bien un string que represente el id del input
-    	input.val(turns); 					// fija la cantidad indicada
+	// Fija un valor en un input de una tarea, valida el resultado (cambiándolo por uno válido si es necesario)
+	// y refresca los datos relacionados en la vista.
+	var setVal = function(input, value) {
+    	input.val(value); 					// fija la cantidad indicada
     	validateActionInputValue(input); 	// valida y corrige el resultado
     	refreshViewInfo(input); 			// refresca los datos informativos en la vista
+	};
+
+	
+	// alias de setVal(input, value)
+	var setTurnsToActionInput = function(input, turns) {
+		setVal(input, turns);
 	};
 	
 	// Añade una cantidad de turnos a un input (el valor puede ser negativo para restar),
 	// y después valida el resultado, modificándolo por un valor válido si es necesario.
 	var addTurnsToActionInput = function(input, turns) {
-		var input = getActionInput(input);
-		var turns_added = parseInt(turns) || 0;
-		var current_turns = parseInt(input.val()) || 0;
-		setTurnsToActionInput(input, current_turns + turns_added);
+		var turns_added = parseInt(turns, 10) || 0;
+		setVal(input, getVal(input) + turns_added);
     };
 	
 	// Añadir un turno al input de la acción
@@ -162,7 +189,7 @@ $(function(){
 	
 	// Pone el valor del target_input a cero.
 	var subtractAllTurnsFromActionInput = function(input) {
-		setTurnsToActionInput(input, 0);
+		setVal(input, 0);
 	};
 
 	
@@ -172,43 +199,44 @@ $(function(){
 	// add_turn_button
 	$('#monster_tasks button.add_turn_button').click(function(){
 	    var input_id = $(this).attr('id').replace('_add_turn_button', '_turns_input');
-	    addTurnToActionInput(input_id);
+	    addTurnToActionInput($('#'+input_id));
 	    return false;
 	});
 	
 	// remove_turn_button
 	$('#monster_tasks button.remove_turn_button').click(function() {
 	   var input_id = $(this).attr('id').replace('_remove_turn_button', '_turns_input');
-	    subtractTurnFromActionInput(input_id);
+	    subtractTurnFromActionInput($('#'+input_id));
 	    return false;
 	});
 	
 	// add_all_button
 	$('#monster_tasks button.add_all_button').click(function() {
 	   var input_id = $(this).attr('id').replace('_add_all_button', '_turns_input');
-	   addMaxTurnsToActionInput(input_id);
+	   addMaxTurnsToActionInput($('#'+input_id));
 	   return false;
 	});
 	
 	// remove_all_button
 	$('#monster_tasks button.remove_all_button').click(function() {
 	    var input_id = $(this).attr('id').replace('_remove_all_button', '_turns_input');
-	    subtractAllTurnsFromActionInput(input_id);
+	    subtractAllTurnsFromActionInput($('#'+input_id));
 	    return false;
 	});
 	                
 	// turns_input typing   
 	$('#monster_tasks input.turns_input').bind('change keyup click paste', function(e) {
 		var input = $(this);
-		setTurnsToActionInput(input, input.val()); // esto ya valida y actualiza valores.
+		validateActionInputValue(input); 	// valida y corrige el resultado
+    	refreshViewInfo(input); 			// refresca los datos informativos en la vista
 	    return false;
 	});
 	
 	// Previene el formulario de ser enviado al pulsar enter (keycode 13) sobre un input
 	$('form[name=monsterActionsToDoForm]').keydown(function(e) {
-	    if (e.which == 13) return false;
+	    if (e.which == 13) { return false; }
 	});
       
 	// Recalcula los turnos libres al recargar la pagina (ya que se mantienen los valores de los inputs).
 	refreshViewInfo();
-})
+});

@@ -1,10 +1,10 @@
 /*
-	Inserta una funci�n que resta un segundo a los elementos del DOM
+	Inserta una función que resta un segundo a los elementos del DOM
 	que sean de la clase ".countdown".
 	Precondiciones: Los elementos de la clase ".countdown" deben contener
 	en su interior dos elementos (xej <spam>) de clase c_in y c_out.
 	c_in contiene los milisegundos desde EPOCH (normalmente va hidden).
-	c_out ser� donde se ponga la salida (los segundos que faltan).
+	c_out será donde se ponga la salida (los segundos que faltan).
 */
 
 $( function() {
@@ -15,13 +15,19 @@ $( function() {
 	 */
 	var pad2 = ThearsmonstersLib.pad2; // Requiere que se haya cargado el script thearsmonsters_lib.js
 	
+	/**
+	 * Versión segura de parseInt.
+	 */
+	var parse_int = function(integer) {
+		return parseInt(integer, 10) || 0;
+	};
 
 	/**
 	* Parsea la variable 'seconds' (integer) y la pasa al formato  'mm:ss' o 'hh:mm:ss'
 	*/
 	var parse_hms = function(seconds) {
-		seconds = parseInt(seconds);
-		if(seconds <= 0) return '00:00'
+		seconds = parse_int(seconds);
+		if(seconds <= 0) { return '00:00'; }
 		
 		var hours = Math.floor(seconds/60/60);
 		var mins = Math.floor(seconds/60) % 60;
@@ -46,13 +52,13 @@ $( function() {
 		var a = hms.split(':');
 		
 		if(a.length==1){
-			seconds = parseInt(a[0]);
+			seconds = parse_int(a[0]);
 		}
 		if(a.length==2){
-			seconds = parseInt(a[0])*60 + parseInt(a[1]);
+			seconds = parse_int(a[0])*60 + parse_int(a[1]);
 		}
 		if(a.length==3){
-			seconds = parseInt(a[0])*60*60 + parseInt(a[1])*60 + parseInt(a[2]);
+			seconds = parse_int(a[0])*60*60 + parse_int(a[1])*60 + parse_int(a[2]);
 		}
 
 		return seconds;
@@ -87,8 +93,8 @@ $( function() {
 		
 		countdowns.each(function(i, countdown) { // resta un segundo a cada uno de los countdowns definidos en el documento.s
 			// Inicializar los objetos jQuery para este countdown si no estan creados (primera iteracion)
-			if(!end_millis[i]) end_millis[i] = $(countdown).find(".c_in").html();
-			if(!c_out[i]) c_out[i] = $(countdown).find(".c_out");
+			if(!end_millis[i]) { end_millis[i] = $(countdown).find(".c_in").html(); }
+			if(!c_out[i]) { c_out[i] = $(countdown).find(".c_out"); }
 			
 			// Calcular los segundos que faltan
 			seconds = Math.floor((end_millis[i] - now_millis) / 1000);
