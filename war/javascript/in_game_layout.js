@@ -6,7 +6,7 @@ $( function() {
 	
 	// TipTip plugin
 	// Definir que elementos de la vista llevan tooltips
-	$('img, a, .s_ico, .m_ico, div').not("ul#pikame img").not('.lairRoom').tipTip({	
+	$('img, a, .s_ico, .m_ico, div').not("ul#pikame img").not('.lairRoom').not('img.clickable_help').tipTip({	
 		delay: 1000,
 		defaultPosition: 'right',
 		fadeIn: 50
@@ -20,6 +20,13 @@ $( function() {
 		delay: 1000,
 		defaultPosition: 'bottom',
 		fadeIn: 200
+	});
+	$('img.clickable_help').tipTip({
+		activation: 'click',
+		delay: 0,
+		keepAlive: true,
+		maxWidth: 300,
+		defaultPosition: 'right',
 	});
 	
 	

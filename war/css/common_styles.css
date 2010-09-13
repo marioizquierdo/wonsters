@@ -67,6 +67,9 @@ div.m_middle {
 	width: 16px;
 }
 
+.clickable_help {
+	cursor: pointer;
+}
 
 /*** Tooltip ***/
 

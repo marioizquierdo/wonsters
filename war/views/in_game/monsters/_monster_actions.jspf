@@ -34,11 +34,12 @@
         </c:set>
     	
         <div id="${suggestedActionInstance}" class="field monsterActionSuggestion">
-            <h4 title="${actionInfo}">
+            <h4>
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
                 </fmt:message>
                 <html:errors property="${suggestedAction}"/>
+                <img src="/images/theme/icons/question_mark.png" title="${actionInfo}" class="icon clickable_help"/>
             </h4>
             
             <div class="targetValueInfo" title="${actionInfo}">
