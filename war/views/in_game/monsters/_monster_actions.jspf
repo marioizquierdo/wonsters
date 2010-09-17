@@ -6,7 +6,7 @@
  -->
 
 <!-- Cabecera: Turnos libres -->
-<div class="field free_turns">
+<div class="free_turns">
     <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
     <span class="free_turns_value">${monster.freeTurns}</span>
 </div>
@@ -15,7 +15,7 @@
 <c:choose><c:when test="${thereIsNoActionsToDo}">
   <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" icon_id="9" /> 
 
-<!-- Tareas disponibles -->
+<!-- Lista de Tareas -->
 </c:when><c:otherwise>
   <html:form action="monster/do_actions" styleClass="execute_monster_actions">
 
@@ -33,13 +33,13 @@
         	</fmt:message>
         </c:set>
     	
-        <div id="${suggestedActionInstance}" class="field monsterActionSuggestion">
+        <div id="${suggestedActionInstance}" class="monsterActionSuggestion">
+        	<img src="/images/buildings/classroom.jpg" width="80" height="80" alt="illustration" class="illustration"/>
             <h4>
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
                 </fmt:message>
                 <html:errors property="${suggestedAction}"/>
-                <img src="/images/theme/icons/question_mark.png" title="${actionInfo}" class="icon clickable_help"/>
             </h4>
             
             <div class="targetValueInfo" title="${actionInfo}">
@@ -48,14 +48,15 @@
             			<fmt:param value="${targetValueMessageParam}"/>
             		</c:forEach>
             	</fmt:message>
+            	<img src="/images/theme/icons/question_mark.png" title="${actionInfo}" class="icon clickable_help"/>
             </div>
             
             <div class="input_buttons">
-                <button id="${suggestedActionInstance}_remove_all_button" type="button" class="remove_all_button">--</button>
-                <button id="${suggestedActionInstance}_remove_turn_button" type="button" class="remove_turn_button">-</button>
+                <!-- <button id="${suggestedActionInstance}_remove_all_button" type="button" class="remove_all_button"><</button> -->
+                <button id="${suggestedActionInstance}_remove_turn_button" type="button" class="remove_turn_button ui-corner-all">-</button>
                 <html:text property="${suggestedAction}" size="2" value="0" styleId="${suggestedActionInstance}_turns_input" styleClass="turns_input" />
-                <button id="${suggestedActionInstance}_add_turn_button" type="button" class="add_turn_button">+</button>      
-                <button id="${suggestedActionInstance}_add_all_button" type="button" class="add_all_button">++</button>          
+                <button id="${suggestedActionInstance}_add_turn_button" type="button" class="add_turn_button ui-corner-all">+</button>      
+                <button id="${suggestedActionInstance}_add_all_button" type="button" class="add_all_button ui-corner-all">++</button>          
             </div>
             
             <!-- Data (hidden by CSS) needed from JavaScript monster_actions.js -->
@@ -68,7 +69,7 @@
         </div>
     </c:forEach>
     
-    <div class="end_button">
+    <div class="button end_button">
     	<html:submit><fmt:message key="Buttons.ok"/></html:submit>
     </div>      
     

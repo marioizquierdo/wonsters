@@ -60,7 +60,7 @@
 		
 		<!-- Monster Actions -->
 		<div id="monsterLeftBlock">
-		<customtag:window id="monster_tasks" title="Monster.actions.title" window_width="240">
+		<customtag:window id="monster_tasks" title="Monster.actions.title" window_width="270">
 			<c:set var="thereIsNoActionsToDo" value="${fn:length(suggestedMonsterActions) == 0}"/>
 			<jsp:directive.include file="_monster_actions.jspf"/>
 		</customtag:window>
@@ -69,7 +69,7 @@
 		<div id="monsterRightBlock">
 		
 		<!-- Monster Brief and Image -->
-		<customtag:window id="MonsterBrief" titleValue="${monster.name}" window_width="520">
+		<customtag:window id="MonsterBrief" titleValue="${monster.name}" window_width="490">
 				
 			<div id="image_up_wrapper">
 				<ul id="MonsterBrief_data">
@@ -133,7 +133,7 @@
 		</customtag:window>
 		
 		<!-- Monster Attributes, Skills and Race details -->
-		<customtag:window id="MonsterDetails" title="Monster.details.title" window_width="520" tags="
+		<customtag:window id="MonsterDetails" title="Monster.details.title" window_width="490" tags="
 					attributes: Monster.attr.attributes, 
 					skills: Monster.attr.skills, 
 					race: Monster.race">

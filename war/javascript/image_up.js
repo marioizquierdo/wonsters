@@ -101,7 +101,7 @@ $( function() {
 		var img_offset_top = w_bottom - img_position.top;
 		var img_offset_left = w_right - img_position.left;
 		
-		// Y se pone la imagen con position absolute y en sus coordenadas seg�n la raza y edad
+		// Y se pone la imagen con position absolute y en sus coordenadas según la raza y edad
 		img.show().css({"position":"absolute", "left": img_offset_left+'px', "top": img_offset_top+'px'});
 	});
 	
