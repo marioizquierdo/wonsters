@@ -34,14 +34,16 @@ table#monstersOfLair tr td.without.freeTurns { color: #933; }
 #monster_tasks .monsterActionSuggestion > .targetValueInfo img.clickable_help { float: right; margin-right: 2px; }
 #monster_tasks .monsterActionSuggestion .suggested_action_extra_data { display: none; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button,
-#monster_tasks .monsterActionSuggestion > .input_buttons > input { float: left; margin: 0 5px 0 0; font-size: 14px; line-height: 18px;  border: 1px solid #ccc; color: #222; }
+#monster_tasks .monsterActionSuggestion > .input_buttons > input { float: left; margin: 0 5px 0 0; font-size: 14px; line-height: 18px; border: 1px solid #ccc; color: #222; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button { width: 30px; height: 23px; background: url('/images/theme/table2_th_fade.jpg') repeat-x left bottom; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button:hover { cursor: pointer; border-color: #000; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button:active { background: #eee; margin-top: 1px; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > input { width: 36px; height: 17px; padding: 2px; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button.add_all_button { margin-right: 0; }
 
-#monster_tasks .end_button input[type="submit"] {  }
+#monster_tasks_submit { float: left; width: 240px; text-align: right; margin: 0 10px 10px 10px; }
+#monster_tasks_submit .submit_info { margin-right: 5px; } 
+#monster_tasks_submit input { height: 24px; line-height: 18px; } 
 
 
 /******** Detalles del monstruo (ventana debajo del dibujo del monstruo) *********/

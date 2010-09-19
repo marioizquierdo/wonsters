@@ -299,7 +299,7 @@ public enum MonsterActionType {
     	Integer increment = targetValueIncreasePerTurn(action);
     	Integer max = targetValueMax(action);
     	if(current != null && increment != null && max != null) {
-    		return (max - current) / increment;
+    		return ((max + increment - 1) - current) / increment;
     	} else {
     		return null;
     	}
@@ -324,23 +324,21 @@ public enum MonsterActionType {
 	}
 
 	/**
+	 * Validación básica de que el monstruo tiene la edad permitida.
+	 */
+	boolean validateBasicMonsterConditions(MonsterAction action) {
+		Monster monster = action.getMonster();
+		boolean valid = this.allowedMonsterAges.contains(monster.getAge());
+		if(!valid) action.addError("validateBasicMonsterConditions"); 
+		return valid;
+	}
+
+	/**
 	 * Validación básica de que la sala es una de las salas permitidas.
 	 */
 	boolean validateBasicRoomConditions(MonsterAction action) {
 		boolean valid = this.allowedRoomTypes.contains(action.getRoomType());
 		if(!valid) action.addError("validateBasicRoomConditions");
-		return valid;
-	}
-
-	/**
-	 * Validación básica de que el monstruo tiene la edad permitida y que tiene
-	 * al menos un turno libre para ejecutar la acción.
-	 */
-	boolean validateBasicMonsterConditions(MonsterAction action) {
-		Monster monster = action.getMonster();
-		boolean valid = this.allowedMonsterAges.contains(monster.getAge())
-				&& monster.isFreeTurnsAvailable();
-		if(!valid) action.addError("validateBasicMonsterConditions"); 
 		return valid;
 	}
 
@@ -364,7 +362,7 @@ public enum MonsterActionType {
 	 */
 	public boolean execute(MonsterAction action) {
 		Monster monster = action.getMonster();
-		if (isValid(action)) { // tambien se comprueba qu el  monstruo tiene al menos un turno libre.
+		if (isValid(action) && monster.isFreeTurnsAvailable()) { // tambien se comprueba qu el  monstruo tiene al menos un turno libre.
 			monster.useFreeTurn();
 			doExecute(action);
 			return true;

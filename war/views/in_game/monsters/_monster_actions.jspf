@@ -9,6 +9,8 @@
 <div class="free_turns">
     <span class="free_turns_label"><fmt:message key="Monster.actions.freeTurns" />:</span>
     <span class="free_turns_value">${monster.freeTurns}</span>
+    <c:set var="clickable_help_title"><fmt:message key="Monster.actions.info"/></c:set>
+    <img src="/images/theme/icons/question_mark.png" title="${clickable_help_title}" class="icon clickable_help"/>
 </div>
 
 <!-- Mensaje cuando no hay tareas disponibles -->
@@ -69,9 +71,16 @@
         </div>
     </c:forEach>
     
-    <div class="button end_button">
-    	<html:submit><fmt:message key="Buttons.ok"/></html:submit>
-    </div>      
+    <div id="monster_tasks_submit" class="button">
+    	<c:choose><c:when test="${monster.freeTurns > 0}">
+	    	<span class="submit_info"><fmt:message key="Monster.actions.submitInfo">
+	    		<fmt:param><span class="total_assigned_turns">0</span></fmt:param>
+	    	</fmt:message></span>
+	    	<html:submit><fmt:message key="Monster.actions.submitButton"/></html:submit>
+    	</c:when><c:otherwise>
+    		<span class="submit_info"><fmt:message key="Monster.actions.submitNoTurnsInfo"/></span>
+    	</c:otherwise></c:choose>
+    </div>
     
   </html:form>  
   
