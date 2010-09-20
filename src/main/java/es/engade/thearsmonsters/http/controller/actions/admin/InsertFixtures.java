@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.test.facade.TestFacade;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -21,7 +22,7 @@ import es.engade.thearsmonsters.util.struts.action.DefaultAction;
  * There is no view links to this action, it can only be activated by the url  
  * No login is required.
  */
-public class InsertFixtures extends DefaultAction {
+public class InsertFixtures extends ThearsmonstersDefaultAction {
 	
     @Override
     public ActionForward doExecute(ActionMapping mapping,
@@ -39,8 +40,7 @@ public class InsertFixtures extends DefaultAction {
 			return mapping.findForward("GameStart");
 			
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 	    	return mapping.findForward("InternalError");
 		}
         

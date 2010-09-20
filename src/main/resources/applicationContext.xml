@@ -90,4 +90,8 @@
 			<property name="userDao" ref="userDao" />
 	</bean>
 <!--	<bean id="monsterFacade" class="es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacadeMock"/>-->
+    <bean id="TestFacade" class="es.engade.thearsmonsters.test.facade.TestFacade">
+        <property name="lairDao" ref="lairDao" />
+        <property name="userDao" ref="userDao" />
+    </bean>
 </beans>

@@ -120,7 +120,7 @@
         
     <action path="/monster/bury"
             type="es.engade.thearsmonsters.http.controller.actions.monsters.BuryMonster">
-        <set-property property="authenticationRequired" value="true"/></action>    
+        <set-property property="authenticationRequired" value="true"/></action>
         
     <action path="/monster/egg/buy"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEgg">
