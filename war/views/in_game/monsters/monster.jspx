@@ -12,14 +12,21 @@
     <c:when test="${monster.age == 'Dead'}">
         <div>
 	        <customtag:window id="MonsterDead" title="Monster.isDead.title" window_width="770">
-	            <img src="" ></img>
-	            Imagen aqui indicando  mounstro muerto (st)
-	            <html:link action="/monster/bury.do?monsterId=${monster.id}">Enterrar y olvidar</html:link>
+	            <div id="image_requiem">
+	               <img src="images/illustrations/monster_requiem_small.jpg" ></img>
+	            </div>
+	            <div style="margin-bottom: 5px;">
+		            <c:set var="title"><fmt:message key="Monster.isDead.bury" /></c:set>
+	                <c:set var="desc"><fmt:message key="Monster.isDead.bury.desc" /></c:set>
+		            <span id="grow_to_adult_button" class="button_box" title="${desc}">
+		               <html:link action="/monster/bury.do?monsterId=${monster.id}">${title}</html:link>
+		            </span>
+	            </div>
 	        </customtag:window>
         </div>
-        <div id="monsterLeftBlock">
-        <customtag:window id="image_up_image" titleValue="${monster.name}" window_width="240">
-            <customtag:monster_image race="${monster.race}" type="${monster.age}"/>
+        <div id="monsterLeftBlockDead">
+        <customtag:window id="image_up_image" titleValue="${monster.name}" window_width="270">
+            <customtag:monster_image race="${monster.race}" type="list_Dead"/>
                     <![CDATA[<script type="text/javascript">
                     $(function() {
                         // Metemos datos en la imagen para que puedan ser leidos por el script
@@ -31,7 +38,7 @@
     
         <div id="monsterRightBlock">
         <!-- Monster Attributes, Skills and Race details -->
-        <customtag:window id="MonsterDetails" title="Monster.details.title" window_width="520" tags="
+        <customtag:window id="MonsterDetails" title="Monster.details.title" window_width="490" tags="
                     attributes: Monster.attr.attributes, 
                     skills: Monster.attr.skills, 
                     race: Monster.race">
