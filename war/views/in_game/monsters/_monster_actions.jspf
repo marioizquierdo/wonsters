@@ -33,11 +33,20 @@
         			<fmt:param value="${infoMessageParam}"/>
         		</c:forEach>
         	</fmt:message>
+        	<br/> <!-- Lista de efectos en cada turno -->
+        	Por cada turno invertido en esta tarea se consigue (ST):
+        	<ul>
+        		<c:forEach items="${MASuggestion.effectsPerTurnParams}" var="effectsPerTurnParam">
+        			<li><fmt:message key="${MASuggestion.effectsPerTurnMessageKey}">
+        				<fmt:param value="${effectsPerTurnParam}"/> <!-- Solo se le pasa el parametro {0} -->
+        			</fmt:message></li>
+        		</c:forEach>
+        	</ul>
         </c:set>
     	
         <div id="${suggestedActionInstance}" class="monsterActionSuggestion">
         	<img src="/images/buildings/classroom.jpg" width="80" height="80" alt="illustration" class="illustration"/>
-            <h4>
+            <h4 class="monster_action_name">
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
                 </fmt:message>

@@ -56,7 +56,7 @@ public enum MonsterActionType {
 			} else {
 				action.getLair().setGarbage(current + increment);
 			}
-			action.getMonster().addExp(AttrType.HarvesterSkill, 20);
+			action.getMonster().addExp(AttrType.HarvesterSkill, 20); // mejorar habilidad "recolección"
 		}
 
 		// targetValue = Cantidad de basura que hay en la guarida.
@@ -64,7 +64,7 @@ public enum MonsterActionType {
 	        return action.getLair().getGarbage();
         }
 
-        // targetValueIncreasePerTurn = Atributo compuesto "recolección" del monstruo
+        // targetValueIncreasePerTurn, se suma tanta basura como nivel del Atributo compuesto "recolección" del monstruo
         public Integer targetValueIncreasePerTurn(MonsterAction action) {
 	        return action.getMonster().getComposeAttr(AttrType.Harvest).getLevel();
         }
@@ -94,6 +94,16 @@ public enum MonsterActionType {
     		};
     	}
         
+        // Parámetros para cada Monster.actions.type.GarbageHarvest.targetValue.perTurn.{i}
+        // ..perTurn.0 => Basura que se suma por turno, que es el targetValueIncreasePerTurn
+        // ..perTurn.1 => Experiencia obtenida la habilidad "recolección"
+        protected Object[] effectsPerTurnParams(MonsterAction action) {
+    		return new Object[]{
+    				targetValueIncreasePerTurn(action), // ..perTurn.0
+    				20                                  // ..perTurn.1
+    		};
+    	}
+        
 	},
 
 	/**
@@ -117,6 +127,7 @@ public enum MonsterActionType {
 			RoomInWorksState roomWorks = (RoomInWorksState) room.getState();
 			int monsterConstructionAttr = monster.getAttr(AttrType.Construction).getLevel();
 			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionAttr);
+			monster.addExp(AttrType.ConstructorSkill, 20); // mejorar habilidad "construcción"
 
 			int totalEffort = room.isInInitialState() ? room.getEffortBuild() : room.getEffortUpgrade();
 			if (room.getEffortDone() >= totalEffort) {
@@ -168,6 +179,16 @@ public enum MonsterActionType {
     				targetValueMessageParam(action), // {0}
     				action.getRoom().getEffortUpgrade(), // {1}
     				action.getRoom().getLevel() + 1 // {2}
+    		};
+    	}
+        
+        // Parámetros para cada Monster.actions.type.WorkInTheWorks.targetValue.perTurn.{i}
+        // ..perTurn.0 => Esfuerzo realizado por turno, que es el targetValueIncreasePerTurn
+        // ..perTurn.1 => Experiencia obtenida la habilidad "construcción"
+        protected Object[] effectsPerTurnParams(MonsterAction action) {
+    		return new Object[]{
+    				targetValueIncreasePerTurn(action), // ..perTurn.0
+    				20                                  // ..perTurn.1
     		};
     	}
 	};
@@ -227,7 +248,9 @@ public enum MonsterActionType {
 				targetValue(action),
 				targetValueIncreasePerTurn(action), 
 				targetValueMessageKey(action),
-				targetValueMessageParams(action)
+				targetValueMessageParams(action),
+			    effectsPerTurnMessageKey(action),
+			    effectsPerTurnParams(action)
 		);
 	}
 	
@@ -303,6 +326,23 @@ public enum MonsterActionType {
     	} else {
     		return null;
     	}
+	}
+	
+	/**
+	 * Parte de la clave de los mensajes que forman la lista de atributos que se mejoran en cada turno. 
+     * Por defecto es "Monster.actions.type.{actionType}.perTurn
+	 */
+	protected String effectsPerTurnMessageKey(MonsterAction action) {
+		return "Monster.actions.type."+ this +".perTurn";
+	}
+	
+	/**
+	 * Parámetros para construir la lista de effectos causados en cada turno en la vista.
+	 * En base a effectsPerTurnMessageKey, se pasa cada parámetro a la clave
+	 * {effectsPerTurnMessageKey}.{effectsPerTurnParams[i]}, siendo i el índice de 0 a effectsPerTurnParams.size - 1
+	 */
+	protected Object[] effectsPerTurnParams(MonsterAction action) {
+		return new Object[]{}; // Por defecto no se pone nada, porque cada tarea lo hace distinto.
 	}
 	
 	

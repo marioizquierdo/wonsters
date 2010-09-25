@@ -16,17 +16,20 @@ public class MonsterActionSuggestion {
 	private RoomType roomType;  			// sala donde puede realizar esa acción (de la misma guarida que el monstruo)
 	private Integer maxTurnsToAssign; 		// cantidad de turnos máxima que se puede asignar a esta tarea. Null significa "indefinido" (sin máximo)
 	private String infoMessageKey; 			// clave del mensaje. Suele ser "Monster.actions.type.{monsterActionType}.info"
-	private Object[] infoMessageParams; 		// array de parámetros numéricos para utilizar en el mensaje de ayuda. (la clave del mensaje se obtiene del tipo de tarea).
+	private Object[] infoMessageParams; 	// array de parámetros numéricos para utilizar en el mensaje de ayuda. (la clave del mensaje se obtiene del tipo de tarea).
 	private int targetValue;				// valor que modifica la tarea. Por ejemplo, en Construcción es el esfuerzo realizado en la obra.
 	private int targetValueIncreasePerTurn; // cantidad del "target value" que se incrementa en cada turno gastado por el monstuo (ej: en Construcción es el atributo construcción del monstruo).
 	private String targetValueMessageKey; 	// clave del mensaje informativo para el "target value". Suele ser "Monster.actions.type.{monsterActionType}.targetValue"
 	private Object[] targetValueMessageParams; // array de parámetros numéricos para utilizar en el mensaje informativo del "target value".
-		
+	private String effectsPerTurnMessageKey; // parte de la clave de los mensajes que forman la lista de atributos que se mejoran en cada turno. Suele ser "Monster.actions.type.{monsterActionType}.perTurn"
+	private Object[] effectsPerTurnParams;   // array de parámetros numéricos que sirven para construir la lista de atributos que se mejoran en cada turno. Deben ir en el mismo orden que las claves.
+	
 	public MonsterActionSuggestion(MonsterActionType monsterActionType,
             String monsterId, RoomType roomType, Integer maxTurnsToAssign,
             String infoMessageKey, Object[] infoMessageParams, int targetValue,
             int targetValueIncreasePerTurn, String targetValueMessageKey,
-            Object[] targetValueMessageParams) {
+            Object[] targetValueMessageParams, String effectsPerTurnMessageKey, 
+            Object[] effectsPerTurnParams) {
 	    this.monsterActionType = monsterActionType;
 	    this.monsterId = monsterId;
 	    this.roomType = roomType;
@@ -37,6 +40,8 @@ public class MonsterActionSuggestion {
 	    this.targetValueIncreasePerTurn = targetValueIncreasePerTurn;
 	    this.targetValueMessageKey = targetValueMessageKey;
 	    this.targetValueMessageParams = targetValueMessageParams;
+	    this.effectsPerTurnMessageKey = effectsPerTurnMessageKey;
+	    this.effectsPerTurnParams = effectsPerTurnParams;
     }
 	
 	// **** Getters **** //
@@ -51,6 +56,8 @@ public class MonsterActionSuggestion {
 	public int getTargetValueIncreasePerTurn() { return targetValueIncreasePerTurn; }
 	public String getTargetValueMessageKey() { return targetValueMessageKey; }
 	public Object[] getTargetValueMessageParams() { return targetValueMessageParams; }
+	public String getEffectsPerTurnMessageKey() { return effectsPerTurnMessageKey; }
+	public Object[] getEffectsPerTurnParams() { return effectsPerTurnParams; }
 
 	@Override
     public String toString() {
@@ -62,7 +69,9 @@ public class MonsterActionSuggestion {
 		    "infoMessageParams", infoMessageParams,
 		    "targetValue", targetValue,
 		    "targetValueIncreasePerTurn", targetValueIncreasePerTurn,
-		    "targetValueMessageParams", targetValueMessageParams
+		    "targetValueMessageParams", targetValueMessageParams,
+		    "effectsPerTurnMessageKey", effectsPerTurnMessageKey,
+			"effectsPerTurnParams", effectsPerTurnParams
 		});
 	}
 }
