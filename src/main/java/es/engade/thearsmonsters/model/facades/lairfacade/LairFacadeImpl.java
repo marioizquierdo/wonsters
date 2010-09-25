@@ -57,8 +57,7 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
         if (room.setStateCancelWorks()) { // Check and start works
 
-            lair.setGarbage(lair.getGarbage() + room.getGarbageUpgrade()); // spend
-                                                                           // garbage
+            lair.setGarbage(lair.getGarbage() + room.getGarbageUpgrade()); // spend garbage
             // lairDao.update(lair); // save lair
             // roomDao.update(room); // save room
             userDao.update(lair.getUser());
@@ -217,17 +216,15 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
     public void setRoomUpgradingInWorksState(Lair lair, RoomType roomType)
             throws InWorksActionException, InternalErrorException,
             InstanceNotFoundException, InsuficientGarbageException {
-
+    	
         Room room = lair.getRoom(roomType);
+        int garbageToUpgrade = room.getGarbageUpgrade();
+        
+   
 
-        if (lair.getGarbage() >= room.getGarbageUpgrade()) { // Be sure there
-                                                             // are needed
-                                                             // garbage for
-                                                             // start Works
-            if (room.setStateStartUpgrading()) { // Check and start works
-
-                lair.setGarbage(lair.getGarbage() - room.getGarbageUpgrade()); // spend
-                                                                               // garbage
+        if (lair.getGarbage() >= garbageToUpgrade) { // Be sure there are needed garbage for start Works
+        	if (room.setStateStartUpgrading()) { // Check and start works
+                lair.setGarbage(lair.getGarbage() - garbageToUpgrade); // spend
                 // roomDao.update(room); // save room
                 // lairDao.update(lair); // save lair
                 userDao.update(lair.getUser());

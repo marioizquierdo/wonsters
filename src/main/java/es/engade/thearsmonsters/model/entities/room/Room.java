@@ -212,11 +212,11 @@ public class Room extends ThearsmonstersEntity implements Serializable {
 	/**
 	 * @return Garbage needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
-	public int getGarbageUpgrade() {return isInInitialState() ? getGarbageBuild() : getGarbageUpgradeWhenLevel(this.getLevel());}
+	public int getGarbageUpgrade() {return this.getLevel() == 0 ? getGarbageBuild() : getGarbageUpgradeWhenLevel(this.getLevel());}
 	/**
 	 * @return Effort needed for Next Level Upgrading (-1 if cannot be upgraded)
 	 */
-	public int getEffortUpgrade() {return isInInitialState() ? getEffortBuild() : getEffortUpgradeWhenLevel(this.getLevel());}
+	public int getEffortUpgrade() {return this.getLevel() == 0  ? getEffortBuild() : getEffortUpgradeWhenLevel(this.getLevel());}
 
 	/**
 	 * Garbage needed for upgrading.

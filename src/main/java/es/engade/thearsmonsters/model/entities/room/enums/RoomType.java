@@ -31,7 +31,7 @@ public enum RoomType {
 	 * la metamorfosis para convertirse en adultos.
 	 * Aquí en principio no se realiza ninguna tarea.
 	 */
-	MainMonster 			(false, 0, 0, 1),
+	MainMonster(false, 0, 0, 1),
 							
 	/**
 	 * Es donde los monstruos descansan cada día.
@@ -40,7 +40,17 @@ public enum RoomType {
 	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
 	 * Aquí tampoco se realiza ninguna acción.
 	 */
-	Dormitories				(false, 0, 0, -1),
+	Dormitories(false, 0, 0, -1) {
+		
+		public double getGarbageUpgrade(int level) {
+			return 20 * Math.pow(1.15, level-1);
+		}
+		public double getEffortUpgrade(int level) {
+			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
+			return 50 * Math.pow(1.1, level);
+		}
+		
+	},
 	
 	/**
 	 * Es donde se almacena la basura de la guarida. 
@@ -49,7 +59,15 @@ public enum RoomType {
 	 * La acción que se realiza aquí es "recolección de basura". Por cada turno
 	 * dedicado se recolecta tanta basura como el atributo compuesto "GarbageHarvest".
 	 */
-	Warehouse				(false, 0, 1, -1),
+	Warehouse(false, 0, 1, -1){
+		public double getGarbageUpgrade(int level) {
+			return 10 * Math.pow(1.2, level-1);
+		}
+		public double getEffortUpgrade(int level) {
+			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
+			return 50 * Math.pow(1.1, level);
+		}
+	},
 							
 	/**
 	 * Donde se realiza el cambio de basura por dinero.
@@ -57,13 +75,42 @@ public enum RoomType {
 	 * por cambio y más dinero se puede almacenar.
 	 * Aquí no se realiza ninguna tarea por parte de los monstruos.
 	 */			
-	TradeOffice				(false, 50, 30, 10);
-
+	TradeOffice(false, 50, 30, 10){
+		public double getGarbageUpgrade(int level) {
+			return 100 * Math.pow(1.8, level-1);
+		}
+		
+		public double getEffortUpgrade(int level) {
+			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
+			return getEffortBuild() * Math.pow(1.6, level);
+		}
+	},
 	
+	
+	/**
+	 * Donde se entrenan los monstruos.
+	 * La acción que se realiza aquí es "entrenar".
+	 * Cuanto más nivel tenga el gimnasio más fuerza se incrementa en el monstruo
+	 * en cada turno.
+	 */			
+	
+	Gym(false, 200, 100, 10){
+		
+		public double getGarbageUpgrade(int level) {
+			return -1;
+		}
+		
+		public double getEffortUpgrade(int level) {
+			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
+			return 50 * Math.pow(1.1, level);
+		}
+		
+		
+	};
 	
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom
 	
-	Gym						(...),
+
 	
 	MetalLeisureRoom		(...),
 							
@@ -136,25 +183,14 @@ public enum RoomType {
 	 * Acts as Strategy method for Room delegation in getGarbageUpgrade
 	 */
 	public double getGarbageUpgrade(int level) {
-		switch (this) {
-		case TradeOffice: return 100 * Math.pow(1.8, level-1);
-		case Dormitories: return 20 * Math.pow(1.15, level-1);
-		case Warehouse: return 10 * Math.pow(1.2, level-1);
-		default: return -1;
-		}
+		return -1; // Valor por defecto, que significa que no se puede subuir de nivel.
 	}
    
 	/**
 	 * Acts as Strategy method for Room delegation in getEffortUpgrade
 	 */
 	public double getEffortUpgrade(int level) {
-		level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
-		switch (this) {
-		case TradeOffice: return getEffortBuild() * Math.pow(1.6, level);
-		case Dormitories: return 50 * Math.pow(1.1, level);
-		case Warehouse: return 50 * Math.pow(1.1, level);
-		default: return -1;
-		}
+		return -1;
 	}
    
  	/**
