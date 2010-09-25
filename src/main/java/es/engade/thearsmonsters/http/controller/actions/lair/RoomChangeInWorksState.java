@@ -72,7 +72,7 @@ public class RoomChangeInWorksState extends ThearsmonstersDefaultAction {
         	
 		}
 		
-        return (new ForwardParameters()).add("showRoomType", roomType.toString()).forward(mapping.findForward("ShowLair"));
+        return (new ForwardParameters()).add("showRoomType", roomType.toString()).forward(mapping.findForward("GameStart"));
 
     }
     

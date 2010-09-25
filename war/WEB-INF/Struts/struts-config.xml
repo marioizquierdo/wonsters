@@ -44,6 +44,7 @@
     <forward name="Confirmation" path="/confirmation.do"/>
     <forward name="GameStart" path="/lair.do" redirect="true"/>
     <forward name="Monster" path="/monster.do" redirect="true"/>
+    <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/>
     <forward name="MonsterEggs" path="/monster/eggs.do" redirect="true"/>
 </global-forwards>
 
@@ -95,8 +96,7 @@
           
     <action path="/lair/room/change_in_works_state"
 			type="es.engade.thearsmonsters.http.controller.actions.lair.RoomChangeInWorksState">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="ShowLair" path="/lair.do" redirect="true"/></action>
+        <set-property property="authenticationRequired" value="true"/></action>
          
    <!-- <action path="/lair/room/tasks"
            type="es.engade.thearsmonsters.http.controller.actions.lair.ShowRoomTasksAction">
@@ -124,8 +124,7 @@
         
     <action path="/monster/egg/buy"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.BuyEgg">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/></action>
+        <set-property property="authenticationRequired" value="true"/></action>
         
     <action path="/monster/eggs"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonsterEggs"
@@ -156,8 +155,7 @@
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.ShowMonster"
             parameter=".Monster">
         <set-property property="authenticationRequired" value="true"/>
-        <forward name="Monster" path=".Monster"/>
-        <forward name="Monsters" path="/monsters/of_lair.do" redirect="true"/></action>
+        <forward name="Monster" path=".Monster"/></action>
          
     <action path="/monsters/of_lair"
 			type="es.engade.thearsmonsters.http.controller.actions.monsters.MonstersOfLair"
