@@ -33,11 +33,11 @@
         			<fmt:param value="${infoMessageParam}"/>
         		</c:forEach>
         	</fmt:message>
-        	<br/> <!-- Lista de efectos en cada turno -->
-        	Por cada turno invertido en esta tarea se consigue (ST):
+        	<br/><br/> <!-- Lista de efectos en cada turno -->
+        	<fmt:message key="Monster.actions.perTurn"/>:
         	<ul>
-        		<c:forEach items="${MASuggestion.effectsPerTurnParams}" var="effectsPerTurnParam">
-        			<li><fmt:message key="${MASuggestion.effectsPerTurnMessageKey}">
+        		<c:forEach items="${MASuggestion.effectsPerTurnParams}" var="effectsPerTurnParam" varStatus="loop">
+        			<li><fmt:message key="${MASuggestion.effectsPerTurnMessageKey}.${loop.index}">
         				<fmt:param value="${effectsPerTurnParam}"/> <!-- Solo se le pasa el parametro {0} -->
         			</fmt:message></li>
         		</c:forEach>

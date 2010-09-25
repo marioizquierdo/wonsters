@@ -9,17 +9,20 @@ $( function() {
 	$('img, a, .s_ico, .m_ico, div').not("ul#pikame img").not('.lairRoom').not('img.clickable_help').tipTip({	
 		delay: 1000,
 		defaultPosition: 'right',
-		fadeIn: 50
+		fadeIn: 50,
+		maxWidth: '300px'
 	});
 	$('span, h3').tipTip({
 		delay: 200,
 		defaultPosition: 'left',
-		fadeIn: 50
+		fadeIn: 50,
+		maxWidth: '300px'
 	});
 	$('.room').tipTip({
 		delay: 1000,
 		defaultPosition: 'bottom',
-		fadeIn: 200
+		fadeIn: 200,
+		maxWidth: '200px'
 	});
 	$('img.clickable_help').tipTip({
 		activation: 'click',
@@ -27,6 +30,7 @@ $( function() {
 		keepAlive: true,
 		maxWidth: 300,
 		defaultPosition: 'right',
+		maxWidth: '450px'
 	});
 	
 	
