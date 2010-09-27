@@ -1,8 +1,8 @@
-<jsp:root 	xmlns="http://www.w3.org/1999/xhtml"
-          	xmlns:jsp="http://java.sun.com/JSP/Page"
-			xmlns:c="http://java.sun.com/jsp/jstl/core"
-          	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          	version="2.0" >
+<jsp:root   xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:jsp="http://java.sun.com/JSP/Page"
+            xmlns:c="http://java.sun.com/jsp/jstl/core"
+            xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+            version="2.0" >
 
 <div>
     <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
