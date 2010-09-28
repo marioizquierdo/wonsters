@@ -68,6 +68,12 @@
 			</c:otherwise></c:choose>
 			
 			<li class="end_of_lair right"><img src="/images/theme/empty_pixel.png"/></li>
+			<c:choose>
+				<c:when test="${!empty my.lair.newRoomsAvaliable}">			
+				    <c:set var="add_room"><fmt:message key="Lair.newRoomsAvaliable"/></c:set>
+	                <li class="add_button" title="${add_room}" onClick="document.location.href='/lair/rooms/ready_to_build.do';"></li>
+	            </c:when>
+            </c:choose>
 		</ul>
 	</customtag:window_content>
 	
