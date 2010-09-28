@@ -94,10 +94,30 @@ public enum RoomType {
 	 * en cada turno.
 	 */			
 	
-	Gym(false, 200, 100, 10){
+	Gym(false, 50, 50, 10){
 		
 		public double getGarbageUpgrade(int level) {
-			return -1;
+			return 100 * Math.pow(2.0, level-1);
+		}
+		
+		public double getEffortUpgrade(int level) {
+			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
+			return 50 * Math.pow(1.1, level);
+		}
+	},
+		
+		
+		/**
+		 * Donde se entrenan los monstruos.
+		 * La acción que se realiza aquí es "entrenar".
+		 * Cuanto más nivel tenga el gimnasio más fuerza se incrementa en el monstruo
+		 * en cada turno.
+		 */			
+		
+	Nursery(false, 50, 50, 10){
+			
+		public double getGarbageUpgrade(int level) {
+			return 100 * Math.pow(2.0, level-1);
 		}
 		
 		public double getEffortUpgrade(int level) {
@@ -126,7 +146,7 @@ public enum RoomType {
 							
 	Classroom				(...),
 							
-	Nursery					(...);
+						(...);
 	*/
 	// ..
 	
