@@ -51,7 +51,6 @@ public enum AttrType {
 	 */
 	static public AttrBase newAttributeBase(AttrType typeCode, int value) 
 		throws InstanceNotFoundException {
-		
 		return new AttrBase(typeCode, value, 0);
 	}
 	

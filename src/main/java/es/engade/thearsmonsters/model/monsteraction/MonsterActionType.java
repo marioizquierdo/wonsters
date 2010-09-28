@@ -105,6 +105,154 @@ public enum MonsterActionType {
     	}
         
 	},
+	
+	GymTraining("Adult", "Gym") {
+
+		// De momento, en la fase actual de desarrollo un monstruo adulto siempre puede entrenar
+		boolean validate(MonsterAction action) {
+			return true;
+		}
+
+		// Aumenta la experiencia del monstruo en el atributo fuerza, por cada 100 de experiencia aumenta un punto la fuerza
+		// del monstruo
+		void doExecute(MonsterAction action) {
+			
+			int increment = this.targetValueIncreasePerTurn(action);
+			Monster monster = action.getMonster();
+			monster.addExp(AttrType.Strenght, increment);
+
+		}
+
+		// targetValue = Experiencia actual del monstruo en el aumento de fuerza
+        public Integer targetValue(MonsterAction action) {
+        	Monster monster = action.getMonster();
+	        return monster.getAttr(AttrType.Strenght).getExp();
+        }
+
+        // targetValueIncreasePerTurn = Cantidad de exp que se aumenta en cada turno, 10 experiencia por el nivel de gimnasio
+        public Integer targetValueIncreasePerTurn(MonsterAction action) {
+	        int level = action.getRoom().getLevel();
+	        if (level == 0) return 10;
+	        else return level * 10;
+        }
+        
+        
+		
+		
+        // Parámetros para Monster.actions.type.GymTraining.info
+        // {0} Nivel del gimnasio de la guarida
+        // {1} Experiencia que obtendría el monstruo al ejecutar un turno
+        protected Object[] infoMessageParams(MonsterAction action) {
+        	Integer value = targetValue(action);
+        	return new Object[]{
+    				action.getRoom().getLevel(), // {0}
+    				value + targetValueIncreasePerTurn(action) // {1}
+    		};
+    	}
+        
+        // Parámetros para Monster.actions.type.GymTraining.targetValue
+        // {0} Experiencia que queda para aumentar de nivel
+        // {1} Nivel del atributo fuerza del monstruo
+        protected Object[] targetValueMessageParams(MonsterAction action) {
+    		return new Object[]{
+    				100 - targetValue(action),
+    				action.getMonster().getAttr(AttrType.Strenght).getLevel()+1
+    		};
+    	}
+        
+        // Parámetros para cada Monster.actions.type.GymTraining.targetValue.perTurn.{i}
+        // ..perTurn.0 => Experiencia que se suma por turno, que es el targetValueIncreasePerTurn
+        protected Object[] effectsPerTurnParams(MonsterAction action) {
+    		return new Object[]{
+    				targetValueIncreasePerTurn(action), // ..perTurn.0
+    		};
+    	}
+
+		
+		protected Integer targetValueMax(MonsterAction action) {
+			// TODO Auto-generated method stub
+			return 2000;
+		}
+
+
+        
+	},
+	
+	
+	NurseryTeaching("Child", "Nursery") {
+
+		// De momento, en la fase actual de desarrollo un monstruo pequeño siempre puede ir al colegio
+		boolean validate(MonsterAction action) {
+			return true;
+		}
+
+		// Aumenta la experiencia del monstruo en el atributo inteligencia, por cada 100 de experiencia aumenta un punto la inteligencia
+		// del monstruo
+		void doExecute(MonsterAction action) {
+			
+			int increment = this.targetValueIncreasePerTurn(action);
+			Monster monster = action.getMonster();
+			monster.addExp(AttrType.Intelligence, increment);
+
+		}
+
+		// targetValue = Experiencia actual del monstruo en el aumento de inteligencia
+        public Integer targetValue(MonsterAction action) {
+        	Monster monster = action.getMonster();
+	        return monster.getAttr(AttrType.Intelligence).getExp();
+        }
+
+        // targetValueIncreasePerTurn = Cantidad de exp que se aumenta en cada turno, 10 experiencia por el nivel del colegio
+        public Integer targetValueIncreasePerTurn(MonsterAction action) {
+	        int level = action.getRoom().getLevel();
+	        if (level == 0) return 10;
+	        else return level * 10;
+        }
+        
+        
+		
+		
+        // Parámetros para Monster.actions.type.NurseryTeaching.info
+        // {0} Nivel del colegio de la guarida
+        // {1} Experiencia que obtendría el monstruo al ejecutar un turno
+        protected Object[] infoMessageParams(MonsterAction action) {
+        	Integer value = targetValue(action);
+        	return new Object[]{
+    				action.getRoom().getLevel(), // {0}
+    				value + targetValueIncreasePerTurn(action) // {1}
+    		};
+    	}
+        
+        // Parámetros para Monster.actions.type.NurseryTeaching.targetValue
+        // {0} Experiencia que queda para aumentar de nivel la inteligencia
+        // {1} Nivel del atributo inteligencia del monstruo
+        protected Object[] targetValueMessageParams(MonsterAction action) {
+    		return new Object[]{
+    				100 - targetValue(action),
+    				action.getMonster().getAttr(AttrType.Intelligence).getLevel()+1
+    		};
+    	}
+        
+        // Parámetros para cada Monster.actions.type.NurseryTeaching.targetValue.perTurn.{i}
+        // ..perTurn.0 => Experiencia que se suma por turno, que es el targetValueIncreasePerTurn
+        protected Object[] effectsPerTurnParams(MonsterAction action) {
+    		return new Object[]{
+    				targetValueIncreasePerTurn(action), // ..perTurn.0
+    		};
+    	}
+
+		
+		protected Integer targetValueMax(MonsterAction action) {
+			// TODO Auto-generated method stub
+			return 2000;
+		}
+
+
+        
+	},
+	
+	
+	
 
 	/**
 	 * Trabajar en las obras de una sala.
@@ -321,6 +469,7 @@ public enum MonsterActionType {
     	Integer current = targetValue(action);
     	Integer increment = targetValueIncreasePerTurn(action);
     	Integer max = targetValueMax(action);
+    	
     	if(current != null && increment != null && max != null) {
     		return ((max + increment - 1) - current) / increment;
     	} else {
