@@ -83,6 +83,12 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
         Date lastChangeResourcesDate = lair.getLastChangeResourcesDate();
         String login = lair.getUser().getLogin();
         
+        //Check level > 0
+        if((lair.getRoom(RoomType.TradeOffice).getLevel())==0) {
+        	throw new InternalErrorException(
+                    new Exception("Can not trade at level 0.")
+            );
+        }
         
         // Check that the change is made only once per day
         if(!lair.isReadyToChangeResources()) {

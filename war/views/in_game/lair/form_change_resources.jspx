@@ -12,6 +12,17 @@
 <c:set var="maxGarbageAmountEnabled" value="${my.lair.changeResourcesMaxGarbageAmountEnabled}"/>
 <c:set var="maxMoneyAmountEnabled" value="${my.lair.changeResourcesMaxMoneyAmountEnabled}"/>
 <c:set var="tradeOfficePercentageCommission" value="${my.lair.percentageCommision}"/>
+<c:set var="roomLevel" value='${my.lair.room["TradeOffice"].level}' />
+
+<c:choose>
+    
+    <c:when test="${roomLevel == 0}">
+        <customtag:window id="changeGarbageForMoney" title="ChangeResources.levelZeroErrorTitle">
+            <customtag:common_icon id="error" img="true"/><fmt:message key="ChangeResources.levelZeroError" />
+        </customtag:window>
+    </c:when>
+    
+    <c:otherwise>
 
 <!-- Include javascript only if the change is ready to made -->
 <c:if test="${empty notReadyToChangeYet}">
@@ -174,5 +185,5 @@
 
 
 </customtag:window>
-
+</c:otherwise></c:choose>
 </jsp:root>
