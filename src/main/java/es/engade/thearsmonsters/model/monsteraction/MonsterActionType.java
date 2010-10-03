@@ -183,7 +183,7 @@ public enum MonsterActionType {
 	},
 	
 	
-	NurseryTeaching("Child", "Nursery") {
+	PlayAndLearn("Child", "Nursery") {
 
 		// De momento, en la fase actual de desarrollo un monstruo pequeño siempre puede ir al colegio
 		boolean validate(MonsterAction action) {

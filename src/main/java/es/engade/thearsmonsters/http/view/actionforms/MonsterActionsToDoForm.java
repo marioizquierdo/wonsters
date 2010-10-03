@@ -64,10 +64,10 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
         for(Map.Entry<String, String> entry : suggestedActions.entrySet()) {
         	if(entry.getValue() != null && entry.getValue() != "" && entry.getValue() != "0") {
         		
-	        	// La entryKey es un String del estilo "WorkInTheWorks_in_the_room_TradeOffice"
-        		// es decir, que sigue el patrón "${monsterActionType}_in_the_room_${roomType}"
+	        	// La entryKey es un String del estilo "WorkInTheWorks_at_TradeOffice"
+        		// es decir, que sigue el patrón "${monsterActionType}_at_${roomType}"
         		// porque asi lo ponemos en el form de monster.jspx
-        		String entryKey[] = entry.getKey().split("_in_the_room_");
+        		String entryKey[] = entry.getKey().split("_at_");
 	        	String monsterActionType = entryKey[0];
 	        	String roomType = entryKey[1];
 	        	

@@ -25,7 +25,7 @@
     
     <c:forEach items="${suggestedMonsterActions}" var="MASuggestion" varStatus="loop" >
     	<!-- Cada property se mapea en el hash suggestedActions del ActionForm. De la clave se extrae informacion despues -->
-    	<c:set var="suggestedActionInstance" value="${MASuggestion.monsterActionType}_in_the_room_${MASuggestion.roomType}" />
+    	<c:set var="suggestedActionInstance" value="${MASuggestion.monsterActionType}_at_${MASuggestion.roomType}" />
     	<c:set var="suggestedAction" value="suggestedAction(${suggestedActionInstance})" />
 	    <c:set var="actionInfo">
         	<fmt:message key="${MASuggestion.infoMessageKey}">
@@ -45,7 +45,7 @@
         </c:set>
     	
         <div id="${suggestedActionInstance}" class="monsterActionSuggestion">
-        	<img src="/images/buildings/classroom.jpg" width="80" height="80" alt="illustration" class="illustration"/>
+        	<img src="/images/illustrations/monsterActions/${suggestedActionInstance}.png" width="60" height="60" alt="illustration" class="illustration"/>
             <h4 class="monster_action_name">
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->

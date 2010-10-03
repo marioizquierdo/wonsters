@@ -27,20 +27,19 @@ table#monstersOfLair tr td.without.freeTurns { color: #933; }
 #monster_tasks .free_turns_value.no_free_turns { color: #c44; }
 
 #monster_tasks .monsterActionSuggestion { float: left; width: 100%; margin: 0 0 24px 0; padding: 0; }
-#monster_tasks .monsterActionSuggestion img.illustration { float: left; width: 80px; height: 80px; margin: 0 10px; border: 1px solid #ccc;
-	 -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* Firefox */ -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* Safari, Chrome */ box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); /* CSS3 */ }
+#monster_tasks .monsterActionSuggestion img.illustration { float: left; width: 60px; height: 60px; margin: 3px 10px 0 10px; }
 #monster_tasks .monsterActionSuggestion > h4, 
 #monster_tasks .monsterActionSuggestion > .targetValueInfo,
-#monster_tasks .monsterActionSuggestion > .input_buttons { float: left; width: 148px; margin: 0; text-align: left; font-size: 12px; margin-bottom: 5px; }
+#monster_tasks .monsterActionSuggestion > .input_buttons { float: left; width: 170px; margin: 0; text-align: left; font-size: 12px; margin-bottom: 5px; }
 #monster_tasks .monsterActionSuggestion > h4 { font-weight: bold; font-size: 14px; }
 #monster_tasks .monsterActionSuggestion > .targetValueInfo img.clickable_help { float: right; margin-right: 2px; }
 #monster_tasks .monsterActionSuggestion .suggested_action_extra_data { display: none; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button,
-#monster_tasks .monsterActionSuggestion > .input_buttons > input { float: left; margin: 0 5px 0 0; font-size: 14px; line-height: 18px; border: 1px solid #ccc; color: #222; }
-#monster_tasks .monsterActionSuggestion > .input_buttons > button { width: 30px; height: 23px; background: url('/images/theme/table2_th_fade.jpg') repeat-x left bottom; }
+#monster_tasks .monsterActionSuggestion > .input_buttons > input { float: left; margin: 0 10px 0 0; font-size: 14px; line-height: 18px; border: 1px solid #ccc; color: #222; }
+#monster_tasks .monsterActionSuggestion > .input_buttons > button { width: 32px; height: 21px; background: url('/images/theme/table2_th_fade.jpg') repeat-x left bottom; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button:hover { cursor: pointer; border-color: #000; }
-#monster_tasks .monsterActionSuggestion > .input_buttons > button:active { background: #eee; margin-top: 1px; }
-#monster_tasks .monsterActionSuggestion > .input_buttons > input { width: 36px; height: 17px; padding: 2px; }
+#monster_tasks .monsterActionSuggestion > .input_buttons > button:active { background: #eee; }
+#monster_tasks .monsterActionSuggestion > .input_buttons > input { width: 38px; height: 15px; padding: 2px; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button.add_all_button { margin-right: 0; }
 
 #monster_tasks_submit { float: left; width: 240px; text-align: right; margin: 0 10px 10px 10px; }
