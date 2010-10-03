@@ -1,4 +1,4 @@
-package es.engade.thearsmonsters.http.view.actionforms;
+package es.engade.thearsmonsters.model.monsteraction;
 
 import java.io.Serializable;
 
@@ -8,8 +8,6 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
-import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
 /**
@@ -35,7 +33,7 @@ public class MonsterActionToDo implements Serializable {
 	 * Construye una MonsterAction para ejecutar.
 	 * @param lair Guarida donde se ejecuta la acción. Debe ser la misma donde se encuentra el monsterId.
 	 */
-	public MonsterAction getMonsterAction(Lair lair) {
+	public MonsterAction buildMonsterAction(Lair lair) {
     	Monster monster;
         try {
 	        monster = lair.getMonster(KeyFactory.stringToKey(this.getMonsterId()));

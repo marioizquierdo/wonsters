@@ -14,10 +14,10 @@ public interface LocalizableMessage {
     public String getMessageKey();
     
     /**
-     * Params needed for fill the {hooks} in the localized message. <br/>
-     * The list must be sorted in the same order than the hooks. <br/>
+     * Params needed to fill {hooks} in the localized message.<br/>
+     * The list must be sorted as the hook's order.<br/>
      * @return a List of values of the params or null if there is no params.
      * 		(null is equivalent to an empty list). 
      */
-    public String[] getMessageParams();
+    public Object[] getMessageParams();
 }

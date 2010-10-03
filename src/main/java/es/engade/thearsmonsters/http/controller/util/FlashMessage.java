@@ -36,20 +36,29 @@ public final class FlashMessage implements LocalizableMessage {
 	 * 		Null es lo mismo que 'flashMessages', que es el id del propio customtag:flashMessages.
 	 */
 	public final static void show(HttpServletRequest request, String messageKey, 
-			String[] params, Status status, String position) {
+			Object[] params, Status status, String position) {
 		if(status == null) status = Status.INFO;
-		if(messageKey == null) messageKey = status.equals(Status.ERROR) ? 
+		if(messageKey == null || messageKey == "") messageKey = status.equals(Status.ERROR) ? 
 				"FlashMessage.default.ERROR" : "FlashMessage.default";
 		if(position == null) position = "flashMessages";
 		getFlashMessagesList(request).add(new FlashMessage(messageKey, params, status, position));
 	}
 	
 	/**
-	 * Añade un nuevo mensaje en la lista "flashMessages" de la sesión, pero utilizando
+	 * Mete un nuevo mensaje en la lista "flashMessages" de la session, pero utilizando
 	 * un objeto que implemente la interfaz LocalizableMessage en lugar de pasar messageKey y messageParams.
 	 */
-	public final static void show(HttpServletRequest request, LocalizableMessage object, Status status, String position) {
-		show(request, object.getMessageKey(), object.getMessageParams(), status, position);
+	public final static void show(HttpServletRequest request, LocalizableMessage message, Status status, String position) {
+		show(request, message.getMessageKey(), message.getMessageParams(), status, position);
+	}
+	
+	/**
+	 * Mete un nuevo mensaje en la lista "flashMessages" de la session, pero utilizando
+	 * un objeto que implemente la interfaz LocalizableMessage en lugar de pasar messageKey y messageParams.<br/>
+	 * Es equivalente a show(request, message.getMessageKey(), message.getMessageParams(), null, null)
+	 */
+	public final static void show(HttpServletRequest request, LocalizableMessage message) {
+		show(request, message.getMessageKey(), message.getMessageParams(), null, null);
 	}
 	
 	/**
@@ -74,7 +83,15 @@ public final class FlashMessage implements LocalizableMessage {
 	}
 	
 	/**
-	 * Lo mismo que show(request, messageKey, null, null, null)
+	 * Muestra el mensaje por defecto para ese status.
+	 * Lo mismo que show(request, null, null, status, null)
+	 */
+	public final static void show(HttpServletRequest request, Status status) {
+		show(request, null, new String[]{}, status, null);
+	}
+	
+	/**
+	 * Muestra el mensaje que haya en messageKey, sin utilizar parametros.
 	 */
 	public final static void show(HttpServletRequest request, String messageKey) {
 		show(request, messageKey, new String[]{}, null, null);
@@ -90,7 +107,7 @@ public final class FlashMessage implements LocalizableMessage {
 	/**
 	 * Lo mismo que show(request, messageKey, params, null, null)
 	 */
-	public final static void show(HttpServletRequest request, String messageKey, String[] params) {
+	public final static void show(HttpServletRequest request, String messageKey, Object[] params) {
 		show(request, messageKey, params, null, null);
 	}
 	
@@ -123,11 +140,11 @@ public final class FlashMessage implements LocalizableMessage {
 	}
 
 	private String messageKey;
-	private String[] params;
+	private Object[] params;
 	private Status status;
 	private String position;
 	
-	private FlashMessage(String messageKey, String[] params, Status status, String position) {
+	private FlashMessage(String messageKey, Object[] params, Status status, String position) {
 		this.messageKey = messageKey;
 		this.params = params;
 		this.status = status;
@@ -138,7 +155,7 @@ public final class FlashMessage implements LocalizableMessage {
 		return messageKey;
 	}
 
-	public String[] getMessageParams() {
+	public Object[] getMessageParams() {
 		return params;
 	}
 

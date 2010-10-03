@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.appengine.api.datastore.Key;
 
-import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -26,7 +25,9 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsExcept
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterAction;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionToDo;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionsToDo;
 import es.engade.thearsmonsters.model.util.GameConf;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -279,37 +280,32 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         
     }
     
-    public boolean executeMonsterActions(Lair lair, List<MonsterActionToDo> actionsToDo) {
+    public boolean executeMonsterActions(Lair lair, MonsterActionsToDo actionsToDo) {
     	boolean successAll = true;
     	boolean success;
-    	for(MonsterActionToDo actionToDo : actionsToDo) {
-    		success = executeMonsterAction(lair, actionToDo);
+    	
+    	for(MonsterActionToDo actionToDo : actionsToDo.getList()) {
+        	
+        	// Ejecuta cada action tantas veces como actionToDo.getTurnsToUse()
+        	success = true;
+        	int turn = 0;
+        	while(success && turn < actionToDo.getTurnsToUse()) {
+        		MonsterAction action = actionToDo.buildMonsterAction(lair);
+        		if(action.execute()) {
+        			actionsToDo.addAllNotificationMessages(action.getNotifications());
+        			turn += 1;
+        		} else {
+        			actionsToDo.addAllErrorMessages(action.getErrors());
+        			success = false;
+        			break; // sale del bucle para cancelar la ejecucion de las acciones restantes.
+        		}
+        	}
     		if(!success) successAll = false;
     	}
     	
     	// Guardar cambios
     	userDao.update(lair.getUser());
     	return successAll;
-    }
-
-    private boolean executeMonsterAction(Lair lair, MonsterActionToDo actionToDo) {
-    	// Acción del monstruo que hay que ejecutar.
-    	MonsterAction action = actionToDo.getMonsterAction(lair);
-    	
-    	// Ejecuta la acción tantas veces como actionToDo.getTurnsToUse()
-    	boolean success = true;
-    	int turn = 0;
-    	while(success && turn < actionToDo.getTurnsToUse()) {
-    		success = action.execute();
-    		if(!success) {
-    			// TODO: Aqui habría que manejar los errores que se producen
-    			System.out.println("monsterFacadeImpl.executeMonsterAction(): Error al validar tarea.");
-    			System.out.println("  action.getErrors():" + action.getErrors());
-    			break;
-    		}
-    		turn ++;
-    	}
-		return success;
     }
 
 }

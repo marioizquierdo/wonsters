@@ -40,7 +40,7 @@ public enum MonsterActionType {
 			int maxGarbage = action.getLair().getGarbageStorageCapacity();
 
 			boolean valid = currentGarbage < maxGarbage;
-			if (!valid) action.addError("validateGarbageHarvest");
+			if (!valid) action.addScopedError("validateGarbageHarvest");
 			return valid;
 		}
 
@@ -53,10 +53,14 @@ public enum MonsterActionType {
 
 			if (current + increment > max) {
 				action.getLair().setGarbage(max);
+				action.addScopedNotification("fullStorageCapacity");
 			} else {
 				action.getLair().setGarbage(current + increment);
 			}
-			action.getMonster().addExp(AttrType.HarvesterSkill, 20); // mejorar habilidad "recolección"
+			if(action.getMonster().addExp(AttrType.HarvesterSkill, 20)) { // mejorar habilidad "recolección"
+				action.addScopedNotification("monsterAttrLevelUp", 
+					new Object[] {action.getMonster().getAttr(AttrType.HarvesterSkill).getLevel()}); // {0}
+			}
 		}
 
 		// targetValue = Cantidad de basura que hay en la guarida.
@@ -263,7 +267,7 @@ public enum MonsterActionType {
 		// Se comprueba si la sala está en obras.
 		boolean validate(MonsterAction action) {
 			boolean valid = action.getRoom().isInWorks();
-			if(!valid) action.addError("validateWorkInTheWorks");
+			if(!valid) action.addScopedError("validateWorkInTheWorks");
 			return valid;
 		}
 
@@ -356,25 +360,21 @@ public enum MonsterActionType {
 	/**
 	 * Crea una nueva MonsterAction de este tipo.
 	 */
-	public MonsterAction build(Monster monster, Room room) {
-		return new MonsterAction(this, monster, room);
-	}
+	public MonsterAction build(Monster monster, Room room) { return new MonsterAction(this, monster, room); }
 
 	/**
 	 * Crea una nueva MonsterAction de este tipo que solo se puede ejecutar en
 	 * la misma guarida del monstruo.
 	 */
-	public MonsterAction build(Monster monster, RoomType roomType) {
-		return new MonsterAction(this, monster, roomType);
-	}
+	public MonsterAction build(Monster monster, RoomType roomType) { return new MonsterAction(this, monster, roomType); }
 
-	public List<MonsterAge> getAllowedMonsterAges() {
-		return allowedMonsterAges;
-	}
-
-	public List<RoomType> getAllowedRoomTypes() {
-		return allowedRoomTypes;
-	}
+	public List<MonsterAge> getAllowedMonsterAges() { return allowedMonsterAges; }
+	public List<RoomType> getAllowedRoomTypes() { return allowedRoomTypes; }
+	/**
+	 * Devuelve la parte de una clave que por defecto apunta a los mensajes para este actionType,
+	 * que es algo como "Monster.actions.type.{ActionType}.", al que se le puede concatenar el resto del scope.
+	 */
+	public String getMessagesKeyScope() { return "Monster.actions.type." + this + "."; }
 	
 	
 	// **** getSuggestion (info para la vista) **** //
@@ -518,7 +518,7 @@ public enum MonsterActionType {
 	boolean validateBasicMonsterConditions(MonsterAction action) {
 		Monster monster = action.getMonster();
 		boolean valid = this.allowedMonsterAges.contains(monster.getAge());
-		if(!valid) action.addError("validateBasicMonsterConditions"); 
+		if(!valid) action.addScopedError("validateBasicMonsterConditions"); 
 		return valid;
 	}
 
@@ -527,7 +527,7 @@ public enum MonsterActionType {
 	 */
 	boolean validateBasicRoomConditions(MonsterAction action) {
 		boolean valid = this.allowedRoomTypes.contains(action.getRoomType());
-		if(!valid) action.addError("validateBasicRoomConditions");
+		if(!valid) action.addScopedError("validateBasicRoomConditions");
 		return valid;
 	}
 

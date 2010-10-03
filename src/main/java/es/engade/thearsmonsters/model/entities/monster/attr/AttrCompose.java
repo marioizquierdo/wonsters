@@ -18,7 +18,7 @@ public abstract class AttrCompose extends Attr {
 	}
 	
 	@Override
-    public void addExp(int exp) throws UnsupportedOperationException {
+    public boolean addExp(int exp) throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("Can not add experience to a compose attribute");
 	}
 	

@@ -2,7 +2,6 @@ package es.engade.thearsmonsters.model.facades.monsterfacade;
 
 import java.util.List;
 
-import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
@@ -12,6 +11,7 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionsToDo;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
@@ -57,9 +57,10 @@ public interface MonsterFacade {
     
     /**
      * Ejecutar acciones de un monstruo en su guarida.
-     * Cada actionToDo ya indica cuantos turnos debe gastar el monstruo en realizar esa acciÃ³n.
+     * @param actionsToDo lista de accioines para ejecutar. Cada actionToDo ya indica cuantos turnos debe gastar el monstruo en realizar esa acciÃ³n.
+     * @param notificationMessages lista que se para por referencia, el método la llenará con los mensjes de notificación que vaya devolviendo cada acción ejecutada.
      */
-    public boolean executeMonsterActions(Lair lair, List<MonsterActionToDo> actionsToDo);
+    public boolean executeMonsterActions(Lair lair, MonsterActionsToDo actionsToDo);
 
 }
 

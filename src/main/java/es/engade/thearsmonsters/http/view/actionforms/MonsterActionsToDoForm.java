@@ -12,7 +12,9 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionToDo;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionsToDo;
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
 
 public class MonsterActionsToDoForm extends DefaultActionForm {
@@ -20,7 +22,8 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
     
 	private String monsterId;
     private Map<String, String> suggestedActions;
-    private List<MonsterActionToDo> actionsToDo;
+    private List<MonsterActionToDo> actionsToDoList;
+    private MonsterActionsToDo actionsToDo;
     
     public MonsterActionsToDoForm() {
         reset();
@@ -42,7 +45,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
     	suggestedActions.put(key, value);
     }
     
-    public List<MonsterActionToDo> getActionsToDo() {
+    public MonsterActionsToDo getActionsToDo() {
     	return actionsToDo;
     }
     
@@ -71,7 +74,7 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
 	        	try {
 		        	Integer turnsToUse = Integer.valueOf(entry.getValue());
 		        	if(turnsToUse < 0) throw new NumberFormatException();
-		        	actionsToDo.add(
+		        	actionsToDoList.add(
 		        		new MonsterActionToDo(MonsterActionType.valueOf(monsterActionType),
 		                    monsterId, RoomType.valueOf(roomType), turnsToUse));
 		        	
@@ -81,14 +84,14 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
 	            }
 	        }
         }
-
+        actionsToDo = new MonsterActionsToDo(actionsToDoList);
         return errors;
     }
     
     private void reset() {
         monsterId = null;
         suggestedActions = new HashMap<String, String>();
-        actionsToDo = new ArrayList<MonsterActionToDo>();
+        actionsToDoList = new ArrayList<MonsterActionToDo>();
     }
 
 }

@@ -210,8 +210,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	 * Si la experiencia es mayor que 100, sube un nivel más al monstruo.
 	 * @param exp cantidad de experiencia añadida. Tener en cuenta que cada nivel tiene 100 de experiencia.
 	 */
-	public void addExp(AttrType type, int exp) {
-		this.getAttr(type).addExp(exp);
+	public boolean addExp(AttrType type, int exp) {
+		return this.getAttr(type).addExp(exp);
 	}
 	
 	/**

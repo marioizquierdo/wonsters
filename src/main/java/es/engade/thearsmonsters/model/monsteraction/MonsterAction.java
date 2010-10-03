@@ -3,6 +3,7 @@ package es.engade.thearsmonsters.model.monsteraction;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.engade.thearsmonsters.http.view.applicationobjects.LocalizableMessage;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
@@ -15,7 +16,8 @@ public class MonsterAction {
 	private MonsterActionType type;
 	private Monster monster;
 	private Room room;
-	private List<String> errors;
+	private List<LocalizableMessage> errors; // Errores que pueda tener la acciÛn despuÈs de ejecutarse
+	private List<LocalizableMessage> notifications; // Mensajes que pueda tener la acciÛn despuÈs de ejecutarse
 	
 	/**
 	 * Constructor gen√©rico, la room puede ser de la guarida del monstruo o de fuera.
@@ -24,7 +26,8 @@ public class MonsterAction {
 	    this.type = type;
 	    this.monster = monster;
 	    this.room = room;
-	    this.errors = new ArrayList<String>();
+	    this.errors = new ArrayList<LocalizableMessage>();
+	    this.notifications = new ArrayList<LocalizableMessage>();
     }
 	
 	/**
@@ -70,18 +73,35 @@ public class MonsterAction {
 	 * Si al ejecutar isValid() se devuelve true, getErrors devolver√° una lista vac√≠a,
 	 * si en cambio isValid() devuelve false, getErrors debe contener los errores derivados de la validaci√≥n.
 	 */
-	public List<String> getErrors() {
-		return this.errors;
-	}
-	
-	
+	public List<LocalizableMessage> getErrors() { return this.errors; }
 	/**
 	 * A√±ade un error a la lista de errores.
 	 * Este m√©todo debe llamarse solamente desde type.isValid() (MonsterActionType al validar)
 	 */
-	public void addError(String errorKey) {
-		this.errors.add(errorKey);
-	}
+	public void addError(LocalizableMessage message) { this.errors.add(message); }
+	public void addError(String messageKey, Object[] messageParams) { LocalizableMessage message = new ActionMessage(messageKey, messageParams); addError(message); }
+	public void addError(String messageKey) { addError(messageKey, new Object[]{}); }
+	public void addScopedError(String scopedMessageKey, Object[] messageParams) { addError(type.getMessagesKeyScope() + "error." + scopedMessageKey, messageParams); }
+	public void addScopedError(String scopedMessageKey) { addScopedError(scopedMessageKey, new Object[]{}); }
+	
+	
+
+	/**
+	 * Lista de notificaciones que pueden aparecer despu√©s de ejecutar la acci√≥n,
+	 * que son eventos como por ejemplo "El gimnasio ha subido a nivel 5".
+	 */
+	public List<LocalizableMessage> getNotifications() { return this.notifications; }
+	/**
+	 * A√±ade un mensaje a la lista de notifications.
+	 * Este m√©todo debe llamarse durante la ejecuciÛn de la acciÛn para notificar sucesos.
+	 */
+	public void addNotification(LocalizableMessage message) { this.notifications.add(message); }
+	public void addNotification(String messageKey, Object[] messageParams) { LocalizableMessage message = new ActionMessage(messageKey, messageParams); addNotification(message); }
+	public void addNotification(String messageKey) { addNotification(messageKey, new Object[]{}); }
+	public void addScopedNotification(String scopedMessageKey, Object[] messageParams) { addNotification(type.getMessagesKeyScope() + "notification." + scopedMessageKey, messageParams); }
+	public void addScopedNotification(String scopedMessageKey) { addScopedNotification(scopedMessageKey, new Object[]{}); }
+	
+	
 	
 
 	//*** Other ***//
@@ -102,6 +122,27 @@ public class MonsterAction {
 			"monster", monster,
 			"room", room
 		});
+	}
+	
+	
+	//*** Action Messages ***//
+	
+	/**
+	 * Clase auxiliar para albergar los mensajes de error y las notificaciones.
+	 */
+	public class ActionMessage implements LocalizableMessage {
+		private String messageKey;
+		private Object[] messageParams;
+		public ActionMessage(String messageKey) {
+			this(messageKey, new String[]{});
+		}
+		public ActionMessage(String messageKey, Object[] messageParams) {
+			this.messageKey = messageKey;
+			this.messageParams = messageParams;
+		}
+		public String getMessageKey() { return this.messageKey; }
+		public Object[] getMessageParams() { return this.messageParams; }
+		public String toString() { return messageKey + "(params{" + messageParams + "})"; }
 	}
 	
 }

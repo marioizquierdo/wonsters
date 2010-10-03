@@ -36,7 +36,7 @@ public class UpdateUserProfileAction extends ThearsmonstersDefaultAction {
         SessionManager.updateUserProfileDetails(request, userDetails);
         
         /* Notify success message */
-        FlashMessage.show(request, null);
+        FlashMessage.show(request, FlashMessage.Status.INFO);
         
         /* Return ActionForward. */
         return mapping.findForward("EditUserProfile");

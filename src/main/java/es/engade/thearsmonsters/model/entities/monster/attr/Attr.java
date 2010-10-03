@@ -33,13 +33,14 @@ public abstract class Attr implements Serializable {
 	
 	/**
 	 * Añade experiencia al atributo. Si se pasa de 100, sube el nivel 
-	 * automáticamente y añade la experiencia restante.
+	 * automáticamente, añade la experiencia restante, y devuelve true.
 	 * Este método solo debe ser utilizado desde Monster.
 	 * Para añadir experiencia desde afuera hágase a través del método
 	 * monster.addAttrExp(attrType, exp), sino puede causar error.
+	 * @returns true si el atributo sube de nivel (es decir, si la experiencia total pasa de 100).
 	 * @throws UnsupportedOperationException si se intenta añadir experiencia a un atributo compuesto.
 	 */
-	public abstract void addExp(int exp) throws UnsupportedOperationException;
+	public abstract boolean addExp(int exp) throws UnsupportedOperationException;
 	
 	/**
 	 * Nombre del atributo o descripción de la fórmula que lo compone.

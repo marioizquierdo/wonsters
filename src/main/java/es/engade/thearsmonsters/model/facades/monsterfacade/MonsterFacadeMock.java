@@ -3,7 +3,6 @@ package es.engade.thearsmonsters.model.facades.monsterfacade;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.engade.thearsmonsters.http.view.actionforms.MonsterActionToDo;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
@@ -14,7 +13,9 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientVi
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.MaxEggsException;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionSuggestion;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionToDo;
 import es.engade.thearsmonsters.model.monsteraction.MonsterActionType;
+import es.engade.thearsmonsters.model.monsteraction.MonsterActionsToDo;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
@@ -89,7 +90,7 @@ public class MonsterFacadeMock implements MonsterFacade {
 		return suggestMonsterActions(null, FactoryData.MonsterWhoIs.Adult.build());
 	}
 	
-	public boolean executeMonsterActions(Lair lair, List<MonsterActionToDo> actionsToDo) {
+	public boolean executeMonsterActions(Lair lair, MonsterActionsToDo actionsToDo) {
 		return true;
 	}
 
