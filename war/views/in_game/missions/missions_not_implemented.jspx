@@ -6,7 +6,9 @@
 
 	
 <customtag:window id="MissionsNotImplemented" title="Missions.title">
-	
+	<div id="not_implemented_page_image_wrapper">
+        <img src="images/conceptart/thearsmonsters_artwork_1.jpg" width="600" height="370" class="ui-corner-all"/>
+    </div>
 	<p class="info_slot">
 		<fmt:message key="NotImplementedPage.apologize"/>
 	</p>

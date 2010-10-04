@@ -6,6 +6,9 @@
 
 	
 <customtag:window id="HelpNotImplemented" title="Help.title">
+	<div id="not_implemented_page_image_wrapper">
+	   <img src="images/buildings/classroom_BIG.jpg" width="327" height="170" class="ui-corner-all" />
+	</div>
 	
 	<p class="info_slot">
 		<fmt:message key="NotImplementedHelp.apologize"/>

@@ -46,3 +46,9 @@ body {
 #HelpNotImplemented_content {
 	padding-top: 12px;	
 }
+
+/** Estilo imagenes en las pantallas misiones, alianzas y ayuda **/
+#not_implemented_page_image_wrapper { float:left; width: 100%; margin: 10px 0px; text-align: center; }
+#not_implemented_page_image_wrapper img { border: 1px solid #ccc; display: inline; padding: 5px;
+    -webkit-box-shadow: 0px 1px 5px #bbb; -moz-box-shadow: 0px 1px 5px #bbb; box-shadow: 0px 1px 5px #bbb;
+}

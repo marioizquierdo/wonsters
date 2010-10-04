@@ -8,6 +8,9 @@
 
 	<customtag:window id="MissionsNotImplemented" title="Guild.title">
 	
+	    <div id="not_implemented_page_image_wrapper">
+	       <img src="images/illustrations/guild_not_implemented.png" width="370" height="230" class="ui-corner-all" />
+	    </div>   
 		<p class="info_slot">
 			<fmt:message key="NotImplementedPage.apologize"/>
 		</p>
