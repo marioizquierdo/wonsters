@@ -18,7 +18,7 @@
     
     <c:when test="${roomLevel == 0}">
         <customtag:window id="changeGarbageForMoney" title="ChangeResources.levelZeroErrorTitle">
-            <customtag:common_icon id="error" img="true"/><fmt:message key="ChangeResources.levelZeroError" />
+            <fmt:message key="ChangeResources.levelZeroError" />
         </customtag:window>
     </c:when>
     
