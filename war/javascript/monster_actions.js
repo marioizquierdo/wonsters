@@ -106,7 +106,7 @@ $(function(){
 		
 		// asegurar que no sea mayor de lo permitido para esa tarea
 		var max_turns_allowed = actionInfo(input, "maxTurnsToAssign");
-		if (input_val > max_turns_allowed) {
+		if (max_turns_allowed && input_val > max_turns_allowed) {
 			input.val(max_turns_allowed);
 		}
 	};
