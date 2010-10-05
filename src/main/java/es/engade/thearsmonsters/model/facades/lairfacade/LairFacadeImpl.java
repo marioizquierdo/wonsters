@@ -206,14 +206,11 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
         Lair lair = null;
         System.out.println("TO LOAD...");
-        if (user.getLair() != null)
-            lair = user.getLair();
-        else {
+//        if (user.getLair() != null)
+//            lair = user.getLair();
+//        else {
             lair = lairDao.findLairByUser(user);
-        }
-        System.out.println("LOADED " + lair.getRooms().size() + " rooms");
-        System.out.println("LOADED " + lair.getMonsters().size() + " monsters");
-        System.out.println("LOADED " + user.getLogin() + " user");
+//        }
 
         return lair;
     }

@@ -55,6 +55,7 @@ public class LairDaoJdo extends GenericDaoJdo<Lair, Key> implements LairDao {
 		Lair lair = null;
 		try {
 			lair = (Lair) query.execute(user);
+			lair.getUser().touchInstance();
 			lair.touch();
 		} finally {
 			query.closeAll();

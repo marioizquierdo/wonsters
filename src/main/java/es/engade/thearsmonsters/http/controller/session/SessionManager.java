@@ -408,9 +408,9 @@ public final class SessionManager {
         }
         
         Lair lair = null;
-        if (loginResult.isPersistentLair()) {
-            lair = loginResult.getLair();
-        }
+//        if (loginResult.isPersistentLair()) {
+//            lair = loginResult.getLair();
+//        }
 
         // If lair is not in the session, load it from the database and set it in the session
         if(lair == null) { 
@@ -424,7 +424,6 @@ public final class SessionManager {
             } catch (InstanceNotFoundException e) {
                 throw new RuntimeException("Error: Can't load user lair");
             }
-
         }
         
         return lair;
