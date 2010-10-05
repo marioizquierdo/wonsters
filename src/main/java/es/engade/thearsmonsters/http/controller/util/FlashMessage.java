@@ -1,5 +1,6 @@
 package es.engade.thearsmonsters.http.controller.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +16,12 @@ import es.engade.thearsmonsters.http.view.applicationobjects.LocalizableMessage;
  * los métodos estáticos de la clase, y después aparezerán en cuanto se
  * renderize la página.
  */
-public final class FlashMessage implements LocalizableMessage {
+public final class FlashMessage implements LocalizableMessage, Serializable {
 	
-	public final static String FLASH_MESSAGES_REQUEST_ATTRIBUTE = "flashMessages";
-
+    private static final long serialVersionUID = 4810699405867335326L;
+    
+	public static final String FLASH_MESSAGES_REQUEST_ATTRIBUTE = "flashMessages";
 	public static enum Status {INFO, GOOD_NEW, ERROR};
-	
 	
 	/**
 	 * Añade un nuevo mensaje en la lista "flashMessages" de la sesión.
