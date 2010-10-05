@@ -77,7 +77,7 @@ public enum MonsterActionType {
 
         // targetValueMax = Capacidad del almacén
         public Integer targetValueMax(MonsterAction action) {
-        	return action.getLair().getGarbageStorageCapacity();
+        	return action.getLair().getGarbageStorageCapacity(); // TODO: t16.3 
         }
         
         // Parámetros para Monster.actions.type.GarbageHarvest.info
@@ -168,7 +168,7 @@ public enum MonsterActionType {
 
         // targetValueMax = Esfuerzo necesario para realizar toda la obra.
         public Integer targetValueMax(MonsterAction action) {
-        	return action.getRoom().getEffortUpgrade();
+        	return action.getRoom().getEffortUpgrade(); // TODO: t16.3 marcar teniendo en cuenta que el atributo construction puede aumentar
         }
         
         // Parámetros para Monster.actions.type.WorkInTheWorks.info
