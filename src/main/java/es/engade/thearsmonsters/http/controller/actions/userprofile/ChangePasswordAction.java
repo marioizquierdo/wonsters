@@ -13,7 +13,6 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
-import es.engade.thearsmonsters.http.controller.frontcontroller.ForwardParameters;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.http.controller.util.FlashMessage;
 import es.engade.thearsmonsters.http.view.actionforms.ChangePasswordForm;
@@ -37,8 +36,7 @@ public class ChangePasswordAction extends ThearsmonstersDefaultAction {
         ActionMessages errors = new ActionMessages();        
             
         try {
-            SessionManager.changePassword(request, response, oldPassword,
-                newPassword);
+            SessionManager.changePassword(request, response, oldPassword, newPassword);
         } catch (IncorrectPasswordException e) {
             errors.add("oldPassword", new ActionMessage(
                 "ErrorMessages.password.incorrect"));
@@ -49,7 +47,7 @@ public class ChangePasswordAction extends ThearsmonstersDefaultAction {
         	FlashMessage.show(request, FlashMessage.Status.INFO);
         	return mapping.findForward("GameStart");
         } else {
-            saveErrors(request, errors);            
+            saveErrors(request, errors);
             return new ActionForward(mapping.getInput());
         }
         

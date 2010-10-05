@@ -175,10 +175,8 @@
     <action path="/userprofile/change_password_action"
 			type="es.engade.thearsmonsters.http.controller.actions.userprofile.ChangePasswordAction"
             name="changePasswordForm" scope="request" validate="true"
-            input=".ChangePassword">
-        <set-property property="authenticationRequired" value="true"/>
-        <forward name="EditUserProfile" 
-        		 path="/userprofile/edit.do" redirect="true"/></action>
+            input="/userprofile/change_password.do">
+        <set-property property="authenticationRequired" value="true"/></action>
 	
 	<!-- Carga el formulario con los datos necesarios (lista de languages) -->
 	<!-- Si action="UPDATE" tambien inserta los datos del usuario en el form -->

@@ -53,7 +53,7 @@ public class Login extends ThearsmonstersDefaultAction {
         if (errors.isEmpty()) {
             return mapping.findForward("GameStart");
         } else {
-            saveErrors(request, errors);            
+            saveErrors(request, errors);
             return new ActionForward(mapping.getInput());
         }
      

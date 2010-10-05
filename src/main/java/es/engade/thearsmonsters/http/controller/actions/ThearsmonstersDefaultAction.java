@@ -54,6 +54,7 @@ public class ThearsmonstersDefaultAction extends DefaultAction {
      * Normal Thearsmonsters actions must only extend that method.
      * If an action reimplements doExecute, this one is not necesary. 
      */
+    @SuppressWarnings("deprecation")
     protected ActionForward doExecuteGameAction(ActionMapping mapping,
             ActionForm form, HttpServletRequest request,
             HttpServletResponse response)

@@ -73,8 +73,7 @@
                                 <c:set var="passwordError"><html:errors property="password"/></c:set>
                                 <c:if test="${not empty loginError or not empty passwordError}">
                                     <div class="loginErrors" style="display: none;">
-                                        <html:errors property="login"/>
-                                        <html:errors property="password"/>
+                                        ${loginError} ${passwordError}
                                     </div>
                                     <![CDATA[<script type='text/javascript'>$(function(){
                                     	$('#login').focus(); // give focus in the login form
