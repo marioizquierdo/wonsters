@@ -19,41 +19,14 @@
 	</div>
 	
 	<div class="pikachoose">
-			<ul id="pikame">
-			<li><img src="/images/conceptart/thearsmonsters_artwork_1.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_1.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-			<li><img src="/images/conceptart/thearsmonsters_artwork_2.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_2.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-			<li><img src="/images/conceptart/thearsmonsters_artwork_3.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_3.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-			<li><img src="/images/conceptart/thearsmonsters_artwork_4.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_4.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_5.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_5.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_6.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_6.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_7.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_7.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_8.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_8.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_9.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_9.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_10.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_10.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_11.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_11.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_12.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_12.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_13.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_13.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_14.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_14.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_15.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_15.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_16.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_16.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_17.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_17.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_18.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_18.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_19.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_19.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_20.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_20.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_21.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_21.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_22.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_22.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_23.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_23.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_24.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_24.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_25.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_25.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_26.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_26.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_27.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_27.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_28.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_28.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_29.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_29.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_30.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_30.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_31.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_31.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_32.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_32.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-            <li><img src="/images/conceptart/thearsmonsters_artwork_33.jpg"/><span><a href="/images/conceptart/big/thearsmonsters_artwork_33.jpg" target="_blank"> <fmt:message key="ConceptArt.ubuntuDesc" /></a></span></li>
-		</ul>
+		<ul id="pikame"><c:forTokens delims="," var="index"
+	   			items="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33">
+			<li><img src="/images/conceptart/thearsmonsters_artwork_${index}.jpg"/>
+				<span><a href="/images/conceptart/big/thearsmonsters_artwork_${index}.jpg" target="_blank">
+					<fmt:message key="ConceptArt.slide.${index}" />
+				</a></span>
+			</li>
+		</c:forTokens></ul>
 	</div>
 		
 	<div class="more_actions_links">

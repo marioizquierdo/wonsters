@@ -48,12 +48,6 @@
 		<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
 		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
 	</div>
-	
-
-
-
-
-	
 
 </div>
 </jsp:root>
