@@ -58,8 +58,8 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
     @Persistent
     private int score;
     
-    //@Persistent // TODO: Diego, añade persistencia, y coméntame como se hace bien.
-    private List<MonsterRace> unlockedMonsterRaces; // Para cada raza, true = desbloqueada, false = bloqueada.
+    @Persistent
+    private List<MonsterRace> unlockedMonsterRaces;
 
 	@Persistent(mappedBy = "lair")//,defaultFetchGroup="true")
     private User user;
@@ -230,18 +230,18 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	 * This list is read-only. To add one more race to the list, please, use the method lair.unlockMonsterRace(MonsterRace race);
 	 * @return
 	 */
-    public List<MonsterRace> getUnlockedMonsterRaces() { // TODO: (pa Diego) se devuelven siempre desbloqueadas las razas Bu y Polbo. Hay que darle comportamiento real (persistencia).
-    	// La implementación de este método debería ser algo así
-    	// return Collections.unmodifiableList(unlockedMonsterRaces); // Devuelve una lista de solo lectura. Probar si esto es aceptable para JDO.
-    	// El código de abajo es temporal para ir trabajando en la vista mientras la lista unlockedMonsterRaces no sea persistente.
+    public List<MonsterRace> getUnlockedMonsterRaces() {
     	
-    	List<MonsterRace> umRaces = new ArrayList<MonsterRace>();
-    	umRaces.add(MonsterRace.Bu);
-    	umRaces.add(MonsterRace.Polbo);
-    	return Collections.unmodifiableList(umRaces); 
+    	return Collections.unmodifiableList(unlockedMonsterRaces);
+    	
     }
 	public void setUnlockedMonsterRaces(List<MonsterRace> unlockedMonsterRaces) { this.unlockedMonsterRaces = unlockedMonsterRaces; }
-	public void unlockMonsterRace(MonsterRace race) { unlockedMonsterRaces.add(race); updateScore(); }
+	public void unlockMonsterRace(MonsterRace race) {
+		if (!unlockedMonsterRaces.contains(race)) {
+			unlockedMonsterRaces.add(race); 
+			updateScore();
+		}
+	}
 	
 	//------- Address getters and setters -------//
 	public Address getAddress() { return new Address(this.addressStreet, this.addressBuilding, this.addressFloor); }
