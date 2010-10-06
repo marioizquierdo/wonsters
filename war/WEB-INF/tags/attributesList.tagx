@@ -51,15 +51,12 @@
 				</span>
 				
 				<!-- Campos ocultos para construir el tooltip desde javascript -->
-				<div class="hidden_m_icon" style="display: none"><customtag:attr_icon attrType="${attr.key}" size="m"/></div>
-				<div class="hidden_attribute_details" style="display: none">
-					<fmt:message key="Monster.attr.${attr.key}.desc"/>
-					<span class="attribute_details_content">
-						<fmt:message key="Monster.attr.exp">
-							<fmt:param value="${attr.value.exp*100}"/>
-							<fmt:param value="${attr.value.level+1}"/>
-						</fmt:message>
-					</span>
+				<div class="hidden_attribute_details" style="display:none;">
+					<h3><customtag:attr_icon attrType="${attr.key}" size="m"/><fmt:message key="Monster.attr.${attr.key}"/></h3>
+					<p><fmt:message key="Monster.attr.${attr.key}.desc"/></p>
+					<p><fmt:message key="Monster.attr.exp">
+						<fmt:param value="${attr.value.exp}"/> <fmt:param value="${attr.value.level+1}"/>
+					</fmt:message></p>
 				</div>
 			</li>
 		</c:forEach>

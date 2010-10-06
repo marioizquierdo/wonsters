@@ -87,16 +87,20 @@
 					
 					<!-- Grow to Adult button -->
 					<c:if test="${monster.age == 'Child'}">
-						<c:set var="title"><fmt:message key="Monster.metamorphosisToAdult" /></c:set>
-					  	<c:set var="desc"><fmt:message key="Monster.metamorphosisToAdult.desc">
+					  	<c:set var="link_title"><fmt:message key="Monster.metamorphosisToAdult.desc">
 					  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
 					  	</c:set>
 					  	<li class="data_row">	
-						  	<span id="grow_to_adult_button" class="button_box" title="${title}: ${desc}">
-								<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}">${title}</html:link>
+						  	<span id="grow_to_adult_button" class="button_box" title="${link_title}">
+								<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}"><fmt:message key="Monster.metamorphosisToAdult" /></html:link>
 						  	</span>
 					  	</li>
 					</c:if>
+					
+					<!-- Monster name -->
+					<customtag:monsterBrief_data_row property="name">
+						<c:out value="${monster.name}"/>
+					</customtag:monsterBrief_data_row>
 				
 					<!-- Monster Age -->
 					<c:set var="ageDesc"><fmt:message key="Monster.age.desc"><fmt:param value="${monster.race.lifeExpectancyDays * 0.8}"/><fmt:param value="${monster.race.lifeExpectancyDays}"/></fmt:message></c:set>

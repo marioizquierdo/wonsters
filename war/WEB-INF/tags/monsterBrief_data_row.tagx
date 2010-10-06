@@ -33,12 +33,12 @@
 	
 	<li class="data_row">	
 		<c:if test="${!empty icon_id}"><customtag:icon id="${icon_id}"/></c:if>
-		
-		<span class="${label_class}" title="${title} - ${desc}">
+		<c:set var="popup"><h3>${title}</h3> ${desc}</c:set>
+		<span class="${label_class}" title="${popup}">
 			${title}<c:if test="${!empty title_extra_key}"> (<fmt:message key="${title_extra_key}"/>)</c:if>:
 		</span>
 		
-		<span class="${value_class}" title="${title} - ${desc}">
+		<span class="${value_class}" title="${popup}">
 			<jsp:doBody/>
 		</span>
 	</li> 
