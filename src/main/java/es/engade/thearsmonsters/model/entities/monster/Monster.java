@@ -147,7 +147,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public MonsterRace getRace() { return race; }
 	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
 	
-	public int getAgeDays(){
+	public int getAgeDays() {
 	    return (int) DateTools.daysBetween(getBorningDate(), DateTools.now());
 	}
 	
@@ -155,7 +155,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	 * Number from 0 to 100 that represents the percentage of the monster life lived yet (100% when dies)
 	 */
 	public int getAgePercentageLived(){
-	    return ((int) (DateTools.daysBetween(getBorningDate(), DateTools.now())  * 100 / race.getLifeExpectancyDays()));
+	    return getAgeDays() * 100 / race.getLifeExpectancyDays();
 	}
 	
 	//-- simple SETTERS --//
@@ -525,7 +525,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     
     /**
 	 * getAge no devuelve simplemente this.age por el siguiente motivo:
-	 * No hay ningún evento que transforme al monstruo de Cocoon a Adult,
+	 * No hay ningún evento que transforme al monstruo de Cocoon a Adult, o a Dead,
 	 * solamente el simple paso del tiempo (cuando getCocoonCloseUpDate() quede en el pasado).
 	 * Entoces para que esto se gestione de forma automática (sin tener que forzar un
 	 * reload en la base de datos), lo que se hace es un workaround:
@@ -535,27 +535,28 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	private void correctCocoonOrAdultAges() {
     	if(getCocoonCloseUpDate() != null) {
 	    	// Adulto que aun no ha salido del capuyo debe ser Cocoon
-	    	if(age.equals(MonsterAge.Adult) &&
+	    	if(this.age.equals(MonsterAge.Adult) &&
 				getCocoonCloseUpDate().after(DateTools.now())) {
-				age = MonsterAge.Cocoon;
+				this.age = MonsterAge.Cocoon;
 			}
 	    	
 	    	// Capullo que ya ha salido del capuyo debe ser Adult
-	    	if(age.equals(MonsterAge.Cocoon) &&
+	    	if(this.age.equals(MonsterAge.Cocoon) &&
 				getCocoonCloseUpDate().before(DateTools.now())) {
-				age = MonsterAge.Adult;
+	    		this.age = MonsterAge.Adult;
 			}
     	}
     	//TODO: Dado que no hay un demonio que compruebe periodicamente
     	// los cambios de edad, es posible que estos no se hagan secuencialmente
     	// y por tanto un bicho pase directamente de adulto a muerto, o de
     	// joven a viejo o muerto.
-    	if (age.equals(MonsterAge.Adult) && 
+    	if(this.age.equals(MonsterAge.Adult) && 
     			getGrowOldDate().before(DateTools.now())) {
-    		age = MonsterAge.Old;
-    	} else if (age.equals(MonsterAge.Old) &&
+    		this.age = MonsterAge.Old;
+    	}
+    	if(this.age.equals(MonsterAge.Old) &&
     			getDeceaseDate().before(DateTools.now())) {
-    		age = MonsterAge.Dead;
+    		this.age = MonsterAge.Dead;
     	}
     }
 	

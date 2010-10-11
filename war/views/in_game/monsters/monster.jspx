@@ -6,6 +6,7 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
+    		
 <c:choose>
 	
 	<!-- Vista de monstruo muerto -->

@@ -132,27 +132,36 @@ public enum MonsterActionType {
 		}
 
 		// Avanza en el esfuerzo realizado (effortDone) de las obras de la sala.
-		// Si se terminan las obras se aumenta de nivel.
+		// Si se terminan las obras se aumenta de nivel de la sala.
 		void doExecute(MonsterAction action) {
 			Room room = action.getRoom();
 			Monster monster = action.getMonster();
 			RoomInWorksState roomWorks = (RoomInWorksState) room.getState();
 			int monsterConstructionLevel = monster.getAttr(AttrType.Construction).getLevel();
+			
+			// Avanzar en las obras
 			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionLevel);
+			
+			// Adquirir experiencia en la habilidad "construccion"
 			Attr constructionSkill = monster.getAttr(AttrType.ConstructorSkill);
-			if(constructionSkill.addExp(20)) { // mejorar habilidad "construccion"
+			if(constructionSkill.addExp(20)) {
 				action.addScopedNotification("constructionLevelUp", new Object[]{
 						monster.getName(), // {0} nombre del monstruo
 						constructionSkill.getLevel() // {1} nivel que tiene ahora el atributo
 				});
 			}
-
-			if (room.getEffortDone() >= room.getEffortUpgrade()) { // subir la sala de nivel si se completan las obras
+			
+			// Subir la sala de nivel si se completan las obras
+			if (room.getEffortDone() >= room.getEffortUpgrade()) {
 				room.setLevel(room.getLevel() + 1);
 				room.setState(new RoomNormalState());
-				action.addScopedNotification("roomLevelUp", new Object[]{
+				if(room.getLevel() == 1) {
+					action.addScopedNotification("roomBuilded"); // construccion terminada (nivel 1)
+				} else {
+					action.addScopedNotification("roomLevelUp", new Object[]{ // actualizacion terminada (nivel > 1)
 						room.getLevel() // {0}
-				});
+					});
+				}
 			}
 		}
 
