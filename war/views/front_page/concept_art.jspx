@@ -21,9 +21,9 @@
 	<div class="pikachoose">
 		<ul id="pikame"><c:forTokens delims="," var="index"
 	   			items="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33">
-			<li><img src="/images/conceptart/thearsmonsters_artwork_${index}.jpg"/>
+			<li href="/images/conceptart/big/thearsmonsters_artwork_${index}.jpg"><img src="/images/conceptart/thearsmonsters_artwork_${index}.jpg" />
 				<span>
-					<a href="/images/conceptart/big/thearsmonsters_artwork_${index}.jpg" target="_blank"><fmt:message key="ConceptArt.slide.${index}" /></a>
+					<fmt:message key="ConceptArt.slide.${index}" />
 				</span>
 			</li>
 		</c:forTokens></ul>

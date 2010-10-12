@@ -390,6 +390,7 @@
 				main_img.attr("src", image_source);
 				if(image_link == null){image_link = "#"}
 				main_link.attr("href", image_link);
+				main_link.attr("target", "_blank");
 				ani_divs.children().css({"background":"transparent"});
 				ani_divs.hide();
 				if(playing)
@@ -426,7 +427,7 @@
 						image_source = this.src;
 					}
 					//thumbnail animations
-					var image_link = jQuery(this).parent("a").attr("href");
+					var image_link = jQuery(this).parent().parent().attr("href");
 					var image_caption = jQuery(this).parent().next("span").html();
 					//fade out the old thumb
 					images.filter(".pika_selected").fadeTo(250,0.4); 
