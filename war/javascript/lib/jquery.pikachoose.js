@@ -388,9 +388,9 @@
 			{
 				animating = false;
 				main_img.attr("src", image_source);
+				if(image_link != null){main_link.attr("target", "_blank");}
 				if(image_link == null){image_link = "#"}
 				main_link.attr("href", image_link);
-				main_link.attr("target", "_blank");
 				ani_divs.children().css({"background":"transparent"});
 				ani_divs.hide();
 				if(playing)
