@@ -11,9 +11,12 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
+import es.engade.thearsmonsters.model.entities.room.state.RoomInWorksState;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
+import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
 import es.engade.thearsmonsters.model.util.DateTools;
+import es.engade.thearsmonsters.model.util.GameConf;
 
 /**
  * Esta clase tiene métodos estáticos para generar datos (salas, monstruos, etc).
@@ -72,6 +75,17 @@ public class FactoryData {
 			}
 			public Lair build(User user) {
                 return generateDefaultLair(user);
+            }
+		},
+		FullOfMonsters {
+			public Lair build() {
+				return generateFullOfMonstersLair();
+			}
+			public Lair build(String login) {
+				return generateFullOfMonstersLair(login);
+			}
+			public Lair build(User user) {
+                return generateFullOfMonstersLair(user);
             }
 		};
 		// ...
@@ -250,15 +264,8 @@ public class FactoryData {
      * solo con Papá Monstruo.
      */
 	private static Lair generateInitialLair(String userLogin) {
-		
-		User user = new User(userLogin, userLogin + "_pass", 
-    			new UserDetails("Fulano", "Delapeña", "fulano@delapeña.es", "es"));
-
-		//*** LAIR ***//
-    
-		Lair lair = generateInitialLair(user);
-    	
-		return lair;
+		return generateInitialLair(new User(userLogin, userLogin + "_pass", 
+    			new UserDetails("Fulano", "Delapeña", "fulano@delapeña.es", "es")));
 	}
 	
 	private static Lair generateInitialLair() {
@@ -272,17 +279,66 @@ public class FactoryData {
 	private static Lair generateDefaultLair(String login) {
 		return generateUserScaffold(login).getLair();
 	}
-	
 	private static Lair generateDefaultLair(User user) {
         return generateUserScaffold(user).getLair();
     }
-	
 	private static Lair generateDefaultLair() {
 		return generateDefaultLair(randomLogin());
 	}
-	
 	private static Room generateRoomByType(RoomType roomType) {
 		return generateUserScaffold().getLair().getRoom(roomType);
+	}
+	
+	private static Lair generateFullOfMonstersLair(User user) {
+
+        //*** LAIR ***//
+    
+        Lair lair = new Lair(user,
+            10000, // money 
+            50000, // garbage
+            new RoomData(DateTools.yesterday(), 100), // lastChangeResourcesTurn, occupied vital space
+            getRandStreet(), getRandBuilding(), getRandFloor()); // geographical position. Se puede cambiar despues con newLair.setAddress(lairDao.findNextFreeAddress()).
+    
+        user.setLair(lair); // add to user
+    
+    
+        //*** ROOMS ***//
+        
+        lair.buildRoom(RoomType.MainMonster);
+        Room dormitories = lair.buildRoom(RoomType.Dormitories);
+        Room warehouse = lair.buildRoom(RoomType.Warehouse);
+        Room tradeOffice = lair.buildRoom(RoomType.TradeOffice);
+        Room gym = lair.buildRoom(RoomType.Gym);
+        Room nursery = lair.buildRoom(RoomType.Nursery);
+    
+        // modify rooms
+        dormitories.setLevel(20); 
+        warehouse.setLevel(20); warehouse.setStateCancelWorks();
+        tradeOffice.setLevel(9); tradeOffice.setStateCancelWorks();
+        gym.setLevel(8); gym.setStateCancelWorks();
+        nursery.setLevel(8);
+        RoomInWorksState nurseryWorks = (RoomInWorksState) nursery.getState();
+        nurseryWorks.setEffortDone(nursery.getEffortUpgrade() / 2);
+
+    
+        //*** MONSTERS ***//
+        for(MonsterRace race: MonsterRace.values()) {
+        	MonsterEgg egg = new MonsterEgg(lair, race, null);
+            Monster child = new Monster(lair, race, race+"_cria");
+            Monster adult = new Monster(lair, race, race+"_adulto", now, now, MonsterAge.Adult);
+            Monster old = new Monster(lair, race, race+"_anciano", now, DateTools.yesterday(), MonsterAge.Old);
+        	lair.addMonsterEgg(egg).addMonster(child).addMonster(adult).addMonster(old);
+        }
+        lair.addMonsterEgg(new MonsterEgg(lair, MonsterRace.Polbo, DateTools.new_byMinutesFromNow(1))); // Huevo adicional, a un minuto de eclosionar  
+        
+        //*** return lair ***//
+        return lair;
+	}
+	private static Lair generateFullOfMonstersLair(String userLogin) {
+		return generateFullOfMonstersLair(generateUserByLoginName(userLogin));
+	}
+	private static Lair generateFullOfMonstersLair() {
+		return generateFullOfMonstersLair(randomLogin());
 	}
     
     /**
@@ -292,10 +348,6 @@ public class FactoryData {
     	int randomIndex = (int) (Math.random() * MonsterWhoIs.values().length);
     	MonsterWhoIs randomInstance = MonsterWhoIs.values()[randomIndex];
     	return randomInstance.build();
-    }
-    
-    private static String randomLogin() {
-    	return "login_" + ((int) (Math.random() * 10000));
     }
 	
 	/**
@@ -311,7 +363,7 @@ public class FactoryData {
 	 * 
 	 * @param userLogin es el nombre del usuario. La contraseña será userLogin + "_pass".
 	 */
-private static User generateUserScaffold(User user) {
+	private static User generateUserScaffold(User user) {
 
         //*** LAIR ***//
     
@@ -319,7 +371,7 @@ private static User generateUserScaffold(User user) {
             1000, // money 
             500, // garbage
             new RoomData(DateTools.yesterday(), 10), // lastChangeResourcesTurn and occupied vital space
-            1,1,1); // geographical position
+            getRandStreet(), getRandBuilding(), getRandFloor()); // geographical position. Se puede cambiar despues con newLair.setAddress(lairDao.findNextFreeAddress()).
     
         user.setLair(lair); // add to user
     
@@ -361,13 +413,27 @@ private static User generateUserScaffold(User user) {
     }
 
 	private static User generateUserScaffold(String userLogin) {
-		
-	    //*** USER ***//
-		
-		User user = new User(userLogin, userLogin + "_pass", 
-    			new UserDetails("Fulano", "Delapeña", "fulano@delapeña.es", "es"));
-
-    	return generateUserScaffold(user);
+		return generateUserScaffold(generateUserByLoginName(userLogin));
+	}
+    
+    private static String randomLogin() {
+    	return "login_" + ((int) (Math.random() * 10000));
+    }
+	
+	// Crea un usuario con el mismo password que login.
+	private static User generateUserByLoginName(String userLogin) {
+		return new User(userLogin, PasswordEncrypter.crypt(userLogin), 
+    			new UserDetails("Fulano", "Bengano", "fulano@mymail.es", "es"));
+	}
+	
+	private static int getRandStreet() {
+		return ((int) (GameConf.getMaxNumberOfStreets() * Math.random()));
+	}
+	private static int getRandBuilding() {
+		return ((int) (GameConf.getMaxNumberOfStreets() * Math.random()));
+	}
+	private static int getRandFloor() {
+		return ((int) (GameConf.getMaxNumberOfStreets() * Math.random()));
 	}
     
 

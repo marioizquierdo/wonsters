@@ -1,24 +1,14 @@
 package es.engade.thearsmonsters.test.facade;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import es.engade.thearsmonsters.model.entities.common.dao.exception.ConstraintException;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
-import es.engade.thearsmonsters.model.entities.lair.dao.LairDaoJdo;
 import es.engade.thearsmonsters.model.entities.user.User;
-import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
-import es.engade.thearsmonsters.model.entities.user.dao.UserDaoJdo;
-import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
-import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -64,14 +54,11 @@ public class TestFacade {
 	public void addFixtureData(String login)
 		throws FullPlacesException, InternalErrorException, DuplicateInstanceException{
 		try {
-			UserDetails userDetails = new UserDetails(login, login, login + "@mail.com", "es");
-			User newUser = new User(login,
-					PasswordEncrypter.crypt(login), userDetails);
-			Lair newLair = FactoryData.LairWhatIs.Default.build(newUser);
-			Address nextAddress = lairDao.findNextFreeAddress();
+			Lair newLair = FactoryData.LairWhatIs.FullOfMonsters.build(login);
+			Address nextAddress = lairDao.findNextFreeAddress(); // FIXME: esto da NullPointerException
 			newLair.setAddress(nextAddress);
-
-			userDao.save(newUser);
+			userDao.save(newLair.getUser()); // FIXME: si comentamos la linea anterior, el NullPointerException dará aquí
+			
 		} catch (ConstraintException ex) {
 			throw new DuplicateInstanceException(login, User.class.getName());
 		}
