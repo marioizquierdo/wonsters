@@ -2,6 +2,7 @@ package es.engade.thearsmonsters.http.controller.actions.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,10 +17,9 @@ import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAct
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
 import es.engade.thearsmonsters.test.facade.TestFacade;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
-import es.engade.thearsmonsters.util.struts.action.DefaultAction;
 /**
- * Action for insert testing data into de game. Only rules when the DB table UserProfile is empty.
- * There is no view links to this action, it can only be activated by the url  
+ * Action for insert testing data into the game. Only rules when the DB table UserProfile is empty.
+ * There is no view links to this action, it can only be activated by the url.
  * No login is required.
  */
 public class InsertFixtures extends ThearsmonstersDefaultAction {
@@ -47,12 +47,8 @@ public class InsertFixtures extends ThearsmonstersDefaultAction {
     }
     
     private List<String> logins() {
-		List<String> logins = new ArrayList<String>();
-		logins.add("a"); // a is the admin user by default
-		logins.add("b");
-		logins.add("c");
-		logins.add("d");
-		return logins;
+    	// a is the admin user by default
+		return Arrays.asList(new String[]{"a", "b", "c", "d"});
     }
 
 }
