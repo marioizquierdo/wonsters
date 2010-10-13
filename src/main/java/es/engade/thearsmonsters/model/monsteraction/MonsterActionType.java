@@ -51,14 +51,15 @@ public enum MonsterActionType {
 			int current = this.targetValue(action);
 			int increment = this.targetValueIncreasePerTurn(action);
 			int max = this.targetValueMax(action);
-
+			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getExp() * 10;
+			
 			if (current + increment > max) {
 				action.getLair().setGarbage(max);
 				action.addScopedNotification("fullStorageCapacity");
 			} else {
 				action.getLair().setGarbage(current + increment);
 			}
-			if(action.getMonster().addExp(AttrType.HarvesterSkill, 20)) { // mejorar habilidad "recolecciÃ³n"
+			if(action.getMonster().addExp(AttrType.HarvesterSkill,incrementExp)) { // mejorar habilidad "recolecciÃ³n"
 				action.addScopedNotification("monsterAttrLevelUp", new Object[] {
 					action.getMonster().getAttr(AttrType.HarvesterSkill).getLevel() // {0}
 				});
@@ -115,7 +116,7 @@ public enum MonsterActionType {
 
 	/**
 	 * Trabajar en las obras de una sala.
-	 * Un monstruo adulto avanza en cada turno el effortDone de las obras tanto como su habilidad compuesta de construcción.
+	 * Un monstruo adulto avanza en cada turno el effortDone de las obras tanto como su habilidad compuesta de construcciï¿½n.
 	 */
 	WorkInTheWorks("Adult", "all") {
 
@@ -128,7 +129,7 @@ public enum MonsterActionType {
 		
 		// Para trabajar en las obras, tiene que permitir realizar tarea en salas de nivel 0.
 		boolean validateBasicRoomConditions(MonsterAction action) {
-			return true; // Vale cualquier tipo de sala ("all") y además vale que sea de nivel 0.
+			return true; // Vale cualquier tipo de sala ("all") y ademï¿½s vale que sea de nivel 0.
 		}
 
 		// Avanza en el esfuerzo realizado (effortDone) de las obras de la sala.
@@ -138,13 +139,14 @@ public enum MonsterActionType {
 			Monster monster = action.getMonster();
 			RoomInWorksState roomWorks = (RoomInWorksState) room.getState();
 			int monsterConstructionLevel = monster.getAttr(AttrType.Construction).getLevel();
-			
+			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getExp() * 10;
+
 			// Avanzar en las obras
 			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionLevel);
 			
 			// Adquirir experiencia en la habilidad "construccion"
 			Attr constructionSkill = monster.getAttr(AttrType.ConstructorSkill);
-			if(constructionSkill.addExp(20)) {
+			if(constructionSkill.addExp(incrementExp)) {
 				action.addScopedNotification("constructionLevelUp", new Object[]{
 						monster.getName(), // {0} nombre del monstruo
 						constructionSkill.getLevel() // {1} nivel que tiene ahora el atributo
@@ -232,6 +234,7 @@ public enum MonsterActionType {
 		// Aumenta la experiencia del monstruo en el atributo fuerza, por cada 100 de experiencia aumenta un nivel
 		void doExecute(MonsterAction action) {
 			int increment = this.targetValueIncreasePerTurn(action);
+
 			Attr strenght = action.getMonster().getSimpleAttr(AttrType.Strenght);
 			if(strenght.addExp(increment)) {
 				action.addScopedNotification("strenghtLevelUp", new Object[] {
@@ -265,7 +268,7 @@ public enum MonsterActionType {
         
         // ParÃ¡metros para Monster.actions.type.GymTraining.targetValue
         // {0} Experiencia acumulada (targetValue). Es el targetValue con marca para ser identificado por JavaScript
-        // {1} Siguiente nivel al que subirá la fuerza al completar el 100%
+        // {1} Siguiente nivel al que subirï¿½ la fuerza al completar el 100%
         protected Object[] targetValueMessageParams(MonsterAction action) {
     		return new Object[]{
     				targetValueMessageParam(action), // {0}
@@ -281,9 +284,9 @@ public enum MonsterActionType {
     		};
     	}
 
-		// No hay límite para entrenar la fuerza. Si quiere gastar todos los turnos poniéndose hasta arriba de esteroirdes, es su problema.
+		// No hay lï¿½mite para entrenar la fuerza. Si quiere gastar todos los turnos poniï¿½ndose hasta arriba de esteroirdes, es su problema.
 		protected Integer targetValueMax(MonsterAction action) {
-			return null; // null => sin límite
+			return null; // null => sin lï¿½mite
 		}
         
 	},
