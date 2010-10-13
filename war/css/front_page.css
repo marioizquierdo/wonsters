@@ -134,9 +134,7 @@
 
 /**** Credits ****/
 
-#credits ul#dev_team_list{
-
-}
+#credits ul#dev_team_list { }
 
 #credits ul#dev_team_list li {
     margin: 10px 0 20px 0;
@@ -176,19 +174,22 @@
 }
 
 #credits ul#dev_team_list li#MarioIzquierdo .developer_details { 
-	background-image: url('../images/photos/MarioIzquierdo.png');
+	background-image: url('/images/photos/MarioIzquierdo.png');
 }
 #credits ul#dev_team_list li#AngelRomo .developer_details {
-    background-image: url('../images/photos/AngelRomo.png');
+    background-image: url('/images/photos/AngelRomo.png');
 }
 #credits ul#dev_team_list li#FcoJavierGarcia .developer_details {
-    background-image: url('../images/photos/FcoJavierGarcia.png');
+    background-image: url('/images/photos/FcoJavierGarcia.png');
 }
 #credits ul#dev_team_list li#DiegoDarriba .developer_details {
-    background-image: url('../images/photos/DiegoDarriba.png');
+    background-image: url('/images/photos/DiegoDarriba.png');
 }
 #credits ul#dev_team_list li#GuilleGefaell .developer_details {
-    background-image: url('../images/photos/GuilleGefaell.png');
+    background-image: url('/images/photos/GuilleGefaell.png');
+}
+#credits ul#dev_team_list li#ManuelGonzalez .developer_details {
+    background-image: url('/images/photos/ManuelGonzalez.png');
 }
 
 
