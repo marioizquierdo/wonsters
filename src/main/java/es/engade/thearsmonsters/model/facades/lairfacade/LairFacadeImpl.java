@@ -205,7 +205,6 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
         User user = userDao.findUserByLogin(login);
 
         Lair lair = null;
-        System.out.println("TO LOAD...");
 //        if (user.getLair() != null)
 //            lair = user.getLair();
 //        else {

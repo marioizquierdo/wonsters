@@ -93,9 +93,14 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
         return baby;
     }
     
-    public void buryMonster(Lair lair, String monsterId) {
-        // TODO: Por implementar
-    	System.out.println("Mounstro "+ monsterId +" enterrado");
+    @Transactional
+    public void buryMonster(Lair lair, String monsterId) 
+    	throws InstanceNotFoundException, InternalErrorException {
+
+    	Monster monster = findMonster(lair, monsterId);
+    	lair.removeMonster(monster);
+    	userDao.update(lair.getUser());
+    	monsterDao.remove(monster.getIdKey());
     }
 
     @Transactional
@@ -137,7 +142,7 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
     	List<Monster> orderedMonsters = new ArrayList<Monster>();
     	List<Monster> orderedDeadMonsters = new ArrayList<Monster>();
     	
-    	List<Monster> lairMonsters = lair.getMonsters(); // estos son los monstruos de esta guarida, que hay que ordenar por edad y MonsterAge.
+//    	List<Monster> lairMonsters = lair.getMonsters(); // estos son los monstruos de esta guarida, que hay que ordenar por edad y MonsterAge.
     	
     	orderedChildMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Child);
     	orderedAdultMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Adult);
