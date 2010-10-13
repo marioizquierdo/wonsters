@@ -73,24 +73,21 @@
 	top: 5px;
 }
 
-.pika_play a {
+.pika_play a{
 	position: relative;
 	margin-left: auto;
 	cursor: pointer;
 	display: block;
-	width: 1px;
-	height: 1px;
-	background: url('../images/theme/pikachoose/play.png') top center
-		no-repeat;
+	width: 48px;
+	height: 48px;
 }
 
-.pika_play a {
-	position: relative;
-	margin-left: auto;
-	cursor: pointer;
-	display: block;
-	width: 1px;
-	height: 1px;
+.pika_play .pika_play_button{
+    background: url('../images/theme/pikachoose/play.png') top center
+        no-repeat;
+}
+
+.pika_play .pika_stop_button{
 	background: url('../images/theme/pikachoose/pause.png') top center
 		no-repeat;
 }
@@ -115,8 +112,8 @@
 	position: absolute;
 	top: 5px;
 	left: 5px;
-	height: 1px;
-	width: 1px;
+	height: 48px;
+	width: 48px;
 	background: url('../images/theme/pikachoose/rewind.png') top left
 		no-repeat;
 }
@@ -125,8 +122,8 @@
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	height: 1px;
-	width: 1px;
+	height: 48px;
+	width: 48px;
 	background: url('../images/theme/pikachoose/fastf.png') top right
 		no-repeat;
 }
