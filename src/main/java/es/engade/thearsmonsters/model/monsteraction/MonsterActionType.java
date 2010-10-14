@@ -50,15 +50,17 @@ public enum MonsterActionType {
 		void doExecute(MonsterAction action) {
 			int current = this.targetValue(action);
 			int increment = this.targetValueIncreasePerTurn(action);
-			int max = this.targetValueMax(action);
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getExp() * 10;
+			int max =  action.getLair().getGarbageStorageCapacity();
+			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
+
+			
 			
 			if (current + increment > max) {
 				action.getLair().setGarbage(max);
 				action.addScopedNotification("fullStorageCapacity");
-			} else {
-				action.getLair().setGarbage(current + increment);
-			}
+			} else action.getLair().setGarbage(current + increment);
+			
+			
 			if(action.getMonster().addExp(AttrType.HarvesterSkill,incrementExp)) { // mejorar habilidad "recolección"
 				action.addScopedNotification("monsterAttrLevelUp", new Object[] {
 					action.getMonster().getAttr(AttrType.HarvesterSkill).getLevel() // {0}
@@ -66,6 +68,31 @@ public enum MonsterActionType {
 			}
 		}
 
+		
+		
+        public Integer maxGarbage(MonsterAction action) {
+			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
+			int expActually = action.getMonster().getAttr(AttrType.HarvesterSkill).getExp();
+			int turnsToUpgradeActualHarvesterSkill = 100 - expActually / incrementExp;
+			int turnToUpgradeBasicHarvesterSkill = 100 / incrementExp;
+        	int turns = 0;
+        	int contador = 0;
+        	int storageCapacity = action.getLair().getGarbageStorageCapacity();
+        	int increment = this.targetValueIncreasePerTurn(action);
+        	int garbage = action.getLair().getGarbage();
+			
+        	while((garbage + increment) < storageCapacity) {
+				if (turns < turnsToUpgradeActualHarvesterSkill)
+					garbage+=increment + contador;
+				else {
+					contador++;
+					turnsToUpgradeActualHarvesterSkill = turnToUpgradeBasicHarvesterSkill;
+				}
+			}
+        	System.out.println("MaxGarbage: garbage + increment" + (garbage+ increment));
+        	return garbage+ increment;
+        }
+        
 		// targetValue = Cantidad de basura que hay en la guarida.
         public Integer targetValue(MonsterAction action) {
 	        return action.getLair().getGarbage();
@@ -78,7 +105,10 @@ public enum MonsterActionType {
 
         // targetValueMax = Capacidad del almacén
         public Integer targetValueMax(MonsterAction action) {
-        	return action.getLair().getGarbageStorageCapacity(); // TODO: t16.3 
+        	int resultado = maxGarbage(action); 
+        	System.out.println("targetValueMax: " + resultado);
+
+        	return resultado;
         }
         
         // Parámetros para Monster.actions.type.GarbageHarvest.info
@@ -97,7 +127,7 @@ public enum MonsterActionType {
         protected Object[] targetValueMessageParams(MonsterAction action) {
     		return new Object[]{
     				targetValueMessageParam(action),
-    				action.getLair().getGarbageStorageCapacity()
+    				maxGarbage(action)
     		};
     	}
         
@@ -139,7 +169,7 @@ public enum MonsterActionType {
 			Monster monster = action.getMonster();
 			RoomInWorksState roomWorks = (RoomInWorksState) room.getState();
 			int monsterConstructionLevel = monster.getAttr(AttrType.Construction).getLevel();
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getExp() * 10;
+			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
 
 			// Avanzar en las obras
 			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionLevel);
