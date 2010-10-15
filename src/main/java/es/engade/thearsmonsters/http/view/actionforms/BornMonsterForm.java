@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 
+import es.engade.thearsmonsters.model.util.MonsterName;
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
 import es.engade.thearsmonsters.util.struts.action.PropertyValidator;
 
@@ -51,7 +52,7 @@ public class BornMonsterForm extends DefaultActionForm {
     }
     
     private void reset() {
-    	monsterName = "";
+    	monsterName = MonsterName.random();
     	eggId = "";
     }
     

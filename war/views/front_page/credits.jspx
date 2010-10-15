@@ -36,7 +36,7 @@
 	<customtag:info_message titleKey="Credits.developersTitle" icon_id="15">
 	   <ul id="dev_team_list">
 	   <c:forTokens delims=", " var="developerName"
-	   		items="MarioIzquierdo, AngelRomo, DiegoDarriba, GuilleGefaell, FcoJavierGarcia">
+	   		items="MarioIzquierdo, AngelRomo, DiegoDarriba, GuilleGefaell, FcoJavierGarcia, ManuelGonzalez">
 	   		
 	        <li id="${developerName}">
 	           <h3 class="show_developer_details"><fmt:message key="Name.${developerName}"/></h3>

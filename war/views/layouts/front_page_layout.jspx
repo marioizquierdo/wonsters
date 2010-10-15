@@ -30,12 +30,12 @@
   <!-- Stylesheets -->
   <customtag:include_stylesheets root="/css" files="
   		reset_defaults, common_styles, forms, window_tag_and_colors, 
-  		front_page, pikachoose, tipTip "/>
+  		front_page, pikachoose, tipTip, lightbox"/>
   
   <!-- JavaScripts -->
   <customtag:include_javascripts root="/javascript" files="
   		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib,
-  		front_page_layout "/>
+  		front_page_layout"/>
 
   <![CDATA[
   <!--[if lt IE 7]>
