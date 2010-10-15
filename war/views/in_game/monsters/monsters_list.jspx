@@ -15,38 +15,34 @@
 		buyEggs: EggsManagement.buyEggs => /monster/eggs.do?eggsManagement_selected_tag=buyEggs">
 	
 	
-	<customtag:window_content for_tag="monsters">	
-	<c:choose><c:when test="${fn:length(monsters) == 0}"><!-- cuando NO hay monstruos -->
+	<customtag:window_content for_tag="monsters">
+	
+	<!-- cuando NO hay monstruos -->
+	<c:choose><c:when test="${empty monsters}">
 		<customtag:info_message key="Monsters.thereIsNoMonsters" icon_id="0" style="margin: 15px;"/>
 		<div class="more_actions_links">
 			<html:link action="/monster/eggs.do?eggsManagement_selected_tag=buyEggs"><fmt:message key="EggsManagement.buyEggs"/></html:link>
 		</div>
 	
-	</c:when><c:otherwise><!-- cuando hay monstruos -->
-		<table id="monstersOfLair" class="table2 rows_are_links">
-			<tr>
-			    <th><fmt:message key="Monster.race"/></th>
-			    <th><fmt:message key="Monster.name"/></th>
-			    <th><fmt:message key="Monster.age"/></th>
-			    <th><fmt:message key="Monster.bestWorkSkill"/></th>
-			    <th><fmt:message key="Monster.freeTurns"/></th>
-			</tr>
-		    <c:forEach items="${monsters}" var="monster" varStatus="loop" >
-	    		<c:set var="parity_class" value="${((loop.index % 2) == 0) ? 'even' : 'odd'}"/>
-			    <c:url var="monsterURL" value="/monster.do">
-					<c:param name="monsterId" value="${monster.id}"/>
-				</c:url>
-			    
-			    <tr class="${parity_class}" onclick="document.location.href='${monsterURL}';">
-			    	<td class="race"><customtag:monster_image race="${monster.race}"/></td>
-			    	<td class="name">${monster.name}</td>
-			    	<td class="age"><fmt:message key="Monster.age.${monster.age}"/></td>
-			    	<td class="bestWorkSkill"><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</td>
-			    	<td class="freeTurns ${(monster.freeTurns == 0) ? 'without' : '' }">${monster.freeTurns}</td>
-			    </tr>
-		    </c:forEach>
-		</table>
-		<customtag:info_message key="Monsters.list.info" style="margin-top:15px;" />
+	<!-- cuando hay monstruos -->
+	</c:when><c:otherwise>
+		<div class="monster_slots_container">
+	    <c:forEach items="${monsters}" var="monster" varStatus="loop" >
+		    <c:url var="url_for_monster" value="/monster.do"><c:param name="monsterId" value="${monster.id}"/></c:url>
+		    <c:set var="img_tooltip"><fmt:message key="Monster.race.${monster.race}"/><c:out value=" "/><fmt:message key="Monster.age.${monster.age}"/></c:set>
+		    <c:set var="free_turns_tooltip"><fmt:message key="Monster.freeTurns.desc"/></c:set>  
+		    <a class="monster_slot ${monster.race} ${monster.age}" href="${url_for_monster}">
+		    	<img class="monster_image" src="/images/monsters/${monster.race}/list_${monster.age}.png" alt="${monster.name}" title="${img_tooltip}" height="180"/>
+		    	<p class="monster_name"><c:out value="${monster.name}"/></p>
+		    	<p class="monster_bestWorkSkill"><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</p>
+		    	<p class="monster_freeTurns ${(monster.freeTurns == 0) ? 'without' : ''}" title="${free_turns_tooltip}">
+		    		<span class="label"><fmt:message key="Monster.freeTurns"/>:</span> <c:out value=" "/>
+		    		<span class="value"><c:out value="${monster.freeTurns}"/></span>
+		    	</p>
+		    </a>
+	    </c:forEach>
+	    </div>
+		<customtag:info_message key="Monsters.list.info" style="margin-top: 25px;" />
 	</c:otherwise></c:choose>
 	</customtag:window_content>
 	

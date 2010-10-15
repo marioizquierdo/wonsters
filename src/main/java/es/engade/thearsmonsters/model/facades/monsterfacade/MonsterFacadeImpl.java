@@ -135,41 +135,27 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
 
     // Por defecto se ordenan por edad (de joven a viejo)
     public List<Monster> findLairMonsters(Lair lair) throws InternalErrorException {
-    	
-    	List<Monster> orderedChildMonsters = new ArrayList<Monster>();
-    	List<Monster> orderedAdultMonsters = new ArrayList<Monster>();
-    	List<Monster> orderedOldMonsters = new ArrayList<Monster>();
     	List<Monster> orderedMonsters = new ArrayList<Monster>();
-    	List<Monster> orderedDeadMonsters = new ArrayList<Monster>();
     	
-//    	List<Monster> lairMonsters = lair.getMonsters(); // estos son los monstruos de esta guarida, que hay que ordenar por edad y MonsterAge.
-    	
-    	orderedChildMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Child);
-    	orderedAdultMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Adult);
-    	orderedOldMonsters = findLairOrderedMonstersByAge(lair,MonsterAge.Old);
-    	orderedDeadMonsters =  findLairOrderedMonstersByAge(lair,MonsterAge.Dead);
-    	
-    	orderedMonsters.addAll(orderedChildMonsters);
-    	orderedMonsters.addAll(orderedAdultMonsters);
-    	orderedMonsters.addAll(orderedOldMonsters);
-    	orderedMonsters.addAll(orderedDeadMonsters);
+    	orderedMonsters.addAll(findLairOrderedMonstersByAge(lair, MonsterAge.Child));
+    	orderedMonsters.addAll(findLairOrderedMonstersByAge(lair, MonsterAge.Cocoon));
+    	orderedMonsters.addAll(findLairOrderedMonstersByAge(lair, MonsterAge.Adult));
+    	orderedMonsters.addAll(findLairOrderedMonstersByAge(lair, MonsterAge.Old));
+    	orderedMonsters.addAll(findLairOrderedMonstersByAge(lair, MonsterAge.Dead));
     	
     	return orderedMonsters;
     }
     
     
-    public List<Monster> findLairOrderedMonstersByAge(Lair lair,MonsterAge age){
-    	
+    public List<Monster> findLairOrderedMonstersByAge(Lair lair, MonsterAge age) {
     	List<Monster> lairMonsters = lair.getMonsters();
     	List<Monster> lairMonstersByAge = new ArrayList<Monster>();
     	List<Monster> lairOrderedMonstersByAge = new ArrayList<Monster>();
-    	Monster monster = null;
-    	for(int i=0;i<lairMonsters.size();i++) {
-    		monster = lairMonsters.get(i);
-    		if(age.toString() == monster.getAge().toString())
+    	for(Monster monster : lairMonsters) {
+    		if(age.equals(monster.getAge())) {
     			lairMonstersByAge.add(monster);
+    		}
     	}
-    	
     	lairOrderedMonstersByAge = orderMonsters(lairMonstersByAge);
     	return lairOrderedMonstersByAge;
     }

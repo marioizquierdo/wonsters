@@ -1,11 +1,17 @@
 
 
-/***** Lista de monstruos (Monsters of Lair) *****/
-table#monstersOfLair tr td img.monster_icon {
-	display: inline;
-	margin: 3px;
-}
-table#monstersOfLair tr td.without.freeTurns { color: #933; }
+/***** Monsters List (/monsters/of_lair) *****/
+#monstersList .monster_slots_container { float: left; width: 100%; }
+#monstersList a.monster_slot { float: left; margin: 15px; text-align: center; color: #999; }
+#monstersList a.monster_slot:hover { text-decoration: none; color: #d41; }
+#monstersList a.monster_slot img { display: block; margin: 0 auto 10px auto; }
+
+#monstersList a.monster_slot p { display: block; line-height: 1.4em; color: #999; }
+#monstersList a.monster_slot p.monster_name { color: #444; }
+#monstersList a.monster_slot:hover p.monster_name { color: #d41; }
+#monstersList a.monster_slot p.monster_freeTurns .value { font-weight: bold; color: #444; }
+#monstersList a.monster_slot p.without.monster_freeTurns .value { font-weight: normal; color: #c44; }
+
 
 /******** Monster ********/
 

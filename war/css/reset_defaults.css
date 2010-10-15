@@ -56,13 +56,14 @@ img { display: block; border: none; }
 
 /***** Lists (ul, ol) *****/
 
-ul,ol {
+ul, ol {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-ul li,ol li {
+ul li,
+ol li {
 	border: none;
 	padding: 0;
 }
@@ -70,28 +71,11 @@ ul li,ol li {
 
 /***** Links *****/
 
-a {
-	text-decoration: none;
-	color: #d41;
-	border: none;
-}
+a { text-decoration: none; color: #d41; border: none; cursor: pointer; }
+a:visited {	}
+a:hover { text-decoration: underline; color: #d41; }
+h1 a,
+h2 a,
+h3 a,
+h4 a { text-decoration: underline; color: #444; }
 
-a:visited {
-	
-}
-
-a:hover {
-	text-decoration: underline;
-	cursor: pointer;
-	color: #d41;
-}
-
-h1 a {
-	text-decoration: none;
-	color: #444;
-}
-
-h3 a {
-	text-decoration: none;
-	color: #444;
-}

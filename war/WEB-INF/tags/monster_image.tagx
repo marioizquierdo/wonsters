@@ -14,7 +14,7 @@
   		description="Raza del monstruo (debe corresponderse con el nombre de la carpeta donde están las imágenes)"/>
   
   <jsp:directive.attribute name="type" required="false"
-  		description="Tipo de imagen: 'icon', 'Child', 'Adult', 'Old'. ('icon' por defecto)"/>
+  		description="Tipo de imagen: 'icon', 'Child', 'Adult', 'Old' ('icon' por defecto)"/>
   		<c:if test="${empty type}"><c:set var="type" value="icon" /></c:if>
 	
 	<c:set var="title"><fmt:message key="Monster.race.${race}"/></c:set>

@@ -83,8 +83,7 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
         this.rooms = new ArrayList<Room>();
         this.monsters = new ArrayList<Monster>();
         this.monsterEggs = new ArrayList<MonsterEgg>();
-        
-        this.unlockedMonsterRaces = new ArrayList<MonsterRace>();
+        this.unlockedMonsterRaces = null; // se da el valor inicial en getUnlockedMonsterRaces
         this.score = 0;
     }
     
@@ -227,13 +226,14 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public void setScore(int score) { this.score = score; } // this method should be called by the IoC container. You must use updateScore() instead.
 	/**
 	 * List of monster races which is yet unlocked (the user can buy eggs of this type).
-	 * This list is read-only. To add one more race to the list, please, use the method lair.unlockMonsterRace(MonsterRace race);
-	 * @return
+	 * This list is read-only. To add one more race to the list, use the method lair.unlockMonsterRace(MonsterRace race);
 	 */
     public List<MonsterRace> getUnlockedMonsterRaces() {
-    	
+    	if(unlockedMonsterRaces == null) { // Dar valor inicial si no esta fijado con anterioridad
+    		unlockedMonsterRaces = new ArrayList<MonsterRace>();
+    		unlockedMonsterRaces.add(MonsterRace.Bu); // Inicialmente la raza Bu esta desbloqueada
+    	}
     	return Collections.unmodifiableList(unlockedMonsterRaces);
-    	
     }
 	public void setUnlockedMonsterRaces(List<MonsterRace> unlockedMonsterRaces) { this.unlockedMonsterRaces = unlockedMonsterRaces; }
 	public void unlockMonsterRace(MonsterRace race) {
