@@ -190,18 +190,18 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		int score = 0;
 		int roomScore;
 		
-		// Salas: por cada sala, se suma el precio en basura que costó su última ampliación.
+		// Salas: por cada sala, se suma el precio en basura que costo su ultima ampliacion.
 		for(Room room: rooms) {
 			roomScore = room.getGarbageUpgradeWhenLevel(room.getLevel() - 1);
 			//System.out.println("roomScore = "+ roomScore + ", "+ room.getRoomType() + " de nivel " + room.getLevel());
 			score += (roomScore < 0) ? 0 : roomScore; // asegurarse que nunca resta
 		}
 		
-		// Monstruos: lo suyo sería poner puntos según cuantos monstruos haya en la guarida (y su raza, o lo que sea)
+		// Monstruos: lo suyo seri�a poner puntos segun cuantos monstruos haya en la guarida (y su raza, o lo que sea)
 		// sin embargo, como la base de datos es inconsistente cuando los bichos palman, no se puede tener en cuenta esto.
-		// Lo que se hace es sumar el dinero que cuesta una raza, por cada raza nueva desbloqueada.
+		// Lo que se hace es sumar el dinero que cuesta una raza, por cada raza nueva desbloqueada, multiplicado por 10.
 		for(MonsterRace unlockedRace: getUnlockedMonsterRaces()) {
-			score += unlockedRace.getBuyEggPrice();
+			score += unlockedRace.getBuyEggPrice() * 10;
 			//System.out.println("monsterScore = "+ unlockedRace.getBuyEggPrice() + ", "+ unlockedRace);
 		}
 		
@@ -228,9 +228,11 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	 * This list is read-only. To add one more race to the list, use the method lair.unlockMonsterRace(MonsterRace race);
 	 */
     public List<MonsterRace> getUnlockedMonsterRaces() {
-    	if(unlockedMonsterRaces == null) { // Dar valor inicial si no esta fijado con anterioridad
+    	if(unlockedMonsterRaces == null) { // Dar valor inicial si no esta fijado con anterioridad.
     		unlockedMonsterRaces = new ArrayList<MonsterRace>();
-    		unlockedMonsterRaces.add(MonsterRace.Bu); // Inicialmente la raza Bu esta desbloqueada
+    		unlockedMonsterRaces.add(MonsterRace.Bu); // Inicialmente las razas Bu, Ocodomo y Mongo estan desbloqueada
+    		unlockedMonsterRaces.add(MonsterRace.Ocodomo);
+    		unlockedMonsterRaces.add(MonsterRace.Mongo);
     	}
     	return Collections.unmodifiableList(unlockedMonsterRaces);
     }
