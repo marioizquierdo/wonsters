@@ -10,7 +10,6 @@ import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.room.Room;
-import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
@@ -28,7 +27,6 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
     private LairDao lairDao;
-    private RoomDao roomDao;
     private UserDao userDao;
 
     public void setLairDao(LairDao lairDao) {
@@ -37,10 +35,6 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
-    }
-
-    public void setRoomDao(RoomDao roomDao) {
-        this.roomDao = roomDao;
     }
 
     public void cancelWorks(Lair lair, RoomType roomType)

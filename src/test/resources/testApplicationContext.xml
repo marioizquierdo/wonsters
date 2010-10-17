@@ -75,7 +75,6 @@
 	<bean id="monsterFacade" class="es.engade.thearsmonsters.model.facades.monsterfacade.MonsterFacadeImpl">
 			<property name="monsterDao" ref="monsterDao" />
 			<property name="monsterEggDao" ref="monsterEggDao" />
-			<property name="lairDao" ref="lairDao" />
 			<property name="userDao" ref="userDao" />
 	</bean>
 </beans>

@@ -2,7 +2,6 @@ package es.engade.thearsmonsters.model.facades.userfacade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import es.engade.thearsmonsters.model.entities.common.dao.exception.ConstraintException;
 import es.engade.thearsmonsters.model.entities.lair.Address;
@@ -21,7 +20,6 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 import es.engade.thearsmonsters.util.factory.FactoryData;
 
 @Service("userFacade")
-@Transactional
 public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
 	@Autowired
@@ -57,12 +55,10 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
 	}
 
-	@Transactional(readOnly = true)
 	public int countUsers() throws InternalErrorException {
 		return userDao.getNumberOfUsers();
 	}
 
-	@Transactional(readOnly = true)
 	public User findUserProfile(String login) throws InstanceNotFoundException,
 			InternalErrorException {
 
@@ -70,7 +66,6 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
 	}
 
-	@Transactional(readOnly = true)
 	public LoginResult login(String login, String password,
 			boolean passwordIsEncrypted, boolean loginAsAdmin)
 			throws InstanceNotFoundException, IncorrectPasswordException,

@@ -10,13 +10,11 @@ import com.google.appengine.api.datastore.Key;
 import es.engade.thearsmonsters.model.entities.egg.MonsterEgg;
 import es.engade.thearsmonsters.model.entities.egg.dao.MonsterEggDao;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
-import es.engade.thearsmonsters.model.entities.lair.dao.LairDao;
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.dao.MonsterDao;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.entities.room.Room;
-import es.engade.thearsmonsters.model.entities.room.dao.RoomDao;
 import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.model.facades.common.ThearsmonstersFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
@@ -36,8 +34,6 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
 
     private MonsterDao monsterDao;
     private MonsterEggDao monsterEggDao;
-    private RoomDao roomDao;
-    private LairDao lairDao;
     private UserDao userDao;
     
     public void setUserDao(UserDao userDao) {
@@ -50,14 +46,6 @@ public class MonsterFacadeImpl extends ThearsmonstersFacade implements MonsterFa
 
     public void setMonsterEggDao(MonsterEggDao monsterEggDao) {
         this.monsterEggDao = monsterEggDao;
-    }
-
-    public void setRoomDao(RoomDao roomDao) {
-        this.roomDao = roomDao;
-    }
-
-    public void setLairDao(LairDao lairDao) {
-        this.lairDao = lairDao;
     }
 
     @Transactional
