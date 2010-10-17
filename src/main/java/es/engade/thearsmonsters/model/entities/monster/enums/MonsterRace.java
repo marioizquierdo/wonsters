@@ -13,13 +13,25 @@ public enum MonsterRace {
 	//					fuerza, agilidad, vitalidad, inteligencia, carisma, 			// valor atributos al nacer
 	//					espacioVital, precioCompraHuevo,
 	// 					fertilidad (%), tipoRaza, esVolador
-	//					esperanzaVida (días), incubationMinutes, metamorphosisMinutes)
+	//					esperanzaVida (dias), incubationMinutes, metamorphosisMinutes)
 	
 	Bu 				(// Abrelatax Pignos Boo
-						5, 1, 1, 1, 0,
+						5, 1, 1, 1, 10,
 						4, 0,
 						0, MonsterRaceClass.Verme, false,
-						4, 0, 0),
+						4, 0, 0), // 4 * 0.80 * 15 + 15 = 63 turnos acumulados en su vida util (cria+adulto)
+	
+	Ocodomo			(// Carnificis Abisal
+						10, 15, 30, 1, 1, 
+						8, 0, 
+						20, MonsterRaceClass.Crustacea, false,
+						30, 1, 1), // 
+						
+	Mongo			(// Celeris Caudicis
+						5, 60, 15, 30, 25, 
+						33, 0,
+						25, MonsterRaceClass.Humanoide, true,
+						30, 120, 100),
 						
 	Polbo			(// Balleno Heptocto
 						5, 5, 5, 5, 5, 
@@ -32,18 +44,6 @@ public enum MonsterRace {
 						16, 200, 
 						10, MonsterRaceClass.Verme, true,
 						10, 10, 5),
-						
-	Ocodomo			(// Carnificis Abisal
-						20, 15, 30, 20, 5, 
-						40, 1000, 
-						20, MonsterRaceClass.Crustacea, false,
-						30, 60, 120),
-						
-	Mongo			(// Celeris Caudicis
-						5, 60, 15, 30, 25, 
-						33, 2500,
-						25, MonsterRaceClass.Humanoide, true,
-						30, 120, 100),
 						
 	Electroserpe	(// Triserpe Electroplasmoide
 						30, 15, 50, 30, 30, 

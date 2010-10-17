@@ -28,9 +28,6 @@ import es.engade.thearsmonsters.model.util.Format;
 public class Monster extends ThearsmonstersEntity implements Serializable {
 
     private static final long serialVersionUID = 20100305L;
-    private static final long PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD = 80;
-    private static final long PERCENT_OF_VARIATION_TO_GROW_OLD = 10;
-    private static final long PERCENT_OF_LIFE_EXPECTANCY_VARIATION = 5;
 	
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -97,23 +94,23 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.freeTurnsTimestamp = DateTools.now();
 		this.freeTurns = 0;
 		
-		// Como el mínimo de esperanza de vida es 1, debemos fraccionar ese tiempo
+		// Como el minimo de esperanza de vida es 1, debemos fraccionar ese tiempo
 		// para poder envejecer.
 		long minutesToGrowOld = Math.round(
 				Double.valueOf(race.getLifeExpectancyDays() * 24 * 60
-				* PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD) / 100
+				* MonsterAge.PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD) / 100
 			);
 		minutesToGrowOld += (Math.random() - 0.5) * 2 
-			* Double.valueOf(minutesToGrowOld * PERCENT_OF_VARIATION_TO_GROW_OLD)/100;
+			* Double.valueOf(minutesToGrowOld * MonsterAge.PERCENT_OF_VARIATION_TO_GROW_OLD)/100;
 		this.growOldDate = DateTools.new_byMinutesFrom(borningDate, minutesToGrowOld);
 		long minutesToDecease = Math.round(race.getLifeExpectancyDays() * 24 * 60 +
 				(Math.random() - 0.5) * 2
 				* Double.valueOf((race.getLifeExpectancyDays() * 24 * 60) 
-				* PERCENT_OF_LIFE_EXPECTANCY_VARIATION) / 100
+				* MonsterAge.PERCENT_OF_LIFE_EXPECTANCY_VARIATION) / 100
 			);
 		this.deceaseDate = DateTools.new_byMinutesFrom(borningDate, minutesToDecease);
-		// No implementado por ahora
-//		this.activities = new ArrayList<MonsterActivity>();
+		
+//		this.activities = new ArrayList<MonsterActivity>(); // No implementado por ahora
 		this.setAge(ageState);
 	}
 	

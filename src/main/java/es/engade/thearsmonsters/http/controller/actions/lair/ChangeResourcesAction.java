@@ -18,7 +18,6 @@ import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
 import es.engade.thearsmonsters.util.configuration.AppContext;
@@ -54,9 +53,7 @@ public class ChangeResourcesAction extends ThearsmonstersDefaultAction {
 		        } else {
 		        	FlashMessage.show(request, "ChangeResources.doneMessage");
 		        }
-				
-			} catch (OnlyOneChangePerGameDayException e) {
-				FlashMessage.showError(request, e);
+		        
 			} catch (WarehouseFullStorageException e) {
 				FlashMessage.showError(request, e);
 			} catch (TradeOfficeFullStorageException e) {

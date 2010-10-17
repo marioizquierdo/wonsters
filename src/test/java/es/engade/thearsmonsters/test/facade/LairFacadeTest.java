@@ -23,7 +23,6 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksAction
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
 import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
@@ -277,8 +276,7 @@ public class LairFacadeTest extends GaeTest {
     @Test
     public void testChangeResources()
         throws WarehouseFullStorageException, TradeOfficeFullStorageException, 
-        InsuficientGarbageException, InsuficientMoneyException, 
-        OnlyOneChangePerGameDayException, InternalErrorException {
+        InsuficientGarbageException, InsuficientMoneyException, InternalErrorException {
         
     }
     

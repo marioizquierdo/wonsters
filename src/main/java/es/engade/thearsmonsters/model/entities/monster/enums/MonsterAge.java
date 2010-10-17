@@ -10,7 +10,11 @@ public enum MonsterAge {
 	Old, 
 	Dead;
 	
-    
+    public static final long PERCENT_OF_LIFE_EXPECTANCY_TO_GROW_OLD = 80; // Porcentaje de la esperanza de vida cuando pasa a ancianto
+    public static final long PERCENT_OF_VARIATION_TO_GROW_OLD = 10; // Porcentaje de la esperanza de vida de variacion aleatoria para la fecha de convertirse en anciano
+    public static final long PERCENT_OF_LIFE_EXPECTANCY_VARIATION = 5; // Porcentaje de la esperanza de vida de variacion aleatoria para la fecha de defuncion
+	
+	
     /**
      * Valida que una sucesión de edades es correcta.
      * Solo se puede asignar otra edad a un monstruo siguiendo el siguiente diagrama:

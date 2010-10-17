@@ -9,7 +9,6 @@ import es.engade.thearsmonsters.model.facades.lairfacade.exception.InWorksAction
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientGarbageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.InsuficientMoneyException;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.TradeOfficeFullStorageException;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.WarehouseFullStorageException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -38,8 +37,7 @@ public class LairFacadeMock implements LairFacade {
 	public int changeResources(Lair lair, String moneyOrGarbage, int amount)
 			throws WarehouseFullStorageException,
 			TradeOfficeFullStorageException, InsuficientGarbageException,
-			InsuficientMoneyException, OnlyOneChangePerGameDayException,
-			InternalErrorException {
+			InsuficientMoneyException, InternalErrorException {
 		return 2000;
 	}
 

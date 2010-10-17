@@ -7,7 +7,6 @@ import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
 
@@ -24,11 +23,9 @@ public class RoomData implements Serializable {
 
 	private static final long serialVersionUID = 200911261651L;
 
-	private Date lastChangeResourcesDate;
     private int vitalSpaceOccupied;
     
     public RoomData(Date lastChangeResourcesDate, int vitalSpaceOccupied) {
-        this.lastChangeResourcesDate = lastChangeResourcesDate;
         this.vitalSpaceOccupied = vitalSpaceOccupied;
     }
     
@@ -46,24 +43,6 @@ public class RoomData implements Serializable {
     
 	private Room getTradeOffice(Lair lair) {
 		return lair.getRoom(RoomType.TradeOffice);
-	}
-    
-	public Date getLastChangeResourcesDate() {
-		return lastChangeResourcesDate;
-	}
-
-	private void setLastChangeResourcesDate(Date newDate) {
-		lastChangeResourcesDate = newDate;
-	}
-
-	public void setLastChangeResourcesDateToNow() {
-		setLastChangeResourcesDate(DateTools.now());
-	}
-	
-	public boolean isReadyToChangeResources() {
-		// Esta preparado para hacer otro cambio de recursos si
-		// el último cambio se hizo ayer o antes.
-		return lastChangeResourcesDate.before(DateTools.yesterday());
 	}
 	
 	/**
@@ -99,22 +78,6 @@ public class RoomData implements Serializable {
 					"TradeOffice. At lair of '"+ lair.getUser().getLogin() +"'");
 		}
     }
-	
-	
-	/**
-	 * Little hard to read, but this method is useful in the view because
-	 * the exception can create its own localized message (implements LocalizableMessage),
-	 * and is better to call this and check if the returned value is null, otherwise
-	 * print the error message, than simply look at isReadyToChangeResources().
-	 * @return the exception if the change can not be made or null otherwise
-	 */
-	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException(Lair lair) {
-		if(!isReadyToChangeResources()) {
-			return new OnlyOneChangePerGameDayException(lastChangeResourcesDate, lair.getUser().getLogin());
-		} else {
-			return null;
-		}
-	}
 	
 	/**
 	 * Max amount of money that this lair can store.
@@ -154,7 +117,7 @@ public class RoomData implements Serializable {
 		case 7: return 15;
 		case 8: return 10;
 		case 9: return 5;
-		default: return 0;
+		default: return 1;
 		}
 	}
 	
@@ -242,20 +205,14 @@ public class RoomData implements Serializable {
 	@Override
     public String toString() {
 		return Format.p(this.getClass(), new Object[]{
-		    "lastChangeResourcesDate", lastChangeResourcesDate,
 			"vitalSpaceOccupied", vitalSpaceOccupied
 		});
 	}
-	
+
 	@Override
     public int hashCode() {
 	    final int prime = 31;
 	    int result = 1;
-//	    result = prime * result + ((lair == null) ? 0 : lair.hashCode());
-	    result = prime
-	            * result
-	            + ((lastChangeResourcesDate == null) ? 0
-	                    : lastChangeResourcesDate.hashCode());
 	    result = prime * result + vitalSpaceOccupied;
 	    return result;
     }
@@ -269,17 +226,6 @@ public class RoomData implements Serializable {
 	    if (getClass() != obj.getClass())
 		    return false;
 	    RoomData other = (RoomData) obj;
-//	    if (lair == null) {
-//		    if (other.lair != null)
-//			    return false;
-//	    } else if (!lair.equals(other.lair))
-//		    return false;
-	    if (lastChangeResourcesDate == null) {
-		    if (other.lastChangeResourcesDate != null)
-			    return false;
-	    } else if (!lastChangeResourcesDate
-	            .equals(other.lastChangeResourcesDate))
-		    return false;
 	    if (vitalSpaceOccupied != other.vitalSpaceOccupied)
 		    return false;
 	    return true;

@@ -27,7 +27,6 @@ import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.facades.lairfacade.exception.IncorrectAddressException;
-import es.engade.thearsmonsters.model.facades.lairfacade.exception.OnlyOneChangePerGameDayException;
 import es.engade.thearsmonsters.model.util.Format;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 
@@ -264,12 +263,8 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public int getVitalSpace() { return roomData.getVitalSpace(this); }
 	public boolean refreshVitalSpaceOccupied() { return roomData.refreshVitalSpaceOccupied(this); }
 	public int getVitalSpaceFree() { return roomData.getVitalSpaceFree(this); }
-	public Date getLastChangeResourcesDate() { return roomData.getLastChangeResourcesDate(); }
-	public void setLastChangeResourcesDateToNow() { roomData.setLastChangeResourcesDateToNow(); }
-	public boolean isReadyToChangeResources() { return roomData.isReadyToChangeResources(); }
 	public int getChangeResourcesMaxGarbageAmountEnabled() { return roomData.getChangeResourcesMaxGarbageAmountEnabled(this); }
 	public int getChangeResourcesMaxMoneyAmountEnabled() { return roomData.getChangeResourcesMaxMoneyAmountEnabled(this); }
-	public OnlyOneChangePerGameDayException getOnlyOneChangePerGameDayException() { return roomData.getOnlyOneChangePerGameDayException(this); }
 	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(this); }
 	public int getPercentageCommision() { return roomData.getPercentageCommision(this); }
 	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(this); }

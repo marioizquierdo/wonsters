@@ -32,7 +32,8 @@
 		    <c:set var="img_tooltip"><fmt:message key="Monster.race.${monster.race}"/><c:out value=" "/><fmt:message key="Monster.age.${monster.age}"/></c:set>
 		    <c:set var="free_turns_tooltip"><fmt:message key="Monster.freeTurns.desc"/></c:set>  
 		    <a class="monster_slot ${monster.race} ${monster.age}" href="${url_for_monster}">
-		    	<img class="monster_image" src="/images/monsters/${monster.race}/list_${monster.age}.png" alt="${monster.name}" title="${img_tooltip}" height="180"/>
+		    	<c:set var="monster_age" value="${monster.age == 'Cocoon' ? 'Child' : monster.age }" /> <!-- Se toman los que estan convirtiendose en adultos igualmente como crias --> 
+		    	<img class="monster_image" src="/images/monsters/${monster.race}/list_${monster_age}.png" alt="${monster.name}" title="${img_tooltip}" height="180"/>
 		    	<p class="monster_name"><c:out value="${monster.name}"/></p>
 		    	<p class="monster_bestWorkSkill"><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</p>
 		    	<p class="monster_freeTurns ${(monster.freeTurns == 0) ? 'without' : ''}" title="${free_turns_tooltip}">

@@ -51,19 +51,21 @@ public enum MonsterActionType {
 			int current = this.targetValue(action);
 			int increment = this.targetValueIncreasePerTurn(action);
 			int max =  action.getLair().getGarbageStorageCapacity();
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
+			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel();
 
-			
-			
-			if (current + increment > max) {
+			// Sumar basura en la guarida
+			if (current + increment >= max) {
 				action.getLair().setGarbage(max);
 				action.addScopedNotification("fullStorageCapacity");
-			} else action.getLair().setGarbage(current + increment);
+			} else {
+				action.getLair().setGarbage(current + increment);			
+			}
 			
-			
-			if(action.getMonster().addExp(AttrType.HarvesterSkill,incrementExp)) { // mejorar habilidad "recolección"
+			// Incrementar experiencia en habilidad recoleccion
+			Attr harvestSkill = action.getMonster().getSimpleAttr(AttrType.HarvesterSkill);
+			if(harvestSkill.addExp(incrementExp)) { // mejorar habilidad "recoleccion"
 				action.addScopedNotification("monsterAttrLevelUp", new Object[] {
-					action.getMonster().getAttr(AttrType.HarvesterSkill).getLevel() // {0}
+						harvestSkill.getLevel() // {0}
 				});
 			}
 		}
@@ -73,16 +75,13 @@ public enum MonsterActionType {
 		//habilidades. Una vez hecho esto establece el targetMax en funcion de este numero de turnos
         public Integer maxValueToShow(MonsterAction action) {
         	
-        	
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
-			int expActually = action.getMonster().getAttr(AttrType.HarvesterSkill).getExp();
+			int incrementExp = action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel();
+			int expActually = action.getMonster().getWorkSkill(AttrType.HarvesterSkill).getExp();
 			
 			//Esta variable indica los turnos necesarios para aumentar la habilidad de construccion segun la experiencia actual del monstruo
 			int turnsToUpgradeActualHarvesterSkill = (100 - expActually) / incrementExp;
 			//Esta variable indica los turnos necesarios para aumentar la habilidad de construccion partiendo de una experiencia 0 del monstruo.
 			int turnToUpgradeBasicHarvesterSkill = 100 / incrementExp;
-			
-			
         
         	int increment = this.targetValueIncreasePerTurn(action);
         	int targetInicial = this.targetValue(action);
@@ -101,10 +100,9 @@ public enum MonsterActionType {
 				turns++;
 			}
 
-
-        	//Al tener el numero de turnos necesarios teniendo en cuenta los aumentos de experiencia, se puede expresar el targetValueMax en funcion de estos
-        	//y el incremento actual.
-        	return (turns * increment)+ targetInicial;
+        	// Al tener el numero de turnos necesarios teniendo en cuenta los aumentos de experiencia, se puede expresar el targetValueMax en funcion de estos
+        	// y el incremento actual.
+        	return turns * increment + targetInicial;
         }
         
 		// targetValue = Cantidad de basura que hay en la guarida.
@@ -121,15 +119,13 @@ public enum MonsterActionType {
         public Integer targetValueMax(MonsterAction action) {
         	return maxValueToShow(action);
         }
-
         
         // targetValueMax = Capacidad del almacén
         public Integer realTargetValueMax(MonsterAction action) {
         	return action.getLair().getGarbageStorageCapacity();
         }
         
-        
-        // Parámetros para Monster.actions.type.GarbageHarvest.info
+        // Parametros para Monster.actions.type.GarbageHarvest.info
         // {0} Nivel recolección del monstruo
         // {1} Cantidad de basura que se recolecta por turno (es decir, targetValueIncreasePerTurn)
         protected Object[] infoMessageParams(MonsterAction action) {
@@ -177,7 +173,7 @@ public enum MonsterActionType {
 		
 		// Para trabajar en las obras, tiene que permitir realizar tarea en salas de nivel 0.
 		boolean validateBasicRoomConditions(MonsterAction action) {
-			return true; // Vale cualquier tipo de sala ("all") y adem�s vale que sea de nivel 0.
+			return true; // Vale cualquier tipo de sala ("all") y ademas vale que sea de nivel 0.
 		}
 
 		// Avanza en el esfuerzo realizado (effortDone) de las obras de la sala.
@@ -186,14 +182,14 @@ public enum MonsterActionType {
 			Room room = action.getRoom();
 			Monster monster = action.getMonster();
 			RoomInWorksState roomWorks = (RoomInWorksState) room.getState();
-			int monsterConstructionLevel = monster.getAttr(AttrType.Construction).getLevel();
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
+			int monsterConstructionLevel = monster.getComposeAttr(AttrType.Construction).getLevel();
+			int incrementExp = action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel();
 
 			// Avanzar en las obras
 			roomWorks.setEffortDone(room.getEffortDone() + monsterConstructionLevel);
 			
 			// Adquirir experiencia en la habilidad "construccion"
-			Attr constructionSkill = monster.getAttr(AttrType.ConstructorSkill);
+			Attr constructionSkill = monster.getWorkSkill(AttrType.ConstructorSkill);
 			if(constructionSkill.addExp(incrementExp)) {
 				action.addScopedNotification("constructionLevelUp", new Object[]{
 						monster.getName(), // {0} nombre del monstruo
@@ -216,17 +212,16 @@ public enum MonsterActionType {
 		}
 
 		
-		
-		//Esta funcion calcula el numero de turnos maximos para alcanzar el targetValueMax teniendo en cuenta los incrementos en la experiencia en 
-		//habilidades. Una vez hecho esto establece el targetMax en funcion de este numero de turnos
+		// Esta funcion calcula el numero de turnos maximos para alcanzar el targetValueMax teniendo en cuenta los incrementos en la experiencia en 
+		// habilidades. Una vez hecho esto establece el targetMax en funcion de este numero de turnos
         public Integer maxValueToShow(MonsterAction action) {
         	
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel() * 10;
-			int expActually = action.getMonster().getComposeAttr(AttrType.Construction).getExp();
+			int incrementExp = action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel();
+			int expActually = action.getMonster().getWorkSkill(AttrType.ConstructorSkill).getExp();
 			
-			//Esta variable indica los turnos necesarios para aumentar la habilidad de construccion segun la experiencia actual del monstruo
+			// Turnos necesarios para aumentar la habilidad de construccion segun la experiencia actual del monstruo
 			int turnsToUpgradeActualConstructionSkill = (100 - expActually) / incrementExp;
-			//Esta variable indica los turnos necesarios para aumentar la habilidad de construccion partiendo de una experiencia 0 del monstruo.
+			// Turnos necesarios para aumentar la habilidad de construccion partiendo de una experiencia 0 del monstruo.
 			int turnToUpgradeBasicConstructionSkill = 100 / incrementExp;
 			
         	int increment = this.targetValueIncreasePerTurn(action);
@@ -236,9 +231,9 @@ public enum MonsterActionType {
         	int contador = 0;
         	
         	
-        	//Calcula el numero de turnos necesarios para alcanzar el realTargetValueMax 
+        	// Calcula el numero de turnos necesarios para alcanzar el realTargetValueMax 
         	while((target + increment + contador) < this.realTargetValueMax(action)) {
-            	System.out.println("target + increment + contador: " + (target + increment + contador));
+            	//System.out.println("target + increment + contador: " + (target + increment + contador));
         		if (turns < turnsToUpgradeActualConstructionSkill) target+=increment + contador;
 				else {
 					contador++;
@@ -247,12 +242,10 @@ public enum MonsterActionType {
 				}
 				turns++;
 			}
-        	//Al tener el numero de turnos necesarios teniendo en cuenta los aumentos de experiencia, se puede expresar el targetValueMax en funcion de estos
-        	//y el incremento actual.
+        	// Al tener el numero de turnos necesarios teniendo en cuenta los aumentos de experiencia, se puede expresar el targetValueMax en funcion de estos
+        	// y el incremento actual.
         	return (turns * increment) + targetInicial;
         }
-        
-        
         
 		// targetValue = Trabajo realizado en las obras de la sala.
         public Integer targetValue(MonsterAction action) {
@@ -264,20 +257,19 @@ public enum MonsterActionType {
 	        return action.getMonster().getComposeAttr(AttrType.Construction).getLevel();
         }
 
-        
         // targetValueMax = Esfuerzo necesario para realizar toda la obra.
         public Integer realTargetValueMax(MonsterAction action) {
-        	return action.getRoom().getEffortUpgrade(); // TODO: t16.3 marcar teniendo en cuenta que el atributo construction puede aumentar
+        	return action.getRoom().getEffortUpgrade();
         }
         
-        
+        // Se modifica para que cuadre teniendo en cuenta que a medida que pasan los turnos va aumentando la habilidad construccion
         public Integer targetValueMax(MonsterAction action) {
-        	return maxValueToShow(action); // TODO: t16.3 marcar teniendo en cuenta que el atributo construction puede aumentar
+        	return maxValueToShow(action);
         }
         
         // Parámetros para Monster.actions.type.WorkInTheWorks.info
         // {0} Nivel de la sala al que se va a mejorar.
-        // {1} Attr Construcción del monstruo
+        // {1} Attr Construccion del monstruo
         // {2} Cantidad de esfuerzo realizado por turno (es decir, targetValueIncreasePerTurn)
         // {3} Cantidad de esfuerzo que hace falta para subir de nivel la sala
         // {4} Cantidad de esfuerzo que lleva completado
@@ -294,7 +286,7 @@ public enum MonsterActionType {
     		};
     	}
         
-        // Parámetros para Monster.actions.type.WorkInTheWorks.targetValue
+        // Parametros para Monster.actions.type.WorkInTheWorks.targetValue
         // {0} targetValue con marca para ser identificado por JavaScript
         // {1} esfuerzo total requerido
         // {2} siguiente nivel de la sala
@@ -306,7 +298,7 @@ public enum MonsterActionType {
     		};
     	}
         
-        // Parámetros para cada Monster.actions.type.WorkInTheWorks.targetValue.perTurn.{i}
+        // Parametros para cada Monster.actions.type.WorkInTheWorks.targetValue.perTurn.{i}
         // ..perTurn.0 => Esfuerzo realizado por turno, que es el targetValueIncreasePerTurn
         // ..perTurn.1 => Experiencia obtenida la habilidad "construcción"
         protected Object[] effectsPerTurnParams(MonsterAction action) {
@@ -338,7 +330,7 @@ public enum MonsterActionType {
 
 		// targetValue = Experiencia actual del monstruo en el aumento de fuerza
         public Integer targetValue(MonsterAction action) {
-	        return action.getMonster().getAttr(AttrType.Strenght).getExp();
+	        return action.getMonster().getSimpleAttr(AttrType.Strenght).getExp();
         }
         
         // targetValueIncreasePerTurn = Cantidad de exp que se aumenta en cada turno, 
@@ -365,7 +357,7 @@ public enum MonsterActionType {
         protected Object[] targetValueMessageParams(MonsterAction action) {
     		return new Object[]{
     				targetValueMessageParam(action), // {0}
-    				action.getMonster().getAttr(AttrType.Strenght).getLevel() + 1 // {1}
+    				action.getMonster().getSimpleAttr(AttrType.Strenght).getLevel() + 1 // {1}
     		};
     	}
         
@@ -395,12 +387,17 @@ public enum MonsterActionType {
 		// Aumenta la experiencia del monstruo en el atributo inteligencia, por cada 100 de experiencia sube un nivel
 		void doExecute(MonsterAction action) {
 			int increment = this.targetValueIncreasePerTurn(action);
-			action.getMonster().addExp(AttrType.Intelligence, increment);
+			Attr intelligence = action.getMonster().getSimpleAttr(AttrType.Intelligence);
+			if(intelligence.addExp(increment)) {
+				action.addScopedNotification("intelligenceLevelUp", new Object[]{
+						intelligence.getLevel() // {0}
+				});
+			}
 		}
 
 		// targetValue = Experiencia actual del monstruo en el aumento de inteligencia
         public Integer targetValue(MonsterAction action) {
-	        return action.getMonster().getAttr(AttrType.Intelligence).getExp();
+	        return action.getMonster().getSimpleAttr(AttrType.Intelligence).getExp();
         }
 
         // targetValueIncreasePerTurn = Cantidad de exp que se aumenta en cada turno
@@ -427,7 +424,7 @@ public enum MonsterActionType {
         protected Object[] targetValueMessageParams(MonsterAction action) {
     		return new Object[]{
     				targetValueMessageParam(action), // {0}
-    				action.getMonster().getAttr(AttrType.Intelligence).getLevel() + 1 // {1}
+    				action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel() + 1 // {1}
     		};
     	}
         

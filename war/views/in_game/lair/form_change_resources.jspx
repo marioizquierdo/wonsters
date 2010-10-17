@@ -8,24 +8,21 @@
     		version="2.0">
 
 <!-- Common references around the body -->
-<c:set var="notReadyToChangeYet" value="${my.lair.onlyOneChangePerGameDayException}"/>
 <c:set var="maxGarbageAmountEnabled" value="${my.lair.changeResourcesMaxGarbageAmountEnabled}"/>
 <c:set var="maxMoneyAmountEnabled" value="${my.lair.changeResourcesMaxMoneyAmountEnabled}"/>
 <c:set var="tradeOfficePercentageCommission" value="${my.lair.percentageCommision}"/>
 <c:set var="roomLevel" value='${my.lair.room["TradeOffice"].level}' />
 
-<c:choose>
-    
-    <c:when test="${roomLevel == 0}">
+<!-- Oficina de comercio no existe o es de nivel 0 -->
+<c:choose><c:when test="${empty roomLevel or roomLevel == 0}">
         <customtag:window id="changeGarbageForMoney" title="ChangeResources.levelZeroErrorTitle">
             <fmt:message key="ChangeResources.levelZeroError" />
         </customtag:window>
-    </c:when>
-    
-    <c:otherwise>
+        
+<!-- Oficina de comercio presente y operativa -->
+</c:when><c:otherwise>
 
-<!-- Include javascript only if the change is ready to made -->
-<c:if test="${empty notReadyToChangeYet}">
+	<!-- Include javascript -->
 	<![CDATA[
 		<script type='text/javascript' src='/javascript/change_resources.js'></script>
 	]]>
@@ -34,14 +31,14 @@
 		<div id="crdata_maxMoneyAmountEnabled">${maxMoneyAmountEnabled}</div>
 		<div id="crdata_tradeOfficePercentageCommission">${tradeOfficePercentageCommission}</div>
 	</div>
-</c:if>
 
-<!-- Change garbage for money Window -->
-<customtag:window id="changeGarbageForMoney" title="ChangeResources.GarbageForMoney">
+	<!-- Change garbage for money Window -->
+	<customtag:window id="changeGarbageForMoney" title="ChangeResources.GarbageForMoney">
 		
 		<div class="info_slot">    
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
-			<div class="info_slot_content"> <!-- Show message depending on the cuantity of maxGarbageAmountEnabled -->
+			<div class="info_slot_content">
+				<!-- Show message depending on the cuantity of maxGarbageAmountEnabled -->
 				<c:choose><c:when test="${my.lair.garbage == maxGarbageAmountEnabled}">
 					<fmt:message key="ChangeResources.GarbageMaxCuantityToChange1">
 						<fmt:param>
@@ -74,45 +71,36 @@
 			</div>
 		</div>
 		
-		<c:choose><c:when test="${empty notReadyToChangeYet}">
-			<html:form action="lair/change_resources_action.do">
-				<html:errors property="garbage"/>
-				<html:hidden property="money" value="0"/>
-			    <div class="info_slot">
-			    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
-				    <div class="info_slot_content">
-			            <fmt:message key="ChangeResources.change">
-			            	<fmt:param>
-			            		<html:text property="garbage" size="5" maxlength="8"/><customtag:common_icon id="garbage" img="true"/>
-			            	</fmt:param>
-			            	<fmt:param>
-			            		<span id="change_resources_js_money_earned">0</span><customtag:common_icon id="money" img="true"/>
-			            	</fmt:param>
-			            </fmt:message>
-			            
-				        <span class="button">        
-					        <html:submit>
-					            <fmt:message key="Buttons.ok"/>
-					        </html:submit>
-				        </span>
-				    </div>
+		<html:form action="lair/change_resources_action.do">
+			<html:errors property="garbage"/>
+			<html:hidden property="money" value="0"/>
+		    <div class="info_slot">
+		    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
+			    <div class="info_slot_content">
+		            <fmt:message key="ChangeResources.change">
+		            	<fmt:param>
+		            		<html:text property="garbage" size="5" maxlength="8"/><customtag:common_icon id="garbage" img="true"/>
+		            	</fmt:param>
+		            	<fmt:param>
+		            		<span id="change_resources_js_money_earned">0</span><customtag:common_icon id="money" img="true"/>
+		            	</fmt:param>
+		            </fmt:message>
+		            
+			        <span class="button">        
+				        <html:submit>
+				            <fmt:message key="Buttons.ok"/>
+				        </html:submit>
+			        </span>
 			    </div>
-			</html:form>
-		</c:when><c:otherwise>
-			<div class="info_slot">
-				<customtag:icon id="0" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.ERROR.info"/>
-				<div class="info_slot_content">
-					<customtag:localizableMessage var="${notReadyToChangeYet}"/>
-				</div>
-			</div>
-		</c:otherwise></c:choose>
+		    </div>
+		</html:form>
 	
-</customtag:window>
+	</customtag:window>
 
 
 
-<!-- Change money for garbage Window -->
-<customtag:window id="changeMoneyForGarbage" title="ChangeResources.MoneyForGarbage">	
+	<!-- Change money for garbage Window -->
+	<customtag:window id="changeMoneyForGarbage" title="ChangeResources.MoneyForGarbage">	
 		
 		<div class="info_slot">
 			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
@@ -148,42 +136,31 @@
 				</fmt:message>
 			</div>
 		</div>
-		
-		<c:choose><c:when test="${empty notReadyToChangeYet}">
-			<html:form action="lair/change_resources_action.do">
-				<html:errors property="money"/>
-				<html:hidden property="garbage" value="0"/>
-			    <div class="info_slot">
-			    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
-				    <div class="info_slot_content">      
-			            <fmt:message key="ChangeResources.change">
-			            	<fmt:param>
-			            		<html:text property="money" size="5" maxlength="8"/><customtag:common_icon id="money" img="true"/>
-			            	</fmt:param>
-			            	<fmt:param>
-			            		<span id="change_resources_js_garbage_earned">0</span><customtag:common_icon id="garbage" img="true"/>
-			            	</fmt:param>
-			            </fmt:message>
-				    
-					    <span class="button">
-					        <html:submit>
-					            <fmt:message key="Buttons.ok"/>
-					        </html:submit>
-					    </span>
-				    </div>
+	
+		<html:form action="lair/change_resources_action.do">
+			<html:errors property="money"/>
+			<html:hidden property="garbage" value="0"/>
+		    <div class="info_slot">
+		    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
+			    <div class="info_slot_content">      
+		            <fmt:message key="ChangeResources.change">
+		            	<fmt:param>
+		            		<html:text property="money" size="5" maxlength="8"/><customtag:common_icon id="money" img="true"/>
+		            	</fmt:param>
+		            	<fmt:param>
+		            		<span id="change_resources_js_garbage_earned">0</span><customtag:common_icon id="garbage" img="true"/>
+		            	</fmt:param>
+		            </fmt:message>
+			    
+				    <span class="button">
+				        <html:submit>
+				            <fmt:message key="Buttons.ok"/>
+				        </html:submit>
+				    </span>
 			    </div>
-			</html:form>
-		</c:when><c:otherwise>
-			<div class="info_slot">
-				<customtag:icon id="0" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.ERROR.info"/>
-				<div class="info_slot_content">
-					<customtag:localizableMessage var="${notReadyToChangeYet}"/>
-				</div>
-			</div>
-		</c:otherwise></c:choose>
+		    </div>
+		</html:form>
 
-
-
-</customtag:window>
+	</customtag:window>
 </c:otherwise></c:choose>
 </jsp:root>
