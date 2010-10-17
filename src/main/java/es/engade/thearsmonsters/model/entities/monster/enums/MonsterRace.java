@@ -19,16 +19,16 @@ public enum MonsterRace {
 						5, 1, 1, 1, 10,
 						4, 0,
 						0, MonsterRaceClass.Verme, false,
-						4, 0, 0), // 4 * 0.80 * 15 + 15 = 63 turnos acumulados en su vida util (cria+adulto)
+						3, 0, 0), // 3 * 0.80 * 15 + 15 = xx turnos acumulados en su vida util (cria+adulto)
 	
 	Ocodomo			(// Carnificis Abisal
 						10, 15, 30, 1, 1, 
-						8, 0, 
+						10, 0, 
 						20, MonsterRaceClass.Crustacea, false,
-						30, 1, 1), // 
+						5, 1, 1), // 3 * 0.80 * 15 + 15 = xx turnos acumulados en su vida util (cria+adulto)
 						
 	Mongo			(// Celeris Caudicis
-						5, 60, 15, 30, 25, 
+						5, 60, 15, 5, 25, 
 						33, 0,
 						25, MonsterRaceClass.Humanoide, true,
 						30, 120, 100),
