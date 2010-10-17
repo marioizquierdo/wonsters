@@ -240,8 +240,7 @@ public class FactoryData {
      */
     private static Lair generateInitialLair(User user) {
         
-        //*** LAIR ***//
-    
+        // LAIR
         Lair lair = new Lair(user,
             0, // money 
             0, // garbage
@@ -250,10 +249,14 @@ public class FactoryData {
     
         user.setLair(lair); // add to user
     
-        //*** ROOMS ***//
-        
+        // ROOMS
         lair.buildRoom(RoomType.MainMonster);
         lair.buildRoom(RoomType.Dormitories);
+        
+        // Unlock free monster races
+        lair.unlockMonsterRace(MonsterRace.Bu);
+        lair.unlockMonsterRace(MonsterRace.Ocodomo);
+        lair.unlockMonsterRace(MonsterRace.Mongo);
         
         return lair;
     }

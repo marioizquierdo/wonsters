@@ -82,7 +82,7 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
         this.rooms = new ArrayList<Room>();
         this.monsters = new ArrayList<Monster>();
         this.monsterEggs = new ArrayList<MonsterEgg>();
-        this.unlockedMonsterRaces = null; // se da el valor inicial en getUnlockedMonsterRaces
+        this.unlockedMonsterRaces = new ArrayList<MonsterRace>();
         this.score = 0;
     }
     
@@ -228,12 +228,6 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	 * This list is read-only. To add one more race to the list, use the method lair.unlockMonsterRace(MonsterRace race);
 	 */
     public List<MonsterRace> getUnlockedMonsterRaces() {
-    	if(unlockedMonsterRaces == null) { // Dar valor inicial si no esta fijado con anterioridad.
-    		unlockedMonsterRaces = new ArrayList<MonsterRace>();
-    		unlockedMonsterRaces.add(MonsterRace.Bu); // Inicialmente las razas Bu, Ocodomo y Mongo estan desbloqueada
-    		unlockedMonsterRaces.add(MonsterRace.Ocodomo);
-    		unlockedMonsterRaces.add(MonsterRace.Mongo);
-    	}
     	return Collections.unmodifiableList(unlockedMonsterRaces);
     }
 	public void setUnlockedMonsterRaces(List<MonsterRace> unlockedMonsterRaces) { this.unlockedMonsterRaces = unlockedMonsterRaces; }
