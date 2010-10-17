@@ -22,7 +22,7 @@ import es.engade.thearsmonsters.model.entities.room.state.RoomUpgradingState;
  *  Cuando se añada un nuevo tipo de sala, prácticamente toda su información se añade en esta clase.
  */
 public enum RoomType {
-	// RoomType name		// publicable, garbageBuild, effortBuild, maxLevel (-1 => no limit)
+	// RoomType(publicable, garbageBuild, effortBuild, maxLevel(-1 => no limit))
 	
 	/**
 	 * Esta sala es un poco especial. Es la primera que aparece en el juego, no es necesario construirla, 
@@ -35,19 +35,28 @@ public enum RoomType {
 							
 	/**
 	 * Es donde los monstruos descansan cada día.
-	 * Al igual que Papá Monstruo, no es necesario construirla porque ya aparece al 
-	 * comienzo del juego, en cambio sí que se puede mejorar su nivel. 
+	 * Al igual que PapaMonstruo, no es necesario construirla porque ya aparece al 
+	 * comienzo del juego, en cambio si� que se puede mejorar su nivel. 
 	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
-	 * Aquí tampoco se realiza ninguna acción.
+	 * Aqui tampoco se realiza ninguna accion.
 	 */
 	Dormitories(false, 0, 0, -1) {
-		
 		public double getGarbageUpgrade(int level) {
-			return 20 * Math.pow(1.15, level-1);
+			return 50 * Math.pow(1.4, level-2);
 		}
 		public double getEffortUpgrade(int level) {
-			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
-			return 50 * Math.pow(1.1, level);
+			switch(level) {
+				case 2: return 20;
+				case 3: return 50;
+				case 4: return 150;
+				case 5: return 400;
+				case 6: return 1000;
+				case 7: return 4000;
+				case 8: return 15000;
+				case 9: return 45000;
+				case 10: return 100000;
+				default: return 100000 * Math.pow(1.8, level-10);
+			}
 		}
 		
 	},
@@ -56,16 +65,26 @@ public enum RoomType {
 	 * Es donde se almacena la basura de la guarida. 
 	 * Su nivel limita la cantidad de basura que se pueden tener almacenada 
 	 * (ver roomData.getGarbageStorageCapacity()).
-	 * La acción que se realiza aquí es "recolección de basura". Por cada turno
+	 * La accion que se realiza aqui� es "recoleccion de basura". Por cada turno
 	 * dedicado se recolecta tanta basura como el atributo compuesto "GarbageHarvest".
 	 */
-	Warehouse(false, 0, 1, -1){
+	Warehouse(false, 0, 5, -1) {
 		public double getGarbageUpgrade(int level) {
-			return 10 * Math.pow(1.2, level-1);
+			switch(level) {
+				case 2: return 20;
+				case 3: return 50;
+				case 4: return 150;
+				case 5: return 400;
+				case 6: return 1000;
+				case 7: return 4000;
+				case 8: return 15000;
+				case 9: return 45000;
+				case 10: return 100000;
+				default: return 100000 * Math.pow(1.4, level-11);
+			}
 		}
 		public double getEffortUpgrade(int level) {
-			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
-			return 50 * Math.pow(1.1, level);
+			return 50 * Math.pow(1.5, level-1);
 		}
 	},
 							
@@ -75,14 +94,13 @@ public enum RoomType {
 	 * por cambio y más dinero se puede almacenar.
 	 * Aquí no se realiza ninguna tarea por parte de los monstruos.
 	 */			
-	TradeOffice(false, 50, 30, 10){
+	TradeOffice(false, 50, 20, 10) {
 		public double getGarbageUpgrade(int level) {
 			return 100 * Math.pow(1.8, level-1);
 		}
 		
 		public double getEffortUpgrade(int level) {
-			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
-			return getEffortBuild() * Math.pow(1.6, level);
+			return 100 * Math.pow(1.6, level-1);
 		}
 	},
 	
@@ -94,15 +112,12 @@ public enum RoomType {
 	 * en cada turno.
 	 */			
 	
-	Gym(false, 50, 50, 10){
-		
+	Gym(false, 100, 200, 10) {
 		public double getGarbageUpgrade(int level) {
-			return 100 * Math.pow(2.0, level-1);
+			return 100 * Math.pow(1.8, level-1);
 		}
-		
 		public double getEffortUpgrade(int level) {
-			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
-			return 50 * Math.pow(1.1, level);
+			return 300 * Math.pow(1.4, level-1);
 		}
 	},
 		
@@ -114,18 +129,13 @@ public enum RoomType {
 		 * en cada turno.
 		 */			
 		
-	Nursery(false, 50, 50, 10){
-			
+	Nursery(false, 500, 300, 10) {
 		public double getGarbageUpgrade(int level) {
-			return 100 * Math.pow(2.0, level-1);
+			return 500 * Math.pow(1.4, level-1);
 		}
-		
 		public double getEffortUpgrade(int level) {
-			level = level -1; // se calcula para el nivel anterior (el minimo nivel es 0, no 1).
-			return 50 * Math.pow(1.1, level);
+			return 300 * Math.pow(1.9, level);
 		}
-		
-		
 	};
 	
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom

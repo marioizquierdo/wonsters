@@ -16,52 +16,52 @@ public enum MonsterRace {
 	//					esperanzaVida (dias), incubationMinutes, metamorphosisMinutes)
 	
 	Bu 				(// Abrelatax Pignos Boo
-						5, 1, 1, 1, 10,
+						4, 1, 1, 1, 1,
 						4, 0,
 						0, MonsterRaceClass.Verme, false,
-						3, 0, 0), // 3 * 0.80 * 15 + 15 = xx turnos acumulados en su vida util (cria+adulto)
+						3, 0, 0), // 3 (esp.vida) * 0.80 (%esp.vida viejuno) * 15 (turnos/dia) + 15 (turnos iniciales) = 51 turnos acumulados en su vida util (cria+adulto)
 	
 	Ocodomo			(// Carnificis Abisal
-						10, 15, 30, 1, 1, 
+						10, 1, 1, 10, 1, 
 						10, 0, 
-						20, MonsterRaceClass.Crustacea, false,
-						5, 1, 1), // 3 * 0.80 * 15 + 15 = xx turnos acumulados en su vida util (cria+adulto)
+						0, MonsterRaceClass.Crustacea, false,
+						5, 1, 1), // 5 * 0.80 * 15 + 15 = 75 turnos acumulados en su vida util (cria+adulto)
 						
 	Mongo			(// Celeris Caudicis
-						5, 60, 15, 5, 25, 
-						33, 0,
-						25, MonsterRaceClass.Humanoide, true,
-						30, 120, 100),
+						6, 1, 1, 20, 1, 
+						6, 0,
+						0, MonsterRaceClass.Humanoide, true,
+						4, 2, 1), // 4 * 0.80 * 15 + 15 = 63 turnos acumulados en su vida util (cria+adulto)
 						
 	Polbo			(// Balleno Heptocto
-						5, 5, 5, 5, 5, 
-						10, 100, 
-						5, MonsterRaceClass.Mollusca, false,
-						10, 4, 5),
+						5, 1, 1, 10, 1, 
+						5, 50, 
+						0, MonsterRaceClass.Mollusca, false,
+						10, 2, 2), // 10 * 0.80 * 15 + 15 = 135 turnos acumulados en su vida util (cria+adulto)
 						
 	Lipendula		(// Unibabosa voladora
-						2, 30, 2, 2, 2, 
-						16, 200, 
-						10, MonsterRaceClass.Verme, true,
-						10, 10, 5),
+						5, 1, 1, 25, 1, 
+						6, 200, 
+						0, MonsterRaceClass.Verme, true,
+						12, 5, 5), // 12 * 0.80 * 15 + 15 = 159 turnos acumulados en su vida util (cria+adulto)
 						
 	Electroserpe	(// Triserpe Electroplasmoide
-						30, 15, 50, 30, 30, 
-						62, 2500,
-						25, MonsterRaceClass.Crustacea, false,
-						45, 120, 360),
+						20, 1, 1, 15, 1, 
+						18, 500,
+						0, MonsterRaceClass.Crustacea, false,
+						15, 20, 5), // 15 * 0.80 * 15 + 15 = 195 turnos acumulados en su vida util (cria+adulto)
 						
 	Quad			(// Grutrul Quadlingue
-						65, 40, 30, 20, 10, 
-						75, 3000,
-						20, MonsterRaceClass.Mollusca, false,
-						50, 601, 780),
+						50, 1, 1, 10, 1, 
+						30, 1600,
+						0, MonsterRaceClass.Mollusca, false,
+						10, 180, 5), // 10 * 0.80 * 15 + 15 = 135 turnos acumulados en su vida util (cria+adulto)
 						
 	Ubunto			(// Spureo Sapiens
-						20, 30, 40, 50, 30, 
-						85, 5000,
-						10, MonsterRaceClass.Humanoide, false,
-						65, 2, 960);
+						1, 1, 1, 99, 1, 
+						45, 3000,
+						0, MonsterRaceClass.Humanoide, false,
+						45, 960, 150); // 30 * 0.80 * 15 + 15 = 555 turnos acumulados en su vida util (cria+adulto)
 	
 	// ...
 	

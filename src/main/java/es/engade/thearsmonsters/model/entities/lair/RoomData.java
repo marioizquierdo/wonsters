@@ -87,10 +87,10 @@ public class RoomData implements Serializable {
 	}
 	
 	private int getMoneyStorageCapacityByLevel(Room tradeOffice) {
-		if(tradeOffice != null) {
-			return tradeOffice.getGarbageUpgrade() * 4; // need always to be more than garbageUpgrade
-		} else {
+		if(tradeOffice == null || tradeOffice.getLevel() <= 0) {
 			return 0; // While there is no tradeOffice, no money can be stored
+		} else {
+			return tradeOffice.getGarbageUpgrade() * 2; // need always to be more than garbageUpgrade
 		}
 	}
 	
@@ -140,7 +140,7 @@ public class RoomData implements Serializable {
 		if(warehouse == null || warehouse.getLevel() <= 0) {
 			return 0; // While there is no warehouse, no garbage can be stored
 		} else {
-			return warehouse.getGarbageUpgradeWhenLevel(warehouse.getLevel() + 1) * 10; // need always to be more than garbageUpgrade
+			return warehouse.getGarbageUpgrade() * 10; // need always to be more than garbageUpgrade
 		}
 	}
 	
