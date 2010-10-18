@@ -27,7 +27,7 @@ public abstract class Attr implements Serializable {
 	
 	
 	/**
-	 * Número entre 0 y 100 que indica la experiencia dentro del nivel. 
+	 * Número entre 0 y 99 que indica la experiencia dentro del nivel. 
 	 */
 	public abstract int getExp();
 	
@@ -75,9 +75,7 @@ public abstract class Attr implements Serializable {
     public String toString() {
 		String s = getType().toString();
 		s += "(" + getLevel();
-		if(getExp() > 0) {
-			s += "+" + getExp() + "%"; 
-		}
+		if(getExp() > 0) { s += "+" + getExp() + "%"; }
 		s += ")";
 		return s;
 	}

@@ -49,9 +49,10 @@ public enum MonsterActionType {
 		// habilidad de recolección de basura.
 		void doExecute(MonsterAction action) {
 			int current = this.targetValue(action);
+
 			int increment = this.targetValueIncreasePerTurn(action);
 			int max =  action.getLair().getGarbageStorageCapacity();
-			int incrementExp = action.getMonster().getAttr(AttrType.Intelligence).getLevel();
+			int incrementExp = action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel();
 
 			// Sumar basura en la guarida
 			if (current + increment >= max) {
@@ -62,7 +63,7 @@ public enum MonsterActionType {
 			}
 			
 			// Incrementar experiencia en habilidad recoleccion
-			Attr harvestSkill = action.getMonster().getSimpleAttr(AttrType.HarvesterSkill);
+			Attr harvestSkill = action.getMonster().getWorkSkill(AttrType.HarvesterSkill);
 			if(harvestSkill.addExp(incrementExp)) { // mejorar habilidad "recoleccion"
 				action.addScopedNotification("monsterAttrLevelUp", new Object[] {
 						harvestSkill.getLevel() // {0}

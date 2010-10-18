@@ -31,8 +31,7 @@ public class AttrBase extends Attr {
 	
 	@Override
     public boolean addExp(int exp) {
-		// La excepción MonsterAttrException la generan los atributos compuestos, 
-		// ya que a esos no se les puede añadir experiencia directamente
+		// La excepcion MonsterAttrException la generan los atributos compuestos
 		int prevLevel = this.level;
 		this.level += (this.exp + exp) / 100;
 		this.exp = (this.exp + exp) % 100;

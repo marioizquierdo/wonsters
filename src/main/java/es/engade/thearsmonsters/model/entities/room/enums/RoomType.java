@@ -72,16 +72,17 @@ public enum RoomType {
 	Warehouse(false, 0, 5, -1) {
 		public double getGarbageUpgrade(int level) {
 			switch(level) {
-				case 2: return 20;
-				case 3: return 50;
-				case 4: return 150;
-				case 5: return 400;
-				case 6: return 1000;
-				case 7: return 4000;
-				case 8: return 15000;
-				case 9: return 45000;
-				case 10: return 100000;
-				default: return 100000 * Math.pow(1.4, level-11);
+				case 1: return 20;
+				case 2: return 50;
+				case 3: return 150;
+				case 4: return 400;
+				case 5: return 1000;
+				case 6: return 4000;
+				case 7: return 15000;
+				case 8: return 45000;
+				case 9: return 100000;
+				case 10: return 200000;
+				default: return 200000 * Math.pow(1.4, level-10);
 			}
 		}
 		public double getEffortUpgrade(int level) {
