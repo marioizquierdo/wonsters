@@ -140,7 +140,12 @@ public class RoomData implements Serializable {
 		if(warehouse == null || warehouse.getLevel() <= 0) {
 			return 0; // While there is no warehouse, no garbage can be stored
 		} else {
-			return warehouse.getGarbageUpgrade() * 10; // need always to be more than garbageUpgrade
+			switch(warehouse.getLevel()) {
+				case 1: return 50;
+				case 2: return 200;
+				default: return warehouse.getGarbageUpgrade() * 10; // need always to be more than garbageUpgrade
+			}
+			
 		}
 	}
 	

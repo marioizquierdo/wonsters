@@ -42,7 +42,20 @@ public enum RoomType {
 	 */
 	Dormitories(false, 0, 0, -1) {
 		public double getGarbageUpgrade(int level) {
-			return 50 * Math.pow(1.4, level-1);
+			//return 50 * Math.pow(1.4, level-1);
+			switch(level) {
+				case 1: return 50;
+				case 2: return 100;
+				case 3: return 200;
+				case 4: return 400;
+				case 5: return 1000;
+				case 6: return 4000;
+				case 7: return 15000;
+				case 8: return 45000;
+				case 9: return 100000;
+				case 10: return 200000;
+				default: return 200000 * Math.pow(1.8, level-10);
+			}
 		}
 		public double getEffortUpgrade(int level) {
 			switch(level) {
@@ -73,20 +86,20 @@ public enum RoomType {
 		public double getGarbageUpgrade(int level) {
 			switch(level) {
 				case 1: return 20;
-				case 2: return 50;
-				case 3: return 150;
-				case 4: return 400;
-				case 5: return 1000;
-				case 6: return 4000;
-				case 7: return 15000;
-				case 8: return 45000;
-				case 9: return 100000;
-				case 10: return 200000;
-				default: return 200000 * Math.pow(1.4, level-10);
+				case 2: return 40;
+				case 3: return 80;
+				case 4: return 160;
+				case 5: return 320;
+				case 6: return 600;
+				case 7: return 1000;
+				case 8: return 2000;
+				case 9: return 4000;
+				case 10: return 8000;
+				default: return 8000 * Math.pow(1.6, level-10);
 			}
 		}
 		public double getEffortUpgrade(int level) {
-			return 50 * Math.pow(1.5, level-1);
+			return 50 * Math.pow(1.4, level-1);
 		}
 	},
 							
