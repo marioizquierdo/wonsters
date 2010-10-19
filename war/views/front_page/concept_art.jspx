@@ -10,7 +10,7 @@
 		<script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
 		<script type='text/javascript' src='/javascript/lib/jquery.lightbox.js'></script>
 		<script type="text/javascript">$(document).ready(function() {
-				$("#pikame").PikaChoose({transition:[0]});
+				$("#pikame").PikaChoose({show_prev_next:false,transition:[0]});
 		});</script>
 	]]>
 	
