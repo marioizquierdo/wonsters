@@ -15,7 +15,9 @@ import org.apache.struts.action.ActionMapping;
 
 import es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction;
 import es.engade.thearsmonsters.http.controller.session.SessionManager;
+import es.engade.thearsmonsters.model.facades.lairfacade.LairFacade;
 import es.engade.thearsmonsters.test.facade.TestFacade;
+import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 /**
  * Action for insert testing data into the game. Only rules when the DB table UserProfile is empty.
@@ -30,7 +32,7 @@ public class InsertFixtures extends ThearsmonstersDefaultAction {
             HttpServletResponse response)
         throws IOException, ServletException, InternalErrorException {
 
-    	TestFacade testFacade = new TestFacade();
+    	TestFacade testFacade = (TestFacade) AppContext.getInstance().getAppContext().getBean("testFacade");
     	
         /* Create fixtures */
     	try {
