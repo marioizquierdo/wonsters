@@ -1,5 +1,7 @@
 package es.engade.thearsmonsters.model.monsteraction;
 
+import java.util.Map;
+
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
 import es.engade.thearsmonsters.model.util.Format;
 
@@ -23,13 +25,14 @@ public class MonsterActionSuggestion {
 	private Object[] targetValueMessageParams; // array de parámetros numéricos para utilizar en el mensaje informativo del "target value".
 	private String effectsPerTurnMessageKey; // parte de la clave de los mensajes que forman la lista de atributos que se mejoran en cada turno. Suele ser "Monster.actions.type.{monsterActionType}.perTurn"
 	private Object[] effectsPerTurnParams;   // array de parámetros numéricos que sirven para construir la lista de atributos que se mejoran en cada turno. Deben ir en el mismo orden que las claves.
+	private Map<String, Object> additionalArgs; // Hash con variables adicionales que pueden ser necesarias para tipos de tarea concretos.
 	
 	public MonsterActionSuggestion(MonsterActionType monsterActionType,
             String monsterId, RoomType roomType, Integer maxTurnsToAssign,
             String infoMessageKey, Object[] infoMessageParams, int targetValue,
             int targetValueIncreasePerTurn, String targetValueMessageKey,
             Object[] targetValueMessageParams, String effectsPerTurnMessageKey, 
-            Object[] effectsPerTurnParams) {
+            Object[] effectsPerTurnParams, Map<String, Object> additionalArgs) {
 	    this.monsterActionType = monsterActionType;
 	    this.monsterId = monsterId;
 	    this.roomType = roomType;
@@ -42,10 +45,11 @@ public class MonsterActionSuggestion {
 	    this.targetValueMessageParams = targetValueMessageParams;
 	    this.effectsPerTurnMessageKey = effectsPerTurnMessageKey;
 	    this.effectsPerTurnParams = effectsPerTurnParams;
+	    this.additionalArgs = additionalArgs;
     }
 	
 	// **** Getters **** //
-	
+
 	public MonsterActionType getMonsterActionType() { return monsterActionType; }
 	public String getMonsterId() { return monsterId; }
 	public RoomType getRoomType() { return roomType; }
@@ -58,6 +62,7 @@ public class MonsterActionSuggestion {
 	public Object[] getTargetValueMessageParams() { return targetValueMessageParams; }
 	public String getEffectsPerTurnMessageKey() { return effectsPerTurnMessageKey; }
 	public Object[] getEffectsPerTurnParams() { return effectsPerTurnParams; }
+	public Map<String, Object> getAdditionalArgs() { return additionalArgs; }
 
 	@Override
     public String toString() {
@@ -71,7 +76,8 @@ public class MonsterActionSuggestion {
 		    "targetValueIncreasePerTurn", targetValueIncreasePerTurn,
 		    "targetValueMessageParams", targetValueMessageParams,
 		    "effectsPerTurnMessageKey", effectsPerTurnMessageKey,
-			"effectsPerTurnParams", effectsPerTurnParams
+			"effectsPerTurnParams", effectsPerTurnParams,
+			"additionalArgs", additionalArgs
 		});
 	}
 }

@@ -73,8 +73,12 @@
             <!-- Data (hidden by CSS) needed from JavaScript monster_actions.js -->
             <div class="suggested_action_extra_data">
             	maxTurnsToAssign: <span class="MASuggestion_maxTurnsToAssign">${MASuggestion.maxTurnsToAssign}</span><br/>
-            	targetValue: <span class="MASuggestion_targetValue">${MASuggestion.targetValue}</span>
-            	targetValueIncreasePerTurn: <span class="MASuggestion_targetValueIncreasePerTurn">${MASuggestion.targetValueIncreasePerTurn}</span>
+            	targetValue: <span class="MASuggestion_targetValue">${MASuggestion.targetValue}</span><br/>
+            	targetValueIncreasePerTurn: <span class="MASuggestion_targetValueIncreasePerTurn">${MASuggestion.targetValueIncreasePerTurn}</span><br/>
+            	monsterActionType: <span class="MASuggestion_monsterActionType">${MASuggestion.monsterActionType}</span><br/>
+            	<c:forEach items="${MASuggestion.additionalArgs}" var="additionalArg">
+           			${additionalArg.key}: <span class="MASuggestion_${additionalArg.key}">${additionalArg.value}</span><br/>
+           		</c:forEach>
             </div>
            
         </div>
