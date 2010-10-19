@@ -315,7 +315,7 @@ public class FactoryData {
         Room nursery = lair.buildRoom(RoomType.Nursery);
     
         // modify rooms
-        dormitories.setLevel(20); 
+        dormitories.setLevel(30); 
         warehouse.setLevel(20); warehouse.setStateCancelWorks();
         tradeOffice.setLevel(9); tradeOffice.setStateCancelWorks();
         gym.setLevel(8); gym.setStateCancelWorks();
@@ -328,8 +328,10 @@ public class FactoryData {
         for(MonsterRace race: MonsterRace.values()) {
         	MonsterEgg egg = new MonsterEgg(lair, race, null);
             Monster child = new Monster(lair, race, race+"_cria");
-            Monster adult = new Monster(lair, race, race+"_adulto", now, now, MonsterAge.Adult);
-            Monster old = new Monster(lair, race, race+"_anciano", now, DateTools.yesterday(), MonsterAge.Old);
+            Monster adult = new Monster(lair, race, race+"_adulto");
+            adult.setAgeForced(MonsterAge.Adult);
+            Monster old = new Monster(lair, race, race+"_anciano");
+            old.setAgeForced(MonsterAge.Old);
         	lair.addMonsterEgg(egg).addMonster(child).addMonster(adult).addMonster(old);
         }
         lair.addMonsterEgg(new MonsterEgg(lair, MonsterRace.Polbo, DateTools.new_byMinutesFromNow(1))); // Huevo adicional, a un minuto de eclosionar  
@@ -433,10 +435,10 @@ public class FactoryData {
 		return ((int) (GameConf.getMaxNumberOfStreets() * Math.random()));
 	}
 	private static int getRandBuilding() {
-		return ((int) (GameConf.getMaxNumberOfStreets() * Math.random()));
+		return ((int) (GameConf.getMaxNumberOfBuildings() * Math.random()));
 	}
 	private static int getRandFloor() {
-		return ((int) (GameConf.getMaxNumberOfStreets() * Math.random()));
+		return ((int) (GameConf.getMaxNumberOfFloors() * Math.random()));
 	}
     
 
