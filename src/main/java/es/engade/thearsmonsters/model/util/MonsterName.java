@@ -27,7 +27,7 @@ public class MonsterName {
 	
 	public static final String[] NAMES_DATABASE = {
 		"Alfonsito", 
-		"√Ångel",
+		"Angel",
 		"Bumble",
 		"Castro",
 		"Charley",
@@ -43,7 +43,7 @@ public class MonsterName {
 		"Jewel",
 		"Jenny",
 		"Kevin",
-		"Le√≥nidas",
+		"LeÛnidas",
 		"Mario",
 		"Monk",
 		"Morfeo",
@@ -51,7 +51,7 @@ public class MonsterName {
 		"Neo",
 		"Oliver",
 		"Pedrito",
-		"Roset√≥n",
+		"RosetÛn",
 		"Sowerberries",
 		"Toby",
 		"Tomy",

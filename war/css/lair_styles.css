@@ -92,6 +92,7 @@ span.attr { font-weight: bold; }
 
 #lairWindow0 { padding-top: 10px; }
 .room_price_and_buy_action { margin-top: 5px; }
+.room_price_and_buy_action img { float: left; display: inline; margin: 0 6px 0 0;}
 
 
 /*** Search lairs ***/
