@@ -15,31 +15,35 @@
 		lairs_navigator: Lair.buildingView => lair.do?street=${my.lair.addressStreet}&amp;building=${my.lair.addressBuilding}, 
 		search_lairs: Lair.searchLairs => lair.do?lairWindow_selected_tag=search_lairs">
 	
-	<customtag:window_content for_tag="new_rooms">
-		<customtag:info_message key="Lair.newRoomsAvaliable.description"/>
-		
-		<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
-			<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
-				<div class="room_price_and_buy_action">
-				<img src="/images/illustrations/monsterActions/WorkInTheWorks_at_${newRoom}.png" width="60" height="60" alt="illustration" class="illustration"/>
-					<c:choose><c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
-						<customtag:icon id="25" size="s" style="margin-right: 5px"/>
-						<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
-							<fmt:message key="Lair.room.actions.buildNewRoom"/>
-						</html:link>
-						(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
-							<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
-					</c:when><c:otherwise>
-						<customtag:icon id="19" size="s" style="margin-right: 5px"/>
-						<fmt:message key="FlashMessage.InsuficientGarbageException">
-							<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
-							<fmt:param><fmt:formatNumber value="${my.lair.garbage}"/></fmt:param>
-						</fmt:message>
-					</c:otherwise></c:choose>
-				</div>
-			</customtag:info_message>
-		</c:forEach>
-	</customtag:window_content>
+	<customtag:info_message key="Lair.newRoomsAvaliable.description"/>
+	
+	<!-- Lista salas por construir -->
+	<ul id="newRooms">
+		<customtag:window_content for_tag="new_rooms">	
+				<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
+				  <li class="${newRoom}">
+					<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
+						<div class="room_price_and_buy_action">
+							<c:choose><c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
+								<customtag:icon id="25" size="s" style="margin-right: 5px"/>
+								<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
+									<fmt:message key="Lair.room.actions.buildNewRoom"/>
+								</html:link>
+								(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
+									<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
+							</c:when><c:otherwise>
+								<customtag:icon id="19" size="s" style="margin-right: 5px"/>
+								<fmt:message key="FlashMessage.InsuficientGarbageException">
+									<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
+									<fmt:param><fmt:formatNumber value="${my.lair.garbage}"/></fmt:param>
+								</fmt:message>
+							</c:otherwise></c:choose>
+						</div>
+					</customtag:info_message>
+			      </li>
+				</c:forEach>
+		</customtag:window_content>
+	</ul>
 </customtag:window>
 
 </jsp:root>
