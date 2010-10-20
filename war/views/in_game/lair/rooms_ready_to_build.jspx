@@ -21,6 +21,7 @@
 		<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
 			<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
 				<div class="room_price_and_buy_action">
+				<img src="/images/illustrations/monsterActions/WorkInTheWorks_at_${newRoom}.png" width="60" height="60" alt="illustration" class="illustration"/>
 					<c:choose><c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
 						<customtag:icon id="25" size="s" style="margin-right: 5px"/>
 						<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
