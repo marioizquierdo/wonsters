@@ -151,7 +151,15 @@ public enum RoomType {
 		public double getEffortUpgrade(int level) {
 			return 300 * Math.pow(1.9, level);
 		}
-	};
+	},
+	
+	MetalLeisureRoom(false, -1, 0,0),
+	ChillOutLeisureRoom(false, -1, 0,0), 
+	TechnoLeisureRoom(false, -1, 0,0),
+	ReggaetonLeisureRoom(false, -1, 0,0),
+	IndieRockLeisureRoom(false, -1, 0,0),
+	TruffleFarm(false, -1, 0,0),
+	Classroom(false, -1, 0,0);
 	
 	/*Al descomentar esto, hay que descomentar tambien en los dos metodos siguientes RoomType.newRoom
 	

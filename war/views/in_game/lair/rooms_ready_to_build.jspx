@@ -6,6 +6,27 @@
           	xmlns:html="http://struts.apache.org/tags-html"
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
+    		
+<c:set var="show_details_text"><fmt:message key="Credits.moreInfo"/></c:set>    		
+<c:set var="hide_details_text"><fmt:message key="Buttons.hide"/></c:set>
+
+<![CDATA[<script type="text/javascript">$(function () {
+    
+    // Mostrar/Ocultar los detalles de cada sala al pulsar algo de clase .show_room_details
+    $('ul#newRooms .show_room_details').click(function(){
+        var details = $(this).parents('li').find('.room_details');
+        var toggle_link = $(this).parents('li').find('.toggle_room_details_link');
+        if(details.is(':hidden')) {
+            details.show('slow');
+            toggle_link.text('${hide_details_text}');
+        } else {
+            details.hide('slow');
+            toggle_link.text('+ ${show_details_text}');
+        }
+        return false;
+    });
+    
+})</script>]]>
 
 <customtag:window id="lairWindow" title="Lair.myLair" selected_tag="new_rooms"
 	tags="
@@ -22,15 +43,27 @@
 		<customtag:window_content for_tag="new_rooms">	
 				<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
 				  <li class="${newRoom}">
-					<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.description">
-						<div class="room_price_and_buy_action">
-							<c:choose><c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
-								<customtag:icon id="25" size="s" style="margin-right: 5px"/>
-								<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
-									<fmt:message key="Lair.room.actions.buildNewRoom"/>
-								</html:link>
-								(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
-									<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
+					<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.brief" >
+					    <p>
+					       <a class="show_room_details toggle_room_details_link" href="#">+ <fmt:message key="Credits.moreInfo" /></a>
+					    </p>
+                        <div class="room_details ${newRoom}Details">
+                              <fmt:message key="Lair.room.${newRoom}.description" />
+                        </div>
+						<div class="room_price_and_buy_action"> 
+							<c:choose>
+							     <c:when test="${newRoom.garbageBuild == -1 }">
+							        <fmt:message key="Lair.room.Unavaliable"/>
+							     </c:when>
+							    <c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
+									<customtag:icon id="25" size="s" style="margin-right: 5px"/>
+									<span class="button_box">
+									<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
+										<fmt:message key="Lair.room.actions.buildNewRoom"/>
+									</html:link>
+									</span>
+									(<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
+										<fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
 							</c:when><c:otherwise>
 								<customtag:icon id="19" size="s" style="margin-right: 5px"/>
 								<fmt:message key="FlashMessage.InsuficientGarbageException">
@@ -41,9 +74,11 @@
 						</div>
 					</customtag:info_message>
 			      </li>
+			      
 				</c:forEach>
 		</customtag:window_content>
 	</ul>
+	<![CDATA[<script type="text/javascript">$('.room_details').hide();</script>]]>
 </customtag:window>
 
 </jsp:root>
