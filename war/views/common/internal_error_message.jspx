@@ -13,6 +13,11 @@
 		<html:link action="/welcome.do">
 			<fmt:message key="ErrorMessages.internalError.backToHomePage"/>
 		</html:link>
+		
+		<html:link href="https://docs.google.com/document/edit?id=1wQagJKhoihZxBXfrh-0NuadZWkzQTwgGOIUhpO44_Sg">
+		<fmt:message key="FrontPage.info.bug" />
+		</html:link>
+		
 	</customtag:info_message>
 	
 </customtag:window>
