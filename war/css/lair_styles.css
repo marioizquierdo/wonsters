@@ -54,7 +54,7 @@ ul#rooms li.room.ReggaetonLeisureRoom.inWorks 	{ background-image: url(/images/b
 .ReggaetonLeisureRoom_BIG 						{ background-image: url(/images/buildings/reggaetonLeisureRoom_BIG.jpg); }
 
 ul#rooms li.room.IndieRockLeisureRoom 			{ background-image: url(/images/buildings/indieRockLeisureRoom.jpg); }
-ul#rooms li.room.IndieRockLeisureRoom.inWorks 	{ background-image: url(/images/buildings/indieRockLeisureRoom_inWorks.jpg); }
+ul#rooms li.room.IndieRobuildckLeisureRoom.inWorks 	{ background-image: url(/images/buildings/indieRockLeisureRoom_inWorks.jpg); }
 .IndieRockLeisureRoom_BIG 						{ background-image: url(/images/buildings/indieRockLeisureRoom_BIG.jpg); }
 
 ul#rooms li.room.Gym 							{ background-image: url(/images/buildings/gym.jpg); }
@@ -92,6 +92,50 @@ span.attr { font-weight: bold; }
 
 #lairWindow0 { padding-top: 10px; }
 .room_price_and_buy_action { margin-top: 5px; }
+
+ul#newRooms { float: left; clear: both; margin: 0px 0px 0px 15px; padding: 0; list-style: none; }
+ul#newRooms li { display: inline-block; padding: 0px 0 0 72px; margin: 5px 0px; background: no-repeat left; background-position: -75px 0;}
+ul#newRooms .info_slot { min-height:70px; }
+ul#newRooms .info_slot_content { width: 655px;}
+ul#newRooms .room_details { width: 600px; margin:5px 0 0 15px; padding:0 0 0 0; text-align:left; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; display:block;}
+ul#newRooms .button_box { display:inline-block; height:22px; line-height:22px; }
+
+
+ul#newRooms li.Warehouse                      { background-image: url(/images/buildings/warehouse.jpg); }
+ul#newRooms .WarehouseDetails                 { background-image: url(/images/buildings/warehouse_BIG.jpg); }
+
+ul#newRooms li.Gym                            { background-image: url(/images/buildings/gym.jpg);}
+ul#newRooms .GymDetails                       { background-image: url(/images/buildings/gym_BIG.jpg); }
+
+ul#newRooms  li.TradeOffice                    { background-image: url(/images/buildings/tradeOffice.jpg); }
+ul#newRooms  .TradeOfficeDetails               { background-image: url(/images/buildings/tradeOffice_BIG.jpg); }
+
+ul#newRooms li.TruffleFarm                    { background-image: url(/images/buildings/truffleFarm.jpg); }
+ul#newRooms .TruffleFarmDetails               { background-image: url(/images/buildings/truffleFarm_BIG.jpg); }
+
+ul#newRooms li.MetalLeisureRoom               { background-image: url(/images/buildings/metalLeisureRoom.jpg); }
+ul#newRooms .MetalLeisureRoomDetails          { background-image: url(/images/buildings/metalLeisureRoom_BIG.jpg); }
+
+ul#newRooms li.ChillOutLeisureRoom            { background-image: url(/images/buildings/chillOutLeisureRoom.jpg); }
+ul#newRooms .ChillOutLeisureRoomDetails       { background-image: url(/images/buildings/chillOutLeisureRoom_BIG.jpg); }
+
+ul#newRooms li.TechnoLeisureRoom              { background-image: url(/images/buildings/technoLeisureRoom.jpg); }
+ul#newRooms .TechnoLeisureRoom                { background-image: url(/images/buildings/technoLeisureRoom_BIG.jpg); }
+
+ul#newRooms li.ReggaetonLeisureRoom           { background-image: url(/images/buildings/reggaetonLeisureRoom.jpg); }
+ul#newRooms .ReggaetonLeisureRoom             { background-image: url(/images/buildings/reggaetonLeisureRoom_BIG.jpg); }
+
+ul#newRooms li.IndieRockLeisureRoom           { background-image: url(/images/buildings/indieRockLeisureRoom.jpg); }
+ul#newRooms .IndieRockLeisureRoomDetails         { background-image: url(/images/buildings/indieRockLeisureRoom_BIG.jpg); }
+
+ul#newRooms li.Classroom                      { background-image: url(/images/buildings/classroom.jpg);}
+ul#newRooms .ClassroomDetails                 { background-image: url(/images/buildings/classroom_BIG.jpg); }
+
+ul#newRooms li.TrainingRoom                   { background-image: url(/images/buildings/trainingRoom.jpg); }
+ul#newRooms .TrainingRoomDetails              { background-image: url(/images/buildings/trainingRoom_BIG.jpg); }
+
+ul#newRooms li.Nursery                        { background-image: url(/images/buildings/nursery.jpg); }
+ul#newRooms .NurseryDetails                   { background-image: url(/images/buildings/nursery_BIG.jpg); }
 
 
 /*** Search lairs ***/
