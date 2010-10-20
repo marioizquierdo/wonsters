@@ -25,6 +25,7 @@ public class User extends ThearsmonstersEntity implements Serializable {
     
     @Persistent
     private String login;
+    private String loginUppercase;
     
     @Persistent
     private String encryptedPassword;
@@ -47,8 +48,13 @@ public class User extends ThearsmonstersEntity implements Serializable {
 		return login;
 	}
 
+	public String getLoginUppercase() {
+		return loginUppercase;
+	}
+	
 	public void setLogin(String login) {
 		this.login = login;
+		this.loginUppercase = login.toUpperCase();
 	}
 
 	public String getEncryptedPassword() {
@@ -81,6 +87,7 @@ public class User extends ThearsmonstersEntity implements Serializable {
         UserDetails userDetails) {
         
         this.login = login;
+        this.loginUppercase = login.toUpperCase();
         this.encryptedPassword = encryptedPassword;
         this.userDetails = userDetails;
         

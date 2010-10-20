@@ -21,8 +21,9 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
     public User findUserByLogin(String login) throws InstanceNotFoundException {
         PersistenceManager pm = getPersistenceManager();
 
+        String upperLogin = login.toUpperCase();
         Query query = pm.newQuery(User.class);
-        query.setFilter("login == loginParam");
+        query.setFilter("loginUppercase == loginParam");
         query.declareParameters("String loginParam");
         query.setUnique(true);
 
@@ -30,7 +31,7 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         try {
             // List<User> results = (List<User>) query.execute(login);
             // user = results.get(0);
-            user = (User) query.execute(login);
+            user = (User) query.execute(upperLogin);
         } finally {
             query.closeAll();
         }
