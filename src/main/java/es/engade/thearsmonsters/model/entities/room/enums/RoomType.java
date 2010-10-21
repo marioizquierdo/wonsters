@@ -152,7 +152,10 @@ public enum RoomType {
 			return 300 * Math.pow(1.9, level);
 		}
 	},
-	
+	/*
+	 * Las siguientes salas aún no estan disponibles en esta version. 
+	 * Se marcan con un coste negativo para listarlas en la vista.
+	 * */
 	MetalLeisureRoom(false, -1, 0,0),
 	ChillOutLeisureRoom(false, -1, 0,0), 
 	TechnoLeisureRoom(false, -1, 0,0),
