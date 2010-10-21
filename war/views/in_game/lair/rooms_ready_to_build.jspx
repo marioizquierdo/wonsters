@@ -75,7 +75,7 @@
 								<span class="button_box disabled">
                                     <fmt:message key="Lair.room.actions.buildNewRoom"/>
                                 </span>
-                                (<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
+                                (<span style="color:red; font-weight:bold;"><fmt:formatNumber value="${newRoom.garbageBuild}"/></span> <customtag:common_icon id="garbage" img="true"/>,
                                         <fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
                                 <br/>
 								<fmt:message key="FlashMessage.InsuficientGarbageException">
@@ -91,6 +91,9 @@
 		</customtag:window_content>
 	</ul>
 	<![CDATA[<script type="text/javascript">$('.room_details').hide();</script>]]>
+
+	<customtag:info_message icon_id="3" titleKey="Lair.room.andMuchMore" key="Lair.room.andMuchMore.description"/>
+	
 </customtag:window>
 
 </jsp:root>
