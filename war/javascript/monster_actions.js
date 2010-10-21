@@ -160,16 +160,44 @@ $(function(){
 	// Recalcula el valor del targetValue en base al numero de turnos que haya asignados en su input.
 	// Devuelve el valor recalculado.
 	var recalculateTagetValue = function(input) {
-		var turns_to_use = getVal(input);
-	    var target_value_increase_per_turn = actionInfo(input, "targetValueIncreasePerTurn"); // Incremento por cada turno gastado
-	    var original_target_value = actionInfo(input, "targetValue"); // Valor del targetVaue original (sin modificar)
+		var turns = getVal(input);
 	    var action_type = actionInfo(input, "monsterActionType", 'string'); // Tipo de tarea
+	    var target_value = actionInfo(input, "targetValue"); // Valor del targetVaue original (sin modificar)
+	    var target_value_increase_per_turn = actionInfo(input, "targetValueIncreasePerTurn"); // Incremento por cada turno gastado
 	    
-	    // TODO: hacer un case para cada action_type y para los casos GarbageHarvest y WorkInTheWorks calcular correctamente
-	    // switch(action_type) { ... }
-	    
-	    var new_target_value = original_target_value + turns_to_use * target_value_increase_per_turn;
-	    return new_target_value;
+	    // Algunas Tareas necesitan un calculo especial, ya que el increase_per_turn cambia al acumular experiencia
+	    switch(action_type) {
+	    case "GarbageHarvest":
+	    	var exp = actionInfo(input, "HarvesterSkill_current_exp"); // experiencia acual en la habilidad de recoleccion
+	    	var exp_increase_per_turn = actionInfo(input, "HarvesterSkill_exp_increment"); // incremento de experiencia en cada turno
+	    	// Repetir para cada turno
+	    	for(i=0; i<turns; i++) {
+	    		// Aumentar target_value segun incremento establecido
+	    	    target_value += target_value_increase_per_turn;
+
+	    	    // Cuando la experiencia pasa de 100, el incremento aumenta (porque mejora la habilidad)
+	    	    target_value_increase_per_turn += Math.floor((exp + exp_increase_per_turn) / 100);
+	    	    exp = (exp + exp_increase_per_turn) % 100;
+	    	}
+	    	return target_value;
+	    	
+	    case "WorkInTheWorks":
+	    	var exp = actionInfo(input, "ConstructorSkill_current_exp"); // experiencia acual en la habilidad de construccion
+	    	var exp_increment = actionInfo(input, "ConstructorSkill_exp_increment"); // incremento de experiencia en cada turno
+	    	// Repetir para cada turno (este es igual que GarbageHarvest)
+	    	for(i=0; i<turns; i++) {
+	    		// Aumentar target_value segun incremento establecido
+	    	    target_value += target_value_increase_per_turn;
+
+	    	    // Cuando la experiencia pasa de 100, el incremento aumenta (porque mejora la habilidad)
+	    	    target_value_increase_per_turn += Math.floor((exp + exp_increase_per_turn) / 100);
+	    	    exp = (exp + exp_increase_per_turn) % 100;
+	    	}
+	    	return target_value;
+	    	
+	    default:
+	    	return target_value + turns * target_value_increase_per_turn;
+	    }
 	}
 	
 	// Similar a input.val(), solo que acepta la cadena vacÃ­a (o cualquier otra cosa que no sea un entero) y
