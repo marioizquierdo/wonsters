@@ -12,7 +12,7 @@
     doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
     omit-xml-declaration="true"/>
     
-<jsp:directive.page contentType="text/html; charset=iso-8859-1"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
 <!--
 Struts manages locale in a different way as JSTL. So, fmt:setLocale is used to
