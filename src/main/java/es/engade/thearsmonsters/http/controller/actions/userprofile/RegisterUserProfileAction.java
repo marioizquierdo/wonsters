@@ -19,6 +19,7 @@ import es.engade.thearsmonsters.http.view.actionforms.UserProfileForm;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.InvalidInvitationCodeException;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -35,6 +36,7 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
         UserProfileForm userProfileForm = (UserProfileForm) form;
         String login = userProfileForm.getLogin();
         String clearPassword = userProfileForm.getPassword();
+        String invitationCode = userProfileForm.getInvitationCode();
         //TODO: Habra que actualizar el userProfileDetails con informacion que sea relevante
         UserDetails userProfileDetails = new UserDetails("","","","");
 //            userProfileForm.getFirstName(), userProfileForm.getSurname(),
@@ -45,14 +47,17 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
         ActionMessages errors = new ActionMessages();
           
         try {
+        	
             SessionManager.registerUser(request, login, clearPassword,
-                userProfileDetails);
+                userProfileDetails, invitationCode);
 
         } catch (DuplicateInstanceException e) {
             errors.add("login", new ActionMessage("ErrorMessages.login.alreadyExists"));
         } catch (FullPlacesException e) {
         	FlashMessage.showError(request, e);
-		}            
+		} catch (InvalidInvitationCodeException e){
+			errors.add("invitationCode", new ActionMessage("ErrorMessages.login.alreadyExists"));
+		}
         
         /* Return ActionForward. */
         if (errors.isEmpty()) {

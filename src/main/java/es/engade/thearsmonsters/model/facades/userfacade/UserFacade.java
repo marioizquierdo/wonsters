@@ -5,6 +5,7 @@ import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.InvalidInvitationCodeException;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
 import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
@@ -21,8 +22,9 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 public interface UserFacade {
 
     public LoginResult registerUser(String login, String clearPassword,
-        UserDetails userDetails)
-        throws FullPlacesException, DuplicateInstanceException, InternalErrorException;
+        UserDetails userDetails, String validationCode)
+        throws FullPlacesException, DuplicateInstanceException, InternalErrorException,
+        InvalidInvitationCodeException;
 
     public LoginResult login(String login, String password,
         boolean passwordIsEncrypted, boolean loginAsAdmin)

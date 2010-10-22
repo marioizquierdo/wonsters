@@ -18,6 +18,7 @@ import es.engade.thearsmonsters.model.facades.userfacade.LoginResult;
 import es.engade.thearsmonsters.model.facades.userfacade.UserFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.InvalidInvitationCodeException;
 import es.engade.thearsmonsters.util.configuration.AppContext;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -168,11 +169,12 @@ public final class SessionManager {
         
     public final static void registerUser(HttpServletRequest request,
         String login, String clearPassword, 
-        UserDetails userDetails) 
-        throws DuplicateInstanceException, InternalErrorException, FullPlacesException {
+        UserDetails userDetails, String validationCode) 
+        throws DuplicateInstanceException, InternalErrorException, FullPlacesException,
+        InvalidInvitationCodeException {
         
         // Register user
-    	LoginResult loginResult = userFacade.registerUser(login, clearPassword, userDetails);
+    	LoginResult loginResult = userFacade.registerUser(login, clearPassword, userDetails, validationCode);
             
         // Save login result into session
         setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);

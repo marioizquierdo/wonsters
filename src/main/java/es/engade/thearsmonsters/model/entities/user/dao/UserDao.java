@@ -13,6 +13,8 @@ public interface UserDao extends GenericDao<User, Key> {
     public User findUserByLogin(String login)
         throws InstanceNotFoundException;
     
+    public boolean isValidationCodeUsed(String code);
+    
     public int getNumberOfUsers();
     
     public LoginResult login(String login, String password,

@@ -46,7 +46,7 @@ public class UserFacadeMock implements UserFacade {
 	public void logout(Lair lair) {}
 	
 	public LoginResult registerUser(String login, String clearPassword,
-			UserDetails userDetails) throws FullPlacesException,
+			UserDetails userDetails, String validationCode) throws FullPlacesException,
 			DuplicateInstanceException, InternalErrorException {
 	    return new LoginResult(lair, user.getLogin(), 
 	            user.getUserDetails().getFirstName(), 

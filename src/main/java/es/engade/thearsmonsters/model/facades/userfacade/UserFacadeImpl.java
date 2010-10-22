@@ -1,8 +1,11 @@
 package es.engade.thearsmonsters.model.facades.userfacade;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.engade.thearsmonsters.http.view.applicationobjects.PromotionalValidation;
 import es.engade.thearsmonsters.model.entities.common.dao.exception.ConstraintException;
 import es.engade.thearsmonsters.model.entities.lair.Address;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
@@ -13,6 +16,7 @@ import es.engade.thearsmonsters.model.entities.user.dao.UserDao;
 import es.engade.thearsmonsters.model.facades.common.ThearsmonstersFacade;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.FullPlacesException;
 import es.engade.thearsmonsters.model.facades.userfacade.exceptions.IncorrectPasswordException;
+import es.engade.thearsmonsters.model.facades.userfacade.exceptions.InvalidInvitationCodeException;
 import es.engade.thearsmonsters.model.facades.userfacade.util.PasswordEncrypter;
 import es.engade.thearsmonsters.util.exceptions.DuplicateInstanceException;
 import es.engade.thearsmonsters.util.exceptions.InstanceNotFoundException;
@@ -83,12 +87,23 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 	}
 	
 	public LoginResult registerUser(String login, String clearPassword,
-			UserDetails userDetails) throws FullPlacesException,
-			DuplicateInstanceException, InternalErrorException {
+			UserDetails userDetails, String validationCode) throws FullPlacesException,
+			DuplicateInstanceException, InternalErrorException,
+			InvalidInvitationCodeException {
 
+		if (!PromotionalValidation.validate(validationCode)) {
+			// El código debería estar ya validado
+			throw new InvalidInvitationCodeException();
+		}
+		
+		if (userDao.isValidationCodeUsed(validationCode)) {
+				throw new InvalidInvitationCodeException();
+			}
+		
 		try {
 			User newUser = new User(login,
 					PasswordEncrypter.crypt(clearPassword), userDetails);
+			newUser.setValidationCode(validationCode);
 			Lair newLair = FactoryData.LairWhatIs.InInitialState.build(newUser);
 			Address nextAddress = lairDao.findNextFreeAddress();
 			newLair.setAddress(nextAddress);

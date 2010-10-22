@@ -25,10 +25,15 @@ public class User extends ThearsmonstersEntity implements Serializable {
     
     @Persistent
     private String login;
+    
+    @Persistent
     private String loginUppercase;
     
     @Persistent
     private String encryptedPassword;
+    
+    @Persistent
+    private String validationCode;
     
     @Persistent
     private Lair lair;
@@ -71,6 +76,14 @@ public class User extends ThearsmonstersEntity implements Serializable {
 
 	public void setLair(Lair lair) {
 		this.lair = lair;
+	}
+
+	public String getValidationCode() {
+		return validationCode;
+	}
+
+	public void setValidationCode(String validationCode) {
+		this.validationCode = validationCode;
 	}
 
 	public UserDetails getUserDetails() {

@@ -41,6 +41,23 @@ public class UserDaoJdo extends GenericDaoJdo<User, Key> implements UserDao {
         return user;
     }
 
+    public boolean isValidationCodeUsed(String code) {
+    	PersistenceManager pm = getPersistenceManager();
+
+        Query query = pm.newQuery(User.class);
+        query.setFilter("validationCode == codeParam");
+        query.declareParameters("String codeParam");
+        query.setUnique(true);
+
+        User user = null;
+        try {
+            user = (User) query.execute(code);
+        } finally {
+            query.closeAll();
+        }
+        return (user!=null);
+    }
+    
     public int getNumberOfUsers() {
         PersistenceManager pm = getPersistenceManager();
 
