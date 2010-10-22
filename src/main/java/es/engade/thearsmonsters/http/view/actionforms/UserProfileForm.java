@@ -9,21 +9,25 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
+import es.engade.thearsmonsters.http.view.applicationobjects.PromotionalValidation;
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
 import es.engade.thearsmonsters.util.struts.action.PropertyValidator;
 
 public class UserProfileForm extends DefaultActionForm {
 
-    public final static String REGISTER_ACTION = "REGISTER";
+	private static final long serialVersionUID = 7348409560759602652L;
+
+	public final static String REGISTER_ACTION = "REGISTER";
     public final static String UPDATE_ACTION = "UPDATE";
     
-    private final static Collection ACTION_TYPES = Arrays.asList(
+    private final static Collection<String> ACTION_TYPES = Arrays.asList(
         new String[] {REGISTER_ACTION, UPDATE_ACTION});
 
     private String action;
     private String login;
     private String password;
     private String retypePassword;
+    private String invitationCode;
 //    private String firstName;
 //    private String surname;
 //    private String email;
@@ -97,7 +101,15 @@ public class UserProfileForm extends DefaultActionForm {
 //        this.language = language;
 //    }
 
-    @Override
+    public String getInvitationCode() {
+		return invitationCode;
+	}
+
+	public void setInvitationCode(String invitationCode) {
+		this.invitationCode = invitationCode;
+	}
+
+	@Override
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         reset();
     }
@@ -122,6 +134,12 @@ public class UserProfileForm extends DefaultActionForm {
                 errors.add("password", 
                     new ActionMessage("ErrorMessages.password.doNotMatch"));
             }
+            if (!PromotionalValidation.validate(invitationCode)) {
+            	// LOCALIZAR
+            	errors.add("invitationCode", 
+                        new ActionMessage("En estos momentos sólo es posible registrarse " +
+                        		" mediante invitación"));
+            }
         }
             
 //        ThearsmonstersPropertyValidator.validateEmailAddress(errors, "email", 
@@ -138,6 +156,7 @@ public class UserProfileForm extends DefaultActionForm {
         login = null;
         password = null;
         retypePassword = null;
+        invitationCode = null;
 //        firstName = null;
 //        surname = null;
 //        email = null;

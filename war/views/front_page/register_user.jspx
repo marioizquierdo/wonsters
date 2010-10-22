@@ -42,7 +42,16 @@
             <html:errors property="retypePassword"/>
         </span>
     </div>
-
+	<div class="field">        
+        <span class="label">
+        	<!-- LOCALIZAR -->
+            Invitation Code:
+        </span>
+        <span class="entry">
+            <html:text property="invitationCode" size="16" maxlength="30"/>
+            <html:errors property="invitationCode"/>
+        </span>
+    </div>
 	<!--
 	<div class="field">
 		<span class="label">
