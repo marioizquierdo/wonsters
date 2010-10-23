@@ -49,6 +49,10 @@ public class User extends ThearsmonstersEntity implements Serializable {
 		this.id = userId;
 	}
 
+	public void setLoginUppercase(String loginUppercase) {
+		this.loginUppercase = loginUppercase;
+	}
+
 	public String getLogin() {
 		return login;
 	}

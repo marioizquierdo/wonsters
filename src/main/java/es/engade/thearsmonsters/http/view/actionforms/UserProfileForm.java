@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
+import es.engade.thearsmonsters.http.view.applicationobjects.Languages;
 import es.engade.thearsmonsters.http.view.applicationobjects.PromotionalValidation;
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
 import es.engade.thearsmonsters.util.struts.action.PropertyValidator;
@@ -28,10 +29,10 @@ public class UserProfileForm extends DefaultActionForm {
     private String password;
     private String retypePassword;
     private String invitationCode;
-//    private String firstName;
-//    private String surname;
-//    private String email;
-//    private String language;
+    private String firstName;
+    private String surname;
+    private String email;
+    private String language;
     
     public UserProfileForm() {
         reset();
@@ -69,37 +70,37 @@ public class UserProfileForm extends DefaultActionForm {
         this.retypePassword = retypePassword;
     }
     
-//    public String getFirstName() {
-//        return firstName;
-//    }
-//    
-//    public void setFirstName(String firstName) {
-//		this.firstName = trim(firstName);
-//    }
-//    
-//    public String getSurname() {
-//        return surname;
-//    }
-//    
-//    public void setSurname(String surname) {
-//        this.surname = trim(surname);
-//    }
-//    
-//    public String getEmail() {
-//        return email;
-//    }
-//    
-//    public void setEmail(String email) {
-//        this.email = trim(email);
-//    }
-//    
-//    public String getLanguage() {
-//        return language;
-//    }
-//    
-//    public void setLanguage(String language) {
-//        this.language = language;
-//    }
+    public String getFirstName() {
+        return firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+		this.firstName = trim(firstName);
+    }
+    
+    public String getSurname() {
+        return surname;
+    }
+    
+    public void setSurname(String surname) {
+        this.surname = trim(surname);
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = trim(email);
+    }
+    
+    public String getLanguage() {
+        return language;
+    }
+    
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
     public String getInvitationCode() {
 		return invitationCode;
@@ -125,6 +126,7 @@ public class UserProfileForm extends DefaultActionForm {
 
         if (REGISTER_ACTION.equals(action)) {
             PropertyValidator.validateMandatory(errors, "login", login);
+            PropertyValidator.validateMandatory(errors, "email", email);
             boolean validatePassword = PropertyValidator.validateMandatory(
                 errors, "password", password);
             validatePassword = validatePassword &&
@@ -137,15 +139,14 @@ public class UserProfileForm extends DefaultActionForm {
             if (!PromotionalValidation.validate(invitationCode)) {
             	// LOCALIZAR
             	errors.add("invitationCode", 
-                        new ActionMessage("En estos momentos sólo es posible registrarse " +
-                        		" mediante invitación"));
+                        new ActionMessage("ErrorMessages.validationCode.invalid"));
             }
         }
             
-//        ThearsmonstersPropertyValidator.validateEmailAddress(errors, "email", 
-//        		email, false);
-//        PropertyValidator.validateString(errors, "language", language, true, 
-//            Languages.getLanguageCodes());
+        ThearsmonstersPropertyValidator.validateEmailAddress(errors, "email", 
+        		email, false);
+        PropertyValidator.validateString(errors, "language", language, true, 
+            Languages.getLanguageCodes());
 
         return errors;
         
@@ -157,10 +158,10 @@ public class UserProfileForm extends DefaultActionForm {
         password = null;
         retypePassword = null;
         invitationCode = null;
-//        firstName = null;
-//        surname = null;
-//        email = null;
-//        language = null;
+        firstName = null;
+        surname = null;
+        email = null;
+        language = null;
     }
     
     private String trim(String param) {

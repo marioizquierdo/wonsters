@@ -42,6 +42,15 @@
             <html:errors property="retypePassword"/>
         </span>
     </div>
+    <div class="field">        
+        <span class="label">
+            <fmt:message key="UserProfile.email"/>
+        </span>
+        <span class="entry">
+            <html:text property="email" size="16" maxlength="30"/>
+            <html:errors property="email"/>
+        </span>
+    </div>
 	<div class="field">        
         <span class="label">
         	<!-- LOCALIZAR -->
@@ -52,7 +61,7 @@
             <html:errors property="invitationCode"/>
         </span>
     </div>
-	<!--
+
 	<div class="field">
 		<span class="label">
 			<fmt:message key="UserProfile.language"/>
@@ -65,7 +74,7 @@
 			<html:errors property="language"/>
 		</span>
 	</div>
-	  -->
+
 	 <html:hidden property="language" value="es-ES"/> <!-- Por ahora solo se puede en castellano -->
 	 
 	 
