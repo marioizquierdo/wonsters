@@ -10,7 +10,9 @@
 
 <c:choose>
 	<c:when test="${lair == my.lair}">
-		<c:set var="lair_titleValue"><fmt:message key="Lair.myLair"/></c:set>
+		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
+			<fmt:param value="${lair.user.login}"/>
+		</fmt:message></c:set>
 		<c:set var="lair_neighbors_params" 
 			value="street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
 	</c:when>
@@ -22,22 +24,32 @@
 	<c:otherwise>
 		<c:set var="lair_titleValue"><fmt:message key="Lair.lairOf_andAddress">
 			<fmt:param value="${lair.user.login}"/>
-			<fmt:param value="${lair.addressStreet}"/>
-			<fmt:param value="${lair.addressBuilding}"/>
-			<fmt:param value="${lair.addressFloor}"/>
 		</fmt:message></c:set>
 		<c:set var="lair_neighbors_params" 
 			value="street=${lair.addressStreet}&amp;building=${lair.addressBuilding}" />
 	</c:otherwise>
 </c:choose>
 
+<c:choose>
+	<c:when test="${lair == my.lair}">
+		<c:set var="tags_lair" value="ranking: Ranking.tagName => /ranking.do,
+			new_rooms: Lair.newRoomsAvaliable => /lair/rooms/ready_to_build.do, 
+			lair: Lair.lairView, 
+			lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
+			search_lairs: Lair.searchLairs">
+		</c:set>
+	</c:when>
+	<c:otherwise>
+		<c:set var="tags_lair" value="ranking: Ranking.tagName => /ranking.do,
+			lair: Lair.lairView, 
+			lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
+			search_lairs: Lair.searchLairs">
+		</c:set>
+	</c:otherwise>
+</c:choose>
+
 <customtag:window id="lairWindow" titleValue="${lair_titleValue}" selected_tag="lair" 
-	tags="
-		ranking: Ranking.tagName => /ranking.do,
-		new_rooms: Lair.newRoomsAvaliable => /lair/rooms/ready_to_build.do, 
-		lair: Lair.lairView, 
-		lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
-		search_lairs: Lair.searchLairs" >
+	tags="${tags_lair}" >
 	
 	<customtag:window_content for_tag="lair">
 		
@@ -68,12 +80,10 @@
 			</c:otherwise></c:choose>
 			
 			<li class="end_of_lair right"><img src="/images/theme/empty_pixel.png"/></li>
-			<c:choose>
-				<c:when test="${!empty my.lair.newRoomsAvaliable}">			
-				    <c:set var="add_room"><fmt:message key="Lair.newRoomsAvaliable"/></c:set>
-	                <li class="add_button" title="${add_room}" onClick="document.location.href='/lair/rooms/ready_to_build.do';"></li>
-	            </c:when>
-            </c:choose>
+			<c:if test="${(lair == my.lair) and !empty my.lair.newRoomsAvaliable}">			
+				  <c:set var="add_room"><fmt:message key="Lair.newRoomsAvaliable"/></c:set>
+	              <li class="add_button" title="${add_room}" onClick="document.location.href='/lair/rooms/ready_to_build.do';"></li>
+	        </c:if>
 		</ul>
 	</customtag:window_content>
 	

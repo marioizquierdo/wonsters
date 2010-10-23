@@ -95,8 +95,13 @@
 				</c:if></c:when>
 			<c:otherwise>		
 				<c:if test="${room.upgradable}">
+					<c:set var="upgradeMessage">
+						<fmt:message key="Lair.room.actions.upgrade">
+							<fmt:param value="${room.level}"/>
+						</fmt:message>
+					</c:set>
 					<customtag:roomAction icon_id="18" action="lair/room/change_in_works_state.do?action=UPGRADE&roomType=${room.roomType}"
-						messageKey="Lair.room.actions.upgrade">
+						message="${upgradeMessage}">
 						(<fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/>, 
 						<fmt:formatNumber value="${room.effortUpgrade}"/> <customtag:common_icon id="effort" img="true"/>)
 					</customtag:roomAction>
