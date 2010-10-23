@@ -37,45 +37,11 @@
   		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib,
   		front_page_layout"/>
 
+  
   <![CDATA[
   <!--[if lt IE 7]>
     <script type="text/javascript" src='/javascript/lib/jquery.jreject.js'/>
-    <script type="text/javascript">
-    $.reject({ 
-		reject: { /* Rejection flags for specific browsers */
-		        all: false, /* Covers Everything (Nothing blocked)  */
-		        msie5: true, msie6: true /* Covers MSIE 5-6 (Blocked by default) */ 
-		    },  
-		    display: ['chrome', 'firefox', 'msie'], /* What browsers to display and their order */
-		    browserInfo: {
-			      chrome: {  
-			          text: 'Chrome 2+',  
-			          url: 'http://www.google.com/chrome/'  
-			      },
-		        firefox: {  
-		            text: 'Firefox 3.6+',
-		            url: 'http://www.mozilla.com/firefox/'
-		        },
-		        msie: {  
-		            text: 'Internet Explorer 7+',  
-		            url: 'http://www.microsoft.com/windows/Internet-explorer/default.aspx'  
-		        }
-		    },
-		    header: 'Your browser is not supported',
-		    paragraph1: 'Por motivos de seguridad y usabilidad nos resulta imposible proporcionar acceso a nuestro servicio mediante este navegador',
-		    paragraph2: 'Afortunadamente, este problema tiene solución. Recomendamos la instalación de <b>Google Chrome</b>, sin embargo cualquiera de los siguientes navegadores servirá.',
-		    /* close: true, */
-		    /* closeMessage: 'By closing this window you acknowledge that your experience on this website may be degraded', */
-		    /* closeLink: 'Close This Window', */
-		    /* closeURL: '#', // Close URL (Defaults '#')  */
-		    /* closeESC: true, // Allow closing of window with esc key   */
-		    /* closeCookie: false, // If cookies should be used to remmember if the window was closed (applies to current session only) */
-		    imagePath: '/images/browsers/',
-		    overlayBgColor: '#000',
-		    overlayOpacity: 0.8,
-		    fadeOutTime: 'slow'
-	});
-    </script>
+    <script type="text/javascript" src='/javascript/lib/jquery.jreject.config.js'/>
   <![endif]-->
   ]]>
 
@@ -85,6 +51,12 @@
 
 <body id="frontPage">
 <div id="background_header">
+	<div id="messages_for_jreject" style="display:none;">
+		<span id="messages_for_jreject_header"><fmt:message key="JReject.header"/></span>
+		<span id="messages_for_jreject_paragraph1"><fmt:message key="JReject.paragraph1"/></span>
+		<span id="messages_for_jreject_paragraph2"><fmt:message key="JReject.paragraph2"/></span>
+	</div>
+	
 	<div id="window" class="${color}_window">
 	
 		<!-- Login Panel. -->
