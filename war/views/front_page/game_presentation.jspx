@@ -47,7 +47,6 @@
 		<html:link action="concept_art.do"><fmt:message key="FrontPage.conceptArt" /></html:link> |
 		<html:link action="credits.do"><fmt:message key="FrontPage.credits" /></html:link> |
 		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.registerTag" /></html:link>
-		<html:link href="https://docs.google.com/document/edit?id=1wQagJKhoihZxBXfrh-0NuadZWkzQTwgGOIUhpO44_Sg"><fmt:message key="FrontPage.info.bug" /></html:link>
 	</div>
 
 </div>
