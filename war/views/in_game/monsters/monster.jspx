@@ -111,9 +111,9 @@
 					</customtag:monsterBrief_data_row>
 					
 					<!-- Job (best work skill) -->
-					<c:if test="${monster.age != 'Child' and monster.age != 'Cocoon'}">
+					<c:if test="${monster.age != 'Child' and monster.age != 'Cocoon' and not (monster.bestWorkSkill.type == 'HarvesterSkill' and monster.bestWorkSkill.level == 0)}">
 						<customtag:monsterBrief_data_row property="bestWorkSkill">
-							<fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})
+							   <fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})
 						</customtag:monsterBrief_data_row>
 					</c:if>
 					
