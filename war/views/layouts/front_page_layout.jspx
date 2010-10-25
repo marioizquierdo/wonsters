@@ -41,13 +41,13 @@
   <c:set var="Continue"><fmt:message key="FrontPage.unsupportedBrowser.continue"/></c:set>
   <![CDATA[
   <!--[if lt IE 7]>
-  <![endif]-->
     <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>
     <script type="text/javascript">
        jQuery(function($) {
          $.warnIE6(${Unsupported},${Continue});
        });
     </script>
+    <![endif]-->
   ]]>
 
 </head>
