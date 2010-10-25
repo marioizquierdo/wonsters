@@ -1,7 +1,9 @@
 package es.engade.thearsmonsters.http.controller.session;
 
+import java.io.File;
 import java.util.Locale;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.engade.thearsmonsters.http.controller.util.MailService;
 import es.engade.thearsmonsters.model.entities.lair.Lair;
 import es.engade.thearsmonsters.model.entities.user.User;
 import es.engade.thearsmonsters.model.entities.user.UserDetails;
@@ -176,6 +179,12 @@ public final class SessionManager {
         // Register user
     	LoginResult loginResult = userFacade.registerUser(login, clearPassword, userDetails, validationCode);
             
+    	try {
+			MailService.sendRegistrationMessage(userDetails.getEmail(), login);
+    	} catch (MessagingException e) {
+			throw new InternalErrorException(e);
+		}
+    	
         // Save login result into session
         setSessionAttribute(request, LOGIN_RESULT_SESSION_ATTRIBUTE, loginResult);
         
