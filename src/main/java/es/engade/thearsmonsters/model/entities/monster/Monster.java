@@ -154,6 +154,13 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	    return (int) DateTools.daysBetween(getBorningDate(), DateTools.now());
 	}
 	
+	//Calcula la hora en la que tendremos el proximo turno libre
+	public Date getNextTurnDate() {
+		int minutesForEachTurn = 96;
+		Date dateWhenZeroTurns = DateTools.new_byMinutesFrom(freeTurnsTimestamp, - (freeTurns * minutesForEachTurn));
+		return DateTools.new_byMinutesFrom(dateWhenZeroTurns, (getFreeTurns() + 1) * minutesForEachTurn);
+	}
+	
 	/**
 	 * Number from 0 to 100 that represents the percentage of the monster life lived yet (100% when dies)
 	 */

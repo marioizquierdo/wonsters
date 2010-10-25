@@ -44,7 +44,7 @@
     <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>
     <script type="text/javascript">
        jQuery(function($) {
-         $.warnIE6(${Unsupported},${Continue});
+         $.warnIE6("${Unsupported}","${Continue}");
        });
     </script>
     <![endif]-->
