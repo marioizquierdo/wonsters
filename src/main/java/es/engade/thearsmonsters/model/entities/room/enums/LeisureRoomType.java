@@ -4,12 +4,11 @@ package es.engade.thearsmonsters.model.entities.room.enums;
  * Subset of RoomType
  */
 public enum LeisureRoomType {
-	MainMonster				(RoomType.MainMonster) /*, MOCK IMPLEMENTATION mientras no haya leisures de verdad
 	MetalLeisureRoom		(RoomType.MetalLeisureRoom),
 	ChillOutLeisureRoom		(RoomType.ChillOutLeisureRoom),
 	TechnoLeisureRoom		(RoomType.TechnoLeisureRoom),
 	ReggaetonLeisureRoom	(RoomType.ReggaetonLeisureRoom),
-	IndieRockLeisureRoom	(RoomType.IndieRockLeisureRoom)*/;
+	IndieRockLeisureRoom	(RoomType.IndieRockLeisureRoom);
 	
 	
 	/**

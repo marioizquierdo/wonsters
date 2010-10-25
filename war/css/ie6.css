@@ -8,7 +8,7 @@ body { height: 100%; }
 #ie6-warning #ie6_main .firefox,
 #ie6-warning #ie6_main .chrome, 
 #ie6-warning #ie6_main .opera, 
-#ie6-warning #ie6_main .safari { background: url(../images/browsers/ie6_warning.png) no-repeat; }
+#ie6-warning #ie6_main .safari { background: url(/images/browsers/ie6_warning.png) no-repeat; }
 #ie6-warning #ie6_main .ie6_title { float:left;  padding:0; width:155px; height:86px; margin: 0; }
 #ie6-warning #ie6_main .ie8 { background-position:-156px 0; }
 #ie6-warning #ie6_main .firefox { background-position:-156px -18px; }

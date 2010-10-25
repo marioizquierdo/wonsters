@@ -47,7 +47,7 @@ public class MonsterBornAction extends ThearsmonstersDefaultAction {
 				monster = monsterFacade.bornMonster(lair, eggId, monsterName);
 				
 				/* Notify message */
-				FlashMessage.show(request, "BornMonster.doneMessage", monster.getName());
+				FlashMessage.show(request, "Monster.race."+monster.getRace()+".greetings");
 				
 			} catch (InstanceNotFoundException e) {
 				throw new InternalErrorException(e);

@@ -19,6 +19,7 @@ import es.engade.thearsmonsters.model.entities.monster.attr.Attr;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrType;
 import es.engade.thearsmonsters.model.entities.monster.enums.AttrTypeClass;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
+import es.engade.thearsmonsters.model.entities.monster.enums.MonsterFavoriteMusic;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.util.DateTools;
@@ -143,6 +144,11 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	public String getName() { return name; }
 	public MonsterRace getRace() { return race; }
 	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
+	
+	public MonsterFavoriteMusic getFavoriteMusic() {
+		int index = this.id.toString().hashCode() % MonsterFavoriteMusic.values().length;
+		return MonsterFavoriteMusic.values()[index];
+	}
 	
 	public int getAgeDays() {
 	    return (int) DateTools.daysBetween(getBorningDate(), DateTools.now());
