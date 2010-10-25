@@ -97,7 +97,7 @@
 				<c:if test="${room.upgradable}">
 					<c:set var="upgradeMessage">
 						<fmt:message key="Lair.room.actions.upgrade">
-							<fmt:param value="${room.level}"/>
+							<fmt:param value="${room.level + 1}"/>
 						</fmt:message>
 					</c:set>
 					<customtag:roomAction icon_id="18" action="lair/room/change_in_works_state.do?action=UPGRADE&roomType=${room.roomType}"

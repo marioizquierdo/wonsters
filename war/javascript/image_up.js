@@ -17,7 +17,7 @@ $( function() {
 		case "Bu": 
 			switch(ageState) {
 			case "Child": margin = {right: 21, bottom: 19}; size = {width: 43, height: 45}; break;
-			case "Cocoon": margin = {right: -3, bottom: -2}; size = {width: 279, height: 138}; break;
+			case "Cocoon": margin = {right: -160, bottom: -45}; size = {width: 279, height: 138}; break;
 			case "Adult": margin = {right: 34, bottom: 15}; size = {width: 89, height: 88}; break;
 			case "Old": margin = {right: 40, bottom: 23}; size = {width: 87, height: 79}; break;
 			}break;
@@ -41,7 +41,7 @@ $( function() {
 		case "Ocodomo": 
 			switch(ageState) {
 			case "Child": margin = {right: 29, bottom: 0}; size = {width: 131, height: 82}; break;
-			case "Cocoon": margin = {right: -3, bottom: -2}; size = {width: 279, height: 138}; break;
+			case "Cocoon": margin = {right: -25, bottom: 30}; size = {width: 279, height: 138}; break;
 			case "Adult": margin = {right: -2, bottom: -11}; size = {width: 270, height: 172}; break;
 			case "Old": margin = {right: -2, bottom: 15}; size = {width: 240, height: 141}; break;
 			}break;
@@ -49,7 +49,7 @@ $( function() {
 		case "Mongo": 
 			switch(ageState) {
 			case "Child": margin = {right: 92, bottom: 66}; size = {width: 50, height: 68}; break;
-			case "Cocoon": margin = {right: -3, bottom: -2}; size = {width: 279, height: 138}; break;
+			case "Cocoon": margin = {right: -140, bottom: 20}; size = {width: 279, height: 138}; break;
 			case "Adult": margin = {right: -35, bottom: 25}; size = {width: 132, height: 148}; break;
 			case "Old": margin = {right: 14, bottom: 7}; size = {width: 93, height: 126}; break;
 			}break;
@@ -57,7 +57,7 @@ $( function() {
 		case "Electroserpe": 
 			switch(ageState) {
 			case "Child": margin = {right: 36, bottom: 0}; size = {width: 113, height: 108}; break;
-			case "Cocoon": margin = {right: -3, bottom: -2}; size = {width: 279, height: 138}; break;
+			case "Cocoon": margin = {right: -23, bottom: -2}; size = {width: 279, height: 138}; break;
 			case "Adult": margin = {right: 0, bottom: 0}; size = {width: 258, height: 143}; break;
 			case "Old": margin = {right: 0, bottom: 3}; size = {width: 199, height: 117}; break;
 			}break;
@@ -65,7 +65,7 @@ $( function() {
 		case "Quad": 
 			switch(ageState) {
 			case "Child": margin = {right: 17, bottom: 4}; size = {width: 81, height: 115}; break;
-			case "Cocoon": margin = {right: -3, bottom: -2}; size = {width: 279, height: 138}; break;
+			case "Cocoon": margin = {right: -30, bottom: 20}; size = {width: 279, height: 138}; break;
 			case "Adult": margin = {right: -40, bottom: 3}; size = {width: 256, height: 172}; break;
 			case "Old": margin = {right: -28, bottom: 0}; size = {width: 261, height: 159}; break;
 			}break;
@@ -73,7 +73,7 @@ $( function() {
 		case "Ubunto": 31
 			switch(ageState) {
 			case "Child": margin = {right: 45, bottom: 7}; size = {width: 76, height: 95}; break;
-			case "Cocoon": margin = {right: -3, bottom: -2}; size = {width: 279, height: 138}; break;
+			case "Cocoon": margin = {right: -150, bottom: 15}; size = {width: 279, height: 138}; break;
 			case "Adult": margin = {right: 9, bottom: 7}; size = {width: 109, height: 151}; break;
 			case "Old": margin = {right: 11, bottom: 5}; size = {width: 111, height: 151}; break;
 			}break;

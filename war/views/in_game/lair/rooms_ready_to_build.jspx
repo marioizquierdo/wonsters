@@ -28,7 +28,7 @@
     
 })</script>]]>
 
-<customtag:window id="lairWindow" title="Lair.myLair" selected_tag="new_rooms"
+<customtag:window id="lairWindow" title="Lair.newRoomsAvaliable" selected_tag="new_rooms"
 	tags="
 		ranking: Ranking.tagName => /ranking.do,
 		new_rooms: Lair.newRoomsAvaliable, 
