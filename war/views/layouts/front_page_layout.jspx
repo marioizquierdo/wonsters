@@ -30,26 +30,31 @@
   <!-- Stylesheets -->
   <customtag:include_stylesheets root="/css" files="
   		reset_defaults, common_styles, forms, window_tag_and_colors, 
-  		front_page, pikachoose, tipTip, lightbox"/>
+  		front_page, pikachoose, tipTip, lightbox, ie6"/>
   
   <!-- JavaScripts -->
   <customtag:include_javascripts root="/javascript" files="
   		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib,
   		front_page_layout"/>
 
-  
+  <c:set var="Unsupported"><fmt:message key="FrontPage.unsupportedBrowser"/></c:set>
+  <c:set var="Continue"><fmt:message key="FrontPage.unsupportedBrowser.continue"/></c:set>
   <![CDATA[
   <!--[if lt IE 7]>
-    <script type="text/javascript" src='/javascript/lib/jquery.jreject.js'/>
-    <script type="text/javascript" src='/javascript/lib/jquery.jreject.config.js'/>
   <![endif]-->
+    <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>
+    <script type="text/javascript">
+       jQuery(function($) {
+         $.warnIE6(${Unsupported},${Continue});
+       });
+    </script>
   ]]>
 
 </head>
 
 <!-- Start of HTML body. -->
-
 <body id="frontPage">
+
 <div id="background_header">
 	<div id="messages_for_jreject" style="display:none;">
 		<span id="messages_for_jreject_header"><fmt:message key="JReject.header"/></span>

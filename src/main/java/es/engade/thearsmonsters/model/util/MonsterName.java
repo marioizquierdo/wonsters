@@ -10,8 +10,8 @@ public class MonsterName {
 		"Frozen", "Liquid", "Solid", "Plasma", "Plush", 
 		"Golden", "Silver", "Bronze", "Steel",
 		"Iron", "Wooden", "Copper", "Metal", "Plastic",
-		"Hidden", "Stealth",
-		"Sad", "Cry", "Lazy", "Happy"
+		"Hidden", "Stealthy", "Savage","Great",
+		"Sad", "Cry", "Lazy", "Happy", "Brave"
 	};
 	
 	public static final String[] SUFFIX_LIGHT_NAMES = {
@@ -22,7 +22,7 @@ public class MonsterName {
 	
 	public static final String[] SUFFIX_HARD_NAMES = {
 		"Warrior", "Lord", "Ogre", "Orc", "Berserker",
-		"Hunter", "Blade", "Powers", "Dexter"
+		"Hunter", "Blade", "Powers", "Dexter", "Daemon"
 	};
 	
 	public static final String[] NAMES_DATABASE = {
@@ -49,6 +49,10 @@ public class MonsterName {
 		"Agliperto",
 		"Acursio",
 		"Answer",
+		"Arcadio",
+		"Aureliano",
+		"Amaranta",
+		"Arantir",
 		
 		"Balleno",
 		"Bart",
@@ -57,13 +61,17 @@ public class MonsterName {
 		"Berberecho",
 		"Beta",
 		"Bedasta",
+		"Bill",
 		"Bumble",
 		"Benancio",
 		"Beniccio",
 		"Benedicto",
 		"Bombat",
 		"Bob",
+		"Buendía",
 		
+		"Charles",		
+		"Cabezadura",
 		"Castro",
 		"Cansado",
 		"Charley",
@@ -79,9 +87,11 @@ public class MonsterName {
 		
 		"Elíseo",
 		"Epafrodita",
+		"Efretes",
 		"Eleupidio",
 		"Eleuteria",
 		"Euginio",
+		"Eugine",
 		
 		"Darío",
 		"Deuterio",
@@ -108,11 +118,14 @@ public class MonsterName {
 		
 		"Faemino",
 		"Fernando",
+		"Fenix",
 		"Fagin",
 		"Francisquito",
 		"Follo",
 		"Franco",
 		"Frederick",
+		"Feanor",
+		"Fey",
 		
 		"Gamfield",
 		"Garfield",
@@ -146,6 +159,8 @@ public class MonsterName {
 		"Jonathan",
 		"Juan Carlos",
 		"Justin",
+		"James Sullivan",
+		"Jet",
 		
 		"Karmona",
 		"Karma",
@@ -162,7 +177,9 @@ public class MonsterName {
 		"Lombardo",
 		"Louisse",
 		"Lazzy",
+		"Luigi",
 		
+		"MA Barbacus",
 		"Manolo",
 		"Malcom",
 		"Mariano",
@@ -187,6 +204,7 @@ public class MonsterName {
 		"Morfeo",
 		"Mosky",
 		"Muiñeira",
+		"Mike Wazowski",
 		
 		"Nancy",
 		"Napoleon",
@@ -198,13 +216,16 @@ public class MonsterName {
 		"Nikita",
 		"Nicholas",
 		"No",
+		"Noldorin",
 		
 		"Oliver",
 		"Oswaldo",
 		"Óscar",
 		"Octavio",
+		"Onofre",
 		
 		"Paquito",
+		"Paquita",
 		"Pantojita",
 		"Paul",
 		"Paleto",
@@ -240,6 +261,7 @@ public class MonsterName {
 		"Rufina",
 		"Ruby",
 		"Russell",
+		"Randall",
 
 		"Segismundo",
 		"Sofía",
@@ -248,6 +270,9 @@ public class MonsterName {
 		"Sowerberries",
 		"Stefan",
 		"Stephen",
+		"Silvanestri",
+		"Sheppard",
+		"Spike",
 
 		"Tano",
 		"Tesauricocrisonicocrisides",
@@ -268,10 +293,15 @@ public class MonsterName {
 		"Venancio",
 		"Venao",
 		"Vano",
+		"Vladimoir",
+		"Voskonovich",
+		"Virgilio",
 		
 		"Woodie",
 		"William",
 		"Willy",
+		"Wilfredo",
+		"Wrex",
 		
 		"Xena",
 		"Xoia",
@@ -279,7 +309,12 @@ public class MonsterName {
 		
 		"Z",
 		"Zopenco",
-		"Zapatero"
+		"Zapatero",
+		"Zarina",
+		"Zephira",
+		"Zoey",
+		"Zoe"
+		
 	};
 	
 	/**

@@ -1,0 +1,22 @@
+/****ie6 warning popup*****/
+body { height: 100%; }
+#ie6-warning { text-align: center; }
+#ie6-warning .ie6_transparent { position:absolute; top:0; left:0; width:100%; height:100%; background:#000000; filter:alpha(opacity=40); opacity: 0.4; z-index: 9998; }
+#ie6-warning #ie6_main { position:absolute; top:40%; left:50%;margin:-80px 0 0 -250px; padding: 20px; border:2px solid #ff0010; width:500px; height:185px; background:#FFFFFF; z-index: 9999; }
+#ie6-warning #ie6_main .ie6_title,
+#ie6-warning #ie6_main .ie8,
+#ie6-warning #ie6_main .firefox,
+#ie6-warning #ie6_main .chrome, 
+#ie6-warning #ie6_main .opera, 
+#ie6-warning #ie6_main .safari { background: url(../images/browsers/ie6_warning.png) no-repeat; }
+#ie6-warning #ie6_main .ie6_title { float:left;  padding:0; width:155px; height:86px; margin: 0; }
+#ie6-warning #ie6_main .ie8 { background-position:-156px 0; }
+#ie6-warning #ie6_main .firefox { background-position:-156px -18px; }
+#ie6-warning #ie6_main .chrome { background-position:-156px -36px; }
+#ie6-warning #ie6_main .opera { background-position:-156px -54px; }
+#ie6-warning #ie6_main .safari { background-position:-156px -72px; }
+#ie6-warning #ie6_main .ie6_cont { float:right; margin:0px; padding-left: 20px;width:310px; font:12px/180% Verdana!important; text-align:left; color:#5B5B5B; }
+#ie6-warning #ie6_main #ie6_browsers { clear: both; overflow: hidden; padding-top: 10px; }
+#ie6-warning #ie6_main #ie6_browsers li { float: left; margin: 0 0 0 15px; }
+#ie6-warning #ie6_main #ie6_browsers li a { padding-left: 19px; }
+#ie6-warning #ie6_main #ie6-continue { width: 100%; margin: 13px 0 0 0; }
