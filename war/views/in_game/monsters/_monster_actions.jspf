@@ -61,7 +61,10 @@
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
                 </fmt:message>
-                <html:errors property="${suggestedAction}"/>
+<!--                <html:errors property="${suggestedAction}"/>-->
+				<c:if test="${not empty suggestedActionMAError}">
+				<fmt:message key="${suggestedActionMAError}"/>
+			</c:if>
             </h4>
             
             <div class="targetValueInfo" title="${actionInfo}">

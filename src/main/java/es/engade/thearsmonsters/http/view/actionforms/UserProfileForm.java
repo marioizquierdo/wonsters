@@ -141,12 +141,15 @@ public class UserProfileForm extends DefaultActionForm {
             	errors.add("invitationCode", 
                         new ActionMessage("ErrorMessages.validationCode.invalid"));
             }
+            
         }
             
         ThearsmonstersPropertyValidator.validateEmailAddress(errors, "email", 
         		email, false);
         PropertyValidator.validateString(errors, "language", language, true, 
             Languages.getLanguageCodes());
+        
+        reportErrors(request, errors, "RegError");
 
         return errors;
         

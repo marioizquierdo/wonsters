@@ -63,6 +63,8 @@ public class ChangeResourcesForm extends DefaultActionForm {
         	errors.add("garbage", new ActionMessage("ErrorMessages.changeResources.onlyMoneyOrGarbage"));
         }
 
+        reportErrors(request, errors, "CRError");
+        
         return errors;
         
     }

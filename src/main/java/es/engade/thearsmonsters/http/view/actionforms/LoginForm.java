@@ -1,9 +1,12 @@
 package es.engade.thearsmonsters.http.view.actionforms;
 
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 import es.engade.thearsmonsters.util.struts.action.DefaultActionForm;
 import es.engade.thearsmonsters.util.struts.action.PropertyValidator;
@@ -56,8 +59,9 @@ public class LoginForm extends DefaultActionForm {
         PropertyValidator.validateMandatory(errors, "login", login);
         PropertyValidator.validateMandatory(errors, "password", password);
         
-        return errors;
+        reportErrors(request, errors, "Error");
         
+        return errors;
     }
     
     private void reset() {

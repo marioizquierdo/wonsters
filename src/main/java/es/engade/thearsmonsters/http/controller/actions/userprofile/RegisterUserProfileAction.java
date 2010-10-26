@@ -56,7 +56,7 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
         } catch (FullPlacesException e) {
         	FlashMessage.showError(request, e);
 		} catch (InvalidInvitationCodeException e){
-			errors.add("invitationCode", new ActionMessage("ErrorMessages.login.alreadyExists"));
+			errors.add("invitationCode", new ActionMessage("ErrorMessages.validationCode.invalid"));
 		}
         
         /* Return ActionForward. */
@@ -73,6 +73,7 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
 			FlashMessage.show(request, "FlashMessage.GameStartWarning", "", FlashMessage.Status.ERROR, null);
             return mapping.findForward("GameStart");
         } else {
+        	reportErrors(request, errors, "RegError");
             saveErrors(request, errors);
             return new ActionForward(mapping.getInput());
         }

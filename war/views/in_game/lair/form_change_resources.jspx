@@ -72,7 +72,10 @@
 		</div>
 		
 		<html:form action="lair/change_resources_action.do">
-			<html:errors property="garbage"/>
+<!--			<html:errors property="garbage"/>-->
+			<c:if test="${not empty garbageCRError}">
+				<fmt:message key="${garbageCRError}"/>
+			</c:if>
 			<html:hidden property="money" value="0"/>
 		    <div class="info_slot">
 		    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
@@ -138,7 +141,10 @@
 		</div>
 	
 		<html:form action="lair/change_resources_action.do">
-			<html:errors property="money"/>
+<!--			<html:errors property="money"/>-->
+			<c:if test="${not empty moneyCRError}">
+				<fmt:message key="${moneyCRError}"/>
+			</c:if>
 			<html:hidden property="garbage" value="0"/>
 		    <div class="info_slot">
 		    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>

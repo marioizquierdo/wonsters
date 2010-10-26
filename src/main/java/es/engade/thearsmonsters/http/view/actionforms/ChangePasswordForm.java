@@ -66,6 +66,7 @@ public class ChangePasswordForm extends DefaultActionForm {
                 new ActionMessage("ErrorMessages.newPassword.doNotMatch"));
         }
 
+        reportErrors(request, errors, "CPError");
         return errors;
         
     }

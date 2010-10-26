@@ -85,6 +85,9 @@ public class MonsterActionsToDoForm extends DefaultActionForm {
 	        }
         }
         actionsToDo = new MonsterActionsToDo(actionsToDoList);
+        
+        reportErrors(request, errors, "MAError");
+        
         return errors;
     }
     

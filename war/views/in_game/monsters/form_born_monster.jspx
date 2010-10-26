@@ -21,7 +21,10 @@
 				        </span>
 				        <span class="entry">    
 				            <html:text property="monsterName" size="24" maxlength="24"/>
-				            <html:errors property="monsterName"/>
+<!--				            <html:errors property="monsterName"/>-->
+							<c:if test="${not empty monsterNameError}">
+								<fmt:message key="${monsterNameError}"/>
+							</c:if>
 				        </span>
 				    </div>
 				    
