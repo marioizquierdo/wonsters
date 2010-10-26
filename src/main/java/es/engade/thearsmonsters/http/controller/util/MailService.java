@@ -20,7 +20,7 @@ import es.engade.thearsmonsters.util.exceptions.InternalErrorException;
 
 public class MailService {
 
-	private static final String FROM = "diegodl84@gmail.com";
+	private static final String FROM = "wonstersTeam@gmail.com";
 	private static final String FROM_NAME = "Wonsters Admin";
 
 	public static boolean sendMail(String to, String toName, String subject,
