@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -59,6 +60,9 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     private Date deceaseDate;
     
     @Persistent
+    private MonsterFavoriteMusic favoriteMusic;
+    
+    @Persistent
 	private Date freeTurnsTimestamp;
     
     @Persistent
@@ -72,7 +76,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     
     @Persistent
 	private MonsterRace race;
-	
+    	
 	public Monster(){
 //	    activities = new ArrayList<MonsterActivity>();
 	}
@@ -84,6 +88,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.setLair(lair);
 		this.setRace(race);
 		this.setName(name);
+		this.setFavoriteMusic(this.getFavoriteMusic());
 		this.setBorningDate(borningDate);
 		this.setCocoonCloseUpDate(cocoonCloseUpDate);
 
@@ -146,8 +151,15 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	// getFreeTurns y isFreeTurnsAvailable están en la sección de las monster actions.
 	
 	public MonsterFavoriteMusic getFavoriteMusic() {
-		int index = this.id.toString().hashCode() % MonsterFavoriteMusic.values().length;
-		return MonsterFavoriteMusic.values()[index];
+		if (favoriteMusic == null) {
+			int index = this.getName().toString().hashCode() % MonsterFavoriteMusic.values().length;
+			favoriteMusic = MonsterFavoriteMusic.values()[index]; 
+		}
+		return favoriteMusic;
+	}
+	
+	public void setFavoriteMusic(MonsterFavoriteMusic favoriteMusic) {
+		this.favoriteMusic = favoriteMusic;
 	}
 	
 	public int getAgeDays() {
@@ -155,10 +167,10 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	}
 	
 	//Calcula la hora en la que tendremos el proximo turno libre
-	public Date getNextTurnDate() {
+	public long getNextTurnTime() {
 		int minutesForEachTurn = 96;
 		Date dateWhenZeroTurns = DateTools.new_byMinutesFrom(freeTurnsTimestamp, - (freeTurns * minutesForEachTurn));
-		return DateTools.new_byMinutesFrom(dateWhenZeroTurns, (getFreeTurns() + 1) * minutesForEachTurn);
+		return DateTools.new_byMinutesFrom(dateWhenZeroTurns, (getFreeTurns() + 1) * minutesForEachTurn).getTime();
 	}
 	
 	/**

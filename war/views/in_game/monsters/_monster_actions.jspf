@@ -18,7 +18,7 @@
     </c:if>
     <div>
     <span class="countdown">
-        <fmt:message key="Monster.actions.nextFreeTurn"></fmt:message><span class="c_in" style="display:none">${monster.nextTurnDate.time}</span>
+        <fmt:message key="Monster.actions.nextFreeTurn"></fmt:message><span class="c_in" style="display:none">${monster.nextTurnTime}</span>
         <span class="c_out">...</span>
     </span>
     </div>
