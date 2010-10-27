@@ -137,6 +137,9 @@ ul#newRooms .TrainingRoomDetails              { background-image: url(/images/bu
 ul#newRooms li.Nursery                        { background-image: url(/images/buildings/nursery.jpg); }
 ul#newRooms .NurseryDetails                   { background-image: url(/images/buildings/nursery_BIG.jpg); }
 
+ul#newRooms li.LoveWardrobe                        { background-image: url(/images/buildings/loveWardrobe.jpg); }
+ul#newRooms .LoveWardrobeDetails                   { background-image: url(/images/buildings/loveWardrobe_BIG.jpg); }
+
 
 /*** Search lairs ***/
 

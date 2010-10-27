@@ -36,7 +36,7 @@ public enum RoomType {
 	/**
 	 * Es donde los monstruos descansan cada dÃ­a.
 	 * Al igual que PapaMonstruo, no es necesario construirla porque ya aparece al 
-	 * comienzo del juego, en cambio si­ que se puede mejorar su nivel. 
+	 * comienzo del juego, en cambio siï¿½ que se puede mejorar su nivel. 
 	 * Por cada nivel de los dormitorios se suma 10 de espacio vital.
 	 * Aqui tampoco se realiza ninguna accion.
 	 */
@@ -79,7 +79,7 @@ public enum RoomType {
 	 * Es donde se almacena la basura de la guarida. 
 	 * Su nivel limita la cantidad de basura que se pueden tener almacenada 
 	 * (ver roomData.getGarbageStorageCapacity()).
-	 * La accion que se realiza aqui­ es "recoleccion de basura". Por cada turno
+	 * La accion que se realiza aquiï¿½ es "recoleccion de basura". Por cada turno
 	 * dedicado se recolecta tanta basura como el atributo compuesto "GarbageHarvest".
 	 */
 	Warehouse(false, 0, 5, -1) {
@@ -153,9 +153,10 @@ public enum RoomType {
 		}
 	},
 	/*
-	 * Las siguientes salas aún no estan disponibles en esta version. 
+	 * Las siguientes salas aï¿½n no estan disponibles en esta version. 
 	 * Se marcan con un coste negativo para listarlas en la vista.
 	 * */
+	LoveWardrobe(false, -1, 0,0),
 	MetalLeisureRoom(false, -1, 0,0),
 	ChillOutLeisureRoom(false, -1, 0,0), 
 	TechnoLeisureRoom(false, -1, 0,0),
