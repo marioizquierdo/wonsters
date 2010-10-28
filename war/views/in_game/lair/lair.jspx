@@ -66,13 +66,22 @@
 			    
 			    <c:forEach items="${lair.rooms}" var="room" varStatus="loop">
 			    	<c:set var="roomTitle"><fmt:message key="Lair.room.${room.roomType}"/></c:set>
-				    <li class="room ${room.roomType} ${room.inWorks ? 'inWorks' : ''}" title="${roomTitle}"
-				    		onClick="ThearsmonstersLib.showRoom('${room.roomType}');">
-				    	<p><fmt:message key="Lair.room.level"/> ${room.level}</p>
+				    <li id="room_${room.roomType}" class="room ${room.roomType} ${room.inWorks ? 'inWorks' : ''}" title="${roomTitle}">
+				    	<c:if test="${room.roomType != 'MainMonster'}">
+				    		<p><fmt:message key="Lair.room.level"/> ${room.level}</p>
+				    	</c:if>
 				    	<c:if test="${room.inWorks}">
 				    		<div class="inWorks_effortDone_progressBar"><span class="progress" style="width: ${room.effortDonePercentage}%;"><img src="/images/theme/empty_pixel.png"/></span></div>
 				    	</c:if>
 				    </li>
+				    <customtag:jquery_tag>
+				  		$('#room_${room.roomType}').tipTip({
+							maxWidth: '200px',
+							fadeIn: 200
+						}).click(function() {
+							ThearsmonstersLib.showRoom('${room.roomType}');
+						});
+				  	</customtag:jquery_tag>
 				</c:forEach>
 			
 			</c:when><c:otherwise> <!-- Room to show when there is no lair -->

@@ -30,15 +30,16 @@
  			<c:set var="label_class" value="data_value cursor_help"/>
  			<c:set var="value_class" value="data_value cursor_help bold"/></c:otherwise>
  	</c:choose>
-	
-	<li class="data_row">	
+ 	
+ 	<c:set var="popup"><h3>${title}</h3> ${desc}</c:set>
+	<li class="data_row attribute_row" title="${popup}">	
 		<c:if test="${!empty icon_id}"><customtag:icon id="${icon_id}"/></c:if>
-		<c:set var="popup"><h3>${title}</h3> ${desc}</c:set>
-		<span class="${label_class}" title="${popup}">
+		
+		<span class="${label_class}">
 			${title}<c:if test="${!empty title_extra_key}"> (<fmt:message key="${title_extra_key}"/>)</c:if>:
 		</span>
 		
-		<span class="${value_class}" title="${popup}">
+		<span class="${value_class}">
 			<jsp:doBody/>
 		</span>
 	</li> 

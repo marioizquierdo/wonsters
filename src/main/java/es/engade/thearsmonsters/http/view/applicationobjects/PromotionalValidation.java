@@ -7,7 +7,7 @@ import java.util.Random;
 public class PromotionalValidation {
 
 	/*
-	 	Ejemplo de códigos válidos
+	 	Ejemplo de codigos validos
 	 	"3dAA2","VX6us","9ms86","4X6s4","KXuAa",
 		"V6Q3b","53A87","W5bWK","4b9uL","6Kh29",
 		"3g4da","3bW35","3bsL6","3bV48","3dA9m",

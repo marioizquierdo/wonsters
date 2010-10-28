@@ -1,21 +1,14 @@
 package es.engade.thearsmonsters.util.exceptions;
 
-public class DuplicateInstanceException extends InstanceException {
+import java.io.Serializable;
 
-    public DuplicateInstanceException(Object key, String className) {
+public class DuplicateInstanceException extends InstanceException implements Serializable {
+
+    private static final long serialVersionUID = -835633942686570096L;
+
+	public DuplicateInstanceException(Object key, String className) {
         super("Duplicate instance", key, className);
     }
-    
-    /* Test code. Uncomment for testing. */
-//    public static void main(String[] args) {
-//    
-//        try {
-//            throw new DuplicateInstanceException("TestKey",            
-//                String.class.getName());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    
-//    }
+
 
 }

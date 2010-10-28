@@ -45,24 +45,24 @@
 <c:set var="desc"><fmt:message key="Monster.initialAttributes.desc"/></c:set>
 <h3 title="${title} - ${desc}" class="cursor_help">${title}</h3>
 <ul>
-	<li class="data_row"><customtag:attr_icon attrType="Strenght"/>
-		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Strenght" />:</span>
+	<li class="data_row attribute_row" title="${title} - ${desc}"><customtag:attr_icon attrType="Strenght"/>
+		<span class="data_value cursor_help"><fmt:message key="Monster.attr.Strenght" />:</span>
 		<span class="data_value"><b>${race.strenghtLevel}</b></span>
 	</li>
-	<li class="data_row"><customtag:attr_icon attrType="Agility"/>
-		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Agility" />:</span>
+	<li class="data_row attribute_row" title="${title} - ${desc}"><customtag:attr_icon attrType="Agility"/>
+		<span class="data_value cursor_help"><fmt:message key="Monster.attr.Agility" />:</span>
 		<span class="data_value"><b>${race.agilityLevel}</b></span>
 	</li>
-	<li class="data_row"><customtag:attr_icon attrType="Intelligence"/>
-		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Intelligence" />:</span>
+	<li class="data_row attribute_row" title="${title} - ${desc}"><customtag:attr_icon attrType="Intelligence"/>
+		<span class="data_value cursor_help"><fmt:message key="Monster.attr.Intelligence" />:</span>
 		<span class="data_value"><b>${race.intelligenceLevel}</b></span>
 	</li>
-	<li class="data_row"><customtag:attr_icon attrType="Vitality"/>
-		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Vitality" />:</span>
+	<li class="data_row attribute_row" title="${title} - ${desc}"><customtag:attr_icon attrType="Vitality"/>
+		<span class="data_value cursor_help"><fmt:message key="Monster.attr.Vitality" />:</span>
 		<span class="data_value"><b>${race.vitalityLevel}</b></span>
 	</li>
-	<li class="data_row"><customtag:attr_icon attrType="Charisma"/>
-		<span class="data_value cursor_help" title="${title} - ${desc}"><fmt:message key="Monster.attr.Charisma" />:</span>
+	<li class="data_row attribute_row" title="${title} - ${desc}"><customtag:attr_icon attrType="Charisma"/>
+		<span class="data_value cursor_help"><fmt:message key="Monster.attr.Charisma" />:</span>
 		<span class="data_value"><b>${race.charismaLevel}</b></span>
 	</li>
 </ul>

@@ -12,11 +12,17 @@
 		<fmt:message key="FrontPage.info.presentationText"/>
 	</p>
 	
-	<c:set var="title"><fmt:message key="FrontPage.playNowForFree" /></c:set>
-  	<c:set var="desc"><fmt:message key="FrontPage.playNowForFree.description"/></c:set>
-	<div id="playNowForFree_button" class="button_box ui-corner-all" title="${title} - ${desc}">
-		<html:link action="userprofile/register.do?action=REGISTER">${title}</html:link>
+  	<c:set var="link_title"><fmt:message key="FrontPage.playNowForFree.description"/></c:set>
+	<div id="playNowForFree_button" class="button_box ui-corner-all" title="${link_title}">
+		<html:link action="userprofile/register.do?action=REGISTER"><fmt:message key="FrontPage.playNowForFree" /></html:link>
   	</div>
+  	<customtag:jquery_tag>
+  		$('#playNowForFree_button').tipTip({ /* Mostrar el title como un tipTip en el boton de jugar ahora */
+			edgeOffset: 10,
+			maxWidth: '340px'
+		});
+  	</customtag:jquery_tag>
+
 	
 	<customtag:info_message titleKey="FrontPage.info.totallyFree.title" icon_id="11">
 		<p><fmt:message key="FrontPage.info.totallyFree"/></p>

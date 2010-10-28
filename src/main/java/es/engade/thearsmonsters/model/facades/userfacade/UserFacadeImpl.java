@@ -92,7 +92,7 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 			InvalidInvitationCodeException {
 
 		if (!PromotionalValidation.validate(validationCode)) {
-			// El código debería estar ya validado
+			// El codigo deberia estar ya validado
 			throw new InvalidInvitationCodeException();
 		}
 		

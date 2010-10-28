@@ -15,46 +15,39 @@
 <fmt:setLocale
 	value='${sessionScope["org.apache.struts.action.LOCALE"]}'
 	scope="session" />
-
-<!-- HTML header. -->
+	
 <tiles:useAttribute name="title" />
 <tiles:useAttribute name="color" />
 <tiles:useAttribute name="frontPageWindow_selected_tag" />
+	
+<!-- HTML header. -->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="icon" href="/favicon.ico" />
-
-<title><fmt:message key="Thearsmonsters" /><c:out value=" - " /><fmt:message
-	key="${title}" /></title>
-
-<!-- Stylesheets -->
-<customtag:include_stylesheets root="/css"
-	files="
-  		reset_defaults, common_styles, forms, window_tag_and_colors, 
-  		front_page, pikachoose, tipTip, lightbox, ie6" />
-
-<!-- JavaScripts -->
-<customtag:include_javascripts root="/javascript"
-	files="
-  		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib,
-  		front_page_layout" />
-
-<c:set var="Unsupported">
-	<fmt:message key="FrontPage.unsupportedBrowser" />
-</c:set>
-<c:set var="Continue">
-	<fmt:message key="FrontPage.unsupportedBrowser.continue" />
-</c:set>
-<![CDATA[
-  <!--[if lt IE 7]>
-    <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>
-    <script type="text/javascript">
-       jQuery(function($) {
-         $.warnIE6("${Unsupported}","${Continue}");
-       });
-    </script>
-    <![endif]-->
-  ]]>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="icon" href="/favicon.ico" />
+	
+	<title>
+		<fmt:message key="Thearsmonsters" /><c:out value=" - " /><fmt:message key="${title}" />
+	</title>
+	
+	<!-- Stylesheets -->
+	<customtag:include_stylesheets root="/css" files="
+	  		reset_defaults, common_styles, forms, window_tag_and_colors, 
+	  		front_page, pikachoose, tipTip, lightbox, ie6" />
+	
+	<!-- JavaScripts -->
+	<customtag:include_javascripts root="/javascript" files="
+	  		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib" />
+	
+	<c:set var="Unsupported"><fmt:message key="FrontPage.unsupportedBrowser" /></c:set>
+	<c:set var="Continue"><fmt:message key="FrontPage.unsupportedBrowser.continue" /></c:set>
+	<![CDATA[
+	  <!--[if lt IE 7]>
+	    <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>
+	    <script type="text/javascript">jQuery(function($) {
+	         $.warnIE6("${Unsupported}","${Continue}");
+	    });</script>
+	    <![endif]-->
+	  ]]>
 
 </head>
 

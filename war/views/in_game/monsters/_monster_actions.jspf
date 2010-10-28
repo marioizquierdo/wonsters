@@ -24,6 +24,7 @@
     </div>
 </div>
 
+
 <!-- Mensaje cuando no hay tareas disponibles -->
 <c:choose><c:when test="${thereIsNoActionsToDo}">
   <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" icon_id="9" /> 
@@ -67,7 +68,7 @@
 			</c:if>
             </h4>
             
-            <div class="targetValueInfo" title="${actionInfo}">
+            <div class="targetValueInfo">
             	<fmt:message key="${MASuggestion.targetValueMessageKey}">
             		<c:forEach items="${MASuggestion.targetValueMessageParams}" var="targetValueMessageParam">
             			<fmt:param value="${targetValueMessageParam}"/>
@@ -103,11 +104,40 @@
 	    	<span class="submit_info"><fmt:message key="Monster.actions.submitInfo">
 	    		<fmt:param><span class="total_assigned_turns">0</span></fmt:param>
 	    	</fmt:message></span>
-	    	<html:submit><fmt:message key="Monster.actions.submitButton"/></html:submit>
+	    	<html:submit>
+	    	<c:choose><c:when test="${monster.age == 'Child'}">
+	    		<fmt:message key="Monster.actions.submitButtonWhenChild"/>
+	    	</c:when><c:otherwise>
+	    		<fmt:message key="Monster.actions.submitButton"/>
+	    	</c:otherwise></c:choose>
+	    	</html:submit>
     	</c:when><c:otherwise>
     		<span class="submit_info"><fmt:message key="Monster.actions.submitNoTurnsInfo"/></span>
     	</c:otherwise></c:choose>
     </div>
+    
+    
+	<!-- Grow to Adult button -->
+	<c:if test="${monster.age == 'Child'}">
+	  	<c:set var="link_title"><fmt:message key="Monster.metamorphosisToAdult.desc">
+	  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
+	  	</c:set>
+	  	<div id="grow_to_adult">
+		  	<span class="button_box" title="${link_title}">
+				<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}"><fmt:message key="Monster.metamorphosisToAdult" /></html:link>
+		  	</span>
+		  	<span class="submit_info"><fmt:message key="Monster.grow_to_adult.button_message"/></span>
+		</div>
+		<customtag:jquery_tag>
+			$('#grow_to_adult .button_box').tipTip({
+				delay: 0,
+	 			edgeOffset: 15,
+				maxWidth: 300,
+				defaultPosition: 'right',
+				maxWidth: '450px'
+			});
+		</customtag:jquery_tag>
+	</c:if>
     
   </html:form>  
   

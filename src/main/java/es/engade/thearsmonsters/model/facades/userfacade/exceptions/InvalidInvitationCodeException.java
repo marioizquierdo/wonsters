@@ -1,9 +1,11 @@
 package es.engade.thearsmonsters.model.facades.userfacade.exceptions;
 
+import java.io.Serializable;
+
 import es.engade.thearsmonsters.http.view.applicationobjects.LocalizableMessage;
 import es.engade.thearsmonsters.util.exceptions.ModelException;
 
-public class InvalidInvitationCodeException extends ModelException implements LocalizableMessage {
+public class InvalidInvitationCodeException extends ModelException implements LocalizableMessage, Serializable {
     
 	private static final long serialVersionUID = 20101023L;
 	
@@ -12,8 +14,7 @@ public class InvalidInvitationCodeException extends ModelException implements Lo
 	
     public InvalidInvitationCodeException() {
         super("The invitation code used is not valid");
-        //LOCALIZE
-        this.messageKey = "The invitation code used is not valid";
+        this.messageKey = "ErrorMessages.validationCode.invalid";
     	this.messageParams = new String[]{};
     }
 

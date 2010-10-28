@@ -53,11 +53,11 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
 
         } catch (DuplicateInstanceException e) {
             errors.add("login", new ActionMessage("ErrorMessages.login.alreadyExists"));
+		} catch (InvalidInvitationCodeException e){
+			errors.add("invitationCode", new ActionMessage(e.getMessageKey()));
         } catch (FullPlacesException e) {
         	FlashMessage.showError(request, e);
-		} catch (InvalidInvitationCodeException e){
-			errors.add("invitationCode", new ActionMessage("ErrorMessages.validationCode.invalid"));
-		}
+        }
         
         /* Return ActionForward. */
         if (errors.isEmpty()) {

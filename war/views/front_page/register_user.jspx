@@ -57,7 +57,7 @@
             <fmt:message key="UserProfile.email"/>
         </span>
         <span class="entry">
-            <html:text property="email" size="16" maxlength="30"/>
+            <html:text property="email" size="24" maxlength="64"/>
 <!--            <html:errors property="email"/>-->
 			<c:if test="${not empty emailRegError}">
 				<fmt:message key="${emailRegError}"/>
@@ -70,7 +70,7 @@
             Invitation Code:
         </span>
         <span class="entry">
-            <html:text property="invitationCode" size="16" maxlength="30"/>
+            <html:text property="invitationCode" size="8" maxlength="8"/>
 <!--            <html:errors property="invitationCode"/>-->
 			<c:if test="${not empty invitationCodeRegError}">
 				<fmt:message key="${invitationCodeRegError}"/>

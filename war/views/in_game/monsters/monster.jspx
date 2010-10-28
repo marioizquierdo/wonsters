@@ -86,18 +86,6 @@
 					</customtag:monsterBrief_data_row>
 					</c:if>
 					
-					<!-- Grow to Adult button -->
-					<c:if test="${monster.age == 'Child'}">
-					  	<c:set var="link_title"><fmt:message key="Monster.metamorphosisToAdult.desc">
-					  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
-					  	</c:set>
-					  	<li class="data_row">	
-						  	<span id="grow_to_adult_button" class="button_box" title="${link_title}">
-								<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}"><fmt:message key="Monster.metamorphosisToAdult" /></html:link>
-						  	</span>
-					  	</li>
-					</c:if>
-					
 					<!-- Monster name -->
 					<customtag:monsterBrief_data_row property="name">
 						<c:out value="${monster.name}"/>
@@ -128,11 +116,10 @@
 				
 				<!-- Monster Image -->
 				<div id="image_up_image" style="float:left; display:none;">
-					<customtag:monster_image race="${monster.race}" type="${monster.age}"/>
-					<![CDATA[<script type="text/javascript">$(function() {
-						// Metemos datos en la imagen para que puedan ser leidos por el script
+					<img src="/images/monsters/${monster.race}/${monster.age}.png" class="monster_${monster.age} monster_race_${monster.race}"/>
+	    			<customtag:jquery_tag>/* Metemos datos en la imagen para que puedan ser leidos por el script */
 						$('#image_up_image').data('race', '${monster.race}').data('ageState', '${monster.age}');
-					});</script>]]>
+					</customtag:jquery_tag>
 				</div>
 			</div>
 			
@@ -160,12 +147,33 @@
 		
 		<!-- JavaScript -->
 		<!-- Se pone al final para que se carge primero el contenido (mas velocidad) -->
-		<![CDATA[
-		 	<script type="text/javascript" src="/javascript/image_up.js"></script>
-			<script type="text/javascript" src="/javascript/fix_attrs_descriptions.js"></script>
-			<script type="text/javascript" src="/javascript/count_down.js"></script>
-		    <script type='text/javascript' src='/javascript/monster_actions.js'></script>
-		]]>
+		<customtag:include_javascripts root="/javascript" files="
+  			image_up, count_down, monster_actions" />
+  		<customtag:jquery_tag>
+  			$('img.clickable_help').tipTip({
+				delay: 0,
+	  			edgeOffset: 15,
+				maxWidth: 300,
+				defaultPosition: 'right',
+				maxWidth: '450px'
+			});
+			$('.attribute_row').each(function() {
+				var row = $(this);
+				row.tipTip({
+				    delay: 100,
+				    fadeIn: 100,
+				    maxWidth: '280px',
+				    defaultPosition: 'left',
+				    content: row.find('.hidden_attribute_details').html()
+		    	});
+			});
+			$('#MonsterBrief_data li.data_row, #MonsterDetailsWrapper h3[title]').tipTip({
+				delay: 100,
+			    maxWidth: '280px',
+			    defaultPosition: 'left',
+			});
+		</customtag:jquery_tag>
+  			
 	</c:otherwise>
 </c:choose>
 </jsp:root>

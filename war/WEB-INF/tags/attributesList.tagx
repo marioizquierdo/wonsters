@@ -50,7 +50,7 @@
 					</c:choose>
 				</span>
 				
-				<!-- Campos ocultos para construir el tooltip desde javascript -->
+				<!-- Campos ocultos para construir el tooltip desde javascript (que esta en monster.jspx abajo al fondo) -->
 				<div class="hidden_attribute_details" style="display:none;">
 					<h3><customtag:attr_icon attrType="${attr.key}" size="m"/><fmt:message key="Monster.attr.${attr.key}"/></h3>
 					<p><fmt:message key="Monster.attr.${attr.key}.desc"/></p>

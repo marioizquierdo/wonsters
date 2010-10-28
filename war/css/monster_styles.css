@@ -47,18 +47,22 @@
 #monster_tasks .monsterActionSuggestion > .input_buttons > input { width: 38px; height: 15px; padding: 2px; }
 #monster_tasks .monsterActionSuggestion > .input_buttons > button.add_all_button { margin-right: 0; }
 
-#monster_tasks_submit { float: left; width: 240px; text-align: right; margin: 0 10px 10px 10px; }
+#monster_tasks_submit,
+#grow_to_adult { float: left; width: 240px; text-align: right; margin: 0 10px 10px 10px; }
 #monster_tasks_submit .submit_info { margin-right: 5px; } 
-#monster_tasks_submit input { height: 24px; line-height: 18px; } 
+#monster_tasks_submit input { height: 24px; line-height: 18px; }
+
+#grow_to_adult .button_box,
+#grow_to_adult .submit_info { float: right; padding: 3px; }
 
 
-/******** Monster Details (under monster's illustration) *********/
+/******** Monster Details (under the monster's illustration) *********/
 
 #MonsterDetailsWrapper { text-align: left; margin: 3px 10px 10px 10px; float: left; }
 #MonsterDetailsWrapper p { line-height: 1.6em; }
 #MonsterDetailsWrapper h3 { float: left; color: #d41; margin: 0.8em 0 0.4em 0; padding: 0px; font-size: 16px; }
 #MonsterDetailsWrapper ul { float: left; padding-left: 10px; width: 100%; }
-#MonsterDetailsWrapper li.attribute_row { padding: 2px 0; margin: 0; }
+#MonsterDetailsWrapper li.attribute_row { padding: 2px 0; margin: 0; cursor: help; }
 #MonsterDetailsWrapper li.attribute_row .attribute_level { font-weight: bold; }
 #MonsterDetailsWrapper li.attribute_row .attribute_description { color: #666; padding-left: 15px; font-size: 10px; }
 

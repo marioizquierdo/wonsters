@@ -152,7 +152,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	
 	public MonsterFavoriteMusic getFavoriteMusic() {
 		if (favoriteMusic == null) {
-			int index = this.getName().toString().hashCode() % MonsterFavoriteMusic.values().length;
+			int index = Math.abs(this.getName().toString().hashCode()) % MonsterFavoriteMusic.values().length;
 			favoriteMusic = MonsterFavoriteMusic.values()[index]; 
 		}
 		return favoriteMusic;
