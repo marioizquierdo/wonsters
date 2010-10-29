@@ -181,7 +181,7 @@ $(function(){
 	    	}
 	    	return target_value;
 	    	
-	    case "":
+	    case "WorkInTheWorks":
 	    	var exp = actionInfo(input, "ConstructorSkill_current_exp"); // experiencia acual en la habilidad de construccion
 	    	var exp_increase_per_turn = actionInfo(input, "ConstructorSkill_exp_increment"); // incremento de experiencia en cada turno
 	    	// Repetir para cada turno (este es igual que GarbageHarvest)
