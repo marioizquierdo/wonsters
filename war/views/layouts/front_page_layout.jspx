@@ -80,35 +80,34 @@
 	<c:otherwise>
 		<!-- content -->
 		<html:form action="userprofile/login.do" focus="login">
-			<!--                                <c:set var="loginError"><html:errors property="login"/></c:set>-->
-			<!--                                <c:set var="passwordError"><html:errors property="password"/></c:set>-->
-			<c:if test="${not empty loginError or not empty passwordError}">
+			<c:set var="loginErr"><customtag:form_error property="login" suffix="LoginError"/></c:set>
+			<c:set var="passwordErr"><customtag:form_error property="password" suffix="LoginError"/></c:set>
+			<c:if test="${not empty loginErr or not empty passwordErr}">
 				<div class="loginErrors" style="display: none;">
-				<c:if test="${not empty loginError}">
-					<fmt:message key="${loginError}"/>
-				</c:if> <c:if test="${not empty passwordError}">
-					<fmt:message key="${passwordError}"/>
-				</c:if>
+					<c:if test="${not empty loginErr}"><span class="loginError"><fmt:message key="AuthenticationContent.user"/>: ${loginErr}</span></c:if> 
+					<c:if test="${not empty passwordErr}"><span class="loginError"><fmt:message key="AuthenticationContent.pass"/>: ${passwordErr}</span></c:if>
 				</div>
-				<![CDATA[<script type='text/javascript'>$(function(){
-                                    	$('#login').focus(); // give focus in the login form
-                                        $('.loginErrors').slideDown('slow'); // effect to show login errors if any
-                                    });</script>]]>
+				<customtag:jquery_tag>
+                	$('#login').focus(); // give focus in the login form
+                	$('.loginErrors').slideDown('slow'); // effect to show login errors if any
+                </customtag:jquery_tag>
 			</c:if>
 
-			<span class="loginBlock"> <label for="login"><fmt:message
-				key="AuthenticationContent.user" /></label> <html:text property="login"
-				size="12" maxlength="30" styleId="login" /> </span>
-			<span class="loginBlock"> <label for="password"><fmt:message
-				key="AuthenticationContent.pass" /></label> <html:password
-				property="password" size="12" maxlength="8" styleId="password" /> </span>
-			<span class="loginBlock"> <html:checkbox
-				property="rememberMyPassword" styleId="remember" /> <label
-				for="remember"><fmt:message
-				key="AuthenticationContent.rememberMyPassword" /></label> </span>
+			<span class="loginBlock"> <label for="login">
+				<fmt:message key="AuthenticationContent.user"/></label> 
+				<html:text property="login" size="12" maxlength="30" styleId="login"/> </span>
+				
+			<span class="loginBlock"> <label for="password">
+				<fmt:message key="AuthenticationContent.pass"/></label> 
+				<html:password property="password" size="12" maxlength="8" styleId="password"/> </span>
+				
+			<span class="loginBlock"> 
+				<html:checkbox property="rememberMyPassword" styleId="remember" /> 
+				<label for="remember">
+				<fmt:message key="AuthenticationContent.rememberMyPassword"/></label> </span>
+				
 			<span class="button"> <html:submit>
-				<fmt:message key="Buttons.login" />
-			</html:submit> 
+				<fmt:message key="Buttons.login"/></html:submit> 
 			</span>
 		</html:form>
 	</c:otherwise>

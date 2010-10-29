@@ -1,0 +1,30 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+			version="2.0">
+<!--	
+	Muestra la imagen de un monstruo dentro de un tag <img>
+	Para encontrar la ruta a la imagen, se aceptan los siguientes convenios:
+	- La ruta a las imagenes de los monstruos esta en: 'images/monsters/'
+	- Cada raza se encuentra en una carpeta con el nombre de esa raza
+	- Dentro de cada raza hay varias imágenes: icon.png, Cocoon.png, Child.png, Adult.png y Old.png
+--> 		
+			
+  <jsp:directive.attribute name="property" required="true"
+  		description="Propiedad del formulario de la que se va a extraer el error, si lo hay"/>
+  
+  <jsp:directive.attribute name="suffix" required="false"
+  		description="hay que indicar el sufijo en caso de que en el controlador y el formulario se haya indicado uno,
+  				que sirve para diferenciar las propiedades en caso de que haya varios formularios en la misma vista"/>
+  		<c:if test="${empty suffix}"><c:set var="suffix" value="FormError" /></c:if>
+	
+	<c:set var="property_var_name" value="${property}${suffix}"/>
+	<c:set var="property_var" value="${requestScope[property_var_name]}"/>
+	
+	<c:if test="${not empty property_var}">
+		<span class="errorMessage ${suffix}">
+			<fmt:message key="${property_var}"/>
+		</span>
+	</c:if>
+		
+</jsp:root>

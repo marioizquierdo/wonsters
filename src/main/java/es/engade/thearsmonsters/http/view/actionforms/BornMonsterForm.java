@@ -48,7 +48,7 @@ public class BornMonsterForm extends DefaultActionForm {
 
         PropertyValidator.validateMandatory(errors, "monsterName", monsterName);
 
-        reportErrors(request, errors, "Error");
+        saveErrorsFixed(request, errors);
         return errors;
     }
     

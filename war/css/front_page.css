@@ -56,21 +56,11 @@
 
 /*** Login Panel (top) ***/
 
-#loginPanel {
-	float: left;
-	width: 770px;
-	padding: 0;
-}
-
-#loginPanel div.rounded_window {
-	margin-bottom: 0;
-}
-
+#loginPanel { float: left; width: 770px; padding: 0; }
+#loginPanel div.rounded_window { margin-bottom: 0; }
 #loginPanel .atMiddle {
 	float: left;
-	background: #447
-		url(../images/theme/frontPage/login_panel_background.png) repeat-x
-		bottom left;
+	background: #447 url(/images/theme/frontPage/login_panel_background.png) repeat-x bottom left;
 	padding: 12px 0 0 0;
 	width: 768px; /* 770 with borders */
 	border-left: 1px solid black;
@@ -80,57 +70,32 @@
 	font-weight: bold;
 	color: white;
 }
-
-#loginPanel .bm {
-	background: #114
-		url(../images/theme/frontPage/login_panel_background_bottom.png)
-		repeat-x bottom left;
-}
-
-#loginPanel .bl {
-	background: transparent
-		url(../images/theme/frontPage/login_panel_background_bottom_left.png);
-}
-
-#loginPanel .br {
-	background: transparent
-		url(../images/theme/frontPage/login_panel_background_bottom_right.png);
-}
-
+#loginPanel .bm { background: #114 url(/images/theme/frontPage/login_panel_background_bottom.png) repeat-x bottom left;}
+#loginPanel .bl { background: transparent url(/images/theme/frontPage/login_panel_background_bottom_left.png); }
+#loginPanel .br { background: transparent url(/images/theme/frontPage/login_panel_background_bottom_right.png); }
 #loginPanel input#login{
     margin: 0 5px 0 8px;
 }
-
 #loginPanel input#password{
     margin: 0 5px 0 8px;
 }
-
 #loginPanel input#remember{
     margin: 0 2px 1px 0;
     vertical-align:middle;
 }
-
-.loginErrors {
+#loginPanel .loginErrors {
 	border: 1px solid black;
-	background: white url(../images/theme/windows/red/header_repeat-x.png)
-		repeat-x 0 -27px;
+	background: white url(/images/theme/windows/red/header_repeat-x.png) repeat-x 0 -27px;
 	padding: 5px;
 	margin: 0 20px 10px 20px;
-	color: white;
 }
+#loginPanel .loginErrors .loginError { margin: 3px 10px; display: block; color: #444; }
+#loginPanel .loginErrors .loginError .errorMessage { display: inline; }
+#loginPanel .loginBlock { margin-right: 10px; }
+#loginWelcome { width: 770px; padding: 5px; }
+#loginWelcome .message { margin: 0 5px 0 0; }
 
-.loginBlock {
-	margin-right: 10px;
-}
 
-#loginWelcome{
-    width: 770px;
-    padding: 5px;
-}
-
-#loginWelcome .message{
-    margin: 0 5px 0 0;
-}
 
 /**** Credits ****/
 
@@ -172,71 +137,27 @@
 	font-size: 24px;
 	font-weight: bold;
 }
-
-#credits ul#dev_team_list li#MarioIzquierdo .developer_details { 
-	background-image: url('/images/photos/MarioIzquierdo.png');
-}
-#credits ul#dev_team_list li#AngelRomo .developer_details {
-    background-image: url('/images/photos/AngelRomo.png');
-}
-#credits ul#dev_team_list li#FcoJavierGarcia .developer_details {
-    background-image: url('/images/photos/FcoJavierGarcia.png');
-}
-#credits ul#dev_team_list li#DiegoDarriba .developer_details {
-    background-image: url('/images/photos/DiegoDarriba.png');
-}
-#credits ul#dev_team_list li#GuilleGefaell .developer_details {
-    background-image: url('/images/photos/GuilleGefaell.png');
-}
-#credits ul#dev_team_list li#ManuelGonzalez .developer_details {
-    background-image: url('/images/photos/ManuelGonzalez.png');
-}
+#credits ul#dev_team_list li#MarioIzquierdo .developer_details {	background-image: url('/images/photos/MarioIzquierdo.png'); }
+#credits ul#dev_team_list li#AngelRomo .developer_details {			background-image: url('/images/photos/AngelRomo.png'); }
+#credits ul#dev_team_list li#FcoJavierGarcia .developer_details { 	background-image: url('/images/photos/FcoJavierGarcia.png'); }
+#credits ul#dev_team_list li#DiegoDarriba .developer_details { 		background-image: url('/images/photos/DiegoDarriba.png'); }
+#credits ul#dev_team_list li#GuilleGefaell .developer_details {		background-image: url('/images/photos/GuilleGefaell.png'); }
+#credits ul#dev_team_list li#ManuelGonzalez .developer_details { 	background-image: url('/images/photos/ManuelGonzalez.png'); }
 
 
-#credits ul#tech_info_list {}
 
 #credits ul#tech_info_list li {
     margin: 10px 0 20px 0;
     padding: 0 0 0 75px;
     background: transparent none no-repeat top left;
 }
-
-#credits ul#tech_info_list li h3 {
-    font-weight: bold;
-}
-
-#credits ul#tech_info_list li#tech_info_gae {
-	background-image: url('../images/logos/gae.gif');
-}
-
-#credits ul#tech_info_list li#tech_info_jdo {
-    background-image: url('../images/logos/jdo.gif');
-}
-
-#credits ul#tech_info_list li#tech_info_spring {
-    background-image: url('../images/logos/spring.png');
-}
-
-#credits ul#tech_info_list li#tech_info_struts {
-    background-image: url('../images/logos/struts.gif');
-}
-
-#credits ul#tech_info_list li#tech_info_jquery {
-    background-image: url('../images/logos/jquery.png');
-}
-
-#credits ul#tech_info_list li#tech_info_junit {
-    background-image: url('../images/logos/junit.gif');
-}
-
-#credits ul#tech_info_list li#tech_info_bitbucket {
-    background-image: url('../images/logos/bitbucket.png');
-}
-
-#credits ul#tech_info_list li#tech_info_eclipse {
-    background-image: url('../images/logos/eclipse.jpg');
-}
-
-#credits ul#tech_info_list li#tech_info_others {
-    background-image: url('../images/logos/others.png');
-}
+#credits ul#tech_info_list li h3 { font-weight: bold; }
+#credits ul#tech_info_list li#tech_info_gae { 		background-image: url('/images/logos/gae.gif');	}
+#credits ul#tech_info_list li#tech_info_jdo {		background-image: url('/images/logos/jdo.gif'); }
+#credits ul#tech_info_list li#tech_info_spring {	background-image: url('/images/logos/spring.png'); }
+#credits ul#tech_info_list li#tech_info_struts {	background-image: url('/images/logos/struts.gif'); }
+#credits ul#tech_info_list li#tech_info_jquery {	background-image: url('/images/logos/jquery.png'); }
+#credits ul#tech_info_list li#tech_info_junit {		background-image: url('/images/logos/junit.gif'); }
+#credits ul#tech_info_list li#tech_info_bitbucket {	background-image: url('/images/logos/bitbucket.png'); }
+#credits ul#tech_info_list li#tech_info_eclipse {	background-image: url('/images/logos/eclipse.jpg'); }
+#credits ul#tech_info_list li#tech_info_others {	background-image: url('/images/logos/others.png'); }

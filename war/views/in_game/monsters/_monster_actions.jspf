@@ -62,10 +62,7 @@
                 <fmt:message key="Monster.actions.type.${MASuggestion.monsterActionType}" >
                 	<fmt:param><fmt:message key="Lair.room.${MASuggestion.roomType}"/></fmt:param> <!-- Se inluye el nombre de la sala en el param {0} -->
                 </fmt:message>
-<!--                <html:errors property="${suggestedAction}"/>-->
-				<c:if test="${not empty suggestedActionMAError}">
-				<fmt:message key="${suggestedActionMAError}"/>
-			</c:if>
+				<customtag:form_error property="${suggestedAction}"/>
             </h4>
             
             <div class="targetValueInfo">
@@ -116,29 +113,29 @@
     	</c:otherwise></c:choose>
     </div>
     
-    
-	<!-- Grow to Adult button -->
-	<c:if test="${monster.age == 'Child'}">
-	  	<c:set var="link_title"><fmt:message key="Monster.metamorphosisToAdult.desc">
-	  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
-	  	</c:set>
-	  	<div id="grow_to_adult">
-		  	<span class="button_box" title="${link_title}">
-				<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}"><fmt:message key="Monster.metamorphosisToAdult" /></html:link>
-		  	</span>
-		  	<span class="submit_info"><fmt:message key="Monster.grow_to_adult.button_message"/></span>
-		</div>
-		<customtag:jquery_tag>
-			$('#grow_to_adult .button_box').tipTip({
-				delay: 0,
-	 			edgeOffset: 15,
-				maxWidth: 300,
-				defaultPosition: 'right',
-				maxWidth: '450px'
-			});
-		</customtag:jquery_tag>
-	</c:if>
-    
-  </html:form>  
+  </html:form>
   
 </c:otherwise></c:choose>
+
+<!-- Grow to Adult button -->
+<c:if test="${monster.age == 'Child'}">
+  	<c:set var="link_title"><fmt:message key="Monster.metamorphosisToAdult.desc">
+  		<fmt:param value="${monster.race.metamorphosisMinutes}"/></fmt:message>
+  	</c:set>
+  	<div id="grow_to_adult">
+	  	<span class="button_box" title="${link_title}">
+			<html:link action="/monster/metamorphosis_to_adult.do?monsterId=${monster.id}"><fmt:message key="Monster.metamorphosisToAdult" /></html:link>
+	  	</span>
+	  	<span class="submit_info"><fmt:message key="Monster.grow_to_adult.button_message"/></span>
+	</div>
+	<customtag:jquery_tag>
+		$('#grow_to_adult .button_box').tipTip({
+			delay: 0,
+ 			edgeOffset: 15,
+			maxWidth: 300,
+			defaultPosition: 'right',
+			maxWidth: '450px'
+		});
+	</customtag:jquery_tag>
+</c:if>
+

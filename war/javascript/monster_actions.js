@@ -184,10 +184,6 @@ $(function(){
 	    case "":
 	    	var exp = actionInfo(input, "ConstructorSkill_current_exp"); // experiencia acual en la habilidad de construccion
 	    	var exp_increase_per_turn = actionInfo(input, "ConstructorSkill_exp_increment"); // incremento de experiencia en cada turno
-	    	console.log("WorkInTheWorks ---- ");
-	    	console.log("exp: ", exp);
-	    	console.log("exp_increment: ", exp_increment);
-	    	console.log("target_value_increase_per_turn: ", target_value_increase_per_turn);
 	    	// Repetir para cada turno (este es igual que GarbageHarvest)
 	    	for(i=0; i<turns; i++) {
 	    		// Aumentar target_value segun incremento establecido

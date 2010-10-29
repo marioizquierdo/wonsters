@@ -73,7 +73,7 @@ public class RegisterUserProfileAction extends ThearsmonstersDefaultAction {
 			FlashMessage.show(request, "FlashMessage.GameStartWarning", "", FlashMessage.Status.ERROR, null);
             return mapping.findForward("GameStart");
         } else {
-        	reportErrors(request, errors, "RegError");
+        	saveErrorsFixed(request, errors, "RegError");
             saveErrors(request, errors);
             return new ActionForward(mapping.getInput());
         }

@@ -74,8 +74,9 @@
 	background: white url(/images/theme/table2_th_fade.jpg) repeat-x bottom;
 	text-align: left;
 	float: left;
-	margin: 20px 0 0 30px;
+	margin: 20px 0 0 28px;
 	padding: 10px;
+	width: 194px;
 }
 .egg_slot .egg_slot_img { float: left; }
 .egg_slot .egg_slot_text { float: left; margin-left: 10px; }

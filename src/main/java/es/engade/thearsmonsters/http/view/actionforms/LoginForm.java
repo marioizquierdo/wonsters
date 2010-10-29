@@ -59,7 +59,7 @@ public class LoginForm extends DefaultActionForm {
         PropertyValidator.validateMandatory(errors, "login", login);
         PropertyValidator.validateMandatory(errors, "password", password);
         
-        reportErrors(request, errors, "Error");
+        saveErrorsFixed(request, errors, "LoginError");
         
         return errors;
     }

@@ -137,19 +137,17 @@ public class UserProfileForm extends DefaultActionForm {
                     new ActionMessage("ErrorMessages.password.doNotMatch"));
             }
             if (!PromotionalValidation.validate(invitationCode)) {
-            	// LOCALIZAR
             	errors.add("invitationCode", 
                         new ActionMessage("ErrorMessages.validationCode.invalid"));
             }
             
         }
             
-        ThearsmonstersPropertyValidator.validateEmailAddress(errors, "email", 
-        		email, false);
+        ThearsmonstersPropertyValidator.validateEmailAddress(errors, "email", email, false);
         PropertyValidator.validateString(errors, "language", language, true, 
             Languages.getLanguageCodes());
         
-        reportErrors(request, errors, "RegError");
+        saveErrorsFixed(request, errors, "RegError");
 
         return errors;
         

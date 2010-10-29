@@ -20,10 +20,7 @@
         </span>
         <span class="entry">
             <html:text property="login" size="16" maxlength="30"/>
-<!--            <html:errors property="login"/>-->
-			<c:if test="${not empty loginRegError}">
-				<fmt:message key="${loginRegError}"/>
-			</c:if>
+			<customtag:form_error property="login" suffix="RegError"/>
         </span>
     </div>
     
@@ -33,10 +30,7 @@
         </span>
         <span class="entry">    
             <html:password property="password" size="16" maxlength="16"/>
-<!--            <html:errors property="password"/>-->
-			<c:if test="${not empty passwordRegError}">
-				<fmt:message key="${passwordRegError}"/>
-			</c:if>
+			<customtag:form_error property="password" suffix="RegError"/>
         </span>
     </div>
     
@@ -46,10 +40,7 @@
         </span>
         <span class="entry">
             <html:password property="retypePassword" size="16" maxlength="16"/>
-<!--            <html:errors property="retypePassword"/>-->
-			<c:if test="${not empty retypePasswordRegError}">
-				<fmt:message key="${retypePasswordRegError}"/>
-			</c:if>
+			<customtag:form_error property="retypePassword" suffix="RegError"/>
         </span>
     </div>
     <div class="field">        
@@ -58,23 +49,16 @@
         </span>
         <span class="entry">
             <html:text property="email" size="24" maxlength="64"/>
-<!--            <html:errors property="email"/>-->
-			<c:if test="${not empty emailRegError}">
-				<fmt:message key="${emailRegError}"/>
-			</c:if>
+			<customtag:form_error property="email" suffix="RegError"/>
         </span>
     </div>
 	<div class="field">        
         <span class="label">
-        	<!-- LOCALIZAR -->
-            Invitation Code:
+        	<fmt:message key="UserProfile.invitationCode"/>
         </span>
         <span class="entry">
             <html:text property="invitationCode" size="8" maxlength="8"/>
-<!--            <html:errors property="invitationCode"/>-->
-			<c:if test="${not empty invitationCodeRegError}">
-				<fmt:message key="${invitationCodeRegError}"/>
-			</c:if>
+			<customtag:form_error property="invitationCode" suffix="RegError"/>
         </span>
     </div>
 
@@ -84,19 +68,11 @@
 		</span>
 		<span class="entry">
 			<html:select property="language">
-				<html:options collection="languages" property="value" 
-							  labelProperty="label"/>
+				<html:options collection="languages" property="value" labelProperty="label"/>
 			</html:select>
-<!--			<html:errors property="language"/>-->
-			<c:if test="${not empty languageRegError}">
-				<fmt:message key="${languageRegError}"/>
-			</c:if>
+			<customtag:form_error property="languages" suffix="RegError"/>
 		</span>
 	</div>
-
-	 <html:hidden property="language" value="es-ES"/> <!-- Por ahora solo se puede en castellano -->
-	 
-	 
     
     <div class="button end_button">
         <html:submit>

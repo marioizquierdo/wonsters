@@ -42,18 +42,16 @@ public class Login extends ThearsmonstersDefaultAction {
                 rememberMyPassword, false);
                 
         } catch (InstanceNotFoundException e) {
-            errors.add("login", new ActionMessage(
-                "ErrorMessages.login.notFound"));
+            errors.add("login", new ActionMessage("ErrorMessages.login.notFound"));
         } catch (IncorrectPasswordException e) {
-            errors.add("password", new ActionMessage(
-                "ErrorMessages.password.incorrect"));
+            errors.add("password", new ActionMessage("ErrorMessages.password.incorrect"));
         }
         
         /* Return ActionForward. */
         if (errors.isEmpty()) {
             return mapping.findForward("GameStart");
         } else {
-        	reportErrors(request, errors, "Error");
+        	saveErrorsFixed(request, errors, "LoginError");
             saveErrors(request, errors);
             return new ActionForward(mapping.getInput());
         }
