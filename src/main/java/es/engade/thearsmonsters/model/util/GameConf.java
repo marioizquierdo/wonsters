@@ -21,6 +21,9 @@ public final class GameConf {
     TURNS_PER_DAY_PARAMETER = "GameConf.turnsPerDay";
     
     public final static String
+    MAX_TURNS_PARAMETER = "GameConf.maxTurns";
+    
+    public final static String
     FIRST_TURN_EPOCH_PARAMETER = "GameConf.firstTurnEpoch";
     
     public final static String
@@ -33,6 +36,7 @@ public final class GameConf {
     private static int MaxNumberOfBuildings;
     private static int MaxNumberOfStreets;
     private static byte TurnsPerDay;
+    private static byte MaxNumberOfTurns;
     private static long FirstTurnEpoch;
     private static int MaxEggs;
     private static int LairsRankingDepth;
@@ -46,6 +50,8 @@ public final class GameConf {
 					BUILDINGS_PER_STREET_PARAMETER));
 			MaxNumberOfStreets = Integer.parseInt(ConfigurationParametersManager.getParameter(
 					TOTAL_STREETS_PARAMETER));
+			MaxNumberOfTurns = Byte.parseByte(ConfigurationParametersManager.getParameter(
+					MAX_TURNS_PARAMETER));
 			TurnsPerDay = Byte.parseByte(ConfigurationParametersManager.getParameter(
 					TURNS_PER_DAY_PARAMETER));
 			FirstTurnEpoch = Long.parseLong(ConfigurationParametersManager.getParameter(
@@ -86,6 +92,14 @@ public final class GameConf {
 	public static int getMaxNumberOfStreets() {
     	checkError();
 		return MaxNumberOfStreets;
+	}
+	
+	/**
+	 * Turnos acumulables
+	 */
+	public static byte getMaxNumberOfTurns() {
+    	checkError();
+		return MaxNumberOfTurns;
 	}
 	
 	/**

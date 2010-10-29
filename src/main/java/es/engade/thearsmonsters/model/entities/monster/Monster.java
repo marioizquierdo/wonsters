@@ -25,6 +25,7 @@ import es.engade.thearsmonsters.model.entities.monster.enums.MonsterRace;
 import es.engade.thearsmonsters.model.facades.monsterfacade.exceptions.MonsterGrowException;
 import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
+import es.engade.thearsmonsters.model.util.GameConf;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Monster extends ThearsmonstersEntity implements Serializable {
@@ -136,7 +137,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		addExp(AttrType.Charisma, race.getCharismaLevel() * 100);
 		
 		// Set initial free turns
-		setFreeTurns(15);
+		setFreeTurns(GameConf.getTurnsPerDay());
 	}
 
 	//-- simple GETTERS --//
@@ -168,7 +169,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	
 	//Calcula la hora en la que tendremos el proximo turno libre
 	public long getNextTurnTime() {
-		int minutesForEachTurn = 96;
+		int minutesPerDay = 24*60;
+		int minutesForEachTurn = minutesPerDay / GameConf.getTurnsPerDay();
 		Date dateWhenZeroTurns = DateTools.new_byMinutesFrom(freeTurnsTimestamp, - (freeTurns * minutesForEachTurn));
 		return DateTools.new_byMinutesFrom(dateWhenZeroTurns, (getFreeTurns() + 1) * minutesForEachTurn).getTime();
 	}
@@ -412,12 +414,17 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		// Los monstruos muertos no tienen turnos libres.
 		if(getAge() == MonsterAge.Dead) return 0;
 		
-		int turnsPerDay = 15 - this.taskHours(); // turnos acumulados cada día
+		int turnsPerDay = GameConf.getTurnsPerDay() - this.taskHours(); // turnos acumulados cada día
 		double daysFromTimestamp = DateTools.daysBetween(this.freeTurnsTimestamp, timestamp);
 		
 		// En el momento timestamp, los freeTurns son los que había en el instante freeTurnsTimestamp
 		// mas el número de turnos acumulados (según los dias que han pasado desde el último timpestamp)
-		return  this.freeTurns + ((int) (turnsPerDay * daysFromTimestamp));
+		int newFreeTurns = this.freeTurns;
+		newFreeTurns += ((int) (turnsPerDay * daysFromTimestamp));
+		if (newFreeTurns > GameConf.getMaxNumberOfTurns()) {
+			newFreeTurns = GameConf.getMaxNumberOfTurns();
+		}
+		return  newFreeTurns;
 	}
 	
 	/**
@@ -556,13 +563,13 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	 */
 	private void correctCocoonOrAdultAges() {
     	if(getCocoonCloseUpDate() != null) {
-	    	// Adulto que aun no ha salido del capuyo debe ser Cocoon
+	    	// Adulto que aun no ha salido del capullo debe ser Cocoon
 	    	if(this.age.equals(MonsterAge.Adult) &&
 				getCocoonCloseUpDate().after(DateTools.now())) {
 				this.age = MonsterAge.Cocoon;
 			}
 	    	
-	    	// Capullo que ya ha salido del capuyo debe ser Adult
+	    	// Capullo que ya ha salido del capullo debe ser Adult
 	    	if(this.age.equals(MonsterAge.Cocoon) &&
 				getCocoonCloseUpDate().before(DateTools.now())) {
 	    		this.age = MonsterAge.Adult;
