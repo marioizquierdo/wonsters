@@ -35,8 +35,7 @@
 							<c:set var="icon_id" value="12"/></c:otherwise>
 						</c:choose>
 						
-						<customtag:icon id="${icon_id}" size="m" 
-							titleKey="FlashMessage.status.${message.status}.info" style="margin: -1px 5px 0 0;"/>
+						<customtag:icon icon_id="${icon_id}" size="m" />
 						<customtag:localizableMessage var="${message}"/>
 					</div>
 				</div>

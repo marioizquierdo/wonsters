@@ -18,7 +18,7 @@
   			Lo normal es utilizarlo para aplicar algo de margin-left o margin-right."/>
   		
   <!-- Para cada tipo de atributo hay que asignar un identificador de icono
-  		(que es la posicion del icono en la tira de imagenes correspondiente) -->
+  		(que es la posicion del icono en la tira de imagenes correspondiente, empezando en 0) -->
   		
   <c:choose>
   <c:when test="${attrType=='Strenght'}">
@@ -47,6 +47,6 @@
   
   <c:set var="title"><fmt:message key="Monster.attr.${attrType}"/></c:set>
   <c:set var="desc"><fmt:message key="Monster.attr.${attrType}.desc"/></c:set>
-  <customtag:icon id="${id}" size="${size}" title="${title} - ${desc}" style="${style}"/>
+  <customtag:icon icon_id="${id}" size="${size}" title="${title}. ${desc}" style="${style}"/>
 	
 </jsp:root>

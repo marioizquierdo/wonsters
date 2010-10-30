@@ -26,7 +26,7 @@
         description="Clase a mayores para el li de la accion (se pone junto con data_row)"/>
 	
 	<li class="data_row ${cssClass}">
-		<customtag:icon id="${icon_id}"/>
+		<customtag:icon icon_id="${icon_id}"/>
 		<span class="data_value">
 			<html:link action="${action}">
 				<c:out value="${message}" />

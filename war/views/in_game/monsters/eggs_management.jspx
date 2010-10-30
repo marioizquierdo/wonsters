@@ -66,7 +66,7 @@
 						    				<fmt:message key="Buttons.born"/>
 						    			</span></c:otherwise>
 									</c:choose>
-									(${egg.race.vitalSpace} <customtag:common_icon id="vitalSpace" img="true" />)</c:when>
+									(<customtag:show_unit value="${egg.race.vitalSpace}" units="vitalSpace" />)</c:when>
 						    	<c:otherwise>
 					    			<fmt:message key="EggsManagement.incubating"/> ...
 					    			<span class="countdown">
@@ -86,7 +86,7 @@
 						    	<fmt:message key="Buttons.sell"/>
 							</html:link>
 							(<fmt:message key="Common.getBack">
-								<fmt:param>${egg.race.sellEggPrice}<customtag:common_icon id="money" img="true"/></fmt:param>
+								<fmt:param><customtag:show_unit value="${egg.race.sellEggPrice}" units="money"/></fmt:param>
 							</fmt:message>)
 						</li>
 						</ul>

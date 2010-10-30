@@ -29,27 +29,18 @@
 	<div class="roomAttributes_info">
 		<ul>
 			<!-- Level -->
-			<li><span class="attr"><fmt:message key="Lair.room.level" /></span>: ${room.level}</li>
+			<c:if test="${room.roomType != 'MainMonster'}">
+				<li><span class="attr"><fmt:message key="Lair.room.level" /></span>: ${room.level}</li>
+			</c:if>
 			
 			<!-- Concrete info for each type of room -->
 			<c:if test="${room.roomType == 'TradeOffice'}">
-				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.moneyStorageCapacity"/></span>: <fmt:formatNumber value="${lair.moneyStorageCapacity}"/> <customtag:common_icon id="money" img="true"/></li>
-				<li><span class="attr"><fmt:message key="Lair.room.TradeOffice.percentageCommision"/></span>: <fmt:formatNumber value="${lair.percentageCommision}"/>%</li>
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.TradeOffice.moneyStorageCapacity" value="${lair.moneyStorageCapacity}" units="money" /></li>
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.TradeOffice.percentageCommision" value="${lair.percentageCommision}" suffix="%" /></li>
 			</c:if>
 			<c:if test="${room.roomType == 'Warehouse'}">
-				<li><span class="attr"><fmt:message key="Lair.room.Warehouse.garbageStorageCapacity"/></span>: <fmt:formatNumber value="${lair.garbageStorageCapacity}"/> <customtag:common_icon id="garbage" img="true"/></li>
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.Warehouse.garbageStorageCapacity" value="${lair.garbageStorageCapacity}" units="garbage" /></li>
 			</c:if>
-
-			
-			<!-- Public room info -->
-			<c:if test="${room.publicable}"><c:choose>
-				<c:when test="${room.published}">
-					<li><span class="attr"><fmt:message key="Lair.room.publicPrice" /></span>: <fmt:formatNumber value="${room.publicPrice}"/></li>
-				</c:when>
-				<c:otherwise>
-					<li><fmt:message key="Lair.room.notPublished" /></li>
-				</c:otherwise>
-			</c:choose></c:if>
 			
 			<!-- Works info -->
 			<c:if test="${room.inWorks}">
@@ -80,20 +71,17 @@
 	<div class="roomAttributes_actions">
 		<ul>
             
-            <!-- Show Tasks -->
-            <!-- <customtag:roomAction icon_id="3" action="lair/room/tasks.do?roomType=${room.roomType}" messageKey="Lair.room.actions.showTasks" cssClass="show_room_tasks" /> -->  
-            
 			<!-- Works actions -->
 			<c:choose><c:when test="${room.inWorks}">
 				<c:if test="${!room.inInitialState}">		
 						<customtag:roomAction icon_id="19" action="lair/room/change_in_works_state.do?action=CANCEL_WORKS&roomType=${room.roomType}"
 								messageKey="Lair.room.actions.cancelWorks">
 							(<fmt:message key="Common.getBack"> 
-								<fmt:param><fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/></fmt:param>
+								<fmt:param><customtag:show_unit value="${room.garbageUpgrade}" units="garbage" /></fmt:param>
 							</fmt:message>)
 						</customtag:roomAction>
 				</c:if></c:when>
-			<c:otherwise>		
+			<c:otherwise>
 				<c:if test="${room.upgradable}">
 					<c:set var="upgradeMessage">
 						<fmt:message key="Lair.room.actions.upgrade">
@@ -102,8 +90,8 @@
 					</c:set>
 					<customtag:roomAction icon_id="18" action="lair/room/change_in_works_state.do?action=UPGRADE&roomType=${room.roomType}"
 						message="${upgradeMessage}">
-						(<fmt:formatNumber value="${room.garbageUpgrade}"/> <customtag:common_icon id="garbage" img="true"/>, 
-						<fmt:formatNumber value="${room.effortUpgrade}"/> <customtag:common_icon id="effort" img="true"/>)
+						(<customtag:show_unit value="${room.garbageUpgrade}" units="garbage"/>, 
+						<customtag:show_unit value="${room.effortUpgrade}" units="effort"/>)
 					</customtag:roomAction>
 				</c:if> 
 			</c:otherwise></c:choose>
@@ -114,14 +102,19 @@
 			</c:if>
 			
 			<!-- Concrete actions for each type of room -->
+			
+			<!-- Main Monster -->
 			<c:if test="${room.roomType == 'MainMonster'}">
 				<customtag:roomAction icon_id="9" action="monster/eggs" messageKey="Lair.room.MainMonster.EggsManagement"/>
 			</c:if>
+			
+			<!-- Trade Office -->
 			<c:if test="${room.roomType == 'TradeOffice'}">
 				<c:if test="${!room.inWorks}">
 			        <customtag:roomAction icon_id="21" action="/lair/change_resources.do" messageKey="Lair.room.TradeOffice.changeResources"/>
 			    </c:if>
 			</c:if>
+			
 		</ul>
 	</div>
 	</c:if>

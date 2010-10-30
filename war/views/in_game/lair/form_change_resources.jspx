@@ -36,33 +36,29 @@
 	<customtag:window id="changeGarbageForMoney" title="ChangeResources.GarbageForMoney">
 		
 		<div class="info_slot">    
-			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
+			<customtag:icon icon_id="9" size="m"  style="margin-right: 5px" />
 			<div class="info_slot_content">
 				<!-- Show message depending on the cuantity of maxGarbageAmountEnabled -->
 				<c:choose><c:when test="${my.lair.garbage == maxGarbageAmountEnabled}">
 					<fmt:message key="ChangeResources.GarbageMaxCuantityToChange1">
 						<fmt:param>
-							<fmt:formatNumber value="${maxGarbageAmountEnabled}"/> 
-							<customtag:common_icon id="garbage" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxGarbageAmountEnabled}" units="garbage"/></fmt:param>
 						<fmt:param>
-							<fmt:formatNumber value="${maxGarbageAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" minFractionDigits="0" maxFractionDigits="0"/>  
-							<customtag:common_icon id="money" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxGarbageAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" units="money"/></fmt:param>
 					</fmt:message></c:when>
 				<c:otherwise>
 					<fmt:message key="ChangeResources.GarbageMaxCuantityToChange2">
 						<fmt:param>
-							<fmt:formatNumber value="${maxGarbageAmountEnabled}"/> 
-							<customtag:common_icon id="garbage" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxGarbageAmountEnabled}" units="garbage"/></fmt:param>
 						<fmt:param>
-							<fmt:formatNumber value="${maxGarbageAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" minFractionDigits="0" maxFractionDigits="0"/>  
-							<customtag:common_icon id="money" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxGarbageAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" units="money"/> </fmt:param>
 					</fmt:message></c:otherwise>
 				</c:choose>
 			</div>
 		</div>
 		
 		<div class="info_slot">
-			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
+			<customtag:icon icon_id="9" size="m"  style="margin-right: 5px"/>
 			<div class="info_slot_content">
 				<fmt:message key="ChangeResources.CommissionCharged">
 					<fmt:param value='${my.lair.room["TradeOffice"].level}'/>
@@ -75,14 +71,14 @@
 			<customtag:form_error property="garbage"/>
 			<html:hidden property="money" value="0"/>
 		    <div class="info_slot">
-		    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
+		    	<customtag:icon icon_id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
 			    <div class="info_slot_content">
 		            <fmt:message key="ChangeResources.change">
 		            	<fmt:param>
-		            		<html:text property="garbage" size="5" maxlength="8"/><customtag:common_icon id="garbage" img="true"/>
+		            		<html:text property="garbage" size="5" maxlength="8"/> <customtag:show_unit units="garbage"/>
 		            	</fmt:param>
 		            	<fmt:param>
-		            		<span id="change_resources_js_money_earned">0</span><customtag:common_icon id="money" img="true"/>
+		            		<span id="change_resources_js_money_earned">0</span> <customtag:show_unit units="money"/>
 		            	</fmt:param>
 		            </fmt:message>
 		            
@@ -103,32 +99,28 @@
 	<customtag:window id="changeMoneyForGarbage" title="ChangeResources.MoneyForGarbage">	
 		
 		<div class="info_slot">
-			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
+			<customtag:icon icon_id="9" size="m"  style="margin-right: 5px" />
 			<div class="info_slot_content"> <!-- Show message depending on the cuantity of maxMoneyAmountEnabled -->
 				<c:choose><c:when test="${my.lair.money == maxMoneyAmountEnabled}">
 					<fmt:message key="ChangeResources.MoneyMaxCuantityToChange1">
 						<fmt:param>
-							<fmt:formatNumber value="${maxMoneyAmountEnabled}"/> 
-							<customtag:common_icon id="money" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxMoneyAmountEnabled}" units="money"/></fmt:param>
 						<fmt:param>
-							<fmt:formatNumber value="${maxMoneyAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" minFractionDigits="0" maxFractionDigits="0"/>  
-							<customtag:common_icon id="garbage" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxMoneyAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" units="garbage"/></fmt:param>
 					</fmt:message></c:when>
 				<c:otherwise>
 					<fmt:message key="ChangeResources.MoneyMaxCuantityToChange2">
 						<fmt:param>
-							<fmt:formatNumber value="${maxMoneyAmountEnabled}"/> 
-							<customtag:common_icon id="money" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxMoneyAmountEnabled}" units="money"/></fmt:param>
 						<fmt:param>
-							<fmt:formatNumber value="${maxMoneyAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" minFractionDigits="0" maxFractionDigits="0"/>  
-							<customtag:common_icon id="garbage" img="true"/></fmt:param>
+							<customtag:show_unit value="${maxMoneyAmountEnabled * (100 - tradeOfficePercentageCommission) / 100}" units="garbage"/></fmt:param>
 					</fmt:message></c:otherwise>
 				</c:choose>
 			</div>
 		</div>
 		
 		<div class="info_slot">
-			<customtag:icon id="9" size="m"  style="margin-right: 5px" titleKey="FlashMessage.status.INFO.info"/>
+			<customtag:icon icon_id="9" size="m"  style="margin-right: 5px" />
 			<div class="info_slot_content">
 				<fmt:message key="ChangeResources.CommissionCharged">
 					<fmt:param value='${my.lair.room["TradeOffice"].level}'/>
@@ -141,14 +133,14 @@
 			<customtag:form_error property="money"/>
 			<html:hidden property="garbage" value="0"/>
 		    <div class="info_slot">
-		    	<customtag:icon id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
+		    	<customtag:icon icon_id="21" size="s"  style="margin: 3px 5px 0 0" titleKey="Lair.room.TradeOffice.changeResources"/>
 			    <div class="info_slot_content">      
 		            <fmt:message key="ChangeResources.change">
 		            	<fmt:param>
-		            		<html:text property="money" size="5" maxlength="8"/><customtag:common_icon id="money" img="true"/>
+		            		<html:text property="money" size="5" maxlength="8"/><customtag:show_unit units="money"/>
 		            	</fmt:param>
 		            	<fmt:param>
-		            		<span id="change_resources_js_garbage_earned">0</span><customtag:common_icon id="garbage" img="true"/>
+		            		<span id="change_resources_js_garbage_earned">0</span><customtag:show_unit units="garbage"/>
 		            	</fmt:param>
 		            </fmt:message>
 			    

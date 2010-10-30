@@ -53,30 +53,30 @@
 						<div class="room_price_and_buy_action"> 
 							<c:choose>
 							    <c:when test="${newRoom.garbageBuild == -1 }">
-							        <customtag:icon id="19" size="s" style="margin-right: 5px"/>
+							        <customtag:icon icon_id="19" size="s" style="margin-right: 5px"/>
 							        <span class="button_box disabled">
                                         <fmt:message key="Lair.room.actions.buildNewRoom"/>
                                     </span><br/>
 							       <fmt:message key="Lair.room.Unavaliable"/>
 							    </c:when>
 							    <c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
-									<customtag:icon id="25" size="s" style="margin-right: 5px"/>
+									<customtag:icon icon_id="25" size="s" style="margin-right: 5px"/>
 									<span class="button_box">
                                         <html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
                                             <fmt:message key="Lair.room.actions.buildNewRoom"/>
                                         </html:link>
                                     </span>
-                                    (<fmt:formatNumber value="${newRoom.garbageBuild}"/> <customtag:common_icon id="garbage" img="true"/>,
-                                        <fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
+                                    (<customtag:show_unit value="${newRoom.garbageBuild}" units="garbage"/>,
+                                     <customtag:show_unit value="${newRoom.effortBuild}" units="effort"/>)
                                     <br/>
 							    </c:when>
 						    <c:otherwise>
-								<customtag:icon id="19" size="s" style="margin-right: 5px"/>
+								<customtag:icon icon_id="19" size="s" style="margin-right: 5px"/>
 								<span class="button_box disabled">
                                     <fmt:message key="Lair.room.actions.buildNewRoom"/>
                                 </span>
-                                (<span style="color:red; font-weight:bold;"><fmt:formatNumber value="${newRoom.garbageBuild}"/></span> <customtag:common_icon id="garbage" img="true"/>,
-                                        <fmt:formatNumber value="${newRoom.effortBuild}"/> <customtag:common_icon id="effort" img="true"/>)
+                                (<customtag:show_unit value="${newRoom.garbageBuild}" units="garbage"/>,
+                                 <customtag:show_unit value="${newRoom.effortBuild}" units="effort"/>)
                                 <br/>
 								<fmt:message key="FlashMessage.InsuficientGarbageException">
 									<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>

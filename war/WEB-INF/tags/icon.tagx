@@ -11,12 +11,11 @@
 	- Los iconos medianos son independientes de los pequenos
 --> 		
 			
-  <jsp:directive.attribute name="id" required="true"
+  <jsp:directive.attribute name="icon_id" required="true"
   		description="Numero identificador del icono. Lo asocia con su imagen correspondiente"/>	
   				
   <jsp:directive.attribute name="title" required="false"
   		description="Texto que aparece en el tooltip emergente"/>
-  		<c:if test="${empty title}"><c:set var="title" value="" /></c:if>  
   						
   <jsp:directive.attribute name="titleKey" required="false"
   		description="Si se indica titleKey en vez de title, se utiliza fmt:message key='title_key'/>"/>
@@ -31,8 +30,10 @@
   <jsp:directive.attribute name="style" required="false"
   		description="Estilos opcionales que se pueden aplicar al icono (en el div) a mayores del background-position.
   			Lo normal es utilizarlo para aplicar algo de margin-left o margin-right."/>
-  			
-	<div class="icon ${size}_ico" style="background-position: 0 ${-pixels*id}px; ${style}" title="${title}">
-		<img src="/images/theme/empty_pixel.png"/></div>
+  		
+  		
+	<div class="icon ${size}_ico" style="background-position: 0 ${-pixels * icon_id}px; ${style}" title="${title}">
+		<img src="/images/theme/empty_pixel.png"/>
+	</div>
 	
 </jsp:root>

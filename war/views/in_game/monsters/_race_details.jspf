@@ -36,7 +36,7 @@
 	</customtag:monsterBrief_data_row>
 	
 	<customtag:monsterBrief_data_row property="race.buyEggPrice" icon_id="9">
-		${race.buyEggPrice} <customtag:common_icon id="money" img="true"/>
+		<customtag:show_unit value="${race.buyEggPrice}" units="money"/>
 	</customtag:monsterBrief_data_row>
 </ul>
 

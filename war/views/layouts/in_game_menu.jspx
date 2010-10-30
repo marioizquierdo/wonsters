@@ -43,22 +43,28 @@
       <div id="menu_info_left"><img src="/images/theme/empty_pixel.png"/></div>
       <div id="menu_info_content">
       	<div id="menu_info_content_garbage" class="menu_info_item">
-      		<customtag:common_icon id="garbage"/><span class="description">
-      			<fmt:formatNumber value="${my.lair.garbage}"/>/
-      			<fmt:formatNumber value="${my.lair.garbageStorageCapacity}"/>
-      		</span>
+      		<customtag:show_unit units="garbage">
+      			<span class="description">
+      				<fmt:formatNumber value="${my.lair.garbage}"/>/
+      				<fmt:formatNumber value="${my.lair.garbageStorageCapacity}"/>
+      			</span>
+      		</customtag:show_unit>
       	</div>
       	<div id="menu_info_content_money" class="menu_info_item">
-      		<customtag:common_icon id="money"/><span class="description">
-      			<fmt:formatNumber value="${my.lair.money}"/>/
-      			<fmt:formatNumber value="${my.lair.moneyStorageCapacity}"/>
-      		</span>
+      		<customtag:show_unit units="money">
+	      		<span class="description">
+	      			<fmt:formatNumber value="${my.lair.money}"/>/
+	      			<fmt:formatNumber value="${my.lair.moneyStorageCapacity}"/>
+	      		</span>
+	      	</customtag:show_unit>
       	</div>
       	<div id="menu_info_content_vitalSpace" class="menu_info_item">
-      		<customtag:common_icon id="vitalSpace"/><span class="description">
-      			<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}"/>/
-      			<fmt:formatNumber value="${my.lair.vitalSpace}"/>
-      		</span>
+      		<customtag:show_unit units="vitalSpace">
+	      		<span class="description">
+	      			<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}"/>/
+	      			<fmt:formatNumber value="${my.lair.vitalSpace}"/>
+	      		</span>
+	      	</customtag:show_unit>
       	</div>
       	
       </div>

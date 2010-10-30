@@ -1,31 +1,9 @@
 /**
- * Scripts comunes para el in_game_layout. 
+ * Scripts comunes para las vistas que vayan en el in_game_layout
  */
 
 $( function() { 
-	
-	// TipTip plugin Examples
-	// Definir que elementos de la vista llevan tooltips
-	$('#menu_info_content .icon').tipTip({
-		edgeOffset: 8,
-		fadeIn: 55,
-		maxWidth: '320px'
-	});
-//	$('span, h3').tipTip({
-//		delay: 200,
-//		defaultPosition: 'left',
-//		fadeIn: 50,
-//		maxWidth: '300px'
-//	});
-//	$('.room').tipTip({
-//		delay: 1000,
-//		defaultPosition: 'bottom',
-//		fadeIn: 200,
-//		maxWidth: '200px'
-//	});
-
-	
-	
+		
 	// Menu desplegable
 	var menu = $("div#menu_logo");
 	var options = $("div#options");
@@ -35,4 +13,15 @@ $( function() {
 	}, function() { // mouseleave
 		options.hide();
 	});
+	
+	
+	// TipTip plugin Examples
+	// Definir que elementos de la vista llevan tooltips
+	$('span.show_unit').tipTip({
+		edgeOffset: 10,
+		fadeIn: 100,
+		maxWidth: '320px',
+		defaultPosition: 'bottom'
+	});
+	
 });

@@ -46,20 +46,24 @@
   		<c:if test="${empty status}"><c:set var="status" value="INFO"/></c:if>
   		
   	<jsp:directive.attribute name="icon_id" required="false"
-  		description="Icon id for use in customtag:icon id='icon_id' size='m'"/>
+  		description="Icon id for use in customtag:icon icon_id='icon_id' size='m'"/>
+	  	<c:if test="${empty icon_id}"> <!-- Default: Select icon_id depending on status -->
+			<c:choose><c:when test="${status eq 'ERROR'}">
+				<c:set var="icon_id" value="0"/></c:when>
+			<c:when test="${status eq 'GOOD_NEW'}">
+				<c:set var="icon_id" value="6"/></c:when>
+			<c:otherwise> <!-- INFO by default -->
+				<c:set var="icon_id" value="12"/></c:otherwise>
+			</c:choose>
+		</c:if>
   		
   	<jsp:directive.attribute name="icon_title" required="false"
   		description="The title attribute for use in customtag:icon"/>
   		
   	<jsp:directive.attribute name="icon_titleKey" required="false"
-  		description="The title attribute for use in customtag:icon"/>
-  		<c:if test="${empty icon_title}">
-	  		<c:choose><c:when test="${empty icon_titleKey}">
-	  			<c:set var="icon_title"><fmt:message key="FlashMessage.status.${status}.info"/></c:set></c:when>
-	  		<c:otherwise>
-	  			<c:set var="icon_title"><fmt:message key="${icon_titleKey}"/></c:set></c:otherwise>
-			</c:choose>
-  		</c:if>
+		description="The title attribute for use in customtag:icon"/>
+		<c:if test="${!empty icon_titleKey}"><c:set var="icon_title"><fmt:message key="${icon_titleKey}"/></c:set></c:if>
+	
   		
 	<jsp:directive.attribute name="style" required="false"
   		description="Extra CSS style to the info slot div"/>
@@ -67,20 +71,10 @@
 	<jsp:directive.attribute name="content_style" required="false"
   		description="Extra CSS style to the info slot content div"/>
   	
-  	<!-- Select icon_id depending on status -->
-  	<c:if test="${empty icon_id}">
-		<c:choose><c:when test="${status eq 'ERROR'}">
-			<c:set var="icon_id" value="0"/></c:when>
-		<c:when test="${status eq 'GOOD_NEW'}">
-			<c:set var="icon_id" value="6"/></c:when>
-		<c:otherwise> <!-- INFO by default -->
-			<c:set var="icon_id" value="12"/></c:otherwise>
-		</c:choose>
-	</c:if>
-  	
+  	 	
   	<!-- Render info message -->
 	<div class="info_slot" style="${style}">
-		<customtag:icon id="${icon_id}" size="m" 
+		<customtag:icon icon_id="${icon_id}" size="m" 
 				title="${icon_title}" 
 				style="margin: -1px 10px 0 0;"/>
 		

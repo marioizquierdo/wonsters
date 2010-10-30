@@ -4,12 +4,12 @@
 #frontPage #background_header {
 	height: 300px;
 	width: 100%;
-	background: #eee url(../images/theme/frontPage/background_header.jpg)
+	background: #eee url('/images/theme/frontPage/background_header.jpg')
 		repeat-x top left;
 }
 
 #frontPage {
-	background: #eee url(../images/theme/frontPage/background_repeat.jpg)
+	background: #eee url('/images/theme/frontPage/background_repeat.jpg')
 		repeat 0px 300px;
 }
 
@@ -17,12 +17,12 @@
 	float: left;
 	width: 770px;
 	height: 250px;
-	background: url(../images/thearsmonsters_logo.png) no-repeat center
+	background: url('/images/thearsmonsters_logo.png') no-repeat center
 		center;
 }
 
 #monsters_logo {
-	background: url(../images/theme/frontPage/logo_frontPage.png) no-repeat top left;
+	background: url('/images/theme/frontPage/logo_frontPage.png') no-repeat top left;
 	width: 1252px;
 	height: 250px;
 	position: relative;
@@ -35,7 +35,7 @@
 
 #frontPageWindow_content {
 	padding-bottom: 10px;
-	background: white url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
+	background: white url('/images/theme/table2_th_fade.jpg') repeat-x bottom left;
 }
 
 #playNowForFree_button {
@@ -60,7 +60,7 @@
 #loginPanel div.rounded_window { margin-bottom: 0; }
 #loginPanel .atMiddle {
 	float: left;
-	background: #447 url(/images/theme/frontPage/login_panel_background.png) repeat-x bottom left;
+	background: #447 url('/images/theme/frontPage/login_panel_background.png') repeat-x bottom left;
 	padding: 12px 0 0 0;
 	width: 768px; /* 770 with borders */
 	border-left: 1px solid black;

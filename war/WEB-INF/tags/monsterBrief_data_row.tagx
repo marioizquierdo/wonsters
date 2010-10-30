@@ -33,7 +33,7 @@
  	
  	<c:set var="popup"><h3>${title}</h3> ${desc}</c:set>
 	<li class="data_row attribute_row" title="${popup}">	
-		<c:if test="${!empty icon_id}"><customtag:icon id="${icon_id}"/></c:if>
+		<c:if test="${!empty icon_id}"><customtag:icon icon_id="${icon_id}"/></c:if>
 		
 		<span class="${label_class}">
 			${title}<c:if test="${!empty title_extra_key}"> (<fmt:message key="${title_extra_key}"/>)</c:if>:

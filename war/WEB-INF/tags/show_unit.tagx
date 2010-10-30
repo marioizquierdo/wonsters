@@ -1,0 +1,98 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+			xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Muestra un numero seguido de un icono con un title descriptivo,
+	ademas de que da formato internacionalizado al numero automaticamente (pone los puntos a los miles, y las comas adecuadas a los decimales).
+	
+	Ejemplos:
+	
+	<customtag:show_unit value="${egg.race.sellEggPrice}" units="money"/>
+	   => Muestra el valor que haya en ${egg.race.sellEggPrice} seguido del icono para el dinero,
+	      y poniendo un title a todo el conjunto con el texto que explica lo que es el dinero.
+	      
+	<customtag:show_unit units="garbage"/>
+	   => Muestra solamente el icono de basura, con su title descriptivo.
+	   
+	<customtag:show_unit units="vitalSpace">
+	   Contenido que va dentro, en lugar de usar value
+	</customtag>
+	   => Se puede poner un contenido en el interior que sustituye al que pone por defecto en vase a var o value.
+--> 		
+			
+  <jsp:directive.attribute name="units" required="false"
+  		description="Unidades en las que se muestra el numero. Fija el icono y el title descriptivo del campo.
+  					Puede ser: 'garbage', 'money', 'effort', 'vitalSpace'."/>
+
+  <jsp:directive.attribute name="value" required="false"
+  		description="Numero que se va a mostrar, que se formateara usando fmt:formatNumber."/>
+  
+  <jsp:directive.attribute name="suffix" required="false"
+  		description="Sufijo que puede seguir al numero, por ejemplo '%' si el numero es un porcentaje."/>
+  		
+  <jsp:directive.attribute name="label" required="false"
+  		description="Texto que puede ir antes del numero para indicar de que se trata."/>
+  		
+  <jsp:directive.attribute name="labelKey" required="false"
+  		description="Clave en Messages.properties para el label internacionalizado."/>
+      <c:if test="${!empty labelKey}"><c:set var="label"><fmt:message key="${labelKey}"/></c:set></c:if>
+  
+  <jsp:directive.attribute name="title" required="false"
+  		description="Mensaje que describe al campo o a las unidades. Se pone por defecto el que represente a las units."/>
+  
+  <jsp:directive.attribute name="icon_path" required="false"
+  		description="Ruta a la imagen que se muestra como icono. Si esta en /images/theme/icons/{icon_name}_small.png es mejor usar icon_name"/>
+  	
+  <jsp:directive.attribute name="icon_name" required="false"
+  		description="Nombre del icono que se encuentra en /images/theme/icons/{icon_name}_small.png"/>
+	  <c:if test="${!empty units and empty icon_name}"><c:set var="icon_name" value="${units}"/></c:if>
+	  <c:if test="${empty icon_path and !empty icon_name}"><c:set var="icon_path" value="/images/theme/icons/${icon_name}_small.png"/></c:if>
+
+  <jsp:directive.attribute name="maxFractionDigits" required="false"
+  		description="Specify the maximum number of digits in the fractional portion of the formatted number in the output. Is 0 by default."/>
+	<c:if test="${empty maxFractionDigits}"><c:set var="maxFractionDigits" value="0"/></c:if>
+  		
+  <jsp:directive.attribute name="minFractionDigits" required="false"
+  		description="Specify the minimum number of digits in the fractional portion of the formatted number in the output. Is 0 by default."/>
+	<c:if test="${empty minFractionDigits}"><c:set var="minFractionDigits" value="0"/></c:if>
+  
+  
+  
+  <!-- Formatear el numero si viene del value. Si es el contenido del tag no se formatea -->
+  <c:if test="${not empty value}"><c:set var="value">
+  		<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}" maxFractionDigits="${maxFractionDigits}" minFractionDigits="${minFractionDigits}"/>
+  </c:set></c:if>
+  <c:if test="${empty value}"><c:set var="value"><jsp:doBody/></c:set></c:if>
+  
+  
+  <!-- title: Valor por defecto segun las units -->
+  <c:if test="${empty title}"><c:set var="title">
+  <c:choose>
+  	<c:when test="${units=='garbage'}">
+	  	<b><fmt:message key="Lair.garbage"/></b>: <fmt:message key="Lair.garbage.desc"/></c:when>
+	  		
+	<c:when test="${units=='money'}">
+	  	<b><fmt:message key="Lair.money"/></b>: <fmt:message key="Lair.money.desc"/></c:when>
+	  
+	<c:when test="${units=='effort'}">
+		<b><fmt:message key="Lair.effort"/></b>: <fmt:message key="Lair.effort.desc"/></c:when>
+	  		
+	<c:when test="${units=='vitalSpace'}">
+	  	<b><fmt:message key="Monster.race.vitalSpace"/></b>: <fmt:message key="Monster.race.vitalSpace.desc"/></c:when>  
+  </c:choose>
+  </c:set></c:if>
+  
+  
+  
+  <!-- Renderize -->
+  <span class="show_unit" title="${title}">
+	  <c:if test="${!empty label}">${label}:&#160;</c:if>
+	  <c:if test="${!empty value}">${value}&#160;</c:if>
+	  <c:if test="${!empty suffix}">${suffix}&#160;</c:if>
+	  <c:if test="${!empty icon_path}"><img src="${icon_path}" class="icon"/></c:if>
+  </span>
+
+
+</jsp:root>
