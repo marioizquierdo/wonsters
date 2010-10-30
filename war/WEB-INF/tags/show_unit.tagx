@@ -42,6 +42,11 @@
   <jsp:directive.attribute name="title" required="false"
   		description="Mensaje que describe al campo o a las unidades. Se pone por defecto el que represente a las units."/>
   
+  <jsp:directive.attribute name="titleKey" required="false"
+  		description="Clave en Message.properties para el title descriptivo. Se pone por defecto el que le corresponde a las units indicadas."/>
+      <c:if test="${!empty titleKey}"><c:set var="title"><fmt:message key="${titleKey}"/></c:set></c:if>
+  
+  
   <jsp:directive.attribute name="icon_path" required="false"
   		description="Ruta a la imagen que se muestra como icono. Si esta en /images/theme/icons/{icon_name}_small.png es mejor usar icon_name"/>
   	
@@ -61,8 +66,8 @@
   
   
   <!-- Formatear el numero si viene del value. Si es el contenido del tag no se formatea -->
-  <c:if test="${not empty value}"><c:set var="value">
-  		<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}" maxFractionDigits="${maxFractionDigits}" minFractionDigits="${minFractionDigits}"/>
+  <c:if test="${!empty value}"><c:set var="value">
+  		<fmt:formatNumber value="${value}" maxFractionDigits="${maxFractionDigits}" minFractionDigits="${minFractionDigits}"/>
   </c:set></c:if>
   <c:if test="${empty value}"><c:set var="value"><jsp:doBody/></c:set></c:if>
   

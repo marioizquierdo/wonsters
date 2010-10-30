@@ -34,12 +34,30 @@
 			</c:if>
 			
 			<!-- Concrete info for each type of room -->
+			
+			<!-- Trade Office -->
 			<c:if test="${room.roomType == 'TradeOffice'}">
-				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.TradeOffice.moneyStorageCapacity" value="${lair.moneyStorageCapacity}" units="money" /></li>
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.TradeOffice.moneyStorageCapacity" value="${lair.moneyStorageCapacity}" units="money"  titleKey="Lair.room.TradeOffice.moneyStorageCapacity.desc" /></li>
 				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.TradeOffice.percentageCommision" value="${lair.percentageCommision}" suffix="%" /></li>
 			</c:if>
+			
+			<!-- Warehouse -->
 			<c:if test="${room.roomType == 'Warehouse'}">
-				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.Warehouse.garbageStorageCapacity" value="${lair.garbageStorageCapacity}" units="garbage" /></li>
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.Warehouse.garbage" value="${lair.garbage}" units="garbage" /></li>
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.Warehouse.garbageStorageCapacity" value="${lair.garbageStorageCapacity}" units="garbage" titleKey="Lair.room.Warehouse.garbageStorageCapacity.desc" /></li>
+			</c:if>
+			
+			<!-- Dormitories -->
+			<c:if test="${room.roomType == 'Dormitories'}">
+				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.Dormitories.vitalSpaceOccupied" units="vitalSpace">
+	      			<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}"/>/
+	      			<fmt:formatNumber value="${my.lair.vitalSpace}"/>
+	      		</customtag:show_unit></li>
+			</c:if>
+			
+			<!-- Gym -->
+			<c:if test="${room.roomType == 'Gym'}">
+				<li><span class="attr"><fmt:message key="Lair.room.Gym.strenghtIncrease"><fmt:param value="${room.level * 10}"/></fmt:message></li>
 			</c:if>
 			
 			<!-- Works info -->

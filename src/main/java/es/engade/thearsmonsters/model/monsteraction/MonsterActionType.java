@@ -281,8 +281,7 @@ public enum MonsterActionType {
         // targetValueIncreasePerTurn = Cantidad de exp que se aumenta en cada turno, 
         // que son 10 experiencia por cada nivel del gimnasio
         public Integer targetValueIncreasePerTurn(MonsterAction action) {
-	        int level = action.getRoom().getLevel();
-	        return level * 10;
+	        return action.getRoom().getLevel() * 10;
         }
 		
         // Parametros para Monster.actions.type.GymTraining.info
@@ -540,7 +539,7 @@ public enum MonsterActionType {
 	
     /**
      *  Argumentos adicionales que necesita informar a la vista este tipo de tarea. 
-     *  Cuando se hace el cálculo para el valor que toma el targetValue segun se utilicen mas turnos
+     *  Cuando se hace el cï¿½lculo para el valor que toma el targetValue segun se utilicen mas turnos
      *  desde JavaScript, a veces es necesaria mas informacion. Por ejemplo al recolectar basura, dependiendo de la
      *  inteligencia del monstruo, la habilidad de recoleccion puede mejorar de nivel y sumar mas basura a partir de cierta
      *  cantidad de turnos utilizados. Lo mismo con las obras (y la habilidad de construccion que va aumentando). 
@@ -619,7 +618,7 @@ public enum MonsterActionType {
 
 	/**
 	 * Ejecucion de la accion de cada MonsterAction en particular. La accion ya
-	 * es valida, asi­ que en principio no hace falta hacer comprobaciones. Solo
+	 * es valida, asiï¿½ que en principio no hace falta hacer comprobaciones. Solo
 	 * hace falta implementar las modificaciones que se producen en el monstruo,
 	 * en la sala y en la guarida, excepto lo de restar un turno al monstruo,
 	 * que ya se hace previamente.
