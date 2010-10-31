@@ -136,6 +136,9 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		addExp(AttrType.Intelligence, race.getIntelligenceLevel() * 100);
 		addExp(AttrType.Charisma, race.getCharismaLevel() * 100);
 		
+		//Give some happiness to new born monsters
+		addExp(AttrType.Happiness, 50 * 100);
+		
 		// Set initial free turns
 		setFreeTurns(GameConf.getTurnsPerDay());
 	}
