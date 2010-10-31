@@ -16,17 +16,14 @@ public class Languages {
 
     private final static List LANGUAGES_en = Arrays.asList(new LabelValue[] {
         new LabelValue("English", "en"),
-        new LabelValue("Galician", "gl"),
         new LabelValue("Spanish", "es") });
         
     private final static List LANGUAGES_es = Arrays.asList(new LabelValue[] {
         new LabelValue("Español", "es"),
-        new LabelValue("Gallego", "gl"),
         new LabelValue("Inglés", "en") });
         
     private final static List LANGUAGES_gl = Arrays.asList(new LabelValue[] {
         new LabelValue("Español", "es"),
-        new LabelValue("Galego", "gl"),
         new LabelValue("Inglés", "en") });
         
     private final static Map LANGUAGES;
@@ -36,7 +33,6 @@ public class Languages {
         LANGUAGES = new HashMap();
         LANGUAGES.put("en", LANGUAGES_en);
         LANGUAGES.put("es", LANGUAGES_es);
-        LANGUAGES.put("gl", LANGUAGES_gl);
     
     }    
     

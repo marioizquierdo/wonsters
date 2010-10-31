@@ -53,10 +53,7 @@
 						<div class="room_price_and_buy_action"> 
 							<c:choose>
 							    <c:when test="${newRoom.garbageBuild == -1 }">
-							        <customtag:icon icon_id="19" size="s" style="margin-right: 5px"/>
-							        <span class="button_box disabled">
-                                        <fmt:message key="Lair.room.actions.buildNewRoom"/>
-                                    </span><br/>
+                                   <fmt:message key="Lair.room.ComingSoon"/><br/>
 							       <fmt:message key="Lair.room.Unavaliable"/>
 							    </c:when>
 							    <c:when test="${my.lair.garbage >= newRoom.garbageBuild}">

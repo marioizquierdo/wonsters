@@ -14,7 +14,7 @@
 			<fmt:message key="ErrorMessages.internalError.backToHomePage"/>
 		</html:link>
 		|
-		<html:link href="https://docs.google.com/document/edit?id=1wQagJKhoihZxBXfrh-0NuadZWkzQTwgGOIUhpO44_Sg">
+		<html:link href="mailto:wonsters-support@googlegroups.com">
 		<fmt:message key="FrontPage.info.bug" />
 		</html:link>
 		
