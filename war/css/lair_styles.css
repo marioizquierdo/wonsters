@@ -157,14 +157,14 @@ ul#newRooms .LoveWardrobeDetails                   { background-image: url(/imag
 }
 
 .buildingTable { margin-bottom: 18px; }
-.buildingTable tr td { height: 2.5em; border-left: 1px solid #9C7F53; border-right: 1px solid #BDA074; border-top: none; border-bottom: none; }
+.buildingTable tr td { height: 2.5em; /*border-left: 1px solid #9C7F53; border-right: 1px solid #BDA074;*/ border-top: none; border-bottom: none; }
 .buildingTable tr.myLair td { font-weight: bold; }
 .buildingTable tr.trContent td { color: black; }
 .buildingTable tr.trContent td a { color: black; }
-.buildingTable tr.trContent:hover td { background-color: #74603D; color: white; cursor: pointer; }
+.buildingTable tr.trContent:hover td { background-color: #9999cc; color: white; cursor: pointer; }
 .buildingTable tr.trContent:hover td a { color: white; }
-.buildingTable tr.even td { background-color: #9C7F53;}
-.buildingTable tr.odd td { background-color: #BDA074; }
+.buildingTable tr.even td { }
+.buildingTable tr.odd td { }
 
 
 /*** Building paginator ***/
