@@ -31,7 +31,7 @@
   <customtag:include_stylesheets root="/css" files="
   		reset_defaults, common_styles, tables, forms, in_game, menu,
   		lair_styles, monster_styles, window_tag_and_colors, 
-  		tipTip, smoothness/jquery-ui "/>
+  		tipTip"/>
   
   <!-- JavaScripts -->
   <customtag:include_javascripts root="/javascript" files="
