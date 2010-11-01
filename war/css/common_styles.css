@@ -126,9 +126,10 @@ div.more_actions_links a { margin: 0 5px; font-size: 14px;	}
 .cursor_help { cursor: help; }
 .cursor_pointer { cursor: pointer; }
 
-/*** From jQuery UI ***/
-.ui-corner-all { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
 
+/*** jQuery UI ***/
+.ui-corner-all { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
+.ui-effects-transfer { border: 2px solid #669; opacity: .25; filter:Alpha(Opacity=25); }
 
 /***** FlashMessages *******/
 

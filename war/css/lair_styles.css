@@ -79,15 +79,17 @@ ul#rooms li.room.Nursery.inWorks     			{ background-image: url(/images/building
 
 /*** Room details (roomAttributes) ***/
 
-#roomAttributes { margin-top: 10px; text-align: left; }
-.lairRoomBackground { background-color: white; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; }
-.roomAttributes_description { float: left; width: 600px; margin: 5px 50px 5px 10px; color: #667; }
-.roomAttributes_description .roomAttributes_brief { float: left; padding-left:20px; background: url(../images/theme/icons/godmonster.png) no-repeat 0 3px; }
-.roomAttributes_info,
-.roomAttributes_actions { margin-top: 0.6em; margin-left: 10px; float: left; }
-.roomAttributes_info { width: 200px; }
-.roomAttributes_actions { width: 400px; }
-span.attr { font-weight: bold; }
+#roomAttributes { text-align: left; }
+#roomAttributes .lairRoomBackground { background-color: white; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; }
+#roomAttributes .roomAttributes_description { float: left; width: 600px; margin: 5px 50px 5px 10px; color: #667; }
+#roomAttributes .roomAttributes_description .roomAttributes_brief { float: left; padding-left:20px; background: url('/images/theme/icons/godmonster.png') no-repeat 0 3px; }
+#roomAttributes .roomAttributes_info,
+#roomAttributes .roomAttributes_actions { margin-top: 0.6em; margin-left: 10px; float: left; }
+#roomAttributes .roomAttributes_info { width: 200px; }
+#roomAttributes .roomAttributes_actions { width: 400px; }
+#roomAttributes .roomAttributes_room { display: none; }
+#roomAttributes .roomAttributes_room#roomAttributes_MainMonster { display: block; }
+#roomAttributes span.attr { font-weight: bold; }
 
 
 /*** New Rooms Avaliable ***/

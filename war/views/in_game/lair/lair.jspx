@@ -75,13 +75,12 @@
 				    	</c:if>
 				    </li>
 				    <customtag:jquery_tag>
-				  		$('#room_${room.roomType}').tipTip({
+				  		$('#room_${room.roomType}').click(function() {
+							ThearsmonstersLib.showRoom('${room.roomType}');
+							
+						}).tipTip({
 							maxWidth: '200px',
 							fadeIn: 200
-						}).click(function() {
-							ThearsmonstersLib.showRoom('${room.roomType}');
-							/* Efecto jQuery UI transfer */
-		    				$("#room_${room.roomType}").effect("transfer", { to: $("#roomAttributes_hide") }, 1000);
 						});
 				  	</customtag:jquery_tag>
 				</c:forEach>
@@ -106,31 +105,21 @@
 </customtag:window>
 
 <!-- Detalles de las salas -->
-<!-- Inicialmente estan ocultos, despues se elige la sala a mostrar desde
-		Javascript a traves del id 'roomAttributes' -->
 <!-- Se cargan todos los datos de todas las salas, excepto las imagenes.
 	Asi se mejora la navegabilidad entre salas, ya que se trata de una
 	operacion de mostrar/ocultar a traves de JavaScript (no es Ajax) -->
-<div id="roomAttributes_hide" style="display:none">
-	<customtag:window id="roomAttributes">
-	    <c:forEach items="${lair.rooms}" var="room" varStatus="loop" >
-	    	<jsp:directive.include file="_room_attributes.jspf"/>
-		</c:forEach>
-	</customtag:window>
-	
-	<!-- Contenedor donde se cargan las tareas de la sala utilizando el script show_room_tasks.js, y
-	       tambien desde thearsmonsters_lib (funcion showRoom) -->
-	<div id="load_room_tasks_container"></div>
-</div>
+<customtag:window id="roomAttributes" title="Lair.room.MainMonster">
+    <c:forEach items="${lair.rooms}" var="room" varStatus="loop" >
+    	<jsp:directive.include file="_room_attributes.jspf"/>
+	</c:forEach>
+</customtag:window>
 
-<![CDATA[<script type='text/javascript'>$(function(){
-	
-	// Si hay una sala definida como parametro se muestra simulando un click sobre ella
+<customtag:jquery_tag>
+	/* Si hay una sala como parametro se muestra simulando un click sobre ella */
 	if("${param.showRoomType}") {
-		ThearsmonstersLib.showRoom('${param.showRoomType}');
-  	}
-  	
-});</script>]]>
+		ThearsmonstersLib.showRoom("${param.showRoomType}");
+  	};
+</customtag:jquery_tag>
 
 
 </jsp:root>

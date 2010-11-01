@@ -29,20 +29,15 @@ var ThearsmonstersLib = function() {
 		 * views/in_game/lair/lair.jspx (en eventos onClick y al final del archivo).
 		 */
 		showRoom: function(roomType) {
-			var wrapper_id = '#roomAttributes';
-
-			// Debe asegurarse de que se muestra la ventana oculta (porque esta ocultado al cargar la pagina)
-			$(wrapper_id+'_hide').show();
-			
 			// Oculta todas las ventanas
 			$('.roomAttributes_room').hide();
 			
 		    // Y depues muestra solo roomType
-			var room = $('#roomAttributes_'+roomType);
-		    room.show();
-		    room.attr('class', 'roomAttributes_room lairRoomBackground '+roomType+'_BIG');
-		    
+			$('#roomAttributes_'+roomType).show();
 		    $('#roomAttributes_title').text($('#roomAttributes_'+roomType+'_defineTitle').text());
+
+			/* Efecto jQuery UI transfer */
+			$("#room_"+roomType).effect("transfer", { to: $("#roomAttributes_"+roomType) }, 500);
 		    
 		    return false;
 		},

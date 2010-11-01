@@ -1,5 +1,5 @@
 <!-- The RoomType_BIG.jpg image is loaded from Javascript (ThearsmonstersLib.showRoom function) -->
-<div id="roomAttributes_${room.roomType}" class="roomAttributes_room">
+<div id="roomAttributes_${room.roomType}" class="roomAttributes_room lairRoomBackground ${room.roomType}_BIG">
 
 	<!-- _defineTitle Is used as variable for assign dinamicaly the title from javascript,
 		(readed using jQuery each time ThearsmonstersLib.showRoom function is called) -->
@@ -13,15 +13,12 @@
 	<!-- Room description. If room level is less than 2 show the long description given by god monster.
 	     Else, show only a short brief x1-->
 	<div class="roomAttributes_description">
-	   <c:choose> 
-	       <c:when test="${room.level < 2}">
-		      <div class="roomAttributes_brief">
-		          <fmt:message key="Lair.room.${room.roomType}.description" />
-		      </div>
-		   </c:when>
-		   <c:otherwise>
-		      <fmt:message key="Lair.room.${room.roomType}.brief" />
-           </c:otherwise>
+		<c:choose><c:when test="${room.level < 2}">
+			<div class="roomAttributes_brief">
+			    <fmt:message key="Lair.room.${room.roomType}.description" />
+			</div></c:when>
+		<c:otherwise>
+		    <fmt:message key="Lair.room.${room.roomType}.brief" /></c:otherwise>
 	   </c:choose>
 	</div>
 	
