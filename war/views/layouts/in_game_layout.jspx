@@ -35,7 +35,7 @@
   
   <!-- JavaScripts -->
   <customtag:include_javascripts root="/javascript" files="
-  		lib/jquery, lib/jquery-ui, lib/jquery.tipTip, lib/thearsmonsters_lib,
+  		lib/jquery, lib/jquery-ui-custom, lib/jquery.tipTip, lib/thearsmonsters_lib,
   		in_game_layout "/>
 
 </head>

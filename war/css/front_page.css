@@ -1,24 +1,36 @@
-
 /***** FRONT PAGE STYLES *****/
 
-#frontPage #background_header {
-	height: 300px;
-	width: 100%;
-	background: #eee url('/images/theme/frontPage/background_header.jpg')
-		repeat-x top left;
+/*** Layout ***/
+
+body#frontPage {
+	background: #eee url('/images/theme/frontPage/background_repeat.jpg') repeat 0 300px;
 }
 
-#frontPage {
-	background: #eee url('/images/theme/frontPage/background_repeat.jpg')
-		repeat 0px 300px;
+#container_for_background {
+	background: #eee url('/images/theme/frontPage/background_header.jpg') repeat-x left top;
+	float: left; display: inline;
+	width: 100%; height: 300px;
+}
+
+#body_wrapper {
+  width: 770px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body_full_block,
+#frontPageWindow {
+  float: left; display: inline;
+  width: 770px;
+  margin: 0;
+  padding: 0;
 }
 
 #monsters_logo_wrapper {
 	float: left;
 	width: 770px;
 	height: 250px;
-	background: url('/images/thearsmonsters_logo.png') no-repeat center
-		center;
+	background: url('/images/thearsmonsters_logo.png') no-repeat center center;
 }
 
 #monsters_logo {
@@ -29,40 +41,28 @@
 	left: -236px;
 }
 
-#frontPageWindow {
-	float: left;
-}
-
+#frontPageWindow { float: left; display: inline; }
 #frontPageWindow_content {
 	padding-bottom: 10px;
 	background: white url('/images/theme/table2_th_fade.jpg') repeat-x bottom left;
 }
 
-#playNowForFree_button {
-	float: left;
-	width: 200px;
-	height: 22px;
-	margin: 20px 274px; /* width exacto para que quede centrado en un container de 760px */
+#footer {
+	margin-top: 20px;
+	text-align: center;
 }
 
-#playNowForFree_button a {
-	float: left; display: inline;
-	width: 100%; height: 100%;
-	margin: 0; padding: 0;
-	line-height: 20px;
-	font-size: 14px;
-}
 
 
 /*** Login Panel (top) ***/
 
-#loginPanel { float: left; width: 770px; padding: 0; }
+#loginPanel { text-align: center; }
 #loginPanel div.rounded_window { margin-bottom: 0; }
 #loginPanel .atMiddle {
 	float: left;
 	background: #447 url('/images/theme/frontPage/login_panel_background.png') repeat-x bottom left;
 	padding: 12px 0 0 0;
-	width: 768px; /* 770 with borders */
+	width: 768px; /* 770 minus borders */
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 	font-size: 14px;
@@ -73,16 +73,9 @@
 #loginPanel .bm { background: #114 url(/images/theme/frontPage/login_panel_background_bottom.png) repeat-x bottom left;}
 #loginPanel .bl { background: transparent url(/images/theme/frontPage/login_panel_background_bottom_left.png); }
 #loginPanel .br { background: transparent url(/images/theme/frontPage/login_panel_background_bottom_right.png); }
-#loginPanel input#login{
-    margin: 0 5px 0 8px;
-}
-#loginPanel input#password{
-    margin: 0 5px 0 8px;
-}
-#loginPanel input#remember{
-    margin: 0 2px 1px 0;
-    vertical-align:middle;
-}
+#loginPanel input#login{ margin: 0 5px 0 8px; }
+#loginPanel input#password{ margin: 0 5px 0 8px; }
+#loginPanel input#remember{ margin: 0 2px 1px 0; vertical-align: middle; }
 #loginPanel .loginErrors {
 	border: 1px solid black;
 	background: white url(/images/theme/windows/red/header_repeat-x.png) repeat-x 0 -27px;
@@ -96,6 +89,23 @@
 #loginWelcome .message { margin: 0 5px 0 0; }
 
 
+/**** Game presentations ****/
+
+#playNowForFree_button {
+	float: left;
+	width: 200px;
+	height: 22px;
+	margin: 20px 274px; /* width exacto para que quede centrado en un container de 760px */
+	text-align: center;
+}
+
+#playNowForFree_button a {
+	float: left; display: inline;
+	width: 100%; height: 100%;
+	margin: 0; padding: 0;
+	line-height: 20px;
+	font-size: 14px;
+}
 
 /**** Credits ****/
 

@@ -9,12 +9,12 @@ body {
 #inGame #background_header {
 	height: 300px;
 	width: 100%;
-	background: #eee url(../images/theme/background_inGame_header.jpg)
+	background: #eee url(/images/theme/background_inGame_header.jpg)
 		repeat-x top left;
 }
 
 #inGame {
-	background: #eee url(../images/theme/background_inGame_repeat.jpg)
+	background: #eee url(/images/theme/background_inGame_repeat.jpg)
 		repeat 0 300px;
 }
 

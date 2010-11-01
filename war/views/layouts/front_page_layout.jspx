@@ -26,7 +26,7 @@
 	<link rel="icon" href="/favicon.ico" />
 	
 	<title>
-		<fmt:message key="Thearsmonsters" /><c:out value=" - " /><fmt:message key="${title}" />
+		<fmt:message key="Thearsmonsters" />&#160;-&#160;<fmt:message key="${title}" />
 	</title>
 	
 	<!-- Stylesheets -->
@@ -38,13 +38,13 @@
 	<customtag:include_javascripts root="/javascript" files="
 	  		lib/jquery, lib/jquery.tipTip, lib/thearsmonsters_lib" />
 	
-	<c:set var="Unsupported"><fmt:message key="FrontPage.unsupportedBrowser" /></c:set>
-	<c:set var="Continue"><fmt:message key="FrontPage.unsupportedBrowser.continue" /></c:set>
+	<c:set var="unsupported_ie6_message"><fmt:message key="FrontPage.unsupportedBrowser" /></c:set>
+	<c:set var="unsupported_ie6_continue"><fmt:message key="FrontPage.unsupportedBrowser.continue" /></c:set>
 	<![CDATA[
 	  <!--[if lt IE 7]>
 	    <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>
 	    <script type="text/javascript">jQuery(function($) {
-	         $.warnIE6("${Unsupported}","${Continue}");
+	         $.warnIE6("${unsupported_ie6_message}","${unsupported_ie6_continue}");
 	    });</script>
 	    <![endif]-->
 	  ]]>
@@ -53,101 +53,104 @@
 
 <!-- Start of HTML body. -->
 <body id="frontPage">
+<div id="container_for_background">
 
-<div id="background_header">
-<div id="messages_for_jreject" style="display: none;"><span
-	id="messages_for_jreject_header"><fmt:message
-	key="JReject.header" /></span> <span id="messages_for_jreject_paragraph1"><fmt:message
-	key="JReject.paragraph1" /></span> <span id="messages_for_jreject_paragraph2"><fmt:message
-	key="JReject.paragraph2" /></span></div>
+<div id="body_wrapper" class="${color}_window">
 
-<div id="window" class="${color}_window"><!-- Login Panel. -->
-<div id="loginPanel" class="${color}_window">
-<div class="rounded_window">
-<div class="atMiddle"><c:choose>
-	<c:when test="${not empty my.lair}">
-		<!-- Cuando el usuario esta logeado pero entra igual en la portada -->
-		<div id="loginWelcome"><span class="message"><fmt:message
-			key="FrontPage.loginWelcome.welcomeUser">
-			<fmt:param value="${my.login}" />
-		</fmt:message></span> <a href="/lair.do"><fmt:message
-			key="FrontPage.loginWelcome.goToLair" /></a><c:out value=" - " /> <c:set
-			var="frontPageLogoutDesc">
-			<fmt:message key="FrontPage.loginWelcome.logout.desc" />
-		</c:set> <a href="/userprofile/logout.do" title="${frontPageLogoutDesc}"><fmt:message
-			key="FrontPage.loginWelcome.logout" /></a></div>
-	</c:when>
-	<c:otherwise>
-		<!-- content -->
-		<html:form action="userprofile/login.do" focus="login">
-			<c:set var="loginErr"><customtag:form_error property="login" suffix="LoginError"/></c:set>
-			<c:set var="passwordErr"><customtag:form_error property="password" suffix="LoginError"/></c:set>
-			<c:if test="${not empty loginErr or not empty passwordErr}">
-				<div class="loginErrors" style="display: none;">
-					<c:if test="${not empty loginErr}"><span class="loginError"><fmt:message key="AuthenticationContent.user"/>: ${loginErr}</span></c:if> 
-					<c:if test="${not empty passwordErr}"><span class="loginError"><fmt:message key="AuthenticationContent.pass"/>: ${passwordErr}</span></c:if>
-				</div>
-				<customtag:jquery_tag>
-                	$('#login').focus(); // give focus in the login form
-                	$('.loginErrors').slideDown('slow'); // effect to show login errors if any
-                </customtag:jquery_tag>
-			</c:if>
+	<!-- Login Panel -->
+	<div id="loginPanel" class="body_full_block">
+		<div class="rounded_window">
+		<div class="atMiddle"><c:choose>
+			<c:when test="${not empty my.lair}">
+				<!-- Cuando el usuario esta logeado pero entra igual en la portada -->
+				<div id="loginWelcome"><span class="message"><fmt:message
+					key="FrontPage.loginWelcome.welcomeUser">
+					<fmt:param value="${my.login}" />
+				</fmt:message></span> <a href="/lair.do"><fmt:message
+					key="FrontPage.loginWelcome.goToLair" /></a><c:out value=" - " /> <c:set
+					var="frontPageLogoutDesc">
+					<fmt:message key="FrontPage.loginWelcome.logout.desc" />
+				</c:set> <a href="/userprofile/logout.do" title="${frontPageLogoutDesc}"><fmt:message
+					key="FrontPage.loginWelcome.logout" /></a></div></c:when>
+					
+			<c:otherwise>
+			
+				<!-- Login Form -->
+				<html:form action="/userprofile/login.do" focus="login">
+					<c:set var="loginErr"><customtag:form_error property="login" suffix="LoginError"/></c:set>
+					<c:set var="passwordErr"><customtag:form_error property="password" suffix="LoginError"/></c:set>
+					<c:if test="${not empty loginErr or not empty passwordErr}">
+						<div class="loginErrors" style="display: none;">
+							<c:if test="${not empty loginErr}"><span class="loginError"><fmt:message key="AuthenticationContent.user"/>: ${loginErr}</span></c:if> 
+							<c:if test="${not empty passwordErr}"><span class="loginError"><fmt:message key="AuthenticationContent.pass"/>: ${passwordErr}</span></c:if>
+						</div>
+						<customtag:jquery_tag>
+		                	$('#login').focus(); // give focus in the login form
+		                	$('.loginErrors').slideDown('slow'); // effect to show login errors if any
+		                </customtag:jquery_tag>
+					</c:if>
+		
+					<span class="loginBlock"> <label for="login">
+						<fmt:message key="AuthenticationContent.user"/></label> 
+						<html:text property="login" size="12" maxlength="30" styleId="login"/> </span>
+						
+					<span class="loginBlock"> <label for="password">
+						<fmt:message key="AuthenticationContent.pass"/></label> 
+						<html:password property="password" size="12" maxlength="8" styleId="password"/> </span>
+						
+					<span class="loginBlock"> 
+						<html:checkbox property="rememberMyPassword" styleId="remember" /> 
+						<label for="remember">
+						<fmt:message key="AuthenticationContent.rememberMyPassword"/></label> </span>
+						
+					<span class="button"> <html:submit>
+						<fmt:message key="Buttons.login"/></html:submit> 
+					</span>
+				</html:form>
+			</c:otherwise>
+		</c:choose>
+		</div>
+		
+		<!-- Window Bottom: Builded with the same structure of customtag:window -->
+		<div class="atBottom" style="float: left; width: 770px">
+			<div class="bl" style="float: left"><img src="/images/theme/empty_pixel.png" /></div>
+			<div class="bm" style="float: left; width: 760px"><img src="/images/theme/empty_pixel.png" /></div>
+			<div class="br" style="float: left"><img src="/images/theme/empty_pixel.png" /></div>
+		</div>
+		</div>
+	</div>
+	
+	
+	<!-- Logo and monsters illustration -->
+	<div id="monsters_logo_wrapper" class="body_full_block">
+		<div id="monsters_logo"><img src="/images/theme/empty_pixel.png" /></div>
+	</div>
+	
+	
+	<!-- Info Panel (bottom). -->
+	<customtag:window id="frontPageWindow"
+		selected_tag="${frontPageWindow_selected_tag}"
+		tags="
+						start: FrontPage.startTag => welcome.do,
+						screenshots: FrontPage.screenshots => screenshots.do,
+						concept_art: FrontPage.conceptArt => concept_art.do,
+						credits: FrontPage.credits => credits.do, 
+						register: FrontPage.registerTag => userprofile/register.do?action=REGISTER">
+		<customtag:window_content for_tag="${frontPageWindow_selected_tag}">
+			<tiles:get name="content" />
+		</customtag:window_content>
+	</customtag:window>
+	
+	
+	<!-- Foother. -->
+	<div id="footer" class="body_full_block">
+		<tiles:get name="footer" />
+	</div>
 
-			<span class="loginBlock"> <label for="login">
-				<fmt:message key="AuthenticationContent.user"/></label> 
-				<html:text property="login" size="12" maxlength="30" styleId="login"/> </span>
-				
-			<span class="loginBlock"> <label for="password">
-				<fmt:message key="AuthenticationContent.pass"/></label> 
-				<html:password property="password" size="12" maxlength="8" styleId="password"/> </span>
-				
-			<span class="loginBlock"> 
-				<html:checkbox property="rememberMyPassword" styleId="remember" /> 
-				<label for="remember">
-				<fmt:message key="AuthenticationContent.rememberMyPassword"/></label> </span>
-				
-			<span class="button"> <html:submit>
-				<fmt:message key="Buttons.login"/></html:submit> 
-			</span>
-		</html:form>
-	</c:otherwise>
-</c:choose>
+
 </div>
 
-<!-- Window Bottom: Builded with the same structure than customtag:window -->
-<div class="atBottom" style="float: left; width: 770px">
-<div class="bl" style="float: left"><img
-	src="/images/theme/empty_pixel.png" /></div>
-<div class="bm" style="float: left; width: 760px"><img
-	src="/images/theme/empty_pixel.png" /></div>
-<div class="br" style="float: left"><img
-	src="/images/theme/empty_pixel.png" /></div>
 </div>
-</div>
-</div>
-
-<!-- Logo and monsters illustration -->
-<div id="monsters_logo_wrapper">
-<div id="monsters_logo"><img src="/images/theme/empty_pixel.png" /></div>
-</div>
-
-<!-- Info Panel (bottom). --> <customtag:window id="frontPageWindow"
-	selected_tag="${frontPageWindow_selected_tag}"
-	tags="
-					start: FrontPage.startTag => welcome.do,
-					screenshots: FrontPage.screenshots => screenshots.do,
-					concept_art: FrontPage.conceptArt => concept_art.do,
-					credits: FrontPage.credits => credits.do, 
-					register: FrontPage.registerTag => userprofile/register.do?action=REGISTER">
-	<tiles:get name="content" />
-</customtag:window> <!-- Body footer. -->
-<div id="footer"><tiles:get name="footer" /></div>
-
-
-</div>
-<!--/window--></div>
 </body>
-
-<!-- End of HTML. -->
 
 </html:html>
