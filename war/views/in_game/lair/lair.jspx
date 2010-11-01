@@ -80,6 +80,8 @@
 							fadeIn: 200
 						}).click(function() {
 							ThearsmonstersLib.showRoom('${room.roomType}');
+							/* Efecto jQuery UI transfer */
+		    				$("#room_${room.roomType}").effect("transfer", { to: $("#roomAttributes_hide") }, 1000);
 						});
 				  	</customtag:jquery_tag>
 				</c:forEach>

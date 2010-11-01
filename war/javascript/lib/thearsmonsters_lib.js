@@ -37,7 +37,7 @@ var ThearsmonstersLib = function() {
 			// Oculta todas las ventanas
 			$('.roomAttributes_room').hide();
 			
-		    // Ydepues muestra solo roomNumber
+		    // Y depues muestra solo roomType
 			var room = $('#roomAttributes_'+roomType);
 		    room.show();
 		    room.attr('class', 'roomAttributes_room lairRoomBackground '+roomType+'_BIG');
