@@ -49,7 +49,7 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
 
         if (room.setStateCancelWorks()) { // Check and start works
 
-            lair.setGarbage(lair.getGarbage() + room.getGarbageUpgrade()); // spend garbage
+            lair.setGarbage(lair.getGarbage() + room.getGarbageReturnedWhenCancelWorks()); // spend garbage
             // lairDao.update(lair); // save lair
             // roomDao.update(room); // save room
             userDao.update(lair.getUser());

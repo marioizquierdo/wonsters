@@ -119,6 +119,12 @@
 	if("${param.showRoomType}") {
 		ThearsmonstersLib.showRoom("${param.showRoomType}");
   	};
+  	
+	/* Aplicar TipTip a los enlaces de acciones de las salas */
+	$('span.data_value a[title]').tipTip({
+		maxWidth: '200px',
+		fadeIn: 200
+	});
 </customtag:jquery_tag>
 
 

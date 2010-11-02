@@ -90,9 +90,9 @@
 			<c:choose><c:when test="${room.inWorks}">
 				<c:if test="${!room.inInitialState}">		
 						<customtag:roomAction icon_id="19" action="lair/room/change_in_works_state.do?action=CANCEL_WORKS&roomType=${room.roomType}"
-								messageKey="Lair.room.actions.cancelWorks">
+								messageKey="Lair.room.actions.cancelWorks" titleKey="Lair.room.actions.cancelWorks.info">
 							(<fmt:message key="Common.getBack"> 
-								<fmt:param><customtag:show_unit value="${room.garbageUpgrade}" units="garbage" /></fmt:param>
+								<fmt:param><customtag:show_unit value="${room.garbageReturnedWhenCancelWorks}" units="garbage" titleKey="Lair.room.actions.cancelWorks.info" /></fmt:param>
 							</fmt:message>)
 						</customtag:roomAction>
 				</c:if></c:when>

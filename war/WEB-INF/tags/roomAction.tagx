@@ -11,13 +11,20 @@
   
   <jsp:directive.attribute name="action" required="true"
   		description="Accion Struts del enlace"/>
-  
-  <jsp:directive.attribute name="messageKey"
-  		description="Texto que se muestra en la accion"/>
   		
   <jsp:directive.attribute name="message"
   		description="Texto que se muestra en la tal cual (tiene que estar ya internacionalizado)"/>
-  <c:if test="${empty message}"><c:set var="message"><fmt:message key="${messageKey}" /></c:set></c:if>
+  
+  <jsp:directive.attribute name="messageKey"
+  		description="Texto que se muestra en la accion"/>
+  <c:if test="${not empty messageKey}"><c:set var="message"><fmt:message key="${messageKey}" /></c:set></c:if>
+  		
+  <jsp:directive.attribute name="title"
+  		description="Texto que se muestra en la tal cual (tiene que estar ya internacionalizado)"/>
+  
+  <jsp:directive.attribute name="titleKey"
+  		description="Texto que se muestra en la accion"/>
+  <c:if test="${not empty titleKey}"><c:set var="title"><fmt:message key="${titleKey}" /></c:set></c:if>
             
   <jsp:directive.attribute name="icon_id" required="true"
         description="Numero identificador del icono. Lo asocia con su imagen correspondiente"/>
@@ -28,7 +35,7 @@
 	<li class="data_row ${cssClass}">
 		<customtag:icon icon_id="${icon_id}"/>
 		<span class="data_value">
-			<html:link action="${action}">
+			<html:link action="${action}" title="${title}">
 				<c:out value="${message}" />
 			</html:link>
 			<jsp:doBody/>

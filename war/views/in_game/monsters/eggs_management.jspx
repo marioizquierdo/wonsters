@@ -85,7 +85,7 @@
 							<html:link action="monster/egg/sell.do?eggId=${egg.id}">
 						    	<fmt:message key="Buttons.sell"/>
 							</html:link>
-							(<fmt:message key="Common.getBack">
+							(<fmt:message key="Common.for">
 								<fmt:param><customtag:show_unit value="${egg.race.sellEggPrice}" units="money"/></fmt:param>
 							</fmt:message>)
 						</li>

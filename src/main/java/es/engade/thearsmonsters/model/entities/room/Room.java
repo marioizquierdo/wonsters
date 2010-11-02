@@ -235,10 +235,16 @@ public class Room extends ThearsmonstersEntity implements Serializable {
 	 */
 	public int getEffortUpgradeWhenLevel(int level) {
 		if(level<1 || (getMaxLevel() >= 0 && level >= getMaxLevel())) return -1;
-		return Format.roundValue(type.getEffortUpgrade(level));
-		
+		return Format.roundValue(type.getEffortUpgrade(level));	
 	}
-	
+	/**
+	 * If this room is in works, returns the amount of garbage returned to the player
+	 * when cancel the in-works state. Which is the 90 percent of the garbage upgrade.
+	 */
+	public int getGarbageReturnedWhenCancelWorks() {
+		return (int) (getGarbageUpgrade() * 0.9); // 0.9 es el 90% que devuelven, debido al coste del 10% sobre el total al cancelar las obras
+	}
+		
 	/**
 	 * Weather this room type may be published (true) or not (false)
 	 */
