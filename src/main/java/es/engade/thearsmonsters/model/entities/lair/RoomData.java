@@ -25,7 +25,7 @@ public class RoomData implements Serializable {
 
     private int vitalSpaceOccupied;
     
-    public RoomData(Date lastChangeResourcesDate, int vitalSpaceOccupied) {
+    public RoomData(int vitalSpaceOccupied) {
         this.vitalSpaceOccupied = vitalSpaceOccupied;
     }
     
@@ -33,7 +33,7 @@ public class RoomData implements Serializable {
      * Constructor with default values (when the lair is first time created for a new user).
      */
     public RoomData() {
-    	this(DateTools.yesterday(), 0);
+    	this(0);
     }
 	
 
@@ -83,14 +83,20 @@ public class RoomData implements Serializable {
 	 * Max amount of money that this lair can store.
 	 */
 	public int getMoneyStorageCapacity(Lair lair) {
-		return getMoneyStorageCapacityByLevel(getTradeOffice(lair));
+		Room tradeOffice = getTradeOffice(lair);
+		return getMoneyStorageCapacityByLevel(lair, (tradeOffice == null) ? 0 : tradeOffice.getLevel());
 	}
 	
-	private int getMoneyStorageCapacityByLevel(Room tradeOffice) {
-		if(tradeOffice == null || tradeOffice.getLevel() <= 0) {
-			return 0; // While there is no tradeOffice, no money can be stored
+	public int getMoneyStorageCapacityByLevel(Lair lair, int tradeOfficeLevel) {
+		Room tradeOffice = getTradeOffice(lair);
+		if((tradeOffice == null) || tradeOfficeLevel <= 0) {
+			return 0; // While there is no warehouse, no garbage can be stored
 		} else {
-			return tradeOffice.getGarbageUpgrade() * 2; // need always to be more than garbageUpgrade
+			switch(tradeOfficeLevel) {
+				case 1: return 50;
+				case 2: return 150;
+				default: return tradeOffice.getGarbageUpgradeWhenLevel(tradeOfficeLevel) * 2; // need always to be more than garbageUpgrade
+			}
 		}
 	}
 	
@@ -99,25 +105,27 @@ public class RoomData implements Serializable {
 	 * depends on the level of the trade Office.
 	 */
 	public int getPercentageCommision(Lair lair) {
-		return getPercentageCommisionByLevel(getTradeOffice(lair)); 
+		Room tradeOffice = getTradeOffice(lair);
+		return getPercentageCommisionByLevel(lair, (tradeOffice == null) ? 0 : tradeOffice.getLevel());
 	}
 	
 	/**
 	 * Percentage commission for each level of the TradeOffice.
 	 */
-	private int getPercentageCommisionByLevel(Room tradeOffice) {
+	public int getPercentageCommisionByLevel(Lair lair, int tradeOfficeLevel) {
+		Room tradeOffice = getTradeOffice(lair);
 		if(tradeOffice == null) return 100;
-		switch (tradeOffice.getLevel()) {
-		case 1: return 50;
-		case 2: return 45;
-		case 3: return 35;
-		case 4: return 30;
-		case 5: return 25;
-		case 6: return 20;
-		case 7: return 15;
-		case 8: return 10;
-		case 9: return 5;
-		default: return 1;
+		switch (tradeOfficeLevel) {
+			case 1: return 50;
+			case 2: return 45;
+			case 3: return 35;
+			case 4: return 30;
+			case 5: return 25;
+			case 6: return 20;
+			case 7: return 15;
+			case 8: return 10;
+			case 9: return 5;
+			default: return 1;
 		}
 	}
 	
@@ -133,19 +141,19 @@ public class RoomData implements Serializable {
 	 * Depends on the Warehouse level.
 	 */
 	public int getGarbageStorageCapacity(Lair lair) {
-		return getGarbageStorageCapacityByLevel(getWarehouse(lair));
+		Room warehouse = getWarehouse(lair);
+		return getGarbageStorageCapacityByLevel(lair, (warehouse == null) ? 0 : warehouse.getLevel());
 	}
-	
-	private int getGarbageStorageCapacityByLevel(Room warehouse) {
-		if(warehouse == null || warehouse.getLevel() <= 0) {
+	public int getGarbageStorageCapacityByLevel(Lair lair, int warehouseLevel) {
+		Room warehouse = getWarehouse(lair);
+		if((warehouse == null) || warehouseLevel <= 0) {
 			return 0; // While there is no warehouse, no garbage can be stored
 		} else {
-			switch(warehouse.getLevel()) {
+			switch(warehouseLevel) {
 				case 1: return 50;
-				case 2: return 200;
-				default: return warehouse.getGarbageUpgrade() * 10; // need always to be more than garbageUpgrade
+				case 2: return 150;
+				default: return warehouse.getGarbageUpgradeWhenLevel(warehouseLevel) * 6; // need always to be more than garbageUpgrade
 			}
-			
 		}
 	}
 	

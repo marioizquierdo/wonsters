@@ -262,8 +262,23 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 	public int getChangeResourcesMaxGarbageAmountEnabled() { return roomData.getChangeResourcesMaxGarbageAmountEnabled(this); }
 	public int getChangeResourcesMaxMoneyAmountEnabled() { return roomData.getChangeResourcesMaxMoneyAmountEnabled(this); }
 	public int getMoneyStorageCapacity() { return roomData.getMoneyStorageCapacity(this); }
+	public int getMoneyStorageCapacityWhenNextLevelTradeOffice() { 
+		Room tradeOffice = this.getRoom(RoomType.TradeOffice);
+		int nextLevel = (tradeOffice == null) ? 1 : tradeOffice.getLevel() + 1;
+		return roomData.getMoneyStorageCapacityByLevel(this, nextLevel); 
+	}
 	public int getPercentageCommision() { return roomData.getPercentageCommision(this); }
+	public int getPercentageCommisionWhenNextLevelTradeOffice() { 
+		Room tradeOffice = this.getRoom(RoomType.TradeOffice);
+		int nextLevel = (tradeOffice == null) ? 1 : tradeOffice.getLevel() + 1;
+		return roomData.getPercentageCommisionByLevel(this, nextLevel);
+	}
 	public int getGarbageStorageCapacity() { return roomData.getGarbageStorageCapacity(this); }
+	public int getGarbageStorageCapacityWhenNextLevelWarehouse() { 
+		Room warehouse = this.getRoom(RoomType.Warehouse);
+		int nextLevel = (warehouse == null) ? 1 : warehouse.getLevel() + 1;
+		return roomData.getGarbageStorageCapacityByLevel(this, nextLevel); 
+	}
 	public RoomData getRoomData() { return roomData; }
 	public void setRoomData(RoomData roomData) { this.roomData = roomData; }
 	

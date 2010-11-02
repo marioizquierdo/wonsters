@@ -244,7 +244,7 @@ public class FactoryData {
         Lair lair = new Lair(user,
             0, // money 
             0, // garbage
-            new RoomData(DateTools.yesterday(), 0), // lastChangeResourcesDate and occupied vital space
+            new RoomData(), // occupied vital space
             0,0,0); // geographical position
     
         user.setLair(lair); // add to user
@@ -299,7 +299,7 @@ public class FactoryData {
         Lair lair = new Lair(user,
             10000, // money 
             50000, // garbage
-            new RoomData(DateTools.yesterday(), 100), // lastChangeResourcesTurn, occupied vital space
+            new RoomData(100), // occupied vital space
             getRandStreet(), getRandBuilding(), getRandFloor()); // geographical position. Se puede cambiar despues con newLair.setAddress(lairDao.findNextFreeAddress()).
     
         user.setLair(lair); // add to user
@@ -375,7 +375,7 @@ public class FactoryData {
         Lair lair = new Lair(user,
             1000, // money 
             500, // garbage
-            new RoomData(DateTools.yesterday(), 10), // lastChangeResourcesTurn and occupied vital space
+            new RoomData(10), // lastChangeResourcesTurn and occupied vital space
             getRandStreet(), getRandBuilding(), getRandFloor()); // geographical position. Se puede cambiar despues con newLair.setAddress(lairDao.findNextFreeAddress()).
     
         user.setLair(lair); // add to user
