@@ -123,6 +123,7 @@
 	/* Aplicar TipTip a los enlaces de acciones de las salas */
 	$('span.data_value a[title]').tipTip({
 		maxWidth: '200px',
+		edgeOffset: 10,
 		fadeIn: 200
 	});
 </customtag:jquery_tag>

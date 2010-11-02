@@ -248,7 +248,7 @@ public class Room extends ThearsmonstersEntity implements Serializable {
 	/**
 	 * Weather this room type may be published (true) or not (false)
 	 */
-	public boolean isPublicable() {return this.getRoomType().isPublicable();}
+	public boolean isPublicable() { return this.getLevel() > 0 && this.getRoomType().isPublicable(); }
 	
 	/**
 	 * Max size allowed for this room type
