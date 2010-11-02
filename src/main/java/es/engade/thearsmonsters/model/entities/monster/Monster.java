@@ -172,10 +172,16 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	
 	//Calcula la hora en la que tendremos el proximo turno libre
 	public long getNextTurnTime() {
-		int minutesPerDay = 24*60;
-		int minutesForEachTurn = minutesPerDay / GameConf.getTurnsPerDay();
-		Date dateWhenZeroTurns = DateTools.new_byMinutesFrom(freeTurnsTimestamp, - (freeTurns * minutesForEachTurn));
-		return DateTools.new_byMinutesFrom(dateWhenZeroTurns, (getFreeTurns() + 1) * minutesForEachTurn).getTime();
+		long millisPerDay = 24*60*60*1000;
+		long millisPerTurn = millisPerDay / GameConf.getTurnsPerDay();
+		int numberOfTurns = (int)Math.ceil((Double.valueOf(DateTools.now().getTime() - this.getBorningDate().getTime()) / millisPerTurn));
+		long nextTurnTime = this.getBorningDate().getTime() + numberOfTurns * millisPerTurn;
+		return nextTurnTime;
+		
+//		int minutesPerDay = 24*60;
+//		int minutesPerTurn = minutesPerDay / GameConf.getTurnsPerDay();
+//		Date dateWhenZeroTurns = DateTools.new_byMinutesFrom(freeTurnsTimestamp, - (freeTurns * minutesPerTurn));
+//		return DateTools.new_byMinutesFrom(dateWhenZeroTurns, (getFreeTurns() + 1) * minutesPerTurn).getTime();
 	}
 	
 	/**
@@ -390,9 +396,12 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		if(timestamp.before(freeTurnsTimestamp)) {
 			throw new IllegalArgumentException("the value of the param timestamp can not be before freeTurnsTimestamp");
 		}
-		
+
+		long millisPerDay = 24*60*60*1000;
+		long millisPerTurn = millisPerDay / GameConf.getTurnsPerDay();
+		int numberOfTurns = (int)Math.floor((Double.valueOf(DateTools.now().getTime() - this.getBorningDate().getTime()) / millisPerTurn));
 		freeTurns = getFreeTurns(timestamp); // turnos libres que hay en ese momento.
-		freeTurnsTimestamp = timestamp;
+		freeTurnsTimestamp = new Date(this.getBorningDate().getTime() + numberOfTurns * millisPerTurn);
 	}
 	
 	/**
