@@ -34,8 +34,9 @@
   
   <c:choose><c:when test="${monster.age == 'Child'}">
   	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenChild" icon_id="12" /></c:when>
-  <c:when test="${monster.age == 'Adult'}">
-  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult" icon_id="12" /></c:when>
+  <c:when test="${monster.age == 'Adult' and empty my.lair.room['Warehouse']}">
+  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult" icon_id="12" />
+  	<customtag:info_message icon_id="10"><html:link action="/lair/rooms/ready_to_build.do">Ir al panel de construccion</html:link></customtag:info_message></c:when>
   <c:when test="${monster.age == 'Old'}">
   	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenOld" icon_id="12" /></c:when>
   </c:choose>

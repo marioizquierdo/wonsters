@@ -426,8 +426,7 @@ public enum MonsterActionType {
 	 * para ofrecer una sugerencia de realización de tarea al jugador.
 	 * Aunque este método se puede sobreescibir en cada MonsterActionType, se ha dividido
 	 * cada valor del objeto MonsterActionSuggestion en un método plantilla único, así
-	 * se pueden sobreescribir solo los datos necesarios, simplificando el resultado.
-	 * Todos los métodos plantilla reciben el monstruo, sala y guarida como parámetro por si lo necesitan.
+	 * se pueden sobreescribir solo los datos necesarios, simplificando el código.
 	 */
 	public MonsterActionSuggestion getSuggestion(MonsterAction action) {
 		return new MonsterActionSuggestion(
@@ -607,7 +606,7 @@ public enum MonsterActionType {
 	 */
 	public boolean execute(MonsterAction action) {
 		Monster monster = action.getMonster();
-		if (isValid(action) && monster.isFreeTurnsAvailable()) { // tambien se comprueba qu el  monstruo tiene al menos un turno libre.
+		if (isValid(action) && monster.isFreeTurnsAvailable()) { // tambien se comprueba que el  monstruo tiene al menos un turno libre.
 			monster.useFreeTurn();
 			doExecute(action);
 			return true;
