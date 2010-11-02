@@ -1,0 +1,31 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+		  xmlns:html="http://struts.apache.org/tags-html"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    	  xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+          version="2.0">
+	
+<customtag:window id="PublicableRoomNotImplemented" title="Lair.room.actions.publishRoom.title">
+	<div id="not_implemented_page_image_wrapper">
+        <img src="images/conceptart/thearsmonsters_artwork_1.jpg" width="600" height="370" class="ui-corner-all"/>
+    </div>
+	<p class="info_slot">
+		<fmt:message key="NotImplementedPage.apologize"/>
+	</p>
+	
+	<customtag:info_message titleKey="PublicableRoom.not_implemented.info.title" icon_id="12">
+		<p><fmt:message key="PublicableRoom.not_implemented.info.desc"/></p>
+	</customtag:info_message>
+		
+		
+	<customtag:info_message titleKey="PublicableRoom.not_implemented.info2.title" icon_id="12">
+		<p><fmt:message key="PublicableRoom.not_implemented.info2.desc"/></p>
+	</customtag:info_message>
+		
+	<div class="more_actions_links">		
+		<html:link action="/lair.do">
+			<fmt:message key="NotImplementedPage.backToHomePage"/>
+		</html:link>
+	</div>
+</customtag:window>
+</jsp:root>

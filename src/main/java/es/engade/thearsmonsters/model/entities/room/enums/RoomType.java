@@ -127,7 +127,7 @@ public enum RoomType {
 	 * en cada turno.
 	 */			
 	
-	Gym(false, 100, 200, 10) {
+	Gym(true, 100, 200, 10) {
 		public double getGarbageUpgrade(int level) {
 			return 100 * Math.pow(1.8, level-1);
 		}
@@ -144,7 +144,7 @@ public enum RoomType {
 		 * en cada turno.
 		 */			
 		
-	Nursery(false, 500, 300, 10) {
+	Nursery(true, 500, 300, 10) {
 		public double getGarbageUpgrade(int level) {
 			return 500 * Math.pow(1.4, level-1);
 		}

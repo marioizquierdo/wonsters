@@ -240,8 +240,8 @@
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Help">
         <set-property property="authenticationRequired" value="true"/></action>
-
-
+        
+        
 	<action path="/missions"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Missions">
@@ -250,6 +250,12 @@
 	<action path="/messages"
             type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
             parameter=".Messages">
+        <set-property property="authenticationRequired" value="true"/></action>
+        
+    
+    <action path="/publicableRoom"
+            type="es.engade.thearsmonsters.http.controller.actions.ThearsmonstersDefaultAction"
+            parameter=".PublicableRoom">
         <set-property property="authenticationRequired" value="true"/></action>
         
      	

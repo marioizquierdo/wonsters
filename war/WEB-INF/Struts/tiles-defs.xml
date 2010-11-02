@@ -66,6 +66,7 @@
 		<put name="color" value="yellow" />
 		<put name="content" value="/views/in_game/messages/messages_list.jspx" />
 	</definition>
+		
 
 	<definition name=".Missions" extends=".InGameBase">
 		<put name="title" value="Missions.title" />
@@ -97,6 +98,14 @@
 		<put name="content" value="/views/in_game/monsters/eggs_management.jspx" />
 	</definition>
 
+	
+	<definition name=".PublicableRoom" extends=".InGameBase">
+		<put name="title" value="PublicableRoom.title" />
+		<put name="color" value="blue" />
+		<put name="content" value="/views/in_game/lair/publicable_room_not_implemented.jspx" />
+	</definition>
+	
+	
 	<definition name=".Ranking" extends=".InGameBase">
 		<put name="title" value="Ranking.title" />
 		<put name="color" value="blue" />

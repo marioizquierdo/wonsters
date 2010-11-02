@@ -141,7 +141,8 @@
 			
 			<!-- Publicable settings -->
 			<c:if test="${room.publicable}">
-				<customtag:roomAction icon_id="20" action="PUBLISH_SETTINGS" messageKey="Lair.room.actions.publishSettings"/>
+				<!--  <customtag:roomAction icon_id="20" action="PUBLISH_SETTINGS" messageKey="Lair.room.actions.publishRoom"/>-->
+				<customtag:roomAction icon_id="20" action="/publicableRoom.do" messageKey="Lair.room.actions.publishRoom"/>
 			</c:if>
 			
 		</ul>
