@@ -424,8 +424,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		// mas el número de turnos acumulados (según los dias que han pasado desde el último timpestamp)
 		int newFreeTurns = this.freeTurns;
 		newFreeTurns += ((int) (turnsPerDay * daysFromTimestamp));
-		if (newFreeTurns > GameConf.getMaxNumberOfTurns()) {
-			newFreeTurns = GameConf.getMaxNumberOfTurns();
+		if (newFreeTurns > getMaxNumberOfTurns()) {
+			newFreeTurns = getMaxNumberOfTurns();
 		}
 		return  newFreeTurns;
 	}
@@ -467,6 +467,13 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Numero maximo de turnos que puede acumular este monstruo
+	 */
+	public int getMaxNumberOfTurns() {
+		return GameConf.getMaxNumberOfTurns();
 	}
 	
 	

@@ -35,12 +35,12 @@
 							<c:set var="icon_id" value="12"/></c:otherwise>
 						</c:choose>
 						
-						<customtag:icon icon_id="${icon_id}" size="m" />
+						<customtag:icon icon_id="${icon_id}" size="m" style="margin-right: 8px;" />
 						<customtag:localizableMessage var="${message}"/>
 					</div>
 				</div>
 				
-				<![CDATA[<script type='text/javascript'> $(function() {
+				<customtag:jquery_tag>
 					var position = $("#${message.position}");
 					var flashMessage = $("#${message_unique_id}").hide();
 					
@@ -55,7 +55,7 @@
 					// para que las imagenes de los monstruos se pongan en su sitio.
 					flashMessage.slideDown("normal", function(){$(window).trigger("resize");});
 					
-				});</script>]]>
+				</customtag:jquery_tag>
 				
 			</c:forEach>
 	    </div>
