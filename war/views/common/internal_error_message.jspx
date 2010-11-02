@@ -10,14 +10,17 @@
 		key="ErrorMessages.retry" status="ERROR" style="margin: 20px;"/>
 		
 	<customtag:info_message status="ERROR" icon_id="2" style="margin: 20px;">
-		<html:link action="/welcome.do">
+		<html:link action="/lair.do">
 			<fmt:message key="ErrorMessages.internalError.backToHomePage"/>
 		</html:link>
 		|
-		<html:link href="mailto:support@wonsters.com">
-		<fmt:message key="FrontPage.info.bug" />
-		</html:link>
-		
+		<a href="mailto:support@wonsters.com">
+			<fmt:message key="FrontPage.info.bug" />
+		</a>
+		|
+		<a href="javascript: window.location.reload()">
+			<fmt:message key="ErrorMessages.internalError.retry" />
+		</a>
 	</customtag:info_message>
 	
 </customtag:window>
