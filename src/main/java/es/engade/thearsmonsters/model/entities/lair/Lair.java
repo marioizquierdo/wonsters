@@ -3,7 +3,6 @@ package es.engade.thearsmonsters.model.entities.lair;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -190,19 +189,20 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		int score = 0;
 		int roomScore;
 		
-		// Salas: por cada sala, se suma el precio en basura que costo su ultima ampliacion.
+		// 500 puntos cada sala constuida
+		// 100 puntos por cada nivel de cada sala construida
+		// cada monstruo desbloqueado suma en puntos su precio de compra.
+		
 		for(Room room: rooms) {
-			roomScore = room.getGarbageUpgradeWhenLevel(room.getLevel() - 1);
-			//System.out.println("roomScore = "+ roomScore + ", "+ room.getRoomType() + " de nivel " + room.getLevel());
+			roomScore = 500 + room.getLevel() * 100;
 			score += (roomScore < 0) ? 0 : roomScore; // asegurarse que nunca resta
 		}
 		
-		// Monstruos: lo suyo seri­a poner puntos segun cuantos monstruos haya en la guarida (y su raza, o lo que sea)
+		// Monstruos: lo suyo seria poner puntos segun cuantos monstruos haya en la guarida (y su raza, o lo que sea)
 		// sin embargo, como la base de datos es inconsistente cuando los bichos palman, no se puede tener en cuenta esto.
-		// Lo que se hace es sumar el dinero que cuesta una raza, por cada raza nueva desbloqueada, multiplicado por 10.
+		// Lo que se hace es sumar el dinero que cuesta una raza, por cada raza nueva desbloqueada.
 		for(MonsterRace unlockedRace: getUnlockedMonsterRaces()) {
-			score += unlockedRace.getBuyEggPrice() * 10;
-			//System.out.println("monsterScore = "+ unlockedRace.getBuyEggPrice() + ", "+ unlockedRace);
+			score += unlockedRace.getBuyEggPrice();
 		}
 		
 		this.score = score;
