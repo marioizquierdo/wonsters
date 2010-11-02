@@ -10,24 +10,6 @@
 <c:set var="show_details_text"><fmt:message key="Credits.moreInfo"/></c:set>    		
 <c:set var="hide_details_text"><fmt:message key="Buttons.hide"/></c:set>
 
-<![CDATA[<script type="text/javascript">$(function () {
-    
-    // Mostrar/Ocultar los detalles de cada sala al pulsar algo de clase .show_room_details
-    $('ul#newRooms .show_room_details').click(function(){
-        var details = $(this).parents('li').find('.room_details');
-        var toggle_link = $(this).parents('li').find('.toggle_room_details_link');
-        if(details.is(':hidden')) {
-            details.show('slow');
-            toggle_link.text('${hide_details_text}');
-        } else {
-            details.hide('slow');
-            toggle_link.text('+ ${show_details_text}');
-        }
-        return false;
-    });
-    
-})</script>]]>
-
 <customtag:window id="lairWindow" title="Lair.newRoomsAvaliable" selected_tag="new_rooms"
 	tags="
 		ranking: Ranking.tagName => /ranking.do,
@@ -43,54 +25,80 @@
 		<customtag:window_content for_tag="new_rooms">	
 				<c:forEach items="${my.lair.newRoomsAvaliable}" var="newRoom" varStatus="loop">
 				  <li class="${newRoom}">
-					<customtag:info_message icon_id="10" titleKey="Lair.room.${newRoom}" key="Lair.room.${newRoom}.brief" >
-					    <p>
-					       <a class="show_room_details toggle_room_details_link" href="#">+ <fmt:message key="Credits.moreInfo" /></a>
-					    </p>
-                        <div class="room_details ${newRoom}Details">
-                              <fmt:message key="Lair.room.${newRoom}.description" />
-                        </div>
-						<div class="room_price_and_buy_action"> 
-							<c:choose>
-							    <c:when test="${newRoom.garbageBuild == -1 }">
-                                   <fmt:message key="Lair.room.ComingSoon"/><br/>
-							       <fmt:message key="Lair.room.Unavaliable"/>
-							    </c:when>
-							    <c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
-									<customtag:icon icon_id="25" size="s" style="margin-right: 5px"/>
-									<span class="button_box">
-                                        <html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
-                                            <fmt:message key="Lair.room.actions.buildNewRoom"/>
-                                        </html:link>
-                                    </span>
-                                    (<customtag:show_unit value="${newRoom.garbageBuild}" units="garbage"/>,
-                                     <customtag:show_unit value="${newRoom.effortBuild}" units="effort"/>)
-                                    <br/>
-							    </c:when>
-						    <c:otherwise>
-								<customtag:icon icon_id="19" size="s" style="margin-right: 5px"/>
-								<span class="button_box disabled">
-                                    <fmt:message key="Lair.room.actions.buildNewRoom"/>
-                                </span>
-                                (<customtag:show_unit value="${newRoom.garbageBuild}" units="garbage"/>,
-                                 <customtag:show_unit value="${newRoom.effortBuild}" units="effort"/>)
-                                <br/>
+				  	<h3 class="new_room_title"><fmt:message key="Lair.room.${newRoom}"/></h3>
+				  	
+				  	<div class="new_room_brief"><fmt:message key="Lair.room.${newRoom}.brief"/></div>
+				  	
+					<div>
+						<a class="show_room_details toggle_room_details_link" href="#">+ <fmt:message key="Credits.moreInfo" /></a>
+					</div>
+					
+                    <div class="room_details ${newRoom}Details">
+                    	<fmt:message key="Lair.room.${newRoom}.description" />
+                    </div>
+                    
+					<div class="room_price_and_buy_action"> 
+						<c:choose>
+						    <c:when test="${newRoom.garbageBuild == -1 }">
+                                  <fmt:message key="Lair.room.ComingSoon"/><br/>
+						       <fmt:message key="Lair.room.Unavaliable"/>
+						    </c:when>
+						    <c:when test="${my.lair.garbage >= newRoom.garbageBuild}">
+								<span class="button_box">
+                                	<html:link action="lair/room/change_in_works_state.do?action=BUILD_NEW_ROOM&amp;roomType=${newRoom}">
+                                		<customtag:icon icon_id="25" size="s" style="margin: 5px 5px 4px 2px;"/>
+                                        <fmt:message key="Lair.room.actions.buildNewRoom"/>
+                                     </html:link>
+                                 </span>
+                                 <span class="info_box">
+                                 	(<customtag:show_unit value="${newRoom.garbageBuild}" units="garbage"/>,
+                                   	<customtag:show_unit value="${newRoom.effortBuild}" units="effort"/>)
+                                 </span>
+						    </c:when>
+					    <c:otherwise>
+							<span class="button_box disabled">
+								<customtag:icon icon_id="19" size="s" style="margin: 5px 5px 4px 2px;"/>
+                            	<fmt:message key="Lair.room.actions.buildNewRoom"/>
+                            </span>
+                            <span class="info_box">
+                             	(<customtag:show_unit value="${newRoom.garbageBuild}" units="garbage"/>,
+                               	<customtag:show_unit value="${newRoom.effortBuild}" units="effort"/>)
+                            </span>
+                            <div class="insuficient_garbage_message">
 								<fmt:message key="FlashMessage.InsuficientGarbageException">
 									<fmt:param><fmt:formatNumber value="${newRoom.garbageBuild}"/></fmt:param>
 									<fmt:param><fmt:formatNumber value="${my.lair.garbage}"/></fmt:param>
 								</fmt:message>
-							</c:otherwise></c:choose>
-						</div>
-					</customtag:info_message>
+							</div>
+						</c:otherwise></c:choose>
+					</div>
 			      </li>
 			      
 				</c:forEach>
 		</customtag:window_content>
 	</ul>
-	<![CDATA[<script type="text/javascript">$('.room_details').hide();</script>]]>
 
 	<customtag:info_message icon_id="3" titleKey="Lair.room.andMuchMore" key="Lair.room.andMuchMore.description"/>
 	
 </customtag:window>
+
+<customtag:jquery_tag>
+    /* Mostrar/Ocultar los detalles de cada sala al pulsar algo de clase .show_room_details */
+    $('ul#newRooms .show_room_details').click(function(){
+        var details = $(this).parents('li').find('.room_details');
+        var toggle_link = $(this).parents('li').find('.toggle_room_details_link');
+        if(details.is(':hidden')) {
+            details.show('slow');
+            toggle_link.text('${hide_details_text}');
+        } else {
+            details.hide('slow');
+            toggle_link.text('+ ${show_details_text}');
+        }
+        return false;
+    });
+    
+    /* Ocultar inicialmente los detalles de las salas */
+    $('.room_details').hide();
+</customtag:jquery_tag>
 
 </jsp:root>

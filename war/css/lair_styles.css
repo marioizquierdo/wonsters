@@ -95,15 +95,19 @@ ul#rooms li.room.Nursery.inWorks     			{ background-image: url(/images/building
 /*** New Rooms Avaliable ***/
 
 #lairWindow0 { padding-top: 10px; }
-.room_price_and_buy_action { margin-top: 5px; }
+.room_price_and_buy_action { margin-top: 10px; }
 
-ul#newRooms { float: left; clear: both; margin: 0px 0px 0px 15px; padding: 0; list-style: none; }
-ul#newRooms li { display: inline-block; padding: 0px 0 0 72px; margin: 5px 0px; background: no-repeat left; background-position: -75px 0;}
-ul#newRooms .info_slot { min-height:70px; }
-ul#newRooms .info_slot_content { width: 655px;}
-ul#newRooms .room_details { width: 600px; margin:5px 0 0 15px; padding:0 0 0 0; text-align:left; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; display:block;}
-ul#newRooms .button_box { display:inline-block; height:22px; line-height:22px; margin: 0 2px 5px 1px; }
-ul#newRooms .button_box.disabled{ background-image:none; }
+ul#newRooms { float: left; clear: both; margin: 18px 0 0 15px; padding: 0; list-style: none; }
+ul#newRooms li { float: left; padding: 0px 0 0 90px; margin: 0 0 38px 28px; min-height: 100px; background: no-repeat left; background-position: -75px 0; text-align: left; }
+ul#newRooms li h3.new_room_title { float: left; width: 600px; font-size: 14px; font-weight:bold; margin-top: 5px; }
+ul#newRooms li > div { float: left; width: 600px; margin-top: 10px; }
+ul#newRooms li .room_details { width: 380px; margin: 10px 0 0 10px; padding: 0 200px 0 0; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; }
+ul#newRooms li .button_box { float: left; height: 22px; line-height: 22px; margin: 0 0 10px 0; }
+ul#newRooms li .button_box.disabled { background: #eee; border: 1px solid #ccc; color: #666; cursor: default; }
+ul#newRooms li .button_box.disabled:hover { color: #999; cursor: default; }
+ul#newRooms li .button_box a { float: left; height: 22px; padding: 0; }
+ul#newRooms li .info_box { float: left; height: 24px; line-height: 22px; margin-left: 10px; }
+ul#newRooms li .insuficient_garbage_message { float: left; width: 600px; }
 
 ul#newRooms li.Warehouse                      { background-image: url(/images/buildings/warehouse.jpg); }
 ul#newRooms .WarehouseDetails                 { background-image: url(/images/buildings/warehouse_BIG.jpg); }
