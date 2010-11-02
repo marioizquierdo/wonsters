@@ -34,9 +34,15 @@
   
   <c:choose><c:when test="${monster.age == 'Child'}">
   	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenChild" icon_id="12" /></c:when>
-  <c:when test="${monster.age == 'Adult' and empty my.lair.room['Warehouse']}">
-  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult" icon_id="12" />
-  	<customtag:info_message icon_id="10"><html:link action="/lair/rooms/ready_to_build.do">Ir al panel de construccion</html:link></customtag:info_message></c:when>
+  <c:when test="${monster.age == 'Adult'}">
+	  <c:if test="${empty my.lair.room['Warehouse']}">
+	  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult.BuildWarehouse" icon_id="12" />
+	  	<customtag:info_message icon_id="10"><html:link action="/lair/rooms/ready_to_build.do"><fmt:message key="Monster.actions.cantDoMoreActionsWhenAdult.goBuildWarehouseLink"/></html:link></customtag:info_message>
+	  </c:if>
+	  <c:if test="${!empty my.lair.room['Warehouse'] and my.lair.room['Dormitories'].level == 1}">
+	  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult.UpgradeDormitories" icon_id="12" />
+	  	<customtag:info_message icon_id="2"><html:link action="/lair.do?showRoomType=Dormitories"><fmt:message key="MainMenu.link.lair"/> - <fmt:message key="Lair.room.Dormitories"/></html:link></customtag:info_message>
+	  </c:if></c:when>
   <c:when test="${monster.age == 'Old'}">
   	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenOld" icon_id="12" /></c:when>
   </c:choose>
@@ -143,7 +149,7 @@
 	<customtag:jquery_tag>
 		$('#grow_to_adult .button_box').tipTip({
 			delay: 0,
- 			edgeOffset: 15,
+ 			edgeOffset: 20,
 			maxWidth: 300,
 			defaultPosition: 'right',
 			maxWidth: '450px'
