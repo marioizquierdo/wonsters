@@ -116,7 +116,24 @@ public class LairFacadeImpl extends ThearsmonstersFacade implements LairFacade {
             throws InWorksActionException, InternalErrorException,
             InsuficientGarbageException {
 
-        lair.buildRoom(roomType);
+        int garbageToBuild = roomType.getGarbageBuild();
+        
+     // Be sure there are enough garbage to start Works
+        if (lair.getGarbage() >= garbageToBuild) {
+        	if (lair.getRoom(roomType) == null) { // Check and start works
+        		lair.setGarbage(lair.getGarbage() - garbageToBuild); // spend
+        		lair.buildRoom(roomType);
+            } else {
+                throw new InWorksActionException(
+                        "The new room already exists", lair
+                                .getUser().getLogin(), roomType);
+            }
+        } else {
+            throw new InsuficientGarbageException(roomType.getGarbageBuild(),
+                    lair.getGarbage());
+        }
+        
+        
         userDao.update(lair.getUser());
 
     }
