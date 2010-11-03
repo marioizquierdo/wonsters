@@ -47,7 +47,7 @@ public class RoomData implements Serializable {
 	
 	/**
 	 * When change garbage for money, the max quantity allowed.
-	 * @throws NullPointerException if the TradeOffice is not in the lair (take care).
+	 * @throws RuntimeException if the TradeOffice is not in the lair (take care).
 	 */
 	public int getChangeResourcesMaxGarbageAmountEnabled(Lair lair) {
 		Room tradeOffice = getTradeOffice(lair);
@@ -64,7 +64,7 @@ public class RoomData implements Serializable {
 	
 	/**
 	 * When change money for garbage, the max quantity allowed.
-	 * @throws NullPointerException if the TradeOffice is not in the lair (take care).
+	 * @throws RuntimeException if the TradeOffice is not in the lair (take care).
 	 */
     public int getChangeResourcesMaxMoneyAmountEnabled(Lair lair) {
 		Room tradeOffice = getTradeOffice(lair);
@@ -92,11 +92,7 @@ public class RoomData implements Serializable {
 		if((tradeOffice == null) || tradeOfficeLevel <= 0) {
 			return 0; // While there is no warehouse, no garbage can be stored
 		} else {
-			switch(tradeOfficeLevel) {
-				case 1: return 50;
-				case 2: return 150;
-				default: return tradeOffice.getGarbageUpgradeWhenLevel(tradeOfficeLevel) * 2; // need always to be more than garbageUpgrade
-			}
+			return tradeOffice.getGarbageUpgradeWhenLevel(tradeOfficeLevel) * 2; // need always to be more than garbageUpgrade
 		}
 	}
 	

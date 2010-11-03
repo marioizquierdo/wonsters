@@ -45,31 +45,31 @@ public enum RoomType {
 			//return 50 * Math.pow(1.4, level-1);
 			switch(level) {
 				case 1: return 50;
-				case 2: return 100;
-				case 3: return 200;
-				case 4: return 400;
-				case 5: return 1000;
-				case 6: return 4000;
-				case 7: return 15000;
-				case 8: return 45000;
-				case 9: return 100000;
-				case 10: return 200000;
-				default: return 200000 * Math.pow(1.8, level-10);
+				case 2: return 80;
+				case 3: return 120;
+				case 4: return 250;
+				case 5: return 500;
+				case 6: return 1200;
+				case 7: return 3000;
+				case 8: return 5000;
+				case 9: return 9000;
+				case 10: return 17000;
+				default: return 17000 * Math.pow(1.6, level-10);
 			}
 		}
 		public double getEffortUpgrade(int level) {
 			switch(level) {
 				case 1: return 20;
-				case 2: return 50;
-				case 3: return 150;
-				case 4: return 400;
-				case 5: return 1000;
-				case 6: return 4000;
-				case 7: return 15000;
-				case 8: return 45000;
-				case 9: return 100000;
-				case 10: return 200000;
-				default: return 200000 * Math.pow(1.8, level-10);
+				case 2: return 30;
+				case 3: return 50;
+				case 4: return 100;
+				case 5: return 300;
+				case 6: return 800;
+				case 7: return 1000;
+				case 8: return 2000;
+				case 9: return 4000;
+				case 10: return 8000;
+				default: return 200000 * Math.pow(1.7, level-10);
 			}
 		}
 		
@@ -86,11 +86,11 @@ public enum RoomType {
 		public double getGarbageUpgrade(int level) {
 			switch(level) {
 				case 1: return 20;
-				case 2: return 40;
-				case 3: return 80;
-				case 4: return 160;
-				case 5: return 320;
-				case 6: return 600;
+				case 2: return 30;
+				case 3: return 40;
+				case 4: return 60;
+				case 5: return 100;
+				case 6: return 500;
 				case 7: return 1000;
 				case 8: return 2000;
 				case 9: return 4000;
@@ -111,11 +111,35 @@ public enum RoomType {
 	 */			
 	TradeOffice(false, 50, 20, 10) {
 		public double getGarbageUpgrade(int level) {
-			return 100 * Math.pow(1.8, level-1);
+			switch(level) {
+				case 1: return 25;
+				case 2: return 50;
+				case 3: return 100;
+				case 4: return 400;
+				case 5: return 800;
+				case 6: return 1700;
+				case 7: return 2000;
+				case 8: return 2500;
+				case 9: return 5000;
+				case 10: return 10000;
+				default: return 0; // should never happen
+			}
 		}
 		
 		public double getEffortUpgrade(int level) {
-			return 100 * Math.pow(1.6, level-1);
+			switch(level) {
+				case 1: return 50;
+				case 2: return 100;
+				case 3: return 200;
+				case 4: return 400;
+				case 5: return 800;
+				case 6: return 1700;
+				case 7: return 2000;
+				case 8: return 2400;
+				case 9: return 3000;
+				case 10: return 3000;
+				default: return 0; // should never happen
+			}
 		}
 	},
 	
@@ -129,10 +153,34 @@ public enum RoomType {
 	
 	Gym(true, 100, 200, 10) {
 		public double getGarbageUpgrade(int level) {
-			return 100 * Math.pow(1.8, level-1);
+			switch(level) {
+				case 1: return 50;
+				case 2: return 300;
+				case 3: return 500;
+				case 4: return 800;
+				case 5: return 1600;
+				case 6: return 2000;
+				case 7: return 3000;
+				case 8: return 4000;
+				case 9: return 5000;
+				case 10: return 2000;
+				default: return 0; // should never happen
+			}
 		}
 		public double getEffortUpgrade(int level) {
-			return 300 * Math.pow(1.4, level-1);
+			switch(level) {
+				case 1: return 100;
+				case 2: return 200;
+				case 3: return 400;
+				case 4: return 800;
+				case 5: return 1600;
+				case 6: return 3200;
+				case 7: return 6500;
+				case 8: return 12000;
+				case 9: return 24000;
+				case 10: return 50000;
+				default: return 0; // should never happen
+			}
 		}
 	},
 		
@@ -146,14 +194,26 @@ public enum RoomType {
 		
 	Nursery(true, 500, 300, 10) {
 		public double getGarbageUpgrade(int level) {
-			return 500 * Math.pow(1.4, level-1);
+			switch(level) {
+				case 1: return 1000;
+				case 2: return 1500;
+				case 3: return 2000;
+				case 4: return 2500;
+				case 5: return 3000;
+				case 6: return 3500;
+				case 7: return 4000;
+				case 8: return 4500;
+				case 9: return 5000;
+				case 10: return 10000;
+				default: return 0; // should never happen
+			}
 		}
 		public double getEffortUpgrade(int level) {
-			return 300 * Math.pow(1.9, level);
+			return 300 * Math.pow(1.5, level);
 		}
 	},
 	/*
-	 * Las siguientes salas a�n no estan disponibles en esta version. 
+	 * Las siguientes salas aun no estan disponibles en esta version. 
 	 * Se marcan con un coste negativo para listarlas en la vista.
 	 * */
 	LoveWardrobe(false, -1, 0,0),
