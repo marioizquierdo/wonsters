@@ -148,7 +148,7 @@ public class RoomData implements Serializable {
 			switch(warehouseLevel) {
 				case 1: return 50;
 				case 2: return 150;
-				default: return warehouse.getGarbageUpgradeWhenLevel(warehouseLevel) * 6; // need always to be more than garbageUpgrade
+				default: return warehouse.getGarbageUpgradeWhenLevel(warehouseLevel) * 8; // need always to be more than garbageUpgrade
 			}
 		}
 	}

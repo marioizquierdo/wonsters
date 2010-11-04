@@ -79,7 +79,7 @@ public enum RoomType {
 	 * Es donde se almacena la basura de la guarida. 
 	 * Su nivel limita la cantidad de basura que se pueden tener almacenada 
 	 * (ver roomData.getGarbageStorageCapacity()).
-	 * La accion que se realiza aqui� es "recoleccion de basura". Por cada turno
+	 * La accion que se realiza aquii es "recoleccion de basura". Por cada turno
 	 * dedicado se recolecta tanta basura como el atributo compuesto "GarbageHarvest".
 	 */
 	Warehouse(false, 0, 5, -1) {
@@ -99,7 +99,7 @@ public enum RoomType {
 			}
 		}
 		public double getEffortUpgrade(int level) {
-			return 50 * Math.pow(1.4, level-1);
+			return 40 * Math.pow(1.4, level-1);
 		}
 	},
 							

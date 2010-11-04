@@ -194,8 +194,10 @@ public class Lair extends ThearsmonstersEntity implements Serializable {
 		// cada monstruo desbloqueado suma en puntos su precio de compra.
 		
 		for(Room room: rooms) {
-			roomScore = 500 + room.getLevel() * 100;
-			score += (roomScore < 0) ? 0 : roomScore; // asegurarse que nunca resta
+			if(!room.getType().equals(RoomType.MainMonster)) { // Main Monster no cuenta
+				roomScore = 500 + room.getLevel() * 100;
+				score += (roomScore < 0) ? 0 : roomScore; // asegurarse que nunca resta
+			}
 		}
 		
 		// Monstruos: lo suyo seria poner puntos segun cuantos monstruos haya en la guarida (y su raza, o lo que sea)
