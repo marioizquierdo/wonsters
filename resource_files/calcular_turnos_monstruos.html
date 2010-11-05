@@ -1,0 +1,249 @@
+<!-- 
+
+  Script que muestra datos para comparar las diferentes razas de monstruo.
+  Abrir con un navegador web y mostrara los resultados en pantalla.
+  
+-->
+
+
+<H1>Probar Parametros</H1>
+
+<script type="text/javascript">
+var monstruos = [
+ {
+	raza: "Bu",
+	fuerza: 4,
+	inteligencia: 4,
+	esperanza_vida: 4,
+	espacio_apartamentos: 4,
+	precio_compra: 0
+}, {
+ 	raza: "Ocodomo",
+	fuerza: 11,
+	inteligencia: 1,
+	esperanza_vida: 3,
+	espacio_apartamentos: 9,
+	precio_compra: 0
+ }, {
+	raza: "Mongo",
+	fuerza: 4,
+	inteligencia: 15,
+	esperanza_vida: 2,
+	espacio_apartamentos: 6,
+	precio_compra: 0
+}, {
+	raza: "Polbo",
+	fuerza: 7,
+	inteligencia: 6,
+	esperanza_vida: 3,
+	espacio_apartamentos: 5,
+	precio_compra: 50
+}, {
+	raza: "Lipéndula",
+	fuerza: 3,
+	inteligencia: 22,
+	esperanza_vida: 7,
+	espacio_apartamentos: 8,
+	precio_compra: 150
+}, {
+	raza: "Electroserpe",
+	fuerza: 24,
+	inteligencia: 10,
+	esperanza_vida: 12,
+	espacio_apartamentos: 15,
+	precio_compra: 800
+}, {
+	raza: "Quad",
+	fuerza: 46,
+	inteligencia: 5,
+	esperanza_vida: 14,
+	espacio_apartamentos: 23,
+	precio_compra: 1500
+}, {
+	raza: "Ubunto",
+	fuerza: 1,
+	inteligencia: 30,
+	esperanza_vida: 35,
+	espacio_apartamentos: 33,
+	precio_compra: 3333
+}
+];
+  
+  /* Calcular el valor medio de un array: array.average() */
+  Array.prototype.average = function() {
+    var av = 0;
+    var cnt = 0;
+    var len = this.length;
+    for (var i = 0; i < len; i++) {
+      var e = +this[i];
+      if(!e && this[i] !== 0 && this[i] !== '0') e--;
+      if (this[i] == e) {av += e; cnt++;}
+    }
+    return av/cnt;
+  }
+  
+ /* Merge de toda la vida entre dos hashes */
+ var merge = function(obj1, obj2) {
+   for (attrname in obj2) { obj1[attrname] = obj2[attrname]; }
+   return obj1;
+ }
+ 
+ /* Clonar objetos */
+ var clone = function(obj) { 
+    var cloned = {};
+    cloned.prototype = obj.prototype;
+    for (property in obj) cloned[property] = obj[property];
+    return cloned;
+ }
+ 
+ /* Sirve para devolver otro monstruo similar al anterior pero con alguna caracteristica cambiada */
+ /* Ej: var monstruo_con_mas_inteligencia = cloned_monster_with(monstruo, {'inteligencia': monstruo.inteligencia + 10}); */
+ var cloned_monster_with = function(monster, attributes) {
+   return merge(clone(monster), attributes);
+ }
+ 
+ /* Devuelve otro monstruo variando en un atributo la cantidad indicada */
+ var cloned_monster_with_variation = function(monster, attr_name, attr_value_variation) {
+   var modified_attributes = {};
+   modified_attributes[attr_name] = monster[attr_name] + attr_value_variation;
+   return merge(clone(monster), modified_attributes);
+ }
+
+ /* Numero de turnos de los que dispone el monstruo a lo largo de su vida */
+ var totalLifeTurns = function(monster, turnos_gastados) {
+   turns_at_borning = 15; // turnos que tiene el monstruo al nacer
+   turns_per_day = 15; // turnos que se acumulan cada día
+   return turns_at_borning + (turns_per_day * monster.esperanza_vida) - turnos_gastados;
+ }
+ 
+ /* Calcula el trabajo realizado (basura recolectada o obras realizadas) a lo largo de toda su vida */
+ var tagetValue = function(monster, turnos_gastados) {
+    if(!turnos_gastados) var turnos_gastados = 0;
+    var total_turnos_acumulados = totalLifeTurns(monster, turnos_gastados);
+
+   	// Repetir para cada turno
+   	var target_value = 0;
+   	var target_value_increase_per_turn = monster.fuerza;
+   	var exp = 0;
+   	var exp_increase_per_turn = monster.inteligencia;
+   	var j;
+   	for(j=0; j<total_turnos_acumulados; j++) {
+   		 // Aumentar target_value segun incremento establecido
+   		 target_value += target_value_increase_per_turn;
+
+   		// Cuando la experiencia pasa de 100, el incremento aumenta (porque mejora la habilidad)
+   		target_value_increase_per_turn += Math.floor((exp + exp_increase_per_turn) / 100);
+   		exp = (exp + exp_increase_per_turn) % 100;
+   	}
+   	return target_value;
+ }
+ 
+ /* Dado un target_value, calcula el trabajo realizado suponiendo que debe pagarse a si mismo (precio compra) */
+ /* Como la comisión por cambio depende del nivel de la oficina de comercio, hay que */
+ var amortizedTargetValue = function(monster, trade_office_level, turnos_gastados) {
+   if(!turnos_gastados) var turnos_gastados = 0;
+   var target_value = tagetValue(monster, turnos_gastados);
+   var comision = ((trade_office_level - 1) / 20) + 0.5;
+   var basura_equivalente_a_precio = monster.precio_compra / comision;
+   return parseInt(target_value - basura_equivalente_a_precio, 10);
+ }
+ 
+ var amortizedTargetValuePerDayPerSpace = function(monster, trade_office_level, turnos_gastados) {
+   if(!turnos_gastados) var turnos_gastados = 0;
+   var target_value = tagetValue(monster, turnos_gastados);
+   var amtar = amortizedTargetValue(monster, trade_office_level, turnos_gastados);
+   return parseInt(amtar / (monster.esperanza_vida * monster.espacio_apartamentos), 10);
+ }
+
+ /* Incremento de t/de por cada unidad que se incremente la fuerza */
+ var amortizedTargetValuePerDayPerSpace_increase_by_attr = function(monster, attr_name) {
+   var trade_office_level = 5; // Es independiente del nivel de la offic.comercio, asi que ponemos un valor cualquiera
+   var modified_monster;
+   var modified_attributes = {};
+   var attr_value;
+   var tde;
+   var prev_tde = 0;
+   var diff = [];
+   var diff_i = 0;
+   for(attr_value = monster[attr_name]; attr_value <= monster[attr_name]+100; attr_value++) {
+     // Se calcula el tde para fuerza entre el valor actual y el valor + 100
+     // y luego se hace la media de las diferencias, para saber cuanto se incrementa.
+     modified_attributes[attr_name] = attr_value;
+     modified_monster = cloned_monster_with(monster, modified_attributes);
+     tde = amortizedTargetValuePerDayPerSpace(modified_monster, trade_office_level); // Calculo suponiendo que tiene esa fuerza
+     if(prev_tde > 0) {
+       diff[diff_i] = tde - prev_tde; // diferencia en el tde al subir uno de fuerza
+       diff_i += 1;
+     }
+     prev_tde = tde;
+   }
+   return diff.average();
+ }
+ 
+ /* Caltular el wde teniendo en cuenta que se intenta incrementar la fuerza */
+ var amortizedTargetValuePerDayPerSpace_using_turns_for_strength = function(monster, strength_variation, trade_office_level, gym_level) {
+   var turns_needed_for_reach = parseInt(strength_variation * 10 / gym_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza
+   return amortizedTargetValuePerDayPerSpace(cloned_monster_with_variation(monster, 'fuerza', strength_variation), trade_office_level, turns_needed_for_reach);
+ }
+
+ /* Caltular el wde teniendo en cuenta que se intenta incrementar la fuerza */
+ var amortizedTargetValuePerDayPerSpace_using_turns_for_strength = function(monster, intelligence_variation, trade_office_level, nursery_level) {
+   var turns_needed_for_reach = parseInt(intelligence_variation * 10 / nursery_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza
+   return amortizedTargetValuePerDayPerSpace(cloned_monster_with_variation(monster, 'inteligencia', intelligence_variation), trade_office_level, turns_needed_for_reach);
+ }
+
+ 
+ for(var i=0; i < monstruos.length; i++) {
+  	var monster = monstruos[i];
+
+  	document.write("<h3>"+monster.raza+"</h3>");
+  	document.write("fuerza: " + monster.fuerza + ", ");
+  	document.write("inteligencia: " + monster.inteligencia + ", ");
+  	document.write("esperanza_vida: " + monster.esperanza_vida + ", ");
+  	document.write("espacio_apartamentos: <b>" + monster.espacio_apartamentos + "</b>, ");
+  	document.write("precio_compra: <b>" + monster.precio_compra + "</b><br/>");
+  	document.write("<br/>");
+	
+    var target_value = tagetValue(monster);
+	
+  	var minTradeOfficeLevel = 5;
+  	var maxTradeOfficeLevel = 10;
+  	var amortized_target_value = 
+  	    amortizedTargetValue(monster, minTradeOfficeLevel) + " - " +
+  	    amortizedTargetValue(monster, maxTradeOfficeLevel);
+  	var average_work_per_day_per_space =
+  	    amortizedTargetValuePerDayPerSpace(monster, minTradeOfficeLevel) + " - " +
+  	    amortizedTargetValuePerDayPerSpace(monster, maxTradeOfficeLevel);
+
+  	document.write("Esfuerzo realizado suponiendo que se compra a si mismo: <b>" + amortized_target_value + "</b><br/>");
+  	document.write("Trabajo medio por día por unidad de espacio (wds): <b>" + average_work_per_day_per_space + "</b><br/>");
+    document.write("Mejoda de Trab.medio.por.dia.por.ud.esp por cada unidad de fuerza: <b>"+amortizedTargetValuePerDayPerSpace_increase_by_attr(monster, "fuerza")+"</b><br/>");
+    document.write("Mejoda de Trab.medio.por.dia.por.ud.esp por cada unidad de inteligencia: <b>"+amortizedTargetValuePerDayPerSpace_increase_by_attr(monster, "inteligencia")+"</b><br/>");
+ 
+    for(var gym_level=1; gym_level <= 10; gym_level+=2) {
+      var strength_variation = 5; // cantidad de fuerza que se quiere mejorar
+      var turns_needed_for_reach = parseInt(strength_variation * 10 / gym_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza
+      document.write("  > Gym level "+gym_level+": +"+strength_variation+" fureza en "+turns_needed_for_reach+" turnos => wds: "+ amortizedTargetValuePerDayPerSpace_using_turns_for_strength(monster, strength_variation, maxTradeOfficeLevel, gym_level) + "<br/>");
+    }
+    
+    for(var nurs_level=1; nurs_level <= 10; nurs_level+=2) {
+      var intell_variation = 5; // cantidad de fuerza que se quiere mejorar
+      var turns_needed_for_reach = parseInt(intell_variation * 10 / nurs_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza
+      document.write("  > Nursery level "+nurs_level+": +"+intell_variation+" fureza en "+turns_needed_for_reach+" turnos => wds: "+ amortizedTargetValuePerDayPerSpace_using_turns_for_strength(monster, intell_variation, maxTradeOfficeLevel, nurs_level) + "<br/>");
+    }
+
+  }
+ </script>
+
+<!--
+//Repetir para cada turno
+//for(i=0; i<turns; i++) {
+	   // Aumentar target_value segun incremento establecido
+ //  target_value += target_value_increase_per_turn;
+
+   // Cuando la experiencia pasa de 100, el incremento aumenta (porque mejora la habilidad)
+ //  target_value_increase_per_turn += Math.floor((exp + exp_increase_per_turn) / 100);
+ //  exp = (exp + exp_increase_per_turn) % 100;
+//}
+//return target_value;
+-->
