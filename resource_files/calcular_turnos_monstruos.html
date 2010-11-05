@@ -111,6 +111,7 @@ var monstruos = [
 
  /* Numero de turnos de los que dispone el monstruo a lo largo de su vida */
  var totalLifeTurns = function(monster, turnos_gastados) {
+   if(!turnos_gastados) var turnos_gastados = 0;
    turns_at_borning = 15; // turnos que tiene el monstruo al nacer
    turns_per_day = 15; // turnos que se acumulan cada día
    return turns_at_borning + (turns_per_day * monster.esperanza_vida) - turnos_gastados;
@@ -182,13 +183,13 @@ var monstruos = [
  
  /* Caltular el wde teniendo en cuenta que se intenta incrementar la fuerza */
  var amortizedTargetValuePerDayPerSpace_using_turns_for_strength = function(monster, strength_variation, trade_office_level, gym_level) {
-   var turns_needed_for_reach = parseInt(strength_variation * 10 / gym_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza
+   var turns_needed_for_reach = parseInt(strength_variation * 20/gym_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza, suponiendo que mejora 0.05 por nivel.
    return amortizedTargetValuePerDayPerSpace(cloned_monster_with_variation(monster, 'fuerza', strength_variation), trade_office_level, turns_needed_for_reach);
  }
 
  /* Caltular el wde teniendo en cuenta que se intenta incrementar la fuerza */
  var amortizedTargetValuePerDayPerSpace_using_turns_for_intelligence = function(monster, intelligence_variation, trade_office_level, nursery_level) {
-   var turns_needed_for_reach = parseInt(intelligence_variation * 10 / nursery_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza
+   var turns_needed_for_reach = parseInt(intelligence_variation * 5/nursery_level, 10); // turnos que necesita entrenar en el gimnasio para entrenar esa fuerza, suponiendo que mejora 0.2 por nivel.
    return amortizedTargetValuePerDayPerSpace(cloned_monster_with_variation(monster, 'inteligencia', intelligence_variation), trade_office_level, turns_needed_for_reach);
  }
 
@@ -215,30 +216,32 @@ var monstruos = [
   	    amortizedTargetValuePerDayPerSpace(monster, minTradeOfficeLevel) + " - " +
   	    amortizedTargetValuePerDayPerSpace(monster, maxTradeOfficeLevel);
     
+    
+    document.write("Turnos totales: <b>" + totalLifeTurns(monster) + "</b><br/>");
     document.write("Esfuerzo realizado suponiendo que se compra a si mismo: <b>" + amortized_target_value + "</b><br/>");
     document.write("Trabajo medio por día por unidad de espacio (wds): <b>" + average_work_per_day_per_space + "</b><br/>");
     document.write("<br/>");
     
     // Mejora al entrenar en el gimnasio
-    for(var strength_variation=1; strength_variation<=21; strength_variation+=5) {
-      document.write(" > Al entrenar +"+strength_variation+" fureza cambia el wds a: ");
+    for(var strength_variation=1; strength_variation<=41; strength_variation+=20) {
+      document.write(" > Al entrenar +"+strength_variation+" fureza cambia el wds a: [");
       var wds_values = [];
-      for(var gym_level=1; gym_level <= 10; gym_level+=2) { // Pone los valores en base al nivel del gimnasio
+      for(var gym_level=1; gym_level <= 10; gym_level+=3) { // Pone los valores en base al nivel del gimnasio
         wds_values.push(amortizedTargetValuePerDayPerSpace_using_turns_for_strength(monster, strength_variation, maxTradeOfficeLevel, gym_level));
       }
-      document.write(wds_values.join(', ') + "<br/>");
+      document.write(wds_values.join(', ') + "]<br/>");
     }
     document.write("<br/>");
     
     
     // Mejora al ir al colegio
-    for(var intell_variation=1; intell_variation<=21; intell_variation+=5) {
-      document.write(" # Al aprender +"+intell_variation+" inteligencia cambia el wds a: ");
+    for(var intell_variation=1; intell_variation<=41; intell_variation+=20) {
+      document.write(" # Al aprender +"+intell_variation+" inteligencia cambia el wds a: [");
       var wds_values = [];
-      for(var nurs_level=1; nurs_level <= 10; nurs_level+=2) { // Pone los valores en base al nivel del gimnasio
+      for(var nurs_level=1; nurs_level <= 10; nurs_level+=3) { // Pone los valores en base al nivel del gimnasio
         wds_values.push(amortizedTargetValuePerDayPerSpace_using_turns_for_intelligence(monster, intell_variation, maxTradeOfficeLevel, nurs_level));
       }
-      document.write(wds_values.join(', ') + "<br/>");
+      document.write(wds_values.join(', ') + "]<br/>");
     }
     document.write("<br/>");
     

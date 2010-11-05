@@ -177,8 +177,8 @@ public enum RoomType {
 				case 6: return 3200;
 				case 7: return 6500;
 				case 8: return 12000;
-				case 9: return 24000;
-				case 10: return 50000;
+				case 9: return 20000;
+				case 10: return 40000;
 				default: return 0; // should never happen
 			}
 		}
@@ -195,8 +195,8 @@ public enum RoomType {
 	Nursery(true, 500, 300, 10) {
 		public double getGarbageUpgrade(int level) {
 			switch(level) {
-				case 1: return 1000;
-				case 2: return 1500;
+				case 1: return 300;
+				case 2: return 900;
 				case 3: return 2000;
 				case 4: return 2500;
 				case 5: return 3000;
