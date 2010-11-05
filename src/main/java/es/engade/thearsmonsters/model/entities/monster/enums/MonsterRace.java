@@ -22,46 +22,46 @@ public enum MonsterRace {
 						4, 0, 1),
 						
 	Mongo			(// Celeris Caudicis
-						4, 1, 1, 14, 1, 
+						4, 1, 1, 15, 1, 
 						6, 0,
 						0, MonsterRaceClass.Humanoide, true,
 						2, 1, 1),
 						
 	Ocodomo			(// Carnificis Abisal
-						12, 1, 1, 3, 1, 
+						11, 1, 1, 1, 1, 
 						9, 0, 
 						0, MonsterRaceClass.Crustacea, false,
 						3, 2, 1),
 						
 	Polbo			(// Balleno Heptocto
-						6, 1, 1, 7, 1, 
+						7, 1, 1, 6, 1, 
 						5, 50, 
 						0, MonsterRaceClass.Mollusca, false,
-						5, 2, 2),
+						3, 2, 2),
 						
 	Lipendula		(// Unibabosa voladora
-						4, 1, 1, 15, 1, 
+						3, 1, 1, 22, 1, 
 						8, 150, 
 						0, MonsterRaceClass.Verme, true,
-						10, 5, 5),
+						7, 5, 5),
 						
 	Electroserpe	(// Triserpe Electroplasmoide
-						25, 1, 1, 10, 1, 
+						24, 1, 1, 10, 1, 
 						15, 800,
 						0, MonsterRaceClass.Crustacea, false,
 						12, 20, 5),
 						
 	Quad			(// Grutrul Quadlingue
-						45, 1, 1, 10, 1, 
+						46, 1, 1, 5, 1, 
 						23, 1500,
 						0, MonsterRaceClass.Mollusca, false,
-						15, 180, 5),
+						14, 180, 5),
 						
 	Ubunto			(// Spureo Sapiens
-						3, 1, 1, 33, 1, 
+						1, 1, 1, 30, 1, 
 						33, 3333,
 						0, MonsterRaceClass.Humanoide, false,
-						33, 960, 150);
+						35, 960, 150);
 	
 	// ...
 	
