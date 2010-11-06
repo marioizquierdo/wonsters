@@ -77,17 +77,7 @@
 		<customtag:window id="MonsterBrief" titleValue="${monster.name}" window_width="490">
 				
 			<div id="image_up_wrapper">
-				<ul id="MonsterBrief_data">
-				
-					<!-- Cocoon count down -->
-					<c:if test="${monster.age == 'Cocoon'}">
-					<customtag:monsterBrief_data_row property="metamorphosisCountDown">
-						<span class="countdown">
-			   				<span class="c_in" style="display:none">${monster.cocoonCloseUpDate.time}</span>
-			   				<span class="c_out">...</span>
-			   			</span>
-					</customtag:monsterBrief_data_row>
-					</c:if>
+				<ul id="MonsterBrief_data">				
 					
 					<!-- Monster name -->
 					<customtag:monsterBrief_data_row property="name">
@@ -162,7 +152,7 @@
 			$('.attribute_row').each(function() {
 				var row = $(this);
 				row.tipTip({
-				    delay: 100,
+				    delay: 800,
 				    fadeIn: 100,
 				    maxWidth: '280px',
 				    defaultPosition: 'left',
@@ -170,7 +160,7 @@
 		    	});
 			});
 			$('#MonsterBrief_data li.data_row, #MonsterDetailsWrapper h3[title]').tipTip({
-				delay: 100,
+				delay: 800,
 			    maxWidth: '280px',
 			    defaultPosition: 'left',
 			});

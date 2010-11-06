@@ -11,20 +11,37 @@
     <span class="free_turns_value">${monster.freeTurns}</span>
     <c:set var="clickable_help_title"><fmt:message key="Monster.actions.info"/></c:set>
     <img src="/images/theme/icons/question_mark.png" title="${clickable_help_title}" class="icon clickable_help"/>
-    <c:if test="${monster.freeTurns == 0 }">
-        <div><fmt:message key="Monster.actions.noFreeTurns.desc"></fmt:message></div>
-    </c:if>
     
-    <c:choose><c:when test="${monster.freeTurns < monster.maxNumberOfTurns }">
-	    <div class="countdown">
+    <!-- Free turns info and next turn countdowns -->
+    <c:choose><c:when test="${monster.freeTurns >= monster.maxNumberOfTurns }">
+	 	<div id="max_free_turns_hint"><fmt:message key="Monster.actions.freeTurns.atMax"></fmt:message></div>
+	 	</c:when>
+	<c:when test="${monster.freeTurns == 0 }">
+        <div id="no_free_turns_hint"><fmt:message key="Monster.actions.noFreeTurns.desc"></fmt:message></div>
+	 	<div class="countdown">
 	        <fmt:message key="Monster.actions.nextFreeTurn"></fmt:message>
 	        <span class="c_in" style="display:none">${monster.nextTurnTime}</span>
 	        <span class="c_out">...</span>
-	    </div></c:when>
-	 <c:otherwise>
-	 	<div><fmt:message key="Monster.actions.freeTurns.atMax"></fmt:message></div>
-	 </c:otherwise>
-	 </c:choose>
+	    </div>
+        </c:when>
+	</c:choose>
+	
+	<!-- Cocoon count down -->
+	<c:if test="${monster.age == 'Cocoon'}">
+	<c:set var="cocoon_count_title"><fmt:message key="Monster.metamorphosisCountDown"/></c:set>
+	<c:set var="cocoon_count_desc"><fmt:message key="Monster.metamorphosisCountDown.desc"/></c:set>
+	<c:set var="cocoon_count_popup"><h3>${cocoon_count_title}</h3> ${cocoon_count_desc}</c:set>
+	<div class="metamorphosisCountDown data_row attribute_row" title="${cocoon_count_popup}">
+		<span class="data_label cursor_help">${cocoon_count_title}:</span>
+		<span class="data_value cursor_help">
+			<span class="countdown">
+				<span class="c_in" style="display:none">${monster.cocoonCloseUpDate.time}</span>
+				<span class="c_out">...</span>
+			</span>
+		</span>
+	</div>
+	</c:if>
+	
 </div>
 
 

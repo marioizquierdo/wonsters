@@ -72,7 +72,7 @@ ol li {
 /***** Links *****/
 
 a { text-decoration: underline; color: #d41; border: none; cursor: pointer; }
-a:hover { text-decoration: underline; color: #992200; }
+a:hover { text-decoration: underline; color: #FF6622; }
 a:visited {	}
 h1 a,
 h2 a,

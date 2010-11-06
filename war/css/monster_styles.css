@@ -2,6 +2,7 @@
 
 /***** Monsters List (/monsters/of_lair) *****/
 #monstersList .monster_slots_container { float: left; width: 100%; }
+#monstersList a { text-decoration: none; }
 #monstersList a.monster_slot { float: left; margin: 15px; text-align: center; color: #999; }
 #monstersList a.monster_slot:hover { text-decoration: none; color: #d41; }
 #monstersList a.monster_slot img { display: block; margin: 0 auto 10px auto; }
