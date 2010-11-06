@@ -50,10 +50,18 @@
   <customtag:info_message key="Monster.actions.cantDoMoreActionsNow" icon_id="0" />
   
   <c:choose><c:when test="${monster.age == 'Child'}">
-  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenChild" icon_id="12" /></c:when>
+  	<div id="child_cant_work_hint">
+  		<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenChild" icon_id="12" />
+  	</div>
+  	<customtag:jquery_tag>
+ 		$('#child_cant_work_hint div.info_slot').effect('highlight');
+ 	</customtag:jquery_tag>
+  	</c:when>
   <c:when test="${monster.age == 'Adult'}">
 	  <c:if test="${empty my.lair.room['Warehouse']}">
-	  	<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult.BuildWarehouse" icon_id="12" />
+	  	<div id="you_need_build_a_warehouse_hint">
+	  		<customtag:info_message key="Monster.actions.cantDoMoreActionsWhenAdult.BuildWarehouse" icon_id="12" />
+	  	</div>
 	  	<customtag:info_message icon_id="10"><html:link action="/lair/rooms/ready_to_build.do"><fmt:message key="Monster.actions.cantDoMoreActionsWhenAdult.goBuildWarehouseLink"/></html:link></customtag:info_message>
 	  </c:if>
 	  <c:if test="${!empty my.lair.room['Warehouse'] and my.lair.room['Dormitories'].level == 1}">

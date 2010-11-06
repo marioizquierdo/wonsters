@@ -52,7 +52,7 @@
 #monster_tasks .monsterActionSuggestion > .input_buttons > button.add_all_button { margin-right: 0; }
 
 #monster_tasks_submit,
-#grow_to_adult { float: left; width: 240px; text-align: right; margin: 0 10px 10px 10px; }
+#grow_to_adult { float: left; width: 240px; text-align: right; margin: 0 10px 10px 10px; font-size: 12px;}
 #monster_tasks_submit .submit_info,
 #grow_to_adult .submit_info { margin-right: 5px; } 
 #monster_tasks_submit input { height: 24px; line-height: 18px; }
