@@ -16,12 +16,19 @@
 	            <div id="image_requiem">
 	               <img src="images/illustrations/monster_requiem_small.jpg" width="600" height="197" ></img>
 	            </div>
-	            <div style="margin-bottom: 5px;">
-		            <c:set var="title"><fmt:message key="Monster.isDead.bury" /></c:set>
+	            <div id="image_requiem_bury_button">
 	                <c:set var="desc"><fmt:message key="Monster.isDead.bury.desc" /></c:set>
-		            <span id="grow_to_adult_button" class="button_box" title="${desc}">
-		               <html:link action="/monster/bury.do?monsterId=${monster.id}">${title}</html:link>
+		            <span id="grow_to_adult_button" class="button_box bury_monster_button" title="${desc}">
+		               <html:link action="/monster/bury.do?monsterId=${monster.id}"><fmt:message key="Monster.isDead.bury" /></html:link>
 		            </span>
+		            <customtag:jquery_tag>
+		            	$('#grow_to_adult_button').tipTip({ /* Popup informativo */
+							delay: 0,
+				  			edgeOffset: 8,
+							maxWidth: '500px',
+							defaultPosition: 'bottom',
+						});
+		            </customtag:jquery_tag>
 	            </div>
 	        </customtag:window>
         </div>
@@ -35,16 +42,12 @@
         <!-- Monster Attributes, Skills and Race details -->
         <customtag:window id="MonsterDetails" title="Monster.details.title" window_width="490" tags="
                     attributes: Monster.attr.attributes, 
-                    skills: Monster.attr.skills, 
                     race: Monster.race">
         
             <div id="MonsterDetailsWrapper">
                 <customtag:window_content for_tag="attributes">
                     <customtag:attributesList property="simpleAttrs"/>
                     <customtag:attributesList property="composeAttrs"/>
-                </customtag:window_content>
-                
-                <customtag:window_content for_tag="skills">
                     <customtag:attributesList property="workSkills"/>
                 </customtag:window_content>
                 
@@ -153,7 +156,6 @@
   			$('img.clickable_help').tipTip({
 				delay: 0,
 	  			edgeOffset: 15,
-				maxWidth: 300,
 				defaultPosition: 'right',
 				maxWidth: '450px'
 			});

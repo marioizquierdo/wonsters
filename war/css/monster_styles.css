@@ -12,14 +12,17 @@
 #monstersList a.monster_slot p.monster_freeTurns .value { font-weight: bold; color: #444; }
 #monstersList a.monster_slot p.without.monster_freeTurns .value { font-weight: normal; color: #c44; }
 
-
-/******** Monster ********/
-
+/***** Monster ******/
 #monsterRightBlock { float: left; margin-left: 10px; width: 490px; }
 #MonsterBrief_data { float: left; margin: 4px 0 5px 10px; padding: 0; }
 #image_up_wrapper { float: left; width: 480px; height: 120px; overflow: hidden; }
-#image_requiem { float:left; width: 100%; height: 196px; margin-top: 10px; margin:8px 0px 8px 0px;}
-#image_requiem img {border: 1px solid; display: block; margin: auto; }
+
+/***** Dead Monster *****/
+#image_requiem { float: left; width: 100%; margin: 20px 0px}
+#image_requiem img { border: 1px solid black; display: block; margin: auto; }
+#image_requiem_bury_button { float:left; width: 100%; margin: 0 0 18px 0; }
+#image_monster_dead_content img { display: bock; margin: 5px auto 15px auto; }
+
 
 /******** Monster Tasks (left window) *********/
 
