@@ -12,7 +12,7 @@ ul#rooms li.room.elevator { height: 100px; margin: 0; padding: 0; }
 ul#rooms li.room.elevator a { float: left; width: 100%; height: 100%; margin: 0; padding: 0; }
 ul#rooms li.add_button  { width: 50px; padding: 100px 0 0 0; background-image: url('/images/theme/add_room_button.png'); background-position:0 30px; }
 ul#rooms li.add_button:hover {background-position:-50px 30px;}
-ul#rooms li.room div.inWorks_effortDone_progressBar { float: left; width: 65px; height: 2px; margin: 2px 5px 0 5px; background-color: #ccf; }
+ul#rooms li.room div.inWorks_effortDone_progressBar { float: left; width: 65px; height: 2px; margin: 2px 5px 0 5px; background-color: #ccf; overflow:hidden; }
 ul#rooms li.room div.inWorks_effortDone_progressBar .progress { float: left; height: 2px; background-color: #669; } /* widht is inline style, depending on % completed */
 ul#rooms li.room p { float: left; width: 100%; text-algin: center; font-size: 10px; color: #339; }
 
