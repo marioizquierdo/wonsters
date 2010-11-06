@@ -22,12 +22,12 @@
 	font-weight: bold;
 	color: white;
 	text-align: middle;
+	text-decoration: none;
 	padding-right: 5px;
 	padding-left: 10px;
 	line-height: 28px;
 	background: url(/images/theme/windows/green/tag_separation.png) no-repeat top left;
 }
-.window_tags .window_tag { float: left; height: 100%; color: white; }
 .window_tags .window_tag:hover { color: #ff9; cursor: pointer; text-decoration: none; }
 .window_tags .window_tag.active_tag spam { background: url(/images/theme/windows/green/tag_selected.png) no-repeat 50% 100%; float: left; width: 100%; height: 100%; }
 .window_tags .window_tag.active_tag:hover { cursor: default; color: white; }

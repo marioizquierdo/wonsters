@@ -7,18 +7,18 @@
 	
 <customtag:window id="PublicableRoomNotImplemented" title="Lair.room.actions.publishRoom.title">
 	<div id="not_implemented_page_image_wrapper">
-        <img src="images/conceptart/thearsmonsters_artwork_1.jpg" width="600" height="370" class="ui-corner-all"/>
+        <img src="images/illustrations/mainmonster_with_money.jpg" width="480" height="371" class="ui-corner-all"/>
     </div>
 	<p class="info_slot">
 		<fmt:message key="NotImplementedPage.apologize"/>
 	</p>
 	
-	<customtag:info_message titleKey="PublicableRoom.not_implemented.info.title" icon_id="12">
+	<customtag:info_message titleKey="PublicableRoom.not_implemented.info.title" icon_id="7">
 		<p><fmt:message key="PublicableRoom.not_implemented.info.desc"/></p>
 	</customtag:info_message>
 		
 		
-	<customtag:info_message titleKey="PublicableRoom.not_implemented.info2.title" icon_id="12">
+	<customtag:info_message titleKey="PublicableRoom.not_implemented.info2.title" icon_id="13">
 		<p><fmt:message key="PublicableRoom.not_implemented.info2.desc"/></p>
 	</customtag:info_message>
 		
