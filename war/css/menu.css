@@ -1,14 +1,15 @@
 /**
-  * Maquetaci�n del men� superior del layout principal
+  * Menu superior del layout in_game
   */
 #menu {
+	float: left;
+	clear: both;
 	width: 770px;
 	height: 100px;
 	margin-top: 65px;
 	margin-bottom: 0px;
 	cursor: default;
-	float: left;
-	clear: both;
+	font-size: 12px; 
 }
 
 #main_header { width: 770px; height: 100px; }
@@ -32,6 +33,8 @@
 #menu_info_content .menu_info_item span.description { float: left; margin-left: 5px; font-size: 10px; }
 #menu_info_content .menu_info_item .icon.s_ico { float: left; margin: 0; }
 #menu_info_right { float: left; width: 6px; height: 25px; }
+
+#menu #menu_logo #options ul.menu_items li.menu_item a { font-size: 12px; text-decoration: none; }
 
 #menu_links { float: left; }
 #menu_links a { color: white; }
