@@ -65,7 +65,10 @@
 						    	<c:otherwise>
 					    			<fmt:message key="EggsManagement.incubating"/> ...
 					    			<span class="countdown">
-					    				<span class="c_in" style="display:none">${egg.borningDateEpoch}</span>
+					    				<span class="c_in" style="display:none">
+					    					<span class="target_millis">${egg.borningDateEpoch}</span>
+					    					<span class="now_millis"><jsp:useBean id="now" class="java.util.Date" />${now.time}</span>
+					    				</span>
 					    				<span class="c_out"><fmt:message key="Buttons.incubate"/></span>
 					    			</span></c:otherwise>
 								</c:choose>

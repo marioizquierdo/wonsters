@@ -20,10 +20,13 @@
         <div id="no_free_turns_hint"><fmt:message key="Monster.actions.noFreeTurns.desc"></fmt:message></div>
 	 	<div class="countdown">
 	        <fmt:message key="Monster.actions.nextFreeTurn"></fmt:message>
-	        <span class="c_in" style="display:none">${monster.nextTurnTime}</span>
+	        <span class="c_in" style="display:none">
+				<span class="target_millis">${monster.nextTurnTime}</span>
+				<span class="now_millis"><jsp:useBean id="now" class="java.util.Date"/>${now.time}</span>
+			</span>
 	        <span class="c_out">...</span>
 	    </div>
-        </c:when>
+	    </c:when>
 	</c:choose>
 	
 	<!-- Cocoon count down -->
@@ -35,7 +38,10 @@
 		<span class="data_label cursor_help">${cocoon_count_title}:</span>
 		<span class="data_value cursor_help">
 			<span class="countdown">
-				<span class="c_in" style="display:none">${monster.cocoonCloseUpDate.time}</span>
+				<span class="c_in" style="display:none">
+					<span class="target_millis">${monster.cocoonCloseUpDate.time}</span>
+					<span class="now_millis"><jsp:useBean id="now2" class="java.util.Date"/>${now2.time}</span>
+				</span>
 				<span class="c_out">...</span>
 			</span>
 		</span>
