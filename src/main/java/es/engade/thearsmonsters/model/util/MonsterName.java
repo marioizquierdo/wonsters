@@ -67,6 +67,7 @@ public class MonsterName {
 		"Bombat",
 		"Bob",
 		"Bombastico",
+		"Burcio",
 		
 		"Charles",		
 		"Cabezadura",
