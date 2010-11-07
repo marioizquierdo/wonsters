@@ -34,7 +34,7 @@
         </div>
         <div id="monsterLeftBlockDead">
         <customtag:window id="image_monster_dead" titleValue="${monster.name}" window_width="270">
-            <customtag:monster_image race="${monster.race}" type="list_Dead"/>
+            <img src="/images/monsters/${monster.race}/list_Dead.png" class="monster_list_Dead monster_race_${monster.race}" alt="${monster.race} Dead"/>
         </customtag:window>
         </div>
     

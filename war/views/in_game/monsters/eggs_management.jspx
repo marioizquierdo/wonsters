@@ -36,17 +36,12 @@
 			<c:forEach items="${eggs}" var="egg" varStatus="loop" >
 				<div id="egg_${egg.id}" class="egg_slot">
 					<div id="egg_${egg.id}_img" class="egg_slot_img">
-						<c:set var="seeRaceDetails"><fmt:message key="Monster.race.clickToSeeDetails"/></c:set>
-						<!--<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}">-->
-							<customtag:monster_image race="${egg.race}"/>
-						<!--</html:link>-->
+						<img src="/images/monsters/${egg.race}/icon.png" class="monster_icon monster_race_${egg.race}"/>
 					</div>
 					<div id="egg_${egg.id}_text" class="egg_slot_text">
 						<ul>
 						<li class="li-actions-title">
-							<!--<html:link action="RaceDetails.do?race=${egg.race}" title="${seeRaceDetails}"> -->
-								<fmt:message key="Monster.race.${egg.race}"/>
-							<!--</html:link>-->
+							<fmt:message key="Monster.race.${egg.race}"/>
 						</li>
 						<li>
 							<c:choose><c:when test="${egg.incubated}">
@@ -149,14 +144,14 @@
 			  	 <fmt:message key="Monster.race.${race}.desc"/>
 			   </c:set>
 			   
+			   <!-- Casillas con el html de cada fila -->
 			   <tr class="${parity_class}">
-			   		<td class="race" title="${race_desc_message}">
-				   		<c:choose><c:when test="${unlocked_race}">
-				   			<span title="${race_desc_message}"><customtag:monster_image race="${race}"/></span>
-					   		</c:when>
+			   		<td class="race">
+				   		<c:choose><c:when test="${unlocked_race}">			   				
+							<img src="/images/monsters/${race}/icon.png" class="monster_icon monster_race_${race}" title="${race_desc_message}"/></c:when>
 					   	<c:otherwise> 
-					   		<span class="race_not_available_icon">?</span>
-					   	</c:otherwise></c:choose>
+					   		<img src="/images/monsters/${race}/icon_mistery.png" class="monster_icon monster_race_${race}"/></c:otherwise>
+					   	</c:choose>
 						<fmt:message key="Monster.race.${race}"/>
 					</td>
 			    	<td class="buyEggPrice ${suficient_money ? 'suficient' : 'insuficient' }">
@@ -177,6 +172,9 @@
 			    </tr>
 		    </c:forEach>
 		</table>
+		<customtag:jquery_tag>
+			$('table.buyEggsList th').tipTip();
+		</customtag:jquery_tag>
 	</customtag:window_content>
 	
 </customtag:window>
