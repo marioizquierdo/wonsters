@@ -7,9 +7,8 @@
     		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
     		version="2.0">
 
-<![CDATA[
-	<script type='text/javascript' src='/javascript/count_down.js'></script>
-]]> 
+
+<customtag:include_javascripts root="/javascript" files="count_down"/>
 
 <customtag:window id="eggsManagement" title="EggsManagement.title" selected_tag="viewEggs" tags="
 		monsters: MainMenu.link.monsters => monsters/of_lair.do, 
@@ -111,8 +110,10 @@
 				<c:set var="vitalSpace_help"><fmt:message key="Monster.race.vitalSpace.desc"/></c:set>
 				
 			    <th class="race" title="${race_help}"><fmt:message key="Monster.race"/></th>
-			    <th class="buyEggPrice" title="${buyEggPrice_help}"><fmt:message key="Monster.race.buyEggPrice"/></th>
-			    <th class="vitalSpace" title="${vitalSpace_help}"><fmt:message key="Monster.race.vitalSpace"/></th>
+			    <th class="buyEggPrice" title="${buyEggPrice_help}"><fmt:message key="Monster.race.buyEggPrice"/><br/>
+			    		<span class="table_th_annotation">(<fmt:message key="Monster.race.buyEggPrice.youHave"><fmt:param value="${my.lair.money}"/></fmt:message>)</span></th>
+			    <th class="vitalSpace" title="${vitalSpace_help}"><fmt:message key="Monster.race.vitalSpace"/><br/>
+			    		<span class="table_th_annotation">(<fmt:message key="Monster.race.vitalSpace.youHave"><fmt:param value="${my.lair.vitalSpaceFree}"/></fmt:message>)</span></th>
 			    <th class="buyEggAction"><fmt:message key="Buttons.buy"/></th>
 			</tr>
 		    
@@ -158,10 +159,10 @@
 						<fmt:message key="Monster.race.${race}"/>
 					</td>
 			    	<td class="buyEggPrice ${suficient_money ? 'suficient' : 'insuficient' }">
-			    		<fmt:formatNumber value="${race.buyEggPrice}"/>
+			    		<customtag:show_unit value="${race.buyEggPrice}" units="money" title="${suficient_money ? '' : insuficient_resources_message }"/>
 			    	</td>	    		
 			    	<td class="vitalSpace ${suficient_vitalSpace ? 'suficient' : 'insuficient' }">
-			    		<fmt:formatNumber value="${race.vitalSpace}"/>
+			    		<customtag:show_unit value="${race.vitalSpace}" units="vitalSpace" title="${suficient_vitalSpace ? '' : insuficient_resources_message }"/>
 			    	</td>
 			    	<td class="buyEggAction">
 				    	<c:choose><c:when test="${suficient_money and suficient_vitalSpace}">
@@ -176,7 +177,12 @@
 		    </c:forEach>
 		</table>
 		<customtag:jquery_tag>
-			$('table.buyEggsList th').tipTip();
+			$('table.buyEggsList *[title]').tipTip({
+				delay: 600,
+	  			edgeOffset: 10,
+				defaultPosition: 'bottom',
+				maxWidth: '450px'
+			});
 		</customtag:jquery_tag>
 	</customtag:window_content>
 	

@@ -54,17 +54,14 @@
 }
 
 .table2 th {
-	background: url(../images/theme/table2_th_fade.jpg) repeat-x bottom left;
+	background: url('/images/theme/table2_th_fade.jpg') repeat-x left bottom;
 	height: 25px;
 	padding: 0 10px 0 10px;
 	font-weight: bold;
 	font-size: 14px;
 }
-
-.table2 th.mini {
-	font-weight: lighter;
-	font-size: 10px;
-}
+.table2 th.mini { font-weight: lighter; font-size: 10px; }
+.table2 th span.table_th_annotation { font-weight: lighter; font-size: 12px; color: #666; }
 
 .table2 td,
 .table2 th {
