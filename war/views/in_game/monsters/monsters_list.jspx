@@ -35,8 +35,14 @@
 		    	<c:set var="monster_age" value="${monster.age == 'Cocoon' ? 'Child' : monster.age }" /> <!-- Se toman los que estan convirtiendose en adultos igualmente como crias --> 
 		    	<img class="monster_image" src="/images/monsters/${monster.race}/list_${monster_age}.png" alt="${monster.name}" title="${img_tooltip}" height="180"/>
 		    	<p class="monster_name"><c:out value="${monster.name}"/></p>
-		    	<c:if  test = "${not (monster.bestWorkSkill.type == 'HarvesterSkill' and monster.bestWorkSkill.level == 0)}">
-		    	   <p class="monster_bestWorkSkill"><fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})</p>
+		    	<c:if test="${monster.age != 'Dead'}">
+			    	<c:if test="${monster.bestComposeAttr.level > 0}">
+			    	   <p class="monster_bestComposeAttr"><fmt:message key="Monster.attr.${monster.bestComposeAttr.type}"/> (${monster.bestComposeAttr.level})</p>
+			    	</c:if><c:if test="${monster.bestComposeAttr.level == 0}">
+			    	   <p class="monster_bestComposeAttr"><fmt:message key="Monster.bestComposeAttr.without"/></p>
+			    	</c:if>
+		    	</c:if><c:if test="${monster.age == 'Dead'}">
+		    		<p class="monster_dead_message"><fmt:message key="Monster.age.Dead"/></p>
 		    	</c:if>
 		    	<p class="monster_freeTurns ${(monster.freeTurns == 0) ? 'without' : ''}" title="${free_turns_tooltip}">
 		    		<span class="label"><fmt:message key="Monster.freeTurns"/>:</span> <c:out value=" "/>

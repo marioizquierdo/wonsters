@@ -45,6 +45,9 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     @Persistent(serialized="true", defaultFetchGroup="true") 
 	private Map<AttrType, Attr> simpleAttrs;
     
+    // Not persistent. Calculated from simpleAttr and workSkills
+    private Map<AttrType, Attr> composeAttrs;
+    
     @Persistent
 	private MonsterAge age;
     
@@ -97,6 +100,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		// Por defecto los crea e inicializa todos a cero.
 		this.simpleAttrs = AttrType.initializeSimpleAttrs();
 		this.workSkills = AttrType.initializeWorkSkills();
+		this.composeAttrs = null;
 		
 		this.freeTurnsTimestamp = DateTools.now();
 		this.freeTurns = 0;
@@ -286,20 +290,39 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	/**
 	 * Igual que getComposeAttrs pero las claves del hash son Strings.
 	 * Necesario para acceder a los atributos desde JSTL, por ejemplo:
-	 *   ${monster.composeAttr.WorkSkill.level}
+	 *   ${monster.composeAttr.Harvest.level}
 	 */
 	public Map<String, Attr> getComposeAttr() {
 		return stringfyKeys(getComposeAttrs());
 	}
 	
 	public Map<AttrType, Attr> getComposeAttrs() {
-		Map<AttrType,Attr> attrs = new HashMap<AttrType,Attr>();
-		for(AttrType e : AttrType.values()) {
-			if (e.getAttrClass() == AttrTypeClass.ComposeAttr){
-				attrs.put(e, this.getComposeAttr(e));
+		if(this.composeAttrs == null) {
+			composeAttrs = new HashMap<AttrType,Attr>();
+			for(AttrType e : AttrType.values()) {
+				if (e.getAttrClass() == AttrTypeClass.ComposeAttr){
+					composeAttrs.put(e, this.getComposeAttr(e));
+				}
 			}
 		}
-		return attrs;
+		return composeAttrs;
+	}
+	
+	/**
+	 * Devuelve el atributo de trabajo que tenga mayor nivel
+	 */
+	public Attr getBestComposeAttr(){
+		Attr best = getComposeAttr(AttrType.Harvest); // por poner uno, se comienza con Harvest
+	    for(Attr skill: getComposeAttrs().values()) {
+	    	if(skill.getLevel() > best.getLevel()) {
+	    		best = skill;
+	    	} else if(skill.getLevel() == best.getLevel()) { // en caso de empate, gana el que tenga más experiencia
+	    		if(skill.getExp() > best.getExp()) {
+	    			best = skill;
+	    		}
+	    	}
+	    }
+	    return best;
 	}
 	
 	public Attr getSimpleAttr(AttrType type) { 
@@ -337,23 +360,6 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	 */
 	public Map<String, Attr> getWorkSkill() {
 		return stringfyKeys(getWorkSkills());
-	}
-	
-	/**
-	 * Devuelve el atributo de trabajo que tenga mayor nivel
-	 */
-	public Attr getBestWorkSkill(){
-		Attr best = getWorkSkills().get(AttrType.HarvesterSkill); // por poner uno, se comienza con HarvesterSkill
-	    for(Attr skill: getWorkSkills().values()) {
-	    	if(skill.getLevel() > best.getLevel()) {
-	    		best = skill;
-	    	} else if(skill.getLevel() == best.getLevel()) { // en caso de empate, gana el que tenga más experiencia
-	    		if(skill.getExp() > best.getExp()) {
-	    			best = skill;
-	    		}
-	    	}
-	    }
-	    return best;
 	}
 	
 	public Map<AttrType, Attr> getWorkSkills() {

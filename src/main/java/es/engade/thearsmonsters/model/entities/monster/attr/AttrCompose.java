@@ -24,10 +24,10 @@ public abstract class AttrCompose extends Attr {
 	
 	/**
 	 * Se devuelve la media aritmética de la experiencia de los atributos
-	 * de los que se compone. En realidad nunca se utiliza (se supone que un atributo
-	 * compuesto no tiene exp porque no se puede subir de nivel directamente, sino
-	 * a través de sus agregados. Sin embargo, en caso de querer saber la exp de este
-	 * atributo, la media sería el valor más correcto.
+	 * de los que se compone. En realidad solo se utiliza para calcular el mejor atributo
+	 * (se supone que un atributo compuesto no tiene exp porque no se puede subir de nivel 
+	 * directamente, sino a través de sus agregados. 
+	 * Sin embargo, en caso de querer saber la exp de este atributo, la media sería el valor más correcto.
 	 */
 	@Override
     public int getExp() {

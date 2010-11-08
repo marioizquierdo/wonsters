@@ -92,16 +92,15 @@
 					</customtag:monsterBrief_data_row>
 					
 					<!-- Job (best work skill) -->
-					<c:if test="${monster.age != 'Child' and monster.age != 'Cocoon' and not (monster.bestWorkSkill.type == 'HarvesterSkill' and monster.bestWorkSkill.level == 0)}">
-						<customtag:monsterBrief_data_row property="bestWorkSkill">
-							   <fmt:message key="Monster.attr.${monster.bestWorkSkill.type}"/> (${monster.bestWorkSkill.level})
+					<c:if test="${monster.age != 'Child' and monster.age != 'Cocoon' and monster.bestComposeAttr.level > 0}">
+						<customtag:monsterBrief_data_row property="bestComposeAttr">
+							   <fmt:message key="Monster.attr.${monster.bestComposeAttr.type}"/> (${monster.bestComposeAttr.level})
 						</customtag:monsterBrief_data_row>
 					</c:if>
 					
 					<!-- Favorite Music (favoriteLeisure) -->
 					<li class="data_row">
 						<span class="data_label"><fmt:message key="Monster.favoriteLeisure"/>:</span>
-						<!-- <span class="data_value">${monster.favoriteLeisure}</span> -->
 						<span class="data_value"><fmt:message key="Monster.favoriteLeisure.${monster.favoriteMusic}"/></span>
 					</li>
 					
