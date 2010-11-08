@@ -143,7 +143,10 @@ table.buyEggsList td.buyEggPrice.insuficient { color: #933; }
 	padding: 20px 0 0 310px;
 }
 
+#bornMonsterForm { width: 100%; }
+#bornMonsterForm div.field { width: 240px; }
 #bornMonster_form { float: left; margin: 20px 0 10px 0; }
-#bornMonsterWindow div.field span.label { float: left; text-align: left; font-weight: bold; line-height: 1.6em; width: 100%; margin-left: 0; }
-#bornMonsterWindow div.field span.entry { float: left; text-align: left; margin-top: 10px; }
-#bornMonsterWindow  div.button { float: right; margin-top: 10px; }
+#bornMonsterWindow div.field span.label { float: left; width: 100%; text-align: left; font-weight: bold; line-height: 1.6em; margin-left: 0; }
+#bornMonsterWindow div.field span.entry { float: left; width: 100%; text-align: left; margin-top: 10px; }
+#bornMonsterWindow  div.button { float: right; margin-top: 39px; margin-right: 15px; }
+

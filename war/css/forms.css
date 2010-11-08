@@ -1,14 +1,15 @@
 /****** Forms. ******/
 form {
-	width: 100%;
+	float: left;
+	width: 760px;
 	margin-bottom: 10px;
 }
 
 div.field {
-	clear: both;
+	float: left;
+	width: 760px;
+	display: inline;
 	padding-top: 1em;
-	width: 100%;
-	display: block;
 }
 
 div.field span.label {
@@ -35,7 +36,9 @@ span.entry {
 	text-align: left;
 }
 
-input,select,textarea {
+input,
+select,
+textarea {
 	background-color: #eee;
 	border: 1px solid black;
 }

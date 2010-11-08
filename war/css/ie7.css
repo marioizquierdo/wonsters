@@ -5,3 +5,10 @@
 div.more_actions_links { float: none; width: auto; margin: 25px auto 15px auto; display: block; }
 
 .pikachoose { margin: 15px auto 40px; }
+
+/** Algunas pantallas necesitan más espacio abajo **/
+#changePasswordWindow_changePassword { padding-bottom: 20px; }
+#confirmationWindow_content { padding-bottom: 20px; }
+
+
+#bornMonsterWindow  div.button { margin-top: 0px; }
