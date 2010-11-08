@@ -114,6 +114,20 @@
 			    </c:set>
 			</c:if>
 			
+			<!-- Gym -->
+            <c:if test="${room.roomType == 'Gym'}">
+                <c:set var="upgradeTitleMessage">
+                    <fmt:message key="Lair.room.Gym.upgradeMessage"><fmt:param value="${room.level+1}"/><fmt:param value="${(room.level+1) * 10}"/></fmt:message>
+                </c:set>
+            </c:if>
+            
+            <!-- Nursery -->
+            <c:if test="${room.roomType == 'Nursery'}">
+                <c:set var="upgradeTitleMessage">
+                    <fmt:message key="Lair.room.Nursery.upgradeMessage"><fmt:param value="${room.level+1}"/><fmt:param value="${(room.level+1) * 10}"/></fmt:message>
+                </c:set>
+            </c:if>
+			
 			<!-- Common: Works actions -->
 			<c:choose><c:when test="${room.inWorks}">
 				<c:if test="${!room.inInitialState}">		
