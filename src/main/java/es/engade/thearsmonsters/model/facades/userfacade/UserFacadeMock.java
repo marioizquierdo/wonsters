@@ -23,7 +23,7 @@ public class UserFacadeMock implements UserFacade {
 		user = lair.getUser();
 	}
 	
-	public void changePassword(String login, String oldClearPassword, String newClearPassword)
+	public void changePassword(Lair lair, String login, String oldClearPassword, String newClearPassword)
 			throws IncorrectPasswordException, InternalErrorException {
 	}
 
@@ -58,7 +58,7 @@ public class UserFacadeMock implements UserFacade {
 			throws InternalErrorException, InstanceNotFoundException {
 	}
 
-	public void updateUserProfileDetails(String login, UserDetails userProfileDetailsVO)
+	public void updateUserProfileDetails(Lair lair, String login, UserDetails userProfileDetailsVO)
 			throws InternalErrorException {
 	}
 

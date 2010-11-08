@@ -198,7 +198,7 @@ public class UserFacadeTest extends GaeTest {
         
         assert(!userBeforeUpdate.getUserDetails().equals(details));
         
-        userFacade.updateUserProfileDetails(LOGIN, details);
+        userFacade.updateUserProfileDetails(userBeforeUpdate.getLair(), LOGIN, details);
         
         User userAfterUpdate = userFacade.findUserProfile(LOGIN);
         assertEquals(details, userAfterUpdate.getUserDetails());

@@ -1,7 +1,5 @@
 package es.engade.thearsmonsters.model.facades.userfacade;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,23 +37,23 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 		this.lairDao = lairDao;
 	}
 
-	public void changePassword(String login, String oldClearPassword,
+	public void changePassword(Lair lair, String login, String oldClearPassword,
 			String newClearPassword) throws IncorrectPasswordException,
 			InternalErrorException {
 
-		try {
-			User user = userDao.findUserByLogin(login);
+		User user = lair.getUser();
 
-			if (!PasswordEncrypter.isClearPasswordCorrect(oldClearPassword,
-					user.getEncryptedPassword()))
-				throw new IncorrectPasswordException(login);
-
-			user.setEncryptedPassword(PasswordEncrypter.crypt(newClearPassword));
-			userDao.update(user);
-
-		} catch (InstanceNotFoundException e) {
-			throw new InternalErrorException(e);
+		if (!user.getLogin().equals(login)) {
+			throw new InternalErrorException("Login doesn't match with session");
 		}
+			
+		if (!PasswordEncrypter.isClearPasswordCorrect(oldClearPassword,
+				user.getEncryptedPassword())) {
+			throw new IncorrectPasswordException(login);
+		}
+		
+		user.setEncryptedPassword(PasswordEncrypter.crypt(newClearPassword));
+		userDao.update(user);
 
 	}
 
@@ -126,18 +124,18 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
 	}
 
-	public void updateUserProfileDetails(String login,
+	public void updateUserProfileDetails(Lair lair, String login,
 			UserDetails userProfileDetailsVO) throws InternalErrorException {
 
-		try {
-			User user = userDao.findUserByLogin(login);
+		User user = lair.getUser();
 
-			user.setUserDetails(userProfileDetailsVO);
-			userDao.update(user);
-		} catch (InstanceNotFoundException e) {
-			// Internal Error: A logged user should exist
-			throw new InternalErrorException(e);
+		if (!user.getLogin().equals(login)) {
+			throw new InternalErrorException("Login doesn't match with session");
 		}
+
+		user.setUserDetails(userProfileDetailsVO);
+		userDao.update(user);
+		
 	}
 
 }

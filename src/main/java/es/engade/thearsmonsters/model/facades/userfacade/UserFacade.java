@@ -40,7 +40,7 @@ public interface UserFacade {
      * porque en el caso de uso no se solicita clave. 
      */
     public void updateUserProfileDetails(
-        String login, 
+    	Lair lair, String login, 
         UserDetails userProfileDetailsVO)
         throws InternalErrorException;
     
@@ -52,7 +52,7 @@ public interface UserFacade {
 	public void removeUserProfile(String login)
 		throws InternalErrorException, InstanceNotFoundException;
 
-    public void changePassword(String login, String oldClearPassword, 
+    public void changePassword(Lair lair, String login, String oldClearPassword, 
         String newClearPassword) throws IncorrectPasswordException,
         InternalErrorException;
     

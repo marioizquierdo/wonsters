@@ -1,6 +1,5 @@
 package es.engade.thearsmonsters.http.controller.session;
 
-import java.io.File;
 import java.util.Locale;
 
 import javax.mail.MessagingException;
@@ -210,7 +209,7 @@ public final class SessionManager {
             
         String login = getMyLogin(request);
         
-        userFacade.updateUserProfileDetails(login, UserDetails);
+        userFacade.updateUserProfileDetails(getMyLair(request), login, UserDetails);
         
         /* Update user's session objects.*/
         Locale locale = new Locale(UserDetails.getLanguage());
@@ -226,7 +225,7 @@ public final class SessionManager {
                    
         /* Change user's password. */
             
-        userFacade.changePassword(login, oldClearPassword, newClearPassword);
+        userFacade.changePassword(getMyLair(request), login, oldClearPassword, newClearPassword);
             
         /* Remove cookies. */
         leaveCookies(response, null);
