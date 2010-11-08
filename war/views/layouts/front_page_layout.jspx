@@ -40,6 +40,13 @@
 	
 	<c:set var="unsupported_ie6_message"><fmt:message key="FrontPage.unsupportedBrowser" /></c:set>
 	<c:set var="unsupported_ie6_continue"><fmt:message key="FrontPage.unsupportedBrowser.continue" /></c:set>
+	
+	<![CDATA[
+  	<!--[if IE 7]>
+      <link href="/css/ie7.css" rel="stylesheet" type="text/css"></link>
+    <![endif]-->
+    ]]>
+	
 	<![CDATA[
 	  <!--[if lt IE 7]>
 	    <script type="text/javascript" src='/javascript/lib/jquery.ie6warning.js'></script>

@@ -9,8 +9,8 @@
 	<![CDATA[
 		<script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
 		<script type='text/javascript' src='/javascript/lib/jquery.lightbox.js'></script>
-		<script type="text/javascript">$(document).ready(function() {
-				$("#pikame").PikaChoose({show_prev_next:false,transition:[0]});
+		<script type="text/javascript">$(function() {
+				$("#pikame").PikaChoose({ show_prev_next:false, transition:[0] });
 		});</script>
 	]]>
 	
@@ -30,12 +30,14 @@
 			</li>
 		</c:forTokens></ul>
 	</div>
+	
 	<![CDATA[
 		<script type="text/javascript">$(function() {
                 $('.pika_subdiv a').lightBox();
                 //$('a[@rel*=lightbox]').lightBox(); // Select all links that contains lightbox in the attribute rel
         });</script>
     ]]>
+    
 	<div class="more_actions_links">
 		<html:link action="welcome.do"><fmt:message key="FrontPage.startTag" /></html:link> |
 		<html:link action="screenshots.do"><fmt:message key="FrontPage.screenshots" /></html:link> |

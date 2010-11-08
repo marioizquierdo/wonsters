@@ -2,3 +2,6 @@
 
 #monstersList a.monster_slot img { display: block; margin: 0 0 10px 0; }
 
+div.more_actions_links { float: none; width: auto; margin: 25px auto 15px auto; display: block; }
+
+.pikachoose { margin: 15px auto 40px; }

@@ -90,6 +90,8 @@ body#frontPage {
 
 /**** Game presentations ****/
 
+#game_presentation_info { float: left; width: 100%; }
+
 #playNowForFree_button {
 	float: left;
 	width: 200px;

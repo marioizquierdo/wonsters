@@ -51,7 +51,7 @@
 .rounded_window .br 			{ width: 5px; height: 5px; 	background: url(/images/theme/windows/green/corner_br.png); }
 
 .rounded_window .content_box 	{ overflow: hidden; }
-.rounded_window .selected_content_box_slide	{ display: block; }
+.rounded_window .selected_content_box_slide	{ float: left; display: inline; }
 .rounded_window .hidden_content_box_slide   { display: none; }
 
 /* Default menu styles. Using green by default. */
