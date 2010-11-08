@@ -27,11 +27,11 @@ public abstract class AttrCompose extends Attr {
 	 * de los que se compone. En realidad solo se utiliza para calcular el mejor atributo
 	 * (se supone que un atributo compuesto no tiene exp porque no se puede subir de nivel 
 	 * directamente, sino a través de sus agregados. 
-	 * Sin embargo, en caso de querer saber la exp de este atributo, la media sería el valor más correcto.
+	 * Sin embargo, en caso de querer saber la exp de este atributo, el valor máximo sería una buena aproximación.
 	 */
 	@Override
     public int getExp() {
-		return (leftAttr.getExp() + rightAttr.getExp()) / 2;
+		return Math.max(leftAttr.getExp(), rightAttr.getExp());
 	}
 	
 	@Override

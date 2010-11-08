@@ -19,7 +19,8 @@
 	
 	<c:set var="title"><fmt:message key="Monster.attr.${property}"/></c:set>
   	<c:set var="desc"><fmt:message key="Monster.attr.${property}.desc"/></c:set>
-	<h3 title="${title} - ${desc}" class="cursor_help">${title}</h3>
+  	<c:set var="popup"><h3>${title}</h3><p>${desc}</p></c:set>
+	<h3 title="${popup}" class="cursor_help">${title}</h3>
 	<ul>
 		<c:forEach items="${requestScope[monsterName][property]}" var="attr">
 			<li class="data_row attribute_row">
@@ -38,7 +39,8 @@
 								<c:when test="${fn:contains(desc,'attr.')}">
 									<fmt:message key="Monster.${desc}"/>
 									<c:if test="${!empty attr.value.valueDescription[loop.index]}"> <!-- se les une el valor -->
-										<c:out value=" (${attr.value.valueDescription[loop.index]})"/></c:if>
+										<c:out value=" (${attr.value.valueDescription[loop.index]})"/>
+									</c:if>
 								</c:when>
 								<c:otherwise>${desc}</c:otherwise>
 								</c:choose>
@@ -54,9 +56,11 @@
 				<div class="hidden_attribute_details" style="display:none;">
 					<h3><customtag:attr_icon attrType="${attr.key}" size="m" style="margin-right: 5px;"/><fmt:message key="Monster.attr.${attr.key}"/></h3>
 					<p><fmt:message key="Monster.attr.${attr.key}.desc"/></p>
-					<p><fmt:message key="Monster.attr.exp">
-						<fmt:param value="${attr.value.exp}"/> <fmt:param value="${attr.value.level+1}"/>
-					</fmt:message></p>
+					<c:if test="${attr.value.type.attrClass != 'ComposeAttr'}">
+						<p><fmt:message key="Monster.attr.exp"> <!-- Los atributos compuestos no tienen experiencia directa -->
+							<fmt:param value="${attr.value.exp}"/> <fmt:param value="${attr.value.level+1}"/>
+						</fmt:message></p>
+					</c:if>
 				</div>
 			</li>
 		</c:forEach>
