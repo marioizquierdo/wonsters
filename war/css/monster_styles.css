@@ -29,6 +29,7 @@
 
 #monsterLeftBlock { float: left; width: 270px; }
 #monster_tasks { float: left; width: 100%; }
+#monster_tasks_content form.execute_monster_actions { width: 260px; }
 
 #monster_tasks .free_turns { float: left; width: 240px; text-align: left; margin: 10px 10px 24px 10px; }
 #monster_tasks .free_turns_label { }
