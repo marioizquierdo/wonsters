@@ -32,6 +32,12 @@
   		reset_defaults, common_styles, tables, forms, in_game, menu,
   		lair_styles, monster_styles, window_tag_and_colors, 
   		tipTip"/>
+	
+	<![CDATA[
+	<!--[if IE 7]>
+    <link href="/css/ie7.css" rel="stylesheet" type="text/css"></link>
+  <![endif]-->
+  ]]>
   
   <!-- JavaScripts -->
   <customtag:include_javascripts root="/javascript" files="

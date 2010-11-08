@@ -153,12 +153,12 @@ body#frontPage {
 #credits ul#dev_team_list li#GuilleGefaell .developer_details {		background-image: url('/images/photos/GuilleGefaell.png'); }
 #credits ul#dev_team_list li#ManuelGonzalez .developer_details { 	background-image: url('/images/photos/ManuelGonzalez.png'); }
 
-
-
+#credits ul#tech_info_list { margin: 20px 0 0 0; }
 #credits ul#tech_info_list li {
-    margin: 10px 0 20px 0;
+    margin: 10px 0 25px 0;
     padding: 0 0 0 75px;
     background: transparent none no-repeat top left;
+	list-style: none outside none;
 }
 #credits ul#tech_info_list li h3 { font-weight: bold; }
 #credits ul#tech_info_list li#tech_info_gae { 		background-image: url('/images/logos/gae.gif');	}

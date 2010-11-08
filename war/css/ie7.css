@@ -1,0 +1,4 @@
+/** CORRECCIONES PARA IE7 **/
+
+#monstersList a.monster_slot img { display: block; margin: 0 0 10px 0; }
+

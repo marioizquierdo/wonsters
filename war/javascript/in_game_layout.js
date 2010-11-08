@@ -7,8 +7,16 @@ $( function() {
 	// Menu desplegable
 	var menu = $("div#menu_logo");
 	var options = $("div#options");
+	
 	menu.hover(function() { // mouseover
-		options.show();
+	
+		var offset_left = menu.offset().left;
+		var offset_top = menu.offset().top + menu.height() - 6;
+		options.css({
+			"position": "absolute", 
+			"left": offset_left+'px', 
+			"top": offset_top+'px'
+		}).show();
 		
 	}, function() { // mouseleave
 		options.hide();

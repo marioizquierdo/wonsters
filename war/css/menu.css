@@ -14,13 +14,12 @@
 
 #main_header { width: 770px; height: 100px; }
 
-.menu_window { width: 145px; height: 100px; padding: 0; text-align: center; }
-.menu_window img { margin-top: 15px; margin-left: 38px; }
-#logo_bottom_links { width: 145px; height: 16px; margin-top: 5px; position: relative; visibility: visible; }
-#options { width: 145px; margin-top: 5px; position: absolute; display: none; }
-
-.menu_item { border-top: 2px solid #eee; padding: 5px 0 5px 0; text-decoration: none; }
-.menu_item:hover { background: #eee; }
+#menu_logo { width: 145px; height: 100px; padding: 0; text-align: center; }
+#menu_logo img { float: left; display: inline; margin-top: 15px; margin-left: 38px; }
+#menu_logo #logo_bottom_links { float: left; display: inline; width: 145px; height: 16px; margin-top: 5px; position: relative; visibility: visible; }
+#menu_logo #options { width: 145px; position: absolute; display: none; }
+#menu_logo #options .menu_item { border-top: 2px solid #eee; padding: 5px 0 5px 0; text-decoration: none; }
+#menu_logo #options .menu_item:hover { background: #eee; }
 
 #menu_box,
 #menu_logo,

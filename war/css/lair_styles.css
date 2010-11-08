@@ -96,6 +96,7 @@ ul#rooms li.room.Nursery.inWorks     			{ background-image: url(/images/building
 
 #lairWindow0 { padding-top: 10px; }
 .room_price_and_buy_action { margin-top: 10px; }
+#lairWindow_content { padding-bottom: 20px; }
 
 ul#newRooms { float: left; clear: both; margin: 18px 0 0 15px; padding: 0; list-style: none; }
 ul#newRooms li { float: left; padding: 0px 0 0 90px; margin: 0 0 38px 28px; min-height: 100px; background: no-repeat left; background-position: -75px 0; text-align: left; }
@@ -152,7 +153,7 @@ ul#newRooms .LoveWardrobeDetails                   { background-image: url(/imag
 
 /*** Search lairs ***/
 
-#lairWindow2,#buildingWindow2 { margin-top: 15px; }
+#lairWindow_search_lairs { margin-top: 20px; }
 
 
 /*** Building view ***/

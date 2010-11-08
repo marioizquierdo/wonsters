@@ -18,15 +18,15 @@
 	            </div>
 	            <div id="image_requiem_bury_button">
 	                <c:set var="desc"><fmt:message key="Monster.isDead.bury.desc" /></c:set>
-		            <span id="grow_to_adult_button" class="button_box bury_monster_button" title="${desc}">
+		            <span id="bury_monster_button" class="button_box bury_monster_button" title="${desc}">
 		               <html:link action="/monster/bury.do?monsterId=${monster.id}"><fmt:message key="Monster.isDead.bury" /></html:link>
 		            </span>
 		            <customtag:jquery_tag>
-		            	$('#grow_to_adult_button').tipTip({ /* Popup informativo */
+		            	$('#bury_monster_button').tipTip({ /* Popup informativo */
 							delay: 0,
 				  			edgeOffset: 8,
 							maxWidth: '500px',
-							defaultPosition: 'bottom',
+							defaultPosition: 'bottom'
 						});
 		            </customtag:jquery_tag>
 	            </div>
@@ -161,7 +161,7 @@
 			$('#MonsterBrief_data li.data_row, #MonsterDetailsWrapper h3[title]').tipTip({
 				delay: 800,
 			    maxWidth: '280px',
-			    defaultPosition: 'left',
+			    defaultPosition: 'left'
 			});
 		</customtag:jquery_tag>
   			

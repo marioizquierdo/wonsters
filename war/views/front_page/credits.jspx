@@ -59,7 +59,7 @@
     
     <!-- Technologies -->
     <customtag:info_message titleKey="Credits.technologiesTitle" icon_id="3">
-	    <p class="info">
+	    <p>
 	       <fmt:message key="Credits.technologiesDesc"></fmt:message>
 	    </p>
 	    
@@ -104,7 +104,7 @@
     </customtag:info_message>
     
     <customtag:info_message titleKey="Credits.thanks" icon_id="6">
-        <p class="info"><fmt:message key="Credits.thanksDesc" /></p>
+        <p><fmt:message key="Credits.thanksDesc"/></p>
     </customtag:info_message>
     
 	<div class="more_actions_links">

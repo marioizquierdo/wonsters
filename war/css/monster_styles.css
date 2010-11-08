@@ -15,14 +15,14 @@
 
 /***** Monster ******/
 #monsterRightBlock { float: left; margin-left: 10px; width: 490px; }
-#MonsterBrief_data { float: left; margin: 4px 0 5px 10px; padding: 0; }
+#MonsterBrief_data { float: left; width: 100%; margin: 4px 0 5px 10px; padding: 0; }
 #image_up_wrapper { float: left; width: 480px; height: 120px; overflow: hidden; }
 
 /***** Dead Monster *****/
-#image_requiem { float: left; width: 100%; margin: 20px 0px}
+#image_requiem { float: left; width: 100%; margin: 20px 0px; }
 #image_requiem img { border: 1px solid black; display: block; margin: auto; }
-#image_requiem_bury_button { float:left; width: 100%; margin: 0 0 18px 0; }
-#image_monster_dead_content img { display: bock; margin: 5px auto 15px auto; }
+#image_requiem_bury_button { float: left; text-align: center; width: 100%; padding: 0 0 18px 0; }
+#image_monster_dead_content img { display: block; margin: 5px auto 15px auto; }
 
 
 /******** Monster Tasks (left window) *********/
@@ -66,10 +66,11 @@
 
 /******** Monster Details (under the monster's illustration) *********/
 
-#MonsterDetailsWrapper { text-align: left; margin: 3px 10px 10px 10px; float: left; }
+#MonsterDetailsWrapper { float: left; width: 100%; text-align: left; margin: 3px 10px 0 10px; padding-bottom: 15px; }
 #MonsterDetailsWrapper p { line-height: 1.6em; }
-#MonsterDetailsWrapper h3 { float: left; color: #d41; margin: 0.8em 0 0.4em 0; padding: 0px; font-size: 16px; }
+#MonsterDetailsWrapper h3 { float: left; width: 100%; color: #d41; margin: 0.8em 0 0.4em 0; padding: 0px; font-size: 16px; }
 #MonsterDetailsWrapper ul { float: left; padding-left: 10px; width: 100%; }
+#MonsterDetailsWrapper ul li { float: left; display: inline; width: 100%; }
 #MonsterDetailsWrapper li.attribute_row { padding: 2px 0; margin: 0; cursor: help; }
 #MonsterDetailsWrapper li.attribute_row .attribute_level { font-weight: bold; }
 #MonsterDetailsWrapper li.attribute_row .attribute_description { color: #666; padding-left: 15px; font-size: 10px; }

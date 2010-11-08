@@ -93,9 +93,9 @@ p.info_mini {
 
 .data_row { /* Por ejemplo los datos a la derecha de la imagen del monstruo */
 	float: left;
+	width: 100%;
 	padding: 2px;
 	text-align: left;
-	width: 100%;
 }
 .data_label { color: #dd4411; font-weight: bold; }
 .data_value { margin-left: 5px; }

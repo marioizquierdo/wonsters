@@ -11,6 +11,7 @@
 	background-color: white;
 	margin: 10px auto;
 	color: black;
+	text-align: center;
 }
 
 .table1 th {
@@ -46,6 +47,7 @@
 	border-collapse: separate;
 	border-spacing: 0px;
 	margin: 10px auto 10px auto;
+	text-align: center;
 }
 
 .table2.float_left {
