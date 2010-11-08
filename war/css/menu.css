@@ -35,7 +35,7 @@
 
 #menu #menu_logo #options ul.menu_items li.menu_item a { font-size: 12px; text-decoration: none; }
 
-#menu_links { float: left; }
+#menu_links { float: left; text-decoration: none; }
 #menu_links a { color: white; text-decoration: none; }
 #menu_links a:hover { text-decoration: none; text-shadow: 0 0 4px #ffc; }
 
