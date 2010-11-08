@@ -192,7 +192,11 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	 * Number from 0 to 100 that represents the percentage of the monster life lived yet (100% when dies)
 	 */
 	public int getAgePercentageLived(){
-	    return getAgeDays() * 100 / race.getLifeExpectancyDays();
+		double life = DateTools.minutesBetween(getBorningDate(), DateTools.now());
+		int minutesOfLife = race.getLifeExpectancyDays()*24*60;
+		double percentageLived =  life * 100 / minutesOfLife;
+		
+	    return Integer.valueOf(String.valueOf(Math.round(percentageLived)));
 	}
 	
 	//-- simple SETTERS --//
