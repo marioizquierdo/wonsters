@@ -42,18 +42,15 @@
 
 <!-- HTML body. -->
 <body id="inGame">
-<div id="background_header">
-	<div id="window" class="${color}_window">
-	
-		<div id="menu"><tiles:get name="menu"/></div>
-		
+<div id="container_for_background">
+
+	<div id="body_wrapper" class="${color}_window">
+		<div id="menu" class="body_full_block"><tiles:get name="menu"/></div>
 		<customtag:flashMessages />
-		
-		<div id="content"><tiles:get name="content"/></div>
-		
-		<div id="footer"><tiles:get name="footer"/></div>
-	
+		<div id="content" class="body_full_block"><tiles:get name="content"/></div>
+		<div id="footer" class="body_full_block"><tiles:get name="footer"/></div>
 	</div>
+
 </div>
 </body>
 </html:html>

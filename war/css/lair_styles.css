@@ -14,7 +14,7 @@ ul#rooms li.add_button  { width: 50px; padding: 100px 0 0 0; background-image: u
 ul#rooms li.add_button:hover {background-position:-50px 30px;}
 ul#rooms li.room div.inWorks_effortDone_progressBar { float: left; width: 65px; height: 2px; margin: 2px 5px 0 5px; background-color: #ccf; overflow:hidden; }
 ul#rooms li.room div.inWorks_effortDone_progressBar .progress { float: left; height: 2px; background-color: #669; } /* widht is inline style, depending on % completed */
-ul#rooms li.room p { float: left; width: 100%; text-algin: center; font-size: 10px; color: #339; }
+ul#rooms li.room p { float: left; width: 100%; text-align: center; font-size: 10px; color: #339; }
 
 ul#rooms li.room.elevator 						{ background-image: url(/images/buildings/elevator.jpg); }
 ul#rooms li.room.elevator:hover					{ background-position: 0 0; }
@@ -101,7 +101,8 @@ ul#newRooms { float: left; clear: both; margin: 18px 0 0 15px; padding: 0; list-
 ul#newRooms li { float: left; padding: 0px 0 0 90px; margin: 0 0 38px 28px; min-height: 100px; background: no-repeat left; background-position: -75px 0; text-align: left; }
 ul#newRooms li h3.new_room_title { float: left; width: 600px; font-size: 14px; font-weight:bold; margin-top: 5px; }
 ul#newRooms li > div { float: left; width: 600px; margin-top: 10px; }
-ul#newRooms li .room_details { width: 380px; margin: 10px 0 0 10px; padding: 0 200px 0 0; background-position: bottom right; background-repeat: no-repeat; min-height: 200px; }
+ul#newRooms li .room_details { width: 570px; padding: 10px 0 170px 10px; background-position: bottom right; background-repeat: no-repeat; }
+
 ul#newRooms li .button_box { float: left; height: 22px; line-height: 22px; margin: 0 0 10px 0; }
 ul#newRooms li .button_box.disabled { background: #eee; border: 1px solid #ccc; color: #666; cursor: default; }
 ul#newRooms li .button_box.disabled:hover { color: #999; cursor: default; }

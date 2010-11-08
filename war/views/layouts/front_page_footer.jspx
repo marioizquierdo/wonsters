@@ -6,17 +6,15 @@
          
          
 
-<div>
     <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
     <img alt="Licencia de Creative Commons" src="/images/logos/by-nc-nd.eu_petit.png" style="margin:auto; display:block; margin-bottom:10px;" /></a>
     
-    <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+    <a class="creative_commons_text" target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
     <fmt:message key="FrontPage.info.license" /></a>
     
     <br/>
 	<c:set var="mailSupport" ><fmt:message key="Common.mailSupport"/> </c:set>
 	<a href="mailto:${mailSupport}" target="_blank"><fmt:message key="FrontPage.info.bug" /></a>
  	
-</div>
 
 </jsp:root>

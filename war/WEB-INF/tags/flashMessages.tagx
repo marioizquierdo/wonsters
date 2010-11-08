@@ -21,7 +21,7 @@
  
   	<c:if test="${!empty sessionScope.flashMessages}">
   	
-		<div id="flashMessages" style="display: none">
+		<div id="flashMessages" class="body_full_block" style="display: none">
 			<c:forEach items="${sessionScope.flashMessages}" var="message" varStatus="loop">
 				<c:set var="message_unique_id" value="flashMessageWrapper_${loop.index}"/>
 				<div id="${message_unique_id}" class="flashMessageWrapper">

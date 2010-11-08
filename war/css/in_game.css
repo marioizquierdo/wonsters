@@ -1,34 +1,40 @@
-body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	text-align: center;
-	margin: 0;
-	padding: 0;
+/***** IN GAME STYLES *****/
+
+/*** Layout ***/
+body#inGame { 
+	background: #eee url(/images/theme/background_inGame_repeat.jpg) repeat 0 300px; 
 }
 
-#inGame #background_header { height: 300px; width: 100%; background: #eee url(/images/theme/background_inGame_header.jpg) repeat-x top left; }
-#inGame { background: #eee url(/images/theme/background_inGame_repeat.jpg) repeat 0 300px; }
-#window { margin: auto; width: 770px; }
+#container_for_background {
+	background: #eee url('/images/theme/background_inGame_header.jpg') repeat-x left top;
+	float: left; display: inline;
+	width: 100%; height: 300px;
+}
 
-#footer {
-	padding-top: 5px;
-	text-align: center;
+#body_wrapper {
+  width: 770px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body_full_block {
+  float: left; display: inline;
+  width: 770px;
+  margin: 0;
+  padding: 0;
+}
+
+#content {
+	float: left; display: inline;
 	width: 100%;
-	float: left;
-	clear: both;
+	min-height: 200px;
+	margin: 10px 0;
 }
-#footer a { text-decoration: none; }
+
+#footer { margin: 20px 0; text-align: center; }
+#footer a { text-decoration: none; color: #444;  }
 #footer a:hover { text-decoration: underline; }
 
-/** Content **/
-#content {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	min-height: 200px;
-	width: 100%;
-	float: left;
-	clear: both;
-}
 
 
 /** Estilo imagenes en las pantallas misiones, alianzas y ayuda **/

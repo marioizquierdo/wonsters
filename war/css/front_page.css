@@ -47,11 +47,8 @@ body#frontPage {
 	background: white url('/images/theme/table2_th_fade.jpg') repeat-x bottom left;
 }
 
-#footer {
-	margin-top: 20px;
-	text-align: center;
-}
-#footer a { text-decoration: none; }
+#footer { margin: 20px 0; text-align: center; }
+#footer a { text-decoration: none; color: #444;  }
 #footer a:hover { text-decoration: underline; }
 
 
