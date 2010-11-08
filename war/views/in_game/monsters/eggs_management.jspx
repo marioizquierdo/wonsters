@@ -170,7 +170,14 @@
 					    		<fmt:message key="Buttons.buy"/>
 							</html:link></c:when> 
 						<c:otherwise>
-							<span title="${insuficient_resources_message}"><fmt:message key="EggsManagement.buyEggs.canNotBuy"/></span>
+						    <c:choose>
+						        <c:when test="${not suficient_money}">
+						            <span title="${insuficient_resources_message}"><fmt:message key="EggsManagement.buyEggs.canNotBuy.resources"/></span>
+							    </c:when>
+							    <c:otherwise>
+								    <span title="${insuficient_resources_message}"><fmt:message key="EggsManagement.buyEggs.canNotBuy.vitalSpace"/></span>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise></c:choose>
 					</td>
 			    </tr>
