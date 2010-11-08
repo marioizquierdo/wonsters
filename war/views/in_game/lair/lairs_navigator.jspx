@@ -12,7 +12,9 @@
 		selected_tag="lairs_navigator"
 		tags="
 			ranking: Ranking.tagName => /ranking.do,
-			lairs_navigator: Lair.buildingView,
+			new_rooms: Lair.newRoomsAvaliable => /lair/rooms/ready_to_build.do, 
+			lair: Lair.lairView, 
+			lairs_navigator: Lair.buildingView, 
 			search_lairs: Lair.searchLairs" >
 
 	<!-- Lairs Navigator for view and search neighbors -->

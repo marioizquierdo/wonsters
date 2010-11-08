@@ -39,8 +39,7 @@
 			lairs_navigator: Lair.buildingView => /lair.do?${lair_neighbors_params}, 
 			search_lairs: Lair.searchLairs">
 		</c:set>
-	</c:when>
-	<c:otherwise>
+	</c:when><c:otherwise>
 		<c:set var="tags_lair" value="
 			ranking: Ranking.tagName => /ranking.do,
 			lair: Lair.lairView, 
