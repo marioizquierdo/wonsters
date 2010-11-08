@@ -32,7 +32,7 @@ public class BuyEgg extends ThearsmonstersDefaultAction {
     	
     	// Hay que confirmar la acción antes de que se ejecute
     	ActionForward confirm = Confirmation.confirm("EggsManagement.buyEggs.confirm", 
-    			"monster/eggs.do", request, mapping);
+    			"/monster/eggs.do?eggsManagement_selected_tag=buyEggs", request, mapping);
     	if(confirm != null) return confirm;
     	
     	// Ejecutar la acción
