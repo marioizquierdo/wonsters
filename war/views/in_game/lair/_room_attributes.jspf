@@ -58,8 +58,8 @@
 			<!-- Dormitories -->
 			<c:if test="${room.roomType == 'Dormitories'}">
 				<li><span class="attr"><customtag:show_unit labelKey="Lair.room.Dormitories.vitalSpaceOccupied" units="vitalSpace">
-	      			<fmt:formatNumber value="${my.lair.vitalSpaceOccupied}"/>/
-	      			<fmt:formatNumber value="${my.lair.vitalSpace}"/>
+	      			<fmt:formatNumber value="${lair.vitalSpaceOccupied}"/>/
+	      			<fmt:formatNumber value="${lair.vitalSpace}"/>
 	      		</customtag:show_unit></li>
 			</c:if>
 			
