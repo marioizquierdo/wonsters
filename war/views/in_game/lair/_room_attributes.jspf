@@ -130,7 +130,7 @@
 			
 			<!-- Common: Works actions -->
 			<c:choose><c:when test="${room.inWorks}">
-				<c:if test="${!room.inInitialState}">		
+				<c:if test="${!(room.level == 0)}">		
 						<customtag:roomAction icon_id="19" action="lair/room/change_in_works_state.do?action=CANCEL_WORKS&roomType=${room.roomType}"
 								messageKey="Lair.room.actions.cancelWorks" titleKey="Lair.room.actions.cancelWorks.info">
 							(<fmt:message key="Common.getBack"> 

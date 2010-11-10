@@ -43,9 +43,9 @@ public class UserFacadeImpl extends ThearsmonstersFacade implements UserFacade {
 
 		User user = lair.getUser();
 
-		if (!user.getLogin().equals(login)) {
-			throw new InternalErrorException("Login doesn't match with session");
-		}
+//		if (!user.getLogin().equals(login)) {
+//			throw new InternalErrorException("Login doesn't match with session");
+//		}
 			
 		if (!PasswordEncrypter.isClearPasswordCorrect(oldClearPassword,
 				user.getEncryptedPassword())) {
