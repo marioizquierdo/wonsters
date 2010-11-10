@@ -49,6 +49,7 @@ body#frontPage {
 
 #monsters_logo {
 	background: url('/images/theme/frontPage/logo_frontPage.png') no-repeat top left;
+	display: block;
 	width: 1252px;
 	height: 250px;
 	position: relative;

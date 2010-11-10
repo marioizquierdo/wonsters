@@ -137,7 +137,7 @@
 	
 	<!-- Logo and monsters illustration -->
 	<div id="monsters_logo_wrapper" class="body_full_block">
-		<div id="monsters_logo"><img src="/images/theme/empty_pixel.png" /></div>
+		<a href="/" id="monsters_logo"><img src="/images/theme/empty_pixel.png" /></a>
 	</div>
 	
 	
