@@ -21,7 +21,12 @@ public class PromotionalValidation {
 		"4WVsQ","6KaQ6","W67hd","63uaQ","6h76L",
 		"Lbash","4WuVX","VWW7X","9LuWK","4QA9s",
 		"3hhm8","4AL2m","b9bWQ","65Qdg","X7h99",
-		"3bhQ9","4d27A","WVh63","W5uKb","3d672"
+		"3bhQ9","4d27A","WVh63","W5uKb","3d672",
+		Contactos:
+		"5gXQ9","52LAW","4bbm7","AAVb8","4bd7V",
+		"3ass4","4KK5L","8m8AK","V9QmX","Ad4a8",
+		"5QA8s","LdA8g","b9d73","5dLVa","3m4md",
+		"8m889","VWbhL","59Lh2","4g4Lu","92h7h"
 		Gefa
 		"a524X","a4Q59","aV9Vh","a5Q4W","a3dd4",
 		"AAKW3","77XgQ","4bXbX","VWamQ","9mu2d",
@@ -120,7 +125,11 @@ public class PromotionalValidation {
 		"V39dm","9Ldda","V2gWA","AQ9gs","4QL98",
 		"8K42b","5Q42h","4A2QV","b6X9g","88uAX",
 		"76d9A","3au4A","6gW84","7mQ3h","52A4Q",
-		"3bQdX","3h6h9","4A7WQ","3hs6m","4KLW2"};
+		"3bQdX","3h6h9","4A7WQ","3hs6m","4KLW2",
+		"5gXQ9","52LAW","4bbm7","AAVb8","4bd7V",
+		"3ass4","4KK5L","8m8AK","V9QmX","Ad4a8",
+		"5QA8s","LdA8g","b9d73","5dLVa","3m4md",
+		"8m889","VWbhL","59Lh2","4g4Lu","92h7h"};
     private final static int CODE_LENGTH = 5;
     private final static Random random = new Random();
 
@@ -200,20 +209,14 @@ public class PromotionalValidation {
     	for (String c : CODES) {
     		codes.add(c);
     	}
-    	int NUMERO_DE_CODIGOS = 50;
+    	int NUMERO_DE_CODIGOS = 20;
     	String[] users = {"Diego","Mario","Gefa","Trono","Castro","Angel"};
     	for (String user : users) {
     		System.out.println(user);
 	    	for (int i = 0; i < NUMERO_DE_CODIGOS; i++) {
 	    		String code;
-	    		if (i < 5) {
-	    			//codigos propios
-	    			code = generateValidCode(ALPHABET[0], true);
-	    			while (!codes.add(code)) { code = generateValidCode(ALPHABET[0], true); }
-	    		} else {
-	    			code = generateValidCode(ALPHABET[0], false);
-	    			while (!codes.add(code)) { code = generateValidCode(ALPHABET[0], false); }
-	    		}
+	    		code = generateValidCode(ALPHABET[0], false);
+	    		while (!codes.add(code)) { code = generateValidCode(ALPHABET[0], false); }
     			System.out.print("\"" + code + "\",");
     			
 	    		if (i % 5 == 4)
