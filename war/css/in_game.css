@@ -31,7 +31,7 @@ body#inGame {
 	margin: 10px 0;
 }
 
-#footer { margin: 20px 0; text-align: center; }
+#footer { padding: 20px 0; text-align: center; }
 #footer a { text-decoration: none; color: #444;  }
 #footer a:hover { text-decoration: underline; }
 

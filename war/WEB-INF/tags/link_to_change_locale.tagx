@@ -1,0 +1,31 @@
+<jsp:root	xmlns:jsp="http://java.sun.com/JSP/Page"
+			xmlns:c="http://java.sun.com/jsp/jstl/core"
+    		xmlns:customtag="urn:jsptagdir:/WEB-INF/tags"
+			version="2.0">
+<!--	
+	Enlace con una imagen de bandera para cambiar el locale	
+--> 		
+  
+  <jsp:directive.attribute name="locale" required="true"
+  		description="Codigo del locale al que se quiere cambiar, por ejemplo 'es', 'gl', 'en'.." />
+    
+  <jsp:directive.attribute name="name" required="true"
+  		description="Nombre real del locale, por ejemplo 'Gallego', 'English', 'Duch'.. " />
+  		
+  
+	<c:url var="change_locale_url" value="${requestScope['javax.servlet.forward.request_uri']}">
+		<!-- la variable param contiene los parametros de la url, es JSTL estandar -->
+		<c:forEach items="${param}" var="parameter" varStatus="loop">
+			<c:if test="${parameter.key != 'locale'}">
+				<c:param name="${parameter.key}" value="${parameter.value}"/>
+			</c:if>
+		</c:forEach>
+		<c:param name="locale" value="${locale}"/>
+	</c:url>
+  
+	<!-- Se supone que la imagen es una bandera del pais de 16x11px -->
+	<a href="${change_locale_url}">
+  		<img src="/images/theme/country_flags/${locale}.gif" alt="${name}" title="${name}" width="16" height="11"/>
+	</a>
+	
+</jsp:root>

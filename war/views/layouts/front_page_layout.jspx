@@ -12,9 +12,7 @@
 	omit-xml-declaration="true" />
 
 <jsp:directive.page contentType="text/html; charset=UTF-8" />
-<fmt:setLocale
-	value='${sessionScope["org.apache.struts.action.LOCALE"]}'
-	scope="session" />
+<fmt:setLocale value='${sessionScope["org.apache.struts.action.LOCALE"]}' scope="session" />
 	
 <tiles:useAttribute name="title" />
 <tiles:useAttribute name="color" />
@@ -61,6 +59,15 @@
 <!-- Start of HTML body. -->
 <body id="frontPage">
 <div id="container_for_background">
+
+<div id="top_bar">
+	<h1><fmt:message key="Thearsmonsters" />&#160;-&#160;<fmt:message key="FrontPage.title" /></h1>
+	<span class="hint">&#160;-&#160; <fmt:message key="FrontPage.gameVersion" /></span>
+	<ul id="country_flags">
+		<li class="es"><customtag:link_to_change_locale locale="es" name="Español"/></li>
+		<li class="en"><customtag:link_to_change_locale locale="en" name="English"/></li>
+	</ul>
+</div>
 
 <div id="body_wrapper" class="${color}_window">
 

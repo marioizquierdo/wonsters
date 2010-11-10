@@ -268,6 +268,13 @@ public final class SessionManager {
         if(!isUserAuthenticated(request)) {
         	updateSessionFromCookies(request);
         }
+        
+        /*
+         * If param 'locale' is set, change session locale for this one
+         */
+        if(request.getParameter("locale") != null) {
+        	changeSessionLocale(request, new Locale(request.getParameter("locale")));
+        }
     
     }
 

@@ -3,27 +3,41 @@
 /*** Layout ***/
 
 body#frontPage {
-	background: #eee url('/images/theme/frontPage/background_repeat.jpg') repeat 0 300px;
+	background: #eee url('/images/theme/frontPage/background_repeat.jpg') repeat 0 321px; /* 300 + 21 (top_bar) */
 }
 
+#top_bar {
+	float: left; display: inline;
+	width: 100%; height: 20px;
+	background: #447;
+	border-bottom: 1px solid #333;
+}
+#top_bar h1,
+#top_bar span.hint { float: left; font-size: 12px; height: 20px; line-height: 20px; color: #ddd; margin: 0; letter-spacing: 0; }
+#top_bar h1 { margin: 0 0 0 10px; }
+
+#country_flags { float: right; }
+#country_flags li { float: left; display: inline; margin: 4px 10px 0 0; padding: 0; width: 16px; height: 11px; overflow: hidden; }
+
+
 #container_for_background {
-	background: #eee url('/images/theme/frontPage/background_header.jpg') repeat-x left top;
+	background: #eee url('/images/theme/frontPage/background_header.jpg') repeat-x 0 21px;
 	float: left; display: inline;
 	width: 100%; height: 300px;
 }
 
 #body_wrapper {
-  width: 770px;
-  margin-left: auto;
-  margin-right: auto;
+	width: 770px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .body_full_block,
 #frontPageWindow {
-  float: left; display: inline;
-  width: 770px;
-  margin: 0;
-  padding: 0;
+	float: left; display: inline;
+	width: 770px;
+	margin: 0;
+	padding: 0;
 }
 
 #monsters_logo_wrapper {
@@ -47,7 +61,7 @@ body#frontPage {
 	background: white url('/images/theme/table2_th_fade.jpg') repeat-x bottom left;
 }
 
-#footer { margin: 20px 0; text-align: center; }
+#footer { padding: 20px 0; text-align: center; }
 #footer a { text-decoration: none; color: #444;  }
 #footer a:hover { text-decoration: underline; }
 
@@ -55,7 +69,7 @@ body#frontPage {
 
 /*** Login Panel (top) ***/
 
-#loginPanel { text-align: center; }
+#loginPanel { text-align: center; margin-top: -1px; z-index: -1px; }
 #loginPanel div.rounded_window { margin-bottom: 0; }
 #loginPanel .atMiddle {
 	float: left;
