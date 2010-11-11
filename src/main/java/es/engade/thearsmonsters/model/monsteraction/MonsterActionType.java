@@ -32,6 +32,120 @@ public enum MonsterActionType {
 	// }
 
 	/**
+	 * Ver obras.
+	 */
+	LookAtTheWorks("Old", "all") {
+
+		private static final int HAPPINESS_FACTOR = 3; // Factor de felicidad
+		
+		// Se comprueba si la sala está en obras.
+		boolean validate(MonsterAction action) {
+			boolean valid = action.getRoom().isInWorks();
+			if(!valid) action.addScopedError("roomNotInWorks");
+			return valid;
+		}
+		
+		// Para trabajar en las obras, tiene que permitir realizar tarea en salas de nivel 0.
+		boolean validateBasicRoomConditions(MonsterAction action) {
+			return true; // Vale cualquier tipo de sala ("all") y ademas vale que sea de nivel 0.
+		}
+
+		// Avanza en el esfuerzo realizado (effortDone) de las obras de la sala.
+		// Si se terminan las obras se aumenta de nivel de la sala.
+		void doExecute(MonsterAction action) {
+			Monster monster = action.getMonster();
+
+			int monsterConstructionLevel = monster.getComposeAttr(AttrType.Construction).getLevel();
+			int incrementExp = action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel();
+
+			// Adquirir felicidad y experiencia en la habilidad "construccion"
+			Attr happiness = monster.getWorkSkill(AttrType.Happiness);
+			if(happiness.addExp(incrementExp * HAPPINESS_FACTOR)) {
+				action.addScopedNotification("happinessLevelUp", new Object[]{
+						monster.getName(), // {0} nombre del monstruo
+						happiness.getLevel() // {1} nivel que tiene ahora el atributo
+				});
+			}
+			Attr constructionSkill = monster.getWorkSkill(AttrType.ConstructorSkill);
+			if(constructionSkill.addExp(incrementExp)) {
+				action.addScopedNotification("constructionLevelUp", new Object[]{
+						monster.getName(), // {0} nombre del monstruo
+						constructionSkill.getLevel() // {1} nivel que tiene ahora el atributo
+				});
+			}
+			
+		}
+        
+		// targetValue = Trabajo realizado en las obras de la sala.
+        public Integer targetValue(MonsterAction action) {
+	        return action.getRoom().getEffortDone();
+        }
+
+        // targetValueIncreasePerTurn = Atributo compuesto "construcción" del monstruo
+        public Integer targetValueIncreasePerTurn(MonsterAction action) {
+	        return action.getMonster().getComposeAttr(AttrType.Construction).getLevel();
+        }
+
+        // targetValueMax = Esfuerzo necesario para realizar toda la obra.
+        public Integer targetValueMax(MonsterAction action) {
+        	return action.getRoom().getEffortUpgrade();
+        }
+        
+        // Parametros para Monster.actions.type.WorkInTheWorks.info
+        // {0} Nivel de la sala al que se va a mejorar.
+        // {1} Attr Construccion del monstruo
+        // {2} Cantidad de esfuerzo realizado por turno (es decir, targetValueIncreasePerTurn)
+        // {3} Cantidad de esfuerzo que hace falta para subir de nivel la sala
+        // {4} Cantidad de esfuerzo que lleva completado
+        // {5} % de obra completada
+        protected Object[] infoMessageParams(MonsterAction action) {
+        	Room room = action.getRoom();
+    		return new Object[]{
+    				room.getLevel() + 1, // {0}
+    				targetValueIncreasePerTurn(action) * HAPPINESS_FACTOR,  // {1}
+    				targetValueIncreasePerTurn(action),  // {2}
+    				room.getEffortUpgrade(), // {3}
+    				room.getEffortDone(), // {4}
+    				room.getEffortDonePercentage() // {5}
+    		};
+    	}
+        
+        // Parametros para Monster.actions.type.WorkInTheWorks.targetValue
+        // {0} targetValue con marca para ser identificado por JavaScript
+        // {1} esfuerzo total requerido
+        // {2} siguiente nivel de la sala
+        protected Object[] targetValueMessageParams(MonsterAction action) {
+    		return new Object[]{
+    				targetValueMessageParam(action), // {0}
+    				this.targetValueMax(action), // {1}
+    				action.getRoom().getLevel() + 1 // {2}
+    		};
+    	}
+        
+        // Parametros para cada Monster.actions.type.WorkInTheWorks.targetValue.perTurn.{i}
+        // ..perTurn.0 => Esfuerzo realizado por turno, que es el targetValueIncreasePerTurn
+        // ..perTurn.1 => Experiencia obtenida la habilidad "construcción"
+        protected Object[] effectsPerTurnParams(MonsterAction action) {
+    		return new Object[]{
+    				targetValueIncreasePerTurn(action) * HAPPINESS_FACTOR, // ..perTurn.0
+    				action.getMonster().getSimpleAttr(AttrType.Intelligence).getLevel() // ..perTurn.1
+    		};
+    	}
+        
+        // Argumentos adicionales para que desde JavaScript se pueda hacer bien el calculo del esfuerzo realizado
+        // con respecto al numero de turnos gastados, ya que hay que tener en cuenta que la habilidad de construccion
+        // va aumentando segun la inteligencia del bicho.
+        //   * ConstructorSkill_exp_increment => Incremento en la experiencia de la construccion cada turno (es la inteligencia) 
+        //   * ConstructorSkill_current_exp => Experiencia actual en la habilidad de construccion
+        protected Map<String, Object> additionalArgs(MonsterAction action) {
+        	Map<String, Object> additionalArgs = new HashMap<String, Object>(2);
+        	additionalArgs.put("ConstructorSkill_exp_increment", 0);
+        	additionalArgs.put("ConstructorSkill_current_exp", 0);
+        	return additionalArgs;
+        }
+	},
+	
+	/**
 	 * Recolectar basura. 
 	 * Un monstruo adulto consigue en cada turno tanta basura como su atributo Harvest, y la guarda en el almacén.
 	 */
