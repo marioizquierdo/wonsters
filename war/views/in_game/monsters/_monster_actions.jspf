@@ -156,7 +156,10 @@
 	    	<html:submit>
 	    	<c:choose><c:when test="${monster.age == 'Child'}">
 	    		<fmt:message key="Monster.actions.submitButtonWhenChild"/>
-	    	</c:when><c:otherwise>
+	    	</c:when><c:when test="${monster.age == 'Old'}">
+	    		<fmt:message key="Monster.actions.submitButtonWhenOld"/>
+	    	</c:when>
+	    	<c:otherwise>
 	    		<fmt:message key="Monster.actions.submitButton"/>
 	    	</c:otherwise></c:choose>
 	    	</html:submit>
