@@ -8,6 +8,7 @@
 			
 	<![CDATA[
         <script type='text/javascript' src='/javascript/lib/jquery.pikachoose.js'></script>
+        <script type='text/javascript' src='/javascript/lib/jquery.lightbox.js'></script>
         <script type="text/javascript">$(document).ready(function() {
                 $("#pikame").PikaChoose({show_prev_next:false, transition:[0]});
         });</script>
@@ -17,13 +18,24 @@
 		key="Screenshots.description" status="INFO" style="margin: 20px;"/>
 		
 	<div class="pikachoose">
-            <ul id="pikame">
-            <li><img src="/images/screenshots/lair.jpg"/><span><fmt:message key="Screenshots.lairDesc" /></span></li>
-            <li><img src="/images/screenshots/monster_eggs.jpg"/><span><fmt:message key="Screenshots.eggsDesc" /></span></li>
-            <li><img src="/images/screenshots/born.jpg"/><span><fmt:message key="Screenshots.bornDesc" /></span></li>
-            <li><img src="/images/screenshots/monster_view.jpg"/><span><fmt:message key="Screenshots.monsterDesc" /></span></li>
+            <ul id="pikame"><c:forTokens delims="," var="index"
+                items="1,2,3,4,5,6,7,8,9,10,11,12,13">
+            <li href="/images/screenshots/big/screenshot${index}.jpeg" >
+                <img src="/images/screenshots/screenshot${index}.jpeg"/>
+                <span>
+                    <fmt:message key="Screenshots.slice.${index}" />
+                </span>
+            </li>
+        </c:forTokens>
             </ul>
     </div>	
+    
+    <![CDATA[
+        <script type="text/javascript">$(function() {
+                $('.pika_subdiv a').lightBox();
+                //$('a[@rel*=lightbox]').lightBox(); // Select all links that contains lightbox in the attribute rel
+        });</script>
+    ]]>
 
 	<div class="more_actions_links">
 		<html:link action="welcome.do"><fmt:message key="FrontPage.startTag" /></html:link> |
