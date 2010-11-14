@@ -90,7 +90,14 @@
 					</div>
 				</div>
 			</c:forEach>
-			
+			<customtag:jquery_tag>
+				$('div.egg_slot *[title]').tipTip({
+					delay: 600,
+		  			edgeOffset: 10,
+					defaultPosition: 'bottom',
+					maxWidth: '450px'
+				});
+			</customtag:jquery_tag>
 			<!-- Este div es necesario para que se pueda ver el background porque no se puede hacer solo con CSS -->
 
 		</c:otherwise>
