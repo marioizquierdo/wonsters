@@ -25,7 +25,7 @@ public class ChangeResourcesForm extends DefaultActionForm {
 	}
 
 	public void setGarbage(String garbage) {
-		this.garbage = garbage;
+		this.garbage = garbage.trim();
 	}
 
 	public String getMoney() {
@@ -33,7 +33,7 @@ public class ChangeResourcesForm extends DefaultActionForm {
 	}
 
 	public void setMoney(String money) {
-		this.money = money;
+		this.money = money.trim();
 	}
 
 	public int getGarbageAsInt() {

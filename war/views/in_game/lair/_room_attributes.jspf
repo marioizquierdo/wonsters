@@ -101,9 +101,7 @@
 			
 			<!-- Trade Office -->
 			<c:if test="${room.roomType == 'TradeOffice'}">
-				<c:if test="${!room.inWorks}">
-			        <customtag:roomAction icon_id="21" action="/lair/change_resources.do" messageKey="Lair.room.TradeOffice.changeResources"/>
-			    </c:if>
+			    <customtag:roomAction icon_id="21" action="/lair/change_resources.do" messageKey="Lair.room.TradeOffice.changeResources"/>
 			    <c:set var="upgradeTitleMessage" value="${upgradeTradeOfficeInfo}"/>
 			</c:if>
 			
