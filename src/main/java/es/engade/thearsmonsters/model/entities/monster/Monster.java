@@ -195,7 +195,8 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		double life = DateTools.minutesBetween(getBorningDate(), DateTools.now());
 		int minutesOfLife = race.getLifeExpectancyDays()*24*60;
 		double percentageLived =  life * 100 / minutesOfLife;
-		
+		if (percentageLived > 100)
+			percentageLived = 100.0;
 	    return Integer.valueOf(String.valueOf(Math.round(percentageLived)));
 	}
 	
