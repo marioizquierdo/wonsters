@@ -133,17 +133,27 @@ public class PromotionalValidation {
     private final static int CODE_LENGTH = 5;
     private final static Random random = new Random();
 
-    public static boolean validate(String code) {
+    public static boolean validate(String code, boolean strict) {
     	//Longitud 5:
     	if (code.length() != CODE_LENGTH)
     		return false;
-    	return sumNumbers(code.hashCode()) % TASA == 0;
+    	if (strict) {
+
+        	for (String c : CODES) {
+        		if (code.equals(c)) {
+        			return true;
+        		}
+        	}
+        	return false;
+    	} else {    		
+    		return sumNumbers(code.hashCode()) % TASA == 0;
+    	}
     		
     }
     
     public static String generateValidCode(){
     	String code = new String();
-    	while (!validate(code)) {
+    	while (!validate(code, false)) {
     		code = randomString();
     	}
     	return code;
@@ -151,7 +161,7 @@ public class PromotionalValidation {
  
     public static String generateValidCode(char ini, boolean include){
     	String code = new String();
-    	while (!validate(code)) {
+    	while (!validate(code, false)) {
    			code = randomString(ini, include);
     	}
     	return code;
@@ -200,7 +210,7 @@ public class PromotionalValidation {
     	
     	int aciertos = 0, tests = 1000000;
     	for (int i = 0; i < tests; i++) {
-    		if (validate(randomString()))
+    		if (validate(randomString(), true))
     			aciertos ++;
     	}
     	System.out.println(aciertos+"/"+tests+" = " + (double)aciertos/tests);

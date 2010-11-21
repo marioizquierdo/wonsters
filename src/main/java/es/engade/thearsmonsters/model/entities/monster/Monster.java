@@ -122,7 +122,7 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 		this.deceaseDate = DateTools.new_byMinutesFrom(borningDate, minutesToDecease);
 		
 //		this.activities = new ArrayList<MonsterActivity>(); // No implementado por ahora
-		this.setAge(ageState);
+		this.setAgeForced(ageState);
 	}
 	
 	/**
@@ -214,8 +214,12 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
 	
 	//-- Monster Age --//
 
-	public MonsterAge getAge() { 
-		correctCocoonOrAdultAges();
+	public MonsterAge getAge() {
+		if (this.age.equals(MonsterAge.Child)) {
+			correctChildAges();
+		} else {
+			correctCocoonOrAdultAges();
+		}
 		return this.age;
 	}
 
@@ -580,7 +584,17 @@ public class Monster extends ThearsmonstersEntity implements Serializable {
     
     //-- Private methods --//
  
-    
+    /**
+     * Las crias tambien pueden morir
+     */
+	private void correctChildAges() {
+		if (this.age.equals(MonsterAge.Child)) {
+			if(getDeceaseDate().before(DateTools.now())){
+				this.age = MonsterAge.Dead;
+			}
+		}
+    }
+	
     /**
 	 * getAge no devuelve simplemente this.age por el siguiente motivo:
 	 * No hay ningún evento que transforme al monstruo de Cocoon a Adult, o a Dead,

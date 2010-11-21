@@ -136,7 +136,7 @@ public class UserProfileForm extends DefaultActionForm {
                 errors.add("password", 
                     new ActionMessage("ErrorMessages.password.doNotMatch"));
             }
-            if (!PromotionalValidation.validate(invitationCode)) {
+            if (!PromotionalValidation.validate(invitationCode, true)) {
             	errors.add("invitationCode", 
                         new ActionMessage("ErrorMessages.validationCode.invalid"));
             }
