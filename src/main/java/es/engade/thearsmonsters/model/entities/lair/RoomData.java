@@ -1,13 +1,11 @@
 package es.engade.thearsmonsters.model.entities.lair;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import es.engade.thearsmonsters.model.entities.monster.Monster;
 import es.engade.thearsmonsters.model.entities.monster.enums.MonsterAge;
 import es.engade.thearsmonsters.model.entities.room.Room;
 import es.engade.thearsmonsters.model.entities.room.enums.RoomType;
-import es.engade.thearsmonsters.model.util.DateTools;
 import es.engade.thearsmonsters.model.util.Format;
 
 /**
@@ -92,7 +90,19 @@ public class RoomData implements Serializable {
 		if((tradeOffice == null) || tradeOfficeLevel <= 0) {
 			return 0; // While there is no warehouse, no garbage can be stored
 		} else {
-			return tradeOffice.getGarbageUpgradeWhenLevel(tradeOfficeLevel) * 2; // need always to be more than garbageUpgrade
+			switch (tradeOfficeLevel) {
+				case 1: return 50;
+				case 2: return 100;
+				case 3: return 200;
+				case 4: return 800;
+				case 5: return 1600;
+				case 6: return 3200;
+				case 7: return 4000;
+				case 8: return 5000;
+				case 9: return 10000;
+				case 10: return 15000;
+				default: return 0; // should never happen
+			}
 		}
 	}
 	

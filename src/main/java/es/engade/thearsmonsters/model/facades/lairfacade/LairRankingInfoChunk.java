@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class LairRankingInfoChunk {
 
@@ -46,7 +45,16 @@ public class LairRankingInfoChunk {
 	 * @param login nombre del usuario
 	 */
 	public boolean isUserIncluded(String login) {
-		return lairsHash.containsKey(login);
+		if (lairsHash.contains(login)) {
+			return true;
+		} else {
+			for (String l : lairsHash.keySet()) {
+				if (l.equalsIgnoreCase(login)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	/** isUserIncluded(String login) JSTL wrapper.
@@ -68,6 +76,14 @@ public class LairRankingInfoChunk {
 	 */
 	public int positionOfUser(String login) {
 		LairInfo lair = lairsHash.get(login);
+		if (lair == null) {
+			for (String l : lairsHash.keySet()) {
+				if (l.equalsIgnoreCase(login)) {
+					lair = lairsHash.get(l);
+					break;
+				}
+			}
+		}
 		if (lair == null) {
 			return -1;
 		} else {
