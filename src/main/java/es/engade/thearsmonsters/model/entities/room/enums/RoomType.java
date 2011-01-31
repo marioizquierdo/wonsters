@@ -69,7 +69,7 @@ public enum RoomType {
 				case 8: return 2000;
 				case 9: return 4000;
 				case 10: return 8000;
-				default: return 200000 * Math.pow(1.7, level-10);
+				default: return 10000 * Math.pow(1.7, level-10);
 			}
 		}
 		
